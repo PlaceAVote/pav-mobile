@@ -1,0 +1,3 @@
+rootProject.name = 'PlaceAVoteApp'
+
+include ':app'
