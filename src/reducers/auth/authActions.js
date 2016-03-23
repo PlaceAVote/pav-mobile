@@ -245,14 +245,14 @@ export function getSessionToken() {
           Actions.Tabbar();
         } else {
           dispatch(sessionTokenRequestFailure());
-          Actions.Register();
+          Actions.Onboarding();
         }
       })
     
       .catch((error) => {
         dispatch(sessionTokenRequestFailure(error));
         dispatch(loginState());
-        Actions.Register();
+        Actions.Onboarding();
       });
   };
 }

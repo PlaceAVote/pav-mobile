@@ -22,8 +22,7 @@ import React, {
  * Necessary components from Router-Flux
  */
 import RNRF, {
-  Route,
-  Schema,
+  Scene,
   TabBar} from 'react-native-router-flux';
 
 /**
@@ -56,17 +55,17 @@ import App from './containers/App';
 
 // import Login from './containers/Login';
 // import Logout from './containers/Logout';
-// import Register from './containers/Register';
+import Onboarding from './containers/Onboarding';
 // import ForgotPassword from './containers/ForgotPassword';
 // import Profile from './containers/Profile';
 // import Main from './containers/Main';
 // import Subview from './containers/Subview';
 
-/** 
+/**
  * ### icons
  *
  * Add icon support for use in Tabbar
- * 
+ *
  */
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -108,8 +107,8 @@ function getInitialState() {
   return _initState;
 }
 /**
-* ## TabIcon 
-* 
+* ## TabIcon
+*
 * Displays the icon for the tab w/ color dependent upon selection
 */
 class TabIcon extends React.Component {
@@ -120,7 +119,7 @@ class TabIcon extends React.Component {
       <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'}}>
       	<Icon style={{color: color}} name={this.props.iconName} size={30} />
       	<Text style={{color: color}}>{this.props.title}</Text>
-      </View>	
+      </View>
     );
   }
 }
@@ -138,39 +137,54 @@ export default function native(platform) {
 
   let PlaceAVote = React.createClass( {
     render() {
-      
+
       const store = configureStore(getInitialState());
 
       //Connect w/ the Router
       const Router = connect()(RNRF.Router);
-      
+
       // configureStore will combine reducers from placeAVote and main application
       // it will then create the store based on aggregate state from all reducers
       store.dispatch(setPlatform(platform));
       store.dispatch(setVersion(VERSION));
       store.dispatch(setStore(store));
-      
+
+/*
+
+<Schema name="modal"sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
+
+<Schema name="floatFromRight" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
+
+<Schema name="default"/>
+
+<Schema name="tab"
+type="switch"
+icon={TabIcon} />
+
+<Route name="App"
+  component={App}
+  title="App"
+  initial={true}/>
+
+<Route name="Onboarding"
+  component={Onboarding}
+  title="Onboarding"
+  type="replace"
+  />
+
+*/
+
+
+
       // setup the router table with App selected as the initial component
       return (
         <Provider store={store}>
-      	  <Router hideNavBar={true}>
-      	    
-            <Schema name="modal"sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
-                  
-      	    <Schema name="floatFromRight" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
-                  
-      	    <Schema name="default"/>
-                  
-      	    <Schema name="tab"
-            type="switch"
-            icon={TabIcon} />
-      	    
-      	    <Route name="App"
-            component={App}
-            title="App"
-            initial={true}/>
-            
-      	  </Router>
+      	  <Router hideNavBar={false}>
+            <Scene key="root">
+              <Scene key="App" component={App} title="App" initial={true}/>
+              <Scene key="Onboarding" component={Onboarding} title="Onboarding" type="replace" hideNavBar={false}/>
+            </Scene>
+          </Router>
         </Provider>
       );
     }

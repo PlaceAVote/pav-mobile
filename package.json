@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "^0.14.7",
     "react-native": "^0.22.2",
-    "react-native-router-flux": "^2.3.1",
+    "react-native-router-flux": "^3.1.5",
     "react-native-vector-icons": "^1.1.0",
     "react-native-simple-store": "^0.1.0",
     "redux": "^3.1.2",
@@ -20,7 +20,10 @@
     "underscore": "^1.8.3",
     "validate.js": "^0.9.0",
     "key-mirror": "^1.0.1",
-    "regenerator": "^0.8.42"
-
+    "regenerator": "^0.8.42",
+    "react-native-simpledialog-android": "^1.0.2",
+    "apsl-react-native-button": "git+https://git@github.com/bartonhammond/react-native-button.git",
+    "react-native-gifted-spinner": "0.0.3",
+    "tcomb-form-native": "^0.3.3"
   }
 }
