@@ -24,10 +24,19 @@ import * as globalActions from '../../reducers/global/globalActions';
  */
 import {Map} from 'immutable';
 
+/*A react native button*/
+// const  Button = require('apsl-react-native-button');
+import Button from 'sp-react-native-iconbutton'
+
 /**
  * Router actions
  */
 import { Actions } from 'react-native-router-flux';
+
+/**
+* Icons library
+*/
+var Icon = require('react-native-vector-icons/FontAwesome');
 
 /**
  * The Header will display a Image and support Hot Loading
@@ -78,11 +87,21 @@ const {
   FORGOT_PASSWORD
 } = require('../../config/constants').default;
 
+
+
 /**
  * ## Styles
  */
 var styles = StyleSheet.create({
-  backgroundImage: {
+  logoImgContainer:{
+    // backgroundColor: 'red',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  logoImg:{
+    marginVertical: 5
+  },
+  backgroundImg: {
     flex:1,
     flexDirection: 'column',
     flexWrap: 'wrap',
@@ -91,14 +110,79 @@ var styles = StyleSheet.create({
     width: null,
     height: null
   },
-  tableau: {
-    backgroundColor: 'white'
+  container: {
+    // backgroundColor: 'orange',
+    flex:1,
+    flexDirection: 'column',
+    // backgroundColor: 'white',
+    marginVertical:60,
+    marginHorizontal:15
   },
-  textView: {
-    fontSize: 18,
+  titleText: {
+    backgroundColor: 'rgba(0,0,0,0)',
+    fontSize: 27,
+    color: 'white',
     textAlign: 'center',
-    marginHorizontal: 5
+    marginHorizontal: 41,
+    marginTop: 20,
+    marginBottom: 13,
+  },
+  descriptionText: {
+    backgroundColor: 'rgba(0,0,0,0)',
+    fontSize: 17,
+    color: 'white',
+    textAlign: 'center',
+    marginHorizontal: 60,
+    marginTop: 13,
+    marginBottom: 13
+  },
+  descriptionText2: {
+    backgroundColor: 'rgba(0,0,0,0)',
+    fontSize: 16,
+    color: 'white',
+    textAlign: 'center',
+    marginHorizontal: 60,
+    marginVertical: 13,
+  },
+  btnContainer:{
+    marginTop:50
+  },
+  btn: {
+    height:60,
+    borderRadius: 4,
+    borderWidth: 1
+  },
+  whiteBtnText:{
+    color: 'white',
+    textAlign: 'center'
+  },
+  facebookBtn:{
+    backgroundColor: '#3D5B96',
+    borderColor: 'rgba(0,0,0,0.2)'
+    // ,justifyContent: 'center'
+  },
+  // facebookImg:{
+  //   backgroundColor:'red',
+  //   width: 22,
+  //   height: 18,
+  //   resizeMode: 'contain',
+  //   justifyContent: 'flex-start'
+  // },
+  emailBtn:{
+    backgroundColor: '#A5CB75',
+    borderColor: 'rgba(0,0,0,0.2)'
+
+  },
+  signInBtn:{
+    backgroundColor: 'rgba(0,0,0,0)',
+    borderColor: 'white'
+  },
+
+  iconStyle:{
   }
+
+
+
 
 });
 /**
@@ -264,6 +348,7 @@ class OnboardingSelector extends Component {
     // }
 
 
+
     /**
      * The LoginForm is now defined with the required fields.  Just
      * surround it with the Header and the navigation messages
@@ -272,15 +357,52 @@ class OnboardingSelector extends Component {
      * See the docs for Header for more info.
      */
 
+/*
+<View style={styles.facebookBtnContainer}>
+  <Image style={styles.facebookImg} source={require('../../../assets/fbIcon.png')}></Image>
+</View>
+
+
+
+              <Icon name="facebook" style={styles.icon} size={22}>
+                <Text style={styles.facebookText} >
+                Login with Facebook
+                </Text>
+              </Icon>
+*/
+
     return(
-        <Image style={styles.backgroundImage} source={require('../../../assets/pavBG.jpg')}>
-          <View style={styles.tableau}>
-            <Text style={styles.textView} >
-            You made it. The app is running. This will be our Onboarding Screen.
+        <Image style={styles.backgroundImg} source={require('../../../assets/pavBG.jpg')}>
+          <View style={styles.container}>
+
+            <View style={styles.logoImgContainer}>
+              <Image style={styles.logoImg} source={require('../../../assets/pavLogo.jpg')}></Image>
+            </View>
+            <Text style={styles.titleText} >
+            Be Loud. Be Heard. Be Represented.
             </Text>
+            <Text style={styles.descriptionText} >
+            PlaceAVote gives you the opportunity to read, debate, and vote on every bill that is presented before Congress.
+            </Text>
+            <Text style={styles.descriptionText2} >
+            Place your vote today and let your representatives know how to represent you.
+            </Text>
+            <View style={styles.btnContainer}>
+              <Button style={[styles.facebookBtn, styles.btn]} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
+                Login with Facebook
+              </Button>
+              <Button style={[styles.emailBtn, styles.btn]} textStyle={styles.whiteBtnText}>
+              Signup with email
+              </Button>
+              <Button style={[styles.signInBtn, styles.btn]} textStyle={styles.whiteBtnText}>
+              Sign In
+              </Button>
+            </View>
           </View>
         </Image>
     );
   }
 }
+//isDisabled={this.props.isDisabled}
+// onPress={this.props.onPress}
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingSelector);
