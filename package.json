@@ -20,7 +20,7 @@
     "serve": "node node_modules/react-native/local-cli/cli.js start",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "setup": "npm install -g npm3 && npm install -g rnpm && rnpm link && npm3 install"
+    "setup": "npm install -g npm3 && npm3 install -g rnpm && npm3 install && rnpm link"
   },
   "dependencies": {
     "react": "^0.14.7",
