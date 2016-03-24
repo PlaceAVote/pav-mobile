@@ -12,10 +12,14 @@ This project is build using [react native](https://github.com/facebook/react-nat
 
 ####What we assume you already have installed:
 
+For running in an Android device or emulator:
 * latest android SDK
-* Xcode (if on osx) 
-* latest ios SDK (if on osx)
-* and of course node.js
+* [Android Build Tools version 23.0.1](http://stackoverflow.com/questions/33155087/react-native-on-android-failed-to-find-build-tools)
+
+For running on iOS :
+* Xcode
+* latest ios SDK
+
 
 
 #To install the app:
@@ -32,13 +36,13 @@ This project is build using [react native](https://github.com/facebook/react-nat
 After that:
 
 ###For running on iOS Simulator (lazy friendliness 9/10)
- 
-* If you're feeling lucky just run `npm run ios` (while still keeping the provider server running) and keep your fingers crossed.
 
-Otherwise 
 
 * Go to the `ios` directory, open `PlaceAVoteApp.xcodeproj` on XCode and click the play button
- 
+Otherwise
+* If you're feeling lucky just run `sudo npm run ios` (while still keeping the provider server running) and keep your fingers crossed.
+
+
 ### For running on Android Emulator (lazy friendliness 2/10)
  * First [start an emulator](http://developer.android.com/tools/devices/managing-avds.html) (Good luck with that, that might take forever)
 
@@ -48,7 +52,7 @@ Otherwise
 	 * click `Open an existing Android Studio project`
 	 * choose the `pav-mobile/android` and let it import everything (it might take a few minute)
 	 * Then click the debug icon
-	 
+
 ### For running on an Android device (lazy friendliness 7/10)
 
  * Run `npm run android`
