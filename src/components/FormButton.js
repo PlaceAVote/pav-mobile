@@ -19,7 +19,7 @@ const
 /**
  * The platform neutral button
  */
-const  Button = require('apsl-react-native-button');
+const  Button = require('sp-react-native-iconbutton');
 
 /**
  * ## Styles
