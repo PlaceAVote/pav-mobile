@@ -82,34 +82,24 @@ const {
  * ## Styles
  */
 var styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'red'
-  },
   backgroundImage: {
     flex:1,
+    flexDirection: 'column',
+    flexWrap: 'wrap',
     justifyContent: 'center',
-    resizeMode: 'stretch'
+    resizeMode: 'cover',
+    width: null,
+    height: null
   },
   tableau: {
-    // flex:1,
     backgroundColor: 'white'
+  },
+  textView: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginHorizontal: 5
   }
-  // inputs: {
-  //   marginTop: 10,
-  //   marginBottom: 10,
-  //   marginLeft: 10,
-  //   marginRight: 10
-  // },
-  // forgotContainer: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   marginTop: 10,
-  //   marginLeft: 10,
-  //   marginRight: 10
-  // }
+
 });
 /**
  * ## Redux boilerplate
@@ -283,15 +273,13 @@ class OnboardingSelector extends Component {
      */
 
     return(
-      <View style={styles.container}>
         <Image style={styles.backgroundImage} source={require('../../../assets/pavBG.jpg')}>
           <View style={styles.tableau}>
-            <Text >
-            This will be our Onboarding selector
+            <Text style={styles.textView} >
+            You made it. The app is running. This will be our Onboarding Screen.
             </Text>
           </View>
         </Image>
-      </View>
     );
   }
 }
