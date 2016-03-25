@@ -48,7 +48,7 @@ const {
   RESET_PASSWORD_FAILURE,
 
   SET_STATE
-} = require('../../config/constants').default;
+} = require('../../config/constants').ActionNames
 
 const initialState = new InitialState;
 /**

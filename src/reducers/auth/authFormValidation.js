@@ -17,7 +17,7 @@ const {
   REGISTER,
   LOGIN,
   FORGOT_PASSWORD
-} = require('../../config/constants').default;
+} = require('../../config/constants').ActionNames
 
 /**
  * ## formValidation

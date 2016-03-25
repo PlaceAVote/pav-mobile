@@ -15,7 +15,7 @@ const {
   SET_STORE,
   SET_STATE,
   GET_STATE
-} = require('../../config/constants').default;
+} = require('../../config/constants').ActionNames
 
 /**
  * ## set the sessionToken

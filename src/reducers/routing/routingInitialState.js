@@ -14,38 +14,18 @@
  */
 const {Record} = require('immutable');
 const {
-  REGISTER
+  NAVIGATE_TO
 } = require('../../config/constants').ActionNames
 
-/**
- * ## Form
- * This Record contains the state of the form and the
- * fields it contains.
- */
-const Form = Record({
-  state: REGISTER,
-  disabled: false,
-  error: null,
-  isValid: false,
-  isFetching: false,
-  fields: new (Record({
-    username: '',
-    usernameHasError: false,
-    email: '',
-    emailHasError: false,
-    password: '',
-    passwordHasError: false,
-    passwordAgain: '',
-    passwordAgainHasError: false,
-    showPassword: false
-  }))
-});
 
 /**
  * ## InitialState
  * The form is set
  */
 var InitialState = Record({
-  form: new Form
+  state: NAVIGATE_TO,
+  currentSchene: null
+  )
 });
+
 export default InitialState;

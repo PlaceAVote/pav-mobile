@@ -55,13 +55,16 @@ import React, {
 
       //TODO: Uncomment those
 
-      import Login from './containers/Login';
+      import EmailSignIn from './containers/EmailSignIn';
       // import Logout from './containers/Logout';
       import Onboarding from './containers/Onboarding';
       // import ForgotPassword from './containers/ForgotPassword';
       // import Profile from './containers/Profile';
       // import Main from './containers/Main';
       // import Subview from './containers/Subview';
+
+
+      import {Colors} from './config/constants';
 
       /**
       * ### icons
@@ -108,6 +111,8 @@ import React, {
         };
         return _initState;
       }
+
+
       /**
       * ## TabIcon
       *
@@ -134,6 +139,23 @@ import React, {
       * *Note* the ```store``` itself is set into the ```store```.  This
       * will be used when doing hot loading
       */
+
+
+      class ARightBtn extends React.Component {
+          render(){
+              return <Text style={{
+                width: 80,
+                position: 'absolute',
+                height: 120,
+                width: 200,
+                top: 50,
+                right:0,
+                padding: 8,
+                backgroundColor: 'red',
+                color: '#000000'
+            }}>RightBtnTest</Text>
+          }
+      }
 
       export default function native(platform) {
 
@@ -175,27 +197,36 @@ import React, {
             />
 
             */
-
+            var self = this;
+            var renderRtBtn = function renderRtBtn(){
+              return
+            }
 
 
             // setup the router table with App selected as the initial component
             return (
               <Provider store={store}>
                 <Router hideNavBar={false}>
-                  <Scene key="modal" component={Modal} >
-                    <Scene key="root">
-                      <Scene key="App" component={App} title="App" initial={true}/>
-                      <Scene key="Onboarding" direction="vertical">
-                        <Scene key="OnboardingModal" component={Onboarding} title="Onboarding" schema="modal" type="replace" hideNavBar={true}/>
 
-                        <Scene key="Login">
-                          <Scene key="LoginModal" component={Login} schema="modal" title="Sign In" hideNavBar={true}/>
-                          <Scene key="loginModal2" component={Login} title="Login2" hideNavBar={true}/>
-                        </Scene>
+                    <Scene key="root" >
+                      <Scene key="Launch" direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} initial={true} />
 
+                      <Scene key="FacebookSignIn">
+                        <Scene key="FacebookSignIn1" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}/>
+                        <Scene key="FacebookSignIn2" component={EmailSignIn} title="Facebook signin" hideNavBar={true}/>
+                      </Scene>
+
+                      <Scene key="EmailSignIn" title="Sign In" type="push" titleStyle={{color:Colors.mainTextColor}} leftButtonTextStyle={{backgroundColor:'white'}} >
+                        <Scene key="EmailSignIn1" component={EmailSignIn} title="Sign In" navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
+                        <Scene key="EmailSignIn2" component={Onboarding} title="Sign In"/>
+                      </Scene>
+
+                      <Scene key="EmailSignUp">
+                        <Scene key="EmailSignUp1" component={EmailSignIn} schema="modal" title="Sign Up" hideNavBar={true}/>
+                        <Scene key="EmailSignUp2" component={EmailSignIn} title="Sign Up" hideNavBar={true}/>
                       </Scene>
                     </Scene>
-                  </Scene>
+
                 </Router>
               </Provider>
             );

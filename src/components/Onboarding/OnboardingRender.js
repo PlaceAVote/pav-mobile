@@ -29,36 +29,12 @@ import {Map} from 'immutable';
 import Button from 'sp-react-native-iconbutton'
 
 /**
- * Router actions
- */
-import { Actions } from 'react-native-router-flux';
-
-/**
 * Icons library
 */
 var Icon = require('react-native-vector-icons/FontAwesome');
 
-/**
- * The Header will display a Image and support Hot Loading
- */
-import Header from '../../components/Header';
-/**
- * The ErrorAlert displays an alert for both ios & android
- */
-import ErrorAlert from '../../components/ErrorAlert';
-/**
- * The FormButton will change it's text between the 4 states as necessary
- */
-import FormButton from '../../components/FormButton';
-/**
- *  The LoginForm does the heavy lifting of displaying the fields for
- * textinput and displays the error messages
- */
-import LoginForm from '../../components/LoginForm';
-/**
- * The itemCheckbox will toggle the display of the password fields
- */
-import ItemCheckbox from '../../components/ItemCheckbox';
+
+import {Colors, ActionNames} from '../../config/constants';
 
 /**
  * The necessary React components
@@ -85,7 +61,7 @@ const {
   LOGIN,
   REGISTER,
   FORGOT_PASSWORD
-} = require('../../config/constants').default;
+} = ActionNames;
 
 
 
@@ -119,27 +95,27 @@ var styles = StyleSheet.create({
     marginHorizontal:15
   },
   titleText: {
-    backgroundColor: 'rgba(0,0,0,0)',
+    backgroundColor: Colors.transparentColor,
     fontSize: 27,
-    color: 'white',
+    color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 41,
     marginTop: 20,
     marginBottom: 13,
   },
   descriptionText: {
-    backgroundColor: 'rgba(0,0,0,0)',
+    backgroundColor: Colors.transparentColor,
     fontSize: 17,
-    color: 'white',
+    color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 60,
     marginTop: 13,
     marginBottom: 13
   },
   descriptionText2: {
-    backgroundColor: 'rgba(0,0,0,0)',
+    backgroundColor: Colors.transparentColor,
     fontSize: 16,
-    color: 'white',
+    color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 60,
     marginVertical: 13,
@@ -153,29 +129,21 @@ var styles = StyleSheet.create({
     borderWidth: 1
   },
   whiteBtnText:{
-    color: 'white',
+    color: Colors.mainTextColor,
     textAlign: 'center'
   },
   facebookBtn:{
-    backgroundColor: '#3D5B96',
-    borderColor: 'rgba(0,0,0,0.2)'
-    // ,justifyContent: 'center'
+    backgroundColor: Colors.secondaryColor,
+    borderColor: Colors.mainBorderColor
   },
-  // facebookImg:{
-  //   backgroundColor:'red',
-  //   width: 22,
-  //   height: 18,
-  //   resizeMode: 'contain',
-  //   justifyContent: 'flex-start'
-  // },
   emailBtn:{
-    backgroundColor: '#A5CB75',
-    borderColor: 'rgba(0,0,0,0.2)'
+    backgroundColor: Colors.accentColor,
+    borderColor: Colors.mainBorderColor
 
   },
   signInBtn:{
-    backgroundColor: 'rgba(0,0,0,0)',
-    borderColor: 'white'
+    backgroundColor: Colors.transparentColor,
+    borderColor: Colors.mainTextColor
   },
 
   iconStyle:{
@@ -190,7 +158,7 @@ var styles = StyleSheet.create({
  */
 const actions = [
   authActions,
-  globalActions
+  // globalActions
 ];
 
 function mapStateToProps(state) {
@@ -211,18 +179,18 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-class OnboardingSelector extends Component {
+class OnboardingRender extends Component {
   constructor(props) {
     super(props);
-    this.errorAlert = new ErrorAlert();
-    this.state ={
-      value: {
-        username: this.props.auth.form.fields.username,
-        email: this.props.auth.form.fields.email,
-        password: this.props.auth.form.fields.password,
-        passwordAgain: this.props.auth.form.fields.passwordAgain
-      }
-    };
+    // Erthis.errorAlert = new ErrorAlert();
+    // this.state ={
+    //   value: {
+    //     username: this.props.auth.form.fields.username,
+    //     email: this.props.auth.form.fields.email,
+    //     password: this.props.auth.form.fields.password,
+    //     passwordAgain: this.props.auth.form.fields.passwordAgain
+    //   }
+    // };
   }
 
   /**
@@ -326,50 +294,16 @@ class OnboardingSelector extends Component {
     // let rightMessage = this.getMessage(rightMessageType, this.props.actions);
 
     let self = this;
+    let onFbBtnPress = ()=>{
+      this.props.onButtonPress("facebook");
+    },
+    onSignInBtnPress = ()=>{
+      this.props.onButtonPress("emailSignIn");
+    },
+    onSignUpBtnPress = ()=>{
+      this.props.onButtonPress("emailSignUp");
+    };
 
-    // display the login / register / change password screens
-    // this.errorAlert.checkError(this.props.auth.form.error);
-    //
-    // /**
-    //  * Toggle the display of the Password and PasswordAgain fields
-    //  */
-    // if (displayPasswordCheckbox) {
-    //   passwordCheckbox =
-    //   <ItemCheckbox
-    //       text="Show Password"
-    //       disabled={this.props.auth.form.isFetching}
-    //       onCheck={() => {
-	  //     this.props.actions.onAuthFormFieldChange('showPassword',true);
-    //         }}
-    //       onUncheck={() => {
-	  //     this.props.actions.onAuthFormFieldChange('showPassword',false);
-    //         }}
-    //   />;
-    // }
-
-
-
-    /**
-     * The LoginForm is now defined with the required fields.  Just
-     * surround it with the Header and the navigation messages
-     * Note how the button too is disabled if we're fetching. The
-     * header props are mostly for support of Hot reloading.
-     * See the docs for Header for more info.
-     */
-
-/*
-<View style={styles.facebookBtnContainer}>
-  <Image style={styles.facebookImg} source={require('../../../assets/fbIcon.png')}></Image>
-</View>
-
-
-
-              <Icon name="facebook" style={styles.icon} size={22}>
-                <Text style={styles.facebookText} >
-                Login with Facebook
-                </Text>
-              </Icon>
-*/
 
     return(
         <Image style={styles.backgroundImg} source={require('../../../assets/pavBG.jpg')}>
@@ -388,13 +322,13 @@ class OnboardingSelector extends Component {
             Place your vote today and let your representatives know how to represent you.
             </Text>
             <View style={styles.btnContainer}>
-              <Button style={[styles.facebookBtn, styles.btn]} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
+              <Button onPress={onFbBtnPress} style={[styles.facebookBtn, styles.btn]} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
                 Login with Facebook
               </Button>
-              <Button style={[styles.emailBtn, styles.btn]} textStyle={styles.whiteBtnText}>
+              <Button onPress={onSignUpBtnPress} style={[styles.emailBtn, styles.btn]} textStyle={styles.whiteBtnText}>
               Signup with email
               </Button>
-              <Button style={[styles.signInBtn, styles.btn]} textStyle={styles.whiteBtnText}>
+              <Button onPress={onSignInBtnPress} style={[styles.signInBtn, styles.btn]} textStyle={styles.whiteBtnText}>
               Sign In
               </Button>
             </View>
@@ -405,4 +339,4 @@ class OnboardingSelector extends Component {
 }
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default connect(mapStateToProps, mapDispatchToProps)(OnboardingSelector);
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingRender);

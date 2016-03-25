@@ -9,15 +9,17 @@
  *
  * InitialState
  */
-import InitialState from './deviceInitialState';
+import InitialState from './routingInitialState';
+
+
 
 /**
- * Device actions to test
+ * Routing actions to test
  */
-const {
-  SET_PLATFORM,
-  SET_VERSION
-} = require('../../config/constants').ActionNames
+ const {
+   NAVIGATE_TO
+ } = require('../../config/constants').ActionNames
+
 
 const initialState = new InitialState;
 
@@ -26,7 +28,7 @@ const initialState = new InitialState;
  * @param {Object} state - initialState
  * @param {Object} action - type and payload
  */
-export default function deviceReducer(state = initialState, action) {
+export default function routingReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state);
 
   switch (action.type) {
@@ -35,17 +37,12 @@ export default function deviceReducer(state = initialState, action) {
      * ### set the platform in the state
      *
      */
-  case SET_PLATFORM:
-    const platform = action.payload;
-    return state.set('platform', platform);
+  case NAVIGATE_TO:
+    const scheneName = action.payload;
 
-    /**
-     * ### set the version in the state
-     *
-     */
-  case SET_VERSION:
-    const version = action.payload;
-    return state.set('version', version);
+    return state.set('currentSchene', scheneName);
+
+
   }
 
   return state;

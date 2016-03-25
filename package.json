@@ -19,13 +19,15 @@
     "start": "npm run serve",
     "serve": "node node_modules/react-native/local-cli/cli.js start",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "xcode": "open ios/PlaceAVoteApp.xcodeproj/",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "setup": "npm install -g npm3 && npm3 install -g rnpm && npm3 install && rnpm link"
+    "setup": "npm install -g npm3 && npm3 install -g rnpm && npm3 install && rnpm link",
+    "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest  --no-cache"
   },
   "dependencies": {
     "react": "^0.14.7",
     "react-native": "^0.22.2",
-    "react-native-router-flux": "^3.1.5",
+    "react-native-router-flux": "^3.2.2",
     "react-native-vector-icons": "^1.1.0",
     "react-native-simple-store": "^0.1.0",
     "redux": "^3.1.2",
@@ -38,6 +40,47 @@
     "regenerator": "^0.8.42",
     "sp-react-native-iconbutton": "^2.4.3",
     "react-native-gifted-spinner": "0.0.3",
-    "tcomb-form-native": "^0.3.3"
+    "tcomb-form-native": "^0.4.0"
+  },
+  "devDependencies":{
+    "babel-core": "^6.7.4",
+    "babel-jest": "^9.0.3",
+    "jest-cli": "^0.9.2",
+
+    "react-addons-test-utils": "^0.14.7",
+    "redux-mock-store": "^1.0.2"
+  },
+
+
+  "jest": {
+    "scriptPreprocessor": "jestSupport/scriptPreprocess.js",
+    "setupEnvScriptFile": "./node_modules/react-native/jestSupport/env.js",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ],
+    "unmockedModulePathPatterns": [
+      "react",
+      "react-addons-test-utils",
+      "react-native-router-flux",
+      "promise",
+      "source-map",
+      "key-mirror",
+      "immutable",
+      "fetch",
+      "redux",
+      "redux-thunk",
+      "fbjs"
+    ],
+    "collectCoverage": false,
+    "verbose": false
   }
 }

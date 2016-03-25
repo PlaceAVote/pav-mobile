@@ -24,7 +24,7 @@ const {
   SET_STATE,
   SET_STORE
   
-} = require('../../config/constants').default;
+} = require('../../config/constants').ActionNames
 
 import InitialState from './globalInitialState';
 

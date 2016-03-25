@@ -31,7 +31,7 @@ const {
   LOGOUT_SUCCESS,
 
   SET_STATE
-} = require('../../config/constants').default;
+} = require('../../config/constants').ActionNames
 
 /**
  * ## Initial State

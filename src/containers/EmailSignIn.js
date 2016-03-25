@@ -1,7 +1,7 @@
 /**
- * # Login.js
+ * # EmailSignIn.js
  *
- *  The container to display the Login form
+ *  The container to display the EmailSignIn form
  *
  */
 'use strict';
@@ -17,6 +17,8 @@ import { connect } from 'react-redux';
  * The actions we need
  */
 import * as authActions from '../reducers/auth/authActions';
+import * as routingActions from '../reducers/routing/routingActions';
+
 
 /**
  * Immutable
@@ -24,9 +26,9 @@ import * as authActions from '../reducers/auth/authActions';
 import {Map} from 'immutable';
 
 /**
- *   LoginRender
+ *   EmailSignInRender
  */
-import LoginRender from '../components/LoginRender';
+import EmailSignInRender from '../components/EmailSignIn/EmailSignInRender';
 
 /**
  * The necessary React components
@@ -36,15 +38,15 @@ import React from 'react-native';
 
 const {
   LOGIN,
-  REGISTER,
   FORGOT_PASSWORD
-} = require('../config/constants').default;
+} = require('../config/constants').ActionNames
 
 /**
  * ## Redux boilerplate
  */
 const actions = [
-  authActions
+  authActions,
+  routingActions
 ];
 
 function mapStateToProps(state) {
@@ -65,33 +67,42 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+
+
+
+
 function buttonPressHandler(login, username, password) {
   login (username, password);
 }
 
-let Login = React.createClass({
+let EmailSignIn = React.createClass({
 
   render() {
+    let onButtonPress = ()=>{
+
+    };
     let loginButtonText = 'Log in';
-    let onButtonPress = buttonPressHandler.bind(null,
-				                this.props.actions.login,
-				                this.props.auth.form.fields.username,
-				                this.props.auth.form.fields.password
-		                               );
+    //  buttonPressHandler.bind(null,
+		// 		                this.props.actions.login,
+		// 		                this.props.auth.form.fields.username,
+		// 		                this.props.auth.form.fields.password
+		//                                );
 
     return(
-      <LoginRender
-          formType={ LOGIN }
-          loginButtonText={ loginButtonText }
+      <EmailSignInRender
           onButtonPress={ onButtonPress }
-          displayPasswordCheckbox={ true }
-          leftMessageType={ REGISTER }
-          rightMessageType={ FORGOT_PASSWORD }
           auth={ this.props.auth }
           global={ this.props.global }
+
+            formType={ LOGIN }
+            loginButtonText={ loginButtonText }
+            displayPasswordCheckbox={ false }
+            leftMessageType={ FORGOT_PASSWORD }
+            rightMessageType={ FORGOT_PASSWORD }
+
       />
     );
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignIn);

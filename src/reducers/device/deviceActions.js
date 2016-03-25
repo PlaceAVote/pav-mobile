@@ -16,7 +16,7 @@
 const {
   SET_PLATFORM,
   SET_VERSION
-} = require ('../../config/constants').default;
+} = require ('../../config/constants').ActionNames
 
 /**
  * ## Set the platformState 

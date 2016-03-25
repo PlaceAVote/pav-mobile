@@ -16,40 +16,47 @@ import { connect } from 'react-redux';
 /**
  * The actions we need
  */
-import * as authActions from '../reducers/auth/authActions';
-import * as globalActions from '../reducers/global/globalActions';
+import * as authActions from '../../reducers/auth/authActions';
+import * as globalActions from '../../reducers/global/globalActions';
 
 /**
  * Immutable
  */
 import {Map} from 'immutable';
 
+/*A react native button*/
+// const  Button = require('sp-react-native-iconbutton');
+import Button from 'sp-react-native-iconbutton'
+
+
+
 /**
- * Router actions
- */
-import { Actions } from 'react-native-router-flux';
+* Icons library
+*/
+var Icon = require('react-native-vector-icons/FontAwesome');
 
 /**
  * The Header will display a Image and support Hot Loading
  */
-import Header from '../components/Header';
+import Header from '../../components/Header';
 /**
  * The ErrorAlert displays an alert for both ios & android
  */
-import ErrorAlert from '../components/ErrorAlert';
+import ErrorAlert from '../../components/ErrorAlert';
 /**
  * The FormButton will change it's text between the 4 states as necessary
  */
-import FormButton from '../components/FormButton';
+import FormButton from '../../components/FormButton';
 /**
- *  The LoginForm does the heavy lifting of displaying the fields for
+ *  The SignInForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import LoginForm from '../components/LoginForm';
+import SignInForm from './SignInForm';
 /**
  * The itemCheckbox will toggle the display of the password fields
  */
-import ItemCheckbox from '../components/ItemCheckbox';
+import ItemCheckbox from '../../components/ItemCheckbox';
+import {Colors, ActionNames} from '../../config/constants';
 
 /**
  * The necessary React components
@@ -61,7 +68,8 @@ import React,
   ScrollView,
   Text,
   TouchableHighlight,
-  View
+  View,
+  Image
 }
 from 'react-native';
 
@@ -73,31 +81,69 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
  */
 const {
   LOGIN,
-  REGISTER,
   FORGOT_PASSWORD
-} = require('../config/constants').ActionNames
+} = ActionNames;
+
+
 
 /**
  * ## Styles
  */
 var styles = StyleSheet.create({
-  container: {
+
+  baseContainer: {
+    flex:1,
+    backgroundColor: 'white',
+  },
+  contentContainer: {
+    flex:1,
     flexDirection: 'column',
-    flex: 1
+
+    marginTop:110,
+    marginBottom:20,
+    marginHorizontal:15
   },
-  inputs: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10
+  titleText: {
+    backgroundColor: Colors.transparentColor,
+    fontSize: 27,
+    color: Colors.secondaryTextColor,
+    textAlign: 'center',
+    marginHorizontal: 41,
+    marginTop: 20,
+    marginBottom: 13,
   },
-  forgotContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10
+  signInBtn: {
+    backgroundColor: Colors.accentColor,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: Colors.mainBorderColor,
+    marginTop: 15,
+    height: 65
+  },
+  facebookBtn:{
+    backgroundColor: Colors.secondaryColor,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: Colors.mainBorderColor,
+    marginTop: 15,
+    height: 65
+  },
+  whiteBtnText:{
+    color: Colors.mainTextColor,
+    textAlign: 'center'
+  },
+  orText:{
+    color: Colors.secondaryTextColor,
+    alignSelf:"center",
+    marginVertical:10
+  },
+  forgotPasswordText:{
+    color: "#E76354",
+    alignSelf:"center",
+    marginVertical:13,
+    fontSize: 18,
   }
+
 });
 /**
  * ## Redux boilerplate
@@ -124,7 +170,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class LoginRender extends Component {
+
+class EmailSignInRender extends Component {
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();
@@ -145,10 +192,10 @@ class LoginRender extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-	username: nextprops.auth.form.fields.username,
-	email: nextprops.auth.form.fields.email,
-	password: nextprops.auth.form.fields.password,
-	passwordAgain: nextprops.auth.form.fields.passwordAgain
+      	username: nextprops.auth.form.fields.username,
+      	email: nextprops.auth.form.fields.email,
+      	password: nextprops.auth.form.fields.password,
+      	passwordAgain: nextprops.auth.form.fields.passwordAgain
       }
     });
   }
@@ -163,21 +210,21 @@ class LoginRender extends Component {
    * *Note* that the fields are validated by the authReducer
    */
   onChange(value) {
-    if (value.username != '') {
-      this.props.actions.onAuthFormFieldChange('username',value.username);
-    }
-    if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email);
-    }
-    if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password);
-    }
-    if (value.passwordAgain != '') {
-      this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain);
-    }
-    this.setState(
-      {value}
-    );
+    // if (value.username != '') {
+    //   this.props.actions.onAuthFormFieldChange('username',value.username);
+    // }
+    // if (value.email != '') {
+    //   this.props.actions.onAuthFormFieldChange('email',value.email);
+    // }
+    // if (value.password != '') {
+    //   this.props.actions.onAuthFormFieldChange('password',value.password);
+    // }
+    // if (value.passwordAgain != '') {
+    //   this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain);
+    // }
+    // this.setState(
+    //   {value}
+    // );
   }
   /**
   *  Get the appropriate message for the current action
@@ -239,77 +286,45 @@ class LoginRender extends Component {
     let rightMessage = this.getMessage(rightMessageType, this.props.actions);
 
     let self = this;
-
-    // display the login / register / change password screens
-    this.errorAlert.checkError(this.props.auth.form.error);
-
-    /**
-     * Toggle the display of the Password and PasswordAgain fields
-     */
-    if (displayPasswordCheckbox) {
-      passwordCheckbox =
-      <ItemCheckbox
-          text="Show Password"
-          disabled={this.props.auth.form.isFetching}
-          onCheck={() => {
-	      this.props.actions.onAuthFormFieldChange('showPassword',true);
-            }}
-          onUncheck={() => {
-	      this.props.actions.onAuthFormFieldChange('showPassword',false);
-            }}
-      />;
+    let onBtnPress = ()=>{
+      this.props.onButtonPress("signIn");
+    },
+    onFbBtnPress = ()=>{
+      this.props.onButtonPress("facebook");
     }
 
 
-/*
-
-<Header isFetching={this.props.auth.form.isFetching}
-              showState={this.props.global.showState}
-              currentState={this.props.global.currentState}
-              onGetState={this.props.actions.getState}
-              onSetState={this.props.actions.setState}
-/>
-
-*/
-    /**
-     * The LoginForm is now defined with the required fields.  Just
-     * surround it with the Header and the navigation messages
-     * Note how the button too is disabled if we're fetching. The
-     * header props are mostly for support of Hot reloading.
-     * See the docs for Header for more info.
-     */
 
     return(
-      <View style={styles.container}>
-      	<ScrollView horizontal={false} width={width} height={height}>
-      	  <View>
-
+      <View style={styles.baseContainer}>
+        <View style={styles.contentContainer}>
+          <View>
       	    <View style={styles.inputs}>
-      	      <LoginForm
-                        formType={formType}
-                        form={this.props.auth.form}
-                        value={this.state.value}
-                        onChange={self.onChange.bind(self)}
+      	      <SignInForm
+                formType={formType}
+                form={this.props.auth.form}
+                value={this.state.value}
+                onChange={self.onChange.bind(self)}
       	      />
-      	      {passwordCheckbox}
-                  </View>
-
-      	    <FormButton
-                      isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
-                      onPress={onButtonPress}
-                      buttonText={loginButtonText}/>
-
-      	    <View >
-      	      <View style={styles.forgotContainer}>
-      	        {leftMessage}
-                {rightMessage}
-              </View>
-      	    </View>
+            </View>
+            <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
+                isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+                onPress={onBtnPress}>
+              Sign In
+            </Button>
+            <Text style={styles.orText}>Or</Text>
+            <Button onPress={onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
+              Sign Up with Facebook
+            </Button>
+            <Text style={styles.forgotPasswordText}>Forgot Password</Text>
 
       	  </View>
-      	</ScrollView>
+
+        </View>
       </View>
     );
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LoginRender);
+//isDisabled={this.props.isDisabled}
+// onPress={this.props.onPress}
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignInRender);

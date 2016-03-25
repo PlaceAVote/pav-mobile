@@ -16,6 +16,12 @@ import { connect } from 'react-redux';
  * The actions we need
  */
 import * as authActions from '../reducers/auth/authActions';
+import * as routingActions from '../reducers/routing/routingActions';
+
+/**
+ * Router actions
+ */
+import { Actions } from 'react-native-router-flux';
 
 /**
  * Immutable
@@ -25,8 +31,8 @@ import {Map} from 'immutable';
 /**
  *   LoginRender
  */
-import LoginRender from '../components/LoginRender';
-import OnboardingSelector from '../components/Onboarding/OnboardingSelector'
+// import LoginRender from '../components/LoginRender';
+import OnboardingRender from '../components/Onboarding/OnboardingRender'
 /**
  * The necessary React
  */
@@ -36,13 +42,14 @@ const {
   LOGIN,
   REGISTER,
   FORGOT_PASSWORD
-} = require('../config/constants').default;
+} = require('../config/constants').ActionNames
 
 /**
  * ## Redux boilerplate
  */
 const actions = [
-  authActions
+  authActions,
+  routingActions
 ];
 
 function mapStateToProps(state) {
@@ -63,29 +70,32 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function buttonPressHandler(signup, username, email, password) {
-  signup (username, email, password);
+function buttonPressHandler(scheneName) {
+  switch(scheneName){
+    case "facebook":
+      // this.props.actions.navigateToRequested("FacebookSignIn");
+      break;
+    case "emailSignUp":
+      // this.props.actions.navigateToRequested("EmailSignUp");
+      break;
+    case "emailSignIn":
+      this.props.actions.navigateToRequested("EmailSignIn");
+      break;
+    default:
+      console.log("Invalid selector provided, Onboarding cannot issue a navigation action with schene name of: "+scheneName);
+      break;
+  }
 }
 
 let Onboarding = React.createClass({
 
   render() {
-
-    let loginButtonText = 'Onboarding';
-    let onButtonPress = buttonPressHandler.bind(null,
-      this.props.actions.signup,
-      this.props.auth.form.fields.username,
-      this.props.auth.form.fields.email,
-      this.props.auth.form.fields.password
-    );
-
-
-
-
+    let onButtonPress = buttonPressHandler.bind(this);
     return(
-      <OnboardingSelector
+      <OnboardingRender
           auth={ this.props.auth }
           global={ this.props.global }
+          onButtonPress={ onButtonPress }
       />
 
     );

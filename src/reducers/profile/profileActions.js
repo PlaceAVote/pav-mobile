@@ -19,7 +19,7 @@ const {
   PROFILE_UPDATE_FAILURE,
 
   ON_PROFILE_FORM_FIELD_CHANGE
-} = require('../../config/constants').default;
+} = require('../../config/constants').ActionNames
 
 /**
  * BackendFactory - base class for server implementation
