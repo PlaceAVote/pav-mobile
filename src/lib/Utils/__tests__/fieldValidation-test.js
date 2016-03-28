@@ -26,16 +26,16 @@ jest.unmock('immutable');
 describe('Tests that the fieldValidation function validates the input correctly.', () => {
 
 
-  const fieldValidation = require('../fieldValidation.js').default;
+  let fieldValidation = require('../fieldValidation.js').default;
   // jest.unmock('immutable');
   // jest.unmock('validate.js');
   // jest.unmock("underscore");
 
-  const Immutable = require('immutable');
-  const Record = Immutable.Record;
+  let Immutable = require('immutable');
+  let Record = Immutable.Record;
 
 
-  const Form = Record({
+  let Form = Record({
     state: 'whatever',
     disabled: false,
     error: null,
@@ -58,7 +58,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
     }))
   });
 
-  const InitialState = new Record({
+  let InitialState = new Record({
     form: new Form
   });
 
