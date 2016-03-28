@@ -53,7 +53,7 @@
 
 
   "jest": {
-    "scriptPreprocessor": "jestSupport/scriptPreprocess.js",
+    "scriptPreprocessor": "./node_modules/react-native/jestSupport/preprocessor.js",
     "setupEnvScriptFile": "./node_modules/react-native/jestSupport/env.js",
     "testPathIgnorePatterns": [
       "/node_modules/"
@@ -78,9 +78,11 @@
       "fetch",
       "redux",
       "redux-thunk",
-      "fbjs"
+      "fbjs",
+      "underscore",
+      "validate.js"
     ],
     "collectCoverage": false,
-    "verbose": false
+    "verbose": true
   }
 }

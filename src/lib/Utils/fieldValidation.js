@@ -20,6 +20,7 @@ import _ from 'underscore';
  * Used for validation of emails
  */
 const emailConstraints = {
+  presence: true,
   from: {
     email: true
   }
@@ -32,6 +33,7 @@ const emailConstraints = {
 const usernamePattern = /^[a-zA-Z0-9]{6,12}$/;
 const usernameConstraints = {
   username: {
+    presence: true,
     format: {
       pattern: usernamePattern,
       flags: 'i',
@@ -47,6 +49,7 @@ const usernameConstraints = {
 const namePattern = /^[a-zA-Z]{3,12}$/;
 const nameConstraints = {
   name: {
+    presence: true,
     format: {
       pattern: namePattern,
       flags: 'i',
@@ -62,6 +65,7 @@ const nameConstraints = {
 const surnamePattern = /^[a-zA-Z]{4,20}$/;
 const surnameConstraints = {
   surname: {
+    presence: true,
     format: {
       pattern: surnamePattern,
       flags: 'i',
@@ -77,6 +81,7 @@ const surnameConstraints = {
 const passwordPattern =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
 const passwordConstraints = {
   password: {
+    presence: true,
     format: {
       pattern: passwordPattern,
       flags: "i",
@@ -122,6 +127,7 @@ export default function fieldValidation(state, action ) {
   case('name'):
     let validName  = _.isUndefined(validate({name: value},
                                                 nameConstraints));
+    // console.log("Name valid if TRUE: "+validName);
     if (validName) {
       return state.setIn(['form', 'fields', 'nameHasError'], false);
     } else {
