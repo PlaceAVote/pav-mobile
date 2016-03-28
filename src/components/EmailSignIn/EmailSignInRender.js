@@ -232,17 +232,7 @@ class EmailSignInRender extends Component {
    * Setup some default presentations and render
    */
   render() {
-    var formType = this.props.formType;
-    var loginButtonText = this.props.loginButtonText;
-    var onButtonPress = this.props.onButtonPress;
-    var displayPasswordCheckbox = this.props.displayPasswordCheckbox;
-    var leftMessageType = this.props.leftMessageType;
-    var rightMessageType = this.props.rightMessageType;
-
-    var passwordCheckbox = <Text/>;
-    let leftMessage = this.getMessage(leftMessageType, this.props.actions);
-    let rightMessage = this.getMessage(rightMessageType, this.props.actions);
-
+  
     let self = this;
     let onBtnPress = ()=>{
       this.props.onButtonPress("signIn");
