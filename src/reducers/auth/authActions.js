@@ -23,7 +23,10 @@ const {
   DELETE_TOKEN_SUCCESS,
 
   LOGOUT,
-  REGISTER,
+  REGISTER_STEP_1,
+  REGISTER_STEP_2,
+  REGISTER_STEP_3,
+  REGISTER_STEP_4,
   LOGIN,
   FORGOT_PASSWORD,
 
@@ -69,10 +72,32 @@ export function logoutState() {
   };
 
 }
-export function registerState() {
-  return {
-    type: REGISTER
-  };
+export function registerState(step) {
+  switch(step){
+    case 1:
+      return {
+        type: REGISTER_STEP_1
+      };
+      break;
+    case 2:
+      return {
+        type: REGISTER_STEP_2
+      };
+      break;
+    case 3:
+      return {
+        type: REGISTER_STEP_3
+      };
+      break;
+    case 4:
+      return {
+        type: REGISTER_STEP_4
+      };
+      break;
+    default:
+      break;
+  }
+
 }
 
 export function loginState() {

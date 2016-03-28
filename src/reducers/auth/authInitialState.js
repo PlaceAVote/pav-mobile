@@ -14,7 +14,7 @@
  */
 const {Record} = require('immutable');
 const {
-  REGISTER
+  REGISTER_STEP_1
 } = require('../../config/constants').ActionNames
 
 /**
@@ -23,7 +23,7 @@ const {
  * fields it contains.
  */
 const Form = Record({
-  state: REGISTER,
+  state: REGISTER_STEP_1,
   disabled: false,
   error: null,
   isValid: false,
@@ -36,6 +36,10 @@ const Form = Record({
     password: '',
     passwordHasError: false,
     passwordAgain: '',
+    name: '',
+    nameHasError:'',
+    surname: '',
+    surnameHasError:'',
     passwordAgainHasError: false,
     showPassword: false
   }))

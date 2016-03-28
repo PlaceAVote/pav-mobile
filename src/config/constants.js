@@ -72,7 +72,10 @@ module.exports =  {
 
    FORGOT_PASSWORD: null,
    LOGIN: null,
-   REGISTER: null,
+   REGISTER_STEP_1: null,
+   REGISTER_STEP_2: null,
+   REGISTER_STEP_3: null,
+   REGISTER_STEP_4: null,
 
 
    NAVIGATE_TO: null

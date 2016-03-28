@@ -56,6 +56,7 @@ import React, {
       //TODO: Uncomment those
 
       import EmailSignIn from './containers/EmailSignIn';
+      import EmailSignUpStep1 from './containers/EmailSignUpStep1';
       // import Logout from './containers/Logout';
       import Onboarding from './containers/Onboarding';
       // import ForgotPassword from './containers/ForgotPassword';
@@ -175,26 +176,8 @@ import React, {
 
             /*
 
-            <Schema name="modal"sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
 
-            <Schema name="floatFromRight" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
-
-            <Schema name="default"/>
-
-            <Schema name="tab"
-            type="switch"
-            icon={TabIcon} />
-
-            <Route name="App"
-            component={App}
-            title="App"
-            initial={true}/>
-
-            <Route name="Onboarding"
-            component={Onboarding}
-            title="Onboarding"
-            type="replace"
-            />
+            renderRightButton={()=><ARightBtn/>}
 
             */
             var self = this;
@@ -213,18 +196,16 @@ import React, {
 
                       <Scene key="FacebookSignIn">
                         <Scene key="FacebookSignIn1" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}/>
-                        <Scene key="FacebookSignIn2" component={EmailSignIn} title="Facebook signin" hideNavBar={true}/>
                       </Scene>
 
-                      <Scene key="EmailSignIn" title="Sign In" type="push" titleStyle={{color:Colors.mainTextColor}} leftButtonTextStyle={{backgroundColor:'white'}} >
-                        <Scene key="EmailSignIn1" component={EmailSignIn} title="Sign In" navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
-                        <Scene key="EmailSignIn2" component={Onboarding} title="Sign In"/>
+                      <Scene key="EmailSignIn" type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}} >
+                        <Scene key="EmailSignIn1" component={EmailSignIn} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
                       </Scene>
 
-                      <Scene key="EmailSignUp">
-                        <Scene key="EmailSignUp1" component={EmailSignIn} schema="modal" title="Sign Up" hideNavBar={true}/>
-                        <Scene key="EmailSignUp2" component={EmailSignIn} title="Sign Up" hideNavBar={true}/>
+                      <Scene key="EmailSignUp" type="push" title="Sign Up" titleStyle={{color:Colors.mainTextColor}} >
+                        <Scene key="EmailSignUp1" component={EmailSignUpStep1} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
                       </Scene>
+
                     </Scene>
 
                 </Router>

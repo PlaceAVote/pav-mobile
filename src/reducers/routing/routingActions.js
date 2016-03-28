@@ -56,7 +56,7 @@ export function navigateToRequested(schene) {
     try{
       Actions[schene]();
     }catch(e){
-      console.log("Schene: "+schene+ " does not exist.");
+      console.log("Schene: "+schene+ " does not exist. Error: "+e);
     }
     // console.log(typeof );
     dispatch(navigateState(schene));

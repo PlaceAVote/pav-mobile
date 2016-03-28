@@ -59,7 +59,7 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
  */
 const {
   LOGIN,
-  REGISTER,
+  REGISTER_STEP_1,
   FORGOT_PASSWORD
 } = ActionNames;
 
@@ -182,116 +182,15 @@ function mapDispatchToProps(dispatch) {
 class OnboardingRender extends Component {
   constructor(props) {
     super(props);
-    // Erthis.errorAlert = new ErrorAlert();
-    // this.state ={
-    //   value: {
-    //     username: this.props.auth.form.fields.username,
-    //     email: this.props.auth.form.fields.email,
-    //     password: this.props.auth.form.fields.password,
-    //     passwordAgain: this.props.auth.form.fields.passwordAgain
-    //   }
-    // };
+
   }
 
-  /**
-   * ### componentWillReceiveProps
-   * As the properties are validated they will be set here.
-   */
-  // componentWillReceiveProps(nextprops) {
-  //   this.setState({
-  //     value: {
-	// username: nextprops.auth.form.fields.username,
-	// email: nextprops.auth.form.fields.email,
-	// password: nextprops.auth.form.fields.password,
-	// passwordAgain: nextprops.auth.form.fields.passwordAgain
-  //     }
-  //   });
-  // }
-
-  /**
-   * ### onChange
-   *
-   * As the user enters keys, this is called for each key stroke.
-   * Rather then publish the rules for each of the fields, I find it
-   * better to display the rules required as long as the field doesn't
-   * meet the requirements.
-   * *Note* that the fields are validated by the authReducer
-   */
-  // onChange(value) {
-  //   if (value.username != '') {
-  //     this.props.actions.onAuthFormFieldChange('username',value.username);
-  //   }
-  //   if (value.email != '') {
-  //     this.props.actions.onAuthFormFieldChange('email',value.email);
-  //   }
-  //   if (value.password != '') {
-  //     this.props.actions.onAuthFormFieldChange('password',value.password);
-  //   }
-  //   if (value.passwordAgain != '') {
-  //     this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain);
-  //   }
-  //   this.setState(
-  //     {value}
-  //   );
-  // }
-  /**
-  *  Get the appropriate message for the current action
-  *  @param messageType FORGOT_PASSWORD, or LOGIN, or REGISTER
-  *  @param actions the action for the message type
-  */
-  // getMessage(messageType, actions) {
-  //   let forgotPassword =
-  //   <TouchableHighlight
-  //       onPress={() => {
-  //           actions.forgotPasswordState();
-  //           Actions.ForgotPassword();
-  //         }} >
-  //     <Text>Forgot Password?</Text>
-  //   </TouchableHighlight>;
-  //
-  //   let alreadyHaveAccount =
-  //   <TouchableHighlight
-  //       onPress={() => {
-  //           actions.loginState();
-  //           Actions.Login();
-  //         }} >
-  //     <Text>Already have an account?</Text>
-  //   </TouchableHighlight>;
-  //
-  //   let register =
-  //   <TouchableHighlight
-  //       onPress={() => {
-  //           actions.registerState();
-  //           Actions.Onboarding();
-  //         }} >
-  //     <Text>Register</Text>
-  //   </TouchableHighlight>;
-  //
-  //   switch(messageType) {
-  //   case FORGOT_PASSWORD:
-  //     return forgotPassword;
-  //   case LOGIN:
-  //     return alreadyHaveAccount;
-  //   case REGISTER:
-  //     return register;
-  //   }
-  // }
 
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
-    // var formType = this.props.formType;
-    // var loginButtonText = this.props.loginButtonText;
-    // var onButtonPress = this.props.onButtonPress;
-    // var displayPasswordCheckbox = this.props.displayPasswordCheckbox;
-    // var leftMessageType = this.props.leftMessageType;
-    // var rightMessageType = this.props.rightMessageType;
-    //
-    // var passwordCheckbox = <Text/>;
-    // let leftMessage = this.getMessage(leftMessageType, this.props.actions);
-    // let rightMessage = this.getMessage(rightMessageType, this.props.actions);
 
     let self = this;
     let onFbBtnPress = ()=>{

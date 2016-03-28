@@ -73,7 +73,6 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
  */
 const {
   LOGIN,
-  REGISTER,
   FORGOT_PASSWORD
 } = require('../config/constants').ActionNames
 
@@ -179,48 +178,7 @@ class LoginRender extends Component {
       {value}
     );
   }
-  /**
-  *  Get the appropriate message for the current action
-  *  @param messageType FORGOT_PASSWORD, or LOGIN, or REGISTER
-  *  @param actions the action for the message type
-  */
-  getMessage(messageType, actions) {
-    let forgotPassword =
-    <TouchableHighlight
-        onPress={() => {
-            actions.forgotPasswordState();
-            Actions.ForgotPassword();
-          }} >
-      <Text>Forgot Password?</Text>
-    </TouchableHighlight>;
 
-    let alreadyHaveAccount =
-    <TouchableHighlight
-        onPress={() => {
-            actions.loginState();
-            Actions.Login();
-          }} >
-      <Text>Already have an account?</Text>
-    </TouchableHighlight>;
-
-    let register =
-    <TouchableHighlight
-        onPress={() => {
-            actions.registerState();
-            Actions.Onboarding();
-          }} >
-      <Text>Register</Text>
-    </TouchableHighlight>;
-
-    switch(messageType) {
-    case FORGOT_PASSWORD:
-      return forgotPassword;
-    case LOGIN:
-      return alreadyHaveAccount;
-    case REGISTER:
-      return register;
-    }
-  }
 
   /**
    * ### render

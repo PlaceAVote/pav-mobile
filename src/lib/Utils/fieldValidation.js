@@ -1,6 +1,6 @@
 /**
  * # Login.js
- * 
+ *
  * This class is a little complicated as it handles 4 states. It's also
  * a container so there is boilerplate from Redux similiar to ```App```.
  */
@@ -8,7 +8,7 @@
 
 /**
  * ## Imports
- * 
+ *
  * validate and underscore
  *
  */
@@ -36,6 +36,36 @@ const usernameConstraints = {
       pattern: usernamePattern,
       flags: 'i',
       message: "must have 6-12 numbers, letters or special characters"
+    }
+  }
+};
+
+/**
+* ## name validation rule
+* read the message.. ;)
+*/
+const namePattern = /^[a-zA-Z]{3,12}$/;
+const nameConstraints = {
+  name: {
+    format: {
+      pattern: namePattern,
+      flags: 'i',
+      message: "must have 3-12 letters."
+    }
+  }
+};
+
+/**
+* ## name validation rule
+* read the message.. ;)
+*/
+const surnamePattern = /^[a-zA-Z]{4,20}$/;
+const surnameConstraints = {
+  surname: {
+    format: {
+      pattern: surnamePattern,
+      flags: 'i',
+      message: "must have 4-20 letters."
     }
   }
 };
@@ -69,11 +99,11 @@ const passwordAgainConstraints = {
  */
 export default function fieldValidation(state, action ) {
   const {field, value} = action.payload;
-  
+
   switch(field) {
     /**
      * ### username validation
-     * set the form field error 
+     * set the form field error
      */
   case('username'):
     let validUsername  = _.isUndefined(validate({username: value},
@@ -84,25 +114,52 @@ export default function fieldValidation(state, action ) {
       return state.setIn(['form', 'fields', 'usernameHasError'], true);
     }
     break;
-    
+
+    /**
+     * ### name validation
+     * set the form field error
+     */
+  case('name'):
+    let validName  = _.isUndefined(validate({name: value},
+                                                nameConstraints));
+    if (validName) {
+      return state.setIn(['form', 'fields', 'nameHasError'], false);
+    } else {
+      return state.setIn(['form', 'fields', 'nameHasError'], true);
+    }
+    break;
+    /**
+     * ### surname validation
+     * set the form field error
+     */
+  case('surname'):
+    let validSurname  = _.isUndefined(validate({surname: value},
+                                                surnameConstraints));
+    if (validSurname) {
+      return state.setIn(['form', 'fields', 'surnameHasError'], false);
+    } else {
+      return state.setIn(['form', 'fields', 'surnameHasError'], true);
+    }
+    break;
+
     /**
      * ### email validation
-     * set the form field error 
-     */    
+     * set the form field error
+     */
   case('email'):
     let validEmail  = _.isUndefined(validate({from: value},
                                              emailConstraints));
     if (validEmail) {
-        return state.setIn(['form', 'fields', 'emailHasError'], false);
+      return state.setIn(['form', 'fields', 'emailHasError'], false);
     } else {
       return state.setIn(['form', 'fields', 'emailHasError'], true);
     }
     break;
-    
+
     /**
      * ### password validation
-     * set the form field error 
-     */    
+     * set the form field error
+     */
   case('password'):
     let validPassword = _.isUndefined(validate({password: value},
                                                passwordConstraints));
@@ -112,11 +169,11 @@ export default function fieldValidation(state, action ) {
       return state.setIn(['form', 'fields', 'passwordHasError'], true);
     }
     break;
-    
+
     /**
      * ### passwordAgain validation
-     * set the form field error 
-     */    
+     * set the form field error
+     */
   case('passwordAgain'):
     var validPasswordAgain
       = _.isUndefined(validate({password: state.form.fields.password,
@@ -131,12 +188,13 @@ export default function fieldValidation(state, action ) {
     /**
      * ### showPassword
      * toggle the display of the password
-     */    
+     */
   case('showPassword'):
     return state.setIn(['form', 'fields',
                                 'showPassword'], value);
     break;
   }
+
   return state;
 
 }

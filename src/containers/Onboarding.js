@@ -40,7 +40,6 @@ import React from 'react-native';
 
 const {
   LOGIN,
-  REGISTER,
   FORGOT_PASSWORD
 } = require('../config/constants').ActionNames
 
@@ -73,10 +72,11 @@ function mapDispatchToProps(dispatch) {
 function buttonPressHandler(scheneName) {
   switch(scheneName){
     case "facebook":
-      // this.props.actions.navigateToRequested("FacebookSignIn");
+      this.props.actions.navigateToRequested("FacebookSignIn");
       break;
     case "emailSignUp":
-      // this.props.actions.navigateToRequested("EmailSignUp");
+      this.props.actions.registerState(1);
+      this.props.actions.navigateToRequested("EmailSignUp");
       break;
     case "emailSignIn":
       this.props.actions.navigateToRequested("EmailSignIn");

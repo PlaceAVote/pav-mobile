@@ -1,6 +1,6 @@
 /**
  * # authReducer.js
- * 
+ *
  * The reducer for all the actions from the various log states
  */
 'use strict';
@@ -21,12 +21,15 @@ const {
   SESSION_TOKEN_REQUEST,
   SESSION_TOKEN_SUCCESS,
   SESSION_TOKEN_FAILURE,
-  
+
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
 
   LOGOUT,
-  REGISTER,
+  REGISTER_STEP_1,
+  REGISTER_STEP_2,
+  REGISTER_STEP_3,
+  REGISTER_STEP_4,
   LOGIN,
   FORGOT_PASSWORD,
 
@@ -37,7 +40,7 @@ const {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  
+
   ON_AUTH_FORM_FIELD_CHANGE,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
@@ -53,7 +56,7 @@ const {
 const initialState = new InitialState;
 /**
  * ## authReducer function
- * @param {Object} state - initialState 
+ * @param {Object} state - initialState
  * @param {Object} action - type and payload
  */
 export default function authReducer(state = initialState, action) {
@@ -83,26 +86,32 @@ export default function authReducer(state = initialState, action) {
       state.setIn(['form', 'state'], action.type)
         .setIn(['form','error'],null)
         .setIn(['form','fields','username'],'')
+        .setIn(['form','fields','name'],'')
+        .setIn(['form','fields','surname'],'')
         .setIn(['form','fields','email'],'')
         .setIn(['form','fields','password'],'')
         .setIn(['form','fields','passwordAgain'],'')
     );
-    
+
     /**
      * ### Loggin in state
-     * The user isn't logged in, and needs to 
+     * The user isn't logged in, and needs to
      * login, register or reset password
-     * 
+     *
      * Set the form state and clear any errors
      */
   case LOGIN:
-  case REGISTER:
+  case REGISTER_STEP_1:
+  case REGISTER_STEP_2:
+  case REGISTER_STEP_3:
+  case REGISTER_STEP_4:
   case FORGOT_PASSWORD:
+
     return formValidation(
       state.setIn(['form', 'state'], action.type)
         .setIn(['form','error'],null)
     );
-    
+
     /**
      * ### Auth form field change
      *
@@ -112,14 +121,15 @@ export default function authReducer(state = initialState, action) {
      * the formValidation
      */
   case ON_AUTH_FORM_FIELD_CHANGE: {
+
     const {field, value} = action.payload;
     let nextState =  state.setIn(['form', 'fields', field], value)
           .setIn(['form','error'],null);
-
+    // console.log("Validation in auth reducer next state "+nextState);
     var finalState = formValidation(
       fieldValidation( nextState, action)
       , action);
-
+    // console.log("Validation in auth reducer final state "+finalState);
     return finalState;
   }
     /**
@@ -138,7 +148,7 @@ export default function authReducer(state = initialState, action) {
      * ### Access to Parse.com denied or failed
      * The fetching is done, but save the error
      * for display to the user
-     */    
+     */
   case SIGNUP_FAILURE:
   case LOGOUT_FAILURE:
   case LOGIN_FAILURE:
@@ -148,13 +158,13 @@ export default function authReducer(state = initialState, action) {
 
     /**
      * ### Hot Loading support
-     * 
+     *
      * Set all the field values from the payload
-     */    
+     */
   case SET_STATE:
     debugger;
     var form = JSON.parse(action.payload).auth.form;
-    
+
     var next = state.setIn(['form','state'],form.state)
           .setIn(['form','disabled'],form.disabled)
           .setIn(['form','error'], form.error)
@@ -162,23 +172,25 @@ export default function authReducer(state = initialState, action) {
           .setIn(['form','isFetching'], form.isFetching)
           .setIn(['form','fields','username'],form.fields.username)
           .setIn(['form','fields','usernameHasError'],form.fields.usernameHasError)
+          .setIn(['form','fields','name'],form.fields.name)
+          .setIn(['form','fields','surname'],form.fields.surname)
           .setIn(['form','fields','email'],form.fields.email)
           .setIn(['form','fields','emailHasError'],form.fields.emailHasError)
           .setIn(['form','fields','password'],form.fields.password)
-          .setIn(['form','fields','passwordHasError'],form.fields.passwordHasError)      
+          .setIn(['form','fields','passwordHasError'],form.fields.passwordHasError)
           .setIn(['form','fields','passwordAgain'],form.fields.passwordAgain)
           .setIn(['form','fields','passwordAgainHasError'],form.fields.passwordAgainHasError);
-    
+
     return next;
-  
+
     case DELETE_TOKEN_REQUEST:
     case DELETE_TOKEN_SUCCESS:
         /**
          * no state change, just an ability to track action requests...
          */
         return state;
-        
-  }    
+
+  }
   /**
    * ## Default
    */
