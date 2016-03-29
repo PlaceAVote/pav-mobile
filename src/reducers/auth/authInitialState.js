@@ -26,22 +26,23 @@ const Form = Record({
   state: REGISTER_STEP_1,
   disabled: false,
   error: null,
-  isValid: [],
+  isValid: false,
   isFetching: false,
   fields: new (Record({
-    username: '',
-    usernameHasError: false,
+    name: '',
+    nameHasError:'',
+    surname: '',
+    surnameHasError:'',
     email: '',
     emailHasError: false,
     password: '',
     passwordHasError: false,
     passwordAgain: '',
-    name: '',
-    nameHasError:'',
-    surname: '',
-    surnameHasError:'',
     passwordAgainHasError: false,
-    showPassword: false
+    dateOfBirth: '',
+    dateOfBirthHasError: false,
+    zipCode: '',
+    zipCodeHasError: false
   }))
 });
 

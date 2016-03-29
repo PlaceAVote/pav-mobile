@@ -187,7 +187,8 @@ import React, {
               return
             }
 
-
+// titleStyle={{color:Colors.mainTextColor}}
+// navigationBarStyle={{backgroundColor:Colors.primaryColor}}
             // setup the router table with App selected as the initial component
             return (
               <Provider store={store}>
@@ -204,9 +205,9 @@ import React, {
                         <Scene key="EmailSignIn1" component={EmailSignIn} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
                       </Scene>
 
-                      <Scene key="EmailSignUp" type="push" title="Sign Up" titleStyle={{color:Colors.mainTextColor}} >
-                        <Scene key="EmailSignUp1" component={EmailSignUpStep1} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
-                        <Scene key="EmailSignUp2" component={EmailSignUpStep2} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
+                      <Scene key="EmailSignUp" type="push" title="Sign Up" hideNavBar={true} >
+                        <Scene key="EmailSignUp1" component={EmailSignUpStep1} hideNavBar={true} />
+                        <Scene key="EmailSignUp2" component={EmailSignUpStep2} hideNavBar={true} />
                       </Scene>
 
                     </Scene>

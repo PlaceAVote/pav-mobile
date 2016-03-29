@@ -56,7 +56,7 @@ var SignUpNameSurnameForm = React.createClass({
    */
   render() {
 
-    var INPUT_COLOR = Colors.secondaryTextColor;
+    var INPUT_COLOR = Colors.thirdTextColor;
     var DISABLED_COLOR = '#777777';
     var DISABLED_BACKGROUND_COLOR = '#eeeeee';
     var FONT_SIZE = 17;

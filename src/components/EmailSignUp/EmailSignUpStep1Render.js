@@ -90,12 +90,11 @@ var styles = StyleSheet.create({
 
   baseContainer: {
     flex:1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.primaryColor,
   },
   contentContainer: {
     flex:1,
-    flexDirection: 'column',
-
+    flexDirection: 'column'
   },
   explanationContainer:{
     flex:1,
@@ -106,19 +105,19 @@ var styles = StyleSheet.create({
     marginTop:15,
     marginBottom:20,
     marginHorizontal:15,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    backgroundColor: 'white'
+
   },
   footerContainer:{
     backgroundColor: 'white'
   },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
-    fontSize: 16,
+    fontSize: 14,
     color: Colors.mainTextColor,
     textAlign: 'center',
-    marginHorizontal: 30,
-    marginTop: 5,
-    marginBottom: 3
+    marginHorizontal: 21,
   },
   explanImgContainer:{
     // backgroundColor: 'red',
@@ -126,19 +125,17 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   explanImg:{
-    marginTop: 50,
-    height: 270,
-    width: 270,
-    resizeMode: 'contain'
+    height: 230,
+    width: 225,
+    resizeMode: 'cover',
+    backgroundColor: 'red'
   },
   pIndicContainer:{
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: Colors.transparentColor,
     flexDirection: 'row',
     justifyContent: 'center'
   },
   pIndicImg:{
-    marginTop: 30,
-    marginBottom: 10,
     resizeMode: 'contain'
   },
   nextStepBtn: {
@@ -269,14 +266,13 @@ class EmailSignUpStep1RenderRender extends Component {
               In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
               </Text>
 
-
+              <View style={styles.pIndicContainer}>
+                <Image style={styles.pIndicImg} source={require('../../../assets/pIndic1.jpg')}></Image>
+              </View>
             </View>
 
 
             <View style={styles.footerContainer}>
-              <View style={styles.pIndicContainer}>
-                <Image style={styles.pIndicImg} source={require('../../../assets/pIndic1.jpg')}></Image>
-              </View>
               <View style={styles.inputsContainer}>
                 <SignUpNameSurnameForm
                   form={this.props.auth.form}

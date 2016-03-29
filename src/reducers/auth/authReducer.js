@@ -126,11 +126,38 @@ export default function authReducer(state = initialState, action) {
     let nextState =  state.setIn(['form', 'fields', field], value)
           .setIn(['form','error'],null);
     // console.log("Validation in auth reducer next state "+nextState);
-    var finalState = formValidation(
+
+    let validatedState = formValidation(
       fieldValidation( nextState, action)
       , action);
+
+    let isValid = false;
+    switch (validatedState.form.state) {
+      case REGISTER_STEP_1:
+        if(!!validatedState.form.fields.surname && !!validatedState.form.fields.name && !validatedState.form.fields.nameHasError && !validatedState.form.fields.surnameHasError){
+          isValid = true;
+        }
+        break;
+      case REGISTER_STEP_2:
+        if(!validatedState.form.fields.emailHasError){
+          isValid = true;
+        }
+        break;
+      case REGISTER_STEP_3:
+        if(!validatedState.form.fields.passwordHasError){
+          isValid = true;
+        }
+        break;
+      case REGISTER_STEP_4:
+        if(!validatedState.form.fields.dateOfBirthHasError && !validatedState.form.fields.zipCodeHasError){
+          isValid = true;
+        }
+        break;
+      default:
+        break;
+    }
     // console.log("Validation in auth reducer final state "+finalState);
-    return finalState;
+    return validatedState.setIn(['form', 'isValid'], isValid);
   }
     /**
      * ### Requests end, good or bad
