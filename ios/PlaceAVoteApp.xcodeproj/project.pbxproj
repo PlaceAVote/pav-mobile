@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -30,6 +31,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		A580B40D2B114BB6A40ECF46 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA738D01E41A43E3BAF62525 /* Zocial.ttf */; };
 		AE2563B9EDAD4D8582661DC5 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 69F33D3319AB4FC4B42A304D /* Foundation.ttf */; };
+		D30C95A41CAAC51800ED4EF8 /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D30C95A31CAAC51800ED4EF8 /* Orientation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +152,8 @@
 		B68302A6F21349D385E3B212 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		BA738D01E41A43E3BAF62525 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		C36EC05E3CF049C7A48A6EE0 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		D30C95A21CAAC51800ED4EF8 /* Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
+		D30C95A31CAAC51800ED4EF8 /* Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
 		FEE8D2DA62564A91BB12AE90 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -314,6 +318,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D30C95A11CAAC51800ED4EF8 /* RCTOrientation */,
 				13B07FAE1A68108700A75B9A /* PlaceAVoteApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PlaceAVoteAppTests */,
@@ -346,6 +351,15 @@
 				BA738D01E41A43E3BAF62525 /* Zocial.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		D30C95A11CAAC51800ED4EF8 /* RCTOrientation */ = {
+			isa = PBXGroup;
+			children = (
+				D30C95A21CAAC51800ED4EF8 /* Orientation.h */,
+				D30C95A31CAAC51800ED4EF8 /* Orientation.m */,
+			);
+			path = RCTOrientation;
 			sourceTree = "<group>";
 		};
 		D388CE891CA2CEE00056C226 /* Products */ = {
@@ -614,6 +628,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				D30C95A41CAAC51800ED4EF8 /* Orientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

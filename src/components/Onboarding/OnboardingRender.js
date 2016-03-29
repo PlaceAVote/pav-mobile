@@ -19,6 +19,9 @@ import { connect } from 'react-redux';
 import * as authActions from '../../reducers/auth/authActions';
 import * as globalActions from '../../reducers/global/globalActions';
 
+
+
+
 /**
  * Immutable
  */
@@ -57,107 +60,17 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
 /**
  * The states were interested in
  */
-const {
-  LOGIN,
-  REGISTER_STEP_1,
-  FORGOT_PASSWORD
-} = ActionNames;
+// const {
+//   SET_ORIENTATION
+// } = ActionNames;
 
 
 
-/**
- * ## Styles
- */
-var styles = StyleSheet.create({
-  logoImgContainer:{
-    // backgroundColor: 'red',
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  logoImg:{
-    marginVertical: 5
-  },
-  backgroundImg: {
-    flex:1,
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    resizeMode: 'cover',
-    width: null,
-    height: null
-  },
-  container: {
-    // backgroundColor: 'orange',
-    flex:1,
-    flexDirection: 'column',
-    // backgroundColor: 'white',
-    marginVertical:60,
-    marginHorizontal:15
-  },
-  titleText: {
-    backgroundColor: Colors.transparentColor,
-    fontSize: 27,
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-    marginHorizontal: 41,
-    marginTop: 20,
-    marginBottom: 13,
-  },
-  descriptionText: {
-    backgroundColor: Colors.transparentColor,
-    fontSize: 17,
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-    marginHorizontal: 60,
-    marginTop: 13,
-    marginBottom: 13
-  },
-  descriptionText2: {
-    backgroundColor: Colors.transparentColor,
-    fontSize: 16,
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-    marginHorizontal: 60,
-    marginVertical: 13,
-  },
-  btnContainer:{
-    marginTop:50
-  },
-  btn: {
-    height:60,
-    borderRadius: 4,
-    borderWidth: 1
-  },
-  whiteBtnText:{
-    color: Colors.mainTextColor,
-    textAlign: 'center'
-  },
-  facebookBtn:{
-    backgroundColor: Colors.secondaryColor,
-    borderColor: Colors.mainBorderColor
-  },
-  emailBtn:{
-    backgroundColor: Colors.accentColor,
-    borderColor: Colors.mainBorderColor
-
-  },
-  signInBtn:{
-    backgroundColor: Colors.transparentColor,
-    borderColor: Colors.mainTextColor
-  },
-
-  iconStyle:{
-  }
-
-
-
-
-});
 /**
  * ## Redux boilerplate
  */
 const actions = [
-  authActions,
+  authActions
   // globalActions
 ];
 
@@ -186,11 +99,18 @@ class OnboardingRender extends Component {
   }
 
 
+
+
+
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
+
+    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
+    let styles= isPortrait?portraitStyles:landscapeStyles;
 
     let self = this;
     let onFbBtnPress = ()=>{
@@ -208,18 +128,33 @@ class OnboardingRender extends Component {
         <Image style={styles.backgroundImg} source={require('../../../assets/pavBG.jpg')}>
           <View style={styles.container}>
 
-            <View style={styles.logoImgContainer}>
-              <Image style={styles.logoImg} source={require('../../../assets/pavLogo.jpg')}></Image>
+            <View style={styles.explanContainer}>
+              <View style={styles.logoImgContainer}>
+                <Image style={styles.logoImg} source={require('../../../assets/pavLogo.jpg')}></Image>
+              </View>
+
+              <View style={styles.titleTextContainerVer}>
+                <View style={styles.titleTextContainerHor}>
+                  <Text style={styles.titleText} numberOfLines={2}>
+                  Be Loud. Be Heard. Be Represented.
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.descriptionContainerVer}>
+                <View style={styles.descriptionContainerHor}>
+                  <Text style={styles.descriptionText} >
+                  PlaceAVote gives you the opportunity to read, debate, and vote on every bill that is presented before Congress.
+                  </Text>
+                  <Text style={styles.descriptionText2} numberOfLines={5} >
+                  Place your vote today and let your representatives know how to represent you.
+                  </Text>
+                </View>
+              </View>
+
             </View>
-            <Text style={styles.titleText} >
-            Be Loud. Be Heard. Be Represented.
-            </Text>
-            <Text style={styles.descriptionText} >
-            PlaceAVote gives you the opportunity to read, debate, and vote on every bill that is presented before Congress.
-            </Text>
-            <Text style={styles.descriptionText2} >
-            Place your vote today and let your representatives know how to represent you.
-            </Text>
+
+
             <View style={styles.btnContainer}>
               <Button onPress={onFbBtnPress} style={[styles.facebookBtn, styles.btn]} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
                 Login with Facebook
@@ -236,6 +171,267 @@ class OnboardingRender extends Component {
     );
   }
 }
+
+
+
+/**
+ * ## Styles
+ */
+var portraitStyles = StyleSheet.create({
+
+  backgroundImg: {
+    flex:1,
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    resizeMode: 'cover',
+    width: null,
+    height: null
+  },
+  container: {
+    // backgroundColor: 'orange',
+    flex:1,
+    flexDirection: 'column',
+    marginVertical: 10,
+    marginHorizontal:15
+  },
+
+  explanContainer:{
+    // backgroundColor: 'black',
+    flex:0.62,
+    flexDirection: 'column',
+    justifyContent: 'flex-end'
+  },
+
+  logoImgContainer:{
+    // backgroundColor: 'red',
+    flex:0.2,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  logoImg:{
+    marginVertical: 5
+  },
+
+  titleTextContainerVer:{
+    flex:0.3, //height (according to its parent)
+    flexDirection: 'row', //its children will be in a row
+    backgroundColor: Colors.transparentColor,
+    justifyContent: 'center'
+    // alignSelf: 'center',
+  },
+
+  titleTextContainerHor:{
+    width: 274,
+    flexDirection: 'column',    //its children will be in a column
+    // backgroundColor: 'blue',
+    alignItems: 'center', //align items according to this parent (like setting self align on each item)
+    justifyContent: 'center'
+  },
+  titleText: {
+    // backgroundColor: 'black',
+    fontSize: 27,
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+  },
+
+  descriptionContainerVer:{
+    flex:0.55, //height (according to its parent)
+    flexDirection: 'row', //its children will be in a row
+    backgroundColor: Colors.transparentColor,
+    justifyContent: 'center'
+    // alignSelf: 'center',
+  },
+  descriptionContainerHor:{
+    width: 245,
+    flexDirection: 'column',    //its children will be in a column
+    // backgroundColor: 'blue',
+    alignItems: 'center', //align items according to this parent (like setting self align on each item)
+    justifyContent: 'space-around',
+  },
+  descriptionText: {
+    backgroundColor: Colors.transparentColor,
+    fontSize: 17,
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+
+  },
+  descriptionText2: {
+    backgroundColor: Colors.transparentColor,
+    fontSize: 16,
+    color: Colors.mainTextColor,
+    textAlign: 'center'
+  },
+
+
+
+  btnContainer:{
+    flex:0.45,
+    // backgroundColor: 'red',
+    justifyContent: 'flex-end'
+  },
+
+  btn: {
+    height:60,
+    borderRadius: 4,
+    borderWidth: 1
+  },
+  whiteBtnText:{
+    color: Colors.mainTextColor,
+    textAlign: 'center'
+  },
+  facebookBtn:{
+    backgroundColor: Colors.secondaryColor,
+    borderColor: Colors.mainBorderColor
+  },
+  emailBtn:{
+    backgroundColor: Colors.accentColor,
+    borderColor: Colors.mainBorderColor
+
+  },
+  signInBtn:{
+    backgroundColor: Colors.transparentColor,
+    borderColor: Colors.mainTextColor
+  },
+
+  iconStyle:{
+  }
+
+});
+
+
+
+
+
+/**
+ * ## Styles
+ */
+var landscapeStyles = StyleSheet.create({
+
+  backgroundImg: {
+    flex:1,
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    resizeMode: 'cover',
+    width: null,
+    height: null
+  },
+  container: {
+    // backgroundColor: 'orange',
+    flex:1,
+    flexDirection: 'column',
+    marginVertical: 10,
+    marginHorizontal:10
+  },
+
+  explanContainer:{
+    // backgroundColor: 'black',
+    flex:0.62,
+    flexDirection: 'column',
+    justifyContent: 'flex-end'
+  },
+
+  logoImgContainer:{
+    // backgroundColor: 'red',
+    flex:0.3,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  logoImg:{
+  },
+
+  titleTextContainerVer:{
+    flex:0.2, //height (according to its parent)
+    flexDirection: 'row', //its children will be in a row
+    backgroundColor: Colors.transparentColor,
+    justifyContent: 'center'
+    // alignSelf: 'center',
+  },
+
+  titleTextContainerHor:{
+    width: 574,
+    flexDirection: 'column',    //its children will be in a column
+    // backgroundColor: 'blue',
+    alignItems: 'center', //align items according to this parent (like setting self align on each item)
+    justifyContent: 'center'
+  },
+  titleText: {
+    // backgroundColor: 'black',
+    fontSize: 27,
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+  },
+
+  descriptionContainerVer:{
+    flex:0.55, //height (according to its parent)
+    flexDirection: 'row', //its children will be in a row
+    backgroundColor: Colors.transparentColor,
+    justifyContent: 'center'
+    // alignSelf: 'center',
+  },
+  descriptionContainerHor:{
+    width: 510,
+    flexDirection: 'column',    //its children will be in a column
+    // backgroundColor: 'blue',
+    alignItems: 'center', //align items according to this parent (like setting self align on each item)
+    justifyContent: 'space-around',
+  },
+  descriptionText: {
+    backgroundColor: Colors.transparentColor,
+    fontSize: 17,
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+
+  },
+  descriptionText2: {
+    backgroundColor: Colors.transparentColor,
+    fontSize: 14,
+    color: Colors.mainTextColor,
+    textAlign: 'center'
+  },
+
+
+
+  btnContainer:{
+    flex:0.45,
+    flexDirection:'column',
+    // backgroundColor: 'red'
+  },
+
+  btn: {
+    height:36,
+    borderRadius: 4,
+    borderWidth: 1,
+    marginVertical:0
+  },
+  whiteBtnText:{
+    color: Colors.mainTextColor,
+    textAlign: 'center'
+  },
+  facebookBtn:{
+    backgroundColor: Colors.secondaryColor,
+    borderColor: Colors.mainBorderColor
+  },
+  emailBtn:{
+    backgroundColor: Colors.accentColor,
+    borderColor: Colors.mainBorderColor
+
+  },
+  signInBtn:{
+    backgroundColor: Colors.transparentColor,
+    borderColor: Colors.mainTextColor
+  },
+
+  iconStyle:{
+  }
+
+});
+
+
+
+
+
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingRender);

@@ -17,7 +17,10 @@ import { connect } from 'react-redux';
  */
 import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
+import * as deviceActions from '../reducers/device/deviceActions';
 
+
+import Orientation from 'react-native-orientation';
 /**
  * Router actions
  */
@@ -38,17 +41,18 @@ import OnboardingRender from '../components/Onboarding/OnboardingRender'
  */
 import React from 'react-native';
 
-const {
-  LOGIN,
-  FORGOT_PASSWORD
-} = require('../config/constants').ActionNames
+// const {
+
+// } = require('../config/constants').ActionNames
+
 
 /**
  * ## Redux boilerplate
  */
 const actions = [
   authActions,
-  routingActions
+  routingActions,
+  deviceActions
 ];
 
 function mapStateToProps(state) {
@@ -89,12 +93,27 @@ function buttonPressHandler(scheneName) {
 
 let Onboarding = React.createClass({
 
+  orientationDidChange: function(orientation) {
+    // console.log("Orientation: "+orientation);
+    this.props.actions.setOrientation(orientation);
+  },
+
+  componentDidMount: function() {
+    Orientation.addOrientationListener(this.orientationDidChange);
+    this.props.actions.unlockOrientation();
+  },
+
+  componentWillUnmount: function() {
+    Orientation.removeOrientationListener(this.orientationDidChange);
+  },
+
   render() {
     let onButtonPress = buttonPressHandler.bind(this);
     return(
       <OnboardingRender
           auth={ this.props.auth }
           global={ this.props.global }
+          device={ this.props.device}
           onButtonPress={ onButtonPress }
       />
 

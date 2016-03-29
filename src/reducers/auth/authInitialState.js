@@ -26,7 +26,7 @@ const Form = Record({
   state: REGISTER_STEP_1,
   disabled: false,
   error: null,
-  isValid: false,
+  isValid: [],
   isFetching: false,
   fields: new (Record({
     username: '',

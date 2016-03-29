@@ -16,7 +16,9 @@ import InitialState from './deviceInitialState';
  */
 const {
   SET_PLATFORM,
-  SET_VERSION
+  SET_VERSION,
+  SET_ORIENTATION,
+  SET_ORIENTATION_LOCK
 } = require('../../config/constants').ActionNames
 
 const initialState = new InitialState;
@@ -31,10 +33,27 @@ export default function deviceReducer(state = initialState, action) {
 
   switch (action.type) {
 
-    /**
-     * ### set the platform in the state
-     *
-     */
+  /**
+   * ### set the orientation in the state
+   *
+   */
+  case SET_ORIENTATION:
+    const orientation = action.payload;
+    // console.log("NEW orientation: "+orientation);
+    return state.set('orientation', orientation);
+
+
+  case SET_ORIENTATION_LOCK:
+    const isLocked = action.payload;
+    // console.log("NEW orientation: "+orientation);
+    return state.set('orientationLocked', isLocked);
+
+
+
+  /**
+   * ### set the platform in the state
+   *
+   */
   case SET_PLATFORM:
     const platform = action.payload;
     return state.set('platform', platform);

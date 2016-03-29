@@ -57,6 +57,8 @@ import React, {
 
       import EmailSignIn from './containers/EmailSignIn';
       import EmailSignUpStep1 from './containers/EmailSignUpStep1';
+      import EmailSignUpStep2 from './containers/EmailSignUpStep2';
+
       // import Logout from './containers/Logout';
       import Onboarding from './containers/Onboarding';
       // import ForgotPassword from './containers/ForgotPassword';
@@ -204,6 +206,7 @@ import React, {
 
                       <Scene key="EmailSignUp" type="push" title="Sign Up" titleStyle={{color:Colors.mainTextColor}} >
                         <Scene key="EmailSignUp1" component={EmailSignUpStep1} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
+                        <Scene key="EmailSignUp2" component={EmailSignUpStep2} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
                       </Scene>
 
                     </Scene>

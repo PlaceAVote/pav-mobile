@@ -1,7 +1,7 @@
 /**
- * # EmailSignUpStep1.js
+ * # EmailSignUpStep2.js
  *
- *  The container to display the EmailSignUpStep1 form
+ *  The container to display the EmailSignUpStep2 form
  *
  */
 'use strict';
@@ -26,9 +26,9 @@ import * as deviceActions from '../reducers/device/deviceActions';
 import {Map} from 'immutable';
 
 /**
- *   EmailSignUpStep1Render
+ *   EmailSignUpStep2Render
  */
-import EmailSignUpStep1Render from '../components/EmailSignUp/EmailSignUpStep1Render';
+import EmailSignUpStep2Render from '../components/EmailSignUp/EmailSignUpStep2Render';
 
 /**
  * The necessary React components
@@ -78,7 +78,7 @@ function mapDispatchToProps(dispatch) {
 //
 // }
 
-let EmailSignUpStep1 = React.createClass({
+let EmailSignUpStep2 = React.createClass({
 
   render() {
     let onButtonPress = ()=>{
@@ -92,7 +92,7 @@ let EmailSignUpStep1 = React.createClass({
     // );
 
     return(
-      <EmailSignUpStep1Render
+      <EmailSignUpStep2Render
           onNextStep={ onButtonPress }
           auth={ this.props.auth }
           global={ this.props.global }
@@ -102,4 +102,4 @@ let EmailSignUpStep1 = React.createClass({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep1);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep2);

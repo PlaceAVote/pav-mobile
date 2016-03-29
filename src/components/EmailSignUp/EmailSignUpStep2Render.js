@@ -48,10 +48,10 @@ import ErrorAlert from '../../components/ErrorAlert';
  */
 import FormButton from '../../components/FormButton';
 /**
- *  The SignInForm does the heavy lifting of displaying the fields for
+ *  The SignUpForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignInForm from './SignInForm';
+import SignUpNameSurnameForm from './SignUpNameSurnameForm';
 /**
  * The itemCheckbox will toggle the display of the password fields
  */
@@ -79,10 +79,7 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
 /**
  * The states were interested in
  */
-const {
-  LOGIN,
-  FORGOT_PASSWORD
-} = ActionNames;
+
 
 
 
@@ -99,49 +96,61 @@ var styles = StyleSheet.create({
     flex:1,
     flexDirection: 'column',
 
-    marginTop:110,
+  },
+  explanationContainer:{
+    flex:1,
+    flexDirection: 'column',
+    backgroundColor: Colors.primaryColor,
+  },
+  inputsContainer:{
+    marginTop:15,
     marginBottom:20,
-    marginHorizontal:15
+    marginHorizontal:15,
+    justifyContent: "flex-end"
   },
-  titleText: {
+  footerContainer:{
+    backgroundColor: 'white'
+  },
+  descriptionText: {
     backgroundColor: Colors.transparentColor,
-    fontSize: 27,
-    color: Colors.secondaryTextColor,
+    fontSize: 16,
+    color: Colors.mainTextColor,
     textAlign: 'center',
-    marginHorizontal: 41,
-    marginTop: 20,
-    marginBottom: 13,
+    marginHorizontal: 30,
+    marginTop: 5,
+    marginBottom: 3
   },
-  signInBtn: {
+  explanImgContainer:{
+    // backgroundColor: 'red',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  explanImg:{
+    marginTop: 50,
+    height: 270,
+    width: 270,
+    resizeMode: 'contain'
+  },
+  pIndicContainer:{
+    backgroundColor: Colors.primaryColor,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  pIndicImg:{
+    marginTop: 30,
+    marginBottom: 10,
+    resizeMode: 'contain'
+  },
+  nextStepBtn: {
     backgroundColor: Colors.accentColor,
     borderRadius: 2,
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
-    marginTop: 15,
-    height: 65
-  },
-  facebookBtn:{
-    backgroundColor: Colors.secondaryColor,
-    borderRadius: 2,
-    borderWidth: 1,
-    borderColor: Colors.mainBorderColor,
-    marginTop: 15,
     height: 65
   },
   whiteBtnText:{
     color: Colors.mainTextColor,
     textAlign: 'center'
-  },
-  orText:{
-    color: Colors.secondaryTextColor,
-    alignSelf:"center",
-    marginVertical:10
-  },
-  forgotPasswordText:{
-    color: "#E76354",
-    alignSelf:"center",
-    marginVertical:13,
-    fontSize: 18,
   }
 
 });
@@ -171,15 +180,19 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-class EmailSignInRender extends Component {
+
+
+
+
+
+class EmailSignUpStep2RenderRender extends Component {
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();
     this.state ={
       value: {
-        email: this.props.auth.form.fields.email,
-        password: this.props.auth.form.fields.password,
-        passwordAgain: this.props.auth.form.fields.passwordAgain
+        name: this.props.auth.form.fields.name,
+      	surname: this.props.auth.form.fields.surname
       }
     };
   }
@@ -191,13 +204,11 @@ class EmailSignInRender extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	email: nextprops.auth.form.fields.email,
-      	password: nextprops.auth.form.fields.password,
-      	passwordAgain: nextprops.auth.form.fields.passwordAgain
+      	name: nextprops.auth.form.fields.name,
+      	surname: nextprops.auth.form.fields.surname
       }
     });
   }
-
 
   /**
    * ### onChange
@@ -209,22 +220,21 @@ class EmailSignInRender extends Component {
    * *Note* that the fields are validated by the authReducer
    */
   onChange(value) {
-    // if (value.username != '') {
-    //   this.props.actions.onAuthFormFieldChange('username',value.username);
-    // }
-    // if (value.email != '') {
-    //   this.props.actions.onAuthFormFieldChange('email',value.email);
-    // }
-    // if (value.password != '') {
-    //   this.props.actions.onAuthFormFieldChange('password',value.password);
-    // }
-    // if (value.passwordAgain != '') {
-    //   this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain);
-    // }
-    // this.setState(
-    //   {value}
-    // );
+
+    console.log("Changed"+JSON.stringify(value));
+    if (value.name != '') {
+      this.props.actions.onAuthFormFieldChange('name',value.name);
+    }
+    if (value.surname != '') {
+      this.props.actions.onAuthFormFieldChange('surname',value.surname);
+    }
+
+    this.setState(
+      {value}
+    );
   }
+
+
 
   /**
    * ### render
@@ -232,39 +242,55 @@ class EmailSignInRender extends Component {
    */
   render() {
 
-    let self = this;
-    let onBtnPress = ()=>{
-      this.props.onButtonPress("signIn");
-    },
-    onFbBtnPress = ()=>{
-      this.props.onButtonPress("facebook");
-    }
 
+    // var onButtonPress = this.props.onButtonPress;
+    let self = this;
+
+    let onBtnPress = ()=>{
+      this.props.onNextStep();
+    }
 
 
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
-          <View>
-      	    <View style={styles.inputs}>
-      	      <SignInForm
-                form={this.props.auth.form}
-                value={this.state.value}
-                onChange={self.onChange.bind(self)}
-      	      />
-            </View>
-            <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
-                isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
-                onPress={onBtnPress}>
-              Sign In
-            </Button>
-            <Text style={styles.orText}>Or</Text>
-            <Button onPress={onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
-              Sign Up with Facebook
-            </Button>
-            <Text style={styles.forgotPasswordText}>Forgot Password</Text>
 
-      	  </View>
+
+            <View style={styles.explanationContainer}>
+
+
+              <View style={styles.explanImgContainer}>
+                <Image style={styles.explanImg} source={require('../../../assets/signupExpl1.jpg')}></Image>
+              </View>
+
+
+
+              <Text style={styles.descriptionText} >
+              In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
+              </Text>
+
+
+            </View>
+
+
+            <View style={styles.footerContainer}>
+              <View style={styles.pIndicContainer}>
+                <Image style={styles.pIndicImg} source={require('../../../assets/pIndic1.jpg')}></Image>
+              </View>
+              <View style={styles.inputsContainer}>
+                <SignUpNameSurnameForm
+                  form={this.props.auth.form}
+                  value={this.state.value}
+                  onChange={self.onChange.bind(self)}
+                />
+                <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
+                    isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+                    onPress={onBtnPress}>
+                  Next Step
+                </Button>
+              </View>
+            </View>
+
 
         </View>
       </View>
@@ -273,4 +299,4 @@ class EmailSignInRender extends Component {
 }
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignInRender);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep2RenderRender);

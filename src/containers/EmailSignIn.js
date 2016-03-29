@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
  */
 import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
-
+import * as deviceActions from '../reducers/device/deviceActions';
 
 /**
  * Immutable
@@ -46,7 +46,8 @@ const {
  */
 const actions = [
   authActions,
-  routingActions
+  routingActions,
+  deviceActions
 ];
 
 function mapStateToProps(state) {
@@ -77,11 +78,15 @@ function buttonPressHandler(login, username, password) {
 
 let EmailSignIn = React.createClass({
 
+  componentDidMount() {
+      this.props.actions.lockOrientation("PORTRAIT");
+  },
+
   render() {
     let onButtonPress = ()=>{
 
     };
-    let loginButtonText = 'Log in';
+
     //  buttonPressHandler.bind(null,
 		// 		                this.props.actions.login,
 		// 		                this.props.auth.form.fields.username,
@@ -93,13 +98,6 @@ let EmailSignIn = React.createClass({
           onButtonPress={ onButtonPress }
           auth={ this.props.auth }
           global={ this.props.global }
-
-            formType={ LOGIN }
-            loginButtonText={ loginButtonText }
-            displayPasswordCheckbox={ false }
-            leftMessageType={ FORGOT_PASSWORD }
-            rightMessageType={ FORGOT_PASSWORD }
-
       />
     );
   }

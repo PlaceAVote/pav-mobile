@@ -23,6 +23,8 @@ module.exports =  {
 
    SET_PLATFORM: null,
    SET_VERSION: null,
+   SET_ORIENTATION: null,
+   SET_ORIENTATION_LOCK:null,
 
    SESSION_TOKEN_REQUEST: null,
    SESSION_TOKEN_SUCCESS: null,
