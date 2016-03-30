@@ -51,7 +51,7 @@ import FormButton from '../../components/FormButton';
  *  The SignUpForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignUpNameSurnameForm from './SignUpNameSurnameForm';
+import SignUpPasswordForm from './SignUpPasswordForm';
 /**
  * The itemCheckbox will toggle the display of the password fields
  */
@@ -130,7 +130,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   descriptionText: {
-    flex:0.3,
+    flex:0.5,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
     fontSize: 14,
@@ -139,7 +139,7 @@ var styles = StyleSheet.create({
     marginHorizontal: 21,
   },
   explanImgContainer:{
-    flex:0.6,
+    flex:0.4,
     // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -147,8 +147,8 @@ var styles = StyleSheet.create({
     marginVertical: 10
   },
   explanImg:{
-    height: 200,
-    width: 195,
+    height: 130,
+    width: 130,
     resizeMode: 'cover',
     // backgroundColor: 'red'
   },
@@ -298,13 +298,13 @@ class EmailSignUpStep2Render extends Component {
 
 
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} source={require('../../../assets/signupExpl1.jpg')}></Image>
+                <Image style={styles.explanImg} source={require('../../../assets/signupExpl3.jpg')}></Image>
               </View>
 
 
 
               <Text style={styles.descriptionText} >
-              In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
+              Help change Congress in making your voice louder than lobbyists by supporting and electing representatives who promise to utilize PlaceAVote in seeing how their districts are voting on each legislative issue and bill, and having their vote be a true reflection of the majority of their constituents.
               </Text>
 
               {self.renderPageIndicatorIcon()}
@@ -313,7 +313,7 @@ class EmailSignUpStep2Render extends Component {
 
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
-                <SignUpNameSurnameForm
+                <SignUpPasswordForm
                   form={this.props.auth.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}

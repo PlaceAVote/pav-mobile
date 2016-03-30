@@ -77,7 +77,6 @@ export function navigateTo(schene) {
 export function navigateToPrevious() {
     return (dispatch, getState) => {
       const state = getState()
-      // console.log("@@@@@@@@@@@@@@@@@@@@@@"+JSON.stringify(state)+"@@@@@@@@@@@@@@@@@@@@@@");
       if(!!state.router.previousSchene){
         Actions.pop()
         dispatch(navigateToPreviousState());

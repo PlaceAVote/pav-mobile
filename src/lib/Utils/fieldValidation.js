@@ -78,15 +78,14 @@ const surnameConstraints = {
 * ## password validation rule
 * read the message... ;)
 */
-const passwordPattern =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
+const passwordPattern =  /^(?=.*\d)(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
 const passwordConstraints = {
   password: {
     presence: true,
     format: {
       pattern: passwordPattern,
       flags: "i",
-      message: "have at least a number and a special character,"
-          + " and between 6-12 in length"
+      message: "Password length 6-20 characters, containing both a digit and a capital letter."
     }
   }
 };
