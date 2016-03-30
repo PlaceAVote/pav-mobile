@@ -153,6 +153,11 @@ export default function authReducer(state = initialState, action) {
           isValid = true;
         }
         break;
+      case LOGIN:
+        if(!!validatedState.form.fields.email && !!validatedState.form.fields.password && !validatedState.form.fields.emailHasError && !validatedState.form.fields.passwordHasError){
+          isValid = true;
+        }
+        break;
       default:
         break;
     }

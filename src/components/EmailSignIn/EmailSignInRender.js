@@ -97,14 +97,16 @@ var styles = StyleSheet.create({
   },
   contentContainer: {
     flex:1,
+    // backgroundColor: 'blue',
     flexDirection: 'column',
-
-    marginTop:110,
+    justifyContent: 'center',
+    marginTop:80,
     marginBottom:20,
     marginHorizontal:15
   },
   titleText: {
     backgroundColor: Colors.transparentColor,
+    // backgroundColor: 'green',
     fontSize: 27,
     color: Colors.secondaryTextColor,
     textAlign: 'center',
@@ -118,7 +120,7 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
     marginTop: 15,
-    height: 65
+    height: 60
   },
   facebookBtn:{
     backgroundColor: Colors.secondaryColor,
@@ -126,7 +128,7 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
     marginTop: 15,
-    height: 65
+    height: 60
   },
   whiteBtnText:{
     color: Colors.mainTextColor,
@@ -135,13 +137,14 @@ var styles = StyleSheet.create({
   orText:{
     color: Colors.secondaryTextColor,
     alignSelf:"center",
-    marginVertical:10
+    marginVertical:5
   },
   forgotPasswordText:{
+    // backgroundColor: 'green',
     color: "#E76354",
     alignSelf:"center",
     marginVertical:13,
-    fontSize: 18,
+    fontSize: 16,
   }
 
 });
@@ -178,8 +181,7 @@ class EmailSignInRender extends Component {
     this.state ={
       value: {
         email: this.props.auth.form.fields.email,
-        password: this.props.auth.form.fields.password,
-        passwordAgain: this.props.auth.form.fields.passwordAgain
+        password: this.props.auth.form.fields.password
       }
     };
   }
@@ -192,8 +194,7 @@ class EmailSignInRender extends Component {
     this.setState({
       value: {
       	email: nextprops.auth.form.fields.email,
-      	password: nextprops.auth.form.fields.password,
-      	passwordAgain: nextprops.auth.form.fields.passwordAgain
+      	password: nextprops.auth.form.fields.password
       }
     });
   }
@@ -209,21 +210,15 @@ class EmailSignInRender extends Component {
    * *Note* that the fields are validated by the authReducer
    */
   onChange(value) {
-    // if (value.username != '') {
-    //   this.props.actions.onAuthFormFieldChange('username',value.username);
-    // }
-    // if (value.email != '') {
-    //   this.props.actions.onAuthFormFieldChange('email',value.email);
-    // }
-    // if (value.password != '') {
-    //   this.props.actions.onAuthFormFieldChange('password',value.password);
-    // }
-    // if (value.passwordAgain != '') {
-    //   this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain);
-    // }
-    // this.setState(
-    //   {value}
-    // );
+    if (value.email != '') {
+      this.props.actions.onAuthFormFieldChange('email',value.email);
+    }
+    if (value.password != '') {
+      this.props.actions.onAuthFormFieldChange('password',value.password);
+    }
+    this.setState(
+      {value}
+    );
   }
 
   /**
@@ -245,27 +240,23 @@ class EmailSignInRender extends Component {
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
-          <View>
-      	    <View style={styles.inputs}>
-      	      <SignInForm
-                form={this.props.auth.form}
-                value={this.state.value}
-                onChange={self.onChange.bind(self)}
-      	      />
-            </View>
-            <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
-                isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
-                onPress={onBtnPress}>
-              Sign In
-            </Button>
-            <Text style={styles.orText}>Or</Text>
-            <Button onPress={onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
-              Sign Up with Facebook
-            </Button>
-            <Text style={styles.forgotPasswordText}>Forgot Password</Text>
-
-      	  </View>
-
+          <View style={styles.inputs}>
+            <SignInForm
+              form={this.props.auth.form}
+              value={this.state.value}
+              onChange={self.onChange.bind(self)}
+            />
+          </View>
+          <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
+              isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+              onPress={onBtnPress}>
+            Sign In
+          </Button>
+          <Text style={styles.orText}>Or</Text>
+          <Button onPress={onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
+            Sign Up with Facebook
+          </Button>
+          <Text style={styles.forgotPasswordText}>Forgot Password</Text>
         </View>
       </View>
     );

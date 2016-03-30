@@ -23,10 +23,10 @@ import { ActionNames, Colors } from '../../config/constants';
 /**
  * States of login display
  */
-const {
-  LOGIN,
-  FORGOT_PASSWORD
-} = ActionNames
+// const {
+//   LOGIN,
+//   FORGOT_PASSWORD
+// } = ActionNames
 
 /**
  *  The fantastic little form library
@@ -49,6 +49,8 @@ var SignInForm = React.createClass({
     onChange: PropTypes.func
   },
 
+
+
   /**
    * ## render
    *
@@ -62,12 +64,13 @@ var SignInForm = React.createClass({
 
 
 
-
-    var INPUT_COLOR = Colors.secondaryTextColor;
+    var INPUT_COLOR = Colors.thirdTextColor;
     var DISABLED_COLOR = '#777777';
     var DISABLED_BACKGROUND_COLOR = '#eeeeee';
     var FONT_SIZE = 17;
     var FONT_WEIGHT = '500';
+
+
 
     var stylesheet = Object.freeze({
       fieldset: {
@@ -114,15 +117,20 @@ var SignInForm = React.createClass({
         }
       },
       errorBlock: {
-        fontSize: FONT_SIZE,
-        marginBottom: 2,
+        flexWrap: 'wrap',
+        // position: 'absolute',
+        // backgroundColor: 'red',
+        fontSize: 13,
+        justifyContent: 'center',
+        textAlign: 'center',
         color: Colors.errorTextColor
+
       },
       textbox: {
         normal: {
           color: INPUT_COLOR,
           fontSize: FONT_SIZE,
-          height: 59,
+          height: 45,
           padding: 7,
           borderRadius: 4,
           borderColor: Colors.mainBorderColor,
@@ -133,7 +141,7 @@ var SignInForm = React.createClass({
         error: {
           color: INPUT_COLOR,
           fontSize: FONT_SIZE,
-          height: 59,
+          height: 45,
           padding: 7,
           borderRadius: 4,
           borderColor: Colors.errorTextColor,
@@ -186,8 +194,8 @@ var SignInForm = React.createClass({
           label: 'Email Address',
           maxLength: 12,
           editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.usernameHasError,
-          error: 'Must have 6-12 characters and/or numbers',
+          hasError: this.props.form.fields.emailHasError,
+          error: 'Please give us a valid email address.',
           placeholder: 'example@example.com'
 
         },
@@ -197,7 +205,7 @@ var SignInForm = React.createClass({
           secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.passwordHasError,
-          error: 'Must have 6-12 characters with at least 1 number and 1 special character',
+          error: 'Please give us a valid password.',
           placeholder: '************'
 
         }

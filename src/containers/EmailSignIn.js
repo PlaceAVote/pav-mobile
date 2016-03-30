@@ -80,6 +80,7 @@ let EmailSignIn = React.createClass({
 
   componentDidMount() {
       this.props.actions.lockOrientation("PORTRAIT");
+      this.props.actions.loginState();
   },
 
   render() {
