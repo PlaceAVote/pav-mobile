@@ -32,7 +32,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
   // jest.unmock("underscore");
 
   let Immutable = require('immutable');
-  let Record = Immutable.Record;
+  let {Record, Map} = Immutable;
 
 
   let Form = Record({
@@ -73,91 +73,6 @@ describe('Tests that the fieldValidation function validates the input correctly.
 
 
 
-
-
-
-
-
-
-   /**
-   * ### it should return false because we provide it a valid username
-   */
-  it('should return false since we\'re feeding it a username that is between 6-12 a-zA-Z0-9 characters', () => {
-
-    let action = {
-      payload:{
-        field: 'username',  //the username should be from
-        value: 'ioannis1'
-      }
-    };
-    let res = fieldValidation((new InitialState), action);
-    expect(res.toObject().form.fields.usernameHasError).toEqual(false);
-  });
-
-
-
-
- /**
-   * ### it should return true because we provide it an invalid username
-   */
-  it('should return true since we\'re feeding it a username that has a length of 2 characters', () => {
-
-    let action = {
-      payload:{
-        field: 'username',  //the username should be from
-        value: 'a2'
-      }
-    };
-    let res = fieldValidation((new InitialState), action);
-    expect(res.toObject().form.fields.usernameHasError).toEqual(true);
-  });
-
-
-
- /**
-   * ### it should return true because we provide it an invalid username
-   */
-  it('should return true since we\'re feeding it a username that is more than 12 characters', () => {
-
-    let action = {
-      payload:{
-        field: 'username',  //the username should be from
-        value: 'awfafawfawfawfawfawfawf'
-      }
-    };
-    let res = fieldValidation((new InitialState), action);
-    expect(res.toObject().form.fields.usernameHasError).toEqual(true);
-  });
-
-  /**
-   * ### it should return true because we provide it an invalid username
-   */
-  it('should return true since we\'re feeding it a blank username.', () => {
-
-    let action = {
-      payload:{
-        field: 'username',  //the username should be from
-        value: ''
-      }
-    };
-    let res = fieldValidation((new InitialState), action);
-    expect(res.toObject().form.fields.usernameHasError).toEqual(true);
-  });
-
-  /**
-   * ### it should return true because we provide it an invalid username
-   */
-  it('should return true since we\'re feeding it a username that contains special characters.', () => {
-
-    let action = {
-      payload:{
-        field: 'username',  //the username should be from
-        value: 'awda@%@'
-      }
-    };
-    let res = fieldValidation((new InitialState), action);
-    expect(res.toObject().form.fields.usernameHasError).toEqual(true);
-  });
 
 
 
@@ -274,12 +189,12 @@ describe('Tests that the fieldValidation function validates the input correctly.
   /**
    * ### it should return false because we provide it a valid password
    */
-  it('should return false since we\'re feeding it a password that has at least a number and a special character and is between 6-12 a-zA-Z or !@#$%^&* characters', () => {
+  it('should return false since we\'re feeding it a password that has at least a number and a capital letter and is between 6-20 a-zA-Z or !@#$%^&* characters', () => {
 
     let action = {
       payload:{
         field: 'password',  //the password should be from
-        value: 'ioannis!@123'
+        value: 'Ioannis123'
       }
     };
     let res = fieldValidation((new InitialState), action);
