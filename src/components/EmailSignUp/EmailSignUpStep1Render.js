@@ -90,7 +90,7 @@ var styles = StyleSheet.create({
 
   baseContainer: {
     flex:1,
-    backgroundColor: 'black'//Colors.primaryColor,
+    backgroundColor: Colors.primaryColor,
   },
   contentContainer: {
     flex:1,
@@ -104,24 +104,23 @@ var styles = StyleSheet.create({
     borderWidth: 0,
     alignSelf: 'flex-start',
     // backgroundColor: 'blue',
-    // borderColor: Colors.mainBorderColor,
     height: 10
   },
   explanationContainer:{
     flex:1,
     flexDirection: 'column',
-    backgroundColor: 'red'//Colors.primaryColor,
+    backgroundColor: Colors.primaryColor,
   },
   inputsContainer:{
     marginTop:15,
     marginBottom:20,
     marginHorizontal:15,
     justifyContent: "flex-end",
-    backgroundColor: 'blue'//'white'
+    backgroundColor: 'white'
 
   },
   footerContainer:{
-    backgroundColor: 'yellow'//'white'
+    backgroundColor: 'white'
   },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
@@ -139,7 +138,7 @@ var styles = StyleSheet.create({
     height: 200,
     width: 195,
     resizeMode: 'cover',
-    backgroundColor: 'red'
+    // backgroundColor: 'red'
   },
   pIndicContainer:{
     backgroundColor: Colors.transparentColor,

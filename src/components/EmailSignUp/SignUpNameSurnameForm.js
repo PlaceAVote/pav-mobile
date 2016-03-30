@@ -110,9 +110,9 @@ var SignUpNameSurnameForm = React.createClass({
         flexWrap: 'wrap',
         // position: 'absolute',
         // backgroundColor: 'red',
+        fontSize: 13,
         justifyContent: 'center',
         textAlign: 'center',
-        fontSize: FONT_SIZE,
         color: Colors.errorTextColor
 
       },
