@@ -30,17 +30,17 @@ const emailConstraints = {
 * ## username validation rule
 * read the message.. ;)
 */
-const usernamePattern = /^[a-zA-Z0-9]{6,12}$/;
-const usernameConstraints = {
-  username: {
-    presence: true,
-    format: {
-      pattern: usernamePattern,
-      flags: 'i',
-      message: "must have 6-12 numbers, letters or special characters"
-    }
-  }
-};
+// const usernamePattern = /^[a-zA-Z0-9]{6,12}$/;
+// const usernameConstraints = {
+//   username: {
+//     presence: true,
+//     format: {
+//       pattern: usernamePattern,
+//       flags: 'i',
+//       message: "must have 6-12 numbers, letters or special characters"
+//     }
+//   }
+// };
 
 /**
 * ## name validation rule
@@ -110,15 +110,15 @@ export default function fieldValidation(state, action ) {
      * ### username validation
      * set the form field error
      */
-  case('username'):
-    let validUsername  = _.isUndefined(validate({username: value},
-                                                usernameConstraints));
-    if (validUsername) {
-      return state.setIn(['form', 'fields', 'usernameHasError'], false);
-    } else {
-      return state.setIn(['form', 'fields', 'usernameHasError'], true);
-    }
-    break;
+  // case('username'):
+  //   let validUsername  = _.isUndefined(validate({username: value},
+  //                                               usernameConstraints));
+  //   if (validUsername) {
+  //     return state.setIn(['form', 'fields', 'usernameHasError'], false);
+  //   } else {
+  //     return state.setIn(['form', 'fields', 'usernameHasError'], true);
+  //   }
+  //   break;
 
     /**
      * ### name validation

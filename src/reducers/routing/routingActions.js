@@ -56,7 +56,7 @@ Action creators
 
 */
 
-export function navigateToRequested(schene) {
+export function navigateTo(schene) {
   return dispatch => {
     try{
       Actions[schene]();

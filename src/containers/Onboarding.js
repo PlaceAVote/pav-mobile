@@ -76,14 +76,14 @@ function mapDispatchToProps(dispatch) {
 function buttonPressHandler(scheneName) {
   switch(scheneName){
     case "facebook":
-      this.props.actions.navigateToRequested("FacebookSignIn");
+      this.props.actions.navigateTo("FacebookSignIn");
       break;
     case "emailSignUp":
       this.props.actions.registerState(1);
-      this.props.actions.navigateToRequested("EmailSignUp");
+      this.props.actions.navigateTo("EmailSignUp");
       break;
     case "emailSignIn":
-      this.props.actions.navigateToRequested("EmailSignIn");
+      this.props.actions.navigateTo("EmailSignIn");
       break;
     default:
       console.log("Invalid selector provided, Onboarding cannot issue a navigation action with schene name of: "+scheneName);

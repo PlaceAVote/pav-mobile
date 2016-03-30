@@ -51,7 +51,7 @@ import FormButton from '../../components/FormButton';
  *  The SignUpForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignUpNameSurnameForm from './SignUpNameSurnameForm';
+import SignUpEmailForm from './SignUpEmailForm';
 /**
  * The itemCheckbox will toggle the display of the password fields
  */
@@ -90,55 +90,79 @@ var styles = StyleSheet.create({
 
   baseContainer: {
     flex:1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.primaryColor,
   },
   contentContainer: {
     flex:1,
-    flexDirection: 'column',
-
+    flexDirection: 'column'
+  },
+  backBtn:{
+    marginTop:20,
+    marginLeft:3,
+    // position: 'absolute',
+    borderRadius: 0,
+    borderWidth: 0,
+    alignSelf: 'flex-start',
+    // backgroundColor: 'blue',
+    height: 10
   },
   explanationContainer:{
-    flex:1,
+    flex:0.64,
     flexDirection: 'column',
-    backgroundColor: Colors.primaryColor,
+    alignItems: 'center', //x axis
+    justifyContent: 'flex-end',
+    backgroundColor: Colors.primaryColor
+    // ,backgroundColor: 'red'
+  },
+  footerContainer:{
+    flex:0.36,
+    backgroundColor: 'white'
   },
   inputsContainer:{
+    flex:1,
     marginTop:15,
     marginBottom:20,
     marginHorizontal:15,
-    justifyContent: "flex-end"
-  },
-  footerContainer:{
+    justifyContent: "flex-end",
     backgroundColor: 'white'
   },
+
   descriptionText: {
     backgroundColor: Colors.transparentColor,
-    fontSize: 16,
+    // backgroundColor:'black',
+    flex:0.3,
+    fontSize: 14,
     color: Colors.mainTextColor,
     textAlign: 'center',
-    marginHorizontal: 30,
-    marginTop: 5,
-    marginBottom: 3
+    marginHorizontal: 21,
   },
   explanImgContainer:{
-    // backgroundColor: 'red',
+    flex:0.6,
+    // backgroundColor: 'blue',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center', //x axis
+    alignItems: 'flex-end',    //y axis
+    marginVertical: 10
   },
   explanImg:{
-    marginTop: 50,
-    height: 270,
-    width: 270,
-    resizeMode: 'contain'
+    height: 190,
+    width: 220,
+    resizeMode: 'contain',
+    // backgroundColor: 'red'
   },
   pIndicContainer:{
-    backgroundColor: Colors.primaryColor,
-    flexDirection: 'row',
-    justifyContent: 'center'
+    flex:0.1,
+    backgroundColor: Colors.transparentColor,
+    // backgroundColor:'blue',
+    flexDirection: 'column',
+    justifyContent: 'flex-end', //y axis
+    alignItems: 'center',       //x axis
+    marginVertical: 5,
+
+
   },
   pIndicImg:{
-    marginTop: 30,
-    marginBottom: 10,
+
     resizeMode: 'contain'
   },
   nextStepBtn: {
@@ -185,14 +209,13 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class EmailSignUpStep2RenderRender extends Component {
+class EmailSignUpStep2Render extends Component {
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();
     this.state ={
       value: {
-        name: this.props.auth.form.fields.name,
-      	surname: this.props.auth.form.fields.surname
+      	email: this.props.auth.form.fields.email
       }
     };
   }
@@ -204,8 +227,7 @@ class EmailSignUpStep2RenderRender extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	name: nextprops.auth.form.fields.name,
-      	surname: nextprops.auth.form.fields.surname
+      	email: nextprops.auth.form.fields.email
       }
     });
   }
@@ -221,20 +243,25 @@ class EmailSignUpStep2RenderRender extends Component {
    */
   onChange(value) {
 
-    console.log("Changed"+JSON.stringify(value));
-    if (value.name != '') {
-      this.props.actions.onAuthFormFieldChange('name',value.name);
+    // console.log("Changed"+JSON.stringify(value));
+    if (value.email != '') {
+      this.props.actions.onAuthFormFieldChange('email',value.email);
     }
-    if (value.surname != '') {
-      this.props.actions.onAuthFormFieldChange('surname',value.surname);
-    }
-
     this.setState(
       {value}
     );
   }
 
 
+  renderPageIndicatorIcon(){
+    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError ){
+      return (<View></View>)
+    }else{
+      return (<View style={styles.pIndicContainer}>
+        <Image style={styles.pIndicImg} source={require('../../../assets/pIndic2.jpg')}></Image>
+      </View>);
+    }
+  }
 
   /**
    * ### render
@@ -248,37 +275,30 @@ class EmailSignUpStep2RenderRender extends Component {
 
     let onBtnPress = ()=>{
       this.props.onNextStep();
+    },
+    onBackBtnPress = ()=>{
+      this.props.onBack();
     }
-
+    console.log("IS VALID: "+this.props.auth.form.isValid);
 
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
-
-
             <View style={styles.explanationContainer}>
-
-
+              <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
+                  onPress={onBackBtnPress}>
+              </Button>
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} source={require('../../../assets/signupExpl1.jpg')}></Image>
+                <Image style={styles.explanImg} source={require('../../../assets/signupExpl2.gif')}></Image>
               </View>
-
-
-
               <Text style={styles.descriptionText} >
-              In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
+              Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
               </Text>
-
-
+              {self.renderPageIndicatorIcon()}
             </View>
-
-
             <View style={styles.footerContainer}>
-              <View style={styles.pIndicContainer}>
-                <Image style={styles.pIndicImg} source={require('../../../assets/pIndic1.jpg')}></Image>
-              </View>
               <View style={styles.inputsContainer}>
-                <SignUpNameSurnameForm
+                <SignUpEmailForm
                   form={this.props.auth.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}
@@ -299,4 +319,4 @@ class EmailSignUpStep2RenderRender extends Component {
 }
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep2RenderRender);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep2Render);

@@ -80,9 +80,13 @@ function mapDispatchToProps(dispatch) {
 
 let EmailSignUpStep1 = React.createClass({
 
+  componentDidMount(){
+    this.props.actions.registerState(1);
+  },
+
   render() {
     let onButtonPress = ()=>{
-        console.log("Next button pressed")
+        this.props.actions.navigateTo("EmailSignUpStep2");
     },
     onBackBtnPress = ()=>{
         this.props.actions.navigateToPrevious();

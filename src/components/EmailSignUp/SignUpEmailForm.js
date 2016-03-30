@@ -1,5 +1,5 @@
 /**
- * # SignUpNameSurnameForm.js
+ * # SignUpEmailForm.js
  *
  * This class utilizes the ```tcomb-form-native``` library and just
  * sets up the options required for the 3 states of Login, namely
@@ -18,15 +18,12 @@ const {
 } = React;
 
 
-import { ActionNames, Colors } from '../../config/constants';
+import { Colors } from '../../config/constants';
 // import _ from 'lodash';
 /**
  * States of login display
  */
-const {
-  LOGIN,
-  FORGOT_PASSWORD
-} = ActionNames
+
 
 /**
  *  The fantastic little form library
@@ -34,9 +31,9 @@ const {
 const t = require('tcomb-form-native');
 let Form = t.form.Form;
 
-var SignUpNameSurnameForm = React.createClass({
+var SignUpEmailForm = React.createClass({
   /**
-   * ## SignUpNameSurnameForm class
+   * ## SignUpEmailForm class
    *
    * * form: the properties to set into the UI form
    * * value: the values to set in the input fields
@@ -172,55 +169,44 @@ var SignUpNameSurnameForm = React.createClass({
     });
 
 
-
+    // console.log("Email ERROR: "+this.props.form.fields.emailHasError);
 
 
     let options = {
       stylesheet: stylesheet,
       auto: 'placeholders',
       fields: {
-        name: {
-          label: 'Name',
-          maxLength: 12,
+        email: {
+          label: 'Email',
+          maxLength: 50,
           editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.nameHasError,
-          // error: 'The name can be 3-12 characters.',
-          placeholder: 'Gary'
-
-        },
-        surname : {
-          label: 'Surname',
-          maxLength: 12,
-          editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.surnameHasError,
-          // error: 'The surname can be 4-20 characters.',
-          placeholder: 'Brown'
+          hasError: this.props.form.fields.emailHasError,
+          error: 'Please give us a valid email address.',
+          placeholder: 'mail@example.com'
 
         }
-
       }
     };
 
+    // var Email = t.refinement(t.String, s => !this.props.form.fields.emailHasError);
+    // var EmailConfirmation = t.refinement(t.String, s => this.props.form.fields.email!=s);
 
-    var Name = t.refinement(t.String, s => !this.props.form.fields.nameHasError);
-    var Surname = t.refinement(t.String, s => !this.props.form.fields.surnameHasError);
 
+    // Email.getValidationErrorMessage=(value, path, context)=>{
+    //     return "Please give a valid email address.";
+    // };
+    // EmailConfirmation.getValidationErrorMessage=(value, path, context)=>{
+    //   // if(this.props.form.fields.nameHasError){
+    //   //   return "";
+    //   // }else{
+    //   //   return "The surname should be 4-20 characters.";
+    //   // }
+    //   return "The surname should be 4-20 characters.";
+    // };
 
-    Name.getValidationErrorMessage=(value, path, context)=>{
-        return "The name should be 3-12 characters.";
-    };
-    Surname.getValidationErrorMessage=(value, path, context)=>{
-      // if(this.props.form.fields.nameHasError){
-      //   return "";
-      // }else{
-      //   return "The surname should be 4-20 characters.";
-      // }
-      return "The surname should be 4-20 characters.";
-    };
-
-    let nameSurnameForm = t.struct({
-      name: Name,
-      surname: Surname
+    let emailForm = t.struct({
+      email: t.String
+      // emailConfirmation: Surname
     });
 
 
@@ -230,7 +216,7 @@ var SignUpNameSurnameForm = React.createClass({
      */
     return (
       <Form ref="form"
-        type={nameSurnameForm}
+        type={emailForm}
         options={options}
         value={this.props.value}
         onChange={this.props.onChange}
@@ -239,4 +225,4 @@ var SignUpNameSurnameForm = React.createClass({
   }
 });
 
-module.exports = SignUpNameSurnameForm;
+module.exports = SignUpEmailForm;
