@@ -24,7 +24,8 @@ const {
  */
 var InitialState = Record({
   state: NAVIGATE_TO,
-  currentSchene: null
+  currentSchene: null,
+  previousSchene: null
   )
 });
 

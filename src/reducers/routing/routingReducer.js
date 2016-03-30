@@ -17,7 +17,8 @@ import InitialState from './routingInitialState';
  * Routing actions to test
  */
  const {
-   NAVIGATE_TO
+   NAVIGATE_TO,
+   NAVIGATE_PREVIOUS
  } = require('../../config/constants').ActionNames
 
 
@@ -37,12 +38,17 @@ export default function routingReducer(state = initialState, action) {
      * ### set the platform in the state
      *
      */
-  case NAVIGATE_TO:
-    const scheneName = action.payload;
+   case NAVIGATE_TO:
+     const scheneName = action.payload;
+     let previousSchene = state.currentSchene;
+     return state.set('previousSchene', previousSchene).set('currentSchene', scheneName);
 
-    return state.set('currentSchene', scheneName);
 
 
+   case NAVIGATE_PREVIOUS:
+     let previousSchene = state.currentSchene;
+     let currentSchene = state.previousSchene;
+     return state.set('previousSchene', currentSchene).set('currentSchene', previousSchene);
   }
 
   return state;

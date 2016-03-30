@@ -80,7 +80,8 @@ module.exports =  {
    REGISTER_STEP_4: null,
 
 
-   NAVIGATE_TO: null
+   NAVIGATE_TO: null,
+   NAVIGATE_PREVIOUS: null
 
  })
 

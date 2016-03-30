@@ -15,7 +15,8 @@
  * The actions supported
  */
 const {
-  NAVIGATE_TO
+  NAVIGATE_TO,
+  NAVIGATE_PREVIOUS
 } = require('../../config/constants').ActionNames
 
 
@@ -39,6 +40,13 @@ export function navigateState(schene) {
   };
 }
 
+export function navigateToPreviousState() {
+  return {
+    type: NAVIGATE_PREVIOUS,
+    payload: null
+  };
+}
+
 // Actions[scheneName]();
 
 
@@ -49,17 +57,22 @@ Action creators
 */
 
 export function navigateToRequested(schene) {
-
   return dispatch => {
-    // Actions.iterate(schene, {});
-    console.log("WILL NAGIVATE TO "+schene);
     try{
       Actions[schene]();
     }catch(e){
-      console.log("Schene: "+schene+ " does not exist. Error: "+e);
+      console.log("Schene: "+schene+ "nav error: "+e);
     }
-    // console.log(typeof );
     dispatch(navigateState(schene));
   }
+}
 
+
+export function navigateToPrevious() {
+  return dispatch => {
+
+    Actions.pop()
+
+    dispatch(navigateToPreviousState());
+  }
 }

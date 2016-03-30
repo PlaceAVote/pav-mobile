@@ -83,7 +83,10 @@ let EmailSignUpStep1 = React.createClass({
   render() {
     let onButtonPress = ()=>{
         console.log("Next button pressed")
-    };
+    },
+    onBackBtnPress = ()=>{
+        this.props.actions.navigateToPrevious();
+    }
 
     // buttonPressHandler.bind(null,
     //     this.props.actions.login,
@@ -94,6 +97,7 @@ let EmailSignUpStep1 = React.createClass({
     return(
       <EmailSignUpStep1Render
           onNextStep={ onButtonPress }
+          onBack={onBackBtnPress}
           auth={ this.props.auth }
           global={ this.props.global }
           device={this.props.device}

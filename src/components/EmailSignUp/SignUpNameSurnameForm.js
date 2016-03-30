@@ -108,6 +108,8 @@ var SignUpNameSurnameForm = React.createClass({
       },
       errorBlock: {
         flexWrap: 'wrap',
+        // position: 'absolute',
+        // backgroundColor: 'red',
         justifyContent: 'center',
         textAlign: 'center',
         fontSize: FONT_SIZE,
@@ -118,7 +120,7 @@ var SignUpNameSurnameForm = React.createClass({
         normal: {
           color: INPUT_COLOR,
           fontSize: FONT_SIZE,
-          height: 52,
+          height: 45,
           padding: 7,
           borderRadius: 4,
           borderColor: Colors.mainBorderColor,
@@ -129,7 +131,7 @@ var SignUpNameSurnameForm = React.createClass({
         error: {
           color: INPUT_COLOR,
           fontSize: FONT_SIZE,
-          height: 52,
+          height: 45,
           padding: 7,
           borderRadius: 4,
           borderColor: Colors.errorTextColor,
@@ -182,7 +184,7 @@ var SignUpNameSurnameForm = React.createClass({
           maxLength: 12,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.nameHasError,
-          error: 'The name can be 3-12 characters.',
+          // error: 'The name can be 3-12 characters.',
           placeholder: 'Gary'
 
         },
@@ -191,7 +193,7 @@ var SignUpNameSurnameForm = React.createClass({
           maxLength: 12,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.surnameHasError,
-          error: 'The surname can be 4-20 characters.',
+          // error: 'The surname can be 4-20 characters.',
           placeholder: 'Brown'
 
         }
@@ -199,12 +201,28 @@ var SignUpNameSurnameForm = React.createClass({
       }
     };
 
-    console.log("name has error")
+
+    var Name = t.refinement(t.String, s => !this.props.form.fields.nameHasError);
+    var Surname = t.refinement(t.String, s => !this.props.form.fields.surnameHasError);
+
+
+    Name.getValidationErrorMessage=(value, path, context)=>{
+        return "The name should be 3-12 characters.";
+    };
+    Surname.getValidationErrorMessage=(value, path, context)=>{
+      // if(this.props.form.fields.nameHasError){
+      //   return "";
+      // }else{
+      //   return "The surname should be 4-20 characters.";
+      // }
+      return "The surname should be 4-20 characters.";
+    };
 
     let loginForm = t.struct({
-      name: t.String,
-      surname: t.String
+      name: Name,
+      surname: Surname
     });
+
 
     /**
      * ### Return

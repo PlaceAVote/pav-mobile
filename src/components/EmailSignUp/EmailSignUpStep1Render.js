@@ -90,27 +90,38 @@ var styles = StyleSheet.create({
 
   baseContainer: {
     flex:1,
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: 'black'//Colors.primaryColor,
   },
   contentContainer: {
     flex:1,
     flexDirection: 'column'
   },
+  backBtn:{
+    marginTop:20,
+    marginLeft:3,
+    // position: 'absolute',
+    borderRadius: 0,
+    borderWidth: 0,
+    alignSelf: 'flex-start',
+    // backgroundColor: 'blue',
+    // borderColor: Colors.mainBorderColor,
+    height: 10
+  },
   explanationContainer:{
     flex:1,
     flexDirection: 'column',
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: 'red'//Colors.primaryColor,
   },
   inputsContainer:{
     marginTop:15,
     marginBottom:20,
     marginHorizontal:15,
     justifyContent: "flex-end",
-    backgroundColor: 'white'
+    backgroundColor: 'blue'//'white'
 
   },
   footerContainer:{
-    backgroundColor: 'white'
+    backgroundColor: 'yellow'//'white'
   },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
@@ -125,8 +136,8 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   explanImg:{
-    height: 230,
-    width: 225,
+    height: 200,
+    width: 195,
     resizeMode: 'cover',
     backgroundColor: 'red'
   },
@@ -232,6 +243,15 @@ class EmailSignUpStep1RenderRender extends Component {
   }
 
 
+  renderPageIndicatorIcon(){
+    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError ){
+      return (<View></View>)
+    }else{
+      return (<View style={styles.pIndicContainer}>
+        <Image style={styles.pIndicImg} source={require('../../../assets/pIndic1.jpg')}></Image>
+      </View>);
+    }
+  }
 
   /**
    * ### render
@@ -245,6 +265,9 @@ class EmailSignUpStep1RenderRender extends Component {
 
     let onBtnPress = ()=>{
       this.props.onNextStep();
+    },
+    onBackBtnPress = ()=>{
+      this.props.onBack();
     }
 
 
@@ -254,6 +277,10 @@ class EmailSignUpStep1RenderRender extends Component {
 
 
             <View style={styles.explanationContainer}>
+
+              <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
+                  onPress={onBackBtnPress}>
+              </Button>
 
 
               <View style={styles.explanImgContainer}>
@@ -266,9 +293,7 @@ class EmailSignUpStep1RenderRender extends Component {
               In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
               </Text>
 
-              <View style={styles.pIndicContainer}>
-                <Image style={styles.pIndicImg} source={require('../../../assets/pIndic1.jpg')}></Image>
-              </View>
+              {self.renderPageIndicatorIcon()}
             </View>
 
 
