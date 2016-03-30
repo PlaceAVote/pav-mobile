@@ -22,11 +22,14 @@ const {
  * ## InitialState
  * The form is set
  */
-var InitialState = Record({
+const Router = Record({
   state: NAVIGATE_TO,
   currentSchene: null,
   previousSchene: null
-  )
 });
 
-export default InitialState;
+/**
+ * ## InitialState
+ * The form is set
+ */
+export default Router;

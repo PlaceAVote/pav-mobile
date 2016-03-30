@@ -58,6 +58,7 @@ import React, {
       import EmailSignIn from './containers/EmailSignIn';
       import EmailSignUpStep1 from './containers/EmailSignUpStep1';
       import EmailSignUpStep2 from './containers/EmailSignUpStep2';
+      import EmailSignUpStep3 from './containers/EmailSignUpStep3';
 
       // import Logout from './containers/Logout';
       import Onboarding from './containers/Onboarding';
@@ -93,6 +94,7 @@ import React, {
       import deviceInitialState from './reducers/device/deviceInitialState';
       import globalInitialState from './reducers/global/globalInitialState';
       import profileInitialState from './reducers/profile/profileInitialState';
+      import routerInitialState from './reducers/routing/routingInitialState';
 
       /**
       *  The version of the app but not  displayed yet
@@ -110,7 +112,8 @@ import React, {
           auth: new authInitialState,
           device: (new deviceInitialState).set('isMobile',true),
           global: (new globalInitialState),
-          profile: new profileInitialState
+          profile: new profileInitialState,
+          router: new routerInitialState
         };
         return _initState;
       }
@@ -195,7 +198,7 @@ import React, {
                 <Router hideNavBar={false}>
 
                     <Scene key="root" >
-                      <Scene key="Launch" direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} initial={true} />
+                      <Scene key="Launch" direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}/>
 
                       <Scene key="FacebookSignIn">
                         <Scene key="FacebookSignIn1" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
@@ -205,9 +208,10 @@ import React, {
                         <Scene key="EmailSignIn1" component={EmailSignIn} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
                       </Scene>
 
-                      <Scene key="EmailSignUp" type="push" title="Sign Up" hideNavBar={true} >
-                        <Scene key="EmailSignUpStep1" component={EmailSignUpStep1} hideNavBar={true} />
+                      <Scene key="EmailSignUp" type="push" title="Sign Up" hideNavBar={true}  initial={true} >
+                        <Scene key="EmailSignUpStep1" component={EmailSignUpStep3} hideNavBar={true} />
                         <Scene key="EmailSignUpStep2" component={EmailSignUpStep2} hideNavBar={true} />
+                        <Scene key="EmailSignUpStep3" component={EmailSignUpStep3} hideNavBar={true} />
                       </Scene>
 
                     </Scene>

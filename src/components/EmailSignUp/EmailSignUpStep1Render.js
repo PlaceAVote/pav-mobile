@@ -199,7 +199,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class EmailSignUpStep1RenderRender extends Component {
+class EmailSignUpStep1Render extends Component {
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();
@@ -325,4 +325,4 @@ class EmailSignUpStep1RenderRender extends Component {
 }
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep1RenderRender);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep1Render);

@@ -9,7 +9,7 @@
  *
  * InitialState
  */
-import InitialState from './routingInitialState';
+import InitialRouterState from './routingInitialState';
 
 
 
@@ -22,33 +22,32 @@ import InitialState from './routingInitialState';
  } = require('../../config/constants').ActionNames
 
 
-const initialState = new InitialState;
+const initialRouterState = new InitialRouterState
 
 /**
  * ## deviceReducer function
  * @param {Object} state - initialState
  * @param {Object} action - type and payload
  */
-export default function routingReducer(state = initialState, action) {
-  if (!(state instanceof InitialState)) return initialState.merge(state);
+export default function routingReducer(state = initialRouterState, action) {
+  if (!(state instanceof InitialRouterState)) return initialRouterState.merge(state);
+
+
+  let previousSchene = state.currentSchene;
 
   switch (action.type) {
 
-    /**
-     * ### set the platform in the state
-     *
-     */
    case NAVIGATE_TO:
      const scheneName = action.payload;
-     let previousSchene = state.currentSchene;
      return state.set('previousSchene', previousSchene).set('currentSchene', scheneName);
-
+     break;
 
 
    case NAVIGATE_PREVIOUS:
-     let previousSchene = state.currentSchene;
+
      let currentSchene = state.previousSchene;
      return state.set('previousSchene', currentSchene).set('currentSchene', previousSchene);
+     break;
   }
 
   return state;

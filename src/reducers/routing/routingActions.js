@@ -57,22 +57,33 @@ Action creators
 */
 
 export function navigateTo(schene) {
-  return dispatch => {
-    try{
-      Actions[schene]();
-    }catch(e){
-      console.log("Schene: "+schene+ "nav error: "+e);
+  return (dispatch, getState) => {
+    const state = getState()
+    if(state.router.currentSchene!=schene){
+      try{
+        Actions[schene]();
+      }catch(e){
+        console.log("Schene: "+schene+ "nav error: "+e);
+      }
+      return dispatch(navigateState(schene));
+    }else{
+      console.log("We\'re already within "+schene);
     }
-    dispatch(navigateState(schene));
+
   }
 }
 
 
 export function navigateToPrevious() {
-  return dispatch => {
-
-    Actions.pop()
-
-    dispatch(navigateToPreviousState());
-  }
+    return (dispatch, getState) => {
+      const state = getState()
+      // console.log("@@@@@@@@@@@@@@@@@@@@@@"+JSON.stringify(state)+"@@@@@@@@@@@@@@@@@@@@@@");
+      if(!!state.router.previousSchene){
+        Actions.pop()
+        dispatch(navigateToPreviousState());
+      }else{
+        //do somethong when there is NO previous state.
+        console.log("ERROR: No previous state to head to.")
+      }
+    }
 }
