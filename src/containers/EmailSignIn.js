@@ -78,7 +78,7 @@ function buttonPressHandler(login, username, password) {
 
 let EmailSignIn = React.createClass({
 
-  componentDidMount() {
+  componentWillMount() {
       this.props.actions.lockOrientation("PORTRAIT");
       this.props.actions.loginState();
   },

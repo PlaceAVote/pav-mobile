@@ -253,7 +253,7 @@ class LoginRender extends Component {
                   </View>
 
       	    <FormButton
-                      isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+                      isDisabled={!this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching}
                       onPress={onButtonPress}
                       buttonText={loginButtonText}/>
 

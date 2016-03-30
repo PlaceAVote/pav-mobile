@@ -22,74 +22,45 @@ const {
   FORGOT_PASSWORD
 } = require('../../config/constants').ActionNames
 
+
+
+
+function isFormValid(formState, fields){
+  let isValid = false;
+  switch (formState) {
+    case REGISTER_STEP_1:
+      // console.log("surname: "+fields.surname+"er: "+fields.surnameHasError+ " name: "+fields.name+"er: "+fields.nameHasError);
+      isValid = (!!fields.surname && !!fields.name && !fields.nameHasError && !fields.surnameHasError);
+      break;
+    case REGISTER_STEP_2:
+      isValid = (fields.email != '' && !fields.emailHasError);
+      break;
+    case REGISTER_STEP_3:
+      isValid = (fields.password != '' && !fields.passwordHasError && fields.passwordAgain != '' && !fields.passwordAgainHasError);
+      break;
+    case REGISTER_STEP_4:
+      isValid = (fields.dateOfBirth!='' && !fields.dateOfBirthHasError && fields.zipCode!='' && !fields.zipCodeHasError);
+      break;
+    case LOGIN:
+      isValid = (fields.email!='' && fields.password!='' && !fields.emailHasError && !fields.passwordHasError);
+      break;
+    case FORGOT_PASSWORD:
+      isValid = (fields.email != '' && !fields.emailHasError); //TODO: Check this
+    case LOGOUT:  //TODO: Implement this when the time is right
+      break;
+    default:
+      break;
+  }
+  return isValid;
+}
+
+
 /**
  * ## formValidation
  * @param {Object} state - the Redux state object
  */
 export default function formValidation (state) {
-
-  switch(state.form.state) {
-    /**
-     * ### Logout has no fields, so always valid
-     */
-  case LOGOUT:
-    return state.setIn(['form','isValid'],true);
-    /**
-     * ### Registration has 4 fields
-     */
-  case REGISTER_STEP_1:
-  case REGISTER_STEP_2:
-  case REGISTER_STEP_3:
-  case REGISTER_STEP_4:
-    if (state.form.fields.username != ''
-        &&
-        state.form.fields.email !== ''
-        &&
-        state.form.fields.password !== ''
-        &&
-        state.form.fields.passwordAgain !== ''
-        &&
-        !state.form.fields.usernameHasError
-        &&
-        !state.form.fields.emailHasError
-        &&
-        !state.form.fields.passwordHasError
-        &&
-        !state.form.fields.passwordAgainHasError) {
-      return state.setIn(['form','isValid'],true);
-    } else {
-      return state.setIn(['form','isValid'],false);
-    }
-    /**
-     * ### Login has 2 fields
-     */
-  case LOGIN:
-    if (state.form.fields.username !== ''
-        &&
-        state.form.fields.password !== ''
-        &&
-        !state.form.fields.usernameHasError
-        &&
-        !state.form.fields.passwordHasError) {
-      return state.setIn(['form','isValid'],true);
-    } else {
-      return state.setIn(['form','isValid'],false);
-    }
-    /**
-     * ### Reset password has 1 field
-     */
-  case FORGOT_PASSWORD:
-    if (state.form.fields.email !== ''
-        &&
-        !state.form.fields.emailHasError){
-      return state.setIn(['form','isValid'],true);
-    } else {
-      return state.setIn(['form','isValid'],false);
-    }
-
-  }
-  /**
-   * Default, return the state
-   */
-  return state;
+    let curState = state.form.state,
+    isValid = isFormValid(curState, state.form.fields);
+    return state.setIn(['form','isValid', curState],isValid);
 }

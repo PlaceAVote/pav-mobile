@@ -1,7 +1,7 @@
 /**
  * # authFormValidation.js
- * 
- * This class determines only if the form is valid 
+ *
+ * This class determines only if the form is valid
  * so that the form button can be enabled.
  * if all the fields on the form are without error,
  * the form is considered valid
@@ -27,21 +27,11 @@ export default function formValidation (state) {
         ||
          state.form.fields.email != state.form.originalProfile.email)
        ) {
-      return state.setIn(['form','isValid'],true);
+      return state.setIn(['form','isValid', state.form.state],true);
     } else {
-      return state.setIn(['form','isValid'],false);
+      return state.setIn(['form','isValid', state.form.state],false);
     }
-    
+
   return state;
 
 }
-
-
-
-
-
-
-
-
-
-

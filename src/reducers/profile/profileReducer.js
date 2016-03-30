@@ -1,6 +1,6 @@
 /**
  * # profileReducer.js
- * 
+ *
  * The reducer user profile actions
  */
 'use strict';
@@ -27,7 +27,7 @@ const {
   PROFILE_UPDATE_REQUEST,
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
-  
+
   LOGOUT_SUCCESS,
 
   SET_STATE
@@ -42,7 +42,7 @@ const initialState = new InitialState;
 
 /**
  * ## profileReducer function
- * @param {Object} state - initialState 
+ * @param {Object} state - initialState
  * @param {Object} action - type and payload
  */
 export default function profileReducer(state = initialState, action) {
@@ -54,7 +54,7 @@ export default function profileReducer(state = initialState, action) {
     /**
      * ### Request starts
      * set the form to fetching and clear any errors
-     */    
+     */
   case GET_PROFILE_REQUEST:
   case PROFILE_UPDATE_REQUEST:
     return state.setIn(['form', 'isFetching'], true)
@@ -63,7 +63,7 @@ export default function profileReducer(state = initialState, action) {
     /**
      * ### Request end successfully
      * set the form to fetching as done
-     */    
+     */
   case PROFILE_UPDATE_SUCCESS:
     return state.setIn(['form', 'isFetching'], false);
 
@@ -74,7 +74,7 @@ export default function profileReducer(state = initialState, action) {
      *
      * Validate the data to make sure it's all good and someone didn't
      * mung it up through some other mechanism
-     */    
+     */
   case GET_PROFILE_SUCCESS:
     nextProfileState = state.setIn(['form', 'isFetching'], false)
       .setIn(['form','fields','username'], action.payload.username)
@@ -86,17 +86,17 @@ export default function profileReducer(state = initialState, action) {
       .setIn(['form','originalProfile','emailVerified'],action.payload.emailVerified)
       .setIn(['form','originalProfile','objectId'],action.payload.objectId)
       .setIn(['form','error'],null);
-    
+
     return formValidation(
       fieldValidation( nextProfileState, action)
       , action);
-    
+
     /**
      * User logged out, so reset form fields and original profile.
-     * 
-     */ 
+     *
+     */
   case LOGOUT_SUCCESS:
-    nextProfileState = state.setIn(['form','fields','username'], '')   
+    nextProfileState = state.setIn(['form','fields','username'], '')
       .setIn(['form','fields','email'], '')
       .setIn(['form','fields','emailVerified'], false)
       .setIn(['form','originalProfile','username'],'')
@@ -120,7 +120,7 @@ export default function profileReducer(state = initialState, action) {
      *
      * Set the state with the fields, clear the form error
      * and perform field and form validation
-     */    
+     */
   case ON_PROFILE_FORM_FIELD_CHANGE:
     let nextFormState =
       state.setIn(['form', 'fields', 'username'],
@@ -138,13 +138,13 @@ export default function profileReducer(state = initialState, action) {
      * This is in support of Hot Loading - take the payload
      * and set the values into the state
      *
-     */    
+     */
   case SET_STATE:
     debugger;
     var profile  = JSON.parse(action.payload).profile.form;
     var next = state.setIn(['form','disabled'],profile.disabled)
           .setIn(['form','error'],profile.error)
-          .setIn(['form','isValid'],profile.isValid)
+          .setIn(['form','isValid', state.form.state],profile.isValid)
           .setIn(['form','isFetching'],profile.isFetching)
           .setIn(['form','originalProfile',
                   'username'],profile.originalProfile.username)
@@ -165,10 +165,10 @@ export default function profileReducer(state = initialState, action) {
           .setIn(['form','fields',
                   'emailVerified'],profile.fields.emailVerified);
     return next;
-    
+
   }//switch
   /**
    * # Default
-   */  
+   */
   return state;
 }

@@ -59,6 +59,13 @@ import ItemCheckbox from '../../components/ItemCheckbox';
 import {Colors, ActionNames} from '../../config/constants';
 
 /**
+ * The states were interested in
+ */
+const {
+  REGISTER_STEP_1
+} = ActionNames;
+
+/**
  * The necessary React components
  */
 import React,
@@ -269,7 +276,6 @@ class EmailSignUpStep1RenderRender extends Component {
       this.props.onBack();
     }
 
-
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
@@ -304,7 +310,7 @@ class EmailSignUpStep1RenderRender extends Component {
                   onChange={self.onChange.bind(self)}
                 />
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
-                    isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+                    isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_1) || this.props.auth.form.isFetching}
                     onPress={onBtnPress}>
                   Next Step
                 </Button>

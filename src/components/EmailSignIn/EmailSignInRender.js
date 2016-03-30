@@ -248,7 +248,7 @@ class EmailSignInRender extends Component {
             />
           </View>
           <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
-              isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+              isDisabled={!this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching}
               onPress={onBtnPress}>
             Sign In
           </Button>

@@ -39,7 +39,14 @@ describe('Tests that the fieldValidation function validates the input correctly.
     state: 'whatever',
     disabled: false,
     error: null,
-    isValid: false,
+    isValid: Map([
+      ["REGISTER_STEP_1", false],
+      ["REGISTER_STEP_2", false],
+      ["REGISTER_STEP_3", false],
+      ["REGISTER_STEP_4", false],
+      ["LOGIN", false],
+      ["FORGOT_PASSWORD", false],
+    ]),
     isFetching: false,
     fields: new (Record({
       username: '',

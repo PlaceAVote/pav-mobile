@@ -195,13 +195,13 @@ import React, {
                 <Router hideNavBar={false}>
 
                     <Scene key="root" >
-                      <Scene key="Launch" direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}/>
+                      <Scene key="Launch" direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} initial={true} />
 
                       <Scene key="FacebookSignIn">
                         <Scene key="FacebookSignIn1" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
                       </Scene>
 
-                      <Scene key="EmailSignIn" type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}} initial={true} >
+                      <Scene key="EmailSignIn" type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}}>
                         <Scene key="EmailSignIn1" component={EmailSignIn} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
                       </Scene>
 

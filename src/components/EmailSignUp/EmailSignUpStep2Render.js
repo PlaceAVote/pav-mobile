@@ -79,6 +79,9 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
 /**
  * The states were interested in
  */
+ const {
+   REGISTER_STEP_2
+ } = ActionNames;
 
 
 
@@ -279,7 +282,6 @@ class EmailSignUpStep2Render extends Component {
     onBackBtnPress = ()=>{
       this.props.onBack();
     }
-    console.log("IS VALID: "+this.props.auth.form.isValid);
 
     return(
       <View style={styles.baseContainer}>
@@ -304,7 +306,7 @@ class EmailSignUpStep2Render extends Component {
                   onChange={self.onChange.bind(self)}
                 />
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
-                    isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+                    isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_2) || this.props.auth.form.isFetching}
                     onPress={onBtnPress}>
                   Next Step
                 </Button>

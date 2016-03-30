@@ -12,9 +12,14 @@
 /**
  * ## Import
  */
-const {Record} = require('immutable');
+const {Record, Map} = require('immutable');
 const {
-  REGISTER_STEP_1
+  REGISTER_STEP_1,
+  REGISTER_STEP_2,
+  REGISTER_STEP_3,
+  REGISTER_STEP_4,
+  LOGIN,
+  FORGOT_PASSWORD
 } = require('../../config/constants').ActionNames
 
 /**
@@ -26,7 +31,14 @@ const Form = Record({
   state: REGISTER_STEP_1,
   disabled: false,
   error: null,
-  isValid: false,
+  isValid: Map([
+    [REGISTER_STEP_1, false],
+    [REGISTER_STEP_2, false],
+    [REGISTER_STEP_3, false],
+    [REGISTER_STEP_4, false],
+    [LOGIN, false],
+    [FORGOT_PASSWORD, false],
+  ]),
   isFetching: false,
   fields: new (Record({
     name: '',
