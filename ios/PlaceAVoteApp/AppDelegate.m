@@ -47,6 +47,7 @@
     jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   #endif
   
+//  [self printOutAvailableFontNames];
   
   //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   
@@ -61,6 +62,19 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+
+-(void)printOutAvailableFontNames{
+  for (NSString* family in [UIFont familyNames])
+  {
+    NSLog(@"%@", family);
+    for (NSString* name in [UIFont fontNamesForFamilyName: family])
+    {
+      NSLog(@" %@", name);
+    }
+  }
+
 }
 
 @end

@@ -231,6 +231,7 @@ var portraitStyles = StyleSheet.create({
   titleText: {
     // backgroundColor: 'black',
     fontSize: 27,
+    fontFamily: 'Whitney Semibold',
     color: Colors.mainTextColor,
     textAlign: 'center',
   },
@@ -251,6 +252,8 @@ var portraitStyles = StyleSheet.create({
   },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
+    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    // fontWeight: 'bold',
     fontSize: 17,
     color: Colors.mainTextColor,
     textAlign: 'center',
@@ -258,6 +261,7 @@ var portraitStyles = StyleSheet.create({
   },
   descriptionText2: {
     backgroundColor: Colors.transparentColor,
+    fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     fontSize: 16,
     color: Colors.mainTextColor,
     textAlign: 'center'
@@ -278,7 +282,8 @@ var portraitStyles = StyleSheet.create({
   },
   whiteBtnText:{
     color: Colors.mainTextColor,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Whitney',
   },
   facebookBtn:{
     backgroundColor: Colors.secondaryColor,

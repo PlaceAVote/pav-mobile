@@ -77,6 +77,7 @@ var SignUpEmailForm = React.createClass({
       },
       controlLabel: {
         normal: {
+          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
           color: Colors.secondaryTextColor,
           fontSize: FONT_SIZE,
           marginBottom: 7,
@@ -84,6 +85,7 @@ var SignUpEmailForm = React.createClass({
         },
         // the style applied when a validation error occours
         error: {
+          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
           color: Colors.errorTextColor,
           fontSize: FONT_SIZE,
           marginBottom: 7,
@@ -104,6 +106,7 @@ var SignUpEmailForm = React.createClass({
         }
       },
       errorBlock: {
+        fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
         flexWrap: 'wrap',
         // position: 'absolute',
         // backgroundColor: 'red',
@@ -115,6 +118,7 @@ var SignUpEmailForm = React.createClass({
       },
       textbox: {
         normal: {
+          fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
           color: INPUT_COLOR,
           fontSize: FONT_SIZE,
           height: 45,
@@ -126,6 +130,7 @@ var SignUpEmailForm = React.createClass({
         },
         // the style applied when a validation error occours
         error: {
+          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
           color: INPUT_COLOR,
           fontSize: FONT_SIZE,
           height: 45,
@@ -137,6 +142,7 @@ var SignUpEmailForm = React.createClass({
         },
         // the style applied when the textbox is not editable
         notEditable: {
+          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
           fontSize: FONT_SIZE,
           height: 36,
           padding: 7,

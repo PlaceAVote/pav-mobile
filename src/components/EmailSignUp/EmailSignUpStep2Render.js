@@ -134,6 +134,7 @@ var styles = StyleSheet.create({
     flex:0.3,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
+    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     fontSize: 14,
     color: Colors.mainTextColor,
     textAlign: 'center',
@@ -174,6 +175,7 @@ var styles = StyleSheet.create({
     height: 65
   },
   whiteBtnText:{
+    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.mainTextColor,
     textAlign: 'center'
   }

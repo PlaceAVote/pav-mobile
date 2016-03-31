@@ -105,6 +105,7 @@ var styles = StyleSheet.create({
     marginHorizontal:15
   },
   titleText: {
+    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     backgroundColor: Colors.transparentColor,
     // backgroundColor: 'green',
     fontSize: 27,
@@ -131,15 +132,18 @@ var styles = StyleSheet.create({
     height: 60
   },
   whiteBtnText:{
+    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.mainTextColor,
     textAlign: 'center'
   },
   orText:{
+    fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.secondaryTextColor,
     alignSelf:"center",
     marginVertical:5
   },
   forgotPasswordText:{
+    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     // backgroundColor: 'green',
     color: "#E76354",
     alignSelf:"center",
