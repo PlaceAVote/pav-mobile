@@ -59,6 +59,7 @@ import React, {
       import EmailSignUpStep1 from './containers/EmailSignUpStep1';
       import EmailSignUpStep2 from './containers/EmailSignUpStep2';
       import EmailSignUpStep3 from './containers/EmailSignUpStep3';
+      import EmailSignUpStep4 from './containers/EmailSignUpStep4';
 
       // import Logout from './containers/Logout';
       import Onboarding from './containers/Onboarding';
@@ -197,7 +198,7 @@ import React, {
                 <Router hideNavBar={false}>
 
                     <Scene key="root" >
-                      <Scene key="Launch" direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}  initial={true} />
+                      <Scene key="Launch" direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} />
 
                       <Scene key="FacebookSignIn">
                         <Scene key="FacebookSignIn1" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
@@ -207,10 +208,11 @@ import React, {
                         <Scene key="EmailSignIn1" component={EmailSignIn} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
                       </Scene>
 
-                      <Scene key="EmailSignUp" type="push" title="Sign Up" hideNavBar={true} >
-                        <Scene key="EmailSignUpStep1" component={EmailSignUpStep1} hideNavBar={true} />
+                      <Scene key="EmailSignUp" type="push" title="Sign Up" hideNavBar={true}  initial={true} >
+                        <Scene key="EmailSignUpStep1" component={EmailSignUpStep4} hideNavBar={true} />
                         <Scene key="EmailSignUpStep2" component={EmailSignUpStep2} hideNavBar={true} />
                         <Scene key="EmailSignUpStep3" component={EmailSignUpStep3} hideNavBar={true} />
+                        <Scene key="EmailSignUpStep4" component={EmailSignUpStep4} hideNavBar={true} />
                       </Scene>
 
                     </Scene>
