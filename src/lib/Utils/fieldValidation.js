@@ -14,6 +14,7 @@
  */
 import validate from 'validate.js';
 import _ from 'underscore';
+import moment from 'moment';
 
 /**
  * ## Email validation setup
@@ -25,6 +26,20 @@ const emailConstraints = {
     email: true
   }
 };
+
+
+
+
+const birthdateConstraints = {
+  dateOfBirth: {
+    datetime: {
+      dateOnly: true
+      // ,latest: moment.utc().subtract(13, 'years'),
+      // message: "Wrong date"
+    }
+  }
+};
+
 
 /**
 * ## username validation rule
@@ -96,6 +111,21 @@ const passwordAgainConstraints = {
   }
 };
 
+const usZipCodePattern =  /^\d{5}(-\d{4})?$/;
+const usZipCodeConstraints = {
+  zipCode: {
+    presence: true,
+    format: {
+      pattern: usZipCodePattern,
+      flags: "i",
+      message: "Please provide us with a valid US zip code"
+    }
+  }
+};
+
+
+
+
 /**
  * ## Field Validation
  * @param {Object} state Redux state
@@ -105,19 +135,23 @@ export default function fieldValidation(state, action ) {
   const {field, value} = action.payload;
 
   switch(field) {
+
+
     /**
-     * ### username validation
+     * ### dateOfBirth validation
      * set the form field error
      */
-  // case('username'):
-  //   let validUsername  = _.isUndefined(validate({username: value},
-  //                                               usernameConstraints));
-  //   if (validUsername) {
-  //     return state.setIn(['form', 'fields', 'usernameHasError'], false);
-  //   } else {
-  //     return state.setIn(['form', 'fields', 'usernameHasError'], true);
-  //   }
-  //   break;
+  case('dateOfBirth'):
+    // let validBirthdate  = _.isUndefined(validate({dateOfBirth: value},birthdateConstraints));
+
+    let validBirthdate = moment(value, 'DD-MM-YYYY').isValid();
+    // console.log('Date is: '+validBirthdate);
+    if (validBirthdate) {
+      return state.setIn(['form', 'fields', 'dateOfBirthHasError'], false);
+    } else {
+      return state.setIn(['form', 'fields', 'dateOfBirthHasError'], true);
+    }
+    break;
 
     /**
      * ### name validation
@@ -190,6 +224,16 @@ export default function fieldValidation(state, action ) {
     }
     break;
 
+  case('zipCode'):
+    var validZipCode = _.isUndefined(validate({zipCode: value},
+                                                usZipCodeConstraints));
+    if (validZipCode) {
+      return state.setIn(['form', 'fields', 'zipCodeHasError'], false);
+    } else {
+      return  state.setIn(['form', 'fields', 'zipCodeHasError'], true);
+    }
+
+    break;
     /**
      * ### showPassword
      * toggle the display of the password
