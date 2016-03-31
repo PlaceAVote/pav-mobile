@@ -153,7 +153,6 @@ import React, {
                 width: 80,
                 position: 'absolute',
                 height: 120,
-                width: 200,
                 top: 50,
                 right:0,
                 padding: 8,
