@@ -41,9 +41,10 @@ import OnboardingRender from '../components/Onboarding/OnboardingRender'
  */
 import React from 'react-native';
 
-// const {
-
-// } = require('../config/constants').ActionNames
+const {
+REGISTER_STEP_1,
+LOGIN
+} = require('../config/constants').ActionNames
 
 
 /**
@@ -80,10 +81,10 @@ function buttonPressHandler(scheneName) {
       break;
     case "emailSignUp":
       this.props.actions.registerState(1);
-      this.props.actions.navigateTo("EmailSignUp");
+      this.props.actions.navigateTo(REGISTER_STEP_1);
       break;
     case "emailSignIn":
-      this.props.actions.navigateTo("EmailSignIn");
+      this.props.actions.navigateTo(LOGIN);
       break;
     default:
       console.log("Invalid selector provided, Onboarding cannot issue a navigation action with schene name of: "+scheneName);
@@ -98,6 +99,9 @@ let Onboarding = React.createClass({
     this.props.actions.setOrientation(orientation);
   },
 
+  componentWillMount: function(){
+
+  },
   componentDidMount: function() {
     Orientation.addOrientationListener(this.orientationDidChange);
     this.props.actions.unlockOrientation();

@@ -14,7 +14,8 @@
  */
 const {Record} = require('immutable');
 const {
-  NAVIGATE_TO
+  NAVIGATE_TO,
+  ONBOARDING
 } = require('../../config/constants').ActionNames
 
 
@@ -24,7 +25,7 @@ const {
  */
 const Router = Record({
   state: NAVIGATE_TO,
-  currentSchene: null,
+  currentSchene: ONBOARDING,
   previousSchene: null
 });
 

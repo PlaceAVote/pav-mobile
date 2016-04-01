@@ -131,13 +131,6 @@ var styles = StyleSheet.create({
     marginTop: 15,
     height: 60
   },
-  forgotPasswordBtn:{
-    backgroundColor: Colors.transparentColor,
-    borderRadius: 0,
-    borderWidth: 0,
-    borderColor: Colors.transparentColor,
-    height: 60
-  },
   whiteBtnText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.mainTextColor,
@@ -185,7 +178,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-class EmailSignInRender extends Component {
+class ForgotPasswordRender extends Component {
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();
@@ -244,9 +237,6 @@ class EmailSignInRender extends Component {
     },
     onFbBtnPress = ()=>{
       this.props.onButtonPress("facebook");
-    },
-    onForgotBtnPress = ()=>{
-      this.props.onButtonPress("forgotPassword");
     }
 
 
@@ -270,10 +260,7 @@ class EmailSignInRender extends Component {
           <Button onPress={onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
             Sign Up with Facebook
           </Button>
-          <Button onPress={onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
-            Forgot Password
-          </Button>
-
+          <Text style={styles.forgotPasswordText}>Forgot Password</Text>
         </View>
       </View>
     );
@@ -281,4 +268,4 @@ class EmailSignInRender extends Component {
 }
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignInRender);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordRender);

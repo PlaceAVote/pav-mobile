@@ -56,6 +56,7 @@ import React, {
       //TODO: Uncomment those
 
       import EmailSignIn from './containers/EmailSignIn';
+      import ForgotPassword from './containers/ForgotPassword';
       import EmailSignUpStep1 from './containers/EmailSignUpStep1';
       import EmailSignUpStep2 from './containers/EmailSignUpStep2';
       import EmailSignUpStep3 from './containers/EmailSignUpStep3';
@@ -69,7 +70,8 @@ import React, {
       // import Subview from './containers/Subview';
 
 
-      import {Colors} from './config/constants';
+      import {Colors, ActionNames} from './config/constants';
+
 
       /**
       * ### icons
@@ -197,22 +199,22 @@ import React, {
               <Provider store={store}>
                 <Router hideNavBar={false}>
 
-                    <Scene key="root" >
-                      <Scene key="Launch" direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}  initial={true} />
+                    <Scene key="root" onRight={()=>alert("Right button")} >
+                      <Scene key={ActionNames.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}  initial={true} />
 
                       <Scene key="FacebookSignIn">
                         <Scene key="FacebookSignIn1" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
                       </Scene>
 
-                      <Scene key="EmailSignIn" type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}}>
-                        <Scene key="EmailSignIn1" component={EmailSignIn} navigationBarStyle={{backgroundColor:Colors.primaryColor}} />
+                      <Scene key={ActionNames.LOGIN} component={EmailSignIn} type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}} navigationBarStyle={{backgroundColor:Colors.primaryColor}} >
                       </Scene>
+                      
+                      <Scene key={ActionNames.FORGOT_PASSWORD} schema="modal" direction="vertical" component={ForgotPassword} title="Forgot Password" navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor}}/>
 
-                      <Scene key="EmailSignUp" type="push" title="Sign Up" hideNavBar={true} >
-                        <Scene key="EmailSignUpStep4" component={EmailSignUpStep1} hideNavBar={true} />
-                        <Scene key="EmailSignUpStep2" component={EmailSignUpStep2} hideNavBar={true} />
-                        <Scene key="EmailSignUpStep3" component={EmailSignUpStep3} hideNavBar={true} />
-                        <Scene key="EmailSignUpStep4" component={EmailSignUpStep4} hideNavBar={true} />
+                      <Scene key={ActionNames.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} >
+                        <Scene key={ActionNames.REGISTER_STEP_2} component={EmailSignUpStep2} hideNavBar={true} />
+                        <Scene key={ActionNames.REGISTER_STEP_3} component={EmailSignUpStep3} hideNavBar={true} />
+                        <Scene key={ActionNames.REGISTER_STEP_4} component={EmailSignUpStep4} hideNavBar={true} />
                       </Scene>
 
                     </Scene>

@@ -1,7 +1,7 @@
 /**
- * # EmailSignUpStep3.js
+ * # ForgotPassword.js
  *
- *  The container to display the EmailSignUpStep3 form
+ *  The container to display the ForgotPassword form
  *
  */
 'use strict';
@@ -26,9 +26,9 @@ import * as deviceActions from '../reducers/device/deviceActions';
 import {Map} from 'immutable';
 
 /**
- *   EmailSignUpStep3Render
+ *   ForgotPasswordRender
  */
-import EmailSignUpStep3Render from '../components/EmailSignUp/EmailSignUpStep3Render';
+import ForgotPasswordRender from '../components/EmailSignIn/ForgotPasswordRender';
 
 /**
  * The necessary React components
@@ -37,7 +37,8 @@ import React from 'react-native';
 
 
 const {
-  REGISTER_STEP_4,
+  LOGIN,
+  FORGOT_PASSWORD
 } = require('../config/constants').ActionNames
 
 /**
@@ -71,43 +72,36 @@ function mapDispatchToProps(dispatch) {
 
 
 
+function buttonPressHandler(login, username, password) {
+  login (username, password);
+}
 
+let ForgotPassword = React.createClass({
 
-// function buttonPressHandler(name, surname) {
-//
-// }
-
-let EmailSignUpStep3 = React.createClass({
-
-
-  componentWillMount(){
-    this.props.actions.registerState(3);
+  componentWillMount() {
+      this.props.actions.lockOrientation("PORTRAIT");
+      this.props.actions.forgotPasswordState();
   },
 
   render() {
     let onButtonPress = ()=>{
-        this.props.actions.navigateTo(REGISTER_STEP_4);
-    },
-    onBackBtnPress = ()=>{
-        this.props.actions.navigateToPrevious();
-    }
 
-    // buttonPressHandler.bind(null,
-    //     this.props.actions.login,
-    //     this.props.auth.form.fields.username,
-    //     this.props.auth.form.fields.password
-    // );
+    };
+
+    //  buttonPressHandler.bind(null,
+		// 		                this.props.actions.login,
+		// 		                this.props.auth.form.fields.username,
+		// 		                this.props.auth.form.fields.password
+		//                                );
 
     return(
-      <EmailSignUpStep3Render
-          onNextStep={ onButtonPress }
-          onBack={onBackBtnPress}
+      <ForgotPasswordRender
+          onButtonPress={ onButtonPress }
           auth={ this.props.auth }
           global={ this.props.global }
-          device={this.props.device}
       />
     );
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep3);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

@@ -84,8 +84,19 @@ let EmailSignIn = React.createClass({
   },
 
   render() {
-    let onButtonPress = ()=>{
-
+    let onBtnPress = (type)=>{
+      console.log(type+" btn pressed")
+      switch(type){
+        case "facebook":
+          break;
+        case "signIn":
+          break;
+        case "forgotPassword":
+          this.props.actions.navigateTo("ForgotPassword");
+          break
+        default:
+          break;
+      }
     };
 
     //  buttonPressHandler.bind(null,
@@ -96,7 +107,7 @@ let EmailSignIn = React.createClass({
 
     return(
       <EmailSignInRender
-          onButtonPress={ onButtonPress }
+          onButtonPress={ onBtnPress }
           auth={ this.props.auth }
           global={ this.props.global }
       />

@@ -72,6 +72,7 @@ module.exports =  {
    GET_STATE: null,
    SET_STORE: null,
 
+   ONBOARDING: null,
    FORGOT_PASSWORD: null,
    LOGIN: null,
    REGISTER_STEP_1: null,

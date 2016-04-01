@@ -36,10 +36,9 @@ import EmailSignUpStep2Render from '../components/EmailSignUp/EmailSignUpStep2Re
 import React from 'react-native';
 
 
-// const {
-//   REGISTER_STEP_1,
-//   FORGOT_PASSWORD
-// } = require('../config/constants').ActionNames
+const {
+REGISTER_STEP_2
+} = require('../config/constants').ActionNames
 
 /**
  * ## Redux boilerplate
@@ -87,7 +86,7 @@ let EmailSignUpStep2 = React.createClass({
 
   render() {
     let onButtonPress = ()=>{
-        this.props.actions.navigateTo("EmailSignUpStep3");
+        this.props.actions.navigateTo(REGISTER_STEP_3);
     },
     onBackBtnPress = ()=>{
         this.props.actions.navigateToPrevious();
