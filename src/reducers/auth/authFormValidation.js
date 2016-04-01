@@ -39,7 +39,7 @@ function isFormValid(formState, fields){
       isValid = (fields.password != '' && !fields.passwordHasError && fields.passwordAgain != '' && !fields.passwordAgainHasError);
       break;
     case REGISTER_STEP_4:
-      isValid = (fields.dateOfBirth!='' && !fields.dateOfBirthHasError && fields.zipCode!='' && !fields.zipCodeHasError);
+      isValid = (fields.dateOfBirth!='' && !fields.dateOfBirthIsCurBeingPicked && fields.zipCode!='' && !fields.zipCodeHasError);
       break;
     case LOGIN:
       isValid = (fields.email!='' && fields.password!='' && !fields.emailHasError && !fields.passwordHasError);

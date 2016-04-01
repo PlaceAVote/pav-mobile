@@ -51,8 +51,8 @@ const Form = Record({
     passwordHasError: false,
     passwordAgain: '',
     passwordAgainHasError: false,
-    dateOfBirth: '',
-    dateOfBirthHasError: false,
+    dateOfBirth: new Date(),
+    dateOfBirthIsCurBeingPicked: false,
     zipCode: '',
     zipCodeHasError: false
   }))

@@ -251,26 +251,48 @@ class EmailSignUpStep4Render extends Component {
   onChange(value) {
 
     // console.log("Changed"+JSON.stringify(value));
-    if (value.dateOfBirth != '') {
+    if (value.dateOfBirth != ''&& value.dateOfBirth != undefined) {
+      // console.log("DATE value about to change to: "+value.dateOfBirth);
       this.props.actions.onAuthFormFieldChange('dateOfBirth',value.dateOfBirth);
     }
-    if (value.zipCode != '') {
+    if (value.zipCode != '' && value.zipCode != undefined ) {
       this.props.actions.onAuthFormFieldChange('zipCode',value.zipCode);
     }
 
-    this.setState(
-      {value}
-    );
+    if(value.dateOfBirthIsCurBeingPicked!=undefined){
+      this.props.actions.onAuthFormFieldChange('dateOfBirthIsCurBeingPicked',value.dateOfBirthIsCurBeingPicked);
+    }else{
+      this.setState(
+        {value}
+      );
+    }
   }
 
 
   renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.dateOfBirthHasError || this.props.auth.form.fields.zipCodeHasError ){
+    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked || this.props.auth.form.fields.zipCodeHasError ){
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
         <Image style={styles.pIndicImg} source={require('../../../assets/pIndic4.jpg')}></Image>
       </View>);
+    }
+  }
+
+  renderDescriptionText(){
+    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked){
+      return (<View></View>)
+    }else{
+      return (
+        <View style={styles.descriptionTextContainer}>
+          <Text style={styles.descriptionText} >
+          Don't get mad, get heard.
+          </Text>
+          <Text style={styles.descriptionText} >
+          Place Your Vote Today and Be Represented!
+          </Text>
+        </View>
+      );
     }
   }
 
@@ -307,18 +329,7 @@ class EmailSignUpStep4Render extends Component {
                 <Image style={styles.explanImg} source={require('../../../assets/signupExpl4.jpg')}></Image>
               </View>
 
-
-
-              <View style={styles.descriptionTextContainer}>
-                <Text style={styles.descriptionText} >
-                Don't get mad, get heard.
-                </Text>
-                <Text style={styles.descriptionText} >
-                Place Your Vote Today and Be Represented!
-                </Text>
-              </View>
-
-
+              {self.renderDescriptionText()}
               {self.renderPageIndicatorIcon()}
             </View>
 
@@ -333,7 +344,7 @@ class EmailSignUpStep4Render extends Component {
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
                     isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_4) || this.props.auth.form.isFetching}
                     onPress={onBtnPress}>
-                  Next Step
+                  Choose topics
                 </Button>
               </View>
             </View>

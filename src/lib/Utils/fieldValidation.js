@@ -141,17 +141,17 @@ export default function fieldValidation(state, action ) {
      * ### dateOfBirth validation
      * set the form field error
      */
-  case('dateOfBirth'):
-    // let validBirthdate  = _.isUndefined(validate({dateOfBirth: value},birthdateConstraints));
-
-    let validBirthdate = moment(value, 'DD-MM-YYYY').isValid();
-    // console.log('Date is: '+validBirthdate);
-    if (validBirthdate) {
-      return state.setIn(['form', 'fields', 'dateOfBirthHasError'], false);
-    } else {
-      return state.setIn(['form', 'fields', 'dateOfBirthHasError'], true);
-    }
-    break;
+  // case('dateOfBirth'):
+  //   // let validBirthdate  = _.isUndefined(validate({dateOfBirth: value},birthdateConstraints));
+  //
+  //   let validBirthdate = moment(value, 'DD-MM-YYYY').isValid();
+  //   // console.log('Date is: '+validBirthdate);
+  //   if (validBirthdate) {
+  //     return state.setIn(['form', 'fields', 'dateOfBirthIsCurBeingPicked'], false);
+  //   } else {
+  //     return state.setIn(['form', 'fields', 'dateOfBirthIsCurBeingPicked'], true);
+  //   }
+  //   break;
 
     /**
      * ### name validation

@@ -50,6 +50,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     onChange: PropTypes.func
   },
 
+
   /**
    * ## render
    *
@@ -57,6 +58,7 @@ var SignUpBirthZipcodeForm = React.createClass({
    *
    */
   render() {
+
 
     var INPUT_COLOR = Colors.thirdTextColor;
     var DISABLED_COLOR = '#777777';
@@ -163,6 +165,7 @@ var SignUpBirthZipcodeForm = React.createClass({
       },
       select: {
         normal: {
+          backgroundColor: 'red',
           marginBottom: 4
         },
         // the style applied when a validation error occours
@@ -172,6 +175,7 @@ var SignUpBirthZipcodeForm = React.createClass({
       },
       datepicker: {
         normal: {
+          backgroundColor: 'red',
           marginBottom: 4
         },
         // the style applied when a validation error occours
@@ -184,22 +188,29 @@ var SignUpBirthZipcodeForm = React.createClass({
 
 
 
-
     let options = {
-      stylesheet: stylesheet,
-      auto: 'placeholders',
+      // stylesheet: stylesheet,
+      // auto: 'placeholders',
       fields: {
-        dateOfBirth:{
-          label: 'Birthdate',
-          maxLength: 10,
-          editable: true,
-          hasError: this.props.form.fields.dateOfBirthHasError,
-          error: 'Please give us a valid birthdate DD/MM/YYYY',
-          placeholder: '14/11/1955'
-        },
+        dateOfBirth:
         // {
-        //   factory: AccordionPicker,
+        //   label: 'Birthdate',
+        //   maxLength: 10,
+        //   editable: true,
+        //   hasError: this.props.form.fields.dateOfBirthIsCurBeingPicked,
+        //   error: 'Please give us a valid birthdate DD/MM/YYYY',
+        //   placeholder: '14/11/1955'
         // },
+        {
+          factory: AccordionPicker,
+          config:{
+              dateBeingPickedNow:this.props.form.fields.dateOfBirthIsCurBeingPicked,
+              onCollapsedChange: (isNowCollapsed)=>{
+                this.props.onChange({dateOfBirthIsCurBeingPicked: !isNowCollapsed})
+              }
+          }
+
+        },
         zipCode : {
           label: 'Zip code',
           maxLength: 10,
@@ -229,8 +240,10 @@ var SignUpBirthZipcodeForm = React.createClass({
     //   return "The passwordAgain should be 4-20 characters.";
     // };
 
-    let passwordForm = t.struct({
-      dateOfBirth: t.String, // a date field
+
+    let dateZipcodeForm = t.struct({
+      dateOfBirth: t.Date,//t.Date, // a date field
+      // dateOfBirth: t.String,
       zipCode: t.String
     });
 
@@ -241,10 +254,11 @@ var SignUpBirthZipcodeForm = React.createClass({
      */
     return (
       <Form ref="form"
-        type={passwordForm}
+        type={dateZipcodeForm}
         options={options}
         value={this.props.value}
         onChange={this.props.onChange}
+
       />
     );
   }
