@@ -33,19 +33,18 @@ export default function routingReducer(state = initialRouterState, action) {
   if (!(state instanceof InitialRouterState)) return initialRouterState.merge(state);
 
 
-  let previousSchene = state.currentSchene;
+  let previousSchene = state.previousSchene, currentSchene = state.currentSchene;
 
   switch (action.type) {
 
    case NAVIGATE_TO:
-     const scheneName = action.payload;
-     return state.set('previousSchene', previousSchene).set('currentSchene', scheneName);
+     const newSchene = action.payload;
+     return state.set('previousSchene', currentSchene).set('currentSchene', newSchene);
      break;
 
 
    case NAVIGATE_PREVIOUS:
 
-     let currentSchene = state.previousSchene;
      return state.set('previousSchene', currentSchene).set('currentSchene', previousSchene);
      break;
   }

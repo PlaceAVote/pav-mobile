@@ -109,14 +109,14 @@ export function logout() {
       })
 
       .then(() => {
-        dispatch(loginState());
+        // dispatch(loginState()); //TODO
         dispatch(logoutSuccess());
         dispatch(deleteSessionToken());
         Actions.Login();
       })
 
       .catch((error) => {
-        dispatch(loginState());
+        // dispatch(loginState()); //TODO
         dispatch(logoutFailure(error));
         Actions.Login();
       });
@@ -215,7 +215,7 @@ export function getSessionToken() {
       .then((token) => {
         if (token) {
           dispatch(sessionTokenRequestSuccess(token));
-          dispatch(logoutState());
+          // dispatch(logoutState());  //TODO:
           Actions.Tabbar();
         } else {
           dispatch(sessionTokenRequestFailure());
@@ -225,7 +225,7 @@ export function getSessionToken() {
 
       .catch((error) => {
         dispatch(sessionTokenRequestFailure(error));
-        dispatch(loginState());
+        // dispatch(loginState());//TODO:
         Actions.Onboarding();
       });
   };
@@ -278,7 +278,7 @@ export function signup(username, email, password) {
 			    }
 			   )
 	    ));
-	    dispatch(logoutState());
+	    // dispatch(logoutState()); //TODO:
 	    // navigate to Tabbar
 	    Actions.Tabbar();
 	  });
@@ -336,7 +336,7 @@ export function login(username,  password) {
 	return saveSessionToken(json)
 	  .then(function () {
 	    dispatch(loginSuccess(json));
-	    dispatch(logoutState());
+	    // dispatch(logoutState());//TODO
 	    Actions.Tabbar();
 	  });
       })
@@ -386,7 +386,7 @@ export function resetPassword(email) {
       email: email
     })
       .then(() => {
-        dispatch(loginState());
+        // dispatch(loginState());//TODO
         dispatch(resetPasswordSuccess());
         Actions.Login();
       })

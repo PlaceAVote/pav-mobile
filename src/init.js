@@ -51,10 +51,6 @@ import React, {
       * All the top level containers
       *
       */
-      import App from './containers/App';
-
-      //TODO: Uncomment those
-
       import EmailSignIn from './containers/EmailSignIn';
       import ForgotPassword from './containers/ForgotPassword';
       import EmailSignUpStep1 from './containers/EmailSignUpStep1';
@@ -150,6 +146,7 @@ import React, {
       */
 
 
+
       class ARightBtn extends React.Component {
           render(){
               return <Text style={{
@@ -169,7 +166,6 @@ import React, {
 
         let PlaceAVote = React.createClass( {
           render() {
-
             const store = configureStore(getInitialState());
 
             //Connect w/ the Router
@@ -181,12 +177,7 @@ import React, {
             store.dispatch(setVersion(VERSION));
             store.dispatch(setStore(store));
 
-            /*
 
-
-            renderRightButton={()=><ARightBtn/>}
-
-            */
             var self = this;
             var renderRtBtn = function renderRtBtn(){
               return
@@ -198,8 +189,7 @@ import React, {
             return (
               <Provider store={store}>
                 <Router hideNavBar={false}>
-
-                    <Scene key="root" onRight={()=>alert("Right button")} >
+                    <Scene key="root">
                       <Scene key={ActionNames.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}  initial={true} />
 
                       <Scene key="FacebookSignIn">
@@ -208,7 +198,7 @@ import React, {
 
                       <Scene key={ActionNames.LOGIN} component={EmailSignIn} type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}} navigationBarStyle={{backgroundColor:Colors.primaryColor}} >
                       </Scene>
-                      
+
                       <Scene key={ActionNames.FORGOT_PASSWORD} schema="modal" direction="vertical" component={ForgotPassword} title="Forgot Password" navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor}}/>
 
                       <Scene key={ActionNames.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} >
