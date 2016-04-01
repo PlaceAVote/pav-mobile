@@ -80,9 +80,6 @@ function mapDispatchToProps(dispatch) {
 let EmailSignUpStep3 = React.createClass({
 
 
-  componentWillMount(){
-    this.props.actions.registerState(3);
-  },
 
   render() {
     let onButtonPress = ()=>{

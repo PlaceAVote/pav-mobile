@@ -60,57 +60,6 @@ const  AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
 
 const  _ = require('underscore');
 
-/**
- * ## State actions
- * controls which form is displayed to the user
- * as in login, register, logout or reset password
- */
-
-export function logoutState() {
-  return {
-    type: LOGOUT
-  };
-
-}
-export function registerState(step) {
-  switch(step){
-    case 1:
-      return {
-        type: REGISTER_STEP_1
-      };
-      break;
-    case 2:
-      return {
-        type: REGISTER_STEP_2
-      };
-      break;
-    case 3:
-      return {
-        type: REGISTER_STEP_3
-      };
-      break;
-    case 4:
-      return {
-        type: REGISTER_STEP_4
-      };
-      break;
-    default:
-      break;
-  }
-
-}
-
-export function loginState() {
-  return {
-    type: LOGIN
-  };
-}
-
-export function forgotPasswordState() {
-  return {
-    type: FORGOT_PASSWORD
-  };
-}
 
 /**
  * ## Logout actions

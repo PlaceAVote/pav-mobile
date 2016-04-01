@@ -81,10 +81,6 @@ function mapDispatchToProps(dispatch) {
 let EmailSignUpStep4 = React.createClass({
 
 
-  componentWillMount(){
-    this.props.actions.registerState(4);
-  },
-
   render() {
     let onButtonPress = ()=>{
         this.props.actions.navigateTo("EmailSignUpStep4");

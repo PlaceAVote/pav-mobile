@@ -80,7 +80,6 @@ function buttonPressHandler(scheneName) {
       this.props.actions.navigateTo("FacebookSignIn");
       break;
     case "emailSignUp":
-      this.props.actions.registerState(1);
       this.props.actions.navigateTo(REGISTER_STEP_1);
       break;
     case "emailSignIn":
@@ -99,9 +98,6 @@ let Onboarding = React.createClass({
     this.props.actions.setOrientation(orientation);
   },
 
-  componentWillMount: function(){
-
-  },
   componentDidMount: function() {
     Orientation.addOrientationListener(this.orientationDidChange);
     this.props.actions.unlockOrientation();

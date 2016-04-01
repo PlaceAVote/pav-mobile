@@ -89,7 +89,8 @@ export default function authReducer(state = initialState, action) {
      */
   case LOGOUT:
     return formValidation(
-      state.setIn(['form', 'state'], action.type)
+      state
+        // .setIn(['form', 'state'], action.type)
         .setIn(['form','error'],null)
         .setIn(['form','fields','username'],'')
         .setIn(['form','fields','name'],'')
@@ -99,25 +100,6 @@ export default function authReducer(state = initialState, action) {
         .setIn(['form','fields','passwordAgain'],'')
     );
 
-    /**
-     * ### Loggin in state
-     * The user isn't logged in, and needs to
-     * login, register or reset password
-     *
-     * Set the form state and clear any errors
-     */
-  case LOGIN:
-  case REGISTER_STEP_1:
-  case REGISTER_STEP_2:
-  case REGISTER_STEP_3:
-  case REGISTER_STEP_4:
-  case FORGOT_PASSWORD:
-
-    return formValidation(
-      state.setIn(['form', 'state'], action.type)
-      .setIn(['form','error'],null)
-      // .setIn(['form', 'isValid', action.type], isFormValid(state.form.state, state.form.fields))
-    );
 
     /**
      * ### Auth form field change
@@ -175,7 +157,8 @@ export default function authReducer(state = initialState, action) {
     debugger;
     var form = JSON.parse(action.payload).auth.form;
 
-    var next = state.setIn(['form','state'],form.state)
+    var next = state
+          // .setIn(['form','state'],form.state)
           .setIn(['form','disabled'],form.disabled)
           .setIn(['form','error'], form.error)
           .setIn(['form','isValid', form.state],form.isValid)

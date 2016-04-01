@@ -80,7 +80,6 @@ let ForgotPassword = React.createClass({
 
   componentWillMount() {
       this.props.actions.lockOrientation("PORTRAIT");
-      this.props.actions.forgotPasswordState();
   },
 
   render() {

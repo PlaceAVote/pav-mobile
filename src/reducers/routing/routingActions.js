@@ -47,7 +47,7 @@ export function navigateToPreviousState() {
   };
 }
 
-// Actions[scheneName]();
+
 
 
 
