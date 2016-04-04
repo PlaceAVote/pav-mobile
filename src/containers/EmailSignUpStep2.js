@@ -37,7 +37,8 @@ import React from 'react-native';
 
 
 const {
-REGISTER_STEP_2
+  REGISTER_STEP_2,
+  REGISTER_STEP_3
 } = require('../config/constants').ActionNames
 
 /**
@@ -79,7 +80,10 @@ function mapDispatchToProps(dispatch) {
 
 let EmailSignUpStep2 = React.createClass({
 
-
+  componentDidMount: function() {
+    console.log("ARA");
+    this.props.actions.markScheneAsRendered(REGISTER_STEP_2)
+  },
 
   render() {
     let onButtonPress = ()=>{

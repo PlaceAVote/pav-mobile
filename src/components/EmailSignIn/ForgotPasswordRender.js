@@ -215,10 +215,10 @@ class ForgotPasswordRender extends Component {
    */
   onChange(value) {
     if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email);
+      this.props.actions.onAuthFormFieldChange('email',value.email, FORGOT_PASSWORD);
     }
     if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password);
+      this.props.actions.onAuthFormFieldChange('password',value.password, FORGOT_PASSWORD);
     }
     this.setState(
       {value}

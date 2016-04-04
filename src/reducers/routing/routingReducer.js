@@ -17,8 +17,8 @@ import InitialRouterState from './routingInitialState';
  * Routing actions to test
  */
  const {
-   NAVIGATE_TO,
-   NAVIGATE_PREVIOUS
+   SET_NAV_PROPS,
+   SET_LAST_RENDERED
  } = require('../../config/constants').ActionNames
 
 
@@ -32,21 +32,23 @@ const initialRouterState = new InitialRouterState
 export default function routingReducer(state = initialRouterState, action) {
   if (!(state instanceof InitialRouterState)) return initialRouterState.merge(state);
 
-
-  let previousSchene = state.previousSchene, currentSchene = state.currentSchene;
+  // previousSchene = state.previousSchene,
+  let currentSchene = state.currentSchene;
 
   switch (action.type) {
 
-   case NAVIGATE_TO:
-     const newSchene = action.payload;
-     return state.set('previousSchene', currentSchene).set('currentSchene', newSchene);
+   case SET_NAV_PROPS:
+      let {current} = action.payload;
+
+    //  console.log("@@ NOW SETTING NAV PROPS"+JSON.stringify(action))
+
+     return state.set('previousSchene', currentSchene).set('currentSchene', current);
      break;
-
-
-   case NAVIGATE_PREVIOUS:
-
-     return state.set('previousSchene', currentSchene).set('currentSchene', previousSchene);
+   case SET_LAST_RENDERED:
+     return state.set('lastScheneRendered', action.payload)
      break;
+   default:
+    break;
   }
 
   return state;

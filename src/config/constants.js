@@ -81,8 +81,8 @@ module.exports =  {
    REGISTER_STEP_4: null,
 
 
-   NAVIGATE_TO: null,
-   NAVIGATE_PREVIOUS: null
+   SET_NAV_PROPS: null,
+   SET_LAST_RENDERED: null
 
  })
 

@@ -37,6 +37,7 @@ import React from 'react-native';
 
 
 const {
+  REGISTER_STEP_3,
   REGISTER_STEP_4,
 } = require('../config/constants').ActionNames
 
@@ -79,7 +80,9 @@ function mapDispatchToProps(dispatch) {
 
 let EmailSignUpStep3 = React.createClass({
 
-
+  componentDidMount: function() {
+    this.props.actions.markScheneAsRendered(REGISTER_STEP_3)
+  },
 
   render() {
     let onButtonPress = ()=>{

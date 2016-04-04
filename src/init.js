@@ -24,7 +24,8 @@ import React, {
   import RNRF, {
     Scene,
     TabBar,
-    Modal
+    Modal,
+    Reducer
 } from 'react-native-router-flux';
 
     /**
@@ -69,6 +70,7 @@ import React, {
       import {Colors, ActionNames} from './config/constants';
 
 
+
       /**
       * ### icons
       *
@@ -83,6 +85,7 @@ import React, {
       */
       import {setPlatform, setVersion} from './reducers/device/deviceActions';
       import {setStore} from './reducers/global/globalActions';
+      import {setNavProps, navigateToPreviousState} from './reducers/routing/routingActions';
 
       /**
       * ## States
@@ -162,15 +165,24 @@ import React, {
           }
       }
 
+
+
+
+
+
       export default function native(platform) {
 
         let PlaceAVote = React.createClass( {
+
+
+
           render() {
             const store = configureStore(getInitialState());
 
             //Connect w/ the Router
             const Router = connect()(RNRF.Router);
 
+            // console.log("@@@@@@@@@@@ ROUTER: "+Router);
             // configureStore will combine reducers from placeAVote and main application
             // it will then create the store based on aggregate state from all reducers
             store.dispatch(setPlatform(platform));
@@ -179,16 +191,41 @@ import React, {
 
 
             var self = this;
-            var renderRtBtn = function renderRtBtn(){
-              return
-            }
+
+
+            const reducerCreate = params=>{
+                const defaultReducer = Reducer(params);
+                return (state, action)=>{
+                    // console.log("ACTION:", state);
+
+
+                    // switch (action.type) {
+                    //   case "push":
+                    //       console.log("@@@@@@@@@@@@@@@@@@@@@ reducer: "+JSON.stringify(action));
+                    //       // store.dispatch(setNavProps(action.key))
+                    //       break;
+                    //   case "BackAction":
+                    //       store.dispatch(navigateToPreviousState())
+                    //   default:
+                    //     break;
+                    //
+                    // }
+
+
+
+                    return defaultReducer(state, action);
+                }
+            };
+            // var renderRtBtn = function renderRtBtn(){
+            //   return
+            // }
 
 // titleStyle={{color:Colors.mainTextColor}}
 // navigationBarStyle={{backgroundColor:Colors.primaryColor}}
             // setup the router table with App selected as the initial component
             return (
               <Provider store={store}>
-                <Router hideNavBar={false}>
+                <Router hideNavBar={false} createReducer={reducerCreate}  sceneStyle={{backgroundColor:'#F7F7F7'}}>
                     <Scene key="root">
                       <Scene key={ActionNames.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}  initial={true} />
 

@@ -14,7 +14,7 @@
  */
 const {Record} = require('immutable');
 const {
-  NAVIGATE_TO,
+  // SET_NAV_PROPS,
   ONBOARDING
 } = require('../../config/constants').ActionNames
 
@@ -24,9 +24,10 @@ const {
  * The form is set
  */
 const Router = Record({
-  state: NAVIGATE_TO,
+  lastScheneRendered: null,
   currentSchene: ONBOARDING,
-  previousSchene: null
+  previousSchene: null,
+
 });
 
 /**

@@ -36,10 +36,9 @@ import EmailSignUpStep4Render from '../components/EmailSignUp/EmailSignUpStep4Re
 import React from 'react-native';
 
 
-// const {
-//   REGISTER_STEP_1,
-//   FORGOT_PASSWORD
-// } = require('../config/constants').ActionNames
+const {
+  REGISTER_STEP_4
+} = require('../config/constants').ActionNames
 
 /**
  * ## Redux boilerplate
@@ -80,6 +79,9 @@ function mapDispatchToProps(dispatch) {
 
 let EmailSignUpStep4 = React.createClass({
 
+  componentDidMount: function() {
+    this.props.actions.markScheneAsRendered(REGISTER_STEP_4)
+  },
 
   render() {
     let onButtonPress = ()=>{

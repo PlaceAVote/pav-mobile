@@ -15,8 +15,8 @@
  * The actions supported
  */
 const {
-  NAVIGATE_TO,
-  NAVIGATE_PREVIOUS
+  SET_NAV_PROPS,
+  SET_LAST_RENDERED
 } = require('../../config/constants').ActionNames
 
 
@@ -33,19 +33,28 @@ import {Actions} from 'react-native-router-flux';
 // import {Actions} from 'react-native-router-flux';
 // const  _ = require('underscore');
 
-export function navigateState(schene) {
+
+export function markScheneAsRendered(schene) {
   return {
-    type: NAVIGATE_TO,
+    type: SET_LAST_RENDERED,
     payload: schene
   };
 }
 
-export function navigateToPreviousState() {
+
+export function setNavProps(currentScreen) {
   return {
-    type: NAVIGATE_PREVIOUS,
-    payload: null
+    type: SET_NAV_PROPS,
+    payload: {current:currentScreen}
   };
 }
+
+// export function navigateToPreviousState() {
+//   return {
+//     type: SET_NAV_PROPS,
+//     payload: null
+//   };
+// }
 
 // Actions[scheneName]();
 
@@ -55,20 +64,45 @@ export function navigateToPreviousState() {
 Action creators
 
 */
+export function renderChangesIfNeeded() {
+  var self = this;
+  return (dispatch, getState) => {
+    const state = getState()
+    if(state.router.currentSchene!=state.router.lastScheneRendered){
+      console.log("###################### Current is: "+state.router.lastScheneRendered+ " but should be: "+state.router.currentSchene);
+      var schene = state.router.currentSchene;
+      if(schene!=state.router.previousSchene){
+        try{
+          console.log("Push"+schene);
+          Actions[schene]();
+        }catch(e){
+          console.log("Schene: "+schene+ "nav error: "+e);
+        }
+      }else{
+        console.log("Pop"+schene);
+        Actions.pop();
+      }
+
+    }else{
+      console.log("ALL GOOD");
+    }
+
+  }
+}
 
 export function navigateTo(schene) {
   return (dispatch, getState) => {
-    const state = getState()
-    if(state.router.currentSchene!=schene){
-      try{
-        Actions[schene]();
-      }catch(e){
-        console.log("Schene: "+schene+ "nav error: "+e);
-      }
-      return dispatch(navigateState(schene));
-    }else{
-      console.log("We\'re already within "+schene);
-    }
+    dispatch(setNavProps(schene))
+    // const state = getState()
+    // if(state.router.currentSchene!=schene){
+    //   try{
+    //     // Actions[schene]();
+    //   }catch(e){
+    //     console.log("Schene: "+schene+ "nav error: "+e);
+    //   }
+    // }else{
+    //   console.log("We\'re already within "+schene);
+    // }
 
   }
 }
@@ -77,12 +111,13 @@ export function navigateTo(schene) {
 export function navigateToPrevious() {
     return (dispatch, getState) => {
       const state = getState()
-      if(!!state.router.previousSchene){
-        Actions.pop()
-        dispatch(navigateToPreviousState());
-      }else{
-        //do somethong when there is NO previous state.
-        console.log("ERROR: No previous state to head to.")
-      }
+      dispatch(setNavProps(state.router.previousSchene))
+
+      // if(!!state.router.previousSchene){
+      //   Actions.pop()
+      // }else{
+      //   //do somethong when there is NO previous state.
+      //   console.log("ERROR: No previous state to head to.")
+      // }
     }
 }

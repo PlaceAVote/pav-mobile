@@ -42,6 +42,7 @@ import OnboardingRender from '../components/Onboarding/OnboardingRender'
 import React from 'react-native';
 
 const {
+ONBOARDING,
 REGISTER_STEP_1,
 LOGIN
 } = require('../config/constants').ActionNames
@@ -93,6 +94,18 @@ function buttonPressHandler(scheneName) {
 
 let Onboarding = React.createClass({
 
+  /**
+   * ### componentWillReceiveProps
+   * As the properties are validated they will be set here.
+   */
+  componentWillReceiveProps(nextprops) {
+    // nextprops.auth.form.fields.email,
+    // if(nextprops.router.currentSchene!=this.props.router.currentSchene){
+      // console.log("Previous schene was "+this.props.router.currentSchene+" but the next will be "+nextprops.router.currentSchene)
+    // }
+    this.props.actions.renderChangesIfNeeded();
+  },
+
   orientationDidChange: function(orientation) {
     // console.log("Orientation: "+orientation);
     this.props.actions.setOrientation(orientation);
@@ -101,6 +114,7 @@ let Onboarding = React.createClass({
   componentDidMount: function() {
     Orientation.addOrientationListener(this.orientationDidChange);
     this.props.actions.unlockOrientation();
+    this.props.actions.markScheneAsRendered(ONBOARDING)
   },
 
   componentWillUnmount: function() {
