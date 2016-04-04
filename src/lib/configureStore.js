@@ -34,7 +34,7 @@ const createStoreWithMiddleware = compose(
 /**
  * ## configureStore
  * @param {Object} the state with for keys:
- * device, global, auth, profile
+ * device, global, auth, profile, router
  *
  */
 export default function configureStore(initialState, storeEnhancers) {

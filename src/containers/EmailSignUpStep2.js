@@ -37,7 +37,7 @@ import React from 'react-native';
 
 
 const {
-REGISTER_STEP_2
+REGISTER_STEP_3
 } = require('../config/constants').ActionNames
 
 /**

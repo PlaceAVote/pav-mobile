@@ -222,10 +222,10 @@ class EmailSignInRender extends Component {
    */
   onChange(value) {
     if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email);
+      this.props.actions.onAuthFormFieldChange('email',value.email, LOGIN);
     }
     if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password);
+      this.props.actions.onAuthFormFieldChange('password',value.password, LOGIN);
     }
     this.setState(
       {value}

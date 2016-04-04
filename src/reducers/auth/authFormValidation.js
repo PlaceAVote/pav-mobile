@@ -25,9 +25,9 @@ const {
 
 
 
-function isFormValid(formState, fields){
+function isFormValid(scheneName, fields){
   let isValid = false;
-  switch (formState) {
+  switch (scheneName) {
     case REGISTER_STEP_1:
       // console.log("surname: "+fields.surname+"er: "+fields.surnameHasError+ " name: "+fields.name+"er: "+fields.nameHasError);
       isValid = (!!fields.surname && !!fields.name && !fields.nameHasError && !fields.surnameHasError);
@@ -59,8 +59,7 @@ function isFormValid(formState, fields){
  * ## formValidation
  * @param {Object} state - the Redux state object
  */
-export default function formValidation (state) {
-    let curState = state.form.state,
-    isValid = isFormValid(curState, state.form.fields);
-    return state.setIn(['form','isValid', curState],isValid);
+export default function formValidation (state, scheneName) {
+    let isValid = isFormValid(scheneName, state.form.fields);
+    return state.setIn(['form','isValid', scheneName],isValid);
 }

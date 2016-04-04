@@ -253,14 +253,14 @@ class EmailSignUpStep4Render extends Component {
     // console.log("Changed"+JSON.stringify(value));
     if (value.dateOfBirth != ''&& value.dateOfBirth != undefined) {
       // console.log("DATE value about to change to: "+value.dateOfBirth);
-      this.props.actions.onAuthFormFieldChange('dateOfBirth',value.dateOfBirth);
+      this.props.actions.onAuthFormFieldChange('dateOfBirth',value.dateOfBirth, REGISTER_STEP_4);
     }
     if (value.zipCode != '' && value.zipCode != undefined ) {
-      this.props.actions.onAuthFormFieldChange('zipCode',value.zipCode);
+      this.props.actions.onAuthFormFieldChange('zipCode',value.zipCode, REGISTER_STEP_4);
     }
 
     if(value.dateOfBirthIsCurBeingPicked!=undefined){
-      this.props.actions.onAuthFormFieldChange('dateOfBirthIsCurBeingPicked',value.dateOfBirthIsCurBeingPicked);
+      this.props.actions.onAuthFormFieldChange('dateOfBirthIsCurBeingPicked',value.dateOfBirthIsCurBeingPicked, REGISTER_STEP_4);
     }else{
       this.setState(
         {value}

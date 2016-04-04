@@ -111,14 +111,14 @@ export default function authReducer(state = initialState, action) {
      */
   case ON_AUTH_FORM_FIELD_CHANGE: {
 
-    const {field, value} = action.payload;
+    const {field, value, scheneName} = action.payload;
     let nextState =  state.setIn(['form', 'fields', field], value)
           .setIn(['form','error'],null);
     // console.log("Validation in auth reducer next state "+nextState);
 
     return formValidation(
       fieldValidation( nextState, action)
-      , action);
+      , scheneName);
 
     // let isValid = isFormValid(validatedState.form.state, validatedState.form.fields); //todo: change
     // console.log("Validation in auth reducer final state "+finalState);

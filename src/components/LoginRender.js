@@ -163,13 +163,13 @@ class LoginRender extends Component {
    */
   onChange(value) {
     if (value.username != '') {
-      this.props.actions.onAuthFormFieldChange('username',value.username);
+      this.props.actions.onAuthFormFieldChange('username',value.username, LOGIN);
     }
     if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email);
+      this.props.actions.onAuthFormFieldChange('email',value.email, LOGIN);
     }
     if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password);
+      this.props.actions.onAuthFormFieldChange('password',value.password, LOGIN);
     }
     if (value.passwordAgain != '') {
       this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain);

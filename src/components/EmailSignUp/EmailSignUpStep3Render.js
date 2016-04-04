@@ -248,10 +248,10 @@ class EmailSignUpStep3Render extends Component {
 
     // console.log("Changed"+JSON.stringify(value));
     if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password);
+      this.props.actions.onAuthFormFieldChange('password',value.password, REGISTER_STEP_3);
     }
     if (value.passwordAgain != '') {
-      this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain);
+      this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain, REGISTER_STEP_3);
     }
 
     this.setState(

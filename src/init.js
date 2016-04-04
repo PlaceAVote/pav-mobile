@@ -24,7 +24,8 @@ import React, {
   import RNRF, {
     Scene,
     TabBar,
-    Modal
+    Modal,
+    Reducer
 } from 'react-native-router-flux';
 
     /**
@@ -182,13 +183,21 @@ import React, {
             var renderRtBtn = function renderRtBtn(){
               return
             }
+            const reducerCreate = params=>{
+                const defaultReducer = Reducer(params);
+                return (state, action)=>{
+                    console.log("ACTION:", action);
+                    return defaultReducer(state, action);
+                }
+            };
+
 
 // titleStyle={{color:Colors.mainTextColor}}
 // navigationBarStyle={{backgroundColor:Colors.primaryColor}}
             // setup the router table with App selected as the initial component
             return (
               <Provider store={store}>
-                <Router hideNavBar={false}>
+                <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
                     <Scene key="root">
                       <Scene key={ActionNames.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}  initial={true} />
 
@@ -201,12 +210,10 @@ import React, {
 
                       <Scene key={ActionNames.FORGOT_PASSWORD} schema="modal" direction="vertical" component={ForgotPassword} title="Forgot Password" navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor}}/>
 
-                      <Scene key={ActionNames.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} >
-                        <Scene key={ActionNames.REGISTER_STEP_2} component={EmailSignUpStep2} hideNavBar={true} />
-                        <Scene key={ActionNames.REGISTER_STEP_3} component={EmailSignUpStep3} hideNavBar={true} />
-                        <Scene key={ActionNames.REGISTER_STEP_4} component={EmailSignUpStep4} hideNavBar={true} />
-                      </Scene>
-
+                      <Scene key={ActionNames.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} />
+                        <Scene key={ActionNames.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" title="Sign Up" hideNavBar={true} />
+                        <Scene key={ActionNames.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" title="Sign Up" hideNavBar={true} />
+                        <Scene key={ActionNames.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" title="Sign Up" hideNavBar={true} />
                     </Scene>
 
                 </Router>
