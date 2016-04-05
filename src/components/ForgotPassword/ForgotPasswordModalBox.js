@@ -27,7 +27,8 @@ class ForgotPasswordModalBox extends React.Component {
 
         return (
             <Modal animationDuration={200}
-                    swipeThreshold={100}
+                    swipeToClose={true}
+                    swipeThreshold={90}
                     style={styles.modal}
                     position={"center"}
                     isOpen={this.props.isOpen}
