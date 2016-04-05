@@ -22,10 +22,16 @@ import moment from 'moment';
  */
 const emailConstraints = {
   presence: true,
-  from: {
+  email: {
     email: true
   }
 };
+const forgotPasswordEmailConstraints = {
+  presence: true,
+  forgotPasswordEmail: {
+    email: true
+  }
+}
 
 
 
@@ -181,12 +187,23 @@ export default function fieldValidation(state, action ) {
     }
     break;
 
+
+  case('forgotPasswordEmail'):
+    let validForgotPasswordEmail  = _.isUndefined(validate({forgotPasswordEmail: value},
+                                               forgotPasswordEmailConstraints));
+    if (validForgotPasswordEmail) {
+      return state.setIn(['form', 'fields', 'forgotPasswordEmailHasError'], false);
+    } else {
+      return state.setIn(['form', 'fields', 'forgotPasswordEmailHasError'], true);
+    }
+    break;
     /**
      * ### email validation
      * set the form field error
      */
+
   case('email'):
-    let validEmail  = _.isUndefined(validate({from: value},
+    let validEmail  = _.isUndefined(validate({email: value},
                                              emailConstraints));
     if (validEmail) {
       return state.setIn(['form', 'fields', 'emailHasError'], false);

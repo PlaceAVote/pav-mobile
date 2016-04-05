@@ -189,8 +189,7 @@ import React, {
             const reducerCreate = params=>{
                 const defaultReducer = Reducer(params);
                 return (state, action)=>{
-
-                  console.log("ACTION:", action);
+                  // console.log("ACTION:", action);
                   switch(action.type){
                     case "push":
                       store.dispatch(navigateState(action.key));

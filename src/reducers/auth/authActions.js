@@ -126,7 +126,7 @@ export function logout() {
  * ## onAuthFormFieldChange
  * Set the payload so the reducer can work on it
  */
-export function onAuthFormFieldChange(field,value, scheneName) {
+export function onAuthFormFieldChange(field, value, scheneName) {
   return {
     type: ON_AUTH_FORM_FIELD_CHANGE,
     payload: {field: field, value: value, scheneName: scheneName}

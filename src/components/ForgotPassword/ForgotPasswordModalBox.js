@@ -1,51 +1,101 @@
 'use strict';
 
-var React = require('react-native');
-var {View, Text, StyleSheet} = React;
-import Button from 'sp-react-native-iconbutton'
-var Actions = require('react-native-router-flux').Actions;
+import Button from 'sp-react-native-iconbutton';
+import ForgotPasswordRender from './ForgotPasswordRender';
+import {Actions} from 'react-native-router-flux';
+import  Modal from 'react-native-modalbox';
+import React from 'react-native';
 
-var Modal   = require('react-native-modalbox');
+const {
+  View,
+  Text,
+  StyleSheet
+} = React;
 
-// Example integration with react-native-modalbox (https://github.com/maxs15/react-native-modalbox)
-// For those people who don't want to animate their own modal
+import {Colors} from '../../config/constants';
+
 class ForgotPasswordModalBox extends React.Component {
     constructor(){
         super();
     }
-    componentWillMount(){
-        this.setState({isOpen: true});
-    }
+    // componentWillMount(){
+    //     this.setState({isOpen: true});
+    // }
+
+
     render(){
+
         return (
-            <Modal  animationDuration={200}
+            <Modal animationDuration={200}
                     swipeThreshold={100}
                     style={styles.modal}
                     position={"center"}
-                    isOpen={this.state.isOpen}
-                    onClosed={Actions.dismiss}>
-                <Text style={styles.text}>
-                    ForgotPasswordModalBox
-                </Text>
-                <Text>
-                    (swipe down to close)
-                </Text>
+                    isOpen={this.props.isOpen}
+                    onClosed={this.props.onModalClosed}>
+
+              <View style={styles.modalVerticalParent}>
+
+                <View style={styles.buttonContainer}>
+                  <Button textStyle={styles.whiteBtnText} style={styles.closeBtn} iconProps={{name: "close",size:25, color: "black"}}
+                      onPress={this.props.onCloseBtnClicked}>
+                  </Button>
+                </View>
+
+
+                <View style={styles.modalContentContainer}>
+                  <ForgotPasswordRender
+                      onButtonPress={ this.props.onNextBtnClicked }
+                      auth={ this.props.auth }
+                      global={ this.props.global }
+                  />
+                </View>
+
+              </View>
+
             </Modal>
         );
     }
 }
-
 var styles = StyleSheet.create({
     modal: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: 300,
+        height: 320,
         width: 300,
+    },
+    modalVerticalParent:{
+      flex:1,
+      flexDirection:'column',
+      // backgroundColor: 'pink',
+      alignItems: 'center'
+    },
+    buttonContainer:{
+      width:35,
+      flex:0.1,
+      backgroundColor: Colors.transparentColor,
+      alignSelf: 'flex-end'
+    },
+    closeBtn:{
+      // position: 'absolute',
+      borderRadius: 0,
+      borderWidth: 0,
+      // backgroundColor: 'blue',
+      height: 10,
+    },
+
+    modalContentContainer:{
+      flex:0.9,
+      // backgroundColor: 'blue',
     },
     text: {
         color: "black",
         fontSize: 22
     },
+    whiteBtnText:{
+      color: Colors.mainTextColor,
+      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      textAlign: 'center'
+    }
 });
 
 module.exports = ForgotPasswordModalBox;

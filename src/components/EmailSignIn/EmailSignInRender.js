@@ -32,31 +32,16 @@ import Button from 'sp-react-native-iconbutton'
 
 
 /**
-* Icons library
-*/
-var Icon = require('react-native-vector-icons/FontAwesome');
-
-/**
- * The Header will display a Image and support Hot Loading
- */
-import Header from '../../components/Header';
-/**
  * The ErrorAlert displays an alert for both ios & android
  */
 import ErrorAlert from '../../components/ErrorAlert';
-/**
- * The FormButton will change it's text between the 4 states as necessary
- */
-import FormButton from '../../components/FormButton';
+
 /**
  *  The SignInForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
 import SignInForm from './SignInForm';
-/**
- * The itemCheckbox will toggle the display of the password fields
- */
-import ItemCheckbox from '../../components/ItemCheckbox';
+
 import {Colors, ActionNames} from '../../config/constants';
 
 /**
@@ -248,16 +233,16 @@ class EmailSignInRender extends Component {
     },
     onForgotBtnPress = ()=>{
       this.props.onButtonPress(FORGOT_PASSWORD);
-    },
-    renderForgotPasswordModalBox = ()=>{
-      if(this.props.forgotPasswordModalOpen===true){
-        return <ForgotPasswordModalBox/>;
-      }else{
-        return <View></View>;
-      }
-    }
+    };
+    // renderForgotPasswordModalBox = ()=>{
+    //   if(===true){
+    //     return ;
+    //   }else{
+    //     return <View></View>;
+    //   }
+    // }
 
-
+    // console.log("@@@@@@@@ forgotPasswordModalOpen is: "+this.props.forgotPasswordModalOpen);
 
     return(
       <View style={styles.baseContainer}>
@@ -283,11 +268,19 @@ class EmailSignInRender extends Component {
           </Button>
 
         </View>
-        {renderForgotPasswordModalBox()}
+
+        <ForgotPasswordModalBox
+        onCloseBtnClicked={this.props.onForgotPasswordCloseBtnClicked}
+        onNextBtnClicked={this.props.onForgotPasswordNextBtnClicked}
+        auth={this.props.auth}
+        isOpen={this.props.forgotPasswordModalOpen}
+        onModalClosed={this.props.onForgotPasswordClosed} />
       </View>
     );
   }
 }
+// {renderForgotPasswordModalBox()}
+
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
 export default connect(mapStateToProps, mapDispatchToProps)(EmailSignInRender);

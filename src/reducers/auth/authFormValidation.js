@@ -27,6 +27,8 @@ const {
 
 function isFormValid(scheneName, fields){
   let isValid = false;
+
+  // console.log(fields)
   switch (scheneName) {
     case REGISTER_STEP_1:
       // console.log("surname: "+fields.surname+"er: "+fields.surnameHasError+ " name: "+fields.name+"er: "+fields.nameHasError);
@@ -45,7 +47,9 @@ function isFormValid(scheneName, fields){
       isValid = (fields.email!='' && fields.password!='' && !fields.emailHasError && !fields.passwordHasError);
       break;
     case FORGOT_PASSWORD:
-      isValid = (fields.email != '' && !fields.emailHasError); //TODO: Check this
+      isValid = (fields.forgotPasswordEmail != '' && !fields.forgotPasswordEmailHasError);
+      // console.log("ForgotEmail: "+fields.forgotPasswordEmail+" forgot pass has error: "+fields.forgotPasswordEmailHasError);
+      break;
     case LOGOUT:  //TODO: Implement this when the time is right
       break;
     default:

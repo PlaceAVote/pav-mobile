@@ -16,7 +16,8 @@
  */
 const {
   NAVIGATE_TO,
-  NAVIGATE_PREVIOUS
+  NAVIGATE_PREVIOUS,
+  SET_MODAL_VISIBILITY
 } = require('../../config/constants').ActionNames
 
 
@@ -83,4 +84,12 @@ export function navigateToPrevious() {
         console.log("ERROR: No previous state to head to.")
       }
     }
+}
+
+
+export function setModalVisibility(modalName, visible) {
+  return {
+    type: SET_MODAL_VISIBILITY,
+    payload: {name: modalName, visibility: visible}
+  };
 }

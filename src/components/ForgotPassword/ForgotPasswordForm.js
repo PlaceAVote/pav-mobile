@@ -74,6 +74,7 @@ var ForgotPasswordForm = React.createClass({
 
     var stylesheet = Object.freeze({
       fieldset: {
+        flex:1,
         flexDirection: 'column'
       },
 
@@ -197,13 +198,13 @@ var ForgotPasswordForm = React.createClass({
       stylesheet: stylesheet,
       auto: 'placeholders',
       fields: {
-        email: {
+        forgotPasswordEmail: {
           label: '',
           maxLength: 12,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.forgotPasswordEmailHasError,
           error: 'Please enter your email.',
-          placeholder: 'example@example.com'
+          placeholder: 'your.email@example.com'
 
         }
 
@@ -212,7 +213,7 @@ var ForgotPasswordForm = React.createClass({
 
 
     let loginForm = t.struct({
-      email: t.String
+      forgotPasswordEmail: t.String
     });
 
     /**

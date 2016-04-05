@@ -12,7 +12,7 @@
 /**
  * ## Import
  */
-const {Record} = require('immutable');
+const {Record, Map} = require('immutable');
 const {
   NAVIGATE_TO,
   ONBOARDING,
@@ -24,17 +24,17 @@ const {
  * ## InitialState
  * The form is set
  */
-const Router = Record({
+const Router = new Record({
   state: NAVIGATE_TO,
   currentSchene: ONBOARDING,
   previousSchene: null,
   modalIsOpen: new Map([
-    [FORGOT_PASSWORD, true],
-  ]),
+    [FORGOT_PASSWORD, false]
+  ])
 });
 
 /**
  * ## InitialState
  * The form is set
  */
-export default Router;
+export default  Router;

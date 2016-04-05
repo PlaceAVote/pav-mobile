@@ -84,32 +84,40 @@ let EmailSignIn = React.createClass({
 
   render() {
     let onBtnPress = (type)=>{
-      console.log(type+" btn pressed")
       switch(type){
         case "facebook":
           break;
         case "signIn":
           break;
         case FORGOT_PASSWORD:
-          this.props.actions.navigateTo(FORGOT_PASSWORD);
+          this.props.actions.setModalVisibility(FORGOT_PASSWORD, true);
           break
         default:
           break;
       }
+    },
+    onForgotPasswordModalClosed = ()=>{
+      this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
+    },
+    onForgotPasswordCloseBtnClicked = ()=>{
+      this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
+    },
+    onForgotPasswordNextBtnClicked = ()=>{
+      this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
+      //DO something on forgot password next clicked
+      alert("Check your inbox for the reset password link.")
     };
 
-    //  buttonPressHandler.bind(null,
-		// 		                this.props.actions.login,
-		// 		                this.props.auth.form.fields.username,
-		// 		                this.props.auth.form.fields.password
-		//                                );
 
     return(
       <EmailSignInRender
+          onForgotPasswordCloseBtnClicked={onForgotPasswordCloseBtnClicked}
+          onForgotPasswordNextBtnClicked={onForgotPasswordNextBtnClicked}
           onButtonPress={ onBtnPress }
           auth={ this.props.auth }
           global={ this.props.global }
           forgotPasswordModalOpen = {this.props.router.modalIsOpen.get(FORGOT_PASSWORD)}
+          onForgotPasswordClosed = {onForgotPasswordModalClosed}
       />
     );
   }

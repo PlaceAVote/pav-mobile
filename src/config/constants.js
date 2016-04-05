@@ -82,7 +82,8 @@ module.exports =  {
 
 
    NAVIGATE_TO: null,
-   NAVIGATE_PREVIOUS: null
+   NAVIGATE_PREVIOUS: null,
+   SET_MODAL_VISIBILITY: null
 
  })
 
