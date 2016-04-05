@@ -35,11 +35,13 @@ import EmailSignUpStep4Render from '../components/EmailSignUp/EmailSignUpStep4Re
  */
 import React from 'react-native';
 
+/**
+ * The states were interested in
+ */
 
-// const {
-//   REGISTER_STEP_1,
-//   FORGOT_PASSWORD
-// } = require('../config/constants').ActionNames
+const {
+  NEWSFEED
+} = require('../config/constants').ActionNames
 
 /**
  * ## Redux boilerplate
@@ -83,17 +85,12 @@ let EmailSignUpStep4 = React.createClass({
 
   render() {
     let onButtonPress = ()=>{
-        this.props.actions.navigateTo("EmailSignUpStep4");
+        this.props.actions.navigateTo(NEWSFEED);
+        //TODO: first signup asynchronously and then navigate
     },
     onBackBtnPress = ()=>{
         this.props.actions.navigateToPrevious();
     }
-
-    // buttonPressHandler.bind(null,
-    //     this.props.actions.login,
-    //     this.props.auth.form.fields.username,
-    //     this.props.auth.form.fields.password
-    // );
 
     return(
       <EmailSignUpStep4Render
