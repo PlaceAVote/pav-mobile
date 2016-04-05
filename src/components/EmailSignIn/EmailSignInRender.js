@@ -12,7 +12,8 @@
  */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+// import Modal from 'react-native-modalbox';
+import ForgotPasswordModalBox from '../ForgotPassword/ForgotPasswordModalBox'
 /**
  * The actions we need
  */
@@ -246,7 +247,14 @@ class EmailSignInRender extends Component {
       this.props.onButtonPress("facebook");
     },
     onForgotBtnPress = ()=>{
-      this.props.onButtonPress("forgotPassword");
+      this.props.onButtonPress(FORGOT_PASSWORD);
+    },
+    renderForgotPasswordModalBox = ()=>{
+      if(this.props.forgotPasswordModalOpen===true){
+        return <ForgotPasswordModalBox/>;
+      }else{
+        return <View></View>;
+      }
     }
 
 
@@ -275,6 +283,7 @@ class EmailSignInRender extends Component {
           </Button>
 
         </View>
+        {renderForgotPasswordModalBox()}
       </View>
     );
   }

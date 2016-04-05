@@ -15,7 +15,8 @@
 const {Record} = require('immutable');
 const {
   NAVIGATE_TO,
-  ONBOARDING
+  ONBOARDING,
+  FORGOT_PASSWORD
 } = require('../../config/constants').ActionNames
 
 
@@ -26,7 +27,10 @@ const {
 const Router = Record({
   state: NAVIGATE_TO,
   currentSchene: ONBOARDING,
-  previousSchene: null
+  previousSchene: null,
+  modalIsOpen: new Map([
+    [FORGOT_PASSWORD, true],
+  ]),
 });
 
 /**

@@ -30,7 +30,7 @@ const {
 const Form = Record({
   disabled: false,
   error: null,
-  isValid: Map([
+  isValid: new Map([
     [REGISTER_STEP_1, false],
     [REGISTER_STEP_2, false],
     [REGISTER_STEP_3, false],
@@ -53,7 +53,9 @@ const Form = Record({
     dateOfBirth: new Date(),
     dateOfBirthIsCurBeingPicked: false,
     zipCode: '',
-    zipCodeHasError: false
+    zipCodeHasError: false,
+    forgotPasswordEmail: '',
+    forgotPasswordEmailHasError: false
   }))
 });
 

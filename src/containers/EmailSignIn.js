@@ -90,8 +90,8 @@ let EmailSignIn = React.createClass({
           break;
         case "signIn":
           break;
-        case "forgotPassword":
-          this.props.actions.navigateTo("ForgotPassword");
+        case FORGOT_PASSWORD:
+          this.props.actions.navigateTo(FORGOT_PASSWORD);
           break
         default:
           break;
@@ -109,6 +109,7 @@ let EmailSignIn = React.createClass({
           onButtonPress={ onBtnPress }
           auth={ this.props.auth }
           global={ this.props.global }
+          forgotPasswordModalOpen = {this.props.router.modalIsOpen.get(FORGOT_PASSWORD)}
       />
     );
   }

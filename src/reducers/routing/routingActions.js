@@ -65,7 +65,6 @@ export function navigateTo(schene) {
       }catch(e){
         console.log("Schene: "+schene+ "nav error: "+e);
       }
-      return dispatch(navigateState(schene));
     }else{
       console.log("We\'re already within "+schene);
     }
@@ -79,7 +78,6 @@ export function navigateToPrevious() {
       const state = getState()
       if(!!state.router.previousSchene){
         Actions.pop()
-        dispatch(navigateToPreviousState());
       }else{
         //do somethong when there is NO previous state.
         console.log("ERROR: No previous state to head to.")

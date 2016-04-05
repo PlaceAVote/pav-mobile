@@ -48,10 +48,10 @@ import ErrorAlert from '../../components/ErrorAlert';
  */
 import FormButton from '../../components/FormButton';
 /**
- *  The SignInForm does the heavy lifting of displaying the fields for
+ *  The ForgotPasswordForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignInForm from './SignInForm';
+import ForgotPasswordForm from './ForgotPasswordForm';
 /**
  * The itemCheckbox will toggle the display of the password fields
  */
@@ -104,27 +104,8 @@ var styles = StyleSheet.create({
     marginBottom:20,
     marginHorizontal:15
   },
-  titleText: {
-    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    backgroundColor: Colors.transparentColor,
-    // backgroundColor: 'green',
-    fontSize: 27,
-    color: Colors.secondaryTextColor,
-    textAlign: 'center',
-    marginHorizontal: 41,
-    marginTop: 20,
-    marginBottom: 13,
-  },
-  signInBtn: {
+  sendButton: {
     backgroundColor: Colors.accentColor,
-    borderRadius: 2,
-    borderWidth: 1,
-    borderColor: Colors.mainBorderColor,
-    marginTop: 15,
-    height: 60
-  },
-  facebookBtn:{
-    backgroundColor: Colors.secondaryColor,
     borderRadius: 2,
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
@@ -136,20 +117,19 @@ var styles = StyleSheet.create({
     color: Colors.mainTextColor,
     textAlign: 'center'
   },
-  orText:{
-    fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    color: Colors.secondaryTextColor,
-    alignSelf:"center",
-    marginVertical:5
+  explanationContainer:{
+    flexDirection: 'column',
   },
-  forgotPasswordText:{
-    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    // backgroundColor: 'green',
-    color: "#E76354",
-    alignSelf:"center",
-    marginVertical:13,
-    fontSize: 16,
+  descriptionText: {
+    backgroundColor: Colors.transparentColor,
+    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontSize: 19,
+    color: Colors.thirdTextColor,
+    textAlign: 'center',
+    marginHorizontal: 21,
+    marginVertical: 21,
   }
+
 
 });
 /**
@@ -215,10 +195,7 @@ class ForgotPasswordRender extends Component {
    */
   onChange(value) {
     if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email, FORGOT_PASSWORD);
-    }
-    if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password, FORGOT_PASSWORD);
+      this.props.actions.onAuthFormFieldChange('forgotPasswordEmail',value.email, FORGOT_PASSWORD);
     }
     this.setState(
       {value}
@@ -244,23 +221,23 @@ class ForgotPasswordRender extends Component {
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
+          <View style={styles.explanationContainer}>
+            <Text style={styles.descriptionText} >
+            Please enter your email address, a link will be generated for you to reset your password.
+            </Text>
+          </View>
           <View style={styles.inputs}>
-            <SignInForm
+            <ForgotPasswordForm
               form={this.props.auth.form}
               value={this.state.value}
               onChange={self.onChange.bind(self)}
             />
           </View>
-          <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
-              isDisabled={!this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching}
+          <Button textStyle={styles.whiteBtnText} style={styles.sendButton}
+              isDisabled={!this.props.auth.form.isValid.get(FORGOT_PASSWORD) || this.props.auth.form.isFetching}
               onPress={onBtnPress}>
-            Sign In
+            Send
           </Button>
-          <Text style={styles.orText}>Or</Text>
-          <Button onPress={onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
-            Sign Up with Facebook
-          </Button>
-          <Text style={styles.forgotPasswordText}>Forgot Password</Text>
         </View>
       </View>
     );

@@ -14,6 +14,7 @@ import React, {
   AppRegistry,
   Navigator,
   View,
+  Image,
   Text } from 'react-native';
 
   /**
@@ -53,7 +54,8 @@ import React, {
       *
       */
       import EmailSignIn from './containers/EmailSignIn';
-      import ForgotPassword from './containers/ForgotPassword';
+      // import ForgotPassword from './containers/ForgotPasswordModalBox';
+      // import ForgotPasswordModal from './containers/ForgotPasswordModal';
       import EmailSignUpStep1 from './containers/EmailSignUpStep1';
       import EmailSignUpStep2 from './containers/EmailSignUpStep2';
       import EmailSignUpStep3 from './containers/EmailSignUpStep3';
@@ -84,6 +86,7 @@ import React, {
       */
       import {setPlatform, setVersion} from './reducers/device/deviceActions';
       import {setStore} from './reducers/global/globalActions';
+      import {navigateState, navigateToPreviousState} from './reducers/routing/routingActions';
 
       /**
       * ## States
@@ -186,36 +189,48 @@ import React, {
             const reducerCreate = params=>{
                 const defaultReducer = Reducer(params);
                 return (state, action)=>{
-                    console.log("ACTION:", action);
-                    return defaultReducer(state, action);
+
+                  console.log("ACTION:", action);
+                  switch(action.type){
+                    case "push":
+                      store.dispatch(navigateState(action.key));
+                      break;
+                    case "BackAction":
+                      store.dispatch(navigateToPreviousState());
+                      break;
+                    default:
+                      break;
+                  }
+                  return defaultReducer(state, action);
                 }
             };
 
+            let backButtonImg = require("../assets/back_chevron.png");
 
 // titleStyle={{color:Colors.mainTextColor}}
 // navigationBarStyle={{backgroundColor:Colors.primaryColor}}
             // setup the router table with App selected as the initial component
+
+            // navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor}}/>
+
+            // <Scene key={ActionNames.FORGOT_PASSWORD} schema="modal" direction="vertical" component={ForgotPassword} title="Forgot Password"  hideNavBar={true} panHandlers={null} duration={1}  />
             return (
               <Provider store={store}>
                 <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
+                  <Scene key="modal" component={Modal} >
                     <Scene key="root">
                       <Scene key={ActionNames.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}  initial={true} />
 
-                      <Scene key="FacebookSignIn">
-                        <Scene key="FacebookSignIn1" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
-                      </Scene>
+                      <Scene key="FacebookSignIn" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
 
-                      <Scene key={ActionNames.LOGIN} component={EmailSignIn} type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}} navigationBarStyle={{backgroundColor:Colors.primaryColor}} >
-                      </Scene>
-
-                      <Scene key={ActionNames.FORGOT_PASSWORD} schema="modal" direction="vertical" component={ForgotPassword} title="Forgot Password" navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor}}/>
+                      <Scene key={ActionNames.LOGIN} component={EmailSignIn} type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  backButtonImage={backButtonImg} />
 
                       <Scene key={ActionNames.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} />
-                        <Scene key={ActionNames.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" title="Sign Up" hideNavBar={true} />
-                        <Scene key={ActionNames.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" title="Sign Up" hideNavBar={true} />
-                        <Scene key={ActionNames.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" title="Sign Up" hideNavBar={true} />
+                      <Scene key={ActionNames.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" title="Sign Up" hideNavBar={true} />
+                      <Scene key={ActionNames.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" title="Sign Up" hideNavBar={true} />
+                      <Scene key={ActionNames.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" title="Sign Up" hideNavBar={true} />
                     </Scene>
-
+                  </Scene>
                 </Router>
               </Provider>
             );

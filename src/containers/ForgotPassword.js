@@ -28,7 +28,7 @@ import {Map} from 'immutable';
 /**
  *   ForgotPasswordRender
  */
-import ForgotPasswordRender from '../components/EmailSignIn/ForgotPasswordRender';
+import ForgotPasswordRender from '../components/ForgotPassword/ForgotPasswordRender';
 
 /**
  * The necessary React components
@@ -70,11 +70,18 @@ function mapDispatchToProps(dispatch) {
 
 
 
-
-
-function buttonPressHandler(login, username, password) {
-  login (username, password);
+function buttonPressHandler(btnName) {
+  // switch(btnName){
+  //   case FORGOT_PASSWORD:
+  //     this.props.actions.navigateTo(FORGOT_PASSWORD);
+  //     break;
+  //   default:
+  //     console.log("Invalid selector provided, SignIn cannot issue a navigation action with schene name of: "+scheneName);
+  //     break;
+  // }
 }
+
+
 
 let ForgotPassword = React.createClass({
 
@@ -83,9 +90,7 @@ let ForgotPassword = React.createClass({
   },
 
   render() {
-    let onButtonPress = ()=>{
-
-    };
+    let onButtonPress = buttonPressHandler.bind(this);
 
     //  buttonPressHandler.bind(null,
 		// 		                this.props.actions.login,
