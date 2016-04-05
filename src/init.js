@@ -220,15 +220,13 @@ import React, {
                   <Scene key="modal" component={Modal} >
                     <Scene key="root">
                       <Scene key={ActionNames.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}  initial={true} />
-
                       <Scene key="FacebookSignIn" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
-
                       <Scene key={ActionNames.LOGIN} component={EmailSignIn} type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  backButtonImage={backButtonImg} />
-
                       <Scene key={ActionNames.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} />
                       <Scene key={ActionNames.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" title="Sign Up" hideNavBar={true} />
                       <Scene key={ActionNames.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" title="Sign Up" hideNavBar={true} />
                       <Scene key={ActionNames.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" title="Sign Up" hideNavBar={true} />
+                      <Scene key={ActionNames.NEWSFEED} component={EmailSignUpStep4} type="push" title="Sign Up" hideNavBar={true} />
                     </Scene>
                   </Scene>
                 </Router>

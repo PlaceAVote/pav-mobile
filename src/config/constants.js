@@ -79,6 +79,7 @@ module.exports =  {
    REGISTER_STEP_2: null,
    REGISTER_STEP_3: null,
    REGISTER_STEP_4: null,
+   NEWSFEED: null,
 
 
    NAVIGATE_TO: null,
