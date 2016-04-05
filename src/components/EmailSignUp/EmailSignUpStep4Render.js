@@ -29,33 +29,17 @@ import {Map} from 'immutable';
 import Button from 'sp-react-native-iconbutton'
 
 
-
-/**
-* Icons library
-*/
-var Icon = require('react-native-vector-icons/FontAwesome');
-
-/**
- * The Header will display a Image and support Hot Loading
- */
-import Header from '../../components/Header';
 /**
  * The ErrorAlert displays an alert for both ios & android
  */
 import ErrorAlert from '../../components/ErrorAlert';
+
 /**
- * The FormButton will change it's text between the 4 states as necessary
- */
-import FormButton from '../../components/FormButton';
-/**
- *  The SignUpForm does the heavy lifting of displaying the fields for
+ *  The SignUpBirthZipcodeForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
 import SignUpBirthZipcodeForm from './SignUpBirthZipcodeForm';
-/**
- * The itemCheckbox will toggle the display of the dateOfBirth fields
- */
-import ItemCheckbox from '../../components/ItemCheckbox';
+
 import {Colors, ActionNames} from '../../config/constants';
 
 /**
