@@ -67,18 +67,13 @@ async login(data) {
   assert(data.email, "PAVBackend Client :: Login credential data should contain an email.");
   assert(data.password, "PAVBackend Client :: Login credential data should contain a password.");
   let loginUrl = PRE_BASE_URL.USER_API+API_BASE_URL+ENDPOINTS.USER.AUTHENTICATE_EMAIL;
-  try {
-    let response = await this._fetch(
-        loginUrl,
-        'POST', {
-        email: data.email,
-        password: data.password,
-    });
-    return response;
-  } catch(error) {
-    // Do something on fetch error
-    console.error("PAVBackend Client :: login fetch error to: "+loginUrl+" with error msg: "+error.message);
-  }
+  let response = await this._fetch(
+      loginUrl,
+      'POST', {
+      email: data.email,
+      password: data.password,
+  });
+  return response;
 }
 
 
@@ -89,11 +84,17 @@ it to the real fetch function, and parses the result before it returns it.
 */
 async _fetch(url, method, data){
   console.log("Http Request to: "+url);
-  let response = await fetch(
-    url,
-    this.prepareFetchProperties(method, data)
-  );
-  return await this.parseResponseDependingOnItsStatusCode(response);
+  try {
+    let response = await fetch(
+      url,
+      this.prepareFetchProperties(method, data)
+    );
+    return await this.parseResponseDependingOnItsStatusCode(response);
+  } catch(error) {
+    // Do something on fetch error
+    console.error("PAVBackend Client :: login fetch error to: "+loginUrl+" with error msg: "+error.message);
+  }
+
 }
 
 
