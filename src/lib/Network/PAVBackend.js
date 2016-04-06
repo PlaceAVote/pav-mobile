@@ -54,12 +54,12 @@ export default class PAVBackend extends Backend{
  *  {email: "barton@example.com", password: "Passw00rt!"}
  *
  * @returns an object with the signature
- {
-  data: Object (the data we got from the server)
-  error: An error if there was one
-}
+     {
+      data: Object (the data we got from the server)
+      error: An error if there was one
+    }
 
-OR null if the credentials were unaccepted
+  @throws Error if something really evil takes place, like issuing a wrong request
  *
  */
 async login(data) {
