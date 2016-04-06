@@ -61,67 +61,69 @@ const  AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
 const  _ = require('underscore');
 
 
-/**
- * ## Logout actions
- */
-export function logoutRequest() {
-  return {
-    type: LOGOUT_REQUEST
-  };
-}
+// /**
+//  * ## Logout actions
+//  */
+// export function logoutRequest() {
+//   return {
+//     type: LOGOUT_REQUEST
+//   };
+// }
+//
+// export function logoutSuccess() {
+//   return {
+//     type: LOGOUT_SUCCESS
+//   };
+// }
+// export function logoutFailure(error) {
+//   return {
+//     type: LOGOUT_FAILURE,
+//     payload: error
+//   };
+// }
+// /**
+//  * ## Login
+//  * After dispatching the logoutRequest, get the sessionToken
+//  * and call Parse
+//  *
+//  * When the response from Parse is received and it's valid
+//  * change the state to register and finish the logout
+//  *
+//  * But if the call to Parse fails, like expired token or
+//  * no network connection, just send the failure
+//  *
+//  * And if you fail due to an invalid sessionToken, be sure
+//  * to delete it so the user can log in.
+//  *
+//  * How could there be an invalid sessionToken?  Maybe they
+//  * haven't used the app for a long time.  Or they used another
+//  * device and logged out there.
+//  */
+// export function logout() {
+//   return dispatch => {
+//     dispatch(logoutRequest());
+//     return new AppAuthToken().getSessionToken()
+//
+//       .then((token) => {
+//         return BackendFactory(token).logout();
+//       })
+//
+//       .then(() => {
+//         // dispatch(loginState()); //TODO
+//         dispatch(logoutSuccess());
+//         dispatch(deleteSessionToken());
+//         Actions.Login();
+//       })
+//
+//       .catch((error) => {
+//         // dispatch(loginState()); //TODO
+//         dispatch(logoutFailure(error));
+//         Actions.Login();
+//       });
+//   };
+// }
 
-export function logoutSuccess() {
-  return {
-    type: LOGOUT_SUCCESS
-  };
-}
-export function logoutFailure(error) {
-  return {
-    type: LOGOUT_FAILURE,
-    payload: error
-  };
-}
-/**
- * ## Login
- * After dispatching the logoutRequest, get the sessionToken
- * and call Parse
- *
- * When the response from Parse is received and it's valid
- * change the state to register and finish the logout
- *
- * But if the call to Parse fails, like expired token or
- * no network connection, just send the failure
- *
- * And if you fail due to an invalid sessionToken, be sure
- * to delete it so the user can log in.
- *
- * How could there be an invalid sessionToken?  Maybe they
- * haven't used the app for a long time.  Or they used another
- * device and logged out there.
- */
-export function logout() {
-  return dispatch => {
-    dispatch(logoutRequest());
-    return new AppAuthToken().getSessionToken()
 
-      .then((token) => {
-        return BackendFactory(token).logout();
-      })
-
-      .then(() => {
-        // dispatch(loginState()); //TODO
-        dispatch(logoutSuccess());
-        dispatch(deleteSessionToken());
-        Actions.Login();
-      })
-
-      .catch((error) => {
-        // dispatch(loginState()); //TODO
-        dispatch(logoutFailure(error));
-        Actions.Login();
-      });
-  };
-}
 /**
  * ## onAuthFormFieldChange
  * Set the payload so the reducer can work on it
@@ -132,104 +134,107 @@ export function onAuthFormFieldChange(field, value, scheneName) {
     payload: {field: field, value: value, scheneName: scheneName}
   };
 }
-/**
- * ## Signup actions
- */
-export function signupRequest() {
-  return {
-    type: SIGNUP_REQUEST
-  };
-}
-export function signupSuccess(json) {
-  return {
-    type: SIGNUP_SUCCESS,
-    payload: json
-  };
-}
-export function signupFailure(error) {
-  return {
-    type: SIGNUP_FAILURE,
-    payload: error
-  };
-}
-/**
- * ## SessionToken actions
- */
-export function sessionTokenRequest() {
-  return {
-    type: SESSION_TOKEN_REQUEST
-  };
-}
-export function sessionTokenRequestSuccess(token) {
-  return {
-    type: SESSION_TOKEN_SUCCESS,
-    payload: token
-  };
-}
-export function sessionTokenRequestFailure(error) {
-  return {
-    type: SESSION_TOKEN_FAILURE,
-    payload: _.isUndefined(error) ? null:error
-  };
-}
 
-/**
- * ## DeleteToken actions
- */
-export function deleteTokenRequest() {
-  return {
-    type: DELETE_TOKEN_REQUEST
-  };
-}
-export function deleteTokenRequestSuccess() {
-  return {
-    type: DELETE_TOKEN_SUCCESS
-  };
-}
 
-/**
- * ## Delete session token
- *
- * Call the AppAuthToken deleteSessionToken
- */
-export function deleteSessionToken() {
-  return dispatch => {
-    dispatch(deleteTokenRequest());
-    return new  AppAuthToken().deleteSessionToken()
-      .then(() => {
-        dispatch(deleteTokenRequestSuccess());
-      });
-  };
-}
-/**
- * ## Token
- * If AppAuthToken has the sessionToken, the user is logged in
- * so set the state to logout.
- * Otherwise, the user will default to the login in screen.
- */
-export function getSessionToken() {
-  return dispatch => {
-    dispatch(sessionTokenRequest());
-    return new AppAuthToken().getSessionToken()
 
-      .then((token) => {
-        if (token) {
-          dispatch(sessionTokenRequestSuccess(token));
-          // dispatch(logoutState());  //TODO:
-          Actions.Tabbar();
-        } else {
-          dispatch(sessionTokenRequestFailure());
-          Actions.Onboarding();
-        }
-      })
+// /**
+//  * ## Signup actions
+//  */
+// export function signupRequest() {
+//   return {
+//     type: SIGNUP_REQUEST
+//   };
+// }
+// export function signupSuccess(json) {
+//   return {
+//     type: SIGNUP_SUCCESS,
+//     payload: json
+//   };
+// }
+// export function signupFailure(error) {
+//   return {
+//     type: SIGNUP_FAILURE,
+//     payload: error
+//   };
+// }
+// /**
+//  * ## SessionToken actions
+//  */
+// export function sessionTokenRequest() {
+//   return {
+//     type: SESSION_TOKEN_REQUEST
+//   };
+// }
+// export function sessionTokenRequestSuccess(token) {
+//   return {
+//     type: SESSION_TOKEN_SUCCESS,
+//     payload: token
+//   };
+// }
+// export function sessionTokenRequestFailure(error) {
+//   return {
+//     type: SESSION_TOKEN_FAILURE,
+//     payload: _.isUndefined(error) ? null:error
+//   };
+// }
+//
+// /**
+//  * ## DeleteToken actions
+//  */
+// export function deleteTokenRequest() {
+//   return {
+//     type: DELETE_TOKEN_REQUEST
+//   };
+// }
+// export function deleteTokenRequestSuccess() {
+//   return {
+//     type: DELETE_TOKEN_SUCCESS
+//   };
+// }
 
-      .catch((error) => {
-        dispatch(sessionTokenRequestFailure(error));
-        // dispatch(loginState());//TODO:
-        Actions.Onboarding();
-      });
-  };
-}
+// /**
+//  * ## Delete session token
+//  *
+//  * Call the AppAuthToken deleteSessionToken
+//  */
+// export function deleteSessionToken() {
+//   return dispatch => {
+//     dispatch(deleteTokenRequest());
+//     return new  AppAuthToken().deleteSessionToken()
+//       .then(() => {
+//         dispatch(deleteTokenRequestSuccess());
+//       });
+//   };
+// }
+// /**
+//  * ## Token
+//  * If AppAuthToken has the sessionToken, the user is logged in
+//  * so set the state to logout.
+//  * Otherwise, the user will default to the login in screen.
+//  */
+// export function getSessionToken() {
+//   return dispatch => {
+//     dispatch(sessionTokenRequest());
+//     return new AppAuthToken().getSessionToken()
+//
+//       .then((token) => {
+//         if (token) {
+//           dispatch(sessionTokenRequestSuccess(token));
+//           // dispatch(logoutState());  //TODO:
+//           Actions.Tabbar();
+//         } else {
+//           dispatch(sessionTokenRequestFailure());
+//           Actions.Onboarding();
+//         }
+//       })
+//
+//       .catch((error) => {
+//         dispatch(sessionTokenRequestFailure(error));
+//         // dispatch(loginState());//TODO:
+//         Actions.Onboarding();
+//       });
+//   };
+// }
 
 /**
  * ## saveSessionToken
@@ -239,56 +244,60 @@ export function getSessionToken() {
 export function saveSessionToken(json) {
   return new AppAuthToken().storeSessionToken(json);
 }
-/**
- * ## signup
- * @param {string} username - name of user
- * @param {string} email - user's email
- * @param {string} password - user's password
- *
- * Call Parse.signup and if good, save the sessionToken,
- * set the state to logout and signal success
- *
- * Otherwise, dispatch the error so the user can see
- */
-export function signup(username, email, password) {
 
-  return dispatch => {
-    dispatch(signupRequest());
-    return  BackendFactory().signup({
-      username: username,
-      email: email,
-      password: password
-    })
 
-      .then((json) => {
-	return saveSessionToken(
-	  Object.assign({}, json,
-			{
-			  username: username,
-			  email: email
-			})
-	)
+// /**
+//  * ## signup
+//  * @param {string} username - name of user
+//  * @param {string} email - user's email
+//  * @param {string} password - user's password
+//  *
+//  * Call Parse.signup and if good, save the sessionToken,
+//  * set the state to logout and signal success
+//  *
+//  * Otherwise, dispatch the error so the user can see
+//  */
+// export function signup(username, email, password) {
+//
+//   return dispatch => {
+//     dispatch(signupRequest());
+//     return  BackendFactory().signup({
+//       username: username,
+//       email: email,
+//       password: password
+//     })
+//
+//       .then((json) => {
+// 	return saveSessionToken(
+// 	  Object.assign({}, json,
+// 			{
+// 			  username: username,
+// 			  email: email
+// 			})
+// 	)
+//
+//           .then(() => {
+// 	    dispatch(signupSuccess(
+// 	      Object.assign({}, json,
+// 			    {
+// 			      username: username,
+// 			      email: email
+// 			    }
+// 			   )
+// 	    ));
+// 	    // dispatch(logoutState()); //TODO:
+// 	    // navigate to Tabbar
+// 	    Actions.Tabbar();
+// 	  });
+//       })
+//       .catch((error) => {
+// 	dispatch(signupFailure(error));
+//       });
+//
+//   };
+// }
 
-          .then(() => {
-	    dispatch(signupSuccess(
-	      Object.assign({}, json,
-			    {
-			      username: username,
-			      email: email
-			    }
-			   )
-	    ));
-	    // dispatch(logoutState()); //TODO:
-	    // navigate to Tabbar
-	    Actions.Tabbar();
-	  });
-      })
-      .catch((error) => {
-	dispatch(signupFailure(error));
-      });
 
-  };
-}
 
 /**
  * ## Login actions
@@ -312,9 +321,10 @@ export function loginFailure(error) {
     payload: error
   };
 }
+
 /**
  * ## Login
- * @param {string} username - user's name
+ * @param {string} email - user's email
  * @param {string} password - user's password
  *
  * After calling Backend, if response is good, save the json
@@ -324,49 +334,45 @@ export function loginFailure(error) {
  * otherwise, dispatch a failure
  */
 
-export function login(username,  password) {
-  return dispatch => {
+  export function login(email,  password) {
+  return async function(dispatch){
     dispatch(loginRequest());
-    return BackendFactory().login({
-      username: username,
+
+    var res = await BackendFactory().login({
+      email: email,
       password: password
-    })
-
-      .then(function (json) {
-	return saveSessionToken(json)
-	  .then(function () {
-	    dispatch(loginSuccess(json));
-	    // dispatch(logoutState());//TODO
-	    Actions.Tabbar();
-	  });
-      })
-      .catch((error) => {
-	dispatch(loginFailure(error));
-      });
-  };
+    });
+    console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
+    if(!!res.error){
+      return dispatch(loginFailure(res.error));
+    }else{
+      // saveSessionToken(res.data)
+      return dispatch(loginSuccess(res.data));
+      //TODO: Perhaps navigate to the newsfeed screen now?
+    }
 }
 
-/**
- * ## ResetPassword actions
- */
-export function resetPasswordRequest() {
-  return {
-    type: RESET_PASSWORD_REQUEST
-  };
-}
-
-export function resetPasswordSuccess() {
-  return {
-    type: RESET_PASSWORD_SUCCESS
-  };
-}
-
-export function resetPasswordFailure(error) {
-  return {
-    type: RESET_PASSWORD_FAILURE,
-    payload: error
-  };
-}
+// /**
+//  * ## ResetPassword actions
+//  */
+// export function resetPasswordRequest() {
+//   return {
+//     type: RESET_PASSWORD_REQUEST
+//   };
+// }
+//
+// export function resetPasswordSuccess() {
+//   return {
+//     type: RESET_PASSWORD_SUCCESS
+//   };
+// }
+//
+// export function resetPasswordFailure(error) {
+//   return {
+//     type: RESET_PASSWORD_FAILURE,
+//     payload: error
+//   };
+// }
 /**
  * ## ResetPassword
  *
@@ -379,20 +385,21 @@ export function resetPasswordFailure(error) {
  * With that enabled, an email can be sent w/ a
  * form for setting the new password.
  */
-export function resetPassword(email) {
-  return dispatch => {
-    dispatch(resetPasswordRequest());
-    return BackendFactory().resetPassword({
-      email: email
-    })
-      .then(() => {
-        // dispatch(loginState());//TODO
-        dispatch(resetPasswordSuccess());
-        Actions.Login();
-      })
-      .catch((error) => {
-        dispatch(resetPasswordFailure(error));
-      });
+// export function resetPassword(email) {
+//   return dispatch => {
+//     dispatch(resetPasswordRequest());
+//     return BackendFactory().resetPassword({
+//       email: email
+//     })
+//       .then(() => {
+//         // dispatch(loginState());//TODO
+//         dispatch(resetPasswordSuccess());
+//         Actions.Login();
+//       })
+//       .catch((error) => {
+//         dispatch(resetPasswordFailure(error));
+//       });
+//
+//   };
 
-  };
 }

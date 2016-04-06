@@ -71,53 +71,55 @@ function mapDispatchToProps(dispatch) {
 
 
 
-
-function buttonPressHandler(login, username, password) {
-  login (username, password);
-}
-
 let EmailSignIn = React.createClass({
 
   componentWillMount() {
       this.props.actions.lockOrientation("PORTRAIT");
   },
 
-  render() {
-    let onBtnPress = (type)=>{
-      switch(type){
-        case "facebook":
-          break;
-        case "signIn":
-          break;
-        case FORGOT_PASSWORD:
-          this.props.actions.setModalVisibility(FORGOT_PASSWORD, true);
-          break
-        default:
-          break;
-      }
-    },
-    onForgotPasswordModalClosed = ()=>{
-      this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
-    },
-    onForgotPasswordCloseBtnClicked = ()=>{
-      this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
-    },
-    onForgotPasswordNextBtnClicked = ()=>{
-      this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
-      //DO something on forgot password next clicked
-      alert("Check your inbox for the reset password link.")
-    };
+  onFacebookBtnPress(){
+    console.log("Facebook btn pressed : EmailSignIn");
+  },
 
+  onSignInBtnPress(){
+    console.log("Sign In btn pressed : EmailSignIn");
+    var result = this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
+    // console.log("Result: "+JSON.stringify(result));
+
+  },
+
+  onForgotPasswordBtnPress(){
+    this.props.actions.setModalVisibility(FORGOT_PASSWORD, true);
+  },
+
+  onForgotPasswordModalClosed(){
+    this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
+  },
+
+  onForgotPasswordCloseBtnClicked(){
+    this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
+  },
+
+  onForgotPasswordNextBtnClicked(){
+    this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
+    //DO something on forgot password next clicked
+    alert("Check your inbox for the reset password link.")
+  },
+
+
+  render() {
 
     return(
       <EmailSignInRender
-          onForgotPasswordCloseBtnClicked={onForgotPasswordCloseBtnClicked}
-          onForgotPasswordNextBtnClicked={onForgotPasswordNextBtnClicked}
-          onButtonPress={ onBtnPress }
+          onForgotPasswordCloseBtnClicked={this.onForgotPasswordCloseBtnClicked}
+          onForgotPasswordNextBtnClicked={this.onForgotPasswordNextBtnClicked}
+          onSignInBtnPress = {this.onSignInBtnPress}
+          onForgotBtnPress = {this.onForgotPasswordBtnPress}
+          onFbBtnPress = {this.onFacebookBtnPress}
           auth={ this.props.auth }
           global={ this.props.global }
           forgotPasswordModalOpen = {this.props.router.modalIsOpen.get(FORGOT_PASSWORD)}
-          onForgotPasswordClosed = {onForgotPasswordModalClosed}
+          onForgotPasswordClosed = {this.onForgotPasswordModalClosed}
       />
     );
   }

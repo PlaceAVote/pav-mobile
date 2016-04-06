@@ -1,6 +1,6 @@
 /**
  * # PAVBackend.js
- * 
+ *
  * This class interfaces with PAVBackend.com using the rest api
  * see [http://hapijs.com/api](http://hapijs.com/api)
  *
@@ -8,18 +8,25 @@
 'use strict';
 /**
  * ## Async support
- * 
- */ 
+ *
+ */
 require('regenerator/runtime');
 
 /**
  * ## Imports
- * 
+ *
  * Config for defaults and underscore for a couple of features
- */ 
-import CONFIG from '../../config/config';
+ */
+
+const {
+  API_BASE_URL,
+  PRE_BASE_URL,
+  ENDPOINTS
+}  = require('../../config/config').PAV_BACKEND;
+
 import _ from 'underscore';
 import Backend from './Backend';
+import assert from 'assert';
 
 export default class PAVBackend extends Backend{
   /**
@@ -35,228 +42,119 @@ export default class PAVBackend extends Backend{
     }
     this._sessionToken =
       _.isNull(token) ?  null :  token.sessionToken.sessionToken;
-    
-    this.API_BASE_URL= CONFIG.PAV_BACKEND.API_BASE_URL; 
   }
-  /**
-   * ### signup
-   *
-   * @param data object
-   *
-   * {username: "barton", email: "foo@gmail.com", password: "Passw0rd!"}
-   *
-   * @return
-   * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
-   *   objectId: "5TgExo2wBA", 
-   *   sessionToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
-   *
-   * if error, {code: xxx, error: 'message'}
-   */
-  async signup(data) {
-    return await this._fetch({
-      method: 'POST',
-      url: '/account/register',
-      body: data
-    })
-      .then((response) => {
-        var json = JSON.parse(response._bodyInit);        
-        if (response.status === 200 || response.status === 201) {
-          return json;
-        } else {
-          throw(json);
-        }
-      })
-      .catch((error) => {
-        throw(error);
-      });
 
+
+/**
+ * ### login
+ * prepare the data and and call fetch
+ *
+ * @param data
+ *
+ *  {email: "barton@example.com", password: "Passw00rt!"}
+ *
+ * @returns an object with the signature
+ {
+  data: Object (the data we got from the server)
+  error: An error if there was one
+}
+
+OR null if the credentials were unaccepted
+ *
+ */
+async login(data) {
+  assert(data, "PAVBackend Client :: Login credentials should not be null or undefined.");
+  assert(data.email, "PAVBackend Client :: Login credential data should contain an email.");
+  assert(data.password, "PAVBackend Client :: Login credential data should contain a password.");
+  let loginUrl = PRE_BASE_URL.USER_API+API_BASE_URL+ENDPOINTS.USER.AUTHENTICATE_EMAIL;
+  try {
+    let response = await this._fetch(
+        loginUrl,
+        'POST', {
+        email: data.email,
+        password: data.password,
+    });
+    return response;
+  } catch(error) {
+    // Do something on fetch error
+    console.error("PAVBackend Client :: login fetch error to: "+loginUrl+" with error msg: "+error.message);
   }
-  /**
-   * ### login
-   * encode the data and and call _fetch
-   *
-   * @param data
-   *
-   *  {username: "barton", password: "Passw0rd!"}
-   *
-   * @returns
-   *
-   * createdAt: "2015-12-30T15:29:36.611Z"
-   * updatedAt: "2015-12-30T16:08:50.419Z"
-   * objectId: "Z4yvP19OeL"
-   * email: "barton@foo.com"
-   * sessionToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
-   * username: "barton"
-   *
-   */
-  async login(data) {
-    return await this._fetch({
-      method: 'POST',
-      url: '/account/login',
-      body: data
-    })
-      .then((response) => {
-        var json = JSON.parse(response._bodyInit);
-        if (response.status === 200 || response.status === 201) {
-          return json;
-        } else {
-          throw(json);
-        }
-      })
-      .catch((error) => {
-        throw(error);
-      });
+}
 
+
+
+/*
+This is our custom fetch function. It prepares the properties before it passes
+it to the real fetch function, and parses the result before it returns it.
+*/
+async _fetch(url, method, data){
+  console.log("Http Request to: "+url);
+  let response = await fetch(
+    url,
+    this.prepareFetchProperties(method, data)
+  );
+  return await this.parseResponseDependingOnItsStatusCode(response);
+}
+
+
+
+prepareFetchProperties(method, body, token){
+  var reqOpts = {
+    method: method,
+    headers:{},
+    body:null
+  };
+
+  if (!!token) {
+    reqOpts.headers['Authorization'] = 'Bearer ' + token;
   }
-  /**
-   * ### logout
-   * prepare the request and call _fetch
-   */  
-  async logout() {
-    return await this._fetch({
-      method: 'POST',
-      url: '/account/logout',
-      body: {}
-    })
-      .then((response) => {
-        var  res = JSON.parse(response._bodyInit);        
-        if ((response.status === 200 || response.status === 201)
-            || //invalid session token
-            (response.status === 400 && res.code === 209)) {
-          return {};
-        } else {
-          throw({code: res.statusCode, error: res.message});
-        }
-      })
-      .catch((error) => {
-        throw(error);
-      });
 
+  if (method === 'POST' || method === 'PUT') {
+    reqOpts.headers['Accept'] = 'application/json';
+    reqOpts.headers['Content-Type'] = 'application/json';
   }
-  /**
-   * ### resetPassword
-   * the data is already in a JSON format, so call _fetch
-   *
-   * @param data 
-   * {email: "barton@foo.com"}
-   *
-   * @returns empty object
-   *
-   * if error:  {code: xxx, error: 'message'}
-   */
-  async resetPassword(data) {
-    return await this._fetch({
-      method: 'POST',
-      url: '/account/resetPasswordRequest',
-      body: data
-    })
-      .then((response) => {
-        if ((response.status === 200 || response.status === 201)) {
-          return {};
-        } else {
-          var  res = JSON.parse(response._bodyInit);                  
-          throw(res);
-        }
-      })
-      .catch((error) => {
-        throw(error);
-      });
-  }  
-  /**
-   * ### getProfile
-   * Using the sessionToken, we'll get everything about
-   * the current user.
-   *
-   * @returns
-   *
-   * if good:
-   * {createdAt: "2015-12-30T15:29:36.611Z"
-   *  email: "barton@acclivyx.com"
-   *  objectId: "Z4yvP19OeL"
-   *  sessionToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
-   *  updatedAt: "2015-12-30T15:29:36.611Z"
-   *  username: "barton"}
-   *
-   * if error, {code: xxx, error: 'message'}
-   */
-  async getProfile() {
-    return await this._fetch({
-      method: 'GET',
-      url: '/account/profile/me'
-    })
-      .then((response) => {
-        var  res = JSON.parse(response._bodyInit);
-        if ((response.status === 200 || response.status === 201)) {
-          return res;
-        } else {
-          throw(res);
-        }
-      })
-      .catch((error) => {
-        throw(error);
-      });
+
+  if (!!body) {
+    reqOpts.body = JSON.stringify(body);
   }
-  /**
-   * ### updateProfile
-   * for this user, update their record
-   * the data is already in JSON format
-   *
-   * @param userId  _id of Parse.com
-   * @param data object:
-   * {username: "barton", email: "barton@foo.com"}
-   */
-  async updateProfile(userId,data) {
-    return await this._fetch({
-      method: 'POST',
-      url: '/account/profile/' + userId,
-      body: data
-    })
-      .then((response) => {
-        if ((response.status === 200 || response.status === 201)) {
-          return {};
-        } else {
-          var  res = JSON.parse(response._bodyInit);          
-          throw(res);
-        }
-      })
-      .catch((error) => {
-        throw(error);
-      });
+  // console.log("Request options: "+JSON.stringify(reqOpts));
+  return reqOpts;
+}
 
-  }  
-  /**
-   * ### _fetch
-   * A generic function that prepares the request to Parse.com
-   */  
-  async _fetch(opts) {
-    opts = _.extend({
-      method: 'GET',
-      url: null,
-      body: null,
-      callback: null
-    }, opts);
 
-    var reqOpts = {
-      method: opts.method,
-      headers: {
-      }
-    };
-    
-    if (this._sessionToken) {
-      reqOpts.headers['Authorization'] = 'Bearer ' + this._sessionToken;
+
+
+/*
+Checks the status code of the response,
+returns an object that containts the properties `data` and `error`.
+  if its one of the acceptStatusCodes it turns the response in a json and places it in the `data` property
+  if its one of the rejectStatusCodes it places the response in the `error` property
+  otherwise if the status code is something totally different we assume an error occured and throw it.
+*/
+async parseResponseDependingOnItsStatusCode(response, acceptStatusCodes = [200,201], rejectStatusCodes = [400,401]){
+
+  let statusCode = response.status;
+  var res = {
+    statusCode: statusCode,
+    data: null,
+    error: null
+  }
+  for (var i=0;i<acceptStatusCodes.length;i++){
+    if(statusCode==acceptStatusCodes[i]){  //if the status is one of the accept response statuses
+      res.data = await response.json()
+      return res;
     }
-
-    if (opts.method === 'POST' || opts.method === 'PUT') {
-      reqOpts.headers['Accept'] = 'application/json';
-      reqOpts.headers['Content-Type'] = 'application/json';
-    }
-
-    if (opts.body) {
-      reqOpts.body = JSON.stringify(opts.body);
-    }
-
-    return await fetch(this.API_BASE_URL + opts.url, reqOpts);
-
   }
+  for (var o=0;o<rejectStatusCodes.length;o++){
+    if(statusCode==rejectStatusCodes[o]){  //if the status is one of the reject response statuses
+      res.error=response;
+      return res;
+    }
+  }
+  console.log("Unknown response code: "+statusCode);
+  throw(repsonse);  // since the status code was neither an accept status code, or a reject status code, we assume that there was an unexpected error and throw it
+}
+
+
+
 };
-

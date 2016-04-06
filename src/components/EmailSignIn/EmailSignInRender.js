@@ -225,14 +225,8 @@ class EmailSignInRender extends Component {
   render() {
 
     let self = this;
-    let onBtnPress = ()=>{
-      this.props.onButtonPress("signIn");
-    },
-    onFbBtnPress = ()=>{
-      this.props.onButtonPress("facebook");
-    },
-    onForgotBtnPress = ()=>{
-      this.props.onButtonPress(FORGOT_PASSWORD);
+    let onForgotBtnPress = ()=>{
+      (FORGOT_PASSWORD);
     };
     // renderForgotPasswordModalBox = ()=>{
     //   if(===true){
@@ -255,15 +249,18 @@ class EmailSignInRender extends Component {
             />
           </View>
           <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
-              isDisabled={!this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching}
-              onPress={onBtnPress}>
+              isDisabled={
+                false//TODO: Disable this
+                // !this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching
+              }
+              onPress={this.props.onSignInBtnPress}>
             Sign In
           </Button>
           <Text style={styles.orText}>Or</Text>
-          <Button onPress={onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
+          <Button onPress={this.props.onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
             Sign Up with Facebook
           </Button>
-          <Button onPress={onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
+          <Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
             Forgot Password
           </Button>
 
