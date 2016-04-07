@@ -26,7 +26,7 @@
     "pavclient": "npm i git+https://b35b7daa8a099d2d00e0cfcb4168d463a4c29e21:x-oauth-basic@github.com/PlaceAVote/pav-client-sdk.git"
   },
   "dependencies": {
-    "react-native": "0.23.0",
+    "react-native": "^0.22.2",
     "react-native-router-flux": "^3.2.7",
     "react-native-vector-icons": "^1.1.0",
     "react-native-simple-store": "^0.1.0",

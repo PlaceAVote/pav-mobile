@@ -335,23 +335,26 @@ export function loginFailure(error) {
   return async function(dispatch){
     dispatch(loginRequest());
 
-    var res = await PavClientSdk().login({
+    var res = await PavClientSdk().userApi().login({
       email: email,
       password: password
     });
     // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
     if(!!res.error){
+      alert("Thats wrong man.. Not that we are calling the userapidev and not the userapi endpoint.");
       var errorMessage = null;
       console.log("Error type: "+res.errorType)
       if(res.errorType=="text"){
         errorMessage = res.error;
         console.log("Error msg TEXt authActions.login: "+errorMessage)
+
       }else{
         errorMessage = res.error.errors[0].email;
         console.log("Error msg JSON authActions.login: "+errorMessage)
       }
       return dispatch(loginFailure(errorMessage));
     }else{
+      alert("Good that was right, the cake was a lie though..");
       // console.log(res.data.token);
       saveSessionToken(res.data.token)
       return dispatch(loginSuccess(res.data));
