@@ -54,7 +54,7 @@ const {
  */
 
 
-import BackendFactory from 'pavclient';
+import PavClientSdk from 'pavclient';
 
 import {Actions} from 'react-native-router-flux';
 
@@ -107,7 +107,7 @@ const  _ = require('underscore');
 //     return new AppAuthToken().getSessionToken()
 //
 //       .then((token) => {
-//         return BackendFactory(token).logout();
+//         return PavClientSdk(token).logout();
 //       })
 //
 //       .then(() => {
@@ -139,26 +139,26 @@ export function onAuthFormFieldChange(field, value, scheneName) {
 
 
 
-// /**
-//  * ## Signup actions
-//  */
-// export function signupRequest() {
-//   return {
-//     type: SIGNUP_REQUEST
-//   };
-// }
-// export function signupSuccess(json) {
-//   return {
-//     type: SIGNUP_SUCCESS,
-//     payload: json
-//   };
-// }
-// export function signupFailure(error) {
-//   return {
-//     type: SIGNUP_FAILURE,
-//     payload: error
-//   };
-// }
+/**
+ * ## Signup actions
+ */
+export function signupRequest() {
+  return {
+    type: SIGNUP_REQUEST
+  };
+}
+export function signupSuccess(json) {
+  return {
+    type: SIGNUP_SUCCESS,
+    payload: json
+  };
+}
+export function signupFailure(error) {
+  return {
+    type: SIGNUP_FAILURE,
+    payload: error
+  };
+}
 // /**
 //  * ## SessionToken actions
 //  */
@@ -248,56 +248,51 @@ export function saveSessionToken(token) {
 }
 
 
-// /**
-//  * ## signup
-//  * @param {string} username - name of user
-//  * @param {string} email - user's email
-//  * @param {string} password - user's password
-//  *
-//  * Call Parse.signup and if good, save the sessionToken,
-//  * set the state to logout and signal success
-//  *
-//  * Otherwise, dispatch the error so the user can see
-//  */
-// export function signup(username, email, password) {
-//
-//   return dispatch => {
-//     dispatch(signupRequest());
-//     return  BackendFactory().signup({
-//       username: username,
-//       email: email,
-//       password: password
-//     })
-//
-//       .then((json) => {
-// 	return saveSessionToken(
-// 	  Object.assign({}, json,
-// 			{
-// 			  username: username,
-// 			  email: email
-// 			})
-// 	)
-//
-//           .then(() => {
-// 	    dispatch(signupSuccess(
-// 	      Object.assign({}, json,
-// 			    {
-// 			      username: username,
-// 			      email: email
-// 			    }
-// 			   )
-// 	    ));
-// 	    // dispatch(logoutState()); //TODO:
-// 	    // navigate to Tabbar
-// 	    Actions.Tabbar();
-// 	  });
-//       })
-//       .catch((error) => {
-// 	dispatch(signupFailure(error));
-//       });
-//
-//   };
-// }
+/**
+ * ## signup
+ * @param {string} username - name of user
+ * @param {string} email - user's email
+ * @param {string} password - user's password
+ * @param {string} first_name - user's first_name
+ * @param {string} last_name - user's last_name
+ * @param {string} dayOfBirth - user's day of birth
+ * @param {string} zipcode - user's zipcode
+ * @param {string} topics - user's topics of interest (array of strings)
+ * @param {string} gender - user's gender
+ *
+ * Call PavClientSdk.signup and if good, save the sessionToken,
+ * set the state to logout and signal success
+ *
+ * Otherwise, dispatch the error so the user can see
+ */
+export function signup(email, password, first_name, last_name, dayOfBirth, zipcode, topics, gender) {
+  return async function (dispatch){
+    dispatch(signupRequest());
+    var res = await PavClientSdk().userApi().signup({
+        "email": email,
+        "password": password,
+        "first_name": first_name,
+        "last_name": last_name,
+        "dob": dayOfBirth,
+        "zipcode": zipcode,
+        "topics": topics,
+        "gender": gender
+      });
+
+    if(!!res.error){
+      var errorMessage = null;
+      return dispatch(signupFailure(res.error));
+    }else{
+      // console.log(res.data.token);
+      saveSessionToken(res.data.token)
+      return dispatch(signupSuccess(Object.assign({}, res.data,
+  			{
+  			  email: email
+  			})));
+      //TODO: Perhaps navigate to the newsfeed screen now?
+    }
+  };
+}
 
 
 
@@ -340,7 +335,7 @@ export function loginFailure(error) {
   return async function(dispatch){
     dispatch(loginRequest());
 
-    var res = await BackendFactory().login({
+    var res = await PavClientSdk().login({
       email: email,
       password: password
     });
@@ -355,7 +350,6 @@ export function loginFailure(error) {
         errorMessage = res.error.errors[0].email;
         console.log("Error msg JSON authActions.login: "+errorMessage)
       }
-
       return dispatch(loginFailure(errorMessage));
     }else{
       // console.log(res.data.token);
@@ -401,7 +395,7 @@ export function loginFailure(error) {
 // export function resetPassword(email) {
 //   return dispatch => {
 //     dispatch(resetPasswordRequest());
-//     return BackendFactory().resetPassword({
+//     return PavClientSdk().resetPassword({
 //       email: email
 //     })
 //       .then(() => {
