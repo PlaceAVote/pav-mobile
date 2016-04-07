@@ -66,9 +66,8 @@ async login(data) {
   assert(data, "PAVBackend Client :: Login credentials should not be null or undefined.");
   assert(data.email, "PAVBackend Client :: Login credential data should contain an email.");
   assert(data.password, "PAVBackend Client :: Login credential data should contain a password.");
-  let loginUrl = PRE_BASE_URL.USER_API+API_BASE_URL+ENDPOINTS.USER.AUTHENTICATE_EMAIL;
   let response = await this._fetch(
-      loginUrl,
+      PRE_BASE_URL.USER_API+API_BASE_URL+ENDPOINTS.USER.AUTHENTICATE_EMAIL,
       'POST', {
       email: data.email,
       password: data.password,
@@ -92,7 +91,7 @@ async _fetch(url, method, data){
     return await this.parseResponseDependingOnItsStatusCode(response);
   } catch(error) {
     // Do something on fetch error
-    console.error("PAVBackend Client :: login fetch error to: "+loginUrl+" with error msg: "+error.message);
+    console.error("PAVBackend Client :: login fetch error: "+error.message);
   }
 
 }
@@ -138,7 +137,8 @@ async parseResponseDependingOnItsStatusCode(response, acceptStatusCodes = [200,2
   var res = {
     statusCode: statusCode,
     data: null,
-    error: null
+    error: null,
+    errorType: null
   }
   for (var i=0;i<acceptStatusCodes.length;i++){
     if(statusCode==acceptStatusCodes[i]){  //if the status is one of the accept response statuses
@@ -148,7 +148,19 @@ async parseResponseDependingOnItsStatusCode(response, acceptStatusCodes = [200,2
   }
   for (var o=0;o<rejectStatusCodes.length;o++){
     if(statusCode==rejectStatusCodes[o]){  //if the status is one of the reject response statuses
-      res.error=response;
+      var errorRes = null;
+      let responseType = response.headers.get("content-type").toLowerCase();
+      console.log("RESPONSE IS of type: "+responseType);
+      if(responseType.indexOf("application/json") >= 0){
+        var json = await response.json();
+        errorRes = JSON.parse(json)
+        res.errorType = "json";
+      }else{
+        errorRes = await response.text();
+        res.errorType = "text";
+      }
+      console.log("Fail response: "+errorRes)
+      res.error=errorRes;
       return res;
     }
   }

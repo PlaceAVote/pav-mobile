@@ -52,7 +52,9 @@ const {
 /**
  * Project requirements
  */
-const BackendFactory = require('../../lib/Network/BackendFactory').default;
+
+
+const BackendFactory = require('pavclient').default;
 
 import {Actions} from 'react-native-router-flux';
 
@@ -241,8 +243,8 @@ export function onAuthFormFieldChange(field, value, scheneName) {
  * @param {Object} response - to return to keep the promise chain
  * @param {Object} json - object with sessionToken
  */
-export function saveSessionToken(json) {
-  return new AppAuthToken().storeSessionToken(json);
+export function saveSessionToken(token) {
+  return new AppAuthToken().storeSessionToken(token);
 }
 
 
@@ -342,11 +344,22 @@ export function loginFailure(error) {
       email: email,
       password: password
     });
-    console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
+    // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
     if(!!res.error){
-      return dispatch(loginFailure(res.error));
+      var errorMessage = null;
+      console.log("Error type: "+res.errorType)
+      if(res.errorType=="text"){
+        errorMessage = res.error;
+        console.log("Error msg TEXt authActions.login: "+errorMessage)
+      }else{
+        errorMessage = res.error.errors[0].email;
+        console.log("Error msg JSON authActions.login: "+errorMessage)
+      }
+
+      return dispatch(loginFailure(errorMessage));
     }else{
-      // saveSessionToken(res.data)
+      // console.log(res.data.token);
+      saveSessionToken(res.data.token)
       return dispatch(loginSuccess(res.data));
       //TODO: Perhaps navigate to the newsfeed screen now?
     }

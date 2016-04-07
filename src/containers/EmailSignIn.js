@@ -83,8 +83,10 @@ let EmailSignIn = React.createClass({
 
   onSignInBtnPress(){
     console.log("Sign In btn pressed : EmailSignIn");
-    var result = this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
-    // console.log("Result: "+JSON.stringify(result));
+    let email = this.props.auth.form.fields.email, password = this.props.auth.form.fields.password;
+    // console.log(" Email "+email+" password: "+password)
+    // this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
+    this.props.actions.login(email, password);
 
   },
 

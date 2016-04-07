@@ -26,6 +26,8 @@ For running on iOS :
 * First get the code with: `git clone https://github.com/PlaceAVote/pav-mobile.git`
 * Then `cd pav-mobile`
 * and run `npm run setup`
+* on ios Add `RCTOrientation` folder from your `node_modules/react-native-orientation` folder to the xcode project. (For more info or android usage check [here](https://www.npmjs.com/package/react-native-orientation))
+
 
 
 

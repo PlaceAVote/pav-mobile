@@ -249,10 +249,9 @@ class EmailSignInRender extends Component {
             />
           </View>
           <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
-              isDisabled={
-                false//TODO: Disable this
-                // !this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching
-              }
+              isDisabled={!this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching}
+              isLoading={this.props.auth.form.isFetching}
+              activityIndicatorColor={Colors.mainTextColor}
               onPress={this.props.onSignInBtnPress}>
             Sign In
           </Button>

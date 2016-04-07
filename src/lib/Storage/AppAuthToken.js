@@ -1,15 +1,15 @@
 /**
  * # AppAuthToken.js
- * 
+ *
  * A thin wrapper over the react-native-simple-store
  *
  */
 'use strict';
 /**
  * ## Imports
- * 
+ *
  * Redux  & the config file
- */ 
+ */
 import store from 'react-native-simple-store';
 import CONFIG from '../../config/config';
 
@@ -21,15 +21,15 @@ export default class AppAuthToken {
    * set the key from the config
    */
   constructor () {
-    this.SESSION_TOKEN_KEY = CONFIG.PAV_BACKEND.SESSION_TOKEN_KEY;
+    this.SESSION_TOKEN_STORAGE_KEY = CONFIG.PAV_BACKEND.SESSION_TOKEN_STORAGE_KEY;
   }
 
   /**
    * ### storeSessionToken
-   * Store the session key 
+   * Store the session key
    */
   storeSessionToken(sessionToken) {
-    return store.save(this.SESSION_TOKEN_KEY,{
+    return store.save(this.SESSION_TOKEN_STORAGE_KEY,{
       sessionToken: sessionToken
     });
 
@@ -44,20 +44,19 @@ export default class AppAuthToken {
    */
   getSessionToken(sessionToken) {
     if (sessionToken) {
-      return store.save(this.SESSION_TOKEN_KEY,{
+      return store.save(this.SESSION_TOKEN_STORAGE_KEY,{
           sessionToken: sessionToken
       }).then(() => {
-        return store.get(this.SESSION_TOKEN_KEY);
+        return store.get(this.SESSION_TOKEN_STORAGE_KEY);
       });
     }
-    return store.get(this.SESSION_TOKEN_KEY);
+    return store.get(this.SESSION_TOKEN_STORAGE_KEY);
   }
   /**
    * ### deleteSessionToken
    * Deleted during log out
    */
   deleteSessionToken() {
-    return store.delete(this.SESSION_TOKEN_KEY);
+    return store.delete(this.SESSION_TOKEN_STORAGE_KEY);
   }
 }
-

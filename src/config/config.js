@@ -9,6 +9,7 @@ module.exports = {
         AUTHENTICATE_EMAIL: '/user/authenticate'
       }
     },
+    SESSION_TOKEN_STORAGE_KEY:"token"
   },
   backend: {
     pav: true,

@@ -200,20 +200,20 @@ var SignInForm = React.createClass({
       fields: {
         email: {
           label: 'Email Address',
-          maxLength: 12,
+          maxLength: 30,
           editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.emailHasError,
-          error: 'Please give us a valid email address.',
+          // hasError: this.props.form.fields.emailHasError,
+          // error: 'Please give us a valid email address.',
           placeholder: 'example@example.com'
 
         },
         password : {
           label: 'Password',
-          maxLength: 12,
+          maxLength: 20,
           secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.passwordHasError,
-          error: 'Please give us a valid password.',
+          hasError: !!this.props.error,
+          error: this.props.error,
           placeholder: '************'
 
         }
