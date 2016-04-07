@@ -54,7 +54,7 @@ const {
  */
 
 
-const BackendFactory = require('pavclient').default;
+import BackendFactory from 'pavclient';
 
 import {Actions} from 'react-native-router-flux';
 
