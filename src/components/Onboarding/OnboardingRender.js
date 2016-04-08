@@ -55,7 +55,7 @@ import React,
 from 'react-native';
 
 import Dimensions from 'Dimensions';
-var {height, width} = Dimensions.get('window'); // Screen dimensions in current orientation
+var {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 /**
  * The states were interested in
@@ -130,7 +130,7 @@ class OnboardingRender extends Component {
 
             <View style={styles.explanContainer}>
               <View style={styles.logoImgContainer}>
-                <Image style={styles.logoImg} source={require('../../../assets/pavLogo.jpg')}></Image>
+                <Image style={styles.logoImg} source={require('../../../assets/logo-white.png')}></Image>
               </View>
 
               <View style={styles.titleTextContainerVer}>
@@ -205,16 +205,23 @@ var portraitStyles = StyleSheet.create({
 
   logoImgContainer:{
     // backgroundColor: 'red',
-    flex:0.2,
-    flexDirection: 'row',
-    justifyContent: 'center'
+    flex:0.25,
+    width: screenWidth*0.7,
+    flexDirection: 'column',
+    alignSelf: 'center',
+    justifyContent: 'flex-end'
   },
   logoImg:{
-    marginVertical: 5
+    marginVertical: 7,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    // backgroundColor: 'blue',
+    width: screenWidth*0.55,
+    height:screenHeight*0.05
   },
 
   titleTextContainerVer:{
-    flex:0.3, //height (according to its parent)
+    flex:0.25, //height (according to its parent)
     flexDirection: 'row', //its children will be in a row
     backgroundColor: Colors.transparentColor,
     justifyContent: 'center'
@@ -341,9 +348,16 @@ var landscapeStyles = StyleSheet.create({
     // backgroundColor: 'red',
     flex:0.3,
     flexDirection: 'row',
-    justifyContent: 'center'
+    alignSelf: 'center',
+    justifyContent: 'flex-end'
   },
   logoImg:{
+    marginVertical: 7,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    // backgroundColor: 'blue',
+    width: screenWidth*0.90,
+    height:screenHeight*0.08
   },
 
   titleTextContainerVer:{

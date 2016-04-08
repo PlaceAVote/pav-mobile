@@ -18,20 +18,21 @@ module.exports =  {
 
   },
 
-  Topics: keyMirror({
-    'CRIME': null,
-    'HEALTHCARE': null,
-    'TAXES': null,
-    'IMMIGRATION': null,
-    'EDUCATION': null,
-    'DRUGS': null,
-    'DEFENSE': null,
-    'POLITICS': null,
-    'GUN RIGHTS': null,
-    'TECHNOLOGY': null,
-    'ECONOMICS': null,
-    'SOCIAL INTEREST': null
-  }),
+  //count children with Object.keys(myObject).length or _.keys(obj).length.
+  Topics: {
+    'CRIME': { title: 'Crime', icon: 'crime'},
+    'HEALTHCARE' : { title: 'Healthcare', icon: 'healthcare'},
+    'TAXES': { title: 'Taxes', icon: 'taxes'},
+    'IMMIGRATION' : { title: 'Immigration', icon:  'immigration'},
+    'EDUCATION' : { title: 'Education', icon:  'education'},
+    'DRUGS' : { title: 'Drugs', icon:  'smoking-area'},
+    'DEFENSE' : { title: 'Defense', icon: 'tank'},
+    'POLITICS' : { title: 'Politics', icon:  'building'},
+    'GUN RIGHTS' : { title: 'Rights', icon: 'gun'},
+    'TECHNOLOGY' : { title: 'Technology', icon:  'ipad'},
+    'ECONOMICS' : { title: 'Economics', icon:  'money'},
+    'SOCIAL INTEREST' : { title: 'Social Interest', icon:  'police'}
+  },
 
   ScheneKeys: keyMirror({
     ONBOARDING: null,

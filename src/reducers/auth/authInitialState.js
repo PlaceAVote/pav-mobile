@@ -56,7 +56,9 @@ const Form = Record({
     zipCode: '',
     zipCodeHasError: false,
     forgotPasswordEmail: '',
-    forgotPasswordEmailHasError: false
+    forgotPasswordEmailHasError: false,
+    topicsList:new Map([
+    ]),
   }))
 });
 

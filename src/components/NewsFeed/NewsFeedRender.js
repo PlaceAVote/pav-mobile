@@ -130,7 +130,7 @@ class NewsFeedRender extends Component {
 
             <View style={styles.explanContainer}>
               <View style={styles.logoImgContainer}>
-                <Image style={styles.logoImg} source={require('../../../assets/pavLogo.jpg')}></Image>
+                <Image style={styles.logoImg} source={require('../../../assets/logo-white.png')}></Image>
               </View>
 
               <View style={styles.titleTextContainerVer}>
