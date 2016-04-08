@@ -19,7 +19,7 @@ const {
   PROFILE_UPDATE_FAILURE,
 
   ON_PROFILE_FORM_FIELD_CHANGE
-} = require('../../config/constants').ActionNames
+} = require('../../config/constants').ScheneKeys
 
 /**
  * BackendFactory - base class for server implementation

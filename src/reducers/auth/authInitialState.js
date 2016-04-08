@@ -12,6 +12,7 @@
 /**
  * ## Import
  */
+import {ScheneKeys} from '../../config/constants';
 const {Record, Map} = require('immutable');
 const {
   REGISTER_STEP_1,
@@ -20,7 +21,7 @@ const {
   REGISTER_STEP_4,
   LOGIN,
   FORGOT_PASSWORD
-} = require('../../config/constants').ActionNames
+} = ScheneKeys;
 
 /**
  * ## Form

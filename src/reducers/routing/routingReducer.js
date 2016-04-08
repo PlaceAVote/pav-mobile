@@ -11,7 +11,7 @@
  */
 import InitialRouterState from './routingInitialState';
 
-
+import {ActionNames} from '../../config/constants';
 
 /**
  * Routing actions to test
@@ -20,7 +20,7 @@ import InitialRouterState from './routingInitialState';
    NAVIGATE_TO,
    NAVIGATE_PREVIOUS,
    SET_MODAL_VISIBILITY
- } = require('../../config/constants').ActionNames
+ } = ActionNames;
 
 
 const initialRouterState = new InitialRouterState

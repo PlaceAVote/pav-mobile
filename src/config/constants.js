@@ -18,6 +18,32 @@ module.exports =  {
 
   },
 
+  Topics: keyMirror({
+    'CRIME': null,
+    'HEALTHCARE': null,
+    'TAXES': null,
+    'IMMIGRATION': null,
+    'EDUCATION': null,
+    'DRUGS': null,
+    'DEFENSE': null,
+    'POLITICS': null,
+    'GUN RIGHTS': null,
+    'TECHNOLOGY': null,
+    'ECONOMICS': null,
+    'SOCIAL INTEREST': null
+  }),
+
+  ScheneKeys: keyMirror({
+    ONBOARDING: null,
+    FORGOT_PASSWORD: null,
+    LOGIN: null,
+    REGISTER_STEP_1: null,
+    REGISTER_STEP_2: null,
+    REGISTER_STEP_3: null,
+    REGISTER_STEP_4: null,
+    TOPIC_PICK: null,
+    NEWSFEED: null
+  }),
 
   ActionNames:  keyMirror({
 
@@ -71,16 +97,6 @@ module.exports =  {
    SET_STATE: null,
    GET_STATE: null,
    SET_STORE: null,
-
-   ONBOARDING: null,
-   FORGOT_PASSWORD: null,
-   LOGIN: null,
-   REGISTER_STEP_1: null,
-   REGISTER_STEP_2: null,
-   REGISTER_STEP_3: null,
-   REGISTER_STEP_4: null,
-   NEWSFEED: null,
-
 
    NAVIGATE_TO: null,
    NAVIGATE_PREVIOUS: null,

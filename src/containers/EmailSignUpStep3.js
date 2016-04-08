@@ -38,7 +38,7 @@ import React from 'react-native';
 
 const {
   REGISTER_STEP_4,
-} = require('../config/constants').ActionNames
+} = require('../config/constants').ScheneKeys
 
 /**
  * ## Redux boilerplate

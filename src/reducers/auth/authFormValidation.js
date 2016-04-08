@@ -8,6 +8,7 @@
  */
 'use strict';
 
+import {ScheneKeys} from '../../config/constants';
 /**
  * ## Imports
  * the actions being addressed
@@ -20,7 +21,7 @@ const {
   REGISTER_STEP_4,
   LOGIN,
   FORGOT_PASSWORD
-} = require('../../config/constants').ActionNames
+} = ScheneKeys;
 
 
 

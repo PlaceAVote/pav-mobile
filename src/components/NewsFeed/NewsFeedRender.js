@@ -37,7 +37,7 @@ import Button from 'sp-react-native-iconbutton'
 var Icon = require('react-native-vector-icons/FontAwesome');
 
 
-import {Colors, ActionNames} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../config/constants';
 
 /**
  * The necessary React components
@@ -62,7 +62,7 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
  */
 // const {
 //   SET_ORIENTATION
-// } = ActionNames;
+// } = ScheneKeys;
 
 
 

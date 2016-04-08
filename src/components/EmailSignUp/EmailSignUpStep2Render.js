@@ -39,7 +39,7 @@ import ErrorAlert from '../../components/ErrorAlert';
  */
 import SignUpEmailForm from './SignUpEmailForm';
 
-import {Colors, ActionNames} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../config/constants';
 
 /**
  * The necessary React components
@@ -64,7 +64,7 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
  */
  const {
    REGISTER_STEP_2
- } = ActionNames;
+ } = ScheneKeys;
 
 
 

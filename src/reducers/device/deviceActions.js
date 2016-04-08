@@ -8,18 +8,16 @@
  */
 'use strict';
 import Orientation from 'react-native-orientation';
-
+import {ActionNames} from '../../config/constants';
 /**
- * ## Imports
- *
- * The actions supported
+ * Device actions to test
  */
 const {
   SET_PLATFORM,
   SET_VERSION,
   SET_ORIENTATION,
   SET_ORIENTATION_LOCK
-} = require ('../../config/constants').ActionNames
+} = ActionNames;
 
 /**
  * ## Set the platformState

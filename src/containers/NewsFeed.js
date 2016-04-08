@@ -43,7 +43,7 @@ import React from 'react-native';
 
 const {
 NEWSFEED
-} = require('../config/constants').ActionNames
+} = require('../config/constants').ScheneKeys
 
 
 /**

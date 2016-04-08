@@ -42,7 +42,7 @@ import ErrorAlert from '../../components/ErrorAlert';
  */
 import SignInForm from './SignInForm';
 
-import {Colors, ActionNames} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../config/constants';
 
 /**
  * The necessary React components
@@ -68,7 +68,7 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
 const {
   LOGIN,
   FORGOT_PASSWORD
-} = ActionNames;
+} = ScheneKeys;
 
 
 

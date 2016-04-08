@@ -10,10 +10,10 @@
  * fieldValidation for validating the fields
  * formValidation for setting the form's valid flag
  */
-const InitialState = require('./authInitialState').default;
-const fieldValidation = require('../../lib/Utils/fieldValidation').default;
-const formValidation = require('./authFormValidation').default;
-
+import InitialState from './authInitialState';
+import fieldValidation from '../../lib/Utils/fieldValidation';
+import formValidation from './authFormValidation';
+import {ActionNames, ScheneKeys} from '../../config/constants';
 /**
  * ## Auth actions
  */
@@ -24,14 +24,6 @@ const {
 
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
-
-  LOGOUT,
-  REGISTER_STEP_1,
-  REGISTER_STEP_2,
-  REGISTER_STEP_3,
-  REGISTER_STEP_4,
-  LOGIN,
-  FORGOT_PASSWORD,
 
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
@@ -51,7 +43,21 @@ const {
   RESET_PASSWORD_FAILURE,
 
   SET_STATE
-} = require('../../config/constants').ActionNames
+} = ActionNames;
+
+
+const {
+  LOGOUT,
+  REGISTER_STEP_1,
+  REGISTER_STEP_2,
+  REGISTER_STEP_3,
+  REGISTER_STEP_4,
+  LOGIN,
+  FORGOT_PASSWORD,
+} = ScheneKeys;
+
+
+
 
 const initialState = new InitialState;
 

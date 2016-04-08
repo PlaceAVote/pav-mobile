@@ -44,7 +44,7 @@ import React from 'react-native';
 const {
 REGISTER_STEP_1,
 LOGIN
-} = require('../config/constants').ActionNames
+} = require('../config/constants').ScheneKeys
 
 
 /**

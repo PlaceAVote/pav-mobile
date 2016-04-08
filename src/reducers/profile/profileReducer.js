@@ -31,7 +31,7 @@ const {
   LOGOUT_SUCCESS,
 
   SET_STATE
-} = require('../../config/constants').ActionNames
+} = require('../../config/constants').ScheneKeys
 
 /**
  * ## Initial State

@@ -40,14 +40,14 @@ import ErrorAlert from '../../components/ErrorAlert';
  */
 import SignUpBirthZipcodeForm from './SignUpBirthZipcodeForm';
 
-import {Colors, ActionNames} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../config/constants';
 
 /**
  * The states were interested in
  */
 const {
   REGISTER_STEP_4
-} = ActionNames;
+} = ScheneKeys;
 
 /**
  * The necessary React components

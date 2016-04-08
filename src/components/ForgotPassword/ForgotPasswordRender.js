@@ -40,7 +40,7 @@ import ErrorAlert from '../../components/ErrorAlert';
  */
 import ForgotPasswordForm from './ForgotPasswordForm';
 
-import {Colors, ActionNames} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../config/constants';
 
 /**
  * The necessary React components
@@ -66,7 +66,7 @@ var {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Scre
 const {
   LOGIN,
   FORGOT_PASSWORD
-} = ActionNames;
+} = ScheneKeys;
 
 
 

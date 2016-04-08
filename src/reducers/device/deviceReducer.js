@@ -10,7 +10,7 @@
  * InitialState
  */
 import InitialState from './deviceInitialState';
-
+import {ActionNames} from '../../config/constants';
 /**
  * Device actions to test
  */
@@ -19,7 +19,7 @@ const {
   SET_VERSION,
   SET_ORIENTATION,
   SET_ORIENTATION_LOCK
-} = require('../../config/constants').ActionNames
+} = ActionNames;
 
 const initialState = new InitialState;
 

@@ -39,7 +39,7 @@ import React from 'react-native';
 const {
   LOGIN,
   FORGOT_PASSWORD
-} = require('../config/constants').ActionNames
+} = require('../config/constants').ScheneKeys
 
 /**
  * ## Redux boilerplate

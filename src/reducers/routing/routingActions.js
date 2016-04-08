@@ -9,6 +9,7 @@
  */
 'use strict';
 
+import {ActionNames} from '../../config/constants';
 /**
  * ## Imports
  *
@@ -18,7 +19,7 @@ const {
   NAVIGATE_TO,
   NAVIGATE_PREVIOUS,
   SET_MODAL_VISIBILITY
-} = require('../../config/constants').ActionNames
+} = ActionNames;
 
 
 

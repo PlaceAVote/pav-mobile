@@ -12,12 +12,13 @@
 /**
  * ## Import
  */
+import {ScheneKeys} from '../../config/constants';
 const {Record, Map} = require('immutable');
 const {
   NAVIGATE_TO,
   ONBOARDING,
   FORGOT_PASSWORD
-} = require('../../config/constants').ActionNames
+} = ScheneKeys;
 
 
 /**

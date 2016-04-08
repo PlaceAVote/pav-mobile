@@ -70,7 +70,7 @@ import React, {
       // import Subview from './containers/Subview';
 
 
-      import {Colors, ActionNames} from './config/constants';
+      import {Colors, ScheneKeys} from './config/constants';
 
 
       /**
@@ -152,18 +152,17 @@ import React, {
 
 
 
-      class ARightBtn extends React.Component {
+      class RightPavLogo extends React.Component {
           render(){
               return <Text style={{
-                width: 80,
-                position: 'absolute',
-                height: 120,
-                top: 50,
-                right:0,
+                width: 180,
+                height: 137,
+                position: "absolute",
+
                 padding: 8,
                 backgroundColor: 'red',
                 color: '#000000'
-            }}>RightBtnTest</Text>
+            }}>Some text</Text>
           }
       }
 
@@ -190,7 +189,7 @@ import React, {
             const reducerCreate = params=>{
                 const defaultReducer = Reducer(params);
                 return (state, action)=>{
-                  console.log("ACTION:", action);
+                  // console.log("ACTION:", action);
                   switch(action.type){
                     case "push":
                       store.dispatch(navigateState(action.key));
@@ -206,28 +205,23 @@ import React, {
                 }
             };
 
-            let backButtonImg = require("../assets/back_chevron.png");
+            // let backButtonImg = require("../assets/back_chevron.png");
+            // titleStyle={{color:Colors.mainTextColor}} navigationBarStyle={{backgroundColor:Colors.primaryColor}} backButtonImage={backButtonImg}
 
-// titleStyle={{color:Colors.mainTextColor}}
-// navigationBarStyle={{backgroundColor:Colors.primaryColor}}
             // setup the router table with App selected as the initial component
-
-            // navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor}}/>
-
-            // <Scene key={ActionNames.FORGOT_PASSWORD} schema="modal" direction="vertical" component={ForgotPassword} title="Forgot Password"  hideNavBar={true} panHandlers={null} duration={1}  />
             return (
               <Provider store={store}>
                 <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
                   <Scene key="modal" component={Modal} >
                     <Scene key="root">
-                      <Scene key={ActionNames.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} initial={true}  />
+                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} initial={true}  />
                       <Scene key="FacebookSignIn" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
-                      <Scene key={ActionNames.LOGIN} component={EmailSignIn} type="push" title="Sign In" titleStyle={{color:Colors.mainTextColor}} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  backButtonImage={backButtonImg} />
-                      <Scene key={ActionNames.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} />
-                      <Scene key={ActionNames.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" title="Sign Up" hideNavBar={true} />
-                      <Scene key={ActionNames.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" title="Sign Up" hideNavBar={true} />
-                      <Scene key={ActionNames.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" title="Sign Up" hideNavBar={true} />
-                      <Scene key={ActionNames.NEWSFEED} component={NewsFeed} schema="modal" direction="vertical" type="replace" title="Sign Up" hideNavBar={true} panHandlers={null} duration={1} />
+                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} type="push" title="Sign In" renderRightButton={()=><RightPavLogo/>}/>
+                      <Scene key={ScheneKeys.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} />
+                      <Scene key={ScheneKeys.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" title="Sign Up" hideNavBar={true} />
+                      <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" title="Sign Up" hideNavBar={true} />
+                      <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" title="Sign Up" hideNavBar={true} />
+                      <Scene key={ScheneKeys.NEWSFEED} component={NewsFeed} schema="modal" direction="vertical" type="replace" title="Sign Up" hideNavBar={true} panHandlers={null} duration={1} />
                     </Scene>
                   </Scene>
                 </Router>

@@ -18,7 +18,7 @@ const {
 } = React;
 
 
-import { ActionNames, Colors } from '../../config/constants';
+import { ScheneKeys, Colors } from '../../config/constants';
 // import _ from 'lodash';
 /**
  * States of login display
@@ -26,7 +26,7 @@ import { ActionNames, Colors } from '../../config/constants';
 // const {
 //   LOGIN,
 //   FORGOT_PASSWORD
-// } = ActionNames
+// } = ScheneKeys
 
 /**
  *  The fantastic little form library

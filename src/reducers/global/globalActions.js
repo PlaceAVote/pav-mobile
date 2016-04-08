@@ -1,13 +1,14 @@
 /**
  * # globalActions.js
- * 
+ *
  * Actions that are global in nature
  */
 'use strict';
 
+import {ActionNames} from '../../config/constants';
 /**
  * ## Imports
- * 
+ *
  * The actions supported
  */
 const {
@@ -15,7 +16,7 @@ const {
   SET_STORE,
   SET_STATE,
   GET_STATE
-} = require('../../config/constants').ActionNames
+} = ActionNames;
 
 /**
  * ## set the sessionToken
@@ -28,8 +29,8 @@ export function setSessionToken(sessionToken) {
   };
 }
 /**
- * ## set the store 
- * 
+ * ## set the store
+ *
  * this is the Redux store
  *
  * this is here to support Hot Loading
@@ -43,7 +44,7 @@ export function setStore(store) {
 }
 /**
  * ## set state
- * 
+ *
  */
 export function setState(newState) {
   return {
