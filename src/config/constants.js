@@ -44,7 +44,9 @@ module.exports =  {
     TOPIC_PICK: null,
     NEWSFEED: null
   }),
-
+  Other: {
+    SESSION_TOKEN_STORAGE_KEY: "token"
+  },
   ActionNames:  keyMirror({
 
    SET_PLATFORM: null,

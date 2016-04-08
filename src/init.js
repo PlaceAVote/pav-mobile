@@ -153,18 +153,26 @@ import React, {
 
 
       class RightPavLogo extends React.Component {
-          render(){
-              return <Text style={{
-                width: 180,
-                height: 137,
-                position: "absolute",
-
-                padding: 8,
-                backgroundColor: 'red',
-                color: '#000000'
-            }}>Some text</Text>
-          }
+        render(){
+            return <Image source={require("../assets/pavBtnRight.png")} style={{
+              flex:1,
+              alignSelf:'flex-end',
+              resizeMode: 'cover',
+              width: 30,
+              height: null,
+              // backgroundColor:'green'
+              overflow: "hidden"
+          }}></Image>
+        }
       }
+
+      // class BackBtnImg extends React.Component {
+      //   render(){
+      //       return <Image source={require("../assets/back_chevron.png")} ></Image>;
+      //   }
+      // }
+
+
 
       export default function native(platform) {
 
@@ -205,18 +213,22 @@ import React, {
                 }
             };
 
-            // let backButtonImg = require("../assets/back_chevron.png");
-            // titleStyle={{color:Colors.mainTextColor}} navigationBarStyle={{backgroundColor:Colors.primaryColor}} backButtonImage={backButtonImg}
-
+            // let backButtonImg = ()=><Image source={require("../assets/back_chevron.png")} style={{padding: 8,backgroundColor:'red'}}></Image>;
+            //
+            // <Scene key={ScheneKeys.LOGIN} type="push" title="Sign In" navigationBarStyle={{backgroundColor:Colors.primaryColor}} backButtonImage={backButtonImg} renderRightButton={()=><RightPavLogo/>}>
             // setup the router table with App selected as the initial component
+
+            // when the hideNavBar is true we see the right button but not the left, and the opposite.
             return (
               <Provider store={store}>
                 <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
                   <Scene key="modal" component={Modal} >
-                    <Scene key="root">
+                    <Scene key="root" navigationBarStyle={{backgroundColor:Colors.primaryColor}} renderRightButton={()=><RightPavLogo/>}  titleStyle={{color:Colors.mainTextColor}}>
+
                       <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} initial={true}  />
                       <Scene key="FacebookSignIn" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
-                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} type="push" title="Sign In" renderRightButton={()=><RightPavLogo/>}/>
+                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" />
+
                       <Scene key={ScheneKeys.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" title="Sign Up" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" title="Sign Up" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" title="Sign Up" hideNavBar={true} />

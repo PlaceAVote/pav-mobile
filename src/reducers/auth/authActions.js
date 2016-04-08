@@ -276,7 +276,7 @@ export function saveSessionToken(token) {
 export function signup(email, password, first_name, last_name, dayOfBirth, zipcode, topics, gender) {
   return async function (dispatch){
     dispatch(signupRequest());
-    var res = await PavClientSdk().userApi().signup({
+    var res = await PavClientSdk().userApi.signup({
         "email": email,
         "password": password,
         "first_name": first_name,
@@ -291,7 +291,7 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
       var errorMessage = null;
       return dispatch(signupFailure(res.error));
     }else{
-      // console.log(res.data.token);
+      console.log("Signup success");
       saveSessionToken(res.data.token)
       return dispatch(signupSuccess(Object.assign({}, res.data,
   			{
@@ -343,13 +343,13 @@ export function loginFailure(error) {
   return async function(dispatch){
     dispatch(loginRequest());
 
-    var res = await PavClientSdk().userApi().login({
+    var res = await PavClientSdk().userApi.login({
       email: email,
       password: password
     });
     // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
     if(!!res.error){
-      alert("Thats wrong man.. Not that we are calling the userapidev and not the userapi endpoint.");
+      alert("Thats wrong man.. Not that we are calling the apidev and not the api endpoint.");
       var errorMessage = null;
       console.log("Error type: "+res.errorType)
       if(res.errorType=="text"){
