@@ -23,7 +23,7 @@
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "setup": "npm install -g npm3 && npm3 install -g rnpm && npm3 install && rnpm link && rnpm link assets",
     "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest  --no-cache",
-    "pavclient": "npm i git+https://b35b7daa8a099d2d00e0cfcb4168d463a4c29e21:x-oauth-basic@github.com/PlaceAVote/pav-client-sdk.git"
+    "pavclient": "npm i git+https://a7ee7e677992613cade67c796347ad55e3a0ab64:x-oauth-basic@github.com/PlaceAVote/pav-client-sdk.git"
   },
   "dependencies": {
     "react-native": "^0.22.2",
@@ -45,7 +45,7 @@
     "react-native-collapsible": "^0.5.6",
     "moment": "^2.12.0",
     "react-native-modalbox": "^1.3.0",
-    "pavclient": "git+https://b35b7daa8a099d2d00e0cfcb4168d463a4c29e21:x-oauth-basic@github.com/PlaceAVote/pav-client-sdk.git#master"
+    "pavclient": "git+https://a7ee7e677992613cade67c796347ad55e3a0ab64:x-oauth-basic@github.com/PlaceAVote/pav-client-sdk.git#master"
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
