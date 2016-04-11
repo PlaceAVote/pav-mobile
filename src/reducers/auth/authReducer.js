@@ -12,7 +12,7 @@
  */
 import InitialState from './authInitialState';
 import fieldValidation from '../../lib/Utils/fieldValidation';
-import formValidation from './authFormValidation';
+import {formValidation, arrayContainsObject} from './authFormValidation';
 import {ActionNames, ScheneKeys} from '../../config/constants';
 /**
  * ## Auth actions
@@ -33,6 +33,7 @@ const {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
 
+  ON_TOPICS_FORM_FIELD_CHANGE,
   ON_AUTH_FORM_FIELD_CHANGE,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
@@ -105,7 +106,12 @@ export default function authReducer(state = initialState, action) {
         .setIn(['form','fields','password'],'')
         .setIn(['form','fields','passwordAgain'],'')
     );
-
+  case ON_TOPICS_FORM_FIELD_CHANGE:
+    let curTopic = action.payload;
+    let isSelected = state.form.fields.topicsList.get(curTopic).isSelected;
+    // console.log("Is selected "+state.form.fields.topicsList.get(newSelectedTopic).set('isSelected', !isSelected));
+    return state.setIn(['form','fields', 'topicsList', curTopic], state.form.fields.topicsList.get(curTopic).set('isSelected', !isSelected));
+    break;
 
     /**
      * ### Auth form field change

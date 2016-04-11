@@ -40,7 +40,7 @@ import React from 'react-native';
  */
 
 const {
-  NEWSFEED
+  TOPIC_PICK
 } = require('../config/constants').ScheneKeys
 
 /**
@@ -85,8 +85,7 @@ let EmailSignUpStep4 = React.createClass({
 
   render() {
     let onButtonPress = ()=>{
-        this.props.actions.navigateTo(NEWSFEED);
-        //TODO: first signup asynchronously and then navigate
+        this.props.actions.navigateTo(TOPIC_PICK);
     },
     onBackBtnPress = ()=>{
         this.props.actions.navigateToPrevious();

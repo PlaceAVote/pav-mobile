@@ -1,4 +1,4 @@
-/**
+ /**
  * # authInitialState.js
  *
  * This class is a Immutable object
@@ -13,7 +13,7 @@
  * ## Import
  */
 import {ScheneKeys} from '../../config/constants';
-const {Record, Map} = require('immutable');
+const {Record, Map, List} = require('immutable');
 const {
   REGISTER_STEP_1,
   REGISTER_STEP_2,
@@ -57,8 +57,20 @@ const Form = Record({
     zipCodeHasError: false,
     forgotPasswordEmail: '',
     forgotPasswordEmailHasError: false,
-    topicsList:new Map([
-    ]),
+    topicsList: new Map([
+      ['crime', new (Record({ title: 'Crime', icon: 'crime', isSelected: false}))],
+      ['healthcare', new (Record({ title: 'Healthcare', icon: 'healthcare', isSelected: false}))],
+      ['taxes', new (Record({ title: 'Taxes', icon: 'taxes', isSelected: false}))],
+      ['immigration' , new (Record({ title: 'Immigration', icon:  'immigration', isSelected: false}))],
+      ['education' , new (Record({ title: 'Education', icon:  'education', isSelected: false}))],
+      ['drugs' , new (Record({ title: 'Drugs', icon:  'smoking-area', isSelected: false}))],
+      ['defense' , new (Record({ title: 'Defense', icon: 'tank', isSelected: false}))],
+      ['politics' , new (Record({ title: 'Politics', icon:  'building', isSelected: false}))],
+      ['gun rights' , new (Record({ title: 'Rights', icon: 'gun', isSelected: false}))],
+      ['technology' , new (Record({ title: 'Technology', icon:  'ipad', isSelected: false}))],
+      ['economics' , new (Record({ title: 'Economics', icon:  'money', isSelected: false}))],
+      ['social interest' , new (Record({ title: 'Social Interest', icon:  'police', isSelected: false}))]
+    ])
   }))
 });
 

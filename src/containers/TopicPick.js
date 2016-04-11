@@ -84,21 +84,22 @@ function mapDispatchToProps(dispatch) {
 
 let TopicPick = React.createClass({
 
+  onBackBtnPress(){
+    this.props.actions.navigateToPrevious();
+  },
 
+  onButtonPress(){
+      this.props.actions.navigateTo(NEWSFEED);
+      //TODO: first signup asynchronously and then navigate
+  },
+  
   render() {
-    let onButtonPress = ()=>{
-        this.props.actions.navigateTo(NEWSFEED);
-        //TODO: first signup asynchronously and then navigate
-    },
-    onBackBtnPress = ()=>{
-        this.props.actions.navigateToPrevious();
-    }
 
     return(
       <TopicPickRender
           backButtonEnabled={false}
-          onBack={onBackBtnPress}
-          onNextStep={ onButtonPress }
+          onBack={this.onBackBtnPress.bind(this)}
+          onNextStep={ this.onButtonPress.bind(this) }
           auth={ this.props.auth }
           global={ this.props.global }
           device={this.props.device}

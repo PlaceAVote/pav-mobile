@@ -35,6 +35,7 @@ import {ActionNames, ScheneKeys} from '../../config/constants';
    LOGIN_FAILURE,
 
    ON_AUTH_FORM_FIELD_CHANGE,
+   ON_TOPICS_FORM_FIELD_CHANGE,
    SIGNUP_REQUEST,
    SIGNUP_SUCCESS,
    SIGNUP_FAILURE,
@@ -142,6 +143,18 @@ export function onAuthFormFieldChange(field, value, scheneName) {
   return {
     type: ON_AUTH_FORM_FIELD_CHANGE,
     payload: {field: field, value: value, scheneName: scheneName}
+  };
+}
+
+
+/**
+ * ## onSelectedTopicsChange
+ * Set the payload so the reducer can work on it
+ */
+export function onSelectedTopicsChange(topics) {
+  return {
+    type: ON_TOPICS_FORM_FIELD_CHANGE,
+    payload: topics
   };
 }
 

@@ -18,22 +18,6 @@ module.exports =  {
 
   },
 
-  //count children with Object.keys(myObject).length or _.keys(obj).length.
-  Topics: {
-    'CRIME': { title: 'Crime', icon: 'crime'},
-    'HEALTHCARE' : { title: 'Healthcare', icon: 'healthcare'},
-    'TAXES': { title: 'Taxes', icon: 'taxes'},
-    'IMMIGRATION' : { title: 'Immigration', icon:  'immigration'},
-    'EDUCATION' : { title: 'Education', icon:  'education'},
-    'DRUGS' : { title: 'Drugs', icon:  'smoking-area'},
-    'DEFENSE' : { title: 'Defense', icon: 'tank'},
-    'POLITICS' : { title: 'Politics', icon:  'building'},
-    'GUN RIGHTS' : { title: 'Rights', icon: 'gun'},
-    'TECHNOLOGY' : { title: 'Technology', icon:  'ipad'},
-    'ECONOMICS' : { title: 'Economics', icon:  'money'},
-    'SOCIAL INTEREST' : { title: 'Social Interest', icon:  'police'}
-  },
-
   ScheneKeys: keyMirror({
     ONBOARDING: null,
     FORGOT_PASSWORD: null,
@@ -65,6 +49,7 @@ module.exports =  {
    ON_LOGIN_STATE_CHANGE: null,
    LOGOUT: null,
 
+   ON_TOPICS_FORM_FIELD_CHANGE: null,
    ON_AUTH_FORM_FIELD_CHANGE: null,
    SIGNUP_REQUEST: null,
    SIGNUP_SUCCESS: null,

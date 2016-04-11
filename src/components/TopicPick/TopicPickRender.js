@@ -41,7 +41,7 @@ import TopicPickGrid from './TopicPickGrid';
  */
 
 
-import {Colors, ScheneKeys, Topics} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../config/constants';
 
 /**
  * The states were interested in
@@ -136,7 +136,7 @@ class TopicPickRender extends Component {
         backgroundColor: Colors.primaryColor,
       },
       topicsContainer:{
-        flex:this.props.backButtonEnabled?0.58:0.67,
+        flex:this.props.backButtonEnabled?0.58:0.62,
         backgroundColor: 'white'
       },
 
@@ -266,6 +266,26 @@ class TopicPickRender extends Component {
   }
 
 
+  onSelectedTopicsChange(topic){
+    // console.log("on selected topics change: "+topic)
+    this.props.actions.onSelectedTopicsChange(topic);
+  }
+
+
+
+  getTopicData(topicList){
+    var data = [];
+    for (var topicKey in topicList) {
+      var curTopic = topicList[topicKey];
+      data.push({
+        title:curTopic.title,
+        isSelected: curTopic.isSelected,
+        icon: curTopic.icon,
+        key: topicKey
+      })
+    }
+    return data;
+  }
 
   /**
    * ### render
@@ -276,14 +296,10 @@ class TopicPickRender extends Component {
 
     let styles = this.getStyles();
     // var onButtonPress = this.props.onButtonPress;
-    let self = this;
 
-    let onBtnPress = ()=>{
-      this.props.onNextStep();
-    },
-    onBackBtnPress = ()=>{
-      this.props.onBack();
-    }
+
+    // topics={this.props.auth.form.fields.topicsList.toJS()}
+    // selectedTopics={this.props.auth.form.fields.selectedTopicsList.toArray()}
 
     return(
       <View style={styles.baseContainer}>
@@ -291,7 +307,7 @@ class TopicPickRender extends Component {
 
 
             <View style={styles.explanationContainer}>
-              {self.renderBackButton()}
+              {this.renderBackButton()}
               <View style={styles.descriptionTextContainer}>
                 <Text style={styles.descriptionText} >
                 Finally, help us tailor the content we serve you, by telling us what topics you are most interested in voting on.
@@ -300,14 +316,18 @@ class TopicPickRender extends Component {
             </View>
 
             <View style={styles.topicsContainer}>
-              <TopicPickGrid/>
+              <TopicPickGrid
+              topicData={this.getTopicData(this.props.auth.form.fields.topicsList.toJS())}
+              onSelectedTopicsChange={this.onSelectedTopicsChange.bind(this)}
+
+              />
             </View>
 
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
-                <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
-                    isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_4) || this.props.auth.form.isFetching}
-                    onPress={onBtnPress}>
+                <Button textStyle={styles.whiteBtnText}
+                  style={styles.nextStepBtn}
+                  onPress={this.props.onNextStep}>
                   Finish
                 </Button>
               </View>

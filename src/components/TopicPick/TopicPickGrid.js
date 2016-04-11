@@ -3,7 +3,7 @@
 import React from 'react-native';
 import Dimensions from 'Dimensions';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-import {Colors, Topics} from '../../config/constants';
+import {Colors} from '../../config/constants';
 import LinearGradient from 'react-native-linear-gradient';
 
 const {
@@ -26,35 +26,38 @@ const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 var GridLayoutExample = React.createClass({
 
-  getInitialState: function() {
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    let rowData = this._genRows();
-    return {
-      dataSource: ds.cloneWithRows(rowData.titleKeys),
-      iconNameList :rowData.iconKeys
-    };
-  },
+  // getInitialState: function() {
+  //
+  //   // let rowData = this._genRows();
+  //   // this.props.onSelectedTopicsChange("this represents the topics change object.");
+  //   return {
+  //     dataSource: ds.cloneWithRows(this.props.topicData),
+  //   };
+  // },
 
 
-  componentWillMount: function() {
-  },
+  // componentWillMount: function() {},
+
+// this.props.selectedTopics TODO:
 
   render: function() {
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return (
       // ListView wraps ScrollView and so takes on its properties.
       // With that in mind you can use the ScrollView's contentContainerStyle prop to style the items.
       <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
+        dataSource={ds.cloneWithRows(this.props.topicData)}
         renderRow={this._renderRow}
       />
     );
   },
 
-
+  // componentWillReceiveProps: function(nextProps){},
 
 
 
   renderTopicIconDependingOnChecked: function (isChecked, rowIconName, rowTitle){
+    // console.log("Should be checked: "+isChecked);
     if(isChecked){
       return (<LinearGradient
         colors={['#4D6EB2', '#775B96']}
@@ -90,44 +93,61 @@ var GridLayoutExample = React.createClass({
 
 
 
-  _renderRow: function(rowData: string, sectionID: number, rowID: number) {
+
+  isCurrentRowChecked: function(rowKey, selectedList){
+    for (var ii= 0,ll=selectedList.length; ii < ll; ii++) {
+        if (list[ii] === rowKey) {
+          console.log(rowKey+' is checked');
+            return true;
+        }
+    }
+    // console.log(rowKey+' NOT checked');
+    return false;
+  },
+
+  _renderRow: function(rowData, sectionID, rowID) {
 
 
-    var curIconName = this.state.iconNameList[rowID];
+    // var curIconName = this.state.iconNameList[rowID];
     //TODO: Create the initial state, and the logic, to receive the checked list prop as a property right from the state. Implement the onChange method on the parent.
     // let isCurrentRowChecked = this.props.isCheckedList[rowID];
-    let isCurrentRowChecked = false;
 
     // console.log("Cur Icon name: "+curIconName);
+    // var selectedItems = [];
+    // this.isCurrentRowChecked(this.state.keysMap[rowID], selectedItems)
     return (
-      <TouchableHighlight onPress={(e) => this._pressRow(rowID,e)} underlayColor='rgba(0,0,0,0)'>
+      <TouchableHighlight onPress={(e) => this._pressRow(rowID,e, rowData)} underlayColor='rgba(0,0,0,0)'>
         <View>
-          {this.renderTopicIconDependingOnChecked(isCurrentRowChecked, curIconName, rowData)}
+          {this.renderTopicIconDependingOnChecked(rowData.isSelected, rowData.icon, rowData.title)}
         </View>
       </TouchableHighlight>
     );
   },
 
-  _genRows: function() : Array<string> {
+  // _genRows: function() : Array<string> {
+  //
+  //   var rowsData = {
+  //     titleKeysAndSelectedValues:[],
+  //     iconKeys: [],
+  //     topicKeys: []
+  //   }
+  //   let topics = this.props.topics;
+  //   // console.log("Topics: "+JSON.stringify(topics));
+  //   for (var topicKey in topics) {
+  //     var curTopic = topics[topicKey];
+  //     rowsData.topicKeys.push(topicKey);
+  //     rowsData.iconKeys.push(curTopic.icon);
+  //     rowsData.titleKeysAndSelectedValues.push({title: curTopic.title, isSelected: false});
+  //   }
+  //
+  //   // for (var ii = 0, ll=Object.keys(topics).length; ii < ll; ii++) {
+  //   // }
+  //   return rowsData;
+  // },
 
-    var rowsData = {
-      titleKeys:[],
-      iconKeys: []
-    }
-
-    for (var topicKey in Topics) {
-      var curTopic = Topics[topicKey];
-      rowsData.iconKeys.push(curTopic.icon);
-      rowsData.titleKeys.push(curTopic.title);
-    }
-
-    // for (var ii = 0, ll=Object.keys(topics).length; ii < ll; ii++) {
-    // }
-    return rowsData;
-  },
-
-  _pressRow: function(rowID: number, e) {
-    console.log("Row was pressed: "+rowID)
+  _pressRow: function(rowID, e, rowData) {
+    // console.log("Row was pressed with rowData: "+JSON.stringify(rowData));
+    this.props.onSelectedTopicsChange(rowData.key);
   },
 
 });
@@ -145,8 +165,8 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
     margin: 8,
-    width: screenWidth*0.41,
-    height: screenWidth*0.38,
+    width: screenWidth*0.42,
+    height: screenWidth*0.37,
     // backgroundColor: '#F6F6F6',
     borderWidth: 1,
     borderRadius: 5,
@@ -170,7 +190,7 @@ var styles = StyleSheet.create({
   },
   textAndCheckContainer:{
     flex: 0,
-    paddingHorizontal: 5,
+    paddingHorizontal: 3,
     justifyContent: 'space-between',
     width: screenWidth*0.39,
     // backgroundColor: 'blue',
@@ -185,7 +205,7 @@ var styles = StyleSheet.create({
     // backgroundColor: 'red'
   },
   text: {
-    fontSize: 17,
+    fontSize: 16,
     fontFamily: 'Whitney',
     textAlign: 'center',
     alignSelf:'center',

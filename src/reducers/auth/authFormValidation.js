@@ -24,7 +24,16 @@ const {
 } = ScheneKeys;
 
 
+//returns the index of the object if found in an array, otherwise false if the object was not found
+export function arrayContainsObject(obj, list) {
 
+    for (var ii= 0,ll=list.length; ii < ll; ii++) {
+        if (list[ii] === obj) {
+            return ii;
+        }
+    }
+    return false;
+}
 
 function isFormValid(scheneName, fields){
   let isValid = false;
@@ -64,7 +73,7 @@ function isFormValid(scheneName, fields){
  * ## formValidation
  * @param {Object} state - the Redux state object
  */
-export default function formValidation (state, scheneName) {
+export function formValidation (state, scheneName) {
     let isValid = isFormValid(scheneName, state.form.fields);
     return state.setIn(['form','isValid', scheneName],isValid);
 }
