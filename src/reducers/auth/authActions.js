@@ -299,7 +299,7 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
         "topics": topics,
         "gender": gender
       });
-
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       var errorMessage = null;
       return dispatch(signupFailure(res.error));
@@ -361,19 +361,16 @@ export function loginFailure(error) {
       password: password
     });
     // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
-      alert("Thats wrong man.. Not that we are calling the apidev and not the api endpoint.");
-      var errorMessage = null;
-      console.log("Error type: "+res.errorType)
-      if(res.errorType=="text"){
-        errorMessage = res.error;
-        console.log("Error msg TEXt authActions.login: "+errorMessage)
-
+      alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
+      if(res.multipleErrors){
+        // console.log("authActions.login :: Error msg: "+res.error[0].email)
+        return dispatch(loginFailure(res.error[0].email));
       }else{
-        errorMessage = res.error.errors[0].email;
-        console.log("Error msg JSON authActions.login: "+errorMessage)
+        // console.log("authActions.login :: Error msg: "+res.error)
+        return dispatch(loginFailure(res.error));
       }
-      return dispatch(loginFailure(errorMessage));
     }else{
       alert("Good that was right, the cake was a lie though..");
       // console.log(res.data.token);
