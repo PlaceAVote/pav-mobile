@@ -41,7 +41,8 @@ import React from 'react-native';
 
 const {
   NEWSFEED,
-  TOPIC_PICK
+  TOPIC_PICK,
+  REGISTER_STEP_3
 } = require('../config/constants').ScheneKeys
 
 /**
@@ -89,20 +90,21 @@ let TopicPick = React.createClass({
   },
 
   onButtonPress(){
-      this.props.actions.navigateTo(NEWSFEED);
+      this.props.actions.navigateTo(REGISTER_STEP_3);
       //TODO: first signup asynchronously and then navigate
   },
-  
+
   render() {
 
     return(
       <TopicPickRender
           backButtonEnabled={false}
-          onBack={this.onBackBtnPress.bind(this)}
-          onNextStep={ this.onButtonPress.bind(this) }
+          onBack={this.onBackBtnPress}
+          onNextStep={ this.onButtonPress}
           auth={ this.props.auth }
           global={ this.props.global }
           device={this.props.device}
+          nextButtonText="Next"
       />
     );
   }

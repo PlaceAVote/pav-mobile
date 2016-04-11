@@ -267,7 +267,7 @@ class TopicPickRender extends Component {
 
 
   onSelectedTopicsChange(topic){
-    // console.log("on selected topics change: "+topic)
+    console.log("on selected topics change: "+topic)
     this.props.actions.onSelectedTopicsChange(topic);
   }
 
@@ -328,7 +328,7 @@ class TopicPickRender extends Component {
                 <Button textStyle={styles.whiteBtnText}
                   style={styles.nextStepBtn}
                   onPress={this.props.onNextStep}>
-                  Finish
+                  {this.props.nextButtonText}
                 </Button>
               </View>
             </View>

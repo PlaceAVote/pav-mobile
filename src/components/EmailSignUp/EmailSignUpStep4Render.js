@@ -28,26 +28,18 @@ import {Map} from 'immutable';
 // const  Button = require('sp-react-native-iconbutton');
 import Button from 'sp-react-native-iconbutton'
 
-
 /**
  * The ErrorAlert displays an alert for both ios & android
  */
 import ErrorAlert from '../../components/ErrorAlert';
 
 /**
- *  The SignUpBirthZipcodeForm does the heavy lifting of displaying the fields for
+ *  The SignUpEmailForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignUpBirthZipcodeForm from './SignUpBirthZipcodeForm';
+import SignUpEmailForm from './SignUpEmailForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
-
-/**
- * The states were interested in
- */
-const {
-  REGISTER_STEP_4
-} = ScheneKeys;
 
 /**
  * The necessary React components
@@ -70,6 +62,9 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
 /**
  * The states were interested in
  */
+ const {
+   REGISTER_STEP_4
+ } = ScheneKeys;
 
 
 
@@ -98,30 +93,31 @@ var styles = StyleSheet.create({
     height: 10
   },
   explanationContainer:{
-    flex:1,
+    flex:0.64,
     flexDirection: 'column',
-    backgroundColor: Colors.primaryColor,
+    alignItems: 'center', //x axis
+    justifyContent: 'flex-end',
+    backgroundColor: Colors.primaryColor
+    // ,backgroundColor: 'red'
+  },
+  footerContainer:{
+    flex:0.36,
+    backgroundColor: 'white'
   },
   inputsContainer:{
+    flex:1,
     marginTop:15,
     marginBottom:20,
     marginHorizontal:15,
     justifyContent: "flex-end",
     backgroundColor: 'white'
+  },
 
-  },
-  footerContainer:{
-    backgroundColor: 'white'
-  },
-  descriptionTextContainer:{
-    flex:0.2,
-    // backgroundColor: 'red',
-    justifyContent: 'center'
-  },
   descriptionText: {
-    fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    flex:0.3,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
+    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     fontSize: 14,
     color: Colors.mainTextColor,
     textAlign: 'center',
@@ -129,16 +125,16 @@ var styles = StyleSheet.create({
   },
   explanImgContainer:{
     flex:0.6,
-    // backgroundColor: 'red',
+    // backgroundColor: 'blue',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',    //y axis
+    justifyContent: 'center', //x axis
+    alignItems: 'flex-end',    //y axis
     marginVertical: 10
   },
   explanImg:{
-    height: 200,
-    width: 200,
-    resizeMode: 'cover',
+    height: 190,
+    width: 220,
+    resizeMode: 'contain',
     // backgroundColor: 'red'
   },
   pIndicContainer:{
@@ -151,6 +147,7 @@ var styles = StyleSheet.create({
     marginVertical: 5,
   },
   pIndicImg:{
+
     resizeMode: 'contain'
   },
   nextStepBtn: {
@@ -204,8 +201,7 @@ class EmailSignUpStep4Render extends Component {
     this.errorAlert = new ErrorAlert();
     this.state ={
       value: {
-        dateOfBirth: this.props.auth.form.fields.dateOfBirth,
-      	zipCode: this.props.auth.form.fields.zipCode
+      	email: this.props.auth.form.fields.email
       }
     };
   }
@@ -217,8 +213,7 @@ class EmailSignUpStep4Render extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	dateOfBirth: nextprops.auth.form.fields.dateOfBirth,
-      	zipCode: nextprops.auth.form.fields.zipCode
+      	email: nextprops.auth.form.fields.email
       }
     });
   }
@@ -235,48 +230,22 @@ class EmailSignUpStep4Render extends Component {
   onChange(value) {
 
     // console.log("Changed"+JSON.stringify(value));
-    if (value.dateOfBirth != ''&& value.dateOfBirth != undefined) {
-      // console.log("DATE value about to change to: "+value.dateOfBirth);
-      this.props.actions.onAuthFormFieldChange('dateOfBirth',value.dateOfBirth, REGISTER_STEP_4);
+    if (value.email != '') {
+      this.props.actions.onAuthFormFieldChange('email',value.email, REGISTER_STEP_4);
     }
-    if (value.zipCode != '' && value.zipCode != undefined ) {
-      this.props.actions.onAuthFormFieldChange('zipCode',value.zipCode, REGISTER_STEP_4);
-    }
-
-    if(value.dateOfBirthIsCurBeingPicked!=undefined){
-      this.props.actions.onAuthFormFieldChange('dateOfBirthIsCurBeingPicked',value.dateOfBirthIsCurBeingPicked, REGISTER_STEP_4);
-    }else{
-      this.setState(
-        {value}
-      );
-    }
+    this.setState(
+      {value}
+    );
   }
 
 
   renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked || this.props.auth.form.fields.zipCodeHasError ){
+    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError ){
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
         <Image style={styles.pIndicImg} source={require('../../../assets/pIndic4.jpg')}></Image>
       </View>);
-    }
-  }
-
-  renderDescriptionText(){
-    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked){
-      return (<View></View>)
-    }else{
-      return (
-        <View style={styles.descriptionTextContainer}>
-          <Text style={styles.descriptionText} >
-          Don't get mad, get heard.
-          </Text>
-          <Text style={styles.descriptionText} >
-          Place Your Vote Today and Be Represented!
-          </Text>
-        </View>
-      );
     }
   }
 
@@ -290,40 +259,39 @@ class EmailSignUpStep4Render extends Component {
     // var onButtonPress = this.props.onButtonPress;
     let self = this;
 
-
+    let onBtnPress = ()=>{
+      this.props.onNextStep();
+    },
+    onBackBtnPress = ()=>{
+      this.props.onBack();
+    }
 
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
-
-
             <View style={styles.explanationContainer}>
-
               <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
-                  onPress={this.props.onBack}>
+                  onPress={onBackBtnPress}>
               </Button>
-
-
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} source={require('../../../assets/signupExpl4.jpg')}></Image>
+                <Image style={styles.explanImg} source={require('../../../assets/signupExpl2.gif')}></Image>
               </View>
-
-              {self.renderDescriptionText()}
+              <Text style={styles.descriptionText} >
+              Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
+              </Text>
               {self.renderPageIndicatorIcon()}
             </View>
-
-
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
-                <SignUpBirthZipcodeForm
+                <SignUpEmailForm
                   form={this.props.auth.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}
                 />
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
                     isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_4) || this.props.auth.form.isFetching}
-                    onPress={this.props.onNextStep}>
-                  Choose topics
+                    onPress={onBtnPress}>
+                  Finish
                 </Button>
               </View>
             </View>

@@ -35,9 +35,12 @@ import EmailSignUpStep3Render from '../components/EmailSignUp/EmailSignUpStep3Re
  */
 import React from 'react-native';
 
+/**
+ * The states were interested in
+ */
 
 const {
-  REGISTER_STEP_4,
+  REGISTER_STEP_4
 } = require('../config/constants').ScheneKeys
 
 /**
@@ -80,7 +83,6 @@ function mapDispatchToProps(dispatch) {
 let EmailSignUpStep3 = React.createClass({
 
 
-
   render() {
     let onButtonPress = ()=>{
         this.props.actions.navigateTo(REGISTER_STEP_4);
@@ -88,12 +90,6 @@ let EmailSignUpStep3 = React.createClass({
     onBackBtnPress = ()=>{
         this.props.actions.navigateToPrevious();
     }
-
-    // buttonPressHandler.bind(null,
-    //     this.props.actions.login,
-    //     this.props.auth.form.fields.username,
-    //     this.props.auth.form.fields.password
-    // );
 
     return(
       <EmailSignUpStep3Render

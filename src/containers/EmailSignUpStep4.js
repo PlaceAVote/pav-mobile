@@ -35,12 +35,9 @@ import EmailSignUpStep4Render from '../components/EmailSignUp/EmailSignUpStep4Re
  */
 import React from 'react-native';
 
-/**
- * The states were interested in
- */
 
 const {
-  TOPIC_PICK
+NEWSFEED
 } = require('../config/constants').ScheneKeys
 
 /**
@@ -83,13 +80,20 @@ function mapDispatchToProps(dispatch) {
 let EmailSignUpStep4 = React.createClass({
 
 
+
   render() {
     let onButtonPress = ()=>{
-        this.props.actions.navigateTo(TOPIC_PICK);
+        this.props.actions.navigateTo(NEWSFEED);
     },
     onBackBtnPress = ()=>{
         this.props.actions.navigateToPrevious();
     }
+
+    // buttonPressHandler.bind(null,
+    //     this.props.actions.login,
+    //     this.props.auth.form.fields.username,
+    //     this.props.auth.form.fields.password
+    // );
 
     return(
       <EmailSignUpStep4Render

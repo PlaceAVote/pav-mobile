@@ -35,10 +35,10 @@ import Button from 'sp-react-native-iconbutton'
 import ErrorAlert from '../../components/ErrorAlert';
 
 /**
- *  The SignUpPasswordForm does the heavy lifting of displaying the fields for
+ *  The SignUpBirthZipcodeForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignUpPasswordForm from './SignUpPasswordForm';
+import SignUpBirthZipcodeForm from './SignUpBirthZipcodeForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
@@ -113,9 +113,13 @@ var styles = StyleSheet.create({
   footerContainer:{
     backgroundColor: 'white'
   },
+  descriptionTextContainer:{
+    flex:0.2,
+    // backgroundColor: 'red',
+    justifyContent: 'center'
+  },
   descriptionText: {
     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    flex:0.5,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
     fontSize: 14,
@@ -124,16 +128,16 @@ var styles = StyleSheet.create({
     marginHorizontal: 21,
   },
   explanImgContainer:{
-    flex:0.4,
+    flex:0.6,
     // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-end',    //y axis
+    alignItems: 'center',    //y axis
     marginVertical: 10
   },
   explanImg:{
-    height: 130,
-    width: 130,
+    height: 200,
+    width: 200,
     resizeMode: 'cover',
     // backgroundColor: 'red'
   },
@@ -200,8 +204,8 @@ class EmailSignUpStep3Render extends Component {
     this.errorAlert = new ErrorAlert();
     this.state ={
       value: {
-        password: this.props.auth.form.fields.password,
-      	passwordAgain: this.props.auth.form.fields.passwordAgain
+        dateOfBirth: this.props.auth.form.fields.dateOfBirth,
+      	zipCode: this.props.auth.form.fields.zipCode
       }
     };
   }
@@ -213,8 +217,8 @@ class EmailSignUpStep3Render extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	password: nextprops.auth.form.fields.password,
-      	passwordAgain: nextprops.auth.form.fields.passwordAgain
+      	dateOfBirth: nextprops.auth.form.fields.dateOfBirth,
+      	zipCode: nextprops.auth.form.fields.zipCode
       }
     });
   }
@@ -231,26 +235,48 @@ class EmailSignUpStep3Render extends Component {
   onChange(value) {
 
     // console.log("Changed"+JSON.stringify(value));
-    if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password, REGISTER_STEP_3);
+    if (value.dateOfBirth != ''&& value.dateOfBirth != undefined) {
+      // console.log("DATE value about to change to: "+value.dateOfBirth);
+      this.props.actions.onAuthFormFieldChange('dateOfBirth',value.dateOfBirth, REGISTER_STEP_3);
     }
-    if (value.passwordAgain != '') {
-      this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain, REGISTER_STEP_3);
+    if (value.zipCode != '' && value.zipCode != undefined ) {
+      this.props.actions.onAuthFormFieldChange('zipCode',value.zipCode, REGISTER_STEP_3);
     }
 
-    this.setState(
-      {value}
-    );
+    if(value.dateOfBirthIsCurBeingPicked!=undefined){
+      this.props.actions.onAuthFormFieldChange('dateOfBirthIsCurBeingPicked',value.dateOfBirthIsCurBeingPicked, REGISTER_STEP_3);
+    }else{
+      this.setState(
+        {value}
+      );
+    }
   }
 
 
   renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.passwordHasError || this.props.auth.form.fields.passwordAgainHasError ){
+    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked || this.props.auth.form.fields.zipCodeHasError ){
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
         <Image style={styles.pIndicImg} source={require('../../../assets/pIndic3.jpg')}></Image>
       </View>);
+    }
+  }
+
+  renderDescriptionText(){
+    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked){
+      return (<View></View>)
+    }else{
+      return (
+        <View style={styles.descriptionTextContainer}>
+          <Text style={styles.descriptionText} >
+          Don't get mad, get heard.
+          </Text>
+          <Text style={styles.descriptionText} >
+          Place Your Vote Today and Be Represented!
+          </Text>
+        </View>
+      );
     }
   }
 
@@ -264,12 +290,7 @@ class EmailSignUpStep3Render extends Component {
     // var onButtonPress = this.props.onButtonPress;
     let self = this;
 
-    let onBtnPress = ()=>{
-      this.props.onNextStep();
-    },
-    onBackBtnPress = ()=>{
-      this.props.onBack();
-    }
+
 
     return(
       <View style={styles.baseContainer}>
@@ -279,35 +300,30 @@ class EmailSignUpStep3Render extends Component {
             <View style={styles.explanationContainer}>
 
               <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
-                  onPress={onBackBtnPress}>
+                  onPress={this.props.onBack}>
               </Button>
 
 
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} source={require('../../../assets/signupExpl3.jpg')}></Image>
+                <Image style={styles.explanImg} source={require('../../../assets/signupExpl4.jpg')}></Image>
               </View>
 
-
-
-              <Text style={styles.descriptionText} >
-              Help change Congress in making your voice louder than lobbyists by supporting and electing representatives who promise to utilize PlaceAVote in seeing how their districts are voting on each legislative issue and bill, and having their vote be a true reflection of the majority of their constituents.
-              </Text>
-
+              {self.renderDescriptionText()}
               {self.renderPageIndicatorIcon()}
             </View>
 
 
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
-                <SignUpPasswordForm
+                <SignUpBirthZipcodeForm
                   form={this.props.auth.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}
                 />
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
                     isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_3) || this.props.auth.form.isFetching}
-                    onPress={onBtnPress}>
-                  Next Step
+                    onPress={this.props.onNextStep}>
+                  Next
                 </Button>
               </View>
             </View>

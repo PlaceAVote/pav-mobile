@@ -44,13 +44,13 @@ function isFormValid(scheneName, fields){
       // console.log("surname: "+fields.surname+"er: "+fields.surnameHasError+ " name: "+fields.name+"er: "+fields.nameHasError);
       isValid = (!!fields.surname && !!fields.name && !fields.nameHasError && !fields.surnameHasError);
       break;
-    case REGISTER_STEP_2:
+    case REGISTER_STEP_4:
       isValid = (fields.email != '' && !fields.emailHasError);
       break;
-    case REGISTER_STEP_3:
+    case REGISTER_STEP_2:
       isValid = (fields.password != '' && !fields.passwordHasError && fields.passwordAgain != '' && !fields.passwordAgainHasError);
       break;
-    case REGISTER_STEP_4:
+    case REGISTER_STEP_3:
       isValid = (fields.dateOfBirth!='' && !fields.dateOfBirthIsCurBeingPicked && fields.zipCode!='' && !fields.zipCodeHasError);
       break;
     case LOGIN:

@@ -28,18 +28,26 @@ import {Map} from 'immutable';
 // const  Button = require('sp-react-native-iconbutton');
 import Button from 'sp-react-native-iconbutton'
 
+
 /**
  * The ErrorAlert displays an alert for both ios & android
  */
 import ErrorAlert from '../../components/ErrorAlert';
 
 /**
- *  The SignUpEmailForm does the heavy lifting of displaying the fields for
+ *  The SignUpPasswordForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignUpEmailForm from './SignUpEmailForm';
+import SignUpPasswordForm from './SignUpPasswordForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
+
+/**
+ * The states were interested in
+ */
+const {
+  REGISTER_STEP_2
+} = ScheneKeys;
 
 /**
  * The necessary React components
@@ -62,9 +70,6 @@ var {height, width} = Dimensions.get('window'); // Screen dimensions in current 
 /**
  * The states were interested in
  */
- const {
-   REGISTER_STEP_2
- } = ScheneKeys;
 
 
 
@@ -93,48 +98,43 @@ var styles = StyleSheet.create({
     height: 10
   },
   explanationContainer:{
-    flex:0.64,
+    flex:1,
     flexDirection: 'column',
-    alignItems: 'center', //x axis
-    justifyContent: 'flex-end',
-    backgroundColor: Colors.primaryColor
-    // ,backgroundColor: 'red'
-  },
-  footerContainer:{
-    flex:0.36,
-    backgroundColor: 'white'
+    backgroundColor: Colors.primaryColor,
   },
   inputsContainer:{
-    flex:1,
     marginTop:15,
     marginBottom:20,
     marginHorizontal:15,
     justifyContent: "flex-end",
     backgroundColor: 'white'
-  },
 
+  },
+  footerContainer:{
+    backgroundColor: 'white'
+  },
   descriptionText: {
-    flex:0.3,
+    fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    flex:0.5,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
-    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     fontSize: 14,
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
   },
   explanImgContainer:{
-    flex:0.6,
-    // backgroundColor: 'blue',
+    flex:0.4,
+    // backgroundColor: 'red',
     flexDirection: 'row',
-    justifyContent: 'center', //x axis
+    justifyContent: 'center',
     alignItems: 'flex-end',    //y axis
     marginVertical: 10
   },
   explanImg:{
-    height: 190,
-    width: 220,
-    resizeMode: 'contain',
+    height: 130,
+    width: 130,
+    resizeMode: 'cover',
     // backgroundColor: 'red'
   },
   pIndicContainer:{
@@ -147,7 +147,6 @@ var styles = StyleSheet.create({
     marginVertical: 5,
   },
   pIndicImg:{
-
     resizeMode: 'contain'
   },
   nextStepBtn: {
@@ -201,7 +200,8 @@ class EmailSignUpStep2Render extends Component {
     this.errorAlert = new ErrorAlert();
     this.state ={
       value: {
-      	email: this.props.auth.form.fields.email
+        password: this.props.auth.form.fields.password,
+      	passwordAgain: this.props.auth.form.fields.passwordAgain
       }
     };
   }
@@ -213,7 +213,8 @@ class EmailSignUpStep2Render extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	email: nextprops.auth.form.fields.email
+      	password: nextprops.auth.form.fields.password,
+      	passwordAgain: nextprops.auth.form.fields.passwordAgain
       }
     });
   }
@@ -230,9 +231,13 @@ class EmailSignUpStep2Render extends Component {
   onChange(value) {
 
     // console.log("Changed"+JSON.stringify(value));
-    if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email, REGISTER_STEP_2);
+    if (value.password != '') {
+      this.props.actions.onAuthFormFieldChange('password',value.password, REGISTER_STEP_2);
     }
+    if (value.passwordAgain != '') {
+      this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain, REGISTER_STEP_2);
+    }
+
     this.setState(
       {value}
     );
@@ -240,7 +245,7 @@ class EmailSignUpStep2Render extends Component {
 
 
   renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError ){
+    if(this.props.auth.form.fields.passwordHasError || this.props.auth.form.fields.passwordAgainHasError ){
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
@@ -269,21 +274,32 @@ class EmailSignUpStep2Render extends Component {
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
+
+
             <View style={styles.explanationContainer}>
+
               <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
                   onPress={onBackBtnPress}>
               </Button>
+
+
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} source={require('../../../assets/signupExpl2.gif')}></Image>
+                <Image style={styles.explanImg} source={require('../../../assets/signupExpl3.jpg')}></Image>
               </View>
+
+
+
               <Text style={styles.descriptionText} >
-              Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
+              Help change Congress in making your voice louder than lobbyists by supporting and electing representatives who promise to utilize PlaceAVote in seeing how their districts are voting on each legislative issue and bill, and having their vote be a true reflection of the majority of their constituents.
               </Text>
+
               {self.renderPageIndicatorIcon()}
             </View>
+
+
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
-                <SignUpEmailForm
+                <SignUpPasswordForm
                   form={this.props.auth.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}
@@ -291,7 +307,7 @@ class EmailSignUpStep2Render extends Component {
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
                     isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_2) || this.props.auth.form.isFetching}
                     onPress={onBtnPress}>
-                  Next Step
+                  Choose topics
                 </Button>
               </View>
             </View>
