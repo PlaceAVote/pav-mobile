@@ -142,7 +142,7 @@ var styles = StyleSheet.create({
   explanImg:{
     height: h*0.31,
     width: w*0.70,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     // backgroundColor: 'red'
   },
   pIndicContainer:{
@@ -154,7 +154,6 @@ var styles = StyleSheet.create({
     marginVertical: 5,
   },
   pIndicImg:{
-
     resizeMode: 'contain'
   },
   nextStepBtn: {
@@ -167,7 +166,8 @@ var styles = StyleSheet.create({
   whiteBtnText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.mainTextColor,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
   }
 
 });

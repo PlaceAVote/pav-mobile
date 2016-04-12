@@ -60,13 +60,14 @@ import React,
   Text,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  PixelRatio
 }
 from 'react-native';
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-var {height, width} = Dimensions.get('window'); // Screen dimensions in current orientation
-
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 /**
  * The states were interested in
  */
@@ -98,33 +99,42 @@ var styles = StyleSheet.create({
     height: 10
   },
   explanationContainer:{
-    flex:1,
     flexDirection: 'column',
     backgroundColor: Colors.primaryColor,
   },
   inputsContainer:{
+    flex:1,
     marginTop:15,
     marginBottom:20,
     marginHorizontal:15,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     backgroundColor: 'white'
-
+  },
+  formContainer:{
+    flex:1,
+    // backgroundColor: 'red',
+    justifyContent:'center'
   },
   footerContainer:{
+    flex:1,
     backgroundColor: 'white'
+  },
+  descriptionTextContainer:{
+    // backgroundColor:'black',
+    justifyContent: 'center',
+    marginVertical:15,
+    flex:1//0.23,
   },
   descriptionText: {
     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    flex:0.5,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
-    fontSize: 14,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
   },
   explanImgContainer:{
-    flex:0.4,
     // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -132,13 +142,12 @@ var styles = StyleSheet.create({
     marginVertical: 10
   },
   explanImg:{
-    height: 130,
-    width: 130,
-    resizeMode: 'cover',
+    height: h*0.28,
+    width: w*0.8,
+    resizeMode: 'contain',
     // backgroundColor: 'red'
   },
   pIndicContainer:{
-    flex:0.1,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'blue',
     flexDirection: 'column',
@@ -159,7 +168,8 @@ var styles = StyleSheet.create({
   whiteBtnText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.mainTextColor,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
   }
 
 });
@@ -288,10 +298,12 @@ class EmailSignUpStep3Render extends Component {
               </View>
 
 
+              <View style={styles.descriptionTextContainer} >
+                <Text style={styles.descriptionText} >
+                Help change Congress in making your voice louder than lobbyists by supporting and electing representatives who promise to utilize PlaceAVote in seeing how their districts are voting on each legislative issue and bill, and having their vote be a true reflection of the majority of their constituents.
+                </Text>
+              </View>
 
-              <Text style={styles.descriptionText} >
-              Help change Congress in making your voice louder than lobbyists by supporting and electing representatives who promise to utilize PlaceAVote in seeing how their districts are voting on each legislative issue and bill, and having their vote be a true reflection of the majority of their constituents.
-              </Text>
 
               {self.renderPageIndicatorIcon()}
             </View>
@@ -299,11 +311,13 @@ class EmailSignUpStep3Render extends Component {
 
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
-                <SignUpPasswordForm
-                  form={this.props.auth.form}
-                  value={this.state.value}
-                  onChange={self.onChange.bind(self)}
-                />
+                <View  style={styles.formContainer}>
+                  <SignUpPasswordForm
+                    form={this.props.auth.form}
+                    value={this.state.value}
+                    onChange={self.onChange.bind(self)}
+                  />
+                </View>
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
                     isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_3) || this.props.auth.form.isFetching}
                     onPress={onBtnPress}>

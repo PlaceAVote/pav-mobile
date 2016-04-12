@@ -159,7 +159,8 @@ var styles = StyleSheet.create({
   whiteBtnText:{
     color: Colors.mainTextColor,
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
   }
 
 });
