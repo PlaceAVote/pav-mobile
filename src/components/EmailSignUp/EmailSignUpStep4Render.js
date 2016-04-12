@@ -60,12 +60,15 @@ import React,
   Text,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  PixelRatio
 }
 from 'react-native';
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-var {height, width} = Dimensions.get('window'); // Screen dimensions in current orientation
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
+
 
 /**
  * The states were interested in
@@ -110,39 +113,44 @@ var styles = StyleSheet.create({
     backgroundColor: 'white'
 
   },
+  formContainer:{
+    flex:1,
+    // backgroundColor: 'red',
+    justifyContent:'center'
+  },
   footerContainer:{
     backgroundColor: 'white'
   },
   descriptionTextContainer:{
-    flex:0.2,
+    flex:0.25,
     // backgroundColor: 'red',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginVertical: 10
   },
   descriptionText: {
     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
-    fontSize: 14,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
   },
   explanImgContainer:{
     flex:0.6,
-    // backgroundColor: 'red',
+    // backgroundColor: 'green',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',    //y axis
     marginVertical: 10
   },
   explanImg:{
-    height: 200,
-    width: 200,
-    resizeMode: 'cover',
+    height: h*0.35,
+    width: w*0.8,
+    resizeMode: 'contain',
     // backgroundColor: 'red'
   },
   pIndicContainer:{
-    flex:0.1,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'blue',
     flexDirection: 'column',
@@ -163,7 +171,8 @@ var styles = StyleSheet.create({
   whiteBtnText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.mainTextColor,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
   }
 
 });
@@ -315,11 +324,13 @@ class EmailSignUpStep4Render extends Component {
 
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
-                <SignUpBirthZipcodeForm
-                  form={this.props.auth.form}
-                  value={this.state.value}
-                  onChange={self.onChange.bind(self)}
-                />
+                <View  style={styles.formContainer}>
+                  <SignUpBirthZipcodeForm
+                    form={this.props.auth.form}
+                    value={this.state.value}
+                    onChange={self.onChange.bind(self)}
+                  />
+                </View>
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
                     isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_4) || this.props.auth.form.isFetching}
                     onPress={this.props.onNextStep}>

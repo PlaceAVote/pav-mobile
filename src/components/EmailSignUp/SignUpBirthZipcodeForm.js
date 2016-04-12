@@ -14,8 +14,12 @@
  */
 const React = require('react-native');
 const {
-  PropTypes
+  PropTypes,
+  PixelRatio
 } = React;
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import Dimensions from 'Dimensions';
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 
 import { ScheneKeys, Colors } from '../../config/constants';
@@ -63,7 +67,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     var INPUT_COLOR = Colors.thirdTextColor;
     var DISABLED_COLOR = '#777777';
     var DISABLED_BACKGROUND_COLOR = '#eeeeee';
-    var FONT_SIZE = 17;
+    var FONT_SIZE = getCorrectFontSizeForScreen(PixelRatio, w,h,17);
     var FONT_WEIGHT = '500';
 
     var stylesheet = Object.freeze({
@@ -119,7 +123,7 @@ var SignUpBirthZipcodeForm = React.createClass({
         flexWrap: 'wrap',
         // position: 'absolute',
         // backgroundColor: 'red',
-        fontSize: 13,
+        fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,13),
         justifyContent: 'center',
         textAlign: 'center',
         color: Colors.errorTextColor
