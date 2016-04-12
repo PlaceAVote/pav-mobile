@@ -142,7 +142,6 @@ var styles = StyleSheet.create({
   explanImg:{
     height: h*0.30,
     width: w*0.70,
-    resizeMode: 'contain',
     // backgroundColor: 'red'
   },
   pIndicContainer:{
@@ -154,7 +153,7 @@ var styles = StyleSheet.create({
     marginVertical: 5,
   },
   pIndicImg:{
-    resizeMode: 'contain'
+
   },
   nextStepBtn: {
     backgroundColor: Colors.accentColor,
@@ -251,7 +250,7 @@ class EmailSignUpStep2Render extends Component {
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} source={require('../../../assets/pIndic2.jpg')}></Image>
+        <Image style={styles.pIndicImg} resizeMode= 'contain' source={require('../../../assets/pIndic2.jpg')}></Image>
       </View>);
     }
   }
@@ -281,7 +280,7 @@ class EmailSignUpStep2Render extends Component {
                   onPress={onBackBtnPress}>
               </Button>
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} source={require('../../../assets/signupExpl2.gif')}></Image>
+                <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl2.gif')}></Image>
               </View>
               <View style={styles.descriptionTextContainer} >
                 <Text style={styles.descriptionText} >

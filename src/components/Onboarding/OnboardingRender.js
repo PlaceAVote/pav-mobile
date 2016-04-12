@@ -127,12 +127,12 @@ class OnboardingRender extends Component {
 
 
     return(
-        <Image style={styles.backgroundImg} source={require('../../../assets/pavBG.jpg')}>
+        <Image style={styles.backgroundImg} resizeMode= 'cover' source={require('../../../assets/pavBG.jpg')}>
           <View style={styles.container}>
 
             <View style={styles.explanContainer}>
               <View style={styles.logoImgContainer}>
-                <Image style={styles.logoImg} source={require('../../../assets/logo-white.png')}></Image>
+                <Image style={styles.logoImg} resizeMode= 'contain' source={require('../../../assets/logo-white.png')}></Image>
               </View>
 
               <View style={styles.titleTextContainerVer}>
@@ -185,7 +185,6 @@ var portraitStyles = StyleSheet.create({
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    resizeMode: 'cover',
     width: w,
     height: h
   },
@@ -215,7 +214,6 @@ var portraitStyles = StyleSheet.create({
   logoImg:{
     marginVertical: 7,
     alignSelf: 'center',
-    resizeMode: 'contain',
     // backgroundColor: 'blue',
     width: w*0.55,
     height:h*0.05
@@ -326,7 +324,6 @@ var landscapeStyles = StyleSheet.create({
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    resizeMode: 'cover',
     width: null,
     height: null
   },
@@ -355,7 +352,6 @@ var landscapeStyles = StyleSheet.create({
   logoImg:{
     marginVertical: 7,
     alignSelf: 'center',
-    resizeMode: 'contain',
     // backgroundColor: 'blue',
     width: w*0.90,
     height:h*0.08

@@ -147,7 +147,6 @@ var styles = StyleSheet.create({
   explanImg:{
     height: h*0.35,
     width: w*0.8,
-    resizeMode: 'contain',
     // backgroundColor: 'red'
   },
   pIndicContainer:{
@@ -159,7 +158,7 @@ var styles = StyleSheet.create({
     marginVertical: 5,
   },
   pIndicImg:{
-    resizeMode: 'contain'
+
   },
   nextStepBtn: {
     backgroundColor: Colors.accentColor,
@@ -267,7 +266,7 @@ class EmailSignUpStep4Render extends Component {
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} source={require('../../../assets/pIndic4.jpg')}></Image>
+        <Image style={styles.pIndicImg} resizeMode= 'contain' source={require('../../../assets/pIndic4.jpg')}></Image>
       </View>);
     }
   }
@@ -314,7 +313,7 @@ class EmailSignUpStep4Render extends Component {
 
 
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} source={require('../../../assets/signupExpl4.jpg')}></Image>
+                <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl4.jpg')}></Image>
               </View>
 
               {self.renderDescriptionText()}

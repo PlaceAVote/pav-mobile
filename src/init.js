@@ -155,10 +155,9 @@ import React, {
 
       class RightPavLogo extends React.Component {
         render(){
-            return <Image source={require("../assets/pavBtnRight.png")} style={{
+            return <Image source={require("../assets/pavBtnRight.png")} resizeMode='cover' style={{
               flex:1,
               alignSelf:'flex-end',
-              resizeMode: 'cover',
               width: 30,
               height: null,
               // backgroundColor:'green'
