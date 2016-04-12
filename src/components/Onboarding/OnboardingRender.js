@@ -251,7 +251,7 @@ var portraitStyles = StyleSheet.create({
     // alignSelf: 'center',
   },
   descriptionContainerHor:{
-    width: 245,
+    width: screenWidth*0.76,
     flexDirection: 'column',    //its children will be in a column
     // backgroundColor: 'blue',
     alignItems: 'center', //align items according to this parent (like setting self align on each item)

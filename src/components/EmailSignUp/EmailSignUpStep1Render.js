@@ -60,12 +60,14 @@ import React,
   Text,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  PixelRatio
 }
 from 'react-native';
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-var {height, width} = Dimensions.get('window'); // Screen dimensions in current orientation
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 /**
  * The states were interested in
@@ -101,6 +103,7 @@ var styles = StyleSheet.create({
     flex:1,
     flexDirection: 'column',
     backgroundColor: Colors.primaryColor,
+    // backgroundColor: 'red',
   },
   inputsContainer:{
     marginTop:15,
@@ -113,13 +116,19 @@ var styles = StyleSheet.create({
   footerContainer:{
     backgroundColor: 'white'
   },
+  descriptionTextContainer:{
+    flex:1,
+    // backgroundColor: 'yellow',
+    justifyContent:'center'
+  },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
     fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: 14,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
+    marginVertical: 3,
   },
   explanImgContainer:{
     // backgroundColor: 'red',
@@ -127,8 +136,8 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   explanImg:{
-    height: 200,
-    width: 195,
+    height: h*0.40,
+    width: w*0.60,
     resizeMode: 'cover',
     // backgroundColor: 'red'
   },
@@ -280,9 +289,11 @@ class EmailSignUpStep1Render extends Component {
 
 
 
-              <Text style={styles.descriptionText} >
-              In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
-              </Text>
+              <View style={styles.descriptionTextContainer}>
+                <Text style={styles.descriptionText} >
+                In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
+                </Text>
+              </View>
 
               {self.renderPageIndicatorIcon()}
             </View>
