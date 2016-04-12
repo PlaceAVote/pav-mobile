@@ -55,12 +55,14 @@ import React,
   Text,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  PixelRatio
 }
 from 'react-native';
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-var {height, width} = Dimensions.get('window'); // Screen dimensions in current orientation
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 /**
  * The states were interested in
@@ -88,13 +90,13 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop:80,
     marginBottom:20,
-    marginHorizontal:15
+    marginHorizontal:w*0.04 //same as 14px
   },
   titleText: {
     fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     backgroundColor: Colors.transparentColor,
     // backgroundColor: 'green',
-    fontSize: 27,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,27),
     color: Colors.secondaryTextColor,
     textAlign: 'center',
     marginHorizontal: 41,
@@ -141,7 +143,17 @@ var styles = StyleSheet.create({
     color: "#E76354",
     alignSelf:"center",
     marginVertical:13,
-    fontSize: 16,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,16),
+  },
+  btnContainer:{
+    // backgroundColor:'blue',
+    justifyContent:'center',
+    flex:0.5
+  },
+  inputs:{
+    // backgroundColor:'red',
+    flex:0.5,
+    justifyContent:'space-around'
   }
 
 });
@@ -248,21 +260,23 @@ class EmailSignInRender extends Component {
               onChange={self.onChange.bind(self)}
             />
           </View>
-          <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
-              isDisabled={!this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching}
-              isLoading={this.props.auth.form.isFetching}
-              activityIndicatorColor={Colors.mainTextColor}
-              onPress={this.props.onSignInBtnPress}>
-            Sign In
-          </Button>
-          <Text style={styles.orText}>Or</Text>
-          <Button onPress={this.props.onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
-            Sign Up with Facebook
-          </Button>
-          <Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
-            Forgot Password
-          </Button>
 
+          <View style={styles.btnContainer}>
+            <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
+                isDisabled={!this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching}
+                isLoading={this.props.auth.form.isFetching}
+                activityIndicatorColor={Colors.mainTextColor}
+                onPress={this.props.onSignInBtnPress}>
+              Sign In
+            </Button>
+            <Text style={styles.orText}>Or</Text>
+            <Button onPress={this.props.onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
+              Sign Up with Facebook
+            </Button>
+            <Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
+              Forgot Password
+            </Button>
+          </View>
         </View>
 
         <ForgotPasswordModalBox
