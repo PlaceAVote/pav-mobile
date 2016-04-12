@@ -92,14 +92,14 @@ let TopicPick = React.createClass({
       this.props.actions.navigateTo(NEWSFEED);
       //TODO: first signup asynchronously and then navigate
   },
-  
+
   render() {
 
     return(
       <TopicPickRender
           backButtonEnabled={false}
-          onBack={this.onBackBtnPress.bind(this)}
-          onNextStep={ this.onButtonPress.bind(this) }
+          onBack={this.onBackBtnPress}
+          onNextStep={ this.onButtonPress}
           auth={ this.props.auth }
           global={ this.props.global }
           device={this.props.device}
