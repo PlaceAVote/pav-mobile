@@ -13,8 +13,8 @@
 * ## Imports
 *
 */
-var React = require('react-native'); 
-var { 
+var React = require('react-native');
+var {
   Alert
 } = React;
 // import SimpleAlert from 'react-native-simpledialog-android';
@@ -22,11 +22,11 @@ import  _ from 'underscore';
 
 var ErrorAlert = class ErrorAlertClass{
   /**
-   * ## ErrorAlert 
+   * ## ErrorAlert
    * setup to support testing
    */
   /**
-   * ### checkErro
+   * ### checkError
    * determine if there is an error and how deep it is.  Take the
    * deepest level as the message and display it
    */

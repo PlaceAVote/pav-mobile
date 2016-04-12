@@ -40,9 +40,11 @@ import {ActionNames, ScheneKeys} from '../../config/constants';
    SIGNUP_SUCCESS,
    SIGNUP_FAILURE,
 
+
    RESET_PASSWORD_REQUEST,
    RESET_PASSWORD_SUCCESS,
    RESET_PASSWORD_FAILURE,
+   RESET_ERROR_STATE,
 
    SET_STATE
  } = ActionNames;
@@ -56,6 +58,7 @@ import {ActionNames, ScheneKeys} from '../../config/constants';
    REGISTER_STEP_4,
    LOGIN,
    FORGOT_PASSWORD,
+   TOPIC_PICK
  } = ScheneKeys;
 
 /**
@@ -64,7 +67,7 @@ import {ActionNames, ScheneKeys} from '../../config/constants';
 
 
 import PavClientSdk from 'pavclient';
-
+import {setModalVisibility} from '../routing/routingActions'
 import {Actions} from 'react-native-router-flux';
 
 const  AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
@@ -158,7 +161,11 @@ export function onSelectedTopicsChange(topics) {
   };
 }
 
-
+export function resetErrorState(){
+  return {
+    type: RESET_ERROR_STATE
+  };
+}
 
 /**
  * ## Signup actions
@@ -299,19 +306,27 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
         "topics": topics,
         "gender": gender
       });
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
-      var errorMessage = null;
-      return dispatch(signupFailure(res.error));
+      if(res.multipleErrors){
+        // console.log("authActions.login :: Error msg: "+res.error[0].email)
+        let err = res.error[0];
+        let errObj = err[Object.keys(err)[0]];  //the first property of the error object returned by the server
+        dispatch(signupFailure(errObj));
+      }else{
+        // console.log("authActions.login :: Error msg: "+res.error)
+        dispatch(signupFailure(res.error));
+      }
     }else{
-      console.log("Signup success");
+      // console.log("Signup success");
       saveSessionToken(res.data.token)
-      return dispatch(signupSuccess(Object.assign({}, res.data,
+      dispatch(signupSuccess(Object.assign({}, res.data,
   			{
-  			  email: email
+  			  email: email,
+          first_name: first_name
   			})));
-      //TODO: Perhaps navigate to the newsfeed screen now?
     }
+    return dispatch(setModalVisibility(TOPIC_PICK, true));
   };
 }
 

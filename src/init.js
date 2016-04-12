@@ -233,7 +233,7 @@ import React, {
                       <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
-                      <Scene key={ScheneKeys.NEWSFEED} component={NewsFeed} schema="modal" direction="vertical" type="replace" title="Sign Up" hideNavBar={true} panHandlers={null} duration={1} />
+                      <Scene key={ScheneKeys.NEWSFEED} component={NewsFeed} direction="vertical" type="replace" title="News Feed" hideNavBar={true} panHandlers={null} duration={1} />
                     </Scene>
                   </Scene>
                 </Router>

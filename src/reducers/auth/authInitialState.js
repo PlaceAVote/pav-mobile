@@ -29,6 +29,7 @@ const {
  * fields it contains.
  */
 const Form = Record({
+  isLoggedIn: false,
   disabled: false,
   error: null,
   isValid: new Map([

@@ -17,7 +17,8 @@ const {Record, Map} = require('immutable');
 const {
   NAVIGATE_TO,
   ONBOARDING,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  TOPIC_PICK
 } = ScheneKeys;
 
 
@@ -30,7 +31,8 @@ const Router = new Record({
   currentSchene: ONBOARDING,
   previousSchene: null,
   modalIsOpen: new Map([
-    [FORGOT_PASSWORD, false]
+    [FORGOT_PASSWORD, false],
+    [TOPIC_PICK, false]
   ])
 });
 

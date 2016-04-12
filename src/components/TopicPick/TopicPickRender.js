@@ -35,6 +35,7 @@ import Button from 'sp-react-native-iconbutton'
 import ErrorAlert from '../../components/ErrorAlert';
 
 import TopicPickGrid from './TopicPickGrid';
+import WelcomeModalBox from '../Modals/WelcomeModalBox';
 /**
  *  The SignUpBirthZipcodeForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
@@ -253,7 +254,7 @@ class TopicPickRender extends Component {
 
 
 
-  renderBackButton(){
+  renderBackButton(styles){
     if(!this.props.backButtonEnabled){
       return (<View></View>)
     }else{
@@ -287,6 +288,37 @@ class TopicPickRender extends Component {
     return data;
   }
 
+
+
+  modalPopupRender(enabled, errorMsg){
+    if(enabled){
+      if(!!errorMsg){
+        return (<WelcomeModalBox
+        isOpen={this.props.modalPopupEnabled}
+        modalButtonDisabled = {this.props.modalButtonDisabled}
+        onModalClosed={this.props.onModalClosed}
+        modalText="Oops"
+        modalText2={errorMsg}
+        modalBtnText="Back"
+        btnBackground={Colors.errorTextColor}
+         />);
+      }else{
+        return (<WelcomeModalBox
+        isOpen={this.props.modalPopupEnabled}
+        modalButtonDisabled = {this.props.modalButtonDisabled}
+        onModalClosed={this.props.onModalClosed}
+        modalText="Its a thrill to have you with us"
+        modalText2="You are now registered."
+        modalBtnText="Lets get started"
+        btnBackground={Colors.accentColor}
+         />);
+      }
+
+    }else{
+      return <View></View>;
+    }
+
+  }
   /**
    * ### render
    * Setup some default presentations and render
@@ -307,7 +339,7 @@ class TopicPickRender extends Component {
 
 
             <View style={styles.explanationContainer}>
-              {this.renderBackButton()}
+              {this.renderBackButton(styles)}
               <View style={styles.descriptionTextContainer}>
                 <Text style={styles.descriptionText} >
                 Finally, help us tailor the content we serve you, by telling us what topics you are most interested in voting on.
@@ -327,14 +359,18 @@ class TopicPickRender extends Component {
               <View style={styles.inputsContainer}>
                 <Button textStyle={styles.whiteBtnText}
                   style={styles.nextStepBtn}
-                  onPress={this.props.onNextStep}>
+                  onPress={this.props.onNextStep}
+                  isDisabled={this.props.auth.form.isFetching || this.props.auth.form.isLoggedIn}
+                  isLoading={this.props.auth.form.isFetching}
+                  activityIndicatorColor={Colors.mainTextColor}
+                  >
                   Finish
                 </Button>
               </View>
             </View>
 
-
         </View>
+        {this.modalPopupRender(this.props.modalPopupEnabled,this.props.modalPopupErrorMsg)}
       </View>
     );
   }

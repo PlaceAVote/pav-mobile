@@ -79,7 +79,6 @@ let EmailSignIn = React.createClass({
 
   onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");
-    this.props.actions.signup('gotpwnednoob@gmail.com', 'maPazzw00rt', 'Ioannis', 'DaTester', '14/11/1989', '20001', ['sex','drugs','rockNroll'], 'male');
   },
 
   onSignInBtnPress(){

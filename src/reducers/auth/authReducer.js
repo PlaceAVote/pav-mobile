@@ -38,6 +38,7 @@ const {
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
+  RESET_ERROR_STATE,
 
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
@@ -141,11 +142,14 @@ export default function authReducer(state = initialState, action) {
      */
   case SESSION_TOKEN_SUCCESS:
   case SESSION_TOKEN_FAILURE:
-  case SIGNUP_SUCCESS:
-  case LOGIN_SUCCESS:
   case LOGOUT_SUCCESS:
   case RESET_PASSWORD_SUCCESS:
     return state.setIn(['form', 'isFetching'], false);
+    break;
+  case SIGNUP_SUCCESS:
+  case LOGIN_SUCCESS:
+    return state.setIn(['form', 'isFetching'], false)
+    .setIn(['form', 'isLoggedIn'], true);
 
     /**
      * ### Access to Parse.com denied or failed
@@ -159,6 +163,8 @@ export default function authReducer(state = initialState, action) {
     return state.setIn(['form', 'isFetching'], false)
       .setIn(['form', 'error'], action.payload);
 
+  case RESET_ERROR_STATE:
+    return state.setIn(['form', 'error'], null);
     /**
      * ### Hot Loading support
      *

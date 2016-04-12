@@ -38,7 +38,7 @@
         }
 
         _renderContent (locals) {
-          console.log("@@@@@@ DATE IS: "+locals.value)
+          // console.log("@@@@@@ DATE IS: "+locals.value)
           return (
             <View>
               {t.form.Form.templates.datepicker({...locals, date: locals.value, mode:'date', onDateChange:(e)=>{console.log("On date change: "+e)}}) }

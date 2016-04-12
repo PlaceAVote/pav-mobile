@@ -75,9 +75,7 @@ function mapDispatchToProps(dispatch) {
 
 function buttonPressHandler(scheneName) {
   switch(scheneName){
-    case "emailSignIn":
-      this.props.actions.navigateTo(NEWSFEED);
-      break;
+    
     default:
       console.log("Invalid selector provided, NewsFeed cannot issue a navigation action with schene name of: "+scheneName);
       break;
