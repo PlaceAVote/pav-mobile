@@ -52,12 +52,14 @@ import React,
   Text,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  PixelRatio
 }
 from 'react-native';
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-var {height, width} = Dimensions.get('window'); // Screen dimensions in current orientation
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 /**
  * The states were interested in
@@ -93,7 +95,7 @@ var styles = StyleSheet.create({
     height: 10
   },
   explanationContainer:{
-    flex:0.64,
+    flex:2,
     flexDirection: 'column',
     alignItems: 'center', //x axis
     justifyContent: 'flex-end',
@@ -101,7 +103,7 @@ var styles = StyleSheet.create({
     // ,backgroundColor: 'red'
   },
   footerContainer:{
-    flex:0.36,
+    flex:1,
     backgroundColor: 'white'
   },
   inputsContainer:{
@@ -112,19 +114,25 @@ var styles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: 'white'
   },
-
-  descriptionText: {
-    flex:0.3,
-    backgroundColor: Colors.transparentColor,
+  formContainer:{
+    flex:1,
+    // backgroundColor: 'red',
+    justifyContent:'center'
+  },
+  descriptionTextContainer:{
     // backgroundColor:'black',
+    justifyContent: 'center',
+    flex:1//0.23,
+  },
+  descriptionText: {
+    backgroundColor: Colors.transparentColor,
     fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: 14,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
   },
   explanImgContainer:{
-    flex:0.6,
     // backgroundColor: 'blue',
     flexDirection: 'row',
     justifyContent: 'center', //x axis
@@ -132,13 +140,12 @@ var styles = StyleSheet.create({
     marginVertical: 10
   },
   explanImg:{
-    height: 190,
-    width: 220,
-    resizeMode: 'contain',
+    height: h*0.31,
+    width: w*0.70,
+    resizeMode: 'cover',
     // backgroundColor: 'red'
   },
   pIndicContainer:{
-    flex:0.1,
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'blue',
     flexDirection: 'column',
@@ -276,18 +283,23 @@ class EmailSignUpStep2Render extends Component {
               <View style={styles.explanImgContainer}>
                 <Image style={styles.explanImg} source={require('../../../assets/signupExpl2.gif')}></Image>
               </View>
-              <Text style={styles.descriptionText} >
-              Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
-              </Text>
+              <View style={styles.descriptionTextContainer} >
+                <Text style={styles.descriptionText} >
+                Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
+                </Text>
+              </View>
+
               {self.renderPageIndicatorIcon()}
             </View>
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
-                <SignUpEmailForm
-                  form={this.props.auth.form}
-                  value={this.state.value}
-                  onChange={self.onChange.bind(self)}
-                />
+                <View  style={styles.formContainer}>
+                  <SignUpEmailForm
+                    form={this.props.auth.form}
+                    value={this.state.value}
+                    onChange={self.onChange.bind(self)}
+                  />
+                </View>
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
                     isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_2) || this.props.auth.form.isFetching}
                     onPress={onBtnPress}>
