@@ -203,7 +203,7 @@ var styles = StyleSheet.create({
     flexDirection: "row"
   },
   textChecked: {
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,17),
+    fontSize: getCorrectFontSizeForScreen(w,h,17),
     fontFamily: 'Whitney',
     textAlign: 'center',
     alignSelf:'center',
@@ -211,7 +211,7 @@ var styles = StyleSheet.create({
     // backgroundColor: 'red'
   },
   text: {
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,16),
+    fontSize: getCorrectFontSizeForScreen(w,h,16),
     fontFamily: 'Whitney',
     textAlign: 'center',
     alignSelf:'center',

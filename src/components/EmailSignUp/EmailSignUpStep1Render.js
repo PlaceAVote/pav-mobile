@@ -124,7 +124,7 @@ var styles = StyleSheet.create({
   descriptionText: {
     backgroundColor: Colors.transparentColor,
     fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
@@ -159,7 +159,7 @@ var styles = StyleSheet.create({
     color: Colors.mainTextColor,
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     textAlign: 'center',
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,14),
   }
 
 });

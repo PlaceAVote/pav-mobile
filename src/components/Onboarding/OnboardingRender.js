@@ -236,7 +236,7 @@ var portraitStyles = StyleSheet.create({
   },
   titleText: {
     // backgroundColor: 'black',
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,27),
+    fontSize: getCorrectFontSizeForScreen(w,h,27),
     fontFamily: 'Whitney Semibold',
     color: Colors.mainTextColor,
     textAlign: 'center',
@@ -260,7 +260,7 @@ var portraitStyles = StyleSheet.create({
     backgroundColor: Colors.transparentColor,
     fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     // fontWeight: 'bold',
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,17),
+    fontSize: getCorrectFontSizeForScreen(w,h,17),
     color: Colors.mainTextColor,
     textAlign: 'center',
 
@@ -268,7 +268,7 @@ var portraitStyles = StyleSheet.create({
   descriptionText2: {
     backgroundColor: Colors.transparentColor,
     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,16),
+    fontSize: getCorrectFontSizeForScreen(w,h,16),
     color: Colors.mainTextColor,
     textAlign: 'center'
   },
@@ -290,6 +290,7 @@ var portraitStyles = StyleSheet.create({
     color: Colors.mainTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,16),
   },
   facebookBtn:{
     backgroundColor: Colors.secondaryColor,
@@ -306,6 +307,7 @@ var portraitStyles = StyleSheet.create({
   },
 
   iconStyle:{
+    marginHorizontal: 10
   }
 
 });
@@ -374,7 +376,7 @@ var landscapeStyles = StyleSheet.create({
   },
   titleText: {
     // backgroundColor: 'black',
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,27),
+    fontSize: getCorrectFontSizeForScreen(w,h,27),
     color: Colors.mainTextColor,
     textAlign: 'center',
   },
@@ -395,14 +397,14 @@ var landscapeStyles = StyleSheet.create({
   },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,17),
+    fontSize: getCorrectFontSizeForScreen(w,h,17),
     color: Colors.mainTextColor,
     textAlign: 'center',
 
   },
   descriptionText2: {
     backgroundColor: Colors.transparentColor,
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center'
   },

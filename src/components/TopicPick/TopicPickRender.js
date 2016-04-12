@@ -163,7 +163,7 @@ class TopicPickRender extends Component {
         fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
         backgroundColor: Colors.transparentColor,
         // backgroundColor:'black',
-        fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,18),
+        fontSize: getCorrectFontSizeForScreen(w,h,18),
         color: Colors.mainTextColor,
         textAlign: 'center',
         marginHorizontal: 21,

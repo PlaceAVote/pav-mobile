@@ -131,7 +131,7 @@ var styles = StyleSheet.create({
     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
@@ -171,7 +171,7 @@ var styles = StyleSheet.create({
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.mainTextColor,
     textAlign: 'center',
-    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,14),
   }
 
 });

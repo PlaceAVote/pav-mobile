@@ -93,13 +93,13 @@ var styles = StyleSheet.create({
     },
     text: {
         color: "black",
-        fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,22),
+        fontSize: getCorrectFontSizeForScreen(w,h,22),
     },
     whiteBtnText:{
       color: Colors.mainTextColor,
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
       textAlign: 'center',
-      fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
+      fontSize: getCorrectFontSizeForScreen(w,h,14),
     }
 });
 
