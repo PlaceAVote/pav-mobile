@@ -111,11 +111,6 @@ class WelcomeModalBox extends React.Component {
                 marginTop: 15,
                 height: 60
               },
-              whiteBtnText:{
-                fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-                color: Colors.mainTextColor,
-                textAlign: 'center'
-              },
               explanationContainer:{
                 flex:0.65,
                 flexDirection: 'column',

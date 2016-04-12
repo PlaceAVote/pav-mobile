@@ -39,7 +39,7 @@ public class MainActivity extends ReactActivity {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new LinearGradientPackage(),
-            new OrientationPackage(),
+            new OrientationPackage(this),
             new VectorIconsPackage()
         );
     }
