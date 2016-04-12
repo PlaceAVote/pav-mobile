@@ -9,9 +9,12 @@ import React from 'react-native';
 const {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  PixelRatio
 } = React;
-
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import Dimensions from 'Dimensions';
+const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 import {Colors} from '../../config/constants';
 
 class ForgotPasswordModalBox extends React.Component {
@@ -61,8 +64,8 @@ var styles = StyleSheet.create({
     modal: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: 320,
-        width: 300,
+        height: h*0.66,
+        width: w*0.94,
     },
     modalVerticalParent:{
       flex:1,
@@ -90,12 +93,13 @@ var styles = StyleSheet.create({
     },
     text: {
         color: "black",
-        fontSize: 22
+        fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,22),
     },
     whiteBtnText:{
       color: Colors.mainTextColor,
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-      textAlign: 'center'
+      textAlign: 'center',
+      fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
     }
 });
 

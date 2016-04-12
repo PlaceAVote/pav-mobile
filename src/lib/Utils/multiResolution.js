@@ -1,6 +1,4 @@
 export function getCorrectFontSizeForScreen(PixelRatio, screenWidth, screenHeight, currentFont){
-
-  // console.log("W: "+screenWidth + "H: "+screenHeight+" ratio: "+);
   let devRatio = PixelRatio.get();
   let factor = (((screenWidth*devRatio)/320)+((screenHeight*devRatio)/640))/2.0;
   let maxFontDifferFactor = 5; //the maximum pixels of font size we can go up or down

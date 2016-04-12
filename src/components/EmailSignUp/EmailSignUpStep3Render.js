@@ -140,10 +140,10 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',    //y axis
-    marginVertical: 10
+    marginVertical: 5
   },
   explanImg:{
-    height: h*0.28,
+    height: h*0.23,
     width: w*0.8,
     resizeMode: 'contain',
     // backgroundColor: 'red'

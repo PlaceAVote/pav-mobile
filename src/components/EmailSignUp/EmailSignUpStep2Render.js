@@ -95,7 +95,6 @@ var styles = StyleSheet.create({
     height: 10
   },
   explanationContainer:{
-    flex:2,
     flexDirection: 'column',
     alignItems: 'center', //x axis
     justifyContent: 'flex-end',
@@ -121,6 +120,7 @@ var styles = StyleSheet.create({
   },
   descriptionTextContainer:{
     // backgroundColor:'black',
+    marginVertical: 10,
     justifyContent: 'center',
     flex:1//0.23,
   },
@@ -140,7 +140,7 @@ var styles = StyleSheet.create({
     marginVertical: 10
   },
   explanImg:{
-    height: h*0.31,
+    height: h*0.30,
     width: w*0.70,
     resizeMode: 'contain',
     // backgroundColor: 'red'

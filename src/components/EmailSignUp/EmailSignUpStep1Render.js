@@ -136,7 +136,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   explanImg:{
-    height: h*0.40,
+    height: h*0.36,
     width: w*0.60,
     resizeMode: 'cover',
     // backgroundColor: 'red'
