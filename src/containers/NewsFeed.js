@@ -41,6 +41,8 @@ import NewsFeedRender from '../components/NewsFeed/NewsFeedRender'
  */
 import React from 'react-native';
 
+
+
 const {
 NEWSFEED
 } = require('../config/constants').ScheneKeys
@@ -75,7 +77,7 @@ function mapDispatchToProps(dispatch) {
 
 function buttonPressHandler(scheneName) {
   switch(scheneName){
-    
+
     default:
       console.log("Invalid selector provided, NewsFeed cannot issue a navigation action with schene name of: "+scheneName);
       break;
