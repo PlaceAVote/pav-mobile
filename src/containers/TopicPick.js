@@ -99,9 +99,9 @@ let TopicPick = React.createClass({
         }
       }
       // console.log("Fields: "+name+surname+email+password+dateOfBirth+zipCode+topics);
-      this.props.actions.signup(email, password, name, surname, moment(dateOfBirth).format('DD/MM/YYYY'), zipCode, topics, 'they');
+      // this.props.actions.signup(email, password, name, surname, moment(dateOfBirth).format('DD/MM/YYYY'), zipCode, topics, 'they');
       // this.props.actions.signup(email, password, name, surname, dateOfBirth, zipCode, topics, 'they');
-      // this.props.actions.signup('aRandomUzah4@placeavote.com', 'maPazzw00rt', 'Ioannis', 'DaTester', dateOfBirth, '20001', ['sex','drugs','rockNroll'], 'male');
+      this.props.actions.signup('aRandomUzah4@placeavote.com', 'maPazzw00rt', 'Ioannis', 'DaTester', dateOfBirth, '20001', ['sex','drugs','rockNroll'], 'male');
   },
 
   onWelcomeModalClosed(){

@@ -8,16 +8,15 @@ import React from 'react-native';
 const {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  PixelRatio
 } = React;
 
 import {Colors} from '../../config/constants';
 
-
-
-
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-var {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Screen dimensions in current orientation
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 
 
@@ -50,20 +49,14 @@ class WelcomeModalBox extends React.Component {
             modal: {
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: screenHeight*0.45,
-                width: screenWidth*0.9,
+                height: h*0.45,
+                width: w*0.9,
             },
             modalVerticalParent:{
               flex:1,
               flexDirection:'column',
               // backgroundColor: 'pink',
               alignItems: 'center'
-            },
-            buttonContainer:{
-              width:35,
-              flex:0.1,
-              backgroundColor: Colors.transparentColor,
-              alignSelf: 'flex-end'
             },
             closeBtn:{
               // position: 'absolute',
@@ -79,7 +72,7 @@ class WelcomeModalBox extends React.Component {
             },
             text: {
                 color: "black",
-                fontSize: 22
+                fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,22)
             },
             whiteBtnText:{
               color: Colors.mainTextColor,
@@ -110,7 +103,7 @@ class WelcomeModalBox extends React.Component {
                 // backgroundColor: 'pink'
               },
               sendButton: {
-                width: screenWidth*0.5,
+                width: w*0.5,
                 backgroundColor: this.props.btnBackground,
                 borderRadius: 2,
                 borderWidth: 1,
@@ -133,7 +126,7 @@ class WelcomeModalBox extends React.Component {
               descriptionText: {
                 backgroundColor: Colors.transparentColor,
                 fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-                fontSize: 21,
+                fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,21),
                 color: Colors.thirdTextColor,
                 textAlign: 'center',
                 marginHorizontal: 10,
@@ -142,7 +135,7 @@ class WelcomeModalBox extends React.Component {
               descriptionText2: {
                 backgroundColor: Colors.transparentColor,
                 fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-                fontSize: 17,
+                fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,17),
                 color: Colors.thirdTextColor,
                 textAlign: 'center',
                 marginHorizontal: 10,
@@ -150,7 +143,7 @@ class WelcomeModalBox extends React.Component {
               },
               formContainer:{
                 flex:0.25,
-                width: screenWidth*0.85,
+                width: w*0.85,
                 // backgroundColor: 'green',
                 flexDirection: 'row',
                 justifyContent:'center',

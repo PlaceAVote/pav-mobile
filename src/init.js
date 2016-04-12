@@ -225,14 +225,14 @@ import React, {
                 <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
                   <Scene key="modal" component={Modal} >
                     <Scene key="root" navigationBarStyle={{backgroundColor:Colors.primaryColor}} renderRightButton={()=><RightPavLogo/>}  titleStyle={{color:Colors.mainTextColor}}>
-                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true}/>
+                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} initial={true}/>
                       <Scene key="FacebookSignIn" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
                       <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" />
                       <Scene key={ScheneKeys.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
-                      <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} initial={true}/>
+                      <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.NEWSFEED} component={NewsFeed} direction="vertical" type="replace" title="News Feed" hideNavBar={true} panHandlers={null} duration={1} />
                     </Scene>
                   </Scene>
