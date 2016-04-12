@@ -50,12 +50,14 @@ import React,
   Text,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  PixelRatio
 }
 from 'react-native';
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-var {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Screen dimensions in current orientation
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 /**
  * The states were interested in
@@ -180,13 +182,12 @@ class OnboardingRender extends Component {
 var portraitStyles = StyleSheet.create({
 
   backgroundImg: {
-    flex:1,
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'center',
     resizeMode: 'cover',
-    width: null,
-    height: null
+    width: w,
+    height: h
   },
   container: {
     // backgroundColor: 'orange',
@@ -206,7 +207,7 @@ var portraitStyles = StyleSheet.create({
   logoImgContainer:{
     // backgroundColor: 'red',
     flex:0.25,
-    width: screenWidth*0.7,
+    width: w*0.7,
     flexDirection: 'column',
     alignSelf: 'center',
     justifyContent: 'flex-end'
@@ -216,8 +217,8 @@ var portraitStyles = StyleSheet.create({
     alignSelf: 'center',
     resizeMode: 'contain',
     // backgroundColor: 'blue',
-    width: screenWidth*0.55,
-    height:screenHeight*0.05
+    width: w*0.55,
+    height:h*0.05
   },
 
   titleTextContainerVer:{
@@ -237,7 +238,7 @@ var portraitStyles = StyleSheet.create({
   },
   titleText: {
     // backgroundColor: 'black',
-    fontSize: 27,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,27),
     fontFamily: 'Whitney Semibold',
     color: Colors.mainTextColor,
     textAlign: 'center',
@@ -251,7 +252,7 @@ var portraitStyles = StyleSheet.create({
     // alignSelf: 'center',
   },
   descriptionContainerHor:{
-    width: screenWidth*0.76,
+    width: w*0.76,
     flexDirection: 'column',    //its children will be in a column
     // backgroundColor: 'blue',
     alignItems: 'center', //align items according to this parent (like setting self align on each item)
@@ -261,7 +262,7 @@ var portraitStyles = StyleSheet.create({
     backgroundColor: Colors.transparentColor,
     fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     // fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,17),
     color: Colors.mainTextColor,
     textAlign: 'center',
 
@@ -269,7 +270,7 @@ var portraitStyles = StyleSheet.create({
   descriptionText2: {
     backgroundColor: Colors.transparentColor,
     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: 16,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,16),
     color: Colors.mainTextColor,
     textAlign: 'center'
   },
@@ -356,8 +357,8 @@ var landscapeStyles = StyleSheet.create({
     alignSelf: 'center',
     resizeMode: 'contain',
     // backgroundColor: 'blue',
-    width: screenWidth*0.90,
-    height:screenHeight*0.08
+    width: w*0.90,
+    height:h*0.08
   },
 
   titleTextContainerVer:{
@@ -377,7 +378,7 @@ var landscapeStyles = StyleSheet.create({
   },
   titleText: {
     // backgroundColor: 'black',
-    fontSize: 27,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,27),
     color: Colors.mainTextColor,
     textAlign: 'center',
   },
@@ -398,14 +399,14 @@ var landscapeStyles = StyleSheet.create({
   },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
-    fontSize: 17,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,17),
     color: Colors.mainTextColor,
     textAlign: 'center',
 
   },
   descriptionText2: {
     backgroundColor: Colors.transparentColor,
-    fontSize: 14,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center'
   },
