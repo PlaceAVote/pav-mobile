@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react-native';
-import Dimensions from 'Dimensions';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import {Colors} from '../../config/constants';
 import LinearGradient from 'react-native-linear-gradient';
@@ -13,8 +12,15 @@ const {
   StyleSheet,
   Text,
   View,
+  PixelRatio
 } = React;
-const {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Screen dimensions in current orientation
+
+const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import Dimensions from 'Dimensions';
+
+
+
 // const fontelloConfig = require('../../../assets/fonts/paviconFontelloConfig.json');
 // const Icon = createIconSetFromIcoMoon(fontelloConfig);
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');
@@ -165,8 +171,8 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
     margin: 8,
-    width: screenWidth*0.42,
-    height: screenWidth*0.37,
+    width: w*0.42,
+    height: w*0.37,
     // backgroundColor: '#F6F6F6',
     borderWidth: 1,
     borderRadius: 5,
@@ -192,12 +198,12 @@ var styles = StyleSheet.create({
     flex: 0,
     paddingHorizontal: 3,
     justifyContent: 'space-between',
-    width: screenWidth*0.39,
+    width: w*0.39,
     // backgroundColor: 'blue',
     flexDirection: "row"
   },
   textChecked: {
-    fontSize: 17,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,17),
     fontFamily: 'Whitney',
     textAlign: 'center',
     alignSelf:'center',
@@ -205,7 +211,7 @@ var styles = StyleSheet.create({
     // backgroundColor: 'red'
   },
   text: {
-    fontSize: 16,
+    fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,16),
     fontFamily: 'Whitney',
     textAlign: 'center',
     alignSelf:'center',
@@ -220,8 +226,8 @@ var styles = StyleSheet.create({
   checkMarkContainer:{
     borderRadius: 20,
     justifyContent:'center',
-    height: screenWidth*0.07,
-    width: screenWidth*0.07,
+    height: w*0.07,
+    width: w*0.07,
     borderWidth: 2,
     borderColor: Colors.mainBorderColor,
     backgroundColor:'white'
@@ -229,8 +235,8 @@ var styles = StyleSheet.create({
   checkMarkContainerChecked:{
     borderRadius: 20,
     justifyContent:'center',
-    height: screenWidth*0.07,
-    width: screenWidth*0.07,
+    height: w*0.07,
+    width: w*0.07,
     borderWidth: 2,
     borderColor: Colors.mainBorderColor,
     backgroundColor:'white'

@@ -68,6 +68,7 @@ from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
+
 /**
  * The states were interested in
  */

@@ -62,13 +62,14 @@ import React,
   Text,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  PixelRatio
 }
 from 'react-native';
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-var {height, width} = Dimensions.get('window'); // Screen dimensions in current orientation
-
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 
 
@@ -162,26 +163,11 @@ class TopicPickRender extends Component {
         fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
         backgroundColor: Colors.transparentColor,
         // backgroundColor:'black',
-        fontSize: 18,
+        fontSize: getCorrectFontSizeForScreen(PixelRatio, w,h,18),
         color: Colors.mainTextColor,
         textAlign: 'center',
         marginHorizontal: 21,
       },
-      explanImgContainer:{
-        flex:0.6,
-        backgroundColor: 'red',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',    //y axis
-        marginVertical: 10
-      },
-      explanImg:{
-        height: 200,
-        width: 200,
-        resizeMode: 'cover',
-        backgroundColor: 'red'
-      },
-
       nextStepBtn: {
         backgroundColor: Colors.accentColor,
         borderRadius: 2,
