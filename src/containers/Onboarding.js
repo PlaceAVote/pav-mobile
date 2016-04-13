@@ -11,7 +11,7 @@
  */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {LoginManager} from 'react-native-fbsdk';
+
 /**
  * The actions we need
  */
@@ -74,24 +74,20 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+
+
+
 function buttonPressHandler(scheneName) {
   switch(scheneName){
     case "facebook":
-      LoginManager.logInWithReadPermissions(['public_profile']).then(
-      function(result) {
-        console.log("FB Result: "+result+" OR "+JSON.stringify(result));
-        if (result.isCancelled) {
-          alert('Login cancelled');
-        } else {
-          alert('Login success with permissions: '
-            +result.grantedPermissions.toString());
-        }
-      },
-      function(error) {
-        console.log("FB error: "+error);
-        alert('Login fail with error: ' + error);
-      }
-      );
+
+
+      this.props.actions.facebookDataAcquisition();
+
+
+
+
+
       // this.props.actions.navigateTo("FacebookSignIn");
       break;
     case "emailSignUp":

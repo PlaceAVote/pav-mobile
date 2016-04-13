@@ -58,6 +58,10 @@ const Form = Record({
     zipCodeHasError: false,
     forgotPasswordEmail: '',
     forgotPasswordEmailHasError: false,
+    fbAuthUID: '',
+    fbAuthToken: '',
+    fbAuthPermissionError: false,
+    fbAuthImgUrl: '',
     topicsList: new Map([
       ['crime', new (Record({ title: 'Crime', icon: 'crime', isSelected: false}))],
       ['healthcare', new (Record({ title: 'Healthcare', icon: 'healthcare', isSelected: false}))],

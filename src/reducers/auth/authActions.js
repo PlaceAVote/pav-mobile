@@ -9,7 +9,8 @@
  */
 'use strict';
 import {ActionNames, ScheneKeys} from '../../config/constants';
-
+import {LoginManager, AccessToken, GraphRequestManager, GraphRequest} from 'react-native-fbsdk';
+import moment from 'moment';
 /**
  * ## Imports
  *
@@ -33,6 +34,15 @@ import {ActionNames, ScheneKeys} from '../../config/constants';
    LOGIN_REQUEST,
    LOGIN_SUCCESS,
    LOGIN_FAILURE,
+
+   LOGIN_FACEBOOK_REQUEST,
+   LOGIN_FACEBOOK_SUCCESS,
+   LOGIN_FACEBOOK_FAILURE,
+
+
+   FACEBOOK_DATA_ACQ_REQUEST,
+   FACEBOOK_DATA_ACQ_SUCCESS,
+   FACEBOOK_DATA_ACQ_FAILURE,
 
    FORGOT_PASSWORD_REQUEST,
    FORGOT_PASSWORD_SUCCESS,
@@ -191,94 +201,6 @@ export function signupFailure(error) {
     payload: error
   };
 }
-// /**
-//  * ## SessionToken actions
-//  */
-// export function sessionTokenRequest() {
-//   return {
-//     type: SESSION_TOKEN_REQUEST
-//   };
-// }
-// export function sessionTokenRequestSuccess(token) {
-//   return {
-//     type: SESSION_TOKEN_SUCCESS,
-//     payload: token
-//   };
-// }
-// export function sessionTokenRequestFailure(error) {
-//   return {
-//     type: SESSION_TOKEN_FAILURE,
-//     payload: _.isUndefined(error) ? null:error
-//   };
-// }
-//
-// /**
-//  * ## DeleteToken actions
-//  */
-// export function deleteTokenRequest() {
-//   return {
-//     type: DELETE_TOKEN_REQUEST
-//   };
-// }
-// export function deleteTokenRequestSuccess() {
-//   return {
-//     type: DELETE_TOKEN_SUCCESS
-//   };
-// }
-
-// /**
-//  * ## Delete session token
-//  *
-//  * Call the AppAuthToken deleteSessionToken
-//  */
-// export function deleteSessionToken() {
-//   return dispatch => {
-//     dispatch(deleteTokenRequest());
-//     return new  AppAuthToken().deleteSessionToken()
-//       .then(() => {
-//         dispatch(deleteTokenRequestSuccess());
-//       });
-//   };
-// }
-// /**
-//  * ## Token
-//  * If AppAuthToken has the sessionToken, the user is logged in
-//  * so set the state to logout.
-//  * Otherwise, the user will default to the login in screen.
-//  */
-// export function getSessionToken() {
-//   return dispatch => {
-//     dispatch(sessionTokenRequest());
-//     return new AppAuthToken().getSessionToken()
-//
-//       .then((token) => {
-//         if (token) {
-//           dispatch(sessionTokenRequestSuccess(token));
-//           // dispatch(logoutState());  //TODO:
-//           Actions.Tabbar();
-//         } else {
-//           dispatch(sessionTokenRequestFailure());
-//           Actions.Onboarding();
-//         }
-//       })
-//
-//       .catch((error) => {
-//         dispatch(sessionTokenRequestFailure(error));
-//         // dispatch(loginState());//TODO:
-//         Actions.Onboarding();
-//       });
-//   };
-// }
-
-/**
- * ## saveSessionToken
- * @param {Object} response - to return to keep the promise chain
- * @param {Object} json - object with sessionToken
- */
-export function saveSessionToken(token) {
-  return new AppAuthToken().storeSessionToken(token);
-}
-
 
 /**
  * ## signup
@@ -293,7 +215,6 @@ export function saveSessionToken(token) {
  * @param {string} gender - user's gender
  *
  * Call PavClientSdk.signup and if good, save the sessionToken,
- * set the state to logout and signal success
  *
  * Otherwise, dispatch the error so the user can see
  */
@@ -333,6 +254,10 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
     return dispatch(setModalVisibility(TOPIC_PICK, true));
   };
 }
+
+
+
+
 
 
 
@@ -475,6 +400,326 @@ export function forgotPasswordFailure() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## FACEBOOK AUTH actions
+ */
+
+export function facebookAuthRequest() {
+  return {
+    type: LOGIN_FACEBOOK_REQUEST
+  };
+}
+
+export function facebookAuthSuccess() {
+  return {
+    type: LOGIN_FACEBOOK_SUCCESS
+  };
+}
+
+export function facebookAuthFailure() {
+  return {
+    type: LOGIN_FACEBOOK_FAILURE
+  };
+}
+
+/**
+ * ## Facebook authentication
+ *
+ * We call this action to authenticate the user using facebook oAuth
+ *
+ * @param {string} username - name of user
+ * @param {string} email - user's email
+ * @param {string} password - user's password
+ * @param {string} first_name - user's first_name
+ * @param {string} last_name - user's last_name
+ * @param {string} dayOfBirth - user's day of birth
+ * @param {string} zipcode - user's zipcode
+ * @param {string} topics - user's topics of interest (array of strings)
+ * @param {string} gender - user's gender
+ *
+ */
+ export function facebookAuth(fbUserId, fbUserToken, email, firstName, lastName, dayOfBirth, zipcode, imgUrl, topics, gender) {
+   return async function (dispatch){
+     dispatch(facebookAuthRequest());
+     var res = await PavClientSdk().userApi.facebookAuth({
+         "id": fbUserId,
+         "token": fbUserToken,
+         "email": email,
+         "first_name": firstName,
+         "last_name": lastName,
+         "dob": dayOfBirth,
+         "zipcode": zipcode,
+         "img_url": imgUrl,
+         "topics": topics,
+         "gender": gender
+       });
+     // console.log("RES: "+JSON.stringify(res));
+     if(!!res.error){
+       if(res.multipleErrors){
+         // console.log("authActions.login :: Error msg: "+res.error[0].email)
+         let err = res.error[0];
+         let errObj = err[Object.keys(err)[0]];  //the first property of the error object returned by the server
+         return dispatch(facebookAuthFailure(errObj));
+       }else{
+         // console.log("authActions.login :: Error msg: "+res.error)
+         return dispatch(facebookAuthFailure(res.error));
+       }
+     }else{
+       // console.log("Signup success");
+       saveSessionToken(res.data.token)
+       return dispatch(facebookAuthSuccess(Object.assign({}, res.data,
+   			{
+   			    email: email,
+            first_name: first_name
+   			})));
+     }
+   };
+ }
+
+
+
+
+//TODO: Right the reducer for this
+
+ /**
+  * ## FACEBOOK DATA ACQUISITION actions
+  */
+
+ export function facebookDataAcqRequest() {
+   return {
+     type: FACEBOOK_DATA_ACQ_REQUEST
+   };
+ }
+
+ export function facebookDataAcqSuccess(data) {
+   return {
+     type: FACEBOOK_DATA_ACQ_SUCCESS,
+     payload: data
+   };
+ }
+
+ export function facebookDataAcqFailure(error) {
+   return {
+     type: FACEBOOK_DATA_ACQ_FAILURE,
+     payload: error
+   };
+ }
+
+export function facebookDataAcquisition(){
+  return async function (dispatch){
+    var fbUserData = {};
+    dispatch(facebookDataAcqRequest());
+    var {data:permDt, error:permErr} = await getFacebookReadPermissions(['public_profile', 'email']); //request those read permissions from fb
+    if(!!permErr){ //if there was an error getting the read permissions
+      dispatch(facebookDataAcqSuccess(permErr))
+    }else{  //if there was no error getting the read permissions
+      // console.log("Success on requesting read permissionss: "+JSON.stringify(permDt))
+      if(permDt.isCancelled){ //if permissions window was cancelled
+        dispatch(facebookDataAcqSuccess("User cancelled fb authentication."))
+      }else{  //if permissions window was NOT cancelled
+        // console.log("Permission req Successful");
+        var {data:tokenNUsIdData, error:tokenNUsIdErr} = await getFacebookTokenAndUserId(); //request the fb token and the user id
+        if(!!tokenNUsIdErr){  //if there was an error on the token and uid request
+          dispatch(facebookDataAcqSuccess(tokenNUsIdErr))
+        }else{//if the token and uid request was successful
+          fbUserData.token = tokenNUsIdData.accessToken;
+          fbUserData.id = tokenNUsIdData.userID;
+        }
+        getUserProfileData(fbUserData.token, (userDataErr, userData)=>{
+          if(!!userDataErr){  //if there was an error getting the user data
+            console.log("Error fetching user data: "+JSON.stringify(userDataErr));
+            dispatch(facebookDataAcqSuccess(userDataErr))
+          }else{
+              fbUserData.firstName = userData.first_name || null;
+              fbUserData.lastName = userData.last_name || null;
+              fbUserData.id = userData.id || null;
+              fbUserData.picUrl = userData.picture.data.url || null;
+              fbUserData.gender = userData.gender || null;
+              fbUserData.email = userData.email || null;
+              fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
+              console.log("Done gathering user data: "+JSON.stringify(fbUserData));
+              dispatch(facebookDataAcqSuccess(fbUserData))
+          }
+        });
+      }
+    }
+  }
+}
+
+// Input MM/DD/YYYY, MM/DD, or YYYY output DD/MM/YYYY, same as input or null
+function parseFbBirthday(birthdayString){
+  if(!!birthdayString){
+    if(birthdayString.length==10){ // full date MM/DD/YYYY
+      return moment(birthdayString, 'MM/DD/YYYY').format('DD/MM/YYYY');
+    }else if(birthdayString.length==4){  //year only YYYY
+      return moment(birthdayString, 'YYYY').format('01/01/YYYY');
+    }else if(birthdayString.length==5){  //no year MM/DD
+      return moment(birthdayString, 'MM/DD').format('DD/MM/1980');
+    }
+  }else{
+    // console.log("No birthday received from fb graph.");
+    return null;
+  }
+  console.log("ERROR while parsing birthday string. Unknown format: "+birthdayString);
+  return birthdayString;
+}
+
+ async function getFacebookReadPermissions(readPermissions){
+     let res = {
+       data:null,
+       error: null
+     };
+     try{
+       res.data = await LoginManager.logInWithReadPermissions(readPermissions);
+     }catch(e){res.error = e}
+    //  console.log("permissions: "+JSON.stringify(res));
+     return res;
+ }
+
+ async function getFacebookTokenAndUserId(){
+     let res = {
+       data:null,
+       error: null
+     };
+     try{
+       res.data = await AccessToken.getCurrentAccessToken();
+     }catch(e){res.error = e}
+     console.log("token n user id : "+JSON.stringify(res));
+     return res;
+ }
+
+ function getUserProfileData(token, next){
+
+
+
+   let userDataRequest = new GraphRequest(
+      '/me', //  graphPath: string,
+      {
+        httpMethod:'GET', //http method,
+        version: "v2.6",
+        parameters: {fields: {string:"email,first_name,last_name,birthday,picture,gender"}},
+        accessToken:token
+      },  //  config: object,
+      next   //  callback: function
+   );
+   new GraphRequestManager().addRequest(userDataRequest).start();
+ }
+
+
+
+
+
+
+
+// /**
+//  * ## SessionToken actions
+//  */
+// export function sessionTokenRequest() {
+//   return {
+//     type: SESSION_TOKEN_REQUEST
+//   };
+// }
+// export function sessionTokenRequestSuccess(token) {
+//   return {
+//     type: SESSION_TOKEN_SUCCESS,
+//     payload: token
+//   };
+// }
+// export function sessionTokenRequestFailure(error) {
+//   return {
+//     type: SESSION_TOKEN_FAILURE,
+//     payload: _.isUndefined(error) ? null:error
+//   };
+// }
+//
+// /**
+//  * ## DeleteToken actions
+//  */
+// export function deleteTokenRequest() {
+//   return {
+//     type: DELETE_TOKEN_REQUEST
+//   };
+// }
+// export function deleteTokenRequestSuccess() {
+//   return {
+//     type: DELETE_TOKEN_SUCCESS
+//   };
+// }
+
+// /**
+//  * ## Delete session token
+//  *
+//  * Call the AppAuthToken deleteSessionToken
+//  */
+// export function deleteSessionToken() {
+//   return dispatch => {
+//     dispatch(deleteTokenRequest());
+//     return new  AppAuthToken().deleteSessionToken()
+//       .then(() => {
+//         dispatch(deleteTokenRequestSuccess());
+//       });
+//   };
+// }
+// /**
+//  * ## Token
+//  * If AppAuthToken has the sessionToken, the user is logged in
+//  * so set the state to logout.
+//  * Otherwise, the user will default to the login in screen.
+//  */
+// export function getSessionToken() {
+//   return dispatch => {
+//     dispatch(sessionTokenRequest());
+//     return new AppAuthToken().getSessionToken()
+//
+//       .then((token) => {
+//         if (token) {
+//           dispatch(sessionTokenRequestSuccess(token));
+//           // dispatch(logoutState());  //TODO:
+//           Actions.Tabbar();
+//         } else {
+//           dispatch(sessionTokenRequestFailure());
+//           Actions.Onboarding();
+//         }
+//       })
+//
+//       .catch((error) => {
+//         dispatch(sessionTokenRequestFailure(error));
+//         // dispatch(loginState());//TODO:
+//         Actions.Onboarding();
+//       });
+//   };
+// }
+
+/**
+ * ## saveSessionToken
+ * @param {Object} response - to return to keep the promise chain
+ * @param {Object} json - object with sessionToken
+ */
+export function saveSessionToken(token) {
+  return new AppAuthToken().storeSessionToken(token);
+}
 
 
 

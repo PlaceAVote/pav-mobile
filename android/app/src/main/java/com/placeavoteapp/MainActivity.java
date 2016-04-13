@@ -4,7 +4,8 @@ import com.facebook.react.ReactActivity;   //for FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;   //for FacebookSdk;
 import com.facebook.CallbackManager;   //for FacebookSdk;
 import com.facebook.FacebookSdk;   //for FacebookSdk;
-
+import android.content.Intent;
+import android.os.Bundle;
 
 
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -60,7 +61,7 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-    } 
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
