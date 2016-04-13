@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
  */
 import * as authActions from '../../reducers/auth/authActions';
 import * as globalActions from '../../reducers/global/globalActions';
+import {LoginButton} from 'react-native-fbsdk';
 
 
 
@@ -126,6 +127,22 @@ class OnboardingRender extends Component {
     };
 
 
+    // <LoginButton
+    //   style={[styles.facebookBtn, styles.btn]}
+    //   publishPermissions={["publish_actions"]}
+    //   onLoginFinished={
+    //     (error, result) => {
+    //       if (error) {
+    //         alert("login has error: " + result.error);
+    //       } else if (result.isCancelled) {
+    //         alert("login is cancelled.");
+    //       } else {
+    //         alert("login has finished with permissions: " + result.grantedPermissions)
+    //       }
+    //     }
+    //   }
+    //   onLogoutFinished={() => alert("logout.")}
+    // />
     return(
         <Image style={styles.backgroundImg} resizeMode= 'cover' source={require('../../../assets/pavBG.jpg')}>
           <View style={styles.container}>
@@ -158,9 +175,11 @@ class OnboardingRender extends Component {
 
 
             <View style={styles.btnContainer}>
+
               <Button onPress={onFbBtnPress} style={[styles.facebookBtn, styles.btn]} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
                 Login with Facebook
               </Button>
+
               <Button onPress={onSignUpBtnPress} style={[styles.emailBtn, styles.btn]} textStyle={styles.whiteBtnText}>
               Signup with email
               </Button>
@@ -284,7 +303,8 @@ var portraitStyles = StyleSheet.create({
   btn: {
     height:60,
     borderRadius: 4,
-    borderWidth: 1
+    borderWidth: 1,
+    marginBottom: 13,
   },
   whiteBtnText:{
     color: Colors.mainTextColor,
