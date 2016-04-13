@@ -89,6 +89,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        multiDexEnabled true        //for react-native-fbsdk to work
     }
     splits {
         abi {
@@ -120,6 +121,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fbsdk')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-orientation')
     compile project(':react-native-vector-icons')
