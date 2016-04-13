@@ -1,5 +1,0 @@
-##use latest node
-
-machine:
-  node:
-    version: 5.1.0
