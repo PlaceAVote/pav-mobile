@@ -44,6 +44,10 @@ const {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
 
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILURE,
+
   SET_STATE
 } = ActionNames;
 
@@ -86,6 +90,7 @@ export default function authReducer(state = initialState, action) {
   case LOGOUT_REQUEST:
   case LOGIN_REQUEST:
   case RESET_PASSWORD_REQUEST:
+  case FORGOT_PASSWORD_REQUEST:
     let nextState =  state.setIn(['form', 'isFetching'], true)
       .setIn(['form','error'],null);
     return nextState;
@@ -144,6 +149,7 @@ export default function authReducer(state = initialState, action) {
   case SESSION_TOKEN_FAILURE:
   case LOGOUT_SUCCESS:
   case RESET_PASSWORD_SUCCESS:
+  case FORGOT_PASSWORD_SUCCESS:
     return state.setIn(['form', 'isFetching'], false);
     break;
   case SIGNUP_SUCCESS:
@@ -160,6 +166,7 @@ export default function authReducer(state = initialState, action) {
   case LOGOUT_FAILURE:
   case LOGIN_FAILURE:
   case RESET_PASSWORD_FAILURE:
+  case FORGOT_PASSWORD_FAILURE:
     return state.setIn(['form', 'isFetching'], false)
       .setIn(['form', 'error'], action.payload);
 

@@ -59,6 +59,10 @@ module.exports =  {
    LOGIN_SUCCESS: null,
    LOGIN_FAILURE: null,
 
+   FORGOT_PASSWORD_REQUEST: null,
+   FORGOT_PASSWORD_SUCCESS: null,
+   FORGOT_PASSWORD_FAILURE: null,
+
    LOGOUT_REQUEST: null,
    LOGOUT_SUCCESS: null,
    LOGOUT_FAILURE: null,

@@ -34,6 +34,10 @@ import {ActionNames, ScheneKeys} from '../../config/constants';
    LOGIN_SUCCESS,
    LOGIN_FAILURE,
 
+   FORGOT_PASSWORD_REQUEST,
+   FORGOT_PASSWORD_SUCCESS,
+   FORGOT_PASSWORD_FAILURE,
+
    ON_AUTH_FORM_FIELD_CHANGE,
    ON_TOPICS_FORM_FIELD_CHANGE,
    SIGNUP_REQUEST,
@@ -332,9 +336,15 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
 
 
 
+
+
+
+
+
 /**
- * ## Login actions
+ * ## LOGIN actions
  */
+
 export function loginRequest() {
   return {
     type: LOGIN_REQUEST
@@ -368,36 +378,118 @@ export function loginFailure(error) {
  */
 
   export function login(email,  password) {
-  return async function(dispatch){
-    dispatch(loginRequest());
+    return async function(dispatch){
+      dispatch(loginRequest());
 
-    var res = await PavClientSdk().userApi.login({
-      email: email,
-      password: password
-    });
-    // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-    console.log("RES: "+JSON.stringify(res));
-    if(!!res.error){
-      alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
-      if(res.multipleErrors){
-        // console.log("authActions.login :: Error msg: "+res.error[0].email)
-        return dispatch(loginFailure(res.error[0].email));
+      var res = await PavClientSdk().userApi.login({
+        email: email,
+        password: password
+      });
+      // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
+      console.log("RES: "+JSON.stringify(res));
+      if(!!res.error){
+        alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
+        if(res.multipleErrors){
+          // console.log("authActions.login :: Error msg: "+res.error[0].email)
+          return dispatch(loginFailure(res.error[0].email));
+        }else{
+          // console.log("authActions.login :: Error msg: "+res.error)
+          return dispatch(loginFailure(res.error));
+        }
       }else{
-        // console.log("authActions.login :: Error msg: "+res.error)
-        return dispatch(loginFailure(res.error));
+        alert("Good that was right, the cake was a lie though..");
+        // console.log(res.data.token);
+        saveSessionToken(res.data.token)
+        return dispatch(loginSuccess(res.data));
+        //TODO: Perhaps navigate to the newsfeed screen now?
       }
-    }else{
-      alert("Good that was right, the cake was a lie though..");
-      // console.log(res.data.token);
-      saveSessionToken(res.data.token)
-      return dispatch(loginSuccess(res.data));
-      //TODO: Perhaps navigate to the newsfeed screen now?
-    }
+  }
 }
 
-// /**
-//  * ## ResetPassword actions
-//  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## FORGOT_PASSWORD actions
+ */
+
+export function forgotPasswordRequest() {
+  return {
+    type: FORGOT_PASSWORD_REQUEST
+  };
+}
+
+export function forgotPasswordSuccess() {
+  return {
+    type: FORGOT_PASSWORD_SUCCESS
+  };
+}
+
+export function forgotPasswordFailure() {
+  return {
+    type: FORGOT_PASSWORD_FAILURE
+  };
+}
+
+/**
+ * ## Forgot password
+ *
+ * We call this action to send an email to the user to help him reset his password if he does not remember it.
+ *
+ * @param {string} email - user's email
+ *
+ */
+  export function forgotPassword(email) {
+    return async function(dispatch){
+      dispatch(forgotPasswordRequest());
+
+      var res = await PavClientSdk().userApi.forgotPassword({
+        email: email
+      });
+      // console.log("Got res in authActions.forgotPassword with error: "+res.error+" and data: "+res.data);
+      // console.log("RES: "+JSON.stringify(res));
+      if(!!res.error){
+        alert("We could not find an account with that email address.");
+        dispatch(forgotPasswordFailure());
+      }else{
+        alert("Check your inbox for the reset password link.");
+        dispatch(forgotPasswordSuccess());
+      }
+      return dispatch(setModalVisibility(FORGOT_PASSWORD, false));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## ResetPassword actions
+ */
 // export function resetPasswordRequest() {
 //   return {
 //     type: RESET_PASSWORD_REQUEST
@@ -444,5 +536,3 @@ export function loginFailure(error) {
 //       });
 //
 //   };
-
-}

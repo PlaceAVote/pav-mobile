@@ -79,6 +79,7 @@ let EmailSignIn = React.createClass({
 
   onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");
+    console.log(JSON.stringify({}));
   },
 
   onSignInBtnPress(){
@@ -103,9 +104,8 @@ let EmailSignIn = React.createClass({
   },
 
   onForgotPasswordNextBtnClicked(){
-    this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
-    //DO something on forgot password next clicked
-    alert("Check your inbox for the reset password link.")
+    let forgotEmail = this.props.auth.form.fields.forgotPasswordEmail;
+    this.props.actions.forgotPassword(forgotEmail);
   },
 
 

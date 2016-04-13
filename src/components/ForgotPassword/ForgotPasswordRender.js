@@ -229,8 +229,11 @@ class ForgotPasswordRender extends Component {
             />
           </View>
           <View style={styles.buttonContainer}>
-            <Button textStyle={styles.whiteBtnText} style={styles.sendButton}
+            <Button textStyle={styles.whiteBtnText}
+                style={styles.sendButton}
                 isDisabled={!this.props.auth.form.isValid.get(FORGOT_PASSWORD) || this.props.auth.form.isFetching}
+                isLoading={this.props.auth.form.isFetching}
+                activityIndicatorColor={Colors.mainTextColor}
                 onPress={this.props.onButtonPress}>
               Send
             </Button>
