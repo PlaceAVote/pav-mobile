@@ -15,7 +15,9 @@ import React, {
   Navigator,
   View,
   Image,
-  Text } from 'react-native';
+  Text,
+  TouchableOpacity
+ } from 'react-native';
 
   /**
   * ### Router-Flux
@@ -26,7 +28,8 @@ import React, {
     Scene,
     TabBar,
     Modal,
-    Reducer
+    Reducer,
+    Actions
 } from 'react-native-router-flux';
 
     /**
@@ -166,11 +169,24 @@ import React, {
         }
       }
 
-      // class BackBtnImg extends React.Component {
-      //   render(){
-      //       return <Image source={require("../assets/back_chevron.png")} ></Image>;
-      //   }
-      // }
+      class BackBtnImg extends React.Component {
+        render(){
+            return (<TouchableOpacity style={{
+              width: 100,
+              height: 37,
+              position: 'absolute',
+              bottom: 4,
+              left: 2,
+              padding: 8,
+              justifyContent:'center',
+          }} onPress={Actions.pop} >
+              <View style={{flexDirection:'row', alignItems:'center'}}>
+                <Icon name="chevron-left" size={25} color={'#ffffff'} style={{marginTop:2,paddingRight:6}} />
+                <Text style={{color: '#FFFFFF21', fontFamily:'Whitney'}}>Back</Text>
+              </View>
+            </TouchableOpacity>);
+        }
+      }
 
 
 
@@ -178,6 +194,8 @@ import React, {
 
         let PlaceAVote = React.createClass( {
           render() {
+
+
             const store = configureStore(getInitialState());
 
             //Connect w/ the Router
@@ -213,6 +231,32 @@ import React, {
                 }
             };
 
+
+
+
+            let backButtonFunction = function() {
+
+              return (
+                  <TouchableOpacity style={{
+                    width: 100,
+                    height: 37,
+                    position: 'absolute',
+                    bottom: 4,
+                    left: 2,
+                    padding: 8,
+                    justifyContent:'center',
+                }} onPress={Actions.pop} >
+                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                      <Icon name="chevron-left" size={25} color={'#ffffff'} style={{marginTop:2,paddingRight:6}} />
+                      <Text style={{color: '#FFFFFF21', fontFamily:'Whitney'}}>Back</Text>
+                    </View>
+                  </TouchableOpacity>
+              );
+            };
+
+
+
+
             // let backButtonImg = ()=><Image source={require("../assets/back_chevron.png")} style={{padding: 8,backgroundColor:'red'}}></Image>;
             //
             // <Scene key={ScheneKeys.LOGIN} type="push" title="Sign In" navigationBarStyle={{backgroundColor:Colors.primaryColor}} backButtonImage={backButtonImg} renderRightButton={()=><RightPavLogo/>}>
@@ -221,12 +265,12 @@ import React, {
             // when the hideNavBar is true we see the right button but not the left, and the opposite.
             return (
               <Provider store={store}>
-                <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}}>
+                <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}} renderRightButton={()=><RightPavLogo/>}>
                   <Scene key="modal" component={Modal} >
-                    <Scene key="root" navigationBarStyle={{backgroundColor:Colors.primaryColor}} renderRightButton={()=><RightPavLogo/>}  titleStyle={{color:Colors.mainTextColor}}>
-                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} title="Welcome" type="replace" hideNavBar={true} initial={true}/>
+                    <Scene key="root" navigationBarStyle={{backgroundColor:Colors.primaryColor}}   titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}>
+                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} initial={true}/>
                       <Scene key="FacebookSignIn" component={EmailSignIn} schema="modal" title="Facebook signin" hideNavBar={true}  />
-                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" />
+                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" renderBackButton={()=><BackBtnImg/>} />
                       <Scene key={ScheneKeys.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
