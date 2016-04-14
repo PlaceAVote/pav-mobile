@@ -74,6 +74,16 @@ function isFormValid(scheneName, fields){
  * @param {Object} state - the Redux state object
  */
 export function formValidation (state, scheneName) {
-    let isValid = isFormValid(scheneName, state.form.fields);
-    return state.setIn(['form','isValid', scheneName],isValid);
+  if(!!scheneName){
+    return state.setIn(['form','isValid', scheneName],isFormValid(scheneName, state.form.fields));
+  }else{
+    return state
+    .setIn(['form','isValid', REGISTER_STEP_1],isFormValid(REGISTER_STEP_1, state.form.fields))
+    .setIn(['form','isValid', REGISTER_STEP_2],isFormValid(REGISTER_STEP_2, state.form.fields))
+    .setIn(['form','isValid', REGISTER_STEP_3],isFormValid(REGISTER_STEP_3, state.form.fields))
+    .setIn(['form','isValid', REGISTER_STEP_4],isFormValid(REGISTER_STEP_4, state.form.fields))
+    .setIn(['form','isValid', LOGIN],isFormValid(LOGIN, state.form.fields))
+    .setIn(['form','isValid', FORGOT_PASSWORD],isFormValid(FORGOT_PASSWORD, state.form.fields));
+  }
+
 }

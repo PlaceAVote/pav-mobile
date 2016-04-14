@@ -132,135 +132,85 @@ const usZipCodeConstraints = {
 
 
 
+
+
+
+
+function validateName(value){
+  return  (!_.isUndefined(validate({name: value}, nameConstraints)));
+}
+
+function validateSurname(value){
+  return (!_.isUndefined(validate({surname: value},surnameConstraints)));
+}
+
+function validateForgotPasswordEmail(value){
+  return (!_.isUndefined(validate({forgotPasswordEmail: value},forgotPasswordEmailConstraints)));
+}
+
+function validateEmail(value){
+  return (!_.isUndefined(validate({email: value},emailConstraints)));
+}
+
+function validatePassword(value){
+  return (!_.isUndefined(validate({password: value},passwordConstraints)));
+}
+
+function validatePasswordAgain(password, confirmPassword){
+  return (!_.isUndefined(validate({password: password,confirmPassword: confirmPassword}, passwordAgainConstraints)));
+}
+
+function validateZipCode(value){
+  return (!_.isUndefined(validate({zipCode: value},usZipCodeConstraints)));
+}
+
+export function validateAllFields(state){
+  let validatedState = state
+  .setIn(['form', 'fields', 'nameHasError'], validateName(state.form.fields.name))
+  .setIn(['form', 'fields', 'surnameHasError'], validateSurname(state.form.fields.surname))
+  .setIn(['form', 'fields', 'forgotPasswordEmailHasError'], validateForgotPasswordEmail(state.form.fields.forgotPasswordEmail))
+  .setIn(['form', 'fields', 'emailHasError'], validateEmail(state.form.fields.email))
+  .setIn(['form', 'fields', 'passwordHasError'], validatePassword(state.form.fields.password))
+  .setIn(['form', 'fields', 'passwordAgainHasError'], validatePasswordAgain(state.form.fields.passwordAgain))
+  .setIn(['form', 'fields', 'zipCodeHasError'], validateZipCode(state.form.fields.zipCode));
+  console.log("Now validating ALL fields: "+JSON.stringify(validatedState));
+  return validatedState;
+}
 /**
  * ## Field Validation
  * @param {Object} state Redux state
  * @param {Object} action type & payload
  */
 export default function fieldValidation(state, action ) {
-  const {field, value} = action.payload;
-
-  switch(field) {
-
-
-    /**
-     * ### dateOfBirth validation
-     * set the form field error
-     */
-  // case('dateOfBirth'):
-  //   // let validBirthdate  = _.isUndefined(validate({dateOfBirth: value},birthdateConstraints));
-  //
-  //   let validBirthdate = moment(value, 'DD-MM-YYYY').isValid();
-  //   // console.log('Date is: '+validBirthdate);
-  //   if (validBirthdate) {
-  //     return state.setIn(['form', 'fields', 'dateOfBirthIsCurBeingPicked'], false);
-  //   } else {
-  //     return state.setIn(['form', 'fields', 'dateOfBirthIsCurBeingPicked'], true);
-  //   }
-  //   break;
-
-    /**
-     * ### name validation
-     * set the form field error
-     */
-  case('name'):
-    let validName  = _.isUndefined(validate({name: value},
-                                                nameConstraints));
-    // console.log("Name valid if TRUE: "+validName);
-    if (validName) {
-      return state.setIn(['form', 'fields', 'nameHasError'], false);
-    } else {
-      return state.setIn(['form', 'fields', 'nameHasError'], true);
+  if(!!action){
+    const {field, value} = action.payload;
+    switch(field) {
+    case('name'):
+      return state.setIn(['form', 'fields', 'nameHasError'], validateName(value));
+      break;
+    case('surname'):
+      return state.setIn(['form', 'fields', 'surnameHasError'], validateSurname(value));
+      break;
+    case('forgotPasswordEmail'):
+      return state.setIn(['form', 'fields', 'forgotPasswordEmailHasError'], validateForgotPasswordEmail(value));
+      break;
+    case('email'):
+      return state.setIn(['form', 'fields', 'emailHasError'], validateEmail(value));
+      break;
+    case('password'):
+      return state.setIn(['form', 'fields', 'passwordHasError'], validatePassword(state.form.fields.password, value));
+      break;
+    case('passwordAgain'):
+      return state.setIn(['form', 'fields', 'passwordAgainHasError'], validatePasswordAgain(value));
+      break;
+    case('zipCode'):
+      return state.setIn(['form', 'fields', 'zipCodeHasError'], validateZipCode(value));
+      break;
+    default:
+      break;
     }
-    break;
-    /**
-     * ### surname validation
-     * set the form field error
-     */
-  case('surname'):
-    let validSurname  = _.isUndefined(validate({surname: value},
-                                                surnameConstraints));
-    if (validSurname) {
-      return state.setIn(['form', 'fields', 'surnameHasError'], false);
-    } else {
-      return state.setIn(['form', 'fields', 'surnameHasError'], true);
-    }
-    break;
-
-
-  case('forgotPasswordEmail'):
-    let validForgotPasswordEmail  = _.isUndefined(validate({forgotPasswordEmail: value},
-                                               forgotPasswordEmailConstraints));
-    if (validForgotPasswordEmail) {
-      return state.setIn(['form', 'fields', 'forgotPasswordEmailHasError'], false);
-    } else {
-      return state.setIn(['form', 'fields', 'forgotPasswordEmailHasError'], true);
-    }
-    break;
-    /**
-     * ### email validation
-     * set the form field error
-     */
-
-  case('email'):
-    let validEmail  = _.isUndefined(validate({email: value},
-                                             emailConstraints));
-    if (validEmail) {
-      return state.setIn(['form', 'fields', 'emailHasError'], false);
-    } else {
-      return state.setIn(['form', 'fields', 'emailHasError'], true);
-    }
-    break;
-
-    /**
-     * ### password validation
-     * set the form field error
-     */
-  case('password'):
-    let validPassword = _.isUndefined(validate({password: value},
-                                               passwordConstraints));
-    if (validPassword) {
-      return state.setIn(['form', 'fields', 'passwordHasError'], false);
-    } else {
-      return state.setIn(['form', 'fields', 'passwordHasError'], true);
-    }
-    break;
-
-    /**
-     * ### passwordAgain validation
-     * set the form field error
-     */
-  case('passwordAgain'):
-    var validPasswordAgain
-      = _.isUndefined(validate({password: state.form.fields.password,
-                                confirmPassword: value}, passwordAgainConstraints));
-    if (validPasswordAgain) {
-      return state.setIn(['form', 'fields', 'passwordAgainHasError'], false);
-    } else {
-      return  state.setIn(['form', 'fields', 'passwordAgainHasError'], true);
-    }
-    break;
-
-  case('zipCode'):
-    var validZipCode = _.isUndefined(validate({zipCode: value},
-                                                usZipCodeConstraints));
-    if (validZipCode) {
-      return state.setIn(['form', 'fields', 'zipCodeHasError'], false);
-    } else {
-      return  state.setIn(['form', 'fields', 'zipCodeHasError'], true);
-    }
-
-    break;
-    /**
-     * ### showPassword
-     * toggle the display of the password
-     */
-  case('showPassword'):
-    return state.setIn(['form', 'fields',
-                                'showPassword'], value);
-    break;
+    return state;
+  }else{
+    return validateAllFields(state);
   }
-
-  return state;
-
 }

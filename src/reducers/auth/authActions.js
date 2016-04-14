@@ -81,7 +81,7 @@ import moment from 'moment';
 
 
 import PavClientSdk from 'pavclient';
-import {setModalVisibility} from '../routing/routingActions'
+import {setModalVisibility, navigateTo} from '../routing/routingActions'
 import {Actions} from 'react-native-router-flux';
 
 const  AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
@@ -501,7 +501,7 @@ export function facebookAuthFailure() {
 
 
 
-//TODO: Right the reducer for this
+//TODO: Write the reducer for this
 
  /**
   * ## FACEBOOK DATA ACQUISITION actions
@@ -528,21 +528,21 @@ export function facebookAuthFailure() {
  }
 
 export function facebookDataAcquisition(){
-  return async function (dispatch){
+  return async function (dispatch, getState){
     var fbUserData = {};
     dispatch(facebookDataAcqRequest());
-    var {data:permDt, error:permErr} = await getFacebookReadPermissions(['public_profile', 'email']); //request those read permissions from fb
+    var {data:permDt, error:permErr} = await getFacebookReadPermissions(['public_profile', 'email', 'user_birthday']); //request those read permissions from fb
     if(!!permErr){ //if there was an error getting the read permissions
-      dispatch(facebookDataAcqSuccess(permErr))
+      dispatch(facebookDataAcqFailure(permErr))
     }else{  //if there was no error getting the read permissions
       // console.log("Success on requesting read permissionss: "+JSON.stringify(permDt))
       if(permDt.isCancelled){ //if permissions window was cancelled
-        dispatch(facebookDataAcqSuccess("User cancelled fb authentication."))
+        dispatch(facebookDataAcqFailure("User cancelled fb authentication."))
       }else{  //if permissions window was NOT cancelled
         // console.log("Permission req Successful");
         var {data:tokenNUsIdData, error:tokenNUsIdErr} = await getFacebookTokenAndUserId(); //request the fb token and the user id
         if(!!tokenNUsIdErr){  //if there was an error on the token and uid request
-          dispatch(facebookDataAcqSuccess(tokenNUsIdErr))
+          dispatch(facebookDataAcqFailure(tokenNUsIdErr))
         }else{//if the token and uid request was successful
           fbUserData.token = tokenNUsIdData.accessToken;
           fbUserData.id = tokenNUsIdData.userID;
@@ -550,17 +550,30 @@ export function facebookDataAcquisition(){
         getUserProfileData(fbUserData.token, (userDataErr, userData)=>{
           if(!!userDataErr){  //if there was an error getting the user data
             console.log("Error fetching user data: "+JSON.stringify(userDataErr));
-            dispatch(facebookDataAcqSuccess(userDataErr))
+            dispatch(facebookDataAcqFailure(userDataErr))
           }else{
               fbUserData.firstName = userData.first_name || null;
               fbUserData.lastName = userData.last_name || null;
-              fbUserData.id = userData.id || null;
               fbUserData.picUrl = userData.picture.data.url || null;
               fbUserData.gender = userData.gender || null;
               fbUserData.email = userData.email || null;
               fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
               console.log("Done gathering user data: "+JSON.stringify(fbUserData));
-              dispatch(facebookDataAcqSuccess(fbUserData))
+              dispatch(facebookDataAcqSuccess(fbUserData));
+
+              let isValid = getState().auth.form.isValid.toJS();
+              console.log("Current is valid after fb login: "+JSON.stringify(isValid));
+              setTimeout(()=>{
+                if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
+                  dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
+                }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
+                  dispatch(navigateTo(REGISTER_STEP_2));  //take him to the name and surname form
+                }else{  //if we got both the name, surname and email from the facebook graph api
+                  dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
+                }
+              }, 3000)
+
+
           }
         });
       }

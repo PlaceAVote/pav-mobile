@@ -37,6 +37,9 @@ const {
   LOGIN_FACEBOOK_SUCCESS,
   LOGIN_FACEBOOK_FAILURE,
 
+  FACEBOOK_DATA_ACQ_REQUEST,
+  FACEBOOK_DATA_ACQ_SUCCESS,
+  FACEBOOK_DATA_ACQ_FAILURE,
 
   ON_TOPICS_FORM_FIELD_CHANGE,
   ON_AUTH_FORM_FIELD_CHANGE,
@@ -86,20 +89,30 @@ export default function authReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.mergeDeep(state);
 
   switch (action.type) {
+
     /**
      * ### Requests start
      * set the form to fetching and clear any errors
      */
   case SESSION_TOKEN_REQUEST:
-  case SIGNUP_REQUEST:
+
   case LOGOUT_REQUEST:
   case LOGIN_REQUEST:
   case RESET_PASSWORD_REQUEST:
   case FORGOT_PASSWORD_REQUEST:
-    let nextState =  state.setIn(['form', 'isFetching'], true)
+    return state.setIn(['form', 'isFetching'], true)
       .setIn(['form','error'],null);
-    return nextState;
-
+     nextState;
+  case SIGNUP_REQUEST:
+    return state.setIn(['form', 'isFetching'], true)
+    .setIn(['form','error'], null)
+    .setIn(['form','authMethod'], "email");
+    break;
+  case FACEBOOK_DATA_ACQ_REQUEST:
+    return state.setIn(['form', 'isFetching'], true)
+    .setIn(['form','error'], null)
+    .setIn(['form','authMethod'], "facebook");
+  break;
     /**
      * ### Logout state
      * The user has successfully access Parse.com
@@ -110,7 +123,6 @@ export default function authReducer(state = initialState, action) {
       state
         // .setIn(['form', 'state'], action.type)
         .setIn(['form','error'],null)
-        .setIn(['form','fields','username'],'')
         .setIn(['form','fields','name'],'')
         .setIn(['form','fields','surname'],'')
         .setIn(['form','fields','email'],'')
@@ -141,9 +153,7 @@ export default function authReducer(state = initialState, action) {
     if(scheneName==LOGIN){
       return formValidation(nextState, scheneName);
     }else{
-      return formValidation(
-        fieldValidation( nextState, action)
-        , scheneName);
+      return formValidation(fieldValidation( nextState, action), scheneName);
     }
   }
     /**
@@ -159,19 +169,44 @@ export default function authReducer(state = initialState, action) {
     break;
   case SIGNUP_SUCCESS:
   case LOGIN_SUCCESS:
+  case LOGIN_FACEBOOK_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
+    .setIn(['form','authMethod'], '')
     .setIn(['form', 'isLoggedIn'], true);
+    break;
+  case FACEBOOK_DATA_ACQ_SUCCESS:
+    let {firstName, lastName, id, picUrl, gender, email, dob, accessToken, userID} = action.payload;
+    return formValidation(
+      fieldValidation(
+        state
+          .setIn(['form','error'],null)
+          .setIn(['form','fields','name'],firstName || '')
+          .setIn(['form','fields','surname'],lastName || '')
+          .setIn(['form','fields','email'],email || '')
+          .setIn(['form','fields','dateOfBirth'],dob || new Date())
+          .setIn(['form', 'fields', 'fbAuthUID'], userID || '')
+          .setIn(['form', 'fields', 'fbAuthToken'], accessToken || '')
+          .setIn(['form', 'fields', 'fbAuthImgUrl'], picUrl || '')
+      )
+    );
+    // let newState = state.setIn(['form', 'isFetching'], false)
+    //   .setIn(['form', 'error'], null)
+    //   fieldValidation( newState, {payload: {field: 'name', value: , scheneName: REGISTER_STEP_1}})
+    //   let nextState = formValidation(, REGISTER_STEP_1)
+    //   nextState = formValidation(fieldValidation( nextState, {payload: {field: 'surname', value: , scheneName: REGISTER_STEP_1}}), REGISTER_STEP_1)
+    //   nextState = formValidation(fieldValidation( nextState, {payload: {field: 'email', value: , scheneName: REGISTER_STEP_2}}), REGISTER_STEP_2)
+    //   nextState = formValidation(fieldValidation( nextState, {payload: {field: 'dateOfBirth', value: , scheneName: REGISTER_STEP_4}}), REGISTER_STEP_4)
+    //    nextState;
+      // .setIn(['form','fields','userDataRemainsToBeCollected', 'nameOrSurname'],((!firstName) || (!lastName))) //if any of the two are null, then we should ask for name and surname
+      // .setIn(['form','fields','userDataRemainsToBeCollected', 'email'],(!email))    //if the email is null, then we should ask for the email
+    break;
 
-    /**
-     * ### Access to Parse.com denied or failed
-     * The fetching is done, but save the error
-     * for display to the user
-     */
   case SIGNUP_FAILURE:
   case LOGOUT_FAILURE:
   case LOGIN_FAILURE:
   case RESET_PASSWORD_FAILURE:
   case FORGOT_PASSWORD_FAILURE:
+  case FACEBOOK_DATA_ACQ_FAILURE:
     return state.setIn(['form', 'isFetching'], false)
       .setIn(['form', 'error'], action.payload);
 

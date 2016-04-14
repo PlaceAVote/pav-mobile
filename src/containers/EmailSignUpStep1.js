@@ -37,7 +37,8 @@ import React from 'react-native';
 
 
 const {
-REGISTER_STEP_2
+REGISTER_STEP_2,
+REGISTER_STEP_3
 } = require('../config/constants').ScheneKeys
 
 /**
@@ -85,7 +86,13 @@ let EmailSignUpStep1 = React.createClass({
 
   render() {
     let onButtonPress = ()=>{
+      if(this.props.auth.form.authMethod=="email"){
         this.props.actions.navigateTo(REGISTER_STEP_2);
+      }else if(this.props.auth.form.authMethod=="facebook"){
+        this.props.actions.navigateTo(REGISTER_STEP_3);
+      }else{
+        throw new Error("The auth.form.authMethod property should be defined (either email, or facebook) before starting the signup process.");
+      }
     },
     onBackBtnPress = ()=>{
         this.props.actions.navigateToPrevious();

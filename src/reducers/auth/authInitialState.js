@@ -41,11 +41,12 @@ const Form = Record({
     [FORGOT_PASSWORD, false],
   ]),
   isFetching: false,
+  authMethod: '',   //either email, or facebook
   fields: new (Record({
     name: '',
-    nameHasError:'',
+    nameHasError:false,
     surname: '',
-    surnameHasError:'',
+    surnameHasError:false,
     email: '',
     emailHasError: false,
     password: '',
@@ -60,8 +61,13 @@ const Form = Record({
     forgotPasswordEmailHasError: false,
     fbAuthUID: '',
     fbAuthToken: '',
-    fbAuthPermissionError: false,
+    // fbAuthPermissionError: false,
     fbAuthImgUrl: '',
+    // userDataRemainsToBeCollected: new Map([
+    //   ['nameOrSurname', false],
+    //   ['email', false],
+    //   //birthday and zipcode I will have to ask for anyway
+    // ]),
     topicsList: new Map([
       ['crime', new (Record({ title: 'Crime', icon: 'crime', isSelected: false}))],
       ['healthcare', new (Record({ title: 'Healthcare', icon: 'healthcare', isSelected: false}))],
