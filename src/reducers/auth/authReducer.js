@@ -189,16 +189,6 @@ export default function authReducer(state = initialState, action) {
           .setIn(['form', 'fields', 'fbAuthImgUrl'], picUrl || '')
       )
     );
-    // let newState = state.setIn(['form', 'isFetching'], false)
-    //   .setIn(['form', 'error'], null)
-    //   fieldValidation( newState, {payload: {field: 'name', value: , scheneName: REGISTER_STEP_1}})
-    //   let nextState = formValidation(, REGISTER_STEP_1)
-    //   nextState = formValidation(fieldValidation( nextState, {payload: {field: 'surname', value: , scheneName: REGISTER_STEP_1}}), REGISTER_STEP_1)
-    //   nextState = formValidation(fieldValidation( nextState, {payload: {field: 'email', value: , scheneName: REGISTER_STEP_2}}), REGISTER_STEP_2)
-    //   nextState = formValidation(fieldValidation( nextState, {payload: {field: 'dateOfBirth', value: , scheneName: REGISTER_STEP_4}}), REGISTER_STEP_4)
-    //    nextState;
-      // .setIn(['form','fields','userDataRemainsToBeCollected', 'nameOrSurname'],((!firstName) || (!lastName))) //if any of the two are null, then we should ask for name and surname
-      // .setIn(['form','fields','userDataRemainsToBeCollected', 'email'],(!email))    //if the email is null, then we should ask for the email
     break;
 
   case SIGNUP_FAILURE:

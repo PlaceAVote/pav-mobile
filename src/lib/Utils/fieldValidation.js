@@ -198,10 +198,10 @@ export default function fieldValidation(state, action ) {
       return state.setIn(['form', 'fields', 'emailHasError'], validateEmail(value));
       break;
     case('password'):
-      return state.setIn(['form', 'fields', 'passwordHasError'], validatePassword(state.form.fields.password, value));
+      return state.setIn(['form', 'fields', 'passwordHasError'], validatePassword(value));
       break;
     case('passwordAgain'):
-      return state.setIn(['form', 'fields', 'passwordAgainHasError'], validatePasswordAgain(value));
+      return state.setIn(['form', 'fields', 'passwordAgainHasError'], validatePasswordAgain(state.form.fields.password, value));
       break;
     case('zipCode'):
       return state.setIn(['form', 'fields', 'zipCodeHasError'], validateZipCode(value));
