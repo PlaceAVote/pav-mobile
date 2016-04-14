@@ -56,6 +56,12 @@ module.exports =  {
    SIGNUP_SUCCESS: null,
    SIGNUP_FAILURE: null,
 
+   SIGNUP_FACEBOOK_REQUEST: null,
+   SIGNUP_FACEBOOK_SUCCESS: null,
+   SIGNUP_FACEBOOK_FAILURE: null,
+
+   SET_AUTH_METHOD: null,
+
    LOGIN_REQUEST: null,
    LOGIN_SUCCESS: null,
    LOGIN_FAILURE: null,

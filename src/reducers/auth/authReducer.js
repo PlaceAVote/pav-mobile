@@ -43,9 +43,15 @@ const {
 
   ON_TOPICS_FORM_FIELD_CHANGE,
   ON_AUTH_FORM_FIELD_CHANGE,
+
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
+
+  SIGNUP_FACEBOOK_REQUEST,
+  SIGNUP_FACEBOOK_SUCCESS,
+  SIGNUP_FACEBOOK_FAILURE,
+
   RESET_ERROR_STATE,
 
   RESET_PASSWORD_REQUEST,
@@ -56,7 +62,8 @@ const {
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAILURE,
 
-  SET_STATE
+  SET_STATE,
+  SET_AUTH_METHOD
 } = ActionNames;
 
 
@@ -95,7 +102,6 @@ export default function authReducer(state = initialState, action) {
      * set the form to fetching and clear any errors
      */
   case SESSION_TOKEN_REQUEST:
-
   case LOGOUT_REQUEST:
   case LOGIN_REQUEST:
   case RESET_PASSWORD_REQUEST:
@@ -108,6 +114,7 @@ export default function authReducer(state = initialState, action) {
     .setIn(['form','error'], null)
     .setIn(['form','authMethod'], "email");
     break;
+  case SIGNUP_FACEBOOK_REQUEST:
   case FACEBOOK_DATA_ACQ_REQUEST:
     return state.setIn(['form', 'isFetching'], true)
     .setIn(['form','error'], null)
@@ -144,6 +151,12 @@ export default function authReducer(state = initialState, action) {
      * Pass the fieldValidation results to the
      * the formValidation
      */
+  case SET_AUTH_METHOD:
+    if(action.payload == "facebook" || action.payload == "email"){
+        return state.setIn(['form','authMethod'], action.payload);
+    }
+    return state;
+    break;
   case ON_AUTH_FORM_FIELD_CHANGE: {
 
     const {field, value, scheneName} = action.payload;
@@ -168,6 +181,7 @@ export default function authReducer(state = initialState, action) {
     return state.setIn(['form', 'isFetching'], false);
     break;
   case SIGNUP_SUCCESS:
+  case SIGNUP_FACEBOOK_SUCCESS:
   case LOGIN_SUCCESS:
   case LOGIN_FACEBOOK_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
@@ -185,6 +199,7 @@ export default function authReducer(state = initialState, action) {
           .setIn(['form','fields','surname'],lastName || '')
           .setIn(['form','fields','email'],email || '')
           .setIn(['form','fields','dateOfBirth'],dob || new Date())
+          .setIn(['form','fields','gender'],gender || 'they')
           .setIn(['form', 'fields', 'fbAuthUID'], userID || '')
           .setIn(['form', 'fields', 'fbAuthToken'], accessToken || '')
           .setIn(['form', 'fields', 'fbAuthImgUrl'], picUrl || '')
@@ -193,6 +208,7 @@ export default function authReducer(state = initialState, action) {
     break;
 
   case SIGNUP_FAILURE:
+  case SIGNUP_FACEBOOK_FAILURE:
   case LOGOUT_FAILURE:
   case LOGIN_FAILURE:
   case RESET_PASSWORD_FAILURE:

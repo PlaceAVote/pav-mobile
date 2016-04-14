@@ -61,8 +61,9 @@ const Form = Record({
     forgotPasswordEmailHasError: false,
     fbAuthUID: '',
     fbAuthToken: '',
-    // fbAuthPermissionError: false,
     fbAuthImgUrl: '',
+    gender: 'they',
+    // fbAuthPermissionError: false,
     // userDataRemainsToBeCollected: new Map([
     //   ['nameOrSurname', false],
     //   ['email', false],

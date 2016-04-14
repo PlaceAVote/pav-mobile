@@ -50,9 +50,14 @@ import moment from 'moment';
 
    ON_AUTH_FORM_FIELD_CHANGE,
    ON_TOPICS_FORM_FIELD_CHANGE,
+
    SIGNUP_REQUEST,
    SIGNUP_SUCCESS,
    SIGNUP_FAILURE,
+
+   SIGNUP_FACEBOOK_REQUEST,
+   SIGNUP_FACEBOOK_SUCCESS,
+   SIGNUP_FACEBOOK_FAILURE,
 
 
    RESET_PASSWORD_REQUEST,
@@ -60,7 +65,9 @@ import moment from 'moment';
    RESET_PASSWORD_FAILURE,
    RESET_ERROR_STATE,
 
-   SET_STATE
+   SET_STATE,
+
+   SET_AUTH_METHOD
  } = ActionNames;
 
 
@@ -150,6 +157,19 @@ const  _ = require('underscore');
 //       });
 //   };
 // }
+
+
+
+/*
+  This function sets the authentication method.
+  The value of the method can be EITHER  "facebook"  or "email" and nothing else.
+*/
+export function setAuthMethod(method) {
+  return {
+    type: SET_AUTH_METHOD,
+    payload: method
+  };
+}
 
 
 /**
@@ -409,13 +429,27 @@ export function forgotPasswordFailure() {
 
 
 
-
-
-
-
-
-
-
+// /**
+//  * ## FACEBOOK Login actions
+//  */
+//
+// export function facebookAuthRequest() {
+//   return {
+//     type: LOGIN_FACEBOOK_REQUEST
+//   };
+// }
+//
+// export function facebookAuthSuccess() {
+//   return {
+//     type: LOGIN_FACEBOOK_SUCCESS
+//   };
+// }
+//
+// export function facebookAuthFailure() {
+//   return {
+//     type: LOGIN_FACEBOOK_FAILURE
+//   };
+// }
 
 
 
@@ -423,80 +457,88 @@ export function forgotPasswordFailure() {
 
 
 /**
- * ## FACEBOOK AUTH actions
+ * ## FACEBOOK Login actions
  */
 
-export function facebookAuthRequest() {
+export function facebookSignupRequest() {
   return {
-    type: LOGIN_FACEBOOK_REQUEST
+    type: SIGNUP_FACEBOOK_REQUEST
   };
 }
 
-export function facebookAuthSuccess() {
+export function facebookSignupSuccess(data) {
   return {
-    type: LOGIN_FACEBOOK_SUCCESS
+    type: SIGNUP_FACEBOOK_SUCCESS,
+    payload: data
   };
 }
 
-export function facebookAuthFailure() {
+export function facebookSignupFailure(error) {
   return {
-    type: LOGIN_FACEBOOK_FAILURE
+    type: SIGNUP_FACEBOOK_FAILURE,
+    payload: error
   };
 }
 
 /**
- * ## Facebook authentication
+ * ## Facebook signup
  *
- * We call this action to authenticate the user using facebook oAuth
+ * We call this action to sign the user up using facebook oAuth
  *
- * @param {string} username - name of user
+ * @param {string} fbUserId - facebook user id
+ * @param {string} fbUserToken - facebook user token
+ * @param {string} imgUrl - user photo we fetch from facebook
  * @param {string} email - user's email
- * @param {string} password - user's password
- * @param {string} first_name - user's first_name
- * @param {string} last_name - user's last_name
+ * @param {string} firstName - user's first_name
+ * @param {string} lastName - user's last_name
  * @param {string} dayOfBirth - user's day of birth
- * @param {string} zipcode - user's zipcode
+ * @param {string} zipCode - user's zipcode
  * @param {string} topics - user's topics of interest (array of strings)
  * @param {string} gender - user's gender
  *
  */
- export function facebookAuth(fbUserId, fbUserToken, email, firstName, lastName, dayOfBirth, zipcode, imgUrl, topics, gender) {
+ export function signupFacebook(fbUserId, fbUserToken, imgUrl, email, firstName, lastName, dayOfBirth, zipCode, topics, gender) {
    return async function (dispatch){
-     dispatch(facebookAuthRequest());
-     var res = await PavClientSdk().userApi.facebookAuth({
-         "id": fbUserId,
-         "token": fbUserToken,
+     dispatch(facebookSignupRequest());
+     var res = await PavClientSdk().userApi.signupFacebook({
+         "fbUserId": fbUserId,
+         "fbToken": fbUserToken,
+         "fbImgUrl": imgUrl,
          "email": email,
-         "first_name": firstName,
-         "last_name": lastName,
-         "dob": dayOfBirth,
-         "zipcode": zipcode,
-         "img_url": imgUrl,
+         "firstName": firstName,
+         "lastName": lastName,
+         "birthday": dayOfBirth,
+         "zipCode": zipCode,
          "topics": topics,
          "gender": gender
        });
-     // console.log("RES: "+JSON.stringify(res));
+     console.log("RES: "+JSON.stringify(res));
      if(!!res.error){
        if(res.multipleErrors){
          // console.log("authActions.login :: Error msg: "+res.error[0].email)
          let err = res.error[0];
          let errObj = err[Object.keys(err)[0]];  //the first property of the error object returned by the server
-         return dispatch(facebookAuthFailure(errObj));
+         dispatch(facebookSignupFailure(errObj));
        }else{
          // console.log("authActions.login :: Error msg: "+res.error)
-         return dispatch(facebookAuthFailure(res.error));
+         dispatch(facebookSignupFailure(res.error));
        }
      }else{
        // console.log("Signup success");
        saveSessionToken(res.data.token)
-       return dispatch(facebookAuthSuccess(Object.assign({}, res.data,
+       dispatch(facebookSignupSuccess(Object.assign({}, res.data,
    			{
    			    email: email,
             first_name: first_name
    			})));
      }
+     return dispatch(setModalVisibility(TOPIC_PICK, true));
    };
  }
+
+
+
+
 
 
 
@@ -544,38 +586,34 @@ export function facebookDataAcquisition(){
         if(!!tokenNUsIdErr){  //if there was an error on the token and uid request
           dispatch(facebookDataAcqFailure(tokenNUsIdErr))
         }else{//if the token and uid request was successful
-          fbUserData.token = tokenNUsIdData.accessToken;
-          fbUserData.id = tokenNUsIdData.userID;
+          fbUserData.accessToken = tokenNUsIdData.accessToken;
+          fbUserData.userID = tokenNUsIdData.userID;
+          getUserProfileData(fbUserData.token, (userDataErr, userData)=>{
+            if(!!userDataErr){  //if there was an error getting the user data
+              // console.log("Error fetching user data: "+JSON.stringify(userDataErr));
+              dispatch(facebookDataAcqFailure(userDataErr))
+            }else{
+                fbUserData.firstName = userData.first_name || null;
+                fbUserData.lastName = userData.last_name || null;
+                fbUserData.picUrl = userData.picture.data.url || null;
+                fbUserData.gender = userData.gender || null;
+                fbUserData.email = userData.email || null;
+                fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
+                // console.log("Done gathering user data: "+JSON.stringify(fbUserData));
+                dispatch(facebookDataAcqSuccess(fbUserData));
+
+                let isValid = getState().auth.form.isValid.toJS();
+                // console.log("Current is valid after fb login: "+JSON.stringify(isValid));
+                if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
+                  dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
+                }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
+                  dispatch(navigateTo(REGISTER_STEP_2));  //take him to the name and surname form
+                }else{  //if we got both the name, surname and email from the facebook graph api
+                  dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
+                }
+            }
+          });
         }
-        getUserProfileData(fbUserData.token, (userDataErr, userData)=>{
-          if(!!userDataErr){  //if there was an error getting the user data
-            // console.log("Error fetching user data: "+JSON.stringify(userDataErr));
-            dispatch(facebookDataAcqFailure(userDataErr))
-          }else{
-              fbUserData.firstName = userData.first_name || null;
-              fbUserData.lastName = userData.last_name || null;
-              fbUserData.picUrl = userData.picture.data.url || null;
-              fbUserData.gender = userData.gender || null;
-              fbUserData.email = userData.email || null;
-              fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
-              // console.log("Done gathering user data: "+JSON.stringify(fbUserData));
-              dispatch(facebookDataAcqSuccess(fbUserData));
-
-              let isValid = getState().auth.form.isValid.toJS();
-              // console.log("Current is valid after fb login: "+JSON.stringify(isValid));
-              if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
-                dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
-              }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
-                dispatch(navigateTo(REGISTER_STEP_2));  //take him to the name and surname form
-              }else{  //if we got both the name, surname and email from the facebook graph api
-                dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
-              }
-
-              // setTimeout(()=>{  }, 3000)
-
-
-          }
-        });
       }
     }
   }

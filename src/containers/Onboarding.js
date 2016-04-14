@@ -81,16 +81,13 @@ function buttonPressHandler(scheneName) {
   switch(scheneName){
     case "facebook":
 
-
+      this.props.actions.setAuthMethod('facebook');
       this.props.actions.facebookDataAcquisition();
-
-
-
-
 
       // this.props.actions.navigateTo("FacebookSignIn");
       break;
     case "emailSignUp":
+      this.props.actions.setAuthMethod('email');
       this.props.actions.navigateTo(REGISTER_STEP_1);
       break;
     case "emailSignIn":
