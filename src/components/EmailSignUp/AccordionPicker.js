@@ -25,7 +25,7 @@
                <Button textStyle={styles.whiteBtnText} style={styles.collapseBtn}
                    onPress={
                      ()=>{
-                     console.log("On button press");
+                    //  console.log("On button press");
                      locals.config.onCollapsedChange(locals.config.dateBeingPickedNow);
                    }
                  }>

@@ -79,7 +79,7 @@ let EmailSignIn = React.createClass({
 
   onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");
-    console.log(JSON.stringify({}));
+    // console.log(JSON.stringify({}));
   },
 
   onSignInBtnPress(){

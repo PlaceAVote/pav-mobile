@@ -549,7 +549,7 @@ export function facebookDataAcquisition(){
         }
         getUserProfileData(fbUserData.token, (userDataErr, userData)=>{
           if(!!userDataErr){  //if there was an error getting the user data
-            console.log("Error fetching user data: "+JSON.stringify(userDataErr));
+            // console.log("Error fetching user data: "+JSON.stringify(userDataErr));
             dispatch(facebookDataAcqFailure(userDataErr))
           }else{
               fbUserData.firstName = userData.first_name || null;
@@ -558,20 +558,20 @@ export function facebookDataAcquisition(){
               fbUserData.gender = userData.gender || null;
               fbUserData.email = userData.email || null;
               fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
-              console.log("Done gathering user data: "+JSON.stringify(fbUserData));
+              // console.log("Done gathering user data: "+JSON.stringify(fbUserData));
               dispatch(facebookDataAcqSuccess(fbUserData));
 
               let isValid = getState().auth.form.isValid.toJS();
-              console.log("Current is valid after fb login: "+JSON.stringify(isValid));
-              setTimeout(()=>{
-                if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
-                  dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
-                }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
-                  dispatch(navigateTo(REGISTER_STEP_2));  //take him to the name and surname form
-                }else{  //if we got both the name, surname and email from the facebook graph api
-                  dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
-                }
-              }, 3000)
+              // console.log("Current is valid after fb login: "+JSON.stringify(isValid));
+              if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
+                dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
+              }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
+                dispatch(navigateTo(REGISTER_STEP_2));  //take him to the name and surname form
+              }else{  //if we got both the name, surname and email from the facebook graph api
+                dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
+              }
+
+              // setTimeout(()=>{  }, 3000)
 
 
           }
@@ -581,21 +581,32 @@ export function facebookDataAcquisition(){
   }
 }
 
-// Input MM/DD/YYYY, MM/DD, or YYYY output DD/MM/YYYY, same as input or null
+/*
+* Parameter
+* either:
+*  - MM/DD/YYYY, OR
+*  - MM/DD, OR
+*  - YYYY
+* Returns Output
+* either :
+*   - a Date() object , OR
+*   - same as input , OR
+*   - null
+*/
 function parseFbBirthday(birthdayString){
   if(!!birthdayString){
     if(birthdayString.length==10){ // full date MM/DD/YYYY
-      return moment(birthdayString, 'MM/DD/YYYY').format('DD/MM/YYYY');
+      return moment(birthdayString, 'MM/DD/YYYY').toDate();
     }else if(birthdayString.length==4){  //year only YYYY
-      return moment(birthdayString, 'YYYY').format('01/01/YYYY');
+      return moment(birthdayString, 'YYYY').toDate();
     }else if(birthdayString.length==5){  //no year MM/DD
-      return moment(birthdayString, 'MM/DD').format('DD/MM/1980');
+      return moment(birthdayString, 'MM/DD').toDate();
     }
   }else{
     // console.log("No birthday received from fb graph.");
     return null;
   }
-  console.log("ERROR while parsing birthday string. Unknown format: "+birthdayString);
+  // console.log("ERROR while parsing birthday string. Unknown format: "+birthdayString);
   return birthdayString;
 }
 
@@ -619,7 +630,7 @@ function parseFbBirthday(birthdayString){
      try{
        res.data = await AccessToken.getCurrentAccessToken();
      }catch(e){res.error = e}
-     console.log("token n user id : "+JSON.stringify(res));
+    //  console.log("token n user id : "+JSON.stringify(res));
      return res;
  }
 

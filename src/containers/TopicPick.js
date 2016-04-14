@@ -41,7 +41,6 @@ import React from 'react-native';
  */
 
 const {
-  NEWSFEED,
   TOPIC_PICK
 } = require('../config/constants').ScheneKeys
 
@@ -99,17 +98,27 @@ let TopicPick = React.createClass({
         }
       }
       // console.log("Fields: "+name+surname+email+password+dateOfBirth+zipCode+topics);
-      this.props.actions.signup(email, password, name, surname, moment(dateOfBirth).format('DD/MM/YYYY'), zipCode, topics, 'they');
-      // this.props.actions.signup('aRandomUzah4@placeavote.com', 'maPazzw00rt', 'Ioannis', 'DaTester', dateOfBirth, '20001', ['sex','drugs','rockNroll'], 'male');
+      let curAuthMethod = this.props.auth.form.authMethod;
+      if(curAuthMethod=="email"){
+        this.props.actions.signup(email, password, name, surname, moment(dateOfBirth).format('DD/MM/YYYY'), zipCode, topics, 'they');
+        // this.props.actions.signup('aRandomUzah4@placeavote.com', 'maPazzw00rt', 'Ioannis', 'DaTester', dateOfBirth, '20001', ['sex','drugs','rockNroll'], 'male');
+      }else if(curAuthMethod=="facebook"){
+        // this.props.actions.signup(email, password, name, surname, moment(dateOfBirth).format('DD/MM/YYYY'), zipCode, topics, 'they');
+
+        //TODO: Call the backend to send all the gathered data HERE
+      }else{
+        throw new Error("PAV :: The auth.form.authMethod property should be defined (either email, or facebook) before finishing the signup process.");
+      }
+
   },
 
   onWelcomeModalClosed(){
-    console.log("On welcome modal closed");
+    // console.log("On welcome modal closed");
     if(!!this.props.auth.form.error){
       // this.props.actions.resetErrorState();
       this.props.actions.setModalVisibility(TOPIC_PICK, false);
     }else{
-      this.props.actions.navigateTo(NEWSFEED);
+      this.props.actions.navigateUserToTheCorrectNextOnboardingStep(TOPIC_PICK);
     }
   },
 

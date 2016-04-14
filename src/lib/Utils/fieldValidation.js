@@ -173,7 +173,7 @@ export function validateAllFields(state){
   .setIn(['form', 'fields', 'passwordHasError'], validatePassword(state.form.fields.password))
   .setIn(['form', 'fields', 'passwordAgainHasError'], validatePasswordAgain(state.form.fields.passwordAgain))
   .setIn(['form', 'fields', 'zipCodeHasError'], validateZipCode(state.form.fields.zipCode));
-  console.log("Now validating ALL fields: "+JSON.stringify(validatedState));
+  // console.log("Now validating ALL fields: "+JSON.stringify(validatedState));
   return validatedState;
 }
 /**

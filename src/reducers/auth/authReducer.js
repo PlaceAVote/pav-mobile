@@ -180,6 +180,7 @@ export default function authReducer(state = initialState, action) {
       fieldValidation(
         state
           .setIn(['form','error'],null)
+          .setIn(['form', 'isFetching'], false)
           .setIn(['form','fields','name'],firstName || '')
           .setIn(['form','fields','surname'],lastName || '')
           .setIn(['form','fields','email'],email || '')

@@ -37,7 +37,7 @@ import React from 'react-native';
 
 
 const {
-  REGISTER_STEP_4,
+  REGISTER_STEP_3,
 } = require('../config/constants').ScheneKeys
 
 /**
@@ -83,7 +83,7 @@ let EmailSignUpStep3 = React.createClass({
 
   render() {
     let onButtonPress = ()=>{
-        this.props.actions.navigateTo(REGISTER_STEP_4);
+        this.props.actions.navigateUserToTheCorrectNextOnboardingStep(REGISTER_STEP_3);
     },
     onBackBtnPress = ()=>{
         this.props.actions.navigateToPrevious();

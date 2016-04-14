@@ -79,7 +79,7 @@ function buttonPressHandler(scheneName) {
   switch(scheneName){
 
     default:
-      console.log("Invalid selector provided, NewsFeed cannot issue a navigation action with schene name of: "+scheneName);
+      throw new Error ("Invalid selector provided, NewsFeed cannot issue a navigation action with schene name of: "+scheneName);
       break;
   }
 }

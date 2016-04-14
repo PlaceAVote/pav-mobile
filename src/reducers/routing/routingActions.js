@@ -9,7 +9,7 @@
  */
 'use strict';
 
-import {ActionNames} from '../../config/constants';
+import {ActionNames, ScheneKeys} from '../../config/constants';
 /**
  * ## Imports
  *
@@ -21,7 +21,14 @@ const {
   SET_MODAL_VISIBILITY
 } = ActionNames;
 
-
+const {
+  REGISTER_STEP_1,
+  REGISTER_STEP_2,
+  REGISTER_STEP_3,
+  REGISTER_STEP_4,
+  TOPIC_PICK,
+  NEWSFEED
+} = ScheneKeys;
 
 /**
 * Import our router
@@ -53,6 +60,57 @@ export function navigateToPreviousState() {
 
 
 
+
+
+export function navigateUserToTheCorrectNextOnboardingStep(currentStep){
+  return (dispatch, getState) => {
+    let curState = getState();
+
+    //this part is the same no matter the auth method
+    switch(currentStep){
+      case REGISTER_STEP_3: //theres no way for the user to be here but anyway, just correct the mistake if he ever gets here
+        dispatch(navigateTo(REGISTER_STEP_4));
+        break;
+      case REGISTER_STEP_4:
+        dispatch(navigateTo(TOPIC_PICK));
+        break;
+      case TOPIC_PICK:
+        dispatch(navigateTo(NEWSFEED));
+        break;
+    }
+
+
+    //this part depends on the auth method (wether that is facebook or email)
+    if(curState.auth.form.authMethod=="email"){//if we're currently signin up using the email signup process
+      switch(currentStep){
+        case REGISTER_STEP_1:
+          dispatch(navigateTo(REGISTER_STEP_2));
+          break;
+        case REGISTER_STEP_2:
+          dispatch(navigateTo(REGISTER_STEP_3));
+          break;
+        }
+    }else if(curState.auth.form.authMethod=="facebook"){//if we're currently signin up using the facebook process
+      let isValid = curState.auth.form.isValid.toJS();
+      switch(currentStep){
+        case REGISTER_STEP_1:
+          if(!isValid[REGISTER_STEP_2]){  //if the email of the user that we got through the graph api is not valid
+            dispatch(navigateTo(REGISTER_STEP_2));  //take him to the email form (REGISTER step 2)
+          }else{  //if the email we got was valid take him to step 4 for zipcode and birthday
+            dispatch(navigateTo(REGISTER_STEP_4));
+          }
+          break;
+        case REGISTER_STEP_2:
+          dispatch(navigateTo(REGISTER_STEP_4));
+          break;
+        }
+    }else{
+      throw new Error("PAV :: The auth.form.authMethod property should be defined (either email, or facebook) before starting the signup process.");
+    }
+  }
+}
+
+
 /*
 Action creators
 
@@ -65,10 +123,10 @@ export function navigateTo(schene) {
       try{
         Actions[schene]();
       }catch(e){
-        console.log("Schene: "+schene+ "nav error: "+e);
+        throw new Error("Schene: "+schene+ "nav error: "+e);
       }
     }else{
-      console.log("We\'re already within "+schene);
+      throw new Error("We\'re already within "+schene);
     }
 
   }
@@ -82,7 +140,7 @@ export function navigateToPrevious() {
         Actions.pop()
       }else{
         //do somethong when there is NO previous state.
-        console.log("ERROR: No previous state to head to.")
+        throw new Error("ERROR: No previous state to head to.")
       }
     }
 }

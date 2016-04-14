@@ -176,14 +176,29 @@ class OnboardingRender extends Component {
 
             <View style={styles.btnContainer}>
 
-              <Button onPress={onFbBtnPress} style={[styles.facebookBtn, styles.btn]} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
+              <Button onPress={onFbBtnPress}
+              style={[styles.facebookBtn, styles.btn]}
+              isDisabled={this.props.auth.form.isFetching}
+              isLoading={this.props.auth.form.isFetching}
+              activityIndicatorColor={Colors.mainTextColor}
+              textStyle={styles.whiteBtnText}
+              iconProps={{name: "facebook",size:25, color: "white"}}
+              iconStyle={styles.iconStyle}>
                 Login with Facebook
               </Button>
 
-              <Button onPress={onSignUpBtnPress} style={[styles.emailBtn, styles.btn]} textStyle={styles.whiteBtnText}>
+              <Button
+              onPress={onSignUpBtnPress}
+              isDisabled={this.props.auth.form.isFetching}
+              style={[styles.emailBtn, styles.btn]}
+              textStyle={styles.whiteBtnText}>
               Signup with email
               </Button>
-              <Button onPress={onSignInBtnPress} style={[styles.signInBtn, styles.btn]} textStyle={styles.whiteBtnText}>
+              <Button
+              onPress={onSignInBtnPress}
+              isDisabled={this.props.auth.form.isFetching}
+              style={[styles.signInBtn, styles.btn]}
+              textStyle={styles.whiteBtnText}>
               Sign In
               </Button>
             </View>

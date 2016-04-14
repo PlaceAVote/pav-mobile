@@ -230,7 +230,7 @@ class EmailSignUpStep1Render extends Component {
    */
   onChange(value) {
 
-    console.log("Changed"+JSON.stringify(value));
+    // console.log("Changed"+JSON.stringify(value));
     if (value.name != '') {
       this.props.actions.onAuthFormFieldChange('name',value.name, REGISTER_STEP_1);
     }
