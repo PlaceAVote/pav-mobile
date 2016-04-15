@@ -77,6 +77,8 @@ export function navigateUserToTheCorrectNextOnboardingStep(currentStep){
       case TOPIC_PICK:
         dispatch(navigateTo(NEWSFEED));
         break;
+      default:
+        break;
     }
 
 
@@ -102,6 +104,15 @@ export function navigateUserToTheCorrectNextOnboardingStep(currentStep){
           break;
         case REGISTER_STEP_2:
           dispatch(navigateTo(REGISTER_STEP_4));
+          break;
+        default:
+          if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
+            dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
+          }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
+            dispatch(navigateTo(REGISTER_STEP_2));  //take him to the name and surname form
+          }else{  //if we got both the name, surname and email from the facebook graph api
+            dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
+          }
           break;
         }
     }else{

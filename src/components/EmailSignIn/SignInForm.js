@@ -206,7 +206,7 @@ var SignInForm = React.createClass({
           label: 'Email Address',
           maxLength: 30,
           editable: !this.props.form.isFetching,
-          hasError: !!this.props.form.error,//this.props.form.fields.emailHasError,
+          hasError: this.props.form.error, //this.props.form.fields.emailHasError,  //I removed the validation from auth reducer as well.
           // error: 'Please give us a valid email address.',
           placeholder: 'example@example.com'
 
@@ -216,7 +216,7 @@ var SignInForm = React.createClass({
           maxLength: 20,
           secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
-          hasError: !!this.props.form.error,
+          hasError: this.props.form.error,
           error: this.props.form.error,
           placeholder: '************'
 

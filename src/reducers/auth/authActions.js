@@ -254,12 +254,10 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       if(res.multipleErrors){
-        // console.log("authActions.login :: Error msg: "+res.error[0].email)
         let err = res.error[0];
         let errObj = err[Object.keys(err)[0]];  //the first property of the error object returned by the server
         dispatch(signupFailure(errObj));
       }else{
-        // console.log("authActions.login :: Error msg: "+res.error)
         dispatch(signupFailure(res.error));
       }
     }else{
@@ -336,16 +334,19 @@ export function loginFailure(error) {
         alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
         if(res.multipleErrors){
           // console.log("authActions.login :: Error msg: "+res.error[0].email)
-          return dispatch(loginFailure(res.error[0].email));
+          dispatch(loginFailure(res.error[0].email));
+          return null;
         }else{
           // console.log("authActions.login :: Error msg: "+res.error)
-          return dispatch(loginFailure(res.error));
+          dispatch(loginFailure(res.error));
+          return null;
         }
       }else{
         alert("Good that was right, the cake was a lie though..");
         // console.log(res.data.token);
         saveSessionToken(res.data.token)
-        return dispatch(loginSuccess(res.data));
+        dispatch(loginSuccess(res.data));
+        return res.data;
         //TODO: Perhaps navigate to the newsfeed screen now?
       }
   }
@@ -363,7 +364,62 @@ export function loginFailure(error) {
 
 
 
+/**
+ * ## FACEBOOK Login actions
+ */
 
+export function facebookLoginRequest() {
+  return {
+    type: LOGIN_FACEBOOK_REQUEST
+  };
+}
+
+export function facebookLoginSuccess(data) {
+  return {
+    type: LOGIN_FACEBOOK_SUCCESS,
+    payload: data
+  };
+}
+
+export function facebookLoginFailure(error) {
+  return {
+    type: LOGIN_FACEBOOK_FAILURE,
+    payload: error
+  };
+}
+
+export function loginFacebook(facebookUserId,  facebookAccessToken) {
+  return async function(dispatch){
+    dispatch(facebookLoginRequest());
+
+    var res = await PavClientSdk().userApi.loginFacebook({
+      fbUserId: facebookUserId,
+      fbAccessToken: facebookAccessToken
+    });
+    // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
+    console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      if(res.multipleErrors){
+        // console.log("authActions.login :: Error msg: "+res.error[0].email)
+        dispatch(facebookLoginFailure(res.error[0].email));
+        alert(res.error[0].email);
+        return null;
+      }else{
+        // console.log("authActions.login :: Error msg: "+res.error)
+        dispatch(facebookLoginFailure(res.error));
+        alert(res.error);
+        return null;
+      }
+    }else{
+      alert("Good that was right, the cake was a lie though..");
+      // console.log(res.data.token);
+      saveSessionToken(res.data.token)
+      dispatch(facebookLoginSuccess(res.data));
+      return res.data;
+      //TODO: Perhaps navigate to the newsfeed screen now?
+    }
+}
+}
 
 
 
@@ -428,28 +484,6 @@ export function forgotPasswordFailure() {
 
 
 
-
-// /**
-//  * ## FACEBOOK Login actions
-//  */
-//
-// export function facebookAuthRequest() {
-//   return {
-//     type: LOGIN_FACEBOOK_REQUEST
-//   };
-// }
-//
-// export function facebookAuthSuccess() {
-//   return {
-//     type: LOGIN_FACEBOOK_SUCCESS
-//   };
-// }
-//
-// export function facebookAuthFailure() {
-//   return {
-//     type: LOGIN_FACEBOOK_FAILURE
-//   };
-// }
 
 
 
@@ -569,50 +603,56 @@ export function facebookSignupFailure(error) {
    };
  }
 
-export function facebookDataAcquisition(){
+export function whatever(){
+  return function (dispatch){
+    return "WHATEVER was called";
+  }
+}
+
+export function facebookDataAcquisition(fetchAllAvailableUserData = true){
   return async function (dispatch, getState){
     var fbUserData = {};
     dispatch(facebookDataAcqRequest());
     var {data:permDt, error:permErr} = await getFacebookReadPermissions(['public_profile', 'email', 'user_birthday']); //request those read permissions from fb
     if(!!permErr){ //if there was an error getting the read permissions
-      dispatch(facebookDataAcqFailure(permErr))
+      dispatch(facebookDataAcqFailure(permErr));
+      return null;
     }else{  //if there was no error getting the read permissions
       // console.log("Success on requesting read permissionss: "+JSON.stringify(permDt))
       if(permDt.isCancelled){ //if permissions window was cancelled
-        dispatch(facebookDataAcqFailure("User cancelled fb authentication."))
+        dispatch(facebookDataAcqFailure("User cancelled fb authentication."));
+        return null;
       }else{  //if permissions window was NOT cancelled
         // console.log("Permission req Successful");
         var {data:tokenNUsIdData, error:tokenNUsIdErr} = await getFacebookTokenAndUserId(); //request the fb token and the user id
         if(!!tokenNUsIdErr){  //if there was an error on the token and uid request
-          dispatch(facebookDataAcqFailure(tokenNUsIdErr))
+          dispatch(facebookDataAcqFailure(tokenNUsIdErr));
+          return null;
         }else{//if the token and uid request was successful
           fbUserData.accessToken = tokenNUsIdData.accessToken;
           fbUserData.userID = tokenNUsIdData.userID;
-          getUserProfileData(fbUserData.token, (userDataErr, userData)=>{
-            if(!!userDataErr){  //if there was an error getting the user data
-              // console.log("Error fetching user data: "+JSON.stringify(userDataErr));
-              dispatch(facebookDataAcqFailure(userDataErr))
-            }else{
-                fbUserData.firstName = userData.first_name || null;
-                fbUserData.lastName = userData.last_name || null;
-                fbUserData.picUrl = userData.picture.data.url || null;
-                fbUserData.gender = userData.gender || null;
-                fbUserData.email = userData.email || null;
-                fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
-                // console.log("Done gathering user data: "+JSON.stringify(fbUserData));
-                dispatch(facebookDataAcqSuccess(fbUserData));
-
-                let isValid = getState().auth.form.isValid.toJS();
-                // console.log("Current is valid after fb login: "+JSON.stringify(isValid));
-                if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
-                  dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
-                }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
-                  dispatch(navigateTo(REGISTER_STEP_2));  //take him to the name and surname form
-                }else{  //if we got both the name, surname and email from the facebook graph api
-                  dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
-                }
-            }
-          });
+          if(fetchAllAvailableUserData===true){   //if we want to fetch all the available user data (name, lastname, email, photo whatever)
+            await getUserProfileData(fbUserData.token, (userDataErr, userData)=>{
+              if(!!userDataErr){  //if there was an error getting the user data
+                // console.log("Error fetching user data: "+JSON.stringify(userDataErr));
+                dispatch(facebookDataAcqFailure(userDataErr));
+                return null;
+              }else{
+                  fbUserData.firstName = userData.first_name || null;
+                  fbUserData.lastName = userData.last_name || null;
+                  fbUserData.picUrl = userData.picture.data.url || null;
+                  fbUserData.gender = userData.gender || null;
+                  fbUserData.email = userData.email || null;
+                  fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
+                  // console.log("Done gathering user data: "+JSON.stringify(fbUserData));
+                  dispatch(facebookDataAcqSuccess(fbUserData));
+                  return fbUserData;
+              }
+            });
+          }else{  //if we are NOT interested in all the available user data (name, lastname, email, photo whatever) but just the user id and token
+            dispatch(facebookDataAcqSuccess(fbUserData));
+            return fbUserData;
+          }
         }
       }
     }

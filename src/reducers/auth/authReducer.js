@@ -163,7 +163,7 @@ export default function authReducer(state = initialState, action) {
     let nextState =  state.setIn(['form', 'fields', field], value)
           .setIn(['form','error'],null);
     // console.log("Validation in auth reducer next state "+nextState);
-    if(scheneName==LOGIN){
+    if(scheneName==LOGIN){  //we don't want to validate in the login screen
       return formValidation(nextState, scheneName);
     }else{
       return formValidation(fieldValidation( nextState, action), scheneName);

@@ -77,17 +77,30 @@ let EmailSignIn = React.createClass({
       this.props.actions.lockOrientation("PORTRAIT");
   },
 
-  onFacebookBtnPress(){
+  async onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");
-    // console.log(JSON.stringify({}));
+
+    this.props.actions.setAuthMethod('facebook');
+    let userFbData = await this.props.actions.facebookDataAcquisition(false);
+    if(!!userFbData){
+        // console.log("User data we got: "+JSON.stringify(userFbData));
+        let success = await this.props.actions.loginFacebook(userFbData.userID, userFbData.accessToken);
+        if(success){
+          this.props.actions.navigateTo(NEWSFEED);
+        }
+    }
   },
 
-  onSignInBtnPress(){
+  async onSignInBtnPress(){
+    this.props.actions.setAuthMethod('email');
     console.log("Sign In btn pressed : EmailSignIn");
     let email = this.props.auth.form.fields.email, password = this.props.auth.form.fields.password;
     // console.log(" Email "+email+" password: "+password)
     // this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
-    this.props.actions.login(email, password);
+    let success = await this.props.actions.login(email, password);
+    if(success){
+      this.props.actions.navigateTo(NEWSFEED);
+    }
 
   },
 

@@ -77,12 +77,16 @@ function mapDispatchToProps(dispatch) {
 
 
 
-function buttonPressHandler(scheneName) {
+async function buttonPressHandler(scheneName) {
   switch(scheneName){
     case "facebook":
 
       this.props.actions.setAuthMethod('facebook');
-      this.props.actions.facebookDataAcquisition();
+      let userFbData = await this.props.actions.facebookDataAcquisition(true);
+      if(!!userFbData){
+        this.props.actions.navigateUserToTheCorrectNextOnboardingStep();
+      }
+
 
       // this.props.actions.navigateTo("FacebookSignIn");
       break;

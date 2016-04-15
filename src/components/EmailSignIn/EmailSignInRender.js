@@ -263,15 +263,21 @@ class EmailSignInRender extends Component {
 
           <View style={styles.btnContainer}>
             <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
-                isDisabled={!this.props.auth.form.isValid.get(LOGIN) || this.props.auth.form.isFetching}
+                isDisabled={this.props.auth.form.isFetching}
                 isLoading={this.props.auth.form.isFetching}
                 activityIndicatorColor={Colors.mainTextColor}
                 onPress={this.props.onSignInBtnPress}>
               Sign In
             </Button>
             <Text style={styles.orText}>Or</Text>
-            <Button onPress={this.props.onFbBtnPress} style={styles.facebookBtn} textStyle={styles.whiteBtnText} iconProps={{name: "facebook",size:25, color: "white"}} iconStyle={styles.iconStyle}>
-              Sign Up with Facebook
+            <Button
+            onPress={this.props.onFbBtnPress}
+            style={styles.facebookBtn}
+            textStyle={styles.whiteBtnText}
+            isDisabled={this.props.auth.form.isFetching}
+            iconProps={{name: "facebook",size:25, color: "white"}}
+            iconStyle={styles.iconStyle}>
+              Sign In with Facebook
             </Button>
             <Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
               Forgot Password
