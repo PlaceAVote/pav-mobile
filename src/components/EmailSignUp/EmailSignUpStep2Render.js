@@ -299,9 +299,13 @@ class EmailSignUpStep2Render extends Component {
                     onChange={self.onChange.bind(self)}
                   />
                 </View>
-                <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
-                    isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_2) || this.props.auth.form.isFetching}
-                    onPress={onBtnPress}>
+                <Button
+                  textStyle={styles.whiteBtnText}
+                  style={styles.nextStepBtn}
+                  isLoading={this.props.auth.form.isFetching}
+                  activityIndicatorColor={Colors.mainTextColor}
+                  isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_2) || this.props.auth.form.isFetching}
+                  onPress={onBtnPress}>
                   Next Step
                 </Button>
               </View>

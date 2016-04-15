@@ -62,6 +62,11 @@ module.exports =  {
 
    SET_AUTH_METHOD: null,
 
+
+   VALIDATE_REQUEST: null,
+   VALIDATE_SUCCESS: null,
+   VALIDATE_FAILURE: null,
+
    LOGIN_REQUEST: null,
    LOGIN_SUCCESS: null,
    LOGIN_FAILURE: null,

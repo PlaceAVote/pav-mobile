@@ -87,6 +87,8 @@ export function navigateUserToTheCorrectNextOnboardingStep(currentStep){
           dispatch(navigateTo(REGISTER_STEP_3));
         }else if(curState.auth.form.authMethod=="facebook"){//if we're currently signin up using the facebook process
           dispatch(navigateTo(REGISTER_STEP_4));
+        }else{
+          throw new Error("PAV :: The auth.form.authMethod property should be defined (either email, or facebook) before starting the signup process.");
         }
         break;
       case REGISTER_STEP_3: //theres no way for the user to be here but anyway, just correct the mistake if he ever gets here

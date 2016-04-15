@@ -80,14 +80,20 @@ function mapDispatchToProps(dispatch) {
 let EmailSignUpStep2 = React.createClass({
 
 
+  async onNextBtnPress(){
+    let success = await this.props.actions.validateUserEmail(this.props.auth.form.fields.email);
+    if(success){
+      this.props.actions.navigateUserToTheCorrectNextOnboardingStep(REGISTER_STEP_2);
+    }
+  },
+
+  onBackBtnPress(){
+    this.props.actions.navigateToPrevious();
+  },
+
 
   render() {
-    let onButtonPress = ()=>{
-        this.props.actions.navigateUserToTheCorrectNextOnboardingStep(REGISTER_STEP_2);
-    },
-    onBackBtnPress = ()=>{
-        this.props.actions.navigateToPrevious();
-    }
+
 
     // buttonPressHandler.bind(null,
     //     this.props.actions.login,
@@ -97,8 +103,8 @@ let EmailSignUpStep2 = React.createClass({
 
     return(
       <EmailSignUpStep2Render
-          onNextStep={ onButtonPress }
-          onBack={onBackBtnPress}
+          onNextStep={ this.onNextBtnPress }
+          onBack={this.onBackBtnPress}
           auth={ this.props.auth }
           global={ this.props.global }
           device={this.props.device}

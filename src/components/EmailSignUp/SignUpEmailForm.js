@@ -189,8 +189,8 @@ var SignUpEmailForm = React.createClass({
           label: 'Email',
           maxLength: 50,
           editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.emailHasError,
-          error: 'Please give us a valid email address.',
+          hasError: this.props.form.fields.emailHasError || this.props.form.error,
+          error: this.props.form.error || 'Please give us a valid email address.',
           placeholder: 'mail@example.com'
 
         }

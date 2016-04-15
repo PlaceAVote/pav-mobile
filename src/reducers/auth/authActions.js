@@ -39,6 +39,9 @@ import moment from 'moment';
    LOGIN_FACEBOOK_SUCCESS,
    LOGIN_FACEBOOK_FAILURE,
 
+   VALIDATE_REQUEST,
+   VALIDATE_SUCCESS,
+   VALIDATE_FAILURE,
 
    FACEBOOK_DATA_ACQ_REQUEST,
    FACEBOOK_DATA_ACQ_SUCCESS,
@@ -575,6 +578,61 @@ export function facebookSignupFailure(error) {
 
 
 
+
+
+
+
+
+
+
+
+ /**
+  * ## VALIDATE actions
+  */
+
+ export function validateRequest() {
+   return {
+     type: VALIDATE_REQUEST
+   };
+ }
+
+ export function validateSuccess() {
+   return {
+     type: VALIDATE_SUCCESS
+   };
+ }
+
+ export function validateFailure(error) {
+   return {
+     type: VALIDATE_FAILURE,
+     payload: error
+   };
+ }
+ /**
+  * ## validateUserEmail
+  *
+  * We call this action to check wether the users email already exists in the backend
+  *
+  * @param {string} email - user's email to validate
+  *
+  */
+export function validateUserEmail(emailToValidate){
+  return async function (dispatch){
+    dispatch(validateRequest());
+    var res = await PavClientSdk().userApi.validate({
+      email: emailToValidate
+    });
+    console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      dispatch(validateFailure("Theres already a user registered with this email address."));
+    }else{
+      // console.log(res.data.token);
+      dispatch(validateSuccess(res.data));
+      return res.data;
+
+    }
+  }
+}
 
 
 

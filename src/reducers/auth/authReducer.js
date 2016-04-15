@@ -41,6 +41,10 @@ const {
   FACEBOOK_DATA_ACQ_SUCCESS,
   FACEBOOK_DATA_ACQ_FAILURE,
 
+  VALIDATE_REQUEST,
+  VALIDATE_SUCCESS,
+  VALIDATE_FAILURE,
+
   ON_TOPICS_FORM_FIELD_CHANGE,
   ON_AUTH_FORM_FIELD_CHANGE,
 
@@ -101,6 +105,7 @@ export default function authReducer(state = initialState, action) {
      * ### Requests start
      * set the form to fetching and clear any errors
      */
+  case VALIDATE_REQUEST:
   case SESSION_TOKEN_REQUEST:
   case LOGOUT_REQUEST:
   case LOGIN_REQUEST:
@@ -173,6 +178,7 @@ export default function authReducer(state = initialState, action) {
      * ### Requests end, good or bad
      * Set the fetching flag so the forms will be enabled
      */
+  case VALIDATE_SUCCESS:
   case SESSION_TOKEN_SUCCESS:
   case SESSION_TOKEN_FAILURE:
   case LOGOUT_SUCCESS:
@@ -206,6 +212,7 @@ export default function authReducer(state = initialState, action) {
     );
     break;
 
+  case VALIDATE_FAILURE:
   case SIGNUP_FAILURE:
   case SIGNUP_FACEBOOK_FAILURE:
   case LOGOUT_FAILURE:
