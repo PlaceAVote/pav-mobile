@@ -114,35 +114,6 @@ class OnboardingRender extends Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?portraitStyles:landscapeStyles;
-
-    let self = this;
-    let onFbBtnPress = ()=>{
-      this.props.onButtonPress("facebook");
-    },
-    onSignInBtnPress = ()=>{
-      this.props.onButtonPress("emailSignIn");
-    },
-    onSignUpBtnPress = ()=>{
-      this.props.onButtonPress("emailSignUp");
-    };
-
-
-    // <LoginButton
-    //   style={[styles.facebookBtn, styles.btn]}
-    //   publishPermissions={["publish_actions"]}
-    //   onLoginFinished={
-    //     (error, result) => {
-    //       if (error) {
-    //         alert("login has error: " + result.error);
-    //       } else if (result.isCancelled) {
-    //         alert("login is cancelled.");
-    //       } else {
-    //         alert("login has finished with permissions: " + result.grantedPermissions)
-    //       }
-    //     }
-    //   }
-    //   onLogoutFinished={() => alert("logout.")}
-    // />
     return(
         <Image style={styles.backgroundImg} resizeMode= 'cover' source={require('../../../assets/pavBG.jpg')}>
           <View style={styles.container}>
@@ -176,7 +147,7 @@ class OnboardingRender extends Component {
 
             <View style={styles.btnContainer}>
 
-              <Button onPress={onFbBtnPress}
+              <Button onPress={this.props.onSignUpFacebookBtnPress}
               style={[styles.facebookBtn, styles.btn]}
               isDisabled={this.props.auth.form.isFetching}
               isLoading={this.props.auth.form.isFetching}
@@ -184,18 +155,18 @@ class OnboardingRender extends Component {
               textStyle={styles.whiteBtnText}
               iconProps={{name: "facebook",size:25, color: "white"}}
               iconStyle={styles.iconStyle}>
-                Login with Facebook
+                Signup with Facebook
               </Button>
 
               <Button
-              onPress={onSignUpBtnPress}
+              onPress={this.props.onSignUpBtnPress}
               isDisabled={this.props.auth.form.isFetching}
               style={[styles.emailBtn, styles.btn]}
               textStyle={styles.whiteBtnText}>
               Signup with email
               </Button>
               <Button
-              onPress={onSignInBtnPress}
+              onPress={this.props.onSignInBtnPress}
               isDisabled={this.props.auth.form.isFetching}
               style={[styles.signInBtn, styles.btn]}
               textStyle={styles.whiteBtnText}>

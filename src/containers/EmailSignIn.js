@@ -38,7 +38,8 @@ import React from 'react-native';
 
 const {
   LOGIN,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  NEWSFEED
 } = require('../config/constants').ScheneKeys
 
 /**

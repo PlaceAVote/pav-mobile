@@ -185,7 +185,6 @@ export default function authReducer(state = initialState, action) {
   case LOGIN_SUCCESS:
   case LOGIN_FACEBOOK_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
-    .setIn(['form','authMethod'], '')
     .setIn(['form', 'isLoggedIn'], true);
     break;
   case FACEBOOK_DATA_ACQ_SUCCESS:

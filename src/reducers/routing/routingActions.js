@@ -68,6 +68,27 @@ export function navigateUserToTheCorrectNextOnboardingStep(currentStep){
 
     //this part is the same no matter the auth method
     switch(currentStep){
+      case REGISTER_STEP_1: //theres no way for the user to be here but anyway, just correct the mistake if he ever gets here
+          if(curState.auth.form.authMethod=="email"){//if we're currently signin up using the email signup process
+            dispatch(navigateTo(REGISTER_STEP_2));
+          }else if(curState.auth.form.authMethod=="facebook"){//if we're currently signin up using the facebook process
+            let isValid = curState.auth.form.isValid.toJS();
+            if(!isValid[REGISTER_STEP_2]){  //if the email of the user that we got through the graph api is not valid
+              dispatch(navigateTo(REGISTER_STEP_2));  //take him to the email form (REGISTER step 2)
+            }else{  //if the email we got was valid take him to step 4 for zipcode and birthday
+              dispatch(navigateTo(REGISTER_STEP_4));
+            }
+          }else{
+            throw new Error("PAV :: The auth.form.authMethod property should be defined (either email, or facebook) before starting the signup process.");
+          }
+        break;
+      case REGISTER_STEP_2: //theres no way for the user to be here but anyway, just correct the mistake if he ever gets here
+        if(curState.auth.form.authMethod=="email"){//if we're currently signin up using the email signup process
+          dispatch(navigateTo(REGISTER_STEP_3));
+        }else if(curState.auth.form.authMethod=="facebook"){//if we're currently signin up using the facebook process
+          dispatch(navigateTo(REGISTER_STEP_4));
+        }
+        break;
       case REGISTER_STEP_3: //theres no way for the user to be here but anyway, just correct the mistake if he ever gets here
         dispatch(navigateTo(REGISTER_STEP_4));
         break;
@@ -78,45 +99,15 @@ export function navigateUserToTheCorrectNextOnboardingStep(currentStep){
         dispatch(navigateTo(NEWSFEED));
         break;
       default:
+        let isValid = curState.auth.form.isValid.toJS();
+        if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
+          dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
+        }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
+          dispatch(navigateTo(REGISTER_STEP_2));  //take him to the email form
+        }else{  //if we got both the name, surname and email from the facebook graph api
+          dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
+        }
         break;
-    }
-
-
-    //this part depends on the auth method (wether that is facebook or email)
-    if(curState.auth.form.authMethod=="email"){//if we're currently signin up using the email signup process
-      switch(currentStep){
-        case REGISTER_STEP_1:
-          dispatch(navigateTo(REGISTER_STEP_2));
-          break;
-        case REGISTER_STEP_2:
-          dispatch(navigateTo(REGISTER_STEP_3));
-          break;
-        }
-    }else if(curState.auth.form.authMethod=="facebook"){//if we're currently signin up using the facebook process
-      let isValid = curState.auth.form.isValid.toJS();
-      switch(currentStep){
-        case REGISTER_STEP_1:
-          if(!isValid[REGISTER_STEP_2]){  //if the email of the user that we got through the graph api is not valid
-            dispatch(navigateTo(REGISTER_STEP_2));  //take him to the email form (REGISTER step 2)
-          }else{  //if the email we got was valid take him to step 4 for zipcode and birthday
-            dispatch(navigateTo(REGISTER_STEP_4));
-          }
-          break;
-        case REGISTER_STEP_2:
-          dispatch(navigateTo(REGISTER_STEP_4));
-          break;
-        default:
-          if(!isValid[REGISTER_STEP_1]){  //if we were not able to fetch the user name or surname from the facebook graph api
-            dispatch(navigateTo(REGISTER_STEP_1));  //take him to the name and surname form
-          }else if(!isValid[REGISTER_STEP_2]){  //if we were not able to fetch the users email from the facebook graph api
-            dispatch(navigateTo(REGISTER_STEP_2));  //take him to the name and surname form
-          }else{  //if we got both the name, surname and email from the facebook graph api
-            dispatch(navigateTo(REGISTER_STEP_4));  //take him to the zipcode and birthday form (we surely didn't get a zipcode from fb)
-          }
-          break;
-        }
-    }else{
-      throw new Error("PAV :: The auth.form.authMethod property should be defined (either email, or facebook) before starting the signup process.");
     }
   }
 }

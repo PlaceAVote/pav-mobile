@@ -77,56 +77,48 @@ function mapDispatchToProps(dispatch) {
 
 
 
-async function buttonPressHandler(scheneName) {
-  switch(scheneName){
-    case "facebook":
 
-      this.props.actions.setAuthMethod('facebook');
-      let userFbData = await this.props.actions.facebookDataAcquisition(true);
-      if(!!userFbData){
-        this.props.actions.navigateUserToTheCorrectNextOnboardingStep();
-      }
-
-
-      // this.props.actions.navigateTo("FacebookSignIn");
-      break;
-    case "emailSignUp":
-      this.props.actions.setAuthMethod('email');
-      this.props.actions.navigateTo(REGISTER_STEP_1);
-      break;
-    case "emailSignIn":
-      this.props.actions.navigateTo(LOGIN);
-      break;
-    default:
-      console.log("Invalid selector provided, Onboarding cannot issue a navigation action with schene name of: "+scheneName);
-      break;
-  }
-}
 
 let Onboarding = React.createClass({
 
-  orientationDidChange: function(orientation) {
-    // console.log("Orientation: "+orientation);
-    this.props.actions.setOrientation(orientation);
-  },
-
-  componentDidMount: function() {
+  componentDidMount() {
     Orientation.addOrientationListener(this.orientationDidChange);
     this.props.actions.unlockOrientation();
   },
 
-  componentWillUnmount: function() {
+  orientationDidChange(orientation) {
+    // console.log("Orientation: "+orientation);
+    this.props.actions.setOrientation(orientation);
+  },
+
+  componentWillUnmount() {
     Orientation.removeOrientationListener(this.orientationDidChange);
   },
 
+  onSignInBtnPressed(){
+    this.props.actions.navigateTo(LOGIN);
+  },
+  onSignUpBtnPressed(){
+    this.props.actions.setAuthMethod('email');
+    this.props.actions.navigateTo(REGISTER_STEP_1);
+  },
+  async onFacebookBtnPressed(){
+    this.props.actions.setAuthMethod('facebook');
+    let userFbData = await this.props.actions.facebookDataAcquisition(true);
+    if(!!userFbData){
+      this.props.actions.navigateUserToTheCorrectNextOnboardingStep();
+    }
+  },
   render() {
-    let onButtonPress = buttonPressHandler.bind(this);
+
     return(
       <OnboardingRender
           auth={ this.props.auth }
           global={ this.props.global }
           device={ this.props.device}
-          onButtonPress={ onButtonPress }
+          onSignUpBtnPress={ this.onSignUpBtnPressed }
+          onSignUpFacebookBtnPress={ this.onFacebookBtnPressed }
+          onSignInBtnPress={ this.onSignInBtnPressed }
       />
 
     );

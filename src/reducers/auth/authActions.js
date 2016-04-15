@@ -329,7 +329,7 @@ export function loginFailure(error) {
         password: password
       });
       // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-      console.log("RES: "+JSON.stringify(res));
+      // console.log("RES: "+JSON.stringify(res));
       if(!!res.error){
         alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
         if(res.multipleErrors){
@@ -560,13 +560,15 @@ export function facebookSignupFailure(error) {
      }else{
        // console.log("Signup success");
        saveSessionToken(res.data.token)
-       dispatch(facebookSignupSuccess(Object.assign({}, res.data,
+       let curUser = Object.assign({}, res.data,
    			{
    			    email: email,
-            first_name: first_name
-   			})));
+            first_name: firstName
+   			});
+       dispatch(facebookSignupSuccess(curUser));
      }
-     return dispatch(setModalVisibility(TOPIC_PICK, true));
+     dispatch(setModalVisibility(TOPIC_PICK, true));
+     return curUser;
    };
  }
 
@@ -603,11 +605,6 @@ export function facebookSignupFailure(error) {
    };
  }
 
-export function whatever(){
-  return function (dispatch){
-    return "WHATEVER was called";
-  }
-}
 
 export function facebookDataAcquisition(fetchAllAvailableUserData = true){
   return async function (dispatch, getState){
@@ -632,23 +629,25 @@ export function facebookDataAcquisition(fetchAllAvailableUserData = true){
           fbUserData.accessToken = tokenNUsIdData.accessToken;
           fbUserData.userID = tokenNUsIdData.userID;
           if(fetchAllAvailableUserData===true){   //if we want to fetch all the available user data (name, lastname, email, photo whatever)
-            await getUserProfileData(fbUserData.token, (userDataErr, userData)=>{
-              if(!!userDataErr){  //if there was an error getting the user data
-                // console.log("Error fetching user data: "+JSON.stringify(userDataErr));
-                dispatch(facebookDataAcqFailure(userDataErr));
-                return null;
-              }else{
-                  fbUserData.firstName = userData.first_name || null;
-                  fbUserData.lastName = userData.last_name || null;
-                  fbUserData.picUrl = userData.picture.data.url || null;
-                  fbUserData.gender = userData.gender || null;
-                  fbUserData.email = userData.email || null;
-                  fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
-                  // console.log("Done gathering user data: "+JSON.stringify(fbUserData));
-                  dispatch(facebookDataAcqSuccess(fbUserData));
-                  return fbUserData;
-              }
-            });
+
+            try{
+                let userData = await getUserFacebookProfileData(fbUserData.token);
+                fbUserData.firstName = userData.first_name || null;
+                fbUserData.lastName = userData.last_name || null;
+                fbUserData.picUrl = userData.picture.data.url || null;
+                fbUserData.gender = userData.gender || null;
+                fbUserData.email = userData.email || null;
+                fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
+                // console.log("Done gathering user data: "+JSON.stringify(fbUserData));
+                dispatch(facebookDataAcqSuccess(fbUserData));
+                return fbUserData;
+            }catch(e){
+              console.log("Error fetching user data: "+JSON.stringify(userDataErr));
+              dispatch(facebookDataAcqFailure(userDataErr));
+              return null;
+            }
+
+
           }else{  //if we are NOT interested in all the available user data (name, lastname, email, photo whatever) but just the user id and token
             dispatch(facebookDataAcqSuccess(fbUserData));
             return fbUserData;
@@ -712,21 +711,26 @@ function parseFbBirthday(birthdayString){
      return res;
  }
 
- function getUserProfileData(token, next){
-
-
-
-   let userDataRequest = new GraphRequest(
-      '/me', //  graphPath: string,
-      {
-        httpMethod:'GET', //http method,
-        version: "v2.6",
-        parameters: {fields: {string:"email,first_name,last_name,birthday,picture,gender"}},
-        accessToken:token
-      },  //  config: object,
-      next   //  callback: function
-   );
-   new GraphRequestManager().addRequest(userDataRequest).start();
+ function getUserFacebookProfileData(token){
+   return new Promise(function(resolve, reject){
+     let userDataRequest = new GraphRequest(
+        '/me', //  graphPath: string,
+        {
+          httpMethod:'GET', //http method,
+          version: "v2.6",
+          parameters: {fields: {string:"email,first_name,last_name,birthday,picture,gender"}},
+          accessToken:token
+        },  //  config: object,
+        (userDataErr, userData)=>{
+          if(!!userDataErr){
+            reject(userDataErr);
+          }else{
+            resolve(userData);
+          }
+        }   //  callback: function
+     );
+     new GraphRequestManager().addRequest(userDataRequest).start();
+   });
  }
 
 
