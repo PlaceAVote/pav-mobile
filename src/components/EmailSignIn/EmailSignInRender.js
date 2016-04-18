@@ -265,7 +265,7 @@ class EmailSignInRender extends Component {
           <View style={styles.btnContainer}>
             <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
                 isDisabled={this.props.auth.form.isFetching}
-                isLoading={this.props.auth.form.isFetching}
+                isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
                 activityIndicatorColor={Colors.mainTextColor}
                 onPress={this.props.onSignInBtnPress}>
               Sign In
@@ -276,6 +276,7 @@ class EmailSignInRender extends Component {
             style={styles.facebookBtn}
             textStyle={styles.whiteBtnText}
             isDisabled={this.props.auth.form.isFetching}
+            isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="facebook")}
             iconProps={{name: "facebook",size:25, color: "white"}}
             iconStyle={styles.iconStyle}>
               Sign In with Facebook

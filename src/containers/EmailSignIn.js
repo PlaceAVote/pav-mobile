@@ -80,7 +80,6 @@ let EmailSignIn = React.createClass({
 
   async onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");
-
     this.props.actions.setAuthMethod('facebook');
     let userFbData = await this.props.actions.facebookDataAcquisition(false);
     if(!!userFbData){
@@ -125,6 +124,7 @@ let EmailSignIn = React.createClass({
 
   render() {
 
+    // console.log("OK: "+JSON.stringify(this.props.navigationState));
     return(
       <EmailSignInRender
           onForgotPasswordCloseBtnClicked={this.onForgotPasswordCloseBtnClicked}
