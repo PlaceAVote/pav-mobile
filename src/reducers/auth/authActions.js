@@ -550,6 +550,7 @@ export function facebookSignupFailure(error) {
          "gender": gender
        });
      console.log("RES: "+JSON.stringify(res));
+     let curUser = null;
      if(!!res.error){
        if(res.multipleErrors){
          // console.log("authActions.login :: Error msg: "+res.error[0].email)
@@ -563,7 +564,7 @@ export function facebookSignupFailure(error) {
      }else{
        // console.log("Signup success");
        saveSessionToken(res.data.token)
-       let curUser = Object.assign({}, res.data,
+        curUser = Object.assign({}, res.data,
    			{
    			    email: email,
             first_name: firstName
