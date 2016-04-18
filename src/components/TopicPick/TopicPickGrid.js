@@ -61,7 +61,6 @@ var GridLayoutExample = React.createClass({
   // componentWillReceiveProps: function(nextProps){},
 
 
-
   renderTopicIconDependingOnChecked: function (isChecked, rowIconName, rowTitle){
     // console.log("Should be checked: "+isChecked);
     if(isChecked){
@@ -130,6 +129,7 @@ var GridLayoutExample = React.createClass({
     );
   },
 
+
   // _genRows: function() : Array<string> {
   //
   //   var rowsData = {
@@ -153,7 +153,9 @@ var GridLayoutExample = React.createClass({
 
   _pressRow: function(rowID, e, rowData) {
     // console.log("Row was pressed with rowData: "+JSON.stringify(rowData));
-    this.props.onSelectedTopicsChange(rowData.key);
+    if(!this.props.disabled){
+        this.props.onSelectedTopicsChange(rowData.key);
+    }
   },
 
 });

@@ -14,7 +14,7 @@
 
         _renderIOSHeader (locals) {
 
-          let curSelectedDate = moment(locals.value).format('MM-DD-YYYY');
+          let curSelectedDate = moment(locals.value).format('Do MMMM YYYY');
           let dateBeingPickedNow = locals.config.dateBeingPickedNow?"Done":"Pick";
           return (
             <View style={[styles.header, styles.textContainer]}>

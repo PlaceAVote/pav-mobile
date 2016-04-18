@@ -319,6 +319,7 @@ class TopicPickRender extends Component {
     // topics={this.props.auth.form.fields.topicsList.toJS()}
     // selectedTopics={this.props.auth.form.fields.selectedTopicsList.toArray()}
 
+
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
@@ -337,7 +338,7 @@ class TopicPickRender extends Component {
               <TopicPickGrid
               topicData={this.getTopicData(this.props.auth.form.fields.topicsList.toJS())}
               onSelectedTopicsChange={this.onSelectedTopicsChange.bind(this)}
-
+              disabled={this.props.auth.form.isFetching}
               />
             </View>
 
