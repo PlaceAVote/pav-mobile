@@ -25,6 +25,7 @@ project.xcworkspace
 .idea
 .gradle
 local.properties
+.keystore
 
 # node.js
 node_modules/
