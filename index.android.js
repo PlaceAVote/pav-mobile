@@ -2,4 +2,4 @@
 
 import init from './src/init';
 
-init('ios');
+init('android');

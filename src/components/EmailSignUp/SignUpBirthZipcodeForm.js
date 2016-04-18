@@ -21,7 +21,7 @@ import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-
+import moment from 'moment';
 import { ScheneKeys, Colors } from '../../config/constants';
 // import _ from 'lodash';
 /**
@@ -49,6 +49,7 @@ var SignUpBirthZipcodeForm = React.createClass({
    * * onChange: function to call when user enters text
    */
   propTypes: {
+    currentOs: PropTypes.string,
     form: PropTypes.object,
     value: PropTypes.object,
     onChange: PropTypes.func
@@ -208,6 +209,10 @@ var SignUpBirthZipcodeForm = React.createClass({
         {
           factory: AccordionPicker,
           config:{
+              format: (value)=>{
+                return moment(value).format('Do MMMM YYYY');
+              },
+              currentOs: this.props.currentOs,
               dateBeingPickedNow:this.props.form.fields.dateOfBirthIsCurBeingPicked,
               onCollapsedChange: (isNowCollapsed)=>{
                 this.props.onChange({dateOfBirthIsCurBeingPicked: !isNowCollapsed})
@@ -251,7 +256,7 @@ var SignUpBirthZipcodeForm = React.createClass({
       zipCode: t.String
     });
 
-
+    console.log("@@ platform : "+this.props.currentOs)
     /**
      * ### Return
      * returns the Form component with the correct structures
@@ -262,7 +267,6 @@ var SignUpBirthZipcodeForm = React.createClass({
         options={options}
         value={this.props.value}
         onChange={this.props.onChange}
-
       />
     );
   }

@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
  */
 import * as authActions from '../../reducers/auth/authActions';
 import * as globalActions from '../../reducers/global/globalActions';
+// import * as deviceActions from '../../reducers/device/deviceActions';
 
 /**
  * Immutable
@@ -181,6 +182,7 @@ var styles = StyleSheet.create({
 const actions = [
   authActions,
   globalActions
+  // ,deviceActions
 ];
 
 function mapStateToProps(state) {
@@ -299,7 +301,6 @@ class EmailSignUpStep4Render extends Component {
     let self = this;
 
 
-
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
@@ -327,6 +328,7 @@ class EmailSignUpStep4Render extends Component {
                   <SignUpBirthZipcodeForm
                     form={this.props.auth.form}
                     value={this.state.value}
+                    currentOs={this.props.device.platform}
                     onChange={self.onChange.bind(self)}
                   />
                 </View>

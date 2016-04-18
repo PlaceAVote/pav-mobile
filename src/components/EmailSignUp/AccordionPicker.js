@@ -8,8 +8,11 @@
 
       class AccordionPicker extends Date {
 
+        _renderAndroidHeader(locals){
+          return <View></View>;
+        }
 
-        _renderHeader (locals) {
+        _renderIOSHeader (locals) {
 
           let curSelectedDate = moment(locals.value).format('MM-DD-YYYY');
           let dateBeingPickedNow = locals.config.dateBeingPickedNow?"Done":"Pick";
@@ -34,11 +37,12 @@
               </View>
 
             </View>
-          )
+          );
         }
 
         _renderContent (locals) {
           // console.log("@@@@@@ DATE IS: "+locals.value)
+
           return (
             <View>
               {t.form.Form.templates.datepicker({...locals, date: locals.value, mode:'date', onDateChange:(e)=>{console.log("On date change: "+e)}}) }
@@ -54,21 +58,39 @@
           //
           // };
           return function (locals) {
+            // console.log("Platform: "+locals.config.currentOs);
             // console.log("NOWWW@@@@@" +locals.config.dateBeingPickedNow);
             // console.log("locals: "+JSON.stringify(locals));
-            return (
-              <Accordion
+            // console.log("Current platform: "+locals.config.currentOs);
+
+            if(locals.config.currentOs=="android"){//if we are in android
+              return (<Accordion
                 style={styles.container}
                 sections={['Date']}
-                renderHeader={self._renderHeader.bind(self, locals)}
+                renderHeader={self._renderAndroidHeader.bind(self, locals)}
                 renderContent={self._renderContent.bind(self, locals)}
-                collapsed={!locals.config.dateBeingPickedNow}
+                collapsed={false}
                 underlayColor={Colors.transparentColor}
                 onChange={
                   (index)=>{if(index===false){locals.config.onCollapsedChange(true)}else{locals.config.onCollapsedChange(false)}}
                 }
-              />
-            )
+              />);
+            }else{  //if we are in ios
+              return (
+                <Accordion
+                  style={styles.container}
+                  sections={['Date']}
+                  renderHeader={self._renderIOSHeader.bind(self, locals)}
+                  renderContent={self._renderContent.bind(self, locals)}
+                  collapsed={!locals.config.dateBeingPickedNow}
+                  underlayColor={Colors.transparentColor}
+                  onChange={
+                    (index)=>{if(index===false){locals.config.onCollapsedChange(true)}else{locals.config.onCollapsedChange(false)}}
+                  }
+                />
+              );
+            }
+
           }
         }
       }

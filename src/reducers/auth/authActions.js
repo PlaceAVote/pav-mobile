@@ -400,7 +400,7 @@ export function loginFacebook(facebookUserId,  facebookAccessToken) {
       fbAccessToken: facebookAccessToken
     });
     // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       if(res.multipleErrors){
         // console.log("authActions.login :: Error msg: "+res.error[0].email)
@@ -549,7 +549,7 @@ export function facebookSignupFailure(error) {
          "topics": topics,
          "gender": gender
        });
-     console.log("RES: "+JSON.stringify(res));
+    //  console.log("RES: "+JSON.stringify(res));
      let curUser = null;
      if(!!res.error){
        if(res.multipleErrors){
@@ -623,7 +623,7 @@ export function validateUserEmail(emailToValidate){
     var res = await PavClientSdk().userApi.validate({
       email: emailToValidate
     });
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       dispatch(validateFailure("Theres already a user registered with this email address."));
     }else{
