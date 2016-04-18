@@ -329,13 +329,9 @@ export function loginFailure(error) {
   export function login(email,  password) {
     return async function(dispatch){
 
-
-
-      let emailIsInvalid = validateEmail(email);
-      let passwordIsInvalid = validatePassword(password);
-      console.log("Email is INVALID: "+emailIsInvalid+" password is INVALID: "+passwordIsInvalid);
+      let emailIsInvalid = validateEmail(email), passwordIsInvalid = validatePassword(password);
+      
       if(emailIsInvalid || passwordIsInvalid){   //if any of the two credentials were invalid
-        console.log("Email is INVALID: "+emailIsInvalid+" password is INVALID: "+passwordIsInvalid);
         dispatch(loginFailure("Please provide us with a valid username and password."));
         return null;
       }else{ //if the login credentials given by the user were BOTH valid

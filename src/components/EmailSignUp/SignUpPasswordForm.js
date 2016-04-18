@@ -186,14 +186,15 @@ var SignUpPasswordForm = React.createClass({
 
 
 
-
+    let secureTextEntry = !this.props.form.fields.showPassword;
     let options = {
       stylesheet: stylesheet,
       auto: 'placeholders',
       fields: {
         password: {
           label: 'Password',
-          maxLength: 12,
+          maxLength: 20,
+          secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.passwordHasError,
           error: 'Password length 6-20 characters, containing both a number and a capital letter.',
@@ -202,7 +203,8 @@ var SignUpPasswordForm = React.createClass({
         },
         passwordAgain : {
           label: 'Confirmation',
-          maxLength: 12,
+          maxLength: 20,
+          secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.passwordAgainHasError,
           error: 'The passwords don\'t match. Try again.',
