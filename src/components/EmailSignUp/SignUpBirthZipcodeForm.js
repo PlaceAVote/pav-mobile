@@ -256,7 +256,6 @@ var SignUpBirthZipcodeForm = React.createClass({
       zipCode: t.String
     });
 
-    console.log("@@ platform : "+this.props.currentOs)
     /**
      * ### Return
      * returns the Form component with the correct structures
