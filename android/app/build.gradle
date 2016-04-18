@@ -91,6 +91,14 @@ android {
         }
         multiDexEnabled true        //for react-native-fbsdk to work
     }
+    signingConfigs {
+        release {
+            storeFile file(PAV_APP_RELEASE_STORE_FILE)
+            storePassword PAV_APP_RELEASE_STORE_PASSWORD
+            keyAlias PAV_APP_RELEASE_KEY_ALIAS
+            keyPassword PAV_APP_RELEASE_KEY_PASSWORD
+        }
+    }
     splits {
         abi {
             reset()
@@ -103,6 +111,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
