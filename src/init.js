@@ -241,8 +241,8 @@ import React, {
                 <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}} renderRightButton={()=><RightPavLogo/>}>
                   <Scene key="modal" component={Modal} >
                     <Scene key="root" navigationBarStyle={{backgroundColor:Colors.primaryColor}}   titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}>
-                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} initial={true}/>
-                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" renderBackButton={()=><BackBtnImg/>} />
+                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} />
+                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" renderBackButton={()=><BackBtnImg/>} initial={true}/>
                       <Scene key={ScheneKeys.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
