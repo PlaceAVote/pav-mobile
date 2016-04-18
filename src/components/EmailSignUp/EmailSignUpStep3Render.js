@@ -90,14 +90,12 @@ var styles = StyleSheet.create({
     flexDirection: 'column'
   },
   backBtn:{
-    marginTop:20,
-    marginLeft:3,
-    // position: 'absolute',
+    marginTop:h*0.03,
+    marginLeft:w*0.04,
+    position: 'absolute',
     borderRadius: 0,
     borderWidth: 0,
-    alignSelf: 'flex-start',
     // backgroundColor: 'blue',
-    height: 10
   },
   explanationContainer:{
     flexDirection: 'column',
