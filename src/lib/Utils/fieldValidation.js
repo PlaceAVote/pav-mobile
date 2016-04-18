@@ -21,14 +21,14 @@ import moment from 'moment';
  * Used for validation of emails
  */
 const emailConstraints = {
-  presence: true,
   email: {
+    presence: true,
     email: true
   }
 };
 const forgotPasswordEmailConstraints = {
-  presence: true,
   forgotPasswordEmail: {
+    presence: true,
     email: true
   }
 }
@@ -136,31 +136,31 @@ const usZipCodeConstraints = {
 
 
 
-function validateName(value){
+export function validateName(value){
   return  (!_.isUndefined(validate({name: value}, nameConstraints)));
 }
 
-function validateSurname(value){
+export function validateSurname(value){
   return (!_.isUndefined(validate({surname: value},surnameConstraints)));
 }
 
-function validateForgotPasswordEmail(value){
+export function validateForgotPasswordEmail(value){
   return (!_.isUndefined(validate({forgotPasswordEmail: value},forgotPasswordEmailConstraints)));
 }
 
-function validateEmail(value){
+export function validateEmail(value){
   return (!_.isUndefined(validate({email: value},emailConstraints)));
 }
 
-function validatePassword(value){
+export function validatePassword(value){
   return (!_.isUndefined(validate({password: value},passwordConstraints)));
 }
 
-function validatePasswordAgain(password, confirmPassword){
+export function validatePasswordAgain(password, confirmPassword){
   return (!_.isUndefined(validate({password: password,confirmPassword: confirmPassword}, passwordAgainConstraints)));
 }
 
-function validateZipCode(value){
+export function validateZipCode(value){
   return (!_.isUndefined(validate({zipCode: value},usZipCodeConstraints)));
 }
 

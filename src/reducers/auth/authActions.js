@@ -11,6 +11,9 @@
 import {ActionNames, ScheneKeys} from '../../config/constants';
 import {LoginManager, AccessToken, GraphRequestManager, GraphRequest} from 'react-native-fbsdk';
 import moment from 'moment';
+import {validateEmail, validatePassword} from '../../lib/Utils/fieldValidation';
+
+
 /**
  * ## Imports
  *
@@ -325,32 +328,43 @@ export function loginFailure(error) {
 
   export function login(email,  password) {
     return async function(dispatch){
-      dispatch(loginRequest());
 
-      var res = await PavClientSdk().userApi.login({
-        email: email,
-        password: password
-      });
-      // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-      // console.log("RES: "+JSON.stringify(res));
-      if(!!res.error){
-        alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
-        if(res.multipleErrors){
-          // console.log("authActions.login :: Error msg: "+res.error[0].email)
-          dispatch(loginFailure(res.error[0].email));
-          return null;
+
+
+      let emailIsInvalid = validateEmail(email);
+      let passwordIsInvalid = validatePassword(password);
+      console.log("Email is INVALID: "+emailIsInvalid+" password is INVALID: "+passwordIsInvalid);
+      if(emailIsInvalid || passwordIsInvalid){   //if any of the two credentials were invalid
+        console.log("Email is INVALID: "+emailIsInvalid+" password is INVALID: "+passwordIsInvalid);
+        dispatch(loginFailure("Please provide us with a valid username and password."));
+        return null;
+      }else{ //if the login credentials given by the user were BOTH valid
+        dispatch(loginRequest());
+
+        var res = await PavClientSdk().userApi.login({
+          email: email,
+          password: password
+        });
+        // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
+        // console.log("RES: "+JSON.stringify(res));
+        if(!!res.error){
+          alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
+          if(res.multipleErrors){
+            // console.log("authActions.login :: Error msg: "+res.error[0].email)
+            dispatch(loginFailure(res.error[0].email));
+            return null;
+          }else{
+            // console.log("authActions.login :: Error msg: "+res.error)
+            dispatch(loginFailure(res.error));
+            return null;
+          }
         }else{
-          // console.log("authActions.login :: Error msg: "+res.error)
-          dispatch(loginFailure(res.error));
-          return null;
+          alert("Good that was right, the cake was a lie though..");
+          // console.log(res.data.token);
+          saveSessionToken(res.data.token)
+          dispatch(loginSuccess(res.data));
+          return res.data;
         }
-      }else{
-        alert("Good that was right, the cake was a lie though..");
-        // console.log(res.data.token);
-        saveSessionToken(res.data.token)
-        dispatch(loginSuccess(res.data));
-        return res.data;
-        //TODO: Perhaps navigate to the newsfeed screen now?
       }
   }
 }
