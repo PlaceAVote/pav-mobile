@@ -123,14 +123,12 @@ class TopicPickRender extends Component {
         flexDirection: 'column'
       },
       backBtn:{
-        marginTop:20,
-        marginLeft:3,
-        // position: 'absolute',
+        marginTop:h*0.02,
+        marginLeft:w*0.04,
+        position: 'absolute',
         borderRadius: 0,
         borderWidth: 0,
-        alignSelf: 'flex-start',
         // backgroundColor: 'blue',
-        height: 10
       },
       explanationContainer:{
         flex:this.props.backButtonEnabled?0.25:0.21,
@@ -163,10 +161,10 @@ class TopicPickRender extends Component {
         fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
         backgroundColor: Colors.transparentColor,
         // backgroundColor:'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,18),
+        fontSize: getCorrectFontSizeForScreen(w,h,16),
         color: Colors.mainTextColor,
         textAlign: 'center',
-        marginHorizontal: 21,
+        marginHorizontal: w*0.14,
       },
       nextStepBtn: {
         backgroundColor: Colors.accentColor,
