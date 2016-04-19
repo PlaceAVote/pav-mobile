@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '4766ED1D440D2C417029D69F9B2D5B0E'
-               BlueprintName = 'react-native-fbsdkcore'
+               BlueprintIdentifier = '74E707EC9C6D919F841330CF3A51F9E9'
+               BlueprintName = 'RNVectorIcons'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libreact-native-fbsdkcore.a'>
+               BuildableName = 'libRNVectorIcons.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
