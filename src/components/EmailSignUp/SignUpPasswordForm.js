@@ -29,7 +29,8 @@ import { ScheneKeys, Colors } from '../../config/constants';
  */
 const {
   LOGIN,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  REGISTER_STEP_3
 } = ScheneKeys
 
 /**
@@ -52,6 +53,17 @@ var SignUpPasswordForm = React.createClass({
     onChange: PropTypes.func
   },
 
+
+
+  onPasswordFinishedEditing(){
+    this.refs.form.getComponent('passwordAgain').refs.input.focus();
+  },
+
+  onPasswordAgainFinishedEditing(){
+    if(this.props.form.isValid.get(REGISTER_STEP_3) && !this.props.form.isFetching){
+        this.props.onNext();
+    }
+  },
   /**
    * ## render
    *
@@ -194,22 +206,30 @@ var SignUpPasswordForm = React.createClass({
         password: {
           label: 'Password',
           maxLength: 20,
+          autoCorrect: false,
+          autoFocus: true,
           secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.passwordHasError,
           error: 'Password length 6-20 characters, containing both a number and a capital letter.',
-          placeholder: '*******'
-
+          placeholder: '*******',
+          returnKeyType: 'next',
+          onSubmitEditing: this.onPasswordFinishedEditing,
+          blurOnSubmit : true,
+          underlineColorAndroid: Colors.accentColor
         },
         passwordAgain : {
           label: 'Confirmation',
           maxLength: 20,
+          autoCorrect: false,
           secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.passwordAgainHasError,
           error: 'The passwords don\'t match. Try again.',
-          placeholder: '*******'
-
+          placeholder: '*******',
+          returnKeyType: 'next',
+          onSubmitEditing:this.onPasswordAgainFinishedEditing,
+          underlineColorAndroid: Colors.accentColor
         }
 
       }

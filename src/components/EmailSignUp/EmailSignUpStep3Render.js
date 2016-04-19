@@ -270,15 +270,6 @@ class EmailSignUpStep3Render extends Component {
 
 
     // var onButtonPress = this.props.onButtonPress;
-    let self = this;
-
-    let onBtnPress = ()=>{
-      this.props.onNextStep();
-    },
-    onBackBtnPress = ()=>{
-      this.props.onBack();
-    }
-
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
@@ -287,7 +278,7 @@ class EmailSignUpStep3Render extends Component {
             <View style={styles.explanationContainer}>
 
               <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
-                  onPress={onBackBtnPress}>
+                  onPress={this.props.onBack}>
               </Button>
 
 
@@ -303,7 +294,7 @@ class EmailSignUpStep3Render extends Component {
               </View>
 
 
-              {self.renderPageIndicatorIcon()}
+              {this.renderPageIndicatorIcon()}
             </View>
 
 
@@ -313,12 +304,13 @@ class EmailSignUpStep3Render extends Component {
                   <SignUpPasswordForm
                     form={this.props.auth.form}
                     value={this.state.value}
-                    onChange={self.onChange.bind(self)}
+                    onChange={this.onChange.bind(this)}
+                    onNext={this.props.onNextStep}
                   />
                 </View>
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
                     isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_3) || this.props.auth.form.isFetching}
-                    onPress={onBtnPress}>
+                    onPress={this.props.onNextStep}>
                   Next Step
                 </Button>
               </View>
