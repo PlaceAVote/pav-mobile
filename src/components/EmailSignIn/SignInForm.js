@@ -53,6 +53,15 @@ var SignInForm = React.createClass({
     onChange: PropTypes.func
   },
 
+  onEmailFinishedEditing(){
+    this.refs.form.getComponent('password').refs.input.focus();
+  },
+
+  onPasswordFinishedEditing(){
+    if(this.props.form.isValid.get(ScheneKeys.LOGIN) && !this.props.form.isFetching){
+        this.props.onNext();
+    }
+  },
 
 
   /**
@@ -208,8 +217,14 @@ var SignInForm = React.createClass({
           editable: !this.props.form.isFetching,
           hasError: this.props.form.error, //this.props.form.fields.emailHasError,  //I removed the validation from auth reducer as well.
           // error: 'Please give us a valid email address.',
-          placeholder: 'example@example.com'
-
+          placeholder: 'example@example.com',
+          returnKeyType: 'next',
+          onSubmitEditing: this.onEmailFinishedEditing,
+          blurOnSubmit : true,
+          underlineColorAndroid: Colors.accentColor,
+          autoCorrect: false,
+          keyboardType: "email-address"
+          // autoFocus: true,
         },
         password : {
           label: 'Password',
@@ -218,7 +233,10 @@ var SignInForm = React.createClass({
           editable: !this.props.form.isFetching,
           hasError: this.props.form.error,
           error: this.props.form.error,
-          placeholder: '************'
+          placeholder: '************',
+          autoCorrect: false,
+          onSubmitEditing:this.onPasswordFinishedEditing,
+          underlineColorAndroid: Colors.accentColor
 
         }
 

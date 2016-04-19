@@ -263,7 +263,9 @@ class EmailSignInRender extends Component {
           </View>
 
           <View style={styles.btnContainer}>
-            <Button textStyle={styles.whiteBtnText} style={styles.signInBtn}
+            <Button
+                textStyle={styles.whiteBtnText}
+                style={styles.signInBtn}
                 isDisabled={this.props.auth.form.isFetching}
                 isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
                 activityIndicatorColor={Colors.mainTextColor}
@@ -292,7 +294,9 @@ class EmailSignInRender extends Component {
         onNextBtnClicked={this.props.onForgotPasswordNextBtnClicked}
         auth={this.props.auth}
         isOpen={this.props.forgotPasswordModalOpen}
-        onModalClosed={this.props.onForgotPasswordClosed} />
+        onModalClosed={this.props.onForgotPasswordClosed}
+        onNext={this.props.onSignInBtnPress}
+        />
       </View>
     );
   }
