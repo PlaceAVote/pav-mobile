@@ -204,7 +204,7 @@ var SignUpEmailForm = React.createClass({
           onSubmitEditing: this.onEmailFinishedEditing,
           underlineColorAndroid: Colors.accentColor,
           autoCorrect: false,
-          autoFocus: true,
+          // autoFocus: true,
           keyboardType: "email-address"
 
         }

@@ -216,7 +216,7 @@ var SignUpPasswordForm = React.createClass({
           blurOnSubmit : true,
           underlineColorAndroid: Colors.accentColor,
           autoCorrect: false,
-          autoFocus: true,
+          // autoFocus: true,
         },
         passwordAgain : {
           label: 'Confirmation',
