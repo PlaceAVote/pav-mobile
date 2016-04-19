@@ -92,12 +92,12 @@ var styles = StyleSheet.create({
     flexDirection: 'column'
   },
   backBtn:{
-    marginTop:h*0.03,
-    marginLeft:w*0.04,
-    position: 'absolute',
+    top:h*0.05,
+    left:w*0.02,
     borderRadius: 0,
     borderWidth: 0,
-    // backgroundColor: 'blue',
+    position: 'absolute',
+    // backgroundColor: 'red',
   },
   explanationContainer:{
     flex:1,
@@ -301,16 +301,10 @@ class EmailSignUpStep4Render extends Component {
 
 
             <View style={styles.explanationContainer}>
-
-              <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
-                  onPress={this.props.onBack}>
-              </Button>
-
-
               <View style={styles.explanImgContainer}>
                 <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl4.jpg')}></Image>
               </View>
-
+              <Button style={styles.backBtn} iconProps={{name: "chevron-left",size:getCorrectFontSizeForScreen(w,h,20), color: "white"}} onPress={this.props.onBack}/>
               {this.renderDescriptionText()}
               {this.renderPageIndicatorIcon()}
             </View>

@@ -123,12 +123,12 @@ class TopicPickRender extends Component {
         flexDirection: 'column'
       },
       backBtn:{
-        marginTop:h*0.02,
-        marginLeft:w*0.04,
-        position: 'absolute',
+        top:h*0.05,
+        left:w*0.02,
         borderRadius: 0,
         borderWidth: 0,
-        // backgroundColor: 'blue',
+        position: 'absolute',
+        // backgroundColor: 'red',
       },
       explanationContainer:{
         flex:this.props.backButtonEnabled?0.25:0.21,
@@ -243,9 +243,7 @@ class TopicPickRender extends Component {
       return (<View></View>)
     }else{
       return (
-        <Button style={styles.backBtn} textStyle={styles.whiteBtnText} iconProps={{name: "chevron-left",size:20, color: "white"}}
-            onPress={this.props.onBack}>
-        </Button>
+        <Button style={styles.backBtn} iconProps={{name: "chevron-left",size:getCorrectFontSizeForScreen(w,h,20), color: "white"}} onPress={this.props.onBack}/>
       );
     }
   }
@@ -324,12 +322,12 @@ class TopicPickRender extends Component {
 
 
             <View style={styles.explanationContainer}>
-              {this.renderBackButton(styles)}
               <View style={styles.descriptionTextContainer}>
                 <Text style={styles.descriptionText} >
                 Finally, help us tailor the content we serve you, by telling us what topics you are most interested in voting on.
                 </Text>
               </View>
+              {this.renderBackButton(styles)}
             </View>
 
             <View style={styles.topicsContainer}>

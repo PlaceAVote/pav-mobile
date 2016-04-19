@@ -85,12 +85,12 @@ var styles = StyleSheet.create({
     flexDirection: 'column'
   },
   backBtn:{
-    marginTop:h*0.03,
-    marginLeft:w*0.04,
-    position: 'absolute',
+    top:h*0.05,
+    left:w*0.02,
     borderRadius: 0,
     borderWidth: 0,
-    // backgroundColor: 'blue',
+    position: 'absolute',
+    // backgroundColor: 'red',
   },
   explanationContainer:{
     flexDirection: 'column',
@@ -265,9 +265,6 @@ class EmailSignUpStep2Render extends Component {
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
             <View style={styles.explanationContainer}>
-              <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
-                  onPress={this.props.onBack}>
-              </Button>
               <View style={styles.explanImgContainer}>
                 <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl2.gif')}></Image>
               </View>
@@ -276,7 +273,7 @@ class EmailSignUpStep2Render extends Component {
                 Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
                 </Text>
               </View>
-
+              <Button style={styles.backBtn} iconProps={{name: "chevron-left",size:getCorrectFontSizeForScreen(w,h,20), color: "white"}} onPress={this.props.onBack}/>
               {this.renderPageIndicatorIcon()}
             </View>
             <View style={styles.footerContainer}>

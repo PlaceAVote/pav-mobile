@@ -90,12 +90,12 @@ var styles = StyleSheet.create({
     flexDirection: 'column'
   },
   backBtn:{
-    marginTop:h*0.03,
-    marginLeft:w*0.04,
-    position: 'absolute',
+    top:h*0.05,
+    left:w*0.02,
     borderRadius: 0,
     borderWidth: 0,
-    // backgroundColor: 'blue',
+    position: 'absolute',
+    // backgroundColor: 'red',
   },
   explanationContainer:{
     flex:1,
@@ -130,6 +130,7 @@ var styles = StyleSheet.create({
   },
   explanImgContainer:{
     // backgroundColor: 'red',
+    marginTop:h*0.03,
     flexDirection: 'row',
     justifyContent: 'center'
   },
@@ -265,27 +266,16 @@ class EmailSignUpStep1Render extends Component {
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
-
-
             <View style={styles.explanationContainer}>
-
-              <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
-                  onPress={this.props.onBack}>
-              </Button>
-
-
               <View style={styles.explanImgContainer}>
                 <Image style={styles.explanImg} resizeMode= 'cover' source={require('../../../assets/signupExpl1.jpg')}></Image>
               </View>
-
-
-
               <View style={styles.descriptionTextContainer}>
                 <Text style={styles.descriptionText} >
                 In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
                 </Text>
               </View>
-
+              <Button style={styles.backBtn} iconProps={{name: "chevron-left",size:getCorrectFontSizeForScreen(w,h,20), color: "white"}} onPress={this.props.onBack}/>
               {this.renderPageIndicatorIcon()}
             </View>
 
