@@ -28,8 +28,7 @@ import { ScheneKeys, Colors } from '../../config/constants';
  * States of login display
  */
 const {
-  LOGIN,
-  FORGOT_PASSWORD
+  REGISTER_STEP_4
 } = ScheneKeys
 
 import AccordionPicker from './AccordionPicker';
@@ -56,6 +55,12 @@ var SignUpBirthZipcodeForm = React.createClass({
   },
 
 
+
+  onZipCodeFinishedEditing(){
+    if(this.props.form.isValid.get(REGISTER_STEP_4) && !this.props.form.isFetching){
+        this.props.onNext();
+    }
+  },
   /**
    * ## render
    *
@@ -226,7 +231,13 @@ var SignUpBirthZipcodeForm = React.createClass({
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.zipCodeHasError,
           error: 'Please provide us with your 5 digit US zip code.',
-          placeholder: 'i.e: 20001'
+          placeholder: 'i.e: 20001',
+          returnKeyType: 'next',
+          blurOnSubmit : true,
+          onSubmitEditing: this.onZipCodeFinishedEditing,
+          underlineColorAndroid: Colors.accentColor,
+          autoCorrect: false,
+          keyboardType: "numeric"
         }
 
       }

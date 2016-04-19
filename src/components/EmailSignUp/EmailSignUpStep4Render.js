@@ -295,10 +295,6 @@ class EmailSignUpStep4Render extends Component {
   render() {
 
 
-    // var onButtonPress = this.props.onButtonPress;
-    let self = this;
-
-
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
@@ -315,8 +311,8 @@ class EmailSignUpStep4Render extends Component {
                 <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl4.jpg')}></Image>
               </View>
 
-              {self.renderDescriptionText()}
-              {self.renderPageIndicatorIcon()}
+              {this.renderDescriptionText()}
+              {this.renderPageIndicatorIcon()}
             </View>
 
 
@@ -327,7 +323,8 @@ class EmailSignUpStep4Render extends Component {
                     form={this.props.auth.form}
                     value={this.state.value}
                     currentOs={this.props.device.platform}
-                    onChange={self.onChange.bind(self)}
+                    onChange={this.onChange.bind(this)}
+                    onNext={this.props.onNextStep}
                   />
                 </View>
                 <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
