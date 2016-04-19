@@ -283,6 +283,7 @@ var portraitStyles = StyleSheet.create({
   btnContainer:{
     flex:0.45,
     // backgroundColor: 'red',
+    marginBottom: 10,
     justifyContent: 'flex-end'
   },
 
