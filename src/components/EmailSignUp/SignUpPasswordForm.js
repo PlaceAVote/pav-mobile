@@ -206,8 +206,6 @@ var SignUpPasswordForm = React.createClass({
         password: {
           label: 'Password',
           maxLength: 20,
-          autoCorrect: false,
-          autoFocus: true,
           secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.passwordHasError,
@@ -216,17 +214,19 @@ var SignUpPasswordForm = React.createClass({
           returnKeyType: 'next',
           onSubmitEditing: this.onPasswordFinishedEditing,
           blurOnSubmit : true,
-          underlineColorAndroid: Colors.accentColor
+          underlineColorAndroid: Colors.accentColor,
+          autoCorrect: false,
+          autoFocus: true,
         },
         passwordAgain : {
           label: 'Confirmation',
           maxLength: 20,
-          autoCorrect: false,
           secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.passwordAgainHasError,
           error: 'The passwords don\'t match. Try again.',
           placeholder: '*******',
+          autoCorrect: false,
           returnKeyType: 'next',
           onSubmitEditing:this.onPasswordAgainFinishedEditing,
           underlineColorAndroid: Colors.accentColor

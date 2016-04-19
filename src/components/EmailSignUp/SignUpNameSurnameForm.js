@@ -26,7 +26,8 @@ import { ScheneKeys, Colors } from '../../config/constants';
  */
 const {
   LOGIN,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  REGISTER_STEP_1
 } = ScheneKeys
 
 
@@ -53,6 +54,17 @@ var SignUpNameSurnameForm = React.createClass({
     form: PropTypes.object,
     value: PropTypes.object,
     onChange: PropTypes.func
+  },
+
+
+  onNameFinishedEditing(){
+    this.refs.form.getComponent('surname').refs.input.focus();
+  },
+
+  onSurnameFinishedEditing(){
+    if(this.props.form.isValid.get(REGISTER_STEP_1) && !this.props.form.isFetching){
+        this.props.onNext();
+    }
   },
 
   /**
@@ -200,7 +212,13 @@ var SignUpNameSurnameForm = React.createClass({
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.nameHasError,
           // error: 'The name can be 3-12 characters.',
-          placeholder: 'Gary'
+          placeholder: 'Gary',
+          returnKeyType: 'next',
+          blurOnSubmit : true,
+          onSubmitEditing: this.onNameFinishedEditing,
+          underlineColorAndroid: Colors.accentColor,
+          autoCorrect: false,
+          autoFocus: true
 
         },
         surname : {
@@ -209,7 +227,12 @@ var SignUpNameSurnameForm = React.createClass({
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.surnameHasError,
           // error: 'The surname can be 4-20 characters.',
-          placeholder: 'Brown'
+          placeholder: 'Brown',
+          returnKeyType: 'next',
+          blurOnSubmit : true,
+          onSubmitEditing:this.onSurnameFinishedEditing,
+          underlineColorAndroid: Colors.accentColor,
+          autoCorrect: false,
 
         }
 
