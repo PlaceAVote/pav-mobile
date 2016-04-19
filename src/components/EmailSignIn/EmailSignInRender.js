@@ -259,6 +259,7 @@ class EmailSignInRender extends Component {
               form={this.props.auth.form}
               value={this.state.value}
               onChange={self.onChange.bind(self)}
+              onNext={this.props.onSignInBtnPress}
             />
           </View>
 
@@ -295,7 +296,6 @@ class EmailSignInRender extends Component {
         auth={this.props.auth}
         isOpen={this.props.forgotPasswordModalOpen}
         onModalClosed={this.props.onForgotPasswordClosed}
-        onNext={this.props.onSignInBtnPress}
         />
       </View>
     );
