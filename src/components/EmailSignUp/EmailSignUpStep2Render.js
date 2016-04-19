@@ -260,22 +260,13 @@ class EmailSignUpStep2Render extends Component {
   render() {
 
 
-    // var onButtonPress = this.props.onButtonPress;
-    let self = this;
-
-    let onBtnPress = ()=>{
-      this.props.onNextStep();
-    },
-    onBackBtnPress = ()=>{
-      this.props.onBack();
-    }
 
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
             <View style={styles.explanationContainer}>
               <Button textStyle={styles.whiteBtnText} style={styles.backBtn} iconProps={{name: "chevron-left",size:20, color: "white"}}
-                  onPress={onBackBtnPress}>
+                  onPress={this.props.onBack}>
               </Button>
               <View style={styles.explanImgContainer}>
                 <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl2.gif')}></Image>
@@ -286,7 +277,7 @@ class EmailSignUpStep2Render extends Component {
                 </Text>
               </View>
 
-              {self.renderPageIndicatorIcon()}
+              {this.renderPageIndicatorIcon()}
             </View>
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>
@@ -294,7 +285,8 @@ class EmailSignUpStep2Render extends Component {
                   <SignUpEmailForm
                     form={this.props.auth.form}
                     value={this.state.value}
-                    onChange={self.onChange.bind(self)}
+                    onChange={this.onChange.bind(this)}
+                    onNext={this.props.onNextStep}
                   />
                 </View>
                 <Button
@@ -303,7 +295,7 @@ class EmailSignUpStep2Render extends Component {
                   isLoading={this.props.auth.form.isFetching}
                   activityIndicatorColor={Colors.mainTextColor}
                   isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_2) || this.props.auth.form.isFetching}
-                  onPress={onBtnPress}>
+                  onPress={this.props.onNextStep}>
                   Next Step
                 </Button>
               </View>

@@ -21,7 +21,7 @@ import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-import { Colors } from '../../config/constants';
+import { Colors, ScheneKeys } from '../../config/constants';
 // import _ from 'lodash';
 /**
  * States of login display
@@ -46,6 +46,13 @@ var SignUpEmailForm = React.createClass({
     form: PropTypes.object,
     value: PropTypes.object,
     onChange: PropTypes.func
+  },
+
+
+  onEmailFinishedEditing(){
+    if(this.props.form.isValid.get(ScheneKeys.REGISTER_STEP_2) && !this.props.form.isFetching){
+        this.props.onNext();
+    }
   },
 
   /**
@@ -191,7 +198,14 @@ var SignUpEmailForm = React.createClass({
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.emailHasError || this.props.form.error,
           error: this.props.form.error || 'Please give us a valid email address.',
-          placeholder: 'mail@example.com'
+          placeholder: 'mail@example.com',
+          returnKeyType: 'next',
+          blurOnSubmit : true,
+          onSubmitEditing: this.onEmailFinishedEditing,
+          underlineColorAndroid: Colors.accentColor,
+          autoCorrect: false,
+          autoFocus: true,
+          keyboardType: "email-address"
 
         }
       }
