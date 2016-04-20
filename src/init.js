@@ -77,6 +77,7 @@ import React, {
       import {Colors, ScheneKeys} from './config/constants';
 
 
+
       /**
       * ### icons
       *
@@ -84,6 +85,10 @@ import React, {
       *
       */
       import Icon from 'react-native-vector-icons/FontAwesome';
+
+      import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+      const icomoonConfig = require('../assets/fonts/icomoon.json');
+      const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
       /**
       * ## Actions
@@ -190,6 +195,38 @@ import React, {
 
 
 
+
+      class TabIconFactory extends React.Component {
+          render(){
+
+
+              let iconName = "";
+              switch(this.props.name){
+                case ScheneKeys.TAB_NEWS:
+                  iconName="mailbox";
+                  break;
+                case ScheneKeys.TAB_NOTIFS:
+                  iconName="ios-pulse-strong";
+                  console.log("Notifications array: "+this.props.notifications);
+                  break;
+                case ScheneKeys.TAB_PROFILE:
+                  iconName="person"
+                  break;
+                default:
+                  break;
+              }
+              return (
+                <View style={{flexDirection:'row', justifyContent:'center', padding:3}}>
+                  <PavIcon name={iconName} style={{}} size={25} style={{color: this.props.selected ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
+                  <View style={{flexDirection: "column", justifyContent: 'center', paddingHorizontal:4}}>
+                    <Text style={{color: this.props.selected ? Colors.primaryColor :Colors.secondaryTextColor}}>{this.props.title}</Text>
+                  </View>
+                </View>
+              );
+          }
+      }
+
+
       export default function native(platform) {
         let PlaceAVote = React.createClass( {
           render() {
@@ -238,17 +275,21 @@ import React, {
             // when the hideNavBar is true we see the right button but not the left, and the opposite.
             return (
               <Provider store={store}>
-                <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}} renderRightButton={()=><RightPavLogo/>}>
+                <Router hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}} >
                   <Scene key="modal" component={Modal} >
-                    <Scene key="root" navigationBarStyle={{backgroundColor:Colors.primaryColor}}   titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}>
-                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} initial={true}/>
-                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" renderBackButton={()=><BackBtnImg/>} />
+                    <Scene key="root" navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}>
+                      <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} />
+                      <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" renderBackButton={()=><BackBtnImg/>}  renderRightButton={()=><RightPavLogo/>}/>
                       <Scene key={ScheneKeys.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
-                      <Scene key={ScheneKeys.NEWSFEED} component={NewsFeed} direction="vertical" title="News Feed" hideNavBar={true} panHandlers={null} duration={1} />
+                      <Scene direction="vertical" key={ScheneKeys.NEWSFEED} title="News Feed" hideNavBar={true} panHandlers={null} duration={1} tabs={true} initial={true}>
+                            <Scene key={ScheneKeys.TAB_NEWS} title="News Feed" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}/>
+                            <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} notifications={["a notification", "another notification"]}/>
+                            <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}/>
+                      </Scene>
                     </Scene>
                   </Scene>
                 </Router>

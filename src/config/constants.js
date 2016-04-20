@@ -2,7 +2,7 @@ import keyMirror from 'key-mirror';
 
 module.exports =  {
   Colors: {
-    primaryColor : "#536EB2",          //not used yet
+    primaryColor : "#536EB2",       
     secondaryColor: "#3D5B96",  //dark blue
     accentColor: "#A5CB75", //green
 
@@ -27,7 +27,11 @@ module.exports =  {
     REGISTER_STEP_3: null,
     REGISTER_STEP_4: null,
     TOPIC_PICK: null,
-    NEWSFEED: null
+    NEWSFEED: null,
+    TAB_NEWS: null,
+    TAB_NOTIFS: null,
+    TAB_PROFILE: null,
+
   }),
   Other: {
     SESSION_TOKEN_STORAGE_KEY: "token"
