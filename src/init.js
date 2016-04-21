@@ -229,6 +229,29 @@ import React, {
       }
 
 
+      class ProfileButtons extends React.Component {
+        render(){
+            return (
+                <View style={{ flexDirection:'row', justifyContent:'space-between', paddingHorizontal:10}}>
+                  <TouchableOpacity>
+                    <PavIcon name='logo' size={34} style={{color:'white'}}/>
+                  </TouchableOpacity>
+                  <View style={{ flexDirection:'row', justifyContent:'flex-end'}}>
+                    <TouchableOpacity style={{paddingHorizontal:3}}>
+                      <PavIcon name='ios-search-strong' size={35} style={{color:'white'}}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{paddingHorizontal:3}}>
+                      <PavIcon name='issues' size={30} style={{color:'white'}}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{paddingHorizontal:3}}>
+                      <PavIcon name='binoculars' size={30} style={{color:'white'}}/>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+            );
+        }
+      }
+
       export default function native(platform) {
         let PlaceAVote = React.createClass( {
           render() {
@@ -291,9 +314,9 @@ import React, {
                       <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
                       <Scene direction="vertical" key={ScheneKeys.NEWSFEED} title="News Feed" hideNavBar={true} panHandlers={null} duration={1} tabs={true} initial={true}>
-                            <Scene key={ScheneKeys.TAB_NEWS} title="News Feed" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}/>
-                            <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} notifications={["a notification", "another notification"]}/>
-                            <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} initial={true}/>
+                            <Scene key={ScheneKeys.TAB_NEWS} title="News Feed" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} renderRightButton={()=><ProfileButtons/>}/>
+                            <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} notifications={["a notification", "another notification"]} renderRightButton={()=><ProfileButtons/>}/>
+                            <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} renderRightButton={()=><ProfileButtons/>} initial={true} />
                       </Scene>
                     </Scene>
                   </Scene>
