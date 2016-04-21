@@ -2,7 +2,7 @@ import keyMirror from 'key-mirror';
 
 module.exports =  {
   Colors: {
-    primaryColor : "#536EB2",       
+    primaryColor : "#536EB2",
     secondaryColor: "#3D5B96",  //dark blue
     accentColor: "#A5CB75", //green
 
@@ -11,8 +11,9 @@ module.exports =  {
     mainBorderColor: "rgba(0,0,0,0.2)", //very transparent black
 
     mainTextColor: "white",
-    secondaryTextColor: "#B8B8BD",   //dark grey
+    secondaryTextColor: "#B8B8BD",   //light grey
     thirdTextColor: "black",
+    fourthTextColor: "#707070",
     errorTextColor: "#a94442",
     helpTextColor: "#999999"
 
@@ -37,6 +38,8 @@ module.exports =  {
     SESSION_TOKEN_STORAGE_KEY: "token"
   },
   ActionNames:  keyMirror({
+
+   SET_NAVBAR_DIMENSIONS: null,
 
    SET_PLATFORM: null,
    SET_VERSION: null,
@@ -97,6 +100,8 @@ module.exports =  {
    LOGGED_OUT: null,
 
    SET_SESSION_TOKEN: null,
+
+   SET_USER_DATA: null,
 
    RESET_PASSWORD_REQUEST: null,
    RESET_PASSWORD_SUCCESS: null,

@@ -13,7 +13,8 @@
  * ## Import
  */
 import {ScheneKeys} from '../../config/constants';
-const {Record, Map, List} = require('immutable');
+import {Record, Map, List} from 'immutable';
+
 const {
   REGISTER_STEP_1,
   REGISTER_STEP_2,
@@ -29,7 +30,7 @@ const {
  * fields it contains.
  */
 const Form = Record({
-  isLoggedIn: false,
+
   disabled: false,
   error: null,
   isValid: new Map([
@@ -40,6 +41,28 @@ const Form = Record({
     [LOGIN, false],
     [FORGOT_PASSWORD, false],
   ]),
+  user: new (Record({
+    isLoggedIn: false,
+    id: null,
+    email: null,
+    address: null,
+    confirmationToken:null,
+    countryCode:null,
+    createdAt:null,
+    district:null,
+    birthday: null,
+    firstName:null,
+    lastName: null,
+    gender:null,
+    zipCode:null,
+    stateProvince:null,
+    latitude: null,
+    longitude:null,
+    publicProfile: null,
+    registered:null,
+    topics:null,
+    photoUrl:null
+  })),
   isFetching: false,
   authMethod: '',   //either email, or facebook
   fields: new (Record({

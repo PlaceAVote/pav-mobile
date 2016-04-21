@@ -280,8 +280,7 @@ class EmailSignInRender extends Component {
             textStyle={styles.whiteBtnText}
             isDisabled={this.props.auth.form.isFetching}
             isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="facebook")}
-            iconProps={{name: "facebook",size:25, color: "white"}}
-            iconStyle={styles.iconStyle}>
+            iconProps={{name: "facebook",size:25, color: "white"}}>
               Sign In with Facebook
             </Button>
             <Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >

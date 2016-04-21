@@ -12,6 +12,14 @@ import {ActionNames, ScheneKeys} from '../../config/constants';
 import {LoginManager, AccessToken, GraphRequestManager, GraphRequest} from 'react-native-fbsdk';
 import moment from 'moment';
 import {validateEmail, validatePassword} from '../../lib/Utils/fieldValidation';
+import PavClientSdk from 'pavclient';
+import {setModalVisibility, navigateTo} from '../routing/routingActions'
+import {Actions} from 'react-native-router-flux';
+
+const  AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
+
+const  _ = require('underscore');
+
 
 
 /**
@@ -72,7 +80,7 @@ import {validateEmail, validatePassword} from '../../lib/Utils/fieldValidation';
    RESET_ERROR_STATE,
 
    SET_STATE,
-
+   SET_USER_DATA,
    SET_AUTH_METHOD
  } = ActionNames;
 
@@ -87,20 +95,6 @@ import {validateEmail, validatePassword} from '../../lib/Utils/fieldValidation';
    FORGOT_PASSWORD,
    TOPIC_PICK
  } = ScheneKeys;
-
-/**
- * Project requirements
- */
-
-
-import PavClientSdk from 'pavclient';
-import {setModalVisibility, navigateTo} from '../routing/routingActions'
-import {Actions} from 'react-native-router-flux';
-
-const  AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
-
-const  _ = require('underscore');
-
 
 // /**
 //  * ## Logout actions
@@ -281,7 +275,12 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
 
 
 
-
+export function setUserData(userData){
+  return {
+    type: SET_USER_DATA,
+    payload: userData
+  }
+}
 
 
 
@@ -330,7 +329,7 @@ export function loginFailure(error) {
     return async function(dispatch){
 
       let emailIsInvalid = validateEmail(email), passwordIsInvalid = validatePassword(password);
-      
+
       if(emailIsInvalid || passwordIsInvalid){   //if any of the two credentials were invalid
         dispatch(loginFailure("Please provide us with a valid username and password."));
         return null;
@@ -356,7 +355,7 @@ export function loginFailure(error) {
           }
         }else{
           alert("Good that was right, the cake was a lie though..");
-          // console.log(res.data.token);
+          // console.log("Login gave us the token"+res.data.token);
           saveSessionToken(res.data.token)
           dispatch(loginSuccess(res.data));
           return res.data;

@@ -1,5 +1,5 @@
 /**
- * NewsFeed.js
+ * Profile.js
  *
  * Our main pav screen
  */
@@ -24,7 +24,7 @@ import { connect } from 'react-redux';
 import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
-
+import * as profileActions from '../reducers/profile/profileActions'
 
 import Orientation from 'react-native-orientation';
 /**
@@ -38,9 +38,9 @@ import { Actions } from 'react-native-router-flux';
 import {Map} from 'immutable';
 
 /**
- *   NewsFeedRender
+ *   ProfileRender
  */
-import NewsFeedRender from '../components/NewsFeed/NewsFeedRender'
+import ProfileRender from '../components/Profile/ProfileRender'
 
 
 /**
@@ -61,7 +61,8 @@ NEWSFEED
 const actions = [
   authActions,
   routingActions,
-  deviceActions
+  deviceActions,
+  profileActions
 ];
 
 function mapStateToProps(state) {
@@ -95,12 +96,22 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class NewsFeed extends Component {
+class Profile extends Component {
 
   constructor(props) {
     super(props);
+    // console.log("Now calling the get profile data action"+JSON.stringify(this.props));
+
+    // this.loginAndGetProfile();
+
+
+
   }
 
+  async loginAndGetProfile(){
+    await this.props.actions.login("whatevah@placeavote.com", "Asdasd1");
+    await this.props.actions.getProfile();
+  }
   orientationDidChange(orientation) {
     // console.log("Orientation: "+orientation);
     this.props.actions.setOrientation(orientation);
@@ -117,7 +128,7 @@ class NewsFeed extends Component {
 
   render() {
     return(
-      <NewsFeedRender
+      <ProfileRender
           auth={ this.props.auth }
           global={ this.props.global }
           device={ this.props.device}
@@ -130,4 +141,4 @@ class NewsFeed extends Component {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

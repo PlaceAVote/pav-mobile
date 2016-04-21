@@ -36,7 +36,7 @@ export default class AppAuthToken {
   }
   /**
    * ### getSessionToken
-   * @param {Object} sessionToken the currentUser object from Parse.com
+   * @param {Object} sessionToken the currentUser object from pav backend
    *
    * When Hot Loading, the sessionToken  will be passed in, and if so,
    * it needs to be stored on the device.  Remember, the store is a

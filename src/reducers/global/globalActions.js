@@ -15,7 +15,8 @@ const {
   SET_SESSION_TOKEN,
   SET_STORE,
   SET_STATE,
-  GET_STATE
+  GET_STATE,
+  SET_NAVBAR_DIMENSIONS
 } = ActionNames;
 
 /**
@@ -61,4 +62,13 @@ export function getState(toggle) {
     type: GET_STATE,
     payload: toggle
   };
+}
+
+
+
+export function setNavBarDimensions(dimensions){
+  return {
+    type: SET_NAVBAR_DIMENSIONS,
+    payload: dimensions
+  }
 }

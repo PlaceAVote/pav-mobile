@@ -14,6 +14,9 @@ import InitialState from './authInitialState';
 import fieldValidation from '../../lib/Utils/fieldValidation';
 import {formValidation, arrayContainsObject} from './authFormValidation';
 import {ActionNames, ScheneKeys} from '../../config/constants';
+
+import {List} from 'immutable'
+
 /**
  * ## Auth actions
  */
@@ -67,7 +70,8 @@ const {
   FORGOT_PASSWORD_FAILURE,
 
   SET_STATE,
-  SET_AUTH_METHOD
+  SET_AUTH_METHOD,
+  SET_USER_DATA
 } = ActionNames;
 
 
@@ -188,10 +192,40 @@ export default function authReducer(state = initialState, action) {
     break;
   case SIGNUP_SUCCESS:
   case SIGNUP_FACEBOOK_SUCCESS:
+    return state.setIn(['form', 'isFetching'], false)
+    break;
   case LOGIN_SUCCESS:
   case LOGIN_FACEBOOK_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
-    .setIn(['form', 'isLoggedIn'], true);
+    // .setIn(['form', 'isLoggedIn'], true);
+    .setIn(['form', 'user', 'isLoggedIn'], true)
+    .setIn(['form', 'user', 'id'], action.payload.user_id)
+  case SET_USER_DATA:
+    // console.log("ITEMZ: "+JSON.stringify(action.payload))
+    let dt = action.payload;
+    return state.setIn(['form', 'isFetching'], false)
+    // .setIn(['form', 'isLoggedIn'], true);
+    .setIn(['form', 'user', 'id'], dt.user_id)
+    .setIn(['form', 'user', 'email'], dt.email)
+    .setIn(['form', 'user', 'address'], dt.address)
+    .setIn(['form', 'user', 'confirmationToken'], dt["confirmation-token"])
+    .setIn(['form', 'user', 'countryCode'], dt.country_code)
+    .setIn(['form', 'user', 'createdAt'], dt.created_at)
+    .setIn(['form', 'user', 'district'], dt.district)
+    .setIn(['form', 'user', 'birthday'], dt.dob || new Date())
+    .setIn(['form', 'user', 'firstName'], dt.first_name)
+    .setIn(['form', 'user', 'lastName'], dt.last_name)
+    .setIn(['form', 'user', 'gender'], dt.gender || 'they')
+    .setIn(['form', 'user', 'zipCode'], dt.zipcode)
+    .setIn(['form', 'user', 'stateProvince'], dt.state)
+    .setIn(['form', 'user', 'latitude'], dt.lat)
+    .setIn(['form', 'user', 'longitude'], dt.lng)
+    .setIn(['form', 'user', 'publicProfile'], dt.public)
+    .setIn(['form', 'user', 'registered'], dt.registered)
+    .setIn(['form', 'user', 'topics'], new List(dt.topics))
+    .setIn(['form', 'user', 'photoUrl'], dt.img_url)
+
+
     break;
   case FACEBOOK_DATA_ACQ_SUCCESS:
     let {firstName, lastName, id, picUrl, gender, email, dob, accessToken, userID} = action.payload;

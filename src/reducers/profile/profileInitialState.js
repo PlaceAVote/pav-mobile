@@ -1,6 +1,6 @@
 /**
  * # profileInitialState.js
- * 
+ *
  * This class is a Immutable object
  * Working *successfully* with Redux, requires
  * state that is immutable.
@@ -10,7 +10,7 @@
  */
 'use strict';
 
-const  {Record} = require('immutable');
+const  {Record, List} = require('immutable');
 
 /**
  * ## Form
@@ -21,19 +21,11 @@ const  {Record} = require('immutable');
  * The fields are what display on the UI
  */
 const Form = Record({
-  originalProfile: new(Record({
-    username: null,
-    email: null,
-    objectId: null,
-    emailVerified: null
-  })),
   disabled: false,
   error: null,
-  isValid: false,
+  // isValid: false,
   isFetching: false,
-  fields: new (Record({
-    username: '',
-    usernameHasError: false,
+  form: new (Record({
     email: '',
     emailHasError: false,
     emailVerified: false

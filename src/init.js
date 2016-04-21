@@ -65,6 +65,8 @@ import React, {
       import EmailSignUpStep4 from './containers/EmailSignUpStep4';
       import TopicPick from './containers/TopicPick';
       import NewsFeed from './containers/NewsFeed';
+      import Profile from './containers/Profile';
+
 
       // import Logout from './containers/Logout';
       import Onboarding from './containers/Onboarding';
@@ -95,7 +97,7 @@ import React, {
       *  The necessary actions for dispatching our bootstrap values
       */
       import {setPlatform, setVersion} from './reducers/device/deviceActions';
-      import {setStore} from './reducers/global/globalActions';
+      import {setStore, setNavBarDimensions} from './reducers/global/globalActions';
       import {navigateState, navigateToPreviousState} from './reducers/routing/routingActions';
 
       /**
@@ -217,7 +219,7 @@ import React, {
               }
               return (
                 <View style={{flexDirection:'row', justifyContent:'center', padding:3}}>
-                  <PavIcon name={iconName} style={{}} size={25} style={{color: this.props.selected ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
+                  <PavIcon name={iconName} size={25} style={{color: this.props.selected ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
                   <View style={{flexDirection: "column", justifyContent: 'center', paddingHorizontal:4}}>
                     <Text style={{color: this.props.selected ? Colors.primaryColor :Colors.secondaryTextColor}}>{this.props.title}</Text>
                   </View>
@@ -251,7 +253,7 @@ import React, {
             const reducerCreate = params=>{
                 const defaultReducer = Reducer(params);
                 return (state, action)=>{
-                  // console.log("ACTION:", action);
+
                   switch(action.type){
                     case "push":
                       store.dispatch(navigateState(action.key));
@@ -260,6 +262,9 @@ import React, {
                     case "BackAction":
                       store.dispatch(navigateToPreviousState());
                       break;
+                    // case "refresh":
+                      // store.dispatch(setNavBarDimensions(action.navBarDimensions));
+                      // break;
                     default:
                       break;
                   }
@@ -288,7 +293,7 @@ import React, {
                       <Scene direction="vertical" key={ScheneKeys.NEWSFEED} title="News Feed" hideNavBar={true} panHandlers={null} duration={1} tabs={true} initial={true}>
                             <Scene key={ScheneKeys.TAB_NEWS} title="News Feed" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}/>
                             <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} notifications={["a notification", "another notification"]}/>
-                            <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}/>
+                            <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} initial={true}/>
                       </Scene>
                     </Scene>
                   </Scene>

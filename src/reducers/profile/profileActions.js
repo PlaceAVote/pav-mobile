@@ -1,14 +1,26 @@
 /**
  * # profileActions.js
- * 
+ *
  * The actions to support the users profile
  */
 'use strict';
 /**
  * ## Imports
- * 
- * The actions for profile
+ *
  */
+
+import {ActionNames, ScheneKeys} from '../../config/constants';
+
+/**
+ * AppAuthToken for localStorage sessionToken access
+ */
+const AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
+import PavClientSdk from 'pavclient';
+import {setUserData} from '../auth/authActions'
+
+
+
+
 const {
   GET_PROFILE_REQUEST,
   GET_PROFILE_SUCCESS,
@@ -19,14 +31,12 @@ const {
   PROFILE_UPDATE_FAILURE,
 
   ON_PROFILE_FORM_FIELD_CHANGE
-} = require('../../config/constants').ScheneKeys
+} = ActionNames
 
-/**
- * BackendFactory - base class for server implementation
- * AppAuthToken for localStorage sessionToken access 
- */
-const BackendFactory = require('../../lib/Network/BackendFactory').default;
-const AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
+
+
+
+
 
 /**
  * ## retreiving profile actions
@@ -53,22 +63,49 @@ export function getProfileFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getProfile(sessionToken) {
-  return dispatch => {
-    dispatch(getProfileRequest());
+export function getProfile(userId = null, sessionToken=null) {
+  console.log("Get profile called");
+  return async function (dispatch){
+    // dispatch(getProfileRequest());
     //store or get a sessionToken
-    return new AppAuthToken().getSessionToken(sessionToken)
-      .then((token) => {
-        return BackendFactory(token).getProfile();
-      })
-      .then((json) => {
-          dispatch(getProfileSuccess(json));
-      })
-      .catch((error) => {
-        dispatch(getProfileFailure(error));
-      });
+    let token = null;
+    try{
+         token = await new AppAuthToken().getSessionToken(sessionToken);
+    }catch(e){
+      console.log("Unable to fetch past token in profileActions.getProfile() with error: "+e.message);
+      dispatch(getProfileFailure(e.message));
+    }
+    let res = await PavClientSdk(token).userApi.profile({
+      userId: userId
+    });
+    console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      dispatch(getProfileFailure("Unable to get user profile data with this token."));
+      return res.error;
+    }else{
+      dispatch(getProfileSuccess(res.data));
+      dispatch(setUserData(res.data));
+      return res.data;
+    }
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * ## State actions
  * controls which form is displayed to the user
@@ -92,16 +129,16 @@ export function profileUpdateFailure(json) {
 }
 /**
  * ## updateProfile
- * @param {string} userId -  objectId 
+ * @param {string} userId -  objectId
  * @param {string} username - the users name
  * @param {string] email - user's email
- * @param {Object} sessionToken - the sessionToken from Parse.com
+ * @param {Object} sessionToken - the sessionToken from the pav backend
  *
  * The sessionToken is provided when Hot Loading.
  *
- * With the sessionToken, Parse.com is called with the data to update
+ * With the sessionToken, the pav backend is called with the data to update
  * If successful, get the profile so that the screen is updated with
- * the data as now persisted on Parse.com
+ * the data as now persisted on the pav backend
  *
  */
 export function updateProfile(userId, username, email, sessionToken) {
@@ -109,7 +146,7 @@ export function updateProfile(userId, username, email, sessionToken) {
     dispatch(profileUpdateRequest());
     return new AppAuthToken().getSessionToken(sessionToken)
       .then((token) => {
-        return BackendFactory(token).updateProfile(userId,
+        return PavClientSdk(token).updateProfile(userId,
           {
             username: username,
             email: email
@@ -127,7 +164,7 @@ export function updateProfile(userId, username, email, sessionToken) {
 }
 /**
  * ## onProfileFormFieldChange
- * 
+ *
  */
 export function onProfileFormFieldChange(field,value) {
   return {
