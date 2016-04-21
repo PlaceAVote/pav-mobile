@@ -13,6 +13,9 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import ActionButton from 'react-native-action-button';
+
+
 /**
  * The actions we need
  */
@@ -38,6 +41,10 @@ var Icon = require('react-native-vector-icons/FontAwesome');
 
 
 import {Colors, ScheneKeys} from '../../config/constants';
+
+import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 /**
  * The necessary React components
@@ -145,6 +152,16 @@ class NewsFeedRender extends Component {
 
             </View>
 
+
+
+            <ActionButton offsetY={50} offsetX={1} buttonColor="rgba(231,76,60,1)">
+              <ActionButton.Item buttonColor='#9b59b6' title="New Issue" onPress={() => console.log("notes tapped!")}>
+                <PavIcon name='issues' size={30} style={{color:'white'}}/>
+              </ActionButton.Item>
+              <ActionButton.Item buttonColor='#3498db' title="Discovery" onPress={() => {}}>
+                <PavIcon name='ios-search-strong' size={33} style={{color:'white'}}/>
+              </ActionButton.Item>
+            </ActionButton>
           </View>
         </Image>
     );

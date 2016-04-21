@@ -137,9 +137,23 @@ class ProfileRender extends Component {
           start={[0.0, 0.0]} end={[0.6, 0.5]}
           style={styles.headerView}>
 
-          <View style={styles.userAccSettingsHeaderView}>
-            <Text style={styles.accountSettingsText}>Account Settings</Text>
-            <PavIcon name="gear" size={24} style={styles.accountSettingsIcon}/>
+          <View style={styles.userDetailsHeaderView}>
+            <View style={styles.lastActivityView}>
+              <Text style={styles.lastActivityText}>2 Days ago</Text>
+              <Text style={styles.lastActivityTitle}>Last Activity</Text>
+            </View>
+            <View style={styles.voteCntView}>
+              <Text style={styles.voteCntText}>24</Text>
+              <Text style={styles.voteCntTitle}>Votes</Text>
+            </View>
+            <View style={styles.followerCntView}>
+              <Text style={styles.followerCntText}>250</Text>
+              <Text style={styles.followerCntTitle}>Followers</Text>
+            </View>
+            <View style={styles.followingCntView}>
+              <Text style={styles.followingCntText}>20</Text>
+              <Text style={styles.followingCntTitle}>Following</Text>
+            </View>
           </View>
           <View style={styles.userDataHeaderView}>
             <View style={styles.profileImgContainerView}>
@@ -168,24 +182,7 @@ class ProfileRender extends Component {
               </Button>
             </View>
           </View>
-          <View style={styles.userDetailsHeaderView}>
-            <View style={styles.lastActivityView}>
-              <Text style={styles.lastActivityText}>2 Days ago</Text>
-              <Text style={styles.lastActivityTitle}>Last Activity</Text>
-            </View>
-            <View style={styles.voteCntView}>
-              <Text style={styles.voteCntText}>24</Text>
-              <Text style={styles.voteCntTitle}>Votes</Text>
-            </View>
-            <View style={styles.followerCntView}>
-              <Text style={styles.followerCntText}>250</Text>
-              <Text style={styles.followerCntTitle}>Followers</Text>
-            </View>
-            <View style={styles.followingCntView}>
-              <Text style={styles.followingCntText}>20</Text>
-              <Text style={styles.followingCntTitle}>Following</Text>
-            </View>
-          </View>
+
 
           </LinearGradient>
           <View style={styles.bodyView}>

@@ -234,28 +234,45 @@ import React, {
       }
 
 
-      class ProfileButtons extends React.Component {
+      class NewsfeedButtons extends React.Component {
         render(){
             return (
                 <View style={{ flexDirection:'row', justifyContent:'space-between', paddingHorizontal:10}}>
                   <TouchableOpacity>
-                    <PavIcon name='logo' size={34} style={{color:'white'}}/>
+                    <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.7)'}}/>
                   </TouchableOpacity>
                   <View style={{ flexDirection:'row', justifyContent:'flex-end'}}>
                     <TouchableOpacity style={{paddingHorizontal:3}}>
                       <PavIcon name='ios-search-strong' size={35} style={{color:'white'}}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{paddingHorizontal:3}}>
-                      <PavIcon name='issues' size={30} style={{color:'white'}}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{paddingHorizontal:3}}>
-                      <PavIcon name='binoculars' size={30} style={{color:'white'}}/>
                     </TouchableOpacity>
                   </View>
                 </View>
             );
         }
       }
+      class ProfileButtons extends React.Component {
+        render(){
+            return (
+                <View style={{ flexDirection:'row', justifyContent:'space-between', paddingHorizontal:10}}>
+                  <TouchableOpacity>
+                    <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.7)'}}/>
+                  </TouchableOpacity>
+                  <View style={{ flexDirection:'row', justifyContent:'flex-end', alignItems:'center'}}>
+                    <TouchableOpacity style={{paddingHorizontal:3}}>
+                      <PavIcon name='gear' size={35} style={{color:'white'}}/>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+            );
+        }
+      }
+
+      // <TouchableOpacity style={{paddingHorizontal:3}}>
+
+      // </TouchableOpacity>
+      // <TouchableOpacity style={{paddingHorizontal:3}}>
+
+      // </TouchableOpacity>
 
       export default function native(platform) {
         let PlaceAVote = React.createClass( {
@@ -321,7 +338,7 @@ import React, {
                       <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true} initial={true}>
                           <Scene key={ScheneKeys.TAB_NEWS} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}}>
-                            <Scene key={ScheneKeys.TAB_NEWS+"2"}  title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} />
+                            <Scene key={ScheneKeys.TAB_NEWS+"2"}  title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsfeedButtons/>} />
                           </Scene>
                           <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={Notifications} icon={TabIconFactory} notifications={["a notification", "another notification"]} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}}/>
                           <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}}/>
