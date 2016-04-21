@@ -66,6 +66,7 @@ import React, {
       import TopicPick from './containers/TopicPick';
       import NewsFeed from './containers/NewsFeed';
       import Profile from './containers/Profile';
+      import Notifications from './containers/Notifications';
 
 
       // import Logout from './containers/Logout';
@@ -313,9 +314,9 @@ import React, {
                       <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
                       <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
-                      <Scene direction="vertical" key={ScheneKeys.NEWSFEED} title="News Feed" hideNavBar={true} panHandlers={null} duration={1} tabs={true} initial={true}>
+                      <Scene direction="vertical" key={ScheneKeys.NEWSFEED} title="News Feed" hideNavBar={false} panHandlers={null} duration={1} tabs={true} initial={true}>
                             <Scene key={ScheneKeys.TAB_NEWS} title="News Feed" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} renderRightButton={()=><ProfileButtons/>}/>
-                            <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={NewsFeed} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} notifications={["a notification", "another notification"]} renderRightButton={()=><ProfileButtons/>}/>
+                            <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={Notifications} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} notifications={["a notification", "another notification"]} renderRightButton={()=><ProfileButtons/>}/>
                             <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}}  titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} renderRightButton={()=><ProfileButtons/>} initial={true} />
                       </Scene>
                     </Scene>
