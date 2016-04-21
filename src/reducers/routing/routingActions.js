@@ -27,7 +27,7 @@ const {
   REGISTER_STEP_3,
   REGISTER_STEP_4,
   TOPIC_PICK,
-  NEWSFEED
+  MAIN
 } = ScheneKeys;
 
 /**
@@ -98,7 +98,7 @@ export function navigateUserToTheCorrectNextOnboardingStep(currentStep){
         dispatch(navigateTo(TOPIC_PICK));
         break;
       case TOPIC_PICK:
-        dispatch(navigateTo(NEWSFEED));
+        dispatch(navigateTo(MAIN));
         break;
       default:
         let isValid = curState.auth.form.isValid.toJS();

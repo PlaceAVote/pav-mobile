@@ -28,7 +28,7 @@ module.exports =  {
     REGISTER_STEP_3: null,
     REGISTER_STEP_4: null,
     TOPIC_PICK: null,
-    NEWSFEED: null,
+    MAIN: null,
     TAB_NEWS: null,
     TAB_NOTIFS: null,
     TAB_PROFILE: null,

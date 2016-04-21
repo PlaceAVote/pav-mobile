@@ -137,7 +137,7 @@ class NewsFeedRender extends Component {
               <View style={styles.titleTextContainerVer}>
                 <View style={styles.titleTextContainerHor}>
                   <Text style={styles.titleText} numberOfLines={2}>
-                  NEWSFEED
+                  MAIN
                   </Text>
                 </View>
               </View>

@@ -39,7 +39,7 @@ import React from 'react-native';
 const {
   LOGIN,
   FORGOT_PASSWORD,
-  NEWSFEED
+  MAIN
 } = require('../config/constants').ScheneKeys
 
 /**
@@ -86,7 +86,7 @@ let EmailSignIn = React.createClass({
         // console.log("User data we got: "+JSON.stringify(userFbData));
         let success = await this.props.actions.loginFacebook(userFbData.userID, userFbData.accessToken);
         if(success){
-          this.props.actions.navigateTo(NEWSFEED);
+          this.props.actions.navigateTo(MAIN);
         }
     }
   },
@@ -99,7 +99,7 @@ let EmailSignIn = React.createClass({
     // this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
     let success = await this.props.actions.login(email, password);
     if(success){
-      this.props.actions.navigateTo(NEWSFEED);
+      this.props.actions.navigateTo(MAIN);
     }
 
   },

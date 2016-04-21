@@ -51,7 +51,7 @@ import React, {Component} from 'react-native';
 
 
 const {
-NEWSFEED
+MAIN
 } = require('../config/constants').ScheneKeys
 
 
