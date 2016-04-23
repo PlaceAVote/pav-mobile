@@ -14,6 +14,7 @@ module.exports =  {
     secondaryTextColor: "#B8B8BD",   //light grey
     thirdTextColor: "black",
     fourthTextColor: "#707070",
+
     errorTextColor: "#a94442",
     helpTextColor: "#999999"
 

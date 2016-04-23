@@ -137,4 +137,5 @@ dependencies {
     compile project(':react-native-linear-gradient')
     compile project(':react-native-orientation')
     compile project(':react-native-vector-icons')
+    compile project(':react-native-material-kit')
 }

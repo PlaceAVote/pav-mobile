@@ -1,6 +1,7 @@
 package com.placeavoteapp;
 
-import com.facebook.react.ReactActivity;   //for FacebookSdk;
+import com.facebook.react.ReactActivity;
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;   //for Material design;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;   //for FacebookSdk;
 import com.facebook.CallbackManager;   //for FacebookSdk;
 import com.facebook.FacebookSdk;   //for FacebookSdk;
@@ -49,6 +50,7 @@ public class MainActivity extends ReactActivity {
 
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new ReactMaterialKitPackage(),
             new FBSDKPackage(mCallbackManager),
             new LinearGradientPackage(),
             new OrientationPackage(this),
