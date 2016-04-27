@@ -111,7 +111,7 @@ class Profile extends Component {
     if(!!token){
       // console.log("TOKEN: "+JSON.stringify(token));
       this.getProfileData(token);
-      // this.getTimelineData(token)
+      this.getTimelineData(token)
     }
   }
 
@@ -125,7 +125,7 @@ class Profile extends Component {
   }
 
   async getTimelineData(token){
-    var timelineData = await this.props.actions.getProfile(null,token,false);
+    var timelineData = await this.props.actions.getTimeline(null,token,false);
     if(!!timelineData){
       return timelineData.results;
     }else{

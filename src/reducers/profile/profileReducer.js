@@ -29,6 +29,10 @@ const {
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
 
+  GET_TIMELINE_REQUEST,
+  GET_TIMELINE_SUCCESS,
+  GET_TIMELINE_FAILURE,
+
   LOGOUT_SUCCESS,
 
   SET_STATE
@@ -56,6 +60,7 @@ export default function profileReducer(state = initialState, action) {
      * ### Request starts
      * set the form to fetching and clear any errors
      */
+  case GET_TIMELINE_REQUEST:
   case GET_PROFILE_REQUEST:
   // case PROFILE_UPDATE_REQUEST:
     return state.setIn(['form', 'isFetching'], true)
@@ -76,6 +81,10 @@ export default function profileReducer(state = initialState, action) {
      * Validate the data to make sure it's all good and someone didn't
      * mung it up through some other mechanism
      */
+  case GET_TIMELINE_SUCCESS:
+    return state.setIn(['form', 'isFetching'], false)
+    .setIn(['form','error'],null)
+    .setIn(['form', 'profileData', 'timelineData'], action.payload.results);
   case GET_PROFILE_SUCCESS:
     // console.log("Profile reducer get profile SUCCESS with payload: "+JSON.stringify(action.payload));
     return state.setIn(['form', 'isFetching'], false)
@@ -109,6 +118,7 @@ export default function profileReducer(state = initialState, action) {
      * ### Request fails
      * we're done fetching and the error needs to be displayed to the user
      */
+  case GET_TIMELINE_FAILURE:
   case GET_PROFILE_FAILURE:
   case PROFILE_UPDATE_FAILURE:
     return state.setIn(['form', 'isFetching'], false)

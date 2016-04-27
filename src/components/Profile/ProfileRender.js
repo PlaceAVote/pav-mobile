@@ -63,6 +63,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 // import {getTheme} from 'react-native-material-kit';
 // const MateriakDesignTheme = getTheme();
 import CommentCard from '../Cards/CommentCard';
+import CardFactory from '../Cards/CardFactory';
 
 /**
  * The states were interested in
@@ -315,9 +316,28 @@ class ProfileRender extends Component {
   }
 
   getFollowBtnLabelText(name){
-    return "Follow "+name;
+    let nm = name || "";
+    return "Follow "+nm;
   }
-  
+
+
+  parseTimelineDataIntoComponents(timelineData, styles){
+    if(!!timelineData){
+
+      for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
+        let curTimelineItem = timelineData[ii];
+        console.log(JSON.stringify(curTimelineItem))
+        return (<CardFactory
+          type={curTimelineItem.type}
+          key={curTimelineItem.event_id}
+          style={styles.card}
+          timelineData={curTimelineItem}
+          device={this.props.device}
+          />)
+      }
+    }
+  }
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -401,6 +421,8 @@ class ProfileRender extends Component {
               commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
               userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
               device={this.props.device}/>
+
+              {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles)}
             </ScrollView>
 
           </View>

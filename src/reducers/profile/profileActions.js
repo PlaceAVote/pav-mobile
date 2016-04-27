@@ -70,7 +70,7 @@ export function getProfileFailure(json) {
 export function getProfile(userId = null, sessionToken=null, dev = null) {
   console.log("Get profile called");
   return async function (dispatch){
-    dispatch(getProfileRequest());
+    // dispatch(getProfileRequest());
     //store or get a sessionToken
     let token = sessionToken;
     try{
@@ -145,7 +145,7 @@ export function getTimelineFailure(json) {
 export function getTimeline(userId = null, sessionToken=null, dev = null) {
   console.log("Get timeline called");
   return async function (dispatch){
-    // dispatch(getTimelineRequest());
+    dispatch(getTimelineRequest());
     //store or get a sessionToken
     let token = sessionToken;
     try{
@@ -165,7 +165,6 @@ export function getTimeline(userId = null, sessionToken=null, dev = null) {
       return res.error;
     }else{
       dispatch(getTimelineSuccess(res.data));
-      dispatch(setUserData(res.data));
       return res.data;
     }
   };
