@@ -34,7 +34,7 @@ const Form = Record({
     voteCnt: "-",
     followerCnt: "-",
     followingCnt: "-",
-    timelineData: "-", //array of items
+    timelineData: null, //array of items
 
   }))
 });

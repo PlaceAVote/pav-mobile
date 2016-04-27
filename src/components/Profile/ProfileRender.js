@@ -31,6 +31,7 @@ import {Map} from 'immutable';
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
 
+var ProgressBar = require('ProgressBarAndroid');
 
 import moment from 'moment'
 /**
@@ -51,7 +52,8 @@ import React,
   Text,
   View,
   Image,
-  ScrollView
+  ScrollView,
+  ActivityIndicatorIOS
 }
 from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -275,6 +277,12 @@ class ProfileRender extends Component {
         color: Colors.thirdTextColor,
         // textAlign: 'center',
       },
+
+      bodyLoadingContainer:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+      }
     });
   }
 
@@ -351,7 +359,95 @@ class ProfileRender extends Component {
     if(!!lastTimestamp){
         return moment(lastTimestamp).fromNow();
     }else{
-      return "-" 
+      return "-"
+    }
+
+  }
+
+
+  renderProfileHeader(dataReady, styles){
+    let firstName = this.props.auth.form.user.firstName|| "-";
+    let lastName = this.props.auth.form.user.lastName || "";
+    let fullName =  firstName+" "+lastName;
+    return (<LinearGradient
+            colors={['#4D6EB2', '#6B55A2']}
+            start={[0.0, 0.0]} end={[0.6, 0.5]}
+            style={styles.headerView}>
+              <View style={styles.userDetailsHeaderView}>
+                <View style={styles.statisticsBigContainer}>
+                  <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.profile.form.profileData.lastActivityTimestamp)}</Text>
+                  <Text style={styles.statisticsTitleText}>Last Activity</Text>
+                </View>
+                <View style={styles.statisticsSmallContainer}>
+                  <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.voteCnt}</Text>
+                  <Text style={styles.statisticsTitleText}>Votes</Text>
+                </View>
+                <View style={styles.statisticsSmallContainer}>
+                  <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followerCnt}</Text>
+                  <Text style={styles.statisticsTitleText}>Followers</Text>
+                </View>
+                <View style={styles.statisticsSmallContainer}>
+                  <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followingCnt}</Text>
+                  <Text style={styles.statisticsTitleText}>Following</Text>
+                </View>
+              </View>
+              <View style={styles.userDataHeaderView}>
+                <View style={styles.profileImgContainerView}>
+                  <Image
+                    style={styles.userImg}
+                    source={{uri: this.props.auth.form.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
+                    resizeMode='contain'
+                  />
+                </View>
+                <View style={styles.userDataContainerView}>
+                  <Text style={styles.fullNameText}>{fullName}</Text>
+
+                  <View style={styles.locationContainer}>
+                    <PavIcon name="loc" size={12} style={styles.locationPinIcon}/>
+                    <Text style={styles.locationText}>{this.formUserLocationText(this.props.auth.form.user)}</Text>
+                  </View>
+
+                  <Button
+                  onPress={this.props.onFbBtnPress}
+                  style={styles.followBtn}
+                  textStyle={styles.whiteBtnText}
+                  isDisabled={this.props.auth.form.isFetching || this.props.profile.form.isFetching}
+                  isLoading={this.props.auth.form.isFetching || this.props.profile.form.isFetching}
+                  iconProps={{name: "plus",size:15, color: "white"}}>
+                    {this.getFollowBtnLabelText(this.props.auth.form.user.firstName)}
+                  </Button>
+                </View>
+              </View>
+            </LinearGradient>);
+  }
+
+  renderProfileBody(dataReady, styles){
+    if(dataReady==true){
+      return (
+      <View>
+        <Text style={styles.recentActivityText}>Recent Activity:</Text>
+        <ScrollView style={styles.scrollView}>
+          {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
+        </ScrollView>
+      </View>);
+    }else{
+      if(this.props.device.platform=="android"){
+          return (
+          <View style={styles.bodyLoadingContainer}>
+            <ProgressBar styleAttr="Large" color="red" />
+          </View>);
+      }else if(this.props.device.platform=="ios"){
+          return (
+            <View style={styles.bodyLoadingContainer}>
+              <ActivityIndicatorIOS
+                animating={true}
+                size="large"
+              />
+            </View>);
+      }else{
+        return <View style={styles.bodyLoadingContainer}><Text>Now Loading</Text></View>;
+      }
+
     }
 
   }
@@ -367,78 +463,13 @@ class ProfileRender extends Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
-    // <ListView
-    //   dataSource={this.state.dataSource}
-    //   renderRow={(rowData) => <Text>{rowData}</Text>}
-    // />
-    let firstName = this.props.auth.form.user.firstName || "Adelle";
-    let lastName = this.props.auth.form.user.lastName || "Charles";
-    let fullName =  firstName+" "+lastName;
-
     return(
         <View style={styles.container}>
 
-          <LinearGradient
-          colors={['#4D6EB2', '#6B55A2']}
-          start={[0.0, 0.0]} end={[0.6, 0.5]}
-          style={styles.headerView}>
-
-          <View style={styles.userDetailsHeaderView}>
-            <View style={styles.statisticsBigContainer}>
-              <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.profile.form.profileData.lastActivityTimestamp)}</Text>
-              <Text style={styles.statisticsTitleText}>Last Activity</Text>
-            </View>
-            <View style={styles.statisticsSmallContainer}>
-              <Text style={styles.statisticsContentText}>24</Text>
-              <Text style={styles.statisticsTitleText}>Votes</Text>
-            </View>
-            <View style={styles.statisticsSmallContainer}>
-              <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followerCnt}</Text>
-              <Text style={styles.statisticsTitleText}>Followers</Text>
-            </View>
-            <View style={styles.statisticsSmallContainer}>
-              <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followingCnt}</Text>
-              <Text style={styles.statisticsTitleText}>Following</Text>
-            </View>
-          </View>
-          <View style={styles.userDataHeaderView}>
-            <View style={styles.profileImgContainerView}>
-              <Image
-                style={styles.userImg}
-                source={{uri: this.props.auth.form.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
-                resizeMode='contain'
-              />
-            </View>
-            <View style={styles.userDataContainerView}>
-              <Text style={styles.fullNameText}>{fullName}</Text>
-
-              <View style={styles.locationContainer}>
-                <PavIcon name="loc" size={12} style={styles.locationPinIcon}/>
-                <Text style={styles.locationText}>{this.formUserLocationText(this.props.auth.form.user)}</Text>
-              </View>
-
-              <Button
-              onPress={this.props.onFbBtnPress}
-              style={styles.followBtn}
-              textStyle={styles.whiteBtnText}
-              isDisabled={this.props.auth.form.isFetching || this.props.profile.form.isFetching}
-              isLoading={this.props.auth.form.isFetching || this.props.profile.form.isFetching}
-              iconProps={{name: "plus",size:15, color: "white"}}>
-                {this.getFollowBtnLabelText(this.props.auth.form.user.firstName)}
-              </Button>
-            </View>
-          </View>
-          </LinearGradient>
-
+          {this.renderProfileHeader(false, styles)}
           <View style={styles.bodyView}>
-            <Text style={styles.recentActivityText}>Recent Activity:</Text>
-            <ScrollView style={styles.scrollView}>
-              {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
-            </ScrollView>
-
+            {this.renderProfileBody(false, styles)}
           </View>
-
-
         </View>
     );
   }
@@ -474,6 +505,4 @@ device={this.props.device}/>
 */
 
 
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileRender);

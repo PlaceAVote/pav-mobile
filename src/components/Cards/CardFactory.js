@@ -94,7 +94,7 @@ class CardFactory extends Component {
 
 
       default:
-        return (<View {...this.props}></View>);
+        return <View {...this.props}></View>;
         break;
     }
   }

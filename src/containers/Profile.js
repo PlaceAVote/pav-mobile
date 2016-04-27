@@ -102,7 +102,7 @@ class Profile extends Component {
     super(props);
     // console.log("Now calling the get profile data action"+JSON.stringify(this.props));
 
-    this.updateProfileData();
+    // this.updateProfileData();
 
   }
 
