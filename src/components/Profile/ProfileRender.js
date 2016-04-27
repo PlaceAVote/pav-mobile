@@ -225,78 +225,31 @@ class ProfileRender extends Component {
         paddingVertical: h*0.014,
         paddingHorizontal: w*0.04
       },
-      lastActivityView:{
+
+      statisticsTitleText:{
+        paddingTop:2,
+        color: Colors.fourthTextColor,
+        textAlign: 'left',
+        fontFamily: 'Whitney Light',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+      },
+
+      statisticsContentText:{
+        color: Colors.fourthTextColor,
+        textAlign: 'left',
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,10),
+      },
+
+      statisticsBigContainer:{
         flex:2,
         flexDirection:'column',
         // backgroundColor:'red'
       },
-
-      lastActivityText:{
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-      lastActivityTitle:{
-        paddingTop:1,
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Light',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      voteCntView:{
-        flex:1,
-        flexDirection:'column',
-        // backgroundColor:'blue'
-      },
-      voteCntText:{
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-      voteCntTitle:{
-        paddingTop:1,
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Light',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      followerCntView:{
-        flex:1,
-        flexDirection:'column',
-        // backgroundColor:'black'
-      },
-      followerCntText:{
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-      followerCntTitle:{
-        paddingTop:1,
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Light',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      followingCntView:{
+      statisticsSmallContainer:{
         flex:1,
         flexDirection:'column',
         // backgroundColor:'green'
-      },
-      followingCntText:{
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-      followingCntTitle:{
-        paddingTop:1,
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Light',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
 
 
@@ -371,21 +324,21 @@ class ProfileRender extends Component {
           style={styles.headerView}>
 
           <View style={styles.userDetailsHeaderView}>
-            <View style={styles.lastActivityView}>
-              <Text style={styles.lastActivityText}>2 Days ago</Text>
-              <Text style={styles.lastActivityTitle}>Last Activity</Text>
+            <View style={styles.statisticsBigContainer}>
+              <Text style={styles.statisticsContentText}>2 Days ago</Text>
+              <Text style={styles.statisticsTitleText}>Last Activity</Text>
             </View>
-            <View style={styles.voteCntView}>
-              <Text style={styles.voteCntText}>24</Text>
-              <Text style={styles.voteCntTitle}>Votes</Text>
+            <View style={styles.statisticsSmallContainer}>
+              <Text style={styles.statisticsContentText}>24</Text>
+              <Text style={styles.statisticsTitleText}>Votes</Text>
             </View>
-            <View style={styles.followerCntView}>
-              <Text style={styles.followerCntText}>250</Text>
-              <Text style={styles.followerCntTitle}>Followers</Text>
+            <View style={styles.statisticsSmallContainer}>
+              <Text style={styles.statisticsContentText}>250</Text>
+              <Text style={styles.statisticsTitleText}>Followers</Text>
             </View>
-            <View style={styles.followingCntView}>
-              <Text style={styles.followingCntText}>20</Text>
-              <Text style={styles.followingCntTitle}>Following</Text>
+            <View style={styles.statisticsSmallContainer}>
+              <Text style={styles.statisticsContentText}>20</Text>
+              <Text style={styles.statisticsTitleText}>Following</Text>
             </View>
           </View>
           <View style={styles.userDataHeaderView}>

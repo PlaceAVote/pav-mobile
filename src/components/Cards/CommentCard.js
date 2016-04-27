@@ -65,6 +65,8 @@ class CommentCard extends Component {
    * ## Styles for PORTRAIT
    */
   getPortraitStyles(self){
+
+
     return StyleSheet.create({
 
       cardContainer:{
@@ -119,8 +121,9 @@ class CommentCard extends Component {
       },
 
       cardContentContainer:{
+        // backgroundColor:'red',
         paddingHorizontal: w*0.02,
-        paddingVertical: w*0.02,
+        paddingBottom: h*0.012,
         borderStyle: 'solid',
         borderTopColor: 'rgba(0, 0, 0, 0.1)',
         borderTopWidth: 1,
@@ -128,7 +131,7 @@ class CommentCard extends Component {
       },
       cardContentHeader:{
         flex:1,
-        paddingVertical:5,
+        paddingVertical:h*0.01,
         flexDirection:'row',
         // backgroundColor:'red',
         alignItems:'center'
@@ -167,30 +170,33 @@ class CommentCard extends Component {
       },
       commentLocationContainer:{
         flexDirection:'row',
-        alignItems:'center'
+        alignItems:'center',
+        // backgroundColor:'red',
       },
       commentNameText:{
         // backgroundColor:'blue',
         color:"#EC6F5A",
         paddingHorizontal: 5,
         fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       commentInText:{
         color: Colors.thirdTextColor,
         paddingHorizontal: 5,
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       commentLocationText:{
         // backgroundColor:'yellow',
         color: Colors.primaryColor,
         paddingHorizontal: 1,
         fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        width: w*0.7,
       },
       cardContentBody:{
         // backgroundColor:'green'
+        // marginTop: h*0.01
       },
       cardContentText:{
         padding:2,
@@ -278,15 +284,16 @@ class CommentCard extends Component {
                 <Text style={styles.commentNameText}>Adelle Charles</Text>
                 <View style={styles.commentLocationContainer}>
                   <Text style={styles.commentInText}>in</Text>
-                  <Text style={styles.commentLocationText}>whatever bla bla lba lba</Text>
+                  <Text style={styles.commentLocationText}>Dolor sit amet, consectetur adipiscing elit.
+                  Mauris sagittis pellentesque lacus eleifend lacinia bill.</Text>
                 </View>
 
               </View>
             </View>
             <View style={styles.cardContentBody}>
               <Text style={styles.cardContentText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Mauris sagittis pellentesque lacus eleifend lacinia...
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Mauris sagittis pellentesque lacus eleifend lacinia...
               </Text>
             </View>
           </View>
