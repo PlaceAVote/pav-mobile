@@ -257,6 +257,9 @@ class ProfileRender extends Component {
         flex:1.45,
         backgroundColor: '#E8E7EE',
       },
+      card:{
+        paddingHorizontal:7
+      },
       recentActivityText: {
         // backgroundColor: 'red',
         paddingHorizontal: w*0.05,
@@ -297,6 +300,24 @@ class ProfileRender extends Component {
     });
   }
 
+
+  formUserLocationText(user){
+    if(!!user.city){
+      if(user.stateProvince!=null){
+        return user.city+", "+user.stateProvince
+      }else{
+        return user.city;
+      }
+    }else{
+      return "Location";
+    }
+
+  }
+
+  getFollowBtnLabelText(name){
+    return "Follow "+name;
+  }
+  
   /**
    * ### render
    * Setup some default presentations and render
@@ -333,11 +354,11 @@ class ProfileRender extends Component {
               <Text style={styles.statisticsTitleText}>Votes</Text>
             </View>
             <View style={styles.statisticsSmallContainer}>
-              <Text style={styles.statisticsContentText}>250</Text>
+              <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followerCnt}</Text>
               <Text style={styles.statisticsTitleText}>Followers</Text>
             </View>
             <View style={styles.statisticsSmallContainer}>
-              <Text style={styles.statisticsContentText}>20</Text>
+              <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followingCnt}</Text>
               <Text style={styles.statisticsTitleText}>Following</Text>
             </View>
           </View>
@@ -346,7 +367,7 @@ class ProfileRender extends Component {
               <Image
                 style={styles.userImg}
                 source={{uri: this.props.auth.form.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
-                resizeMode='cover'
+                resizeMode='contain'
               />
             </View>
             <View style={styles.userDataContainerView}>
@@ -354,17 +375,17 @@ class ProfileRender extends Component {
 
               <View style={styles.locationContainer}>
                 <PavIcon name="loc" size={12} style={styles.locationPinIcon}/>
-                <Text style={styles.locationText}>Stockton, California</Text>
+                <Text style={styles.locationText}>{this.formUserLocationText(this.props.auth.form.user)}</Text>
               </View>
 
               <Button
               onPress={this.props.onFbBtnPress}
               style={styles.followBtn}
               textStyle={styles.whiteBtnText}
-              isDisabled={this.props.auth.form.isFetching}
-              isLoading={this.props.auth.form.isFetching}
+              isDisabled={this.props.auth.form.isFetching || this.props.profile.form.isFetching}
+              isLoading={this.props.auth.form.isFetching || this.props.profile.form.isFetching}
               iconProps={{name: "plus",size:15, color: "white"}}>
-                Follow Adelle
+                {this.getFollowBtnLabelText(this.props.auth.form.user.firstName)}
               </Button>
             </View>
           </View>
@@ -373,7 +394,13 @@ class ProfileRender extends Component {
           <View style={styles.bodyView}>
             <Text style={styles.recentActivityText}>Recent Activity:</Text>
             <ScrollView style={styles.scrollView}>
-              <CommentCard device={this.props.device}/>
+              <CommentCard style={styles.card}
+              dateTime="5:54pm 15 October 2015"
+              userFullNameText="Adelle Charles"
+              commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
+              commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
+              userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
+              device={this.props.device}/>
             </ScrollView>
 
           </View>

@@ -73,7 +73,7 @@ class CommentCard extends Component {
         flex: 1,
         alignItems: 'stretch',
         // backgroundColor: 'blue',
-        paddingHorizontal: 15,
+        paddingHorizontal: 7,
         paddingVertical: 7,
         marginTop: self.props.device.platform === 'android' ? 56 : 0,
       },
@@ -175,7 +175,7 @@ class CommentCard extends Component {
       },
       commentNameText:{
         // backgroundColor:'blue',
-        color:"#EC6F5A",
+        color:"#e64a33",
         paddingHorizontal: 5,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
@@ -261,7 +261,7 @@ class CommentCard extends Component {
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
     return(
-      <View style={styles.cardContainer}>
+      <View style={[styles.cardContainer, this.props.style]}>
         <View style={styles.card}>
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
@@ -270,30 +270,28 @@ class CommentCard extends Component {
               </View>
               <Text style={styles.cardTitleText}>NEW COMMENT</Text>
             </View>
-            <Text style={styles.cardDateText}>5:54pm 15 October 2015</Text>
+            <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
           </View>
           <View style={styles.cardContentContainer}>
 
             <View style={styles.cardContentHeader}>
               <Image
                 style={styles.userImage}
-                source={{uri: 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
+                source={{uri: this.props.userPhotoUrl}}
                 resizeMode='cover'
               />
               <View style={styles.commentDescriptionContainer}>
-                <Text style={styles.commentNameText}>Adelle Charles</Text>
+                <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
                 <View style={styles.commentLocationContainer}>
                   <Text style={styles.commentInText}>in</Text>
-                  <Text style={styles.commentLocationText}>Dolor sit amet, consectetur adipiscing elit.
-                  Mauris sagittis pellentesque lacus eleifend lacinia bill.</Text>
+                  <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
                 </View>
 
               </View>
             </View>
             <View style={styles.cardContentBody}>
               <Text style={styles.cardContentText}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Mauris sagittis pellentesque lacus eleifend lacinia...
+              {this.props.commentText}
               </Text>
             </View>
           </View>

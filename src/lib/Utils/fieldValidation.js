@@ -99,7 +99,8 @@ const surnameConstraints = {
 * ## password validation rule
 * read the message... ;)
 */
-const passwordPattern =  /^(?=.*\d)(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{6,20}$/;
+// const passwordPattern =  /^(?=.*\d)(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{6,20}$/; // MUST CONTAIN lowercase, at least 1 CAPITAL case letter, AND a digit
+const passwordPattern = /^(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{6,20}$/; // MUST CONTAIN lowercase and at least 1 CAPITAL case letter
 const passwordConstraints = {
   password: {
     presence: true,

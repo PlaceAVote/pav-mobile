@@ -25,10 +25,17 @@ const Form = Record({
   error: null,
   // isValid: false,
   isFetching: false,
-  form: new (Record({
-    email: '',
-    emailHasError: false,
-    emailVerified: false
+
+  profileData: new (Record({
+    // email: '',
+    // emailHasError: false,
+    // emailVerified: false,
+    lastActivityTimestamp: null,
+    voteCnt: null,
+    followerCnt: null,
+    followingCnt: null,
+    timelineData: null, //array of items
+
   }))
 });
 

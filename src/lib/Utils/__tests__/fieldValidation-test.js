@@ -189,7 +189,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
   /**
    * ### it should return false because we provide it a valid password
    */
-  it('passwordHasError should return false since we\'re feeding it a correct password  (has at least a number and a capital letter and is between 6-20 a-zA-Z or !@#$%^&* characters)', () => {
+  it('passwordHasError should return false since we\'re feeding it a correct password  (has at least a capital letter and is between 6-20 a-zA-Z or !@#$%^&* characters)', () => {
 
     let action = {
       payload:{

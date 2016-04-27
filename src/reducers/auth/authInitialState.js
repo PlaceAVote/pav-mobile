@@ -46,6 +46,7 @@ const Form = Record({
     id: null,
     email: null,
     address: null,
+    city: null,
     confirmationToken:null,
     countryCode:null,
     createdAt:null,

@@ -325,25 +325,27 @@ export function loginFailure(error) {
  * otherwise, dispatch a failure
  */
 
-  export function login(email,  password) {
+  export function login(email,  password, dev) {
     return async function(dispatch){
 
       let emailIsInvalid = validateEmail(email), passwordIsInvalid = validatePassword(password);
 
       if(emailIsInvalid || passwordIsInvalid){   //if any of the two credentials were invalid
+        // console.log("emailIsInvalid"+emailIsInvalid+"passwordIsInvalid"+passwordIsInvalid);
         dispatch(loginFailure("Please provide us with a valid username and password."));
         return null;
       }else{ //if the login credentials given by the user were BOTH valid
         dispatch(loginRequest());
-
-        var res = await PavClientSdk().userApi.login({
+        var res = await PavClientSdk({isDev:dev}).userApi.login({
           email: email,
           password: password
         });
         // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
         // console.log("RES: "+JSON.stringify(res));
         if(!!res.error){
-          alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
+          if(dev){
+            alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
+          }
           if(res.multipleErrors){
             // console.log("authActions.login :: Error msg: "+res.error[0].email)
             dispatch(loginFailure(res.error[0].email));
@@ -354,7 +356,9 @@ export function loginFailure(error) {
             return null;
           }
         }else{
-          alert("Good that was right, the cake was a lie though..");
+          if(dev){
+            alert("Good that was right, the cake was a lie though..");
+          }
           // console.log("Login gave us the token"+res.data.token);
           saveSessionToken(res.data.token)
           dispatch(loginSuccess(res.data));

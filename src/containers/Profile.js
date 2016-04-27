@@ -102,16 +102,47 @@ class Profile extends Component {
     super(props);
     // console.log("Now calling the get profile data action"+JSON.stringify(this.props));
 
-    // this.loginAndGetProfile();
-
-
+    this.updateProfileData();
 
   }
 
-  async loginAndGetProfile(){
-    await this.props.actions.login("whatevah@placeavote.com", "Asdasd1");
-    await this.props.actions.getProfile();
+  async updateProfileData(){
+    var token = await this.loginAndGetToken();
+    if(!!token){
+      // console.log("TOKEN: "+JSON.stringify(token));
+      this.getProfileData(token);
+      // this.getTimelineData(token)
+    }
   }
+
+  async getProfileData(token){
+    var profileData = await this.props.actions.getProfile(null,token,false);
+    if(!!profileData){
+      return profileData;
+    }else{
+      return null;
+    }
+  }
+
+  async getTimelineData(token){
+    var timelineData = await this.props.actions.getProfile(null,token,false);
+    if(!!timelineData){
+      return timelineData.results;
+    }else{
+      return null;
+    }
+  }
+
+  async loginAndGetToken(){
+    // var res = await this.props.actions.login("whatevah@placeavote.com", "Asdasd1", true); //TODO: Remove that later on
+    var userData = await this.props.actions.login("belovedinbox@gmail.com", "maMamaIsBetterDanUrz", false); //TODO: Remove that later on
+    if(!!userData){
+      return userData.token;
+    }else{
+      return null;
+    }
+  }
+
   orientationDidChange(orientation) {
     // console.log("Orientation: "+orientation);
     this.props.actions.setOrientation(orientation);
@@ -131,7 +162,8 @@ class Profile extends Component {
       <ProfileRender
           auth={ this.props.auth }
           global={ this.props.global }
-          device={ this.props.device}
+          device={ this.props.device }
+          profile={ this.props.profile }
       />
 
     );

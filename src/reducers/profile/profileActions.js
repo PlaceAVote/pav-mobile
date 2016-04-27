@@ -26,6 +26,10 @@ const {
   GET_PROFILE_SUCCESS,
   GET_PROFILE_FAILURE,
 
+  GET_TIMELINE_REQUEST,
+  GET_TIMELINE_SUCCESS,
+  GET_TIMELINE_FAILURE,
+
   PROFILE_UPDATE_REQUEST,
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
@@ -63,27 +67,104 @@ export function getProfileFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getProfile(userId = null, sessionToken=null) {
+export function getProfile(userId = null, sessionToken=null, dev = null) {
   console.log("Get profile called");
   return async function (dispatch){
-    // dispatch(getProfileRequest());
+    dispatch(getProfileRequest());
     //store or get a sessionToken
-    let token = null;
+    let token = sessionToken;
     try{
-         token = await new AppAuthToken().getSessionToken(sessionToken);
+      if(!sessionToken){
+        token = await new AppAuthToken().getSessionToken(sessionToken);
+      }
     }catch(e){
       console.log("Unable to fetch past token in profileActions.getProfile() with error: "+e.message);
       dispatch(getProfileFailure(e.message));
     }
-    let res = await PavClientSdk(token).userApi.profile({
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.profile({
       userId: userId
     });
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
+      console.log("Error in profile call");
       dispatch(getProfileFailure("Unable to get user profile data with this token."));
       return res.error;
     }else{
       dispatch(getProfileSuccess(res.data));
+      dispatch(setUserData(res.data));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## retreiving profile actions
+ */
+export function getTimelineRequest() {
+  return {
+    type: GET_TIMELINE_REQUEST
+  };
+}
+export function getTimelineSuccess(json) {
+  return {
+    type: GET_TIMELINE_SUCCESS,
+    payload: json
+  };
+}
+export function getTimelineFailure(json) {
+  return {
+    type: GET_TIMELINE_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function getTimeline(userId = null, sessionToken=null, dev = null) {
+  console.log("Get timeline called");
+  return async function (dispatch){
+    // dispatch(getTimelineRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          token = await new AppAuthToken().getSessionToken(sessionToken);
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in profileActions.getTimeline() with error: "+e.message);
+      dispatch(getTimelineFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.timeline({
+      userId: userId
+    });
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      dispatch(getTimelineFailure("Unable to get user profile data with this token."));
+      return res.error;
+    }else{
+      dispatch(getTimelineSuccess(res.data));
       dispatch(setUserData(res.data));
       return res.data;
     }
@@ -146,7 +227,7 @@ export function updateProfile(userId, username, email, sessionToken) {
     dispatch(profileUpdateRequest());
     return new AppAuthToken().getSessionToken(sessionToken)
       .then((token) => {
-        return PavClientSdk(token).updateProfile(userId,
+        return PavClientSdk({sessionToken:token}).updateProfile(userId,
           {
             username: username,
             email: email

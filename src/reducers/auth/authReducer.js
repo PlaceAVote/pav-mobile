@@ -207,6 +207,7 @@ export default function authReducer(state = initialState, action) {
     // .setIn(['form', 'isLoggedIn'], true);
     .setIn(['form', 'user', 'id'], dt.user_id)
     .setIn(['form', 'user', 'email'], dt.email)
+    .setIn(['form', 'user', 'city'], dt.city)
     .setIn(['form', 'user', 'address'], dt.address)
     .setIn(['form', 'user', 'confirmationToken'], dt["confirmation-token"])
     .setIn(['form', 'user', 'countryCode'], dt.country_code)
