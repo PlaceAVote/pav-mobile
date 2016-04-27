@@ -106,19 +106,21 @@ class CommentCard extends Component {
         // backgroundColor: 'red',
         paddingHorizontal: 10,
         color: Colors.primaryColor,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,15),
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       cardDateText:{
         // backgroundColor: 'red',
         paddingHorizontal: 5,
-        color: Colors.secondaryTextColor,
+        // color: Colors.thirdTextColor,
+        color: 'rgba(0, 0, 0, 0.60)',
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,12),
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
 
       cardContentContainer:{
-        padding : 15,
+        paddingHorizontal: w*0.02,
+        paddingVertical: w*0.02,
         borderStyle: 'solid',
         borderTopColor: 'rgba(0, 0, 0, 0.1)',
         borderTopWidth: 1,
@@ -141,7 +143,11 @@ class CommentCard extends Component {
 
 
       commentIconContainer:{
-          backgroundColor:Colors.primaryColor,
+          justifyContent:'center',
+          alignItems:'center',
+          width: w*0.09,
+          height: w*0.09,
+          backgroundColor: "#708BC4",
           paddingHorizontal:2,
           paddingVertical:4,
           borderRadius: 3,
@@ -157,7 +163,7 @@ class CommentCard extends Component {
       userImage:{
         width:w*0.09,
         height:w*0.09,
-        marginHorizontal: 10,
+        // marginHorizontal: 10,
       },
       commentLocationContainer:{
         flexDirection:'row',
@@ -168,20 +174,20 @@ class CommentCard extends Component {
         color:"#EC6F5A",
         paddingHorizontal: 5,
         fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,12),
+        fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
       commentInText:{
         color: Colors.thirdTextColor,
         paddingHorizontal: 5,
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
       commentLocationText:{
         // backgroundColor:'yellow',
         color: Colors.primaryColor,
         paddingHorizontal: 1,
         fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
       cardContentBody:{
         // backgroundColor:'green'
@@ -189,6 +195,8 @@ class CommentCard extends Component {
       cardContentText:{
         padding:2,
         // backgroundColor:'green',
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,7),
         color: 'rgba(0, 0, 0, 0.54)',
       },
 
@@ -252,11 +260,11 @@ class CommentCard extends Component {
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.commentIconContainer}>
-                <PavIcon name="comment" size={20} style={styles.commentIcon}/>
+                <PavIcon name="comment" size={17} style={styles.commentIcon}/>
               </View>
-              <Text style={styles.cardTitleText}>New Comment</Text>
+              <Text style={styles.cardTitleText}>NEW COMMENT</Text>
             </View>
-            <Text style={styles.cardDateText}>17:54 15 October 2015</Text>
+            <Text style={styles.cardDateText}>5:54pm 15 October 2015</Text>
           </View>
           <View style={styles.cardContentContainer}>
 
