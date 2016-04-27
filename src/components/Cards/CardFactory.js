@@ -6,6 +6,9 @@
  */
 'use strict';
 import CommentCard from './CommentCard';
+import LikeCard from './LikeCard';
+import VoteCard from './VoteCard';
+import FollowCard from './FollowCard';
 
 
 
@@ -21,7 +24,7 @@ import {Colors, ScheneKeys} from '../../config/constants';
  */
 import React,
 {
-  Component,
+  Component
 }
 from 'react-native';
 
@@ -44,10 +47,11 @@ class CardFactory extends Component {
    * Setup some default presentations and render
    */
   render() {
-    switch(this.props.type){
+    let d = this.props.timelineData;
+    let u = this.props.curUser;
+    switch(this.props.timelineData.type){
       case "comment":
-        let d = this.props.timelineData;
-        console.log("D is: "+JSON.stringify(d));
+      // console.log("Real comment is: "+JSON.stringify(d));
         return (<CommentCard
           {...this.props}
           dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
@@ -58,11 +62,38 @@ class CardFactory extends Component {
           />);
         break;
       case "vote":
+        return (<VoteCard
+          {...this.props}
+          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          userFullNameText={u.firstName+" "+u.lastName}
+          voteParentTitle={d.bill_title}
+          />);
+        break;
+      case "followinguser":
+        //Discovered a react native bug here, if I don't add the " " empty space character in the end of followedFullNameText the last name of the person might be invisible
+        return (<FollowCard
+        {...this.props}
+        dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+        followerFullNameText={u.firstName+" "+u.lastName}
+        followedFullNameText={d.first_name+" "+d.last_name+" "}
+        />);
         break;
       case "likecomment":
+        // console.log("Like comment is: "+JSON.stringify(d));
+        return (<LikeCard
+          {...this.props}
+          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          authorFullNameText={u.firstName+" "+u.lastName}
+          userFullNameText={d.author_first_name+" "+d.author_last_name}
+          commentParentTitle={d.bill_title}
+          commentText={d.body}
+          userPhotoUrl={d.author_img_url}
+          />);
         break;
+
+
       default:
-        throw new Error("No implementation of a card for type: "+this.props.type);
+        <View {...this.props}></View>
         break;
     }
   }

@@ -62,7 +62,10 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 // import {getTheme} from 'react-native-material-kit';
 // const MateriakDesignTheme = getTheme();
+import LikeCard from '../Cards/LikeCard';
+import VoteCard from '../Cards/VoteCard';
 import CommentCard from '../Cards/CommentCard';
+import FollowCard from '../Cards/FollowCard';
 import CardFactory from '../Cards/CardFactory';
 
 /**
@@ -321,20 +324,21 @@ class ProfileRender extends Component {
   }
 
 
-  parseTimelineDataIntoComponents(timelineData, styles){
+  parseTimelineDataIntoComponents(timelineData, styles, user){
     if(!!timelineData){
-
+      var cards = [];
       for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
         let curTimelineItem = timelineData[ii];
-        console.log(JSON.stringify(curTimelineItem))
-        return (<CardFactory
-          type={curTimelineItem.type}
+        // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
+        cards.push(<CardFactory
           key={curTimelineItem.event_id}
           style={styles.card}
           timelineData={curTimelineItem}
           device={this.props.device}
-          />)
+          curUser={user}
+          />);
       }
+      return cards;
     }
   }
 
@@ -414,7 +418,7 @@ class ProfileRender extends Component {
           <View style={styles.bodyView}>
             <Text style={styles.recentActivityText}>Recent Activity:</Text>
             <ScrollView style={styles.scrollView}>
-              <CommentCard style={styles.card}
+              {/*<CommentCard style={styles.card}
               dateTime="5:54pm 15 October 2015"
               userFullNameText="Adelle Charles"
               commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
@@ -422,7 +426,31 @@ class ProfileRender extends Component {
               userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
               device={this.props.device}/>
 
-              {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles)}
+              <LikeCard style={styles.card}
+              dateTime="5:54pm 15 October 2015"
+              userFullNameText="Adelle Charles"
+              authorFullNameText="Ali ababa"
+              commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
+              commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
+              userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
+              device={this.props.device}/>
+
+              <VoteCard style={styles.card}
+              dateTime="5:54pm 15 October 2015"
+              userFullNameText="Adelle Charles"
+              device={this.props.device}
+              voteParentTitle="Will Independent Redistricting Commisions Help Create Accountable Representation"/>
+
+              <FollowCard style={styles.card}
+              dateTime="5:54pm 15 October 2015"
+              followerFullNameText="Adelle Charles"
+              followedFullNameText="Fred flinstone."
+              device={this.props.device}/>
+              */}
+
+              {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
+
+
             </ScrollView>
 
           </View>
@@ -432,7 +460,6 @@ class ProfileRender extends Component {
     );
   }
 }
-
 
 
 //isDisabled={this.props.isDisabled}
