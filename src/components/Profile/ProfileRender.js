@@ -31,6 +31,8 @@ import {Map} from 'immutable';
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
 
+
+import moment from 'moment'
 /**
 * Icons library
 */
@@ -324,6 +326,8 @@ class ProfileRender extends Component {
   }
 
 
+
+
   parseTimelineDataIntoComponents(timelineData, styles, user){
     if(!!timelineData){
       var cards = [];
@@ -341,6 +345,17 @@ class ProfileRender extends Component {
       return cards;
     }
   }
+
+
+  getLastActivityDayDiff(lastTimestamp){
+    if(!!lastTimestamp){
+        return moment(lastTimestamp).fromNow();
+    }else{
+      return "-" 
+    }
+
+  }
+
 
   /**
    * ### render
@@ -370,7 +385,7 @@ class ProfileRender extends Component {
 
           <View style={styles.userDetailsHeaderView}>
             <View style={styles.statisticsBigContainer}>
-              <Text style={styles.statisticsContentText}>2 Days ago</Text>
+              <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.profile.form.profileData.lastActivityTimestamp)}</Text>
               <Text style={styles.statisticsTitleText}>Last Activity</Text>
             </View>
             <View style={styles.statisticsSmallContainer}>
@@ -418,39 +433,7 @@ class ProfileRender extends Component {
           <View style={styles.bodyView}>
             <Text style={styles.recentActivityText}>Recent Activity:</Text>
             <ScrollView style={styles.scrollView}>
-              {/*<CommentCard style={styles.card}
-              dateTime="5:54pm 15 October 2015"
-              userFullNameText="Adelle Charles"
-              commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
-              commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
-              userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
-              device={this.props.device}/>
-
-              <LikeCard style={styles.card}
-              dateTime="5:54pm 15 October 2015"
-              userFullNameText="Adelle Charles"
-              authorFullNameText="Ali ababa"
-              commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
-              commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
-              userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
-              device={this.props.device}/>
-
-              <VoteCard style={styles.card}
-              dateTime="5:54pm 15 October 2015"
-              userFullNameText="Adelle Charles"
-              device={this.props.device}
-              voteParentTitle="Will Independent Redistricting Commisions Help Create Accountable Representation"/>
-
-              <FollowCard style={styles.card}
-              dateTime="5:54pm 15 October 2015"
-              followerFullNameText="Adelle Charles"
-              followedFullNameText="Fred flinstone."
-              device={this.props.device}/>
-              */}
-
               {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
-
-
             </ScrollView>
 
           </View>
@@ -460,6 +443,35 @@ class ProfileRender extends Component {
     );
   }
 }
+/*<CommentCard style={styles.card}
+dateTime="5:54pm 15 October 2015"
+userFullNameText="Adelle Charles"
+commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
+commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
+userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
+device={this.props.device}/>
+
+<LikeCard style={styles.card}
+dateTime="5:54pm 15 October 2015"
+userFullNameText="Adelle Charles"
+authorFullNameText="Ali ababa"
+commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
+commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
+userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
+device={this.props.device}/>
+
+<VoteCard style={styles.card}
+dateTime="5:54pm 15 October 2015"
+userFullNameText="Adelle Charles"
+device={this.props.device}
+voteParentTitle="Will Independent Redistricting Commisions Help Create Accountable Representation"/>
+
+<FollowCard style={styles.card}
+dateTime="5:54pm 15 October 2015"
+followerFullNameText="Adelle Charles"
+followedFullNameText="Fred flinstone."
+device={this.props.device}/>
+*/
 
 
 //isDisabled={this.props.isDisabled}

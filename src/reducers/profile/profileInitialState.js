@@ -31,10 +31,10 @@ const Form = Record({
     // emailHasError: false,
     // emailVerified: false,
     lastActivityTimestamp: null,
-    voteCnt: null,
-    followerCnt: null,
-    followingCnt: null,
-    timelineData: null, //array of items
+    voteCnt: "-",
+    followerCnt: "-",
+    followingCnt: "-",
+    timelineData: "-", //array of items
 
   }))
 });

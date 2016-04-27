@@ -200,6 +200,8 @@ export default function authReducer(state = initialState, action) {
     // .setIn(['form', 'isLoggedIn'], true);
     .setIn(['form', 'user', 'isLoggedIn'], true)
     .setIn(['form', 'user', 'id'], action.payload.user_id)
+    .setIn(['form', 'user', 'firstName'], action.payload.first_name)
+    .setIn(['form', 'user', 'city'], action.payload.city)
   case SET_USER_DATA:
     // console.log("ITEMZ: "+JSON.stringify(action.payload))
     let dt = action.payload;

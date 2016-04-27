@@ -84,7 +84,9 @@ export default function profileReducer(state = initialState, action) {
   case GET_TIMELINE_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
     .setIn(['form','error'],null)
-    .setIn(['form', 'profileData', 'timelineData'], action.payload.results);
+    .setIn(['form', 'profileData', 'timelineData'], action.payload.results)
+    .setIn(['form', 'profileData','lastActivityTimestamp'], action.payload.last_timestamp);
+
   case GET_PROFILE_SUCCESS:
     // console.log("Profile reducer get profile SUCCESS with payload: "+JSON.stringify(action.payload));
     return state.setIn(['form', 'isFetching'], false)

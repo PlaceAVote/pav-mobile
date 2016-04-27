@@ -24,7 +24,8 @@ import {Colors, ScheneKeys} from '../../config/constants';
  */
 import React,
 {
-  Component
+  Component,
+  View
 }
 from 'react-native';
 
@@ -93,7 +94,7 @@ class CardFactory extends Component {
 
 
       default:
-        <View {...this.props}></View>
+        return (<View {...this.props}></View>);
         break;
     }
   }
