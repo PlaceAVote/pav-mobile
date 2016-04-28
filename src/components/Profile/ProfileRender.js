@@ -64,12 +64,6 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
-// import {getTheme} from 'react-native-material-kit';
-// const MateriakDesignTheme = getTheme();
-import LikeCard from '../Cards/LikeCard';
-import VoteCard from '../Cards/VoteCard';
-import CommentCard from '../Cards/CommentCard';
-import FollowCard from '../Cards/FollowCard';
 import CardFactory from '../Cards/CardFactory';
 
 
@@ -507,35 +501,6 @@ class ProfileRender extends Component {
     );
   }
 }
-/*<CommentCard style={styles.card}
-dateTime="5:54pm 15 October 2015"
-userFullNameText="Adelle Charles"
-commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
-commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
-userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
-device={this.props.device}/>
-
-<LikeCard style={styles.card}
-dateTime="5:54pm 15 October 2015"
-userFullNameText="Adelle Charles"
-authorFullNameText="Ali ababa"
-commentParentTitle="Dolor sit amet, consectetur adipiscing elit.Mauris sagittis pellentesque lacus eleifend lacinia bill."
-commentText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia..."
-userPhotoUrl="https://cdn.placeavote.com/img/profile/profile-picture.png"
-device={this.props.device}/>
-
-<VoteCard style={styles.card}
-dateTime="5:54pm 15 October 2015"
-userFullNameText="Adelle Charles"
-device={this.props.device}
-voteParentTitle="Will Independent Redistricting Commisions Help Create Accountable Representation"/>
-
-<FollowCard style={styles.card}
-dateTime="5:54pm 15 October 2015"
-followerFullNameText="Adelle Charles"
-followedFullNameText="Fred flinstone."
-device={this.props.device}/>
-*/
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileRender);
