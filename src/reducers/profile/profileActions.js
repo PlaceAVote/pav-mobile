@@ -83,7 +83,8 @@ export function getProfile(userId = null, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
       if(!sessionToken){
-        token = await new AppAuthToken().getSessionToken(sessionToken);
+        let tk = await new AppAuthToken().getSessionToken(sessionToken);
+        token = tk.sessionToken;
       }
     }catch(e){
       console.log("Unable to fetch past token in profileActions.getProfile() with error: "+e.message);
@@ -158,7 +159,8 @@ export function getTimeline(userId = null, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          token = await new AppAuthToken().getSessionToken(sessionToken);
+          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          token = tk.sessionToken;
         }
     }catch(e){
       console.log("Unable to fetch past token in profileActions.getTimeline() with error: "+e.message);
@@ -226,7 +228,8 @@ export function followUser(userId = null, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          token = await new AppAuthToken().getSessionToken(sessionToken);
+          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          token = tk.sessionToken;
         }
     }catch(e){
       console.log("Unable to fetch past token in profileActions.followUser() with error: "+e.message);
@@ -289,7 +292,8 @@ export function unfollowUser(userId = null, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          token = await new AppAuthToken().getSessionToken(sessionToken);
+          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          token = tk.sessionToken;
         }
     }catch(e){
       console.log("Unable to fetch past token in profileActions.unfollowUser() with error: "+e.message);

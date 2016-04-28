@@ -278,11 +278,11 @@ class ProfileRender extends Component {
           backgroundColor:Colors.transparentColor
       },
       recentActivityText: {
-        top:0,
-        width:w,
-        height:h*0.065,
-        position:'absolute',
-        backgroundColor: "rgba(0,0,0,0.06)",
+        // top:0,
+        // width:w,
+        // height:h*0.065,
+        // position:'absolute',
+        // backgroundColor: "rgba(0,0,0,0.06)",
         paddingHorizontal: w*0.05,
         paddingVertical: h*0.01,
         fontFamily: 'Whitney',
@@ -457,10 +457,10 @@ class ProfileRender extends Component {
       return (
       <View style={styles.bodyLoadingContainer}>
         <ScrollView style={styles.scrollView}>
-          <View style={styles.scrollSpacerView}></View>
+          <Text style={styles.recentActivityText}>Recent Activity:</Text>
           {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
         </ScrollView>
-        <Text style={styles.recentActivityText}>Recent Activity:</Text>
+
 
       </View>);
     }else{
