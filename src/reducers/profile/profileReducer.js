@@ -37,6 +37,10 @@ const {
   FOLLOW_USER_SUCCESS,
   FOLLOW_USER_FAILURE,
 
+  UNFOLLOW_USER_REQUEST,
+  UNFOLLOW_USER_SUCCESS,
+  UNFOLLOW_USER_FAILURE,
+
   LOGOUT_SUCCESS,
 
   SET_STATE
@@ -64,7 +68,11 @@ export default function profileReducer(state = initialState, action) {
      * ### Request starts
      * set the form to fetching and clear any errors
      */
+  case UNFOLLOW_USER_REQUEST:
   case FOLLOW_USER_REQUEST:
+    return state.setIn(['form', 'isFetching', 'followUser'], true)
+    .setIn(['form','error'],null);
+    break;
   case GET_TIMELINE_REQUEST:
     return state.setIn(['form', 'isFetching', 'timelineData'], true)
       .setIn(['form','error'],null);
@@ -89,21 +97,27 @@ export default function profileReducer(state = initialState, action) {
      * Validate the data to make sure it's all good and someone didn't
      * mung it up through some other mechanism
      */
+  case UNFOLLOW_USER_SUCCESS:
+    return state.setIn(['form', 'isFetching', 'followUser'], false)
+    .setIn(['form','error'],null)
+    .setIn(['form', 'profileData', 'currentlyFollowingUser'], false)
+  case FOLLOW_USER_SUCCESS:
+    return state.setIn(['form', 'isFetching', 'followUser'], false)
+    .setIn(['form','error'],null)
+    .setIn(['form', 'profileData', 'currentlyFollowingUser'], true)
   case GET_TIMELINE_SUCCESS:
     return state.setIn(['form', 'isFetching', 'timelineData'], false)
     .setIn(['form','error'],null)
-    .setIn(['form', 'profileData', 'timelineData'], action.payload.results)
-    .setIn(['form', 'profileData','lastActivityTimestamp'], action.payload.last_timestamp);
+    .setIn(['form', 'profileData', 'timelineData'], action.payload.results);
 
   case GET_PROFILE_SUCCESS:
     // console.log("Profile reducer get profile SUCCESS with payload: "+JSON.stringify(action.payload));
     return state.setIn(['form', 'isFetching', 'profileData'], false)
       .setIn(['form','error'],null)
       .setIn(['form', 'profileData', 'followerCnt'], action.payload.total_followers)
-      .setIn(['form', 'profileData', 'followingCnt'], action.payload.total_following);
-
-      // .setIn(['form','lastActivityTimestamp'], action.payload.last_activity)   //TODO: Uncomment those when they get added on the api
-      // .setIn(['form','voteCnt'], action.payload.vote_count)  //TODO: Uncomment those when they get added on the api
+      .setIn(['form', 'profileData', 'followingCnt'], action.payload.total_following)
+      .setIn(['form', 'profileData', 'lastActivityTimestamp'], action.payload.last_activity)
+      .setIn(['form', 'profileData', 'voteCnt'], action.payload.total_votes);
 
     // return formValidation(
     //   fieldValidation( nextProfileState, action)
@@ -128,6 +142,10 @@ export default function profileReducer(state = initialState, action) {
      * ### Request fails
      * we're done fetching and the error needs to be displayed to the user
      */
+  case UNFOLLOW_USER_FAILURE:
+  case FOLLOW_USER_FAILURE:
+    return state.setIn(['form', 'isFetching', 'followUser'], false)
+     .setIn(['form','error'],action.payload);
   case GET_TIMELINE_FAILURE:
     return state.setIn(['form', 'isFetching', 'timelineData'], false)
       .setIn(['form','error'], action.payload);

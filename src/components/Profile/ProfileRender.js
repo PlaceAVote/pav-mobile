@@ -341,9 +341,9 @@ class ProfileRender extends Component {
 
   }
 
-  getFollowBtnLabelText(name){
+  getFollowBtnLabelText(name, currentlyFollowingUser){
     let nm = name || "";
-    return "Follow "+nm;
+    return currentlyFollowingUser?"Unfollow ":"Follow "+nm;
   }
 
 
@@ -442,10 +442,10 @@ class ProfileRender extends Component {
                   onPress={this.props.onFollowBtnPress}
                   style={styles.followBtn}
                   textStyle={styles.whiteBtnText}
-                  isDisabled={this.props.profile.form.isFetching.profileData}
-                  isLoading={this.props.profile.form.isFetching.profileData}
-                  iconProps={{name: "plus",size:20, color: "white"}}>
-                    {this.getFollowBtnLabelText(this.props.auth.form.user.firstName)}
+                  isDisabled={this.props.profile.form.isFetching.profileData || this.props.profile.form.isFetching.followUser}
+                  isLoading={this.props.profile.form.isFetching.profileData || this.props.profile.form.isFetching.followUser}
+                  iconProps={this.props.profile.form.profileData.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}>
+                    {this.getFollowBtnLabelText(this.props.auth.form.user.firstName, this.props.profile.form.profileData.currentlyFollowingUser)}
                   </Button>
                 </View>
               </View>

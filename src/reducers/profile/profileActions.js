@@ -34,6 +34,10 @@ const {
   FOLLOW_USER_SUCCESS,
   FOLLOW_USER_FAILURE,
 
+  UNFOLLOW_USER_REQUEST,
+  UNFOLLOW_USER_SUCCESS,
+  UNFOLLOW_USER_FAILURE,
+
   PROFILE_UPDATE_REQUEST,
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
@@ -215,7 +219,7 @@ export function followUserFailure(json) {
  * as in login, register, logout or reset password
  */
 export function followUser(userId = null, sessionToken=null, dev = null) {
-  console.log("Get timeline called");
+  console.log("followUser called");
   return async function (dispatch){
     dispatch(followUserRequest());
     //store or get a sessionToken
@@ -231,12 +235,75 @@ export function followUser(userId = null, sessionToken=null, dev = null) {
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.followUser({
       userId: userId
     });
-    // console.log("RES: "+JSON.stringify(res));
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
-      dispatch(followUserFailure("Unable to get user profile data with this token."));
+      alert(res.error);
+      dispatch(followUserFailure(res.error));
       return res.error;
     }else{
       dispatch(followUserSuccess(res.data));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## retreiving profile actions
+ */
+export function unfollowUserRequest() {
+  return {
+    type: UNFOLLOW_USER_REQUEST
+  };
+}
+export function unfollowUserSuccess(json) {
+  return {
+    type: UNFOLLOW_USER_SUCCESS,
+    payload: json
+  };
+}
+export function unfollowUserFailure(json) {
+  return {
+    type: UNFOLLOW_USER_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function unfollowUser(userId = null, sessionToken=null, dev = null) {
+  console.log("unfollowUser called");
+  return async function (dispatch){
+    dispatch(unfollowUserRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          token = await new AppAuthToken().getSessionToken(sessionToken);
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in profileActions.unfollowUser() with error: "+e.message);
+      dispatch(unfollowUserFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.unfollowUser({
+      userId: userId
+    });
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      dispatch(unfollowUserFailure(res.error));
+      return res.error;
+    }else{
+      dispatch(unfollowUserSuccess(res.data));
       return res.data;
     }
   };

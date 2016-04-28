@@ -27,6 +27,7 @@ const Form = Record({
   isFetching: new (Record({
     profileData: false,
     timelineData: false,
+    followUser: false
   })),
 
   profileData: new (Record({
@@ -38,6 +39,7 @@ const Form = Record({
     followerCnt: "-",
     followingCnt: "-",
     timelineData: null, //array of items
+    currentlyFollowingUser: false
 
   }))
 });

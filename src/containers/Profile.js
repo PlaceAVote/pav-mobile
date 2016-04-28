@@ -110,29 +110,10 @@ class Profile extends Component {
     var token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjoiV2FzaGluZ3RvbiwgREMgMjAwMDEsIFVTQSIsImVtYWlsIjoiYWZha2VhY2NvdW50QHBsYWNlYXZvdGUuY29tIiwiZmlyc3RfbmFtZSI6IklvYW5uaXNkZXYiLCJjb25maXJtYXRpb24tdG9rZW4iOiIyZjk3ODg2Ni1jZjg1LTQ0MTMtYmRiNC05YmRlNmVkMWMxZjciLCJjaXR5IjoiV2hlbmV2ZXIsIFdoZXJldmVyIiwiZXhwIjoxNDY0NDMxNjQxLCJwdWJsaWMiOnRydWUsInN0YXRlIjoiREMiLCJ6aXBjb2RlIjoiMjAwMDEiLCJ0b3BpY3MiOlsiQ3JpbWUiLCJIZWFsdGhjYXJlIiwiVGF4ZXMiXSwiY291bnRyeV9jb2RlIjoiVVNBIiwiZG9iIjoiMTEvMTQvMTk4OSIsImxhc3RfbmFtZSI6Iktva2tpbmlkaXMiLCJsYXQiOiIzOC45MTIwNjgiLCJ1c2VyX2lkIjoiMzZlMmJlYTEtMzRhMi00N2M0LTllMzctNDE4ZmMzOTA3MWQ1IiwiZ2VuZGVyIjoibWFsZSIsInJlZ2lzdGVyZWQiOm51bGwsImNyZWF0ZWRfYXQiOjE0NjE4MzkxMzE0NjYsImxuZyI6Ii03Ny4wMTkwMjI4IiwiZGlzdHJpY3QiOiIwIn0.fstUvbzXmPf9JitZDr-SRHS2UqJAK1Q0RYkmMcf_wPu_r6zI2XElRlplOODTRtJttp1wLaOAuA8AZ5W1VzxGJJ0LXgYUF5aXHYmLt1Pb5FmBTOCvdFVNtxC0Ty-FhmjKOPtod4sRtOa45kEQ0u3LTFwydcpn6A26MZ3Lz1ZGVnk061GrFoEagsQHAOx5JofAbn7mi1LEm-d02GNwfNb7BUynLJ1uPWwtUDYz7ELeeNXd_xkSH0kH8cNdm9cWqVoHtgWWr_bdzQZF5tS_gW_U1aySc7Y8P6eYNNYVkQqmLaxZR0_wUzZnfRx_spDxTHbUBHNO9dPkFNrWptfSfwKxEQ";
     if(!!token){
       // console.log("TOKEN: "+JSON.stringify(token));
-      this.getProfileData(token);
-      this.getTimelineData(token)
+      this.props.actions.getProfile(null, token)
+      this.props.actions.getTimeline(null, token)
     }
   }
-
-  async getProfileData(token){
-    var profileData = await this.props.actions.getProfile(null, token);
-    if(!!profileData){
-      return profileData;
-    }else{
-      return null;
-    }
-  }
-
-  async getTimelineData(token){
-    var timelineData = await this.props.actions.getTimeline(null, token);
-    if(!!timelineData){
-      return timelineData.results;
-    }else{
-      return null;
-    }
-  }
-
 
   orientationDidChange(orientation) {
     // console.log("Orientation: "+orientation);
@@ -149,7 +130,13 @@ class Profile extends Component {
   }
 
   onFollowBtnPress(e){
-    console.log("Follow pressed")
+    var token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjoiV2FzaGluZ3RvbiwgREMgMjAwMDEsIFVTQSIsImVtYWlsIjoiYWZha2VhY2NvdW50QHBsYWNlYXZvdGUuY29tIiwiZmlyc3RfbmFtZSI6IklvYW5uaXNkZXYiLCJjb25maXJtYXRpb24tdG9rZW4iOiIyZjk3ODg2Ni1jZjg1LTQ0MTMtYmRiNC05YmRlNmVkMWMxZjciLCJjaXR5IjoiV2hlbmV2ZXIsIFdoZXJldmVyIiwiZXhwIjoxNDY0NDMxNjQxLCJwdWJsaWMiOnRydWUsInN0YXRlIjoiREMiLCJ6aXBjb2RlIjoiMjAwMDEiLCJ0b3BpY3MiOlsiQ3JpbWUiLCJIZWFsdGhjYXJlIiwiVGF4ZXMiXSwiY291bnRyeV9jb2RlIjoiVVNBIiwiZG9iIjoiMTEvMTQvMTk4OSIsImxhc3RfbmFtZSI6Iktva2tpbmlkaXMiLCJsYXQiOiIzOC45MTIwNjgiLCJ1c2VyX2lkIjoiMzZlMmJlYTEtMzRhMi00N2M0LTllMzctNDE4ZmMzOTA3MWQ1IiwiZ2VuZGVyIjoibWFsZSIsInJlZ2lzdGVyZWQiOm51bGwsImNyZWF0ZWRfYXQiOjE0NjE4MzkxMzE0NjYsImxuZyI6Ii03Ny4wMTkwMjI4IiwiZGlzdHJpY3QiOiIwIn0.fstUvbzXmPf9JitZDr-SRHS2UqJAK1Q0RYkmMcf_wPu_r6zI2XElRlplOODTRtJttp1wLaOAuA8AZ5W1VzxGJJ0LXgYUF5aXHYmLt1Pb5FmBTOCvdFVNtxC0Ty-FhmjKOPtod4sRtOa45kEQ0u3LTFwydcpn6A26MZ3Lz1ZGVnk061GrFoEagsQHAOx5JofAbn7mi1LEm-d02GNwfNb7BUynLJ1uPWwtUDYz7ELeeNXd_xkSH0kH8cNdm9cWqVoHtgWWr_bdzQZF5tS_gW_U1aySc7Y8P6eYNNYVkQqmLaxZR0_wUzZnfRx_spDxTHbUBHNO9dPkFNrWptfSfwKxEQ";
+    if(this.props.profile.form.profileData.currentlyFollowingUser){
+      this.props.actions.unfollowUser(this.props.auth.form.user.id, token)
+    }else{
+      this.props.actions.followUser(this.props.auth.form.user.id, token)
+    }
+
   }
 
   render() {
@@ -159,7 +146,7 @@ class Profile extends Component {
           global={ this.props.global }
           device={ this.props.device }
           profile={ this.props.profile }
-          onFollowBtnPress= {this.onFollowBtnPress}
+          onFollowBtnPress= {this.onFollowBtnPress.bind(this)}
       />
 
     );
