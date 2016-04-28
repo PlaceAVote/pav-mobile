@@ -13,9 +13,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import ActionButton from 'react-native-action-button';
-
-
 /**
  * The actions we need
  */
@@ -24,6 +21,7 @@ import * as globalActions from '../../reducers/global/globalActions';
 
 
 
+import LinearGradient from 'react-native-linear-gradient';
 
 /**
  * Immutable
@@ -31,20 +29,15 @@ import * as globalActions from '../../reducers/global/globalActions';
 import {Map} from 'immutable';
 
 /*A react native button*/
-// const  Button = require('sp-react-native-iconbutton');
 import Button from 'sp-react-native-iconbutton'
 
-/**
-* Icons library
-*/
-var Icon = require('react-native-vector-icons/FontAwesome');
+var ProgressBar = require('ProgressBarAndroid');
+
+import moment from 'moment'
+
 
 
 import {Colors, ScheneKeys} from '../../config/constants';
-
-import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
-const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 /**
  * The necessary React components
@@ -53,17 +46,30 @@ import React,
 {
   Component,
   StyleSheet,
-  ScrollView,
   Text,
-  TouchableHighlight,
   View,
   Image,
-  PixelRatio
+  ScrollView,
+  ActivityIndicatorIOS,
+  TouchableOpacity
 }
 from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
+
+import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
+
+/**
+* Icons library
+*/
+
+var Icon = require('react-native-vector-icons/FontAwesome');
+
+var LImage = require('react-native-image-progress');
+var Progress = require('react-native-progress');
 
 /**
  * The states were interested in
@@ -100,14 +106,325 @@ function mapDispatchToProps(dispatch) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 class NewsFeedRender extends Component {
   constructor(props) {
     super(props);
+
+    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        // dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 
   }
 
 
 
+
+  /**
+   * ## Styles for PORTRAIT
+   */
+  getPortraitStyles(self){
+    return StyleSheet.create({
+
+
+      container: {
+        // backgroundColor: 'orange',
+        flex:1,
+        flexDirection: 'column',
+        paddingTop:64, //nav bar height
+        paddingBottom:50, //tab bar height
+        // marginVertical: 10,
+        // marginHorizontal:15
+      },
+
+
+      bodyView:{
+        flex:1,
+        backgroundColor: '#E8E7EE',
+      },
+      bodyLoadingContainer:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+      },
+      recentActivityText: {
+        // top:0,
+        // width:w,
+        // height:h*0.065,
+        // position:'absolute',
+        // backgroundColor: "rgba(0,0,0,0.06)",
+        paddingHorizontal: w*0.05,
+        paddingVertical: h*0.01,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,20),
+        color: Colors.fourthTextColor,
+        // textAlign: 'center',
+      },
+      scrollView:{
+        flex:1
+      },
+      scrollerViewHeader:{
+        // backgroundColor: "rgba(0,0,0,0.06)",
+        flex:1,
+        flexDirection:'column',
+        padding:10,
+      },
+      fitersViewContainer:{
+        backgroundColor: "white",
+        flexDirection:'row',
+      },
+      expandedFilterContainer:{
+        flex:3,
+        // backgroundColor:'yellow',
+        borderStyle: 'solid',
+        borderLeftColor: 'rgba(0, 0, 0, 0.1)',
+        borderLeftWidth:1,
+        // alignItems:'center',
+        justifyContent:'center'
+      },
+      collapsedFilterContainer:{
+        flex:1,
+        justifyContent:'center',
+        // paddingHorizontal:w*0.037,
+        // paddingVertical:h*0.015,
+        borderStyle: 'solid',
+        borderLeftColor: 'rgba(0, 0, 0, 0.1)',
+        borderLeftWidth:1,
+      },
+      filterContent:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        paddingHorizontal:w*0.015,
+        paddingTop:h*0.013,
+        paddingBottom:h*0.006,
+        // backgroundColor:'blue'
+    },
+      filterIcon:{
+        paddingHorizontal:3,
+        color:Colors.primaryColor
+      },
+      filterText:{
+        paddingHorizontal: w*0.009,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,5),
+        color: Colors.thirdTextColor,
+
+      },
+      filterIndicatorIconContainer:{
+        // backgroundColor:'red',
+        // alignSelf:'center',
+        // justifyContent:'flex-end',
+      },
+      activeFilterIndicatorIcon:{
+        // backgroundColor:'yellow',
+        alignSelf:'center',
+        color:'#E8E7EE'
+      },
+      inactiveFilterIndicatorIcon:{
+        // backgroundColor:'yellow',
+        alignSelf:'center',
+        color:Colors.transparentColor
+      }
+
+    });
+  }
+
+
+
+
+
+  /**
+   * ## Styles for LANDSCAPE
+   */
+  getLandscapeStyles(self){
+    return StyleSheet.create({
+
+      container: {
+        // backgroundColor: 'orange',
+        flex:1,
+        flexDirection: 'column',
+        marginVertical: 10,
+        marginHorizontal:10
+      },
+
+      titleText: {
+        // backgroundColor: 'black',
+        fontSize: getCorrectFontSizeForScreen(w,h,27),
+        color: Colors.mainTextColor,
+        textAlign: 'center',
+      }
+
+    });
+  }
+
+
+  formUserLocationText(user){
+    if(!!user.city){
+      if(user.stateProvince!=null){
+        return user.city+", "+user.stateProvince
+      }else{
+        return user.city;
+      }
+    }else{
+      return "Location";
+    }
+
+  }
+
+  getFollowBtnLabelText(name, currentlyFollowingUser){
+    let nm = name || "";
+    return currentlyFollowingUser?"Unfollow ":"Follow "+nm;
+  }
+
+
+
+
+  parseTimelineDataIntoComponents(timelineData, styles, user){
+    if(!!timelineData){
+      var cards = [];
+      for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
+        let curTimelineItem = timelineData[ii];
+        // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
+        cards.push(<CardFactory
+          key={curTimelineItem.event_id}
+          style={styles.card}
+          timelineData={curTimelineItem}
+          device={this.props.device}
+          curUser={user}
+          />);
+      }
+      return cards;
+    }
+  }
+
+
+  getLastActivityDayDiff(lastTimestamp){
+    if(!!lastTimestamp){
+        return moment(lastTimestamp).fromNow();
+    }else{
+      return "-"
+    }
+
+  }
+
+  getUserPhoto(styles){
+    if(this.props.device.platform=="ios"){
+        return (<LImage
+          style={styles.userImg}
+          defaultSource={require('../../../assets/defaultProfilePhoto.png')}
+          source={{uri: this.props.auth.form.user.photoUrl}}
+          resizeMode='contain'
+          indicator={Progress.CircleSnail}
+          indicatorProps={{
+            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
+          }}
+        />);
+    }else{
+      (<Image
+        style={styles.userImg}
+        source={{uri: this.props.auth.form.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
+        resizeMode='contain'
+      />);
+    }
+
+  }
+
+
+// {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
+  renderProfileBody(dataReady, styles){
+    if(dataReady==true){
+      return (
+        <ScrollView style={styles.scrollView}>
+
+          <View style={styles.scrollerViewHeader}>
+            <View style={styles.fitersViewContainer}>
+
+
+              <View style={styles.expandedFilterContainer}>
+                <TouchableOpacity style={styles.filterContent}>
+                  <PavIcon name="exclamation" size={15} style={styles.filterIcon}/>
+                  <Text style={styles.filterText}>All Activity </Text>
+                </TouchableOpacity>
+                <View style={styles.filterIndicatorIconContainer}>
+                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.activeFilterIndicatorIcon}/>
+                </View>
+              </View>
+
+              <View style={styles.collapsedFilterContainer}>
+                <TouchableOpacity style={styles.filterContent}>
+                  <PavIcon name="add-lined" size={15} style={styles.filterIcon}/>
+                </TouchableOpacity>
+                <View style={styles.filterIndicatorIconContainer}>
+                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
+                </View>
+              </View>
+
+              <View style={styles.collapsedFilterContainer}>
+                <TouchableOpacity style={styles.filterContent}>
+                  <PavIcon name="bills" size={15} style={styles.filterIcon}/>
+                </TouchableOpacity>
+                <View style={styles.filterIndicatorIconContainer}>
+                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
+                </View>
+              </View>
+
+              <View style={styles.collapsedFilterContainer}>
+                <TouchableOpacity style={styles.filterContent}>
+                  <PavIcon name="binoculars" size={15} style={styles.filterIcon}/>
+                </TouchableOpacity>
+                <View style={styles.filterIndicatorIconContainer}>
+                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
+                </View>
+              </View>
+
+              <View style={styles.collapsedFilterContainer}>
+                <TouchableOpacity style={styles.filterContent}>
+                  <PavIcon name="trending-graph" size={15} style={styles.filterIcon}/>
+                </TouchableOpacity>
+                <View style={styles.filterIndicatorIconContainer}>
+                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
+                </View>
+              </View>
+
+
+
+            </View>
+            <Text style={styles.recentActivityText}>All Activity:</Text>
+          </View>
+        </ScrollView>)
+    }else{
+      if(this.props.device.platform=="android"){
+          return (
+          <View style={styles.bodyLoadingContainer}>
+            <ProgressBar styleAttr="Large" color="red" />
+          </View>);
+      }else if(this.props.device.platform=="ios"){
+          return (
+            <View style={styles.bodyLoadingContainer}>
+              <ActivityIndicatorIOS
+                animating={true}
+                size="large"
+              />
+            </View>);
+      }else{
+        return <View style={styles.bodyLoadingContainer}><Text>Now Loading</Text></View>;
+      }
+
+    }
+
+  }
 
 
   /**
@@ -118,329 +435,17 @@ class NewsFeedRender extends Component {
 
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?portraitStyles:landscapeStyles;
-
-    let self = this;
-    let onFbBtnPress = ()=>{
-      this.props.onButtonPress("facebook");
-    },
-    onSignInBtnPress = ()=>{
-      this.props.onButtonPress("emailSignIn");
-    },
-    onSignUpBtnPress = ()=>{
-      this.props.onButtonPress("emailSignUp");
-    };
-
+    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
     return(
-        <Image style={styles.backgroundImg} resizeMode= 'cover' source={require('../../../assets/pavBG.jpg')}>
-          <View style={styles.container}>
-
-            <View style={styles.explanContainer}>
-              <View style={styles.logoImgContainer}>
-                <Image style={styles.logoImg} resizeMode= 'contain' source={require('../../../assets/logo-white.png')}></Image>
-              </View>
-
-              <View style={styles.titleTextContainerVer}>
-                <View style={styles.titleTextContainerHor}>
-                  <Text style={styles.titleText} numberOfLines={2}>
-                  MAIN
-                  </Text>
-                </View>
-              </View>
-
-
-            </View>
-
-
-
-            <ActionButton offsetY={50} offsetX={1} buttonColor="rgba(231,76,60,1)">
-              <ActionButton.Item buttonColor='#9b59b6' title="New Issue" onPress={() => console.log("notes tapped!")}>
-                <PavIcon name='issues' size={30} style={{color:'white'}}/>
-              </ActionButton.Item>
-              <ActionButton.Item buttonColor='#3498db' title="Discovery" onPress={() => {}}>
-                <PavIcon name='ios-search-strong' size={33} style={{color:'white'}}/>
-              </ActionButton.Item>
-            </ActionButton>
+        <View style={styles.container}>
+          <View style={styles.bodyView}>
+            {this.renderProfileBody(!this.props.profile.form.isFetching.timelineData, styles)}
           </View>
-        </Image>
+        </View>
     );
   }
 }
 
 
-
-/**
- * ## Styles
- */
-var portraitStyles = StyleSheet.create({
-
-  backgroundImg: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    width: w,
-    height: h
-  },
-  container: {
-    // backgroundColor: 'orange',
-    flex:1,
-    flexDirection: 'column',
-    marginVertical: 10,
-    marginHorizontal:15
-  },
-
-  explanContainer:{
-    // backgroundColor: 'black',
-    flex:0.62,
-    flexDirection: 'column',
-    justifyContent: 'flex-end'
-  },
-
-  logoImgContainer:{
-    // backgroundColor: 'red',
-    flex:0.25,
-    width: w*0.7,
-    flexDirection: 'column',
-    alignSelf: 'center',
-    justifyContent: 'flex-end'
-  },
-  logoImg:{
-    marginVertical: 7,
-    alignSelf: 'center',
-    // backgroundColor: 'blue',
-    width: w*0.55,
-    height:h*0.05
-  },
-
-  titleTextContainerVer:{
-    flex:0.25, //height (according to its parent)
-    flexDirection: 'row', //its children will be in a row
-    backgroundColor: Colors.transparentColor,
-    justifyContent: 'center'
-    // alignSelf: 'center',
-  },
-
-  titleTextContainerHor:{
-    width: 274,
-    flexDirection: 'column',    //its children will be in a column
-    // backgroundColor: 'blue',
-    alignItems: 'center', //align items according to this parent (like setting self align on each item)
-    justifyContent: 'center'
-  },
-  titleText: {
-    // backgroundColor: 'black',
-    fontSize: getCorrectFontSizeForScreen(w,h,27),
-    fontFamily: 'Whitney Semibold',
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-  },
-
-  descriptionContainerVer:{
-    flex:0.55, //height (according to its parent)
-    flexDirection: 'row', //its children will be in a row
-    backgroundColor: Colors.transparentColor,
-    justifyContent: 'center'
-    // alignSelf: 'center',
-  },
-  descriptionContainerHor:{
-    width: w*0.76,
-    flexDirection: 'column',    //its children will be in a column
-    // backgroundColor: 'blue',
-    alignItems: 'center', //align items according to this parent (like setting self align on each item)
-    justifyContent: 'space-around',
-  },
-  descriptionText: {
-    backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    // fontWeight: 'bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,17),
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-
-  },
-  descriptionText2: {
-    backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,16),
-    color: Colors.mainTextColor,
-    textAlign: 'center'
-  },
-
-
-
-  btnContainer:{
-    flex:0.45,
-    // backgroundColor: 'red',
-    justifyContent: 'flex-end'
-  },
-
-  btn: {
-    height:60,
-    borderRadius: 4,
-    borderWidth: 1
-  },
-  whiteBtnText:{
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-    fontFamily: 'Whitney',
-  },
-  facebookBtn:{
-    backgroundColor: Colors.secondaryColor,
-    borderColor: Colors.mainBorderColor
-  },
-  emailBtn:{
-    backgroundColor: Colors.accentColor,
-    borderColor: Colors.mainBorderColor
-
-  },
-  signInBtn:{
-    backgroundColor: Colors.transparentColor,
-    borderColor: Colors.mainTextColor
-  },
-
-  iconStyle:{
-  }
-
-});
-
-
-
-
-
-/**
- * ## Styles
- */
-var landscapeStyles = StyleSheet.create({
-
-  backgroundImg: {
-    flex:1,
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    width: null,
-    height: null
-  },
-  container: {
-    // backgroundColor: 'orange',
-    flex:1,
-    flexDirection: 'column',
-    marginVertical: 10,
-    marginHorizontal:10
-  },
-
-  explanContainer:{
-    // backgroundColor: 'black',
-    flex:0.62,
-    flexDirection: 'column',
-    justifyContent: 'flex-end'
-  },
-
-  logoImgContainer:{
-    // backgroundColor: 'red',
-    flex:0.3,
-    flexDirection: 'row',
-    alignSelf: 'center',
-    justifyContent: 'flex-end'
-  },
-  logoImg:{
-    marginVertical: 7,
-    alignSelf: 'center',
-    // backgroundColor: 'blue',
-    width: w*0.90,
-    height:h*0.08
-  },
-
-  titleTextContainerVer:{
-    flex:0.2, //height (according to its parent)
-    flexDirection: 'row', //its children will be in a row
-    backgroundColor: Colors.transparentColor,
-    justifyContent: 'center'
-    // alignSelf: 'center',
-  },
-
-  titleTextContainerHor:{
-    width: 574,
-    flexDirection: 'column',    //its children will be in a column
-    // backgroundColor: 'blue',
-    alignItems: 'center', //align items according to this parent (like setting self align on each item)
-    justifyContent: 'center'
-  },
-  titleText: {
-    // backgroundColor: 'black',
-    fontSize: getCorrectFontSizeForScreen(w,h,27),
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-  },
-
-  descriptionContainerVer:{
-    flex:0.55, //height (according to its parent)
-    flexDirection: 'row', //its children will be in a row
-    backgroundColor: Colors.transparentColor,
-    justifyContent: 'center'
-    // alignSelf: 'center',
-  },
-  descriptionContainerHor:{
-    width: 510,
-    flexDirection: 'column',    //its children will be in a column
-    // backgroundColor: 'blue',
-    alignItems: 'center', //align items according to this parent (like setting self align on each item)
-    justifyContent: 'space-around',
-  },
-  descriptionText: {
-    backgroundColor: Colors.transparentColor,
-    fontSize: getCorrectFontSizeForScreen(w,h,17),
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-
-  },
-  descriptionText2: {
-    backgroundColor: Colors.transparentColor,
-    fontSize: getCorrectFontSizeForScreen(w,h,14),
-    color: Colors.mainTextColor,
-    textAlign: 'center'
-  },
-
-
-
-  btnContainer:{
-    flex:0.45,
-    flexDirection:'column',
-    // backgroundColor: 'red'
-  },
-
-  btn: {
-    height:36,
-    borderRadius: 4,
-    borderWidth: 1,
-    marginVertical:0
-  },
-  whiteBtnText:{
-    color: Colors.mainTextColor,
-    textAlign: 'center'
-  },
-  facebookBtn:{
-    backgroundColor: Colors.secondaryColor,
-    borderColor: Colors.mainBorderColor
-  },
-  emailBtn:{
-    backgroundColor: Colors.accentColor,
-    borderColor: Colors.mainBorderColor
-
-  },
-  signInBtn:{
-    backgroundColor: Colors.transparentColor,
-    borderColor: Colors.mainTextColor
-  },
-
-  iconStyle:{
-  }
-
-});
-
-
-
-
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
 export default connect(mapStateToProps, mapDispatchToProps)(NewsFeedRender);

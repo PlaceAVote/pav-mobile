@@ -32,11 +32,6 @@ import {Map} from 'immutable';
 // const  Button = require('sp-react-native-iconbutton');
 import Button from 'sp-react-native-iconbutton'
 
-/**
-* Icons library
-*/
-var Icon = require('react-native-vector-icons/FontAwesome');
-
 
 import {Colors, ScheneKeys} from '../../config/constants';
 

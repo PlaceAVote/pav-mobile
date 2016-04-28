@@ -27,7 +27,8 @@ const {
   REGISTER_STEP_3,
   REGISTER_STEP_4,
   TOPIC_PICK,
-  MAIN
+  MAIN,
+  ACCOUNT_SETTINGS
 } = ScheneKeys;
 
 /**

@@ -34,6 +34,7 @@ module.exports =  {
     TAB_NEWS: null,
     TAB_NOTIFS: null,
     TAB_PROFILE: null,
+    ACCOUNT_SETTINGS: null,
 
   }),
   Other: {

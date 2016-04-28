@@ -18,7 +18,8 @@ const {
   NAVIGATE_TO,
   ONBOARDING,
   FORGOT_PASSWORD,
-  TOPIC_PICK
+  TOPIC_PICK,
+  ACCOUNT_SETTINGS
 } = ScheneKeys;
 
 
@@ -32,7 +33,8 @@ const Router = new Record({
   previousSchene: null,
   modalIsOpen: new Map([
     [FORGOT_PASSWORD, false],
-    [TOPIC_PICK, false]
+    [TOPIC_PICK, false],
+    [ACCOUNT_SETTINGS, false],
   ])
 });
 

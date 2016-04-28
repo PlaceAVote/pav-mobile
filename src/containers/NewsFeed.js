@@ -121,6 +121,7 @@ class NewsFeed extends Component {
           auth={ this.props.auth }
           global={ this.props.global }
           device={ this.props.device}
+          profile={this.props.profile}
       />
 
     );

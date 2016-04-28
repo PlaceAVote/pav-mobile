@@ -117,7 +117,7 @@ import routerInitialState from './reducers/routing/routingInitialState';
 *
 */
 import ProfileButtons from './containers/NavBarIcons/ProfileButtons';
-import NewsfeedButtons from './containers/NavBarIcons/NewsfeedButtons';
+import NewsFeedButtons from './containers/NavBarIcons/NewsFeedButtons';
 
 
 
@@ -322,11 +322,11 @@ export default function native(platform) {
                 <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true} initial={true}>
-                    <Scene key={ScheneKeys.TAB_NEWS} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}}>
-                      <Scene key={ScheneKeys.TAB_NEWS+"2"}  title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsfeedButtons/>} />
+                    <Scene key={ScheneKeys.TAB_NEWS} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} initial={true}>
+                      <Scene key={ScheneKeys.TAB_NEWS+"2"}  title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} />
                     </Scene>
                     <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={Notifications} icon={TabIconFactory} notifications={["a notification", "another notification"]} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}}/>
-                    <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}}  initial={true}/>
+                    <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} />
                 </Scene>
               </Scene>
             </Scene>
