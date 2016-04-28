@@ -24,7 +24,10 @@ const Form = Record({
   disabled: false,
   error: null,
   // isValid: false,
-  isFetching: false,
+  isFetching: new (Record({
+    profileData: false,
+    timelineData: false,
+  })),
 
   profileData: new (Record({
     // email: '',

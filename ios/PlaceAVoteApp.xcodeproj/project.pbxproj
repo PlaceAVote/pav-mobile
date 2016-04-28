@@ -25,6 +25,7 @@
 		8E0D94E40DAF4257A5B8FD91 /* Whitney-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE7C3E5E45C04785BF773CC9 /* Whitney-Book.ttf */; };
 		A5D5C5FD28194E0EA87FCAA5 /* Whitney-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F4462147841FAA6BB2E89 /* Whitney-Medium.ttf */; };
 		BD8EE78C772E4484ACE34AFC /* Whitney-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B164D8BEA598413FA309BDA5 /* Whitney-Light.ttf */; };
+		D34F73A81CD1F1F50014BAF6 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BF78FF1CD1F11B00C1AE2C /* libART.a */; };
 		D3546E011CBE96970086B3BA /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3546E001CBE96970086B3BA /* Orientation.m */; };
 		E08D6038C0074BD0BA01380B /* Whitney-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6263A662BD9C4B85BDFF98ED /* Whitney-Semibold.ttf */; };
 		F0C6E75D312C3C237E3B059F /* libPods-PlaceAVoteAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 580A83FEB7945DF0ECBE00A2 /* libPods-PlaceAVoteAppTests.a */; };
@@ -37,6 +38,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = PlaceAVoteApp;
+		};
+		D3BF78FE1CD1F11B00C1AE2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3BF78FA1CD1F11B00C1AE2C /* ART.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
+			remoteInfo = ART;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -70,6 +78,7 @@
 		BE02320DE084B4FDB8766C49 /* Pods-PlaceAVoteAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteAppTests/Pods-PlaceAVoteAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		D3546DFF1CBE96970086B3BA /* Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
 		D3546E001CBE96970086B3BA /* Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
+		D3BF78FA1CD1F11B00C1AE2C /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		D84D429C65E14FEB840019A2 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DC79F48DEB32471FAACCA839 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		DE7C3E5E45C04785BF773CC9 /* Whitney-Book.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Book.ttf"; path = "../assets/fonts/Whitney-Book.ttf"; sourceTree = "<group>"; };
@@ -89,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D34F73A81CD1F1F50014BAF6 /* libART.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +172,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D3BF78F91CD1F11400C1AE2C /* Libraries */,
 				13B07FAE1A68108700A75B9A /* PlaceAVoteApp */,
 				00E356EF1AD99517003FC87E /* PlaceAVoteAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -199,6 +210,22 @@
 			);
 			name = RCTOrientation;
 			path = PlaceAVoteApp/RCTOrientation;
+			sourceTree = "<group>";
+		};
+		D3BF78F91CD1F11400C1AE2C /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				D3BF78FA1CD1F11B00C1AE2C /* ART.xcodeproj */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		D3BF78FB1CD1F11B00C1AE2C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3BF78FF1CD1F11B00C1AE2C /* libART.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +302,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D3BF78FB1CD1F11B00C1AE2C /* Products */;
+					ProjectRef = D3BF78FA1CD1F11B00C1AE2C /* ART.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* PlaceAVoteApp */,
@@ -282,6 +315,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D3BF78FF1CD1F11B00C1AE2C /* libART.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libART.a;
+			remoteRef = D3BF78FE1CD1F11B00C1AE2C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {

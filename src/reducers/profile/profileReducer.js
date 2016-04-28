@@ -61,17 +61,20 @@ export default function profileReducer(state = initialState, action) {
      * set the form to fetching and clear any errors
      */
   case GET_TIMELINE_REQUEST:
+    return state.setIn(['form', 'isFetching', 'timelineData'], true)
+      .setIn(['form','error'],null);
+    break;
   case GET_PROFILE_REQUEST:
   // case PROFILE_UPDATE_REQUEST:
-    return state.setIn(['form', 'isFetching'], true)
+    return state.setIn(['form', 'isFetching', 'profileData'], true)
       .setIn(['form','error'],null);
-      break;
+    break;
     /**
      * ### Request end successfully
      * set the form to fetching as done
      */
   // case PROFILE_UPDATE_SUCCESS:
-  //   return state.setIn(['form', 'isFetching'], false);
+  //   return state.setIn(['form', 'isFetching', 'profileData'], false);
 
     /**
      * ### Request ends successfully
@@ -82,14 +85,14 @@ export default function profileReducer(state = initialState, action) {
      * mung it up through some other mechanism
      */
   case GET_TIMELINE_SUCCESS:
-    return state.setIn(['form', 'isFetching'], false)
+    return state.setIn(['form', 'isFetching', 'timelineData'], false)
     .setIn(['form','error'],null)
     .setIn(['form', 'profileData', 'timelineData'], action.payload.results)
     .setIn(['form', 'profileData','lastActivityTimestamp'], action.payload.last_timestamp);
 
   case GET_PROFILE_SUCCESS:
     // console.log("Profile reducer get profile SUCCESS with payload: "+JSON.stringify(action.payload));
-    return state.setIn(['form', 'isFetching'], false)
+    return state.setIn(['form', 'isFetching', 'profileData'], false)
       .setIn(['form','error'],null)
       .setIn(['form', 'profileData', 'followerCnt'], action.payload.total_followers)
       .setIn(['form', 'profileData', 'followingCnt'], action.payload.total_following);
@@ -121,9 +124,12 @@ export default function profileReducer(state = initialState, action) {
      * we're done fetching and the error needs to be displayed to the user
      */
   case GET_TIMELINE_FAILURE:
+    return state.setIn(['form', 'isFetching', 'timelineData'], false)
+      .setIn(['form','error'], action.payload);
+    break;
   case GET_PROFILE_FAILURE:
-  case PROFILE_UPDATE_FAILURE:
-    return state.setIn(['form', 'isFetching'], false)
+  // case PROFILE_UPDATE_FAILURE:
+    return state.setIn(['form', 'isFetching', 'profileData'], false)
       .setIn(['form','error'], action.payload);
     break;
     /**
@@ -156,7 +162,7 @@ export default function profileReducer(state = initialState, action) {
   //   var next = state.setIn(['form','disabled'],profile.disabled)
   //         .setIn(['form','error'],profile.error)
   //         .setIn(['form','isValid', state.form.state],profile.isValid)
-  //         .setIn(['form','isFetching'],profile.isFetching)
+  //         .setIn(['form','isFetching', 'profileData'],profile.isFetching)
   //         // .setIn(['form','originalProfile','username'],profile.originalProfile.username)
   //         // .setIn(['form','originalProfile','email'],profile.originalProfile.email)
   //         // .setIn(['form','originalProfile',        'objectId'],profile.originalProfile.objectId)

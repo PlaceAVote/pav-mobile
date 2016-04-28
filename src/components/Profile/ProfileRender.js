@@ -72,6 +72,10 @@ import CommentCard from '../Cards/CommentCard';
 import FollowCard from '../Cards/FollowCard';
 import CardFactory from '../Cards/CardFactory';
 
+
+var LImage = require('react-native-image-progress');
+var Progress = require('react-native-progress');
+
 /**
  * The states were interested in
  */
@@ -268,13 +272,22 @@ class ProfileRender extends Component {
       card:{
         paddingHorizontal:7
       },
+
+      scrollSpacerView:{
+          height:h*0.07,
+          backgroundColor:Colors.transparentColor
+      },
       recentActivityText: {
-        // backgroundColor: 'red',
+        top:0,
+        width:w,
+        height:h*0.065,
+        position:'absolute',
+        backgroundColor: "rgba(0,0,0,0.06)",
         paddingHorizontal: w*0.05,
         paddingVertical: h*0.01,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,20),
-        color: Colors.thirdTextColor,
+        color: Colors.fourthTextColor,
         // textAlign: 'center',
       },
 
@@ -364,8 +377,30 @@ class ProfileRender extends Component {
 
   }
 
+  getUserPhoto(styles){
+    if(this.props.device.platform=="ios"){
+        return (<LImage
+          style={styles.userImg}
+          defaultSource={require('../../../assets/defaultProfilePhoto.png')}
+          source={{uri: this.props.auth.form.user.photoUrl}}
+          resizeMode='contain'
+          indicator={Progress.CircleSnail}
+          indicatorProps={{
+            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
+          }}
+        />);
+    }else{
+      (<Image
+        style={styles.userImg}
+        source={{uri: this.props.auth.form.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
+        resizeMode='contain'
+      />);
+    }
 
-  renderProfileHeader(dataReady, styles){
+  }
+
+
+  renderProfileHeader(styles){
     let firstName = this.props.auth.form.user.firstName|| "-";
     let lastName = this.props.auth.form.user.lastName || "";
     let fullName =  firstName+" "+lastName;
@@ -393,11 +428,7 @@ class ProfileRender extends Component {
               </View>
               <View style={styles.userDataHeaderView}>
                 <View style={styles.profileImgContainerView}>
-                  <Image
-                    style={styles.userImg}
-                    source={{uri: this.props.auth.form.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
-                    resizeMode='contain'
-                  />
+                  {this.getUserPhoto(styles)}
                 </View>
                 <View style={styles.userDataContainerView}>
                   <Text style={styles.fullNameText}>{fullName}</Text>
@@ -411,8 +442,8 @@ class ProfileRender extends Component {
                   onPress={this.props.onFbBtnPress}
                   style={styles.followBtn}
                   textStyle={styles.whiteBtnText}
-                  isDisabled={this.props.auth.form.isFetching || this.props.profile.form.isFetching}
-                  isLoading={this.props.auth.form.isFetching || this.props.profile.form.isFetching}
+                  isDisabled={this.props.profile.form.isFetching.profileData}
+                  isLoading={this.props.profile.form.isFetching.profileData}
                   iconProps={{name: "plus",size:15, color: "white"}}>
                     {this.getFollowBtnLabelText(this.props.auth.form.user.firstName)}
                   </Button>
@@ -424,11 +455,13 @@ class ProfileRender extends Component {
   renderProfileBody(dataReady, styles){
     if(dataReady==true){
       return (
-      <View>
-        <Text style={styles.recentActivityText}>Recent Activity:</Text>
+      <View style={styles.bodyLoadingContainer}>
         <ScrollView style={styles.scrollView}>
+          <View style={styles.scrollSpacerView}></View>
           {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
         </ScrollView>
+        <Text style={styles.recentActivityText}>Recent Activity:</Text>
+
       </View>);
     }else{
       if(this.props.device.platform=="android"){
@@ -466,9 +499,9 @@ class ProfileRender extends Component {
     return(
         <View style={styles.container}>
 
-          {this.renderProfileHeader(false, styles)}
+          {this.renderProfileHeader(styles)}
           <View style={styles.bodyView}>
-            {this.renderProfileBody(false, styles)}
+            {this.renderProfileBody(!this.props.profile.form.isFetching.timelineData, styles)}
           </View>
         </View>
     );
