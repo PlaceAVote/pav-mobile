@@ -5,6 +5,7 @@ module.exports =  {
     primaryColor : "#536EB2",
     secondaryColor: "#3D5B96",  //dark blue
     accentColor: "#A5CB75", //green
+    negativeAccentColor: "#e64a33",
 
     transparentColor: "rgba(0,0,0,0)",  //clear
 
@@ -116,6 +117,10 @@ module.exports =  {
    GET_TIMELINE_REQUEST: null,
    GET_TIMELINE_SUCCESS: null,
    GET_TIMELINE_FAILURE: null,
+
+   FOLLOW_USER_REQUEST: null,
+   FOLLOW_USER_SUCCESS: null,
+   FOLLOW_USER_FAILURE: null,
 
    ON_PROFILE_FORM_FIELD_CHANGE: null,
 

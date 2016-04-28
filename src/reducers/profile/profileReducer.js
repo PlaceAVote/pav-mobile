@@ -33,6 +33,10 @@ const {
   GET_TIMELINE_SUCCESS,
   GET_TIMELINE_FAILURE,
 
+  FOLLOW_USER_REQUEST,
+  FOLLOW_USER_SUCCESS,
+  FOLLOW_USER_FAILURE,
+
   LOGOUT_SUCCESS,
 
   SET_STATE
@@ -60,6 +64,7 @@ export default function profileReducer(state = initialState, action) {
      * ### Request starts
      * set the form to fetching and clear any errors
      */
+  case FOLLOW_USER_REQUEST:
   case GET_TIMELINE_REQUEST:
     return state.setIn(['form', 'isFetching', 'timelineData'], true)
       .setIn(['form','error'],null);

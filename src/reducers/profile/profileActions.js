@@ -30,6 +30,10 @@ const {
   GET_TIMELINE_SUCCESS,
   GET_TIMELINE_FAILURE,
 
+  FOLLOW_USER_REQUEST,
+  FOLLOW_USER_SUCCESS,
+  FOLLOW_USER_FAILURE,
+
   PROFILE_UPDATE_REQUEST,
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
@@ -86,7 +90,7 @@ export function getProfile(userId = null, sessionToken=null, dev = null) {
     });
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
-      console.log("Error in profile call");
+      console.log("Error in profile call"+res.error.error_message);
       dispatch(getProfileFailure("Unable to get user profile data with this token."));
       return res.error;
     }else{
@@ -161,6 +165,7 @@ export function getTimeline(userId = null, sessionToken=null, dev = null) {
     });
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
+      console.log("Error in timeline call"+res.error.error_message);
       dispatch(getTimelineFailure("Unable to get user profile data with this token."));
       return res.error;
     }else{
@@ -184,71 +189,128 @@ export function getTimeline(userId = null, sessionToken=null, dev = null) {
 
 
 
-
-
+/**
+ * ## retreiving profile actions
+ */
+export function followUserRequest() {
+  return {
+    type: FOLLOW_USER_REQUEST
+  };
+}
+export function followUserSuccess(json) {
+  return {
+    type: FOLLOW_USER_SUCCESS,
+    payload: json
+  };
+}
+export function followUserFailure(json) {
+  return {
+    type: FOLLOW_USER_FAILURE,
+    payload: json
+  };
+}
 /**
  * ## State actions
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function profileUpdateRequest() {
-  return {
-    type: PROFILE_UPDATE_REQUEST
+export function followUser(userId = null, sessionToken=null, dev = null) {
+  console.log("Get timeline called");
+  return async function (dispatch){
+    dispatch(followUserRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          token = await new AppAuthToken().getSessionToken(sessionToken);
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in profileActions.followUser() with error: "+e.message);
+      dispatch(followUserFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.followUser({
+      userId: userId
+    });
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      dispatch(followUserFailure("Unable to get user profile data with this token."));
+      return res.error;
+    }else{
+      dispatch(followUserSuccess(res.data));
+      return res.data;
+    }
   };
 }
-export function profileUpdateSuccess() {
-  return {
-    type: PROFILE_UPDATE_SUCCESS
-  };
-}
-export function profileUpdateFailure(json) {
-  return {
-    type: PROFILE_UPDATE_FAILURE,
-    payload: json
-  };
-}
-/**
- * ## updateProfile
- * @param {string} userId -  objectId
- * @param {string} username - the users name
- * @param {string] email - user's email
- * @param {Object} sessionToken - the sessionToken from the pav backend
- *
- * The sessionToken is provided when Hot Loading.
- *
- * With the sessionToken, the pav backend is called with the data to update
- * If successful, get the profile so that the screen is updated with
- * the data as now persisted on the pav backend
- *
- */
-export function updateProfile(userId, username, email, sessionToken) {
-  return dispatch => {
-    dispatch(profileUpdateRequest());
-    return new AppAuthToken().getSessionToken(sessionToken)
-      .then((token) => {
-        return PavClientSdk({sessionToken:token}).updateProfile(userId,
-          {
-            username: username,
-            email: email
-          }
-        );
-      })
-      .then(() => {
-          dispatch(profileUpdateSuccess());
-          dispatch(getProfile());
-      })
-      .catch((error) => {
-        dispatch(profileUpdateFailure(error));
-      });
-  };
-}
-/**
- * ## onProfileFormFieldChange
- *
- */
-export function onProfileFormFieldChange(field,value) {
-  return {
-    type: ON_PROFILE_FORM_FIELD_CHANGE,
-    payload: {field: field, value: value}
-  };
-}
+
+
+
+
+
+
+//
+// /**
+//  * ## State actions
+//  * controls which form is displayed to the user
+//  * as in login, register, logout or reset password
+//  */
+// export function profileUpdateRequest() {
+//   return {
+//     type: PROFILE_UPDATE_REQUEST
+//   };
+// }
+// export function profileUpdateSuccess() {
+//   return {
+//     type: PROFILE_UPDATE_SUCCESS
+//   };
+// }
+// export function profileUpdateFailure(json) {
+//   return {
+//     type: PROFILE_UPDATE_FAILURE,
+//     payload: json
+//   };
+// }
+// /**
+//  * ## updateProfile
+//  * @param {string} userId -  objectId
+//  * @param {string} username - the users name
+//  * @param {string] email - user's email
+//  * @param {Object} sessionToken - the sessionToken from the pav backend
+//  *
+//  * The sessionToken is provided when Hot Loading.
+//  *
+//  * With the sessionToken, the pav backend is called with the data to update
+//  * If successful, get the profile so that the screen is updated with
+//  * the data as now persisted on the pav backend
+//  *
+//  */
+// export function updateProfile(userId, username, email, sessionToken) {
+//   return dispatch => {
+//     dispatch(profileUpdateRequest());
+//     return new AppAuthToken().getSessionToken(sessionToken)
+//       .then((token) => {
+//         return PavClientSdk({sessionToken:token}).updateProfile(userId,
+//           {
+//             username: username,
+//             email: email
+//           }
+//         );
+//       })
+//       .then(() => {
+//           dispatch(profileUpdateSuccess());
+//           dispatch(getProfile());
+//       })
+//       .catch((error) => {
+//         dispatch(profileUpdateFailure(error));
+//       });
+//   };
+// }
+// /**
+//  * ## onProfileFormFieldChange
+//  *
+//  */
+// export function onProfileFormFieldChange(field,value) {
+//   return {
+//     type: ON_PROFILE_FORM_FIELD_CHANGE,
+//     payload: {field: field, value: value}
+//   };
+// }

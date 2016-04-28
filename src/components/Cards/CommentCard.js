@@ -276,6 +276,7 @@ class CommentCard extends Component {
 
             <View style={styles.cardContentHeader}>
               <Image
+                defaultSource={require('../../../assets/defaultProfilePhoto.png')}
                 style={styles.userImage}
                 source={{uri: this.props.userPhotoUrl}}
                 resizeMode='cover'

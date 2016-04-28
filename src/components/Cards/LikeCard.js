@@ -150,7 +150,6 @@ class LikeCard extends Component {
           alignItems:'center',
           width: w*0.09,
           height: w*0.09,
-          backgroundColor: Colors.accentColor,
           paddingHorizontal:2,
           paddingVertical:4,
           borderRadius: 3,
@@ -159,8 +158,14 @@ class LikeCard extends Component {
       },
 
       commentIcon:{
-        color: Colors.mainTextColor,
         paddingHorizontal:3,
+        color: Colors.mainTextColor,
+      },
+      likeIcon:{
+        backgroundColor: Colors.accentColor,
+      },
+      dislikeIcon:{
+        backgroundColor: Colors.negativeAccentColor,
       },
 
       userImage:{
@@ -175,7 +180,7 @@ class LikeCard extends Component {
       },
       commentNameText:{
         // backgroundColor:'blue',
-        color:"#e64a33",
+        color:Colors.negativeAccentColor,
         paddingLeft: 5,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
@@ -265,10 +270,14 @@ class LikeCard extends Component {
         <View style={styles.card}>
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
-              <View style={styles.commentIconContainer}>
-                <PavIcon name="thumbs-up" size={17} style={styles.commentIcon}/>
+              <View style={[styles.commentIconContainer, this.props.isLike?styles.likeIcon:styles.dislikeIcon]}>
+                <PavIcon
+                name={this.props.isLike?"thumbs-up":"thumbs-down"}
+                size={17}
+                style={styles.commentIcon}
+                />
               </View>
-              <Text style={styles.cardTitleText}>COMMENT UPVOTE</Text>
+              <Text style={styles.cardTitleText}>COMMENT {this.props.isLike?"UPVOTE":"DOWNVOTE"}</Text>
             </View>
             <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
           </View>
@@ -278,12 +287,13 @@ class LikeCard extends Component {
               <Image
                 style={styles.userImage}
                 source={{uri: this.props.userPhotoUrl}}
+                defaultSource={require('../../../assets/defaultProfilePhoto.png')}
                 resizeMode='cover'
               />
               <View style={styles.commentDescriptionContainer}>
                 <View style={styles.commentLocationContainer}>
                   <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
-                  <Text style={styles.commentInText}>upvoted the following comment: </Text>
+                  <Text style={styles.commentInText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
                 </View>
                 <Text style={styles.commentNameText}>{this.props.authorFullNameText}</Text>
                 <View style={styles.commentLocationContainer}>

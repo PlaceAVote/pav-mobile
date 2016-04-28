@@ -33,8 +33,7 @@ import React,
   Component,
   StyleSheet,
   Text,
-  View,
-  Image
+  View
 }
 from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -162,11 +161,6 @@ class VoteCard extends Component {
         paddingHorizontal:3,
       },
 
-      userImage:{
-        width:w*0.09,
-        height:w*0.09,
-        // marginHorizontal: 10,
-      },
       voteRowContainer:{
         flexDirection:'row',
         alignItems:'center',

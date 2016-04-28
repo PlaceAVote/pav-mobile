@@ -107,7 +107,7 @@ class Profile extends Component {
   }
 
   async updateProfileData(){
-    var token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjpudWxsLCJlbWFpbCI6ImJlbG92ZWRpbmJveEBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSW9hbm5pcyIsImNvbmZpcm1hdGlvbi10b2tlbiI6IjY1YTdkOWM2LTkwYTEtNGQyMi05NzhkLTNmZjk2NmViNTNjNSIsImNpdHkiOiJUaGVzc2Fsb25pa2kgR3JlZWNlIiwiZXhwIjoxNDY0MzQ0MjM5LCJwdWJsaWMiOmZhbHNlLCJzdGF0ZSI6bnVsbCwidG9waWNzIjpbIlBvbGl0aWNzIiwiVGVjaG5vbG9neSIsIlNvY2lhbCBJbnRlcmVzdCJdLCJjb3VudHJ5X2NvZGUiOiJHUkMiLCJkb2IiOiIxMS8xNC8xOTg5IiwiaW1nX3VybCI6Imh0dHBzOi8vY2RuLnBsYWNlYXZvdGUuY29tL3VzZXJzL2M1MTQxMmVhLWYyY2YtNDRjZC1hOGJkLTc3ODk3ODQ2ZjliNi9wcm9maWxlL2ltZy9wMjAweHAyMDB4L2E5ZWM0YmFlLTIwZTQtNDBkZC05YmU0LWYyOGEyOWQxMjVkYy5qcGVnIiwibGFzdF9uYW1lIjoiS29ra2luaWRpcyIsImxhdCI6bnVsbCwidXNlcl9pZCI6ImM1MTQxMmVhLWYyY2YtNDRjZC1hOGJkLTc3ODk3ODQ2ZjliNiIsImdlbmRlciI6Im1hbGUiLCJyZWdpc3RlcmVkIjpudWxsLCJjcmVhdGVkX2F0IjoxNDU1NzU3MDQ5MTMzLCJsbmciOm51bGwsImRpc3RyaWN0IjpudWxsfQ.DdR4Enp8jn8nZCzilJbXyz_4Ce2Q1qWUgnzII2T9GtsfWYOVncPpkVKD3q-o89KoNrWfsG0eB8h3qFjQuQKH3nDMkcOrxikS6QPbDRAGDBsDo7SNP0hxipax0rwkjowBnFRA2g-baSHC74H4MAhrpYmg4JLnS5X74L8BiTwSfnVOQpw8YqFsvlhJr68_sxhYj5prlaYy-GTgsFUcy_5RWdBvsHK3rlTRpFWVVDLIoDqNYlNsYBQREk6HDyLGnoTJQvWUiH5l2AlS7zs6sxReK1lDBydhYbiEdnLnq3wsclhac3i31qMWLfrnRXjfvcGfYPeFnl51y_v3JDDZeeWT0A";
+    var token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjoiV2FzaGluZ3RvbiwgREMgMjAwMDEsIFVTQSIsImVtYWlsIjoiYWZha2VhY2NvdW50QHBsYWNlYXZvdGUuY29tIiwiZmlyc3RfbmFtZSI6IklvYW5uaXNkZXYiLCJjb25maXJtYXRpb24tdG9rZW4iOiIyZjk3ODg2Ni1jZjg1LTQ0MTMtYmRiNC05YmRlNmVkMWMxZjciLCJjaXR5IjoiV2hlbmV2ZXIsIFdoZXJldmVyIiwiZXhwIjoxNDY0NDMxNjQxLCJwdWJsaWMiOnRydWUsInN0YXRlIjoiREMiLCJ6aXBjb2RlIjoiMjAwMDEiLCJ0b3BpY3MiOlsiQ3JpbWUiLCJIZWFsdGhjYXJlIiwiVGF4ZXMiXSwiY291bnRyeV9jb2RlIjoiVVNBIiwiZG9iIjoiMTEvMTQvMTk4OSIsImxhc3RfbmFtZSI6Iktva2tpbmlkaXMiLCJsYXQiOiIzOC45MTIwNjgiLCJ1c2VyX2lkIjoiMzZlMmJlYTEtMzRhMi00N2M0LTllMzctNDE4ZmMzOTA3MWQ1IiwiZ2VuZGVyIjoibWFsZSIsInJlZ2lzdGVyZWQiOm51bGwsImNyZWF0ZWRfYXQiOjE0NjE4MzkxMzE0NjYsImxuZyI6Ii03Ny4wMTkwMjI4IiwiZGlzdHJpY3QiOiIwIn0.fstUvbzXmPf9JitZDr-SRHS2UqJAK1Q0RYkmMcf_wPu_r6zI2XElRlplOODTRtJttp1wLaOAuA8AZ5W1VzxGJJ0LXgYUF5aXHYmLt1Pb5FmBTOCvdFVNtxC0Ty-FhmjKOPtod4sRtOa45kEQ0u3LTFwydcpn6A26MZ3Lz1ZGVnk061GrFoEagsQHAOx5JofAbn7mi1LEm-d02GNwfNb7BUynLJ1uPWwtUDYz7ELeeNXd_xkSH0kH8cNdm9cWqVoHtgWWr_bdzQZF5tS_gW_U1aySc7Y8P6eYNNYVkQqmLaxZR0_wUzZnfRx_spDxTHbUBHNO9dPkFNrWptfSfwKxEQ";
     if(!!token){
       // console.log("TOKEN: "+JSON.stringify(token));
       this.getProfileData(token);
@@ -116,7 +116,7 @@ class Profile extends Component {
   }
 
   async getProfileData(token){
-    var profileData = await this.props.actions.getProfile(null,token,false);
+    var profileData = await this.props.actions.getProfile(null, token);
     if(!!profileData){
       return profileData;
     }else{
@@ -125,7 +125,7 @@ class Profile extends Component {
   }
 
   async getTimelineData(token){
-    var timelineData = await this.props.actions.getTimeline(null,token,false);
+    var timelineData = await this.props.actions.getTimeline(null, token);
     if(!!timelineData){
       return timelineData.results;
     }else{
@@ -148,6 +148,10 @@ class Profile extends Component {
     Orientation.removeOrientationListener(this.orientationDidChange);
   }
 
+  onFollowBtnPress(e){
+    console.log("Follow pressed")
+  }
+
   render() {
     return(
       <ProfileRender
@@ -155,6 +159,7 @@ class Profile extends Component {
           global={ this.props.global }
           device={ this.props.device }
           profile={ this.props.profile }
+          onFollowBtnPress= {this.onFollowBtnPress}
       />
 
     );

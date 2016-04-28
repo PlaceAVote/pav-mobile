@@ -33,8 +33,7 @@ import React,
   Component,
   StyleSheet,
   Text,
-  View,
-  Image
+  View
 }
 from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'

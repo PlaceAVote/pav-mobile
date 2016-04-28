@@ -439,12 +439,12 @@ class ProfileRender extends Component {
                   </View>
 
                   <Button
-                  onPress={this.props.onFbBtnPress}
+                  onPress={this.props.onFollowBtnPress}
                   style={styles.followBtn}
                   textStyle={styles.whiteBtnText}
                   isDisabled={this.props.profile.form.isFetching.profileData}
                   isLoading={this.props.profile.form.isFetching.profileData}
-                  iconProps={{name: "plus",size:15, color: "white"}}>
+                  iconProps={{name: "plus",size:20, color: "white"}}>
                     {this.getFollowBtnLabelText(this.props.auth.form.user.firstName)}
                   </Button>
                 </View>

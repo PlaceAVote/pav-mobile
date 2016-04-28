@@ -79,6 +79,7 @@ class CardFactory extends Component {
         followedFullNameText={d.first_name+" "+d.last_name+" "}
         />);
         break;
+      case "dislikecomment":
       case "likecomment":
         // console.log("Like comment is: "+JSON.stringify(d));
         return (<LikeCard
@@ -89,6 +90,7 @@ class CardFactory extends Component {
           commentParentTitle={d.bill_title}
           commentText={d.body}
           userPhotoUrl={d.author_img_url}
+          isLike={d.liked}
           />);
         break;
 
