@@ -287,7 +287,7 @@ class LikeCard extends Component {
               <Image
                 style={styles.userImage}
                 source={{uri: this.props.userPhotoUrl}}
-                defaultSource={require('../../../assets/defaultProfilePhoto.png')}
+                defaultSource={require('../../../assets/defaultUserPhoto.png')}
                 resizeMode='cover'
               />
               <View style={styles.commentDescriptionContainer}>

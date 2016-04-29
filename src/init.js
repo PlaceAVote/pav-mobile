@@ -111,6 +111,8 @@ import deviceInitialState from './reducers/device/deviceInitialState';
 import globalInitialState from './reducers/global/globalInitialState';
 import profileInitialState from './reducers/profile/profileInitialState';
 import routerInitialState from './reducers/routing/routingInitialState';
+import newsfeedInitialState from './reducers/newsfeed/newsfeedInitialState';
+
 
 /**
 * ## Nav bar icons
@@ -146,7 +148,8 @@ function getInitialState() {
     device: (new deviceInitialState).set('isMobile',true),
     global: (new globalInitialState),
     profile: new profileInitialState,
-    router: new routerInitialState
+    router: new routerInitialState,
+    newsfeed: new newsfeedInitialState,
   };
   return _initState;
 }

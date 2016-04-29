@@ -375,7 +375,7 @@ class ProfileRender extends Component {
     if(this.props.device.platform=="ios"){
         return (<LImage
           style={styles.userImg}
-          defaultSource={require('../../../assets/defaultProfilePhoto.png')}
+          defaultSource={require('../../../assets/defaultUserPhoto.png')}
           source={{uri: this.props.auth.form.user.photoUrl}}
           resizeMode='contain'
           indicator={Progress.CircleSnail}

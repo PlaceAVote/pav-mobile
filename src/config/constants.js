@@ -38,7 +38,14 @@ module.exports =  {
 
   }),
   Other: {
-    SESSION_TOKEN_STORAGE_KEY: "token"
+    SESSION_TOKEN_STORAGE_KEY: "token",
+    NEWS_FEED_FILTERS:{
+      ALL_ACTIVITY_FILTER:'All activity ',
+      FOLLOWING_ACTIVITY_FILTER:'Following ',
+      BILL_ACTIVITY_FILTER:'Bill Activity ',
+      DISCOVER_ACTIVITY_FILTER:'Discover ',
+      STATISTICS_ACTIVITY_FILTER:'Statistics ',
+    }
   },
   ActionNames:  keyMirror({
 
@@ -139,7 +146,11 @@ module.exports =  {
 
    NAVIGATE_TO: null,
    NAVIGATE_PREVIOUS: null,
-   SET_MODAL_VISIBILITY: null
+   SET_MODAL_VISIBILITY: null,
+
+
+   /* News Feed */
+   SET_ACTIVITY_FILTER: null,
 
  })
 

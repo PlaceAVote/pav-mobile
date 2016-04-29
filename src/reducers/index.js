@@ -15,6 +15,7 @@ import device from './device/deviceReducer';
 import global from './global/globalReducer';
 import profile from './profile/profileReducer';
 import router from './routing/routingReducer';
+import newsfeed from './newsfeed/newsfeedReducer';
 
 import { combineReducers } from 'redux';
 
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   device,
   global,
   profile,
-  router
+  router,
+  newsfeed
 });
 
 export default rootReducer;

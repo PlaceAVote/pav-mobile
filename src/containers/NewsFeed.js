@@ -24,6 +24,7 @@ import { connect } from 'react-redux';
 import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
+import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 
 
 import Orientation from 'react-native-orientation';
@@ -61,7 +62,8 @@ MAIN
 const actions = [
   authActions,
   routingActions,
-  deviceActions
+  deviceActions,
+  newsfeedActions
 ];
 
 function mapStateToProps(state) {
@@ -115,13 +117,20 @@ class NewsFeed extends Component {
     Orientation.removeOrientationListener(this.orientationDidChange);
   }
 
+
+  onFilterBtnClick(filterName){
+    // alert("Filter clicked: "+filterName);
+    this.props.actions.setActivityFilter(filterName);
+  }
+
   render() {
     return(
       <NewsFeedRender
           auth={ this.props.auth }
           global={ this.props.global }
           device={ this.props.device}
-          profile={this.props.profile}
+          newsfeed={this.props.newsfeed}
+          onFilterBtnClick={this.onFilterBtnClick.bind(this)}
       />
 
     );

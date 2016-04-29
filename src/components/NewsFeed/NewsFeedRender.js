@@ -37,8 +37,8 @@ import moment from 'moment'
 
 
 
-import {Colors, ScheneKeys} from '../../config/constants';
-
+import {Colors, ScheneKeys, Other} from '../../config/constants';
+const {NEWS_FEED_FILTERS} = Other;
 /**
  * The necessary React components
  */
@@ -115,9 +115,6 @@ function mapDispatchToProps(dispatch) {
 
 
 
-
-
-
 class NewsFeedRender extends Component {
   constructor(props) {
     super(props);
@@ -179,7 +176,7 @@ class NewsFeedRender extends Component {
         flexDirection:'column',
         padding:10,
       },
-      fitersViewContainer:{
+      filtersViewContainer:{
         backgroundColor: "white",
         flexDirection:'row',
       },
@@ -323,7 +320,7 @@ class NewsFeedRender extends Component {
     if(this.props.device.platform=="ios"){
         return (<LImage
           style={styles.userImg}
-          defaultSource={require('../../../assets/defaultProfilePhoto.png')}
+          defaultSource={require('../../../assets/defaultUserPhoto.png')}
           source={{uri: this.props.auth.form.user.photoUrl}}
           resizeMode='contain'
           indicator={Progress.CircleSnail}
@@ -342,68 +339,52 @@ class NewsFeedRender extends Component {
   }
 
 
-// {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
-  renderProfileBody(dataReady, styles){
-    if(dataReady==true){
-      return (
-        <ScrollView style={styles.scrollView}>
+  
 
-          <View style={styles.scrollerViewHeader}>
-            <View style={styles.fitersViewContainer}>
-
-
-              <View style={styles.expandedFilterContainer}>
-                <TouchableOpacity style={styles.filterContent}>
-                  <PavIcon name="exclamation" size={15} style={styles.filterIcon}/>
-                  <Text style={styles.filterText}>All Activity </Text>
-                </TouchableOpacity>
-                <View style={styles.filterIndicatorIconContainer}>
-                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.activeFilterIndicatorIcon}/>
-                </View>
-              </View>
-
-              <View style={styles.collapsedFilterContainer}>
-                <TouchableOpacity style={styles.filterContent}>
-                  <PavIcon name="add-lined" size={15} style={styles.filterIcon}/>
-                </TouchableOpacity>
-                <View style={styles.filterIndicatorIconContainer}>
-                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
-                </View>
-              </View>
-
-              <View style={styles.collapsedFilterContainer}>
-                <TouchableOpacity style={styles.filterContent}>
-                  <PavIcon name="bills" size={15} style={styles.filterIcon}/>
-                </TouchableOpacity>
-                <View style={styles.filterIndicatorIconContainer}>
-                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
-                </View>
-              </View>
-
-              <View style={styles.collapsedFilterContainer}>
-                <TouchableOpacity style={styles.filterContent}>
-                  <PavIcon name="binoculars" size={15} style={styles.filterIcon}/>
-                </TouchableOpacity>
-                <View style={styles.filterIndicatorIconContainer}>
-                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
-                </View>
-              </View>
-
-              <View style={styles.collapsedFilterContainer}>
-                <TouchableOpacity style={styles.filterContent}>
-                  <PavIcon name="trending-graph" size={15} style={styles.filterIcon}/>
-                </TouchableOpacity>
-                <View style={styles.filterIndicatorIconContainer}>
-                  <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
-                </View>
-              </View>
-
-
-
-            </View>
-            <Text style={styles.recentActivityText}>All Activity:</Text>
+  renderFilterButton(isActive, iconName, filterName, styles){
+    if(isActive){
+      return(
+        <View style={styles.expandedFilterContainer}>
+          <TouchableOpacity style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
+            <PavIcon name={iconName} size={15} style={styles.filterIcon}/>
+            <Text style={styles.filterText}>{filterName}</Text>
+          </TouchableOpacity>
+          <View style={styles.filterIndicatorIconContainer}>
+            <PavIcon name="activeIndicatorShrinked" size={7} style={styles.activeFilterIndicatorIcon}/>
           </View>
-        </ScrollView>)
+        </View>);
+    }else{
+      return(
+        <View style={styles.collapsedFilterContainer}>
+          <TouchableOpacity style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
+            <PavIcon name={iconName} size={15} style={styles.filterIcon}/>
+          </TouchableOpacity>
+          <View style={styles.filterIndicatorIconContainer}>
+            <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
+          </View>
+        </View>);
+    }
+  }
+
+  //TODO
+
+  renderFilterView(nameOfActiveFilter, styles){
+    return (
+      <View style={styles.filtersViewContainer}>
+        {this.renderFilterButton((NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER==nameOfActiveFilter), "exclamation", NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER, styles)}
+        {this.renderFilterButton((NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER==nameOfActiveFilter), "add-lined", NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER, styles)}
+        {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==nameOfActiveFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER, styles)}
+        {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==nameOfActiveFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER, styles)}
+        {this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==nameOfActiveFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER, styles)}
+      </View>
+    );
+  }
+
+// {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
+  renderNewsFeedBody(dataReady, styles){
+    if(dataReady==true){
+      return
+      (<View><Text>No data yet</Text></View>);
     }else{
       if(this.props.device.platform=="android"){
           return (
@@ -419,11 +400,18 @@ class NewsFeedRender extends Component {
               />
             </View>);
       }else{
-        return <View style={styles.bodyLoadingContainer}><Text>Now Loading</Text></View>;
+        return (<View style={styles.bodyLoadingContainer}><Text>Now Loading</Text></View>);
       }
 
     }
+  }
 
+  renderNewsFeedHeader(curSelectedFilter, styles){
+    return (
+      <View style={styles.scrollerViewHeader}>
+        {this.renderFilterView(curSelectedFilter, styles)}
+      <Text style={styles.recentActivityText}>All Activity:</Text>
+    </View>);
   }
 
 
@@ -432,7 +420,7 @@ class NewsFeedRender extends Component {
    * Setup some default presentations and render
    */
   render() {
-
+    console.log(JSON.stringify(this.props.newsfeed))
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
@@ -440,7 +428,10 @@ class NewsFeedRender extends Component {
     return(
         <View style={styles.container}>
           <View style={styles.bodyView}>
-            {this.renderProfileBody(!this.props.profile.form.isFetching.timelineData, styles)}
+            <ScrollView style={styles.scrollView}>
+              {this.renderNewsFeedHeader(this.props.newsfeed.newsFeedData.curSelectedFilter, styles)}
+              {this.renderNewsFeedBody(!this.props.newsfeed.isFetching.newsFeedData, styles)}
+            </ScrollView>
           </View>
         </View>
     );
