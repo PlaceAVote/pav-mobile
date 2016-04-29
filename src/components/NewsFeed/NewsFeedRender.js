@@ -160,11 +160,11 @@ class NewsFeedRender extends Component {
         // height:h*0.065,
         // position:'absolute',
         // backgroundColor: "rgba(0,0,0,0.06)",
-        paddingHorizontal: w*0.05,
-        paddingVertical: h*0.01,
+        paddingHorizontal: w*0.009,
+        paddingVertical: h*0.02,
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,20),
-        color: Colors.fourthTextColor,
+        fontSize: getCorrectFontSizeForScreen(w,h,10),
+        color: Colors.fifthTextColor,
         // textAlign: 'center',
       },
       scrollView:{
@@ -321,7 +321,7 @@ class NewsFeedRender extends Component {
         return (<LImage
           style={styles.userImg}
           defaultSource={require('../../../assets/defaultUserPhoto.png')}
-          source={{uri: this.props.auth.form.user.photoUrl}}
+          source={{uri: this.props.auth.user.photoUrl}}
           resizeMode='contain'
           indicator={Progress.CircleSnail}
           indicatorProps={{
@@ -331,7 +331,7 @@ class NewsFeedRender extends Component {
     }else{
       (<Image
         style={styles.userImg}
-        source={{uri: this.props.auth.form.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
+        source={{uri: this.props.auth.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
         resizeMode='contain'
       />);
     }
@@ -339,7 +339,7 @@ class NewsFeedRender extends Component {
   }
 
 
-  
+
 
   renderFilterButton(isActive, iconName, filterName, styles){
     if(isActive){
@@ -380,7 +380,7 @@ class NewsFeedRender extends Component {
     );
   }
 
-// {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
+// {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.user)}
   renderNewsFeedBody(dataReady, styles){
     if(dataReady==true){
       return
@@ -406,11 +406,28 @@ class NewsFeedRender extends Component {
     }
   }
 
-  renderNewsFeedHeader(curSelectedFilter, styles){
+
+
+  getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName){
+    switch(curSelectedFilter){
+      case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
+        return "Welcome back, "+userFirstName+"! Here's whats new: ";
+      case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
+        return "Here's whats new from the people you follow: ";
+      case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
+        return "Here's whats new from the bills you follow: ";
+      case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
+        return "Here are some bills you might be interested in: ";
+      case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
+      return "Here are a few statistics you might be interested in: ";
+    }
+  }
+  renderNewsFeedHeader(curSelectedFilter, styles, userFirstName){
     return (
       <View style={styles.scrollerViewHeader}>
         {this.renderFilterView(curSelectedFilter, styles)}
-      <Text style={styles.recentActivityText}>All Activity:</Text>
+
+      <Text style={styles.recentActivityText}>{this.getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName)}</Text>
     </View>);
   }
 
@@ -429,7 +446,7 @@ class NewsFeedRender extends Component {
         <View style={styles.container}>
           <View style={styles.bodyView}>
             <ScrollView style={styles.scrollView}>
-              {this.renderNewsFeedHeader(this.props.newsfeed.newsFeedData.curSelectedFilter, styles)}
+              {this.renderNewsFeedHeader(this.props.newsfeed.newsFeedData.curSelectedFilter, styles, this.props.auth.user.firstName)}
               {this.renderNewsFeedBody(!this.props.newsfeed.isFetching.newsFeedData, styles)}
             </ScrollView>
           </View>

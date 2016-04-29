@@ -41,29 +41,6 @@ const Form = Record({
     [LOGIN, false],
     [FORGOT_PASSWORD, false],
   ]),
-  user: new (Record({
-    isLoggedIn: false,
-    id: null,
-    email: null,
-    address: null,
-    city: null,
-    confirmationToken:null,
-    countryCode:null,
-    createdAt:null,
-    district:null,
-    birthday: null,
-    firstName:null,
-    lastName: null,
-    gender:null,
-    zipCode:null,
-    stateProvince:null,
-    latitude: null,
-    longitude:null,
-    publicProfile: null,
-    registered:null,
-    topics:null,
-    photoUrl:null
-  })),
   isFetching: false,
   authMethod: '',   //either email, or facebook
   fields: new (Record({
@@ -116,6 +93,29 @@ const Form = Record({
  * The form is set
  */
 var InitialState = Record({
-  form: new Form
+  form: new Form,
+  user: new (Record({
+    isLoggedIn: false,
+    id: null,
+    email: null,
+    address: null,
+    city: null,
+    confirmationToken:null,
+    countryCode:null,
+    createdAt:null,
+    district:null,
+    birthday: null,
+    firstName:'voter',
+    lastName: null,
+    gender:null,
+    zipCode:null,
+    stateProvince:null,
+    latitude: null,
+    longitude:null,
+    publicProfile: null,
+    registered:null,
+    topics:null,
+    photoUrl:null
+  })),
 });
 export default InitialState;

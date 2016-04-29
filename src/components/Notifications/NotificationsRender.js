@@ -126,8 +126,8 @@ class NotificationsRender extends Component {
     //   dataSource={this.state.dataSource}
     //   renderRow={(rowData) => <Text>{rowData}</Text>}
     // />
-    let firstName = this.props.auth.form.user.firstName || "Adelle";
-    let lastName = this.props.auth.form.user.lastName || "Charles";
+    let firstName = this.props.auth.user.firstName || "Adelle";
+    let lastName = this.props.auth.user.lastName || "Charles";
     let fullName =  firstName+" "+lastName;
     return(
         <View style={styles.container}>

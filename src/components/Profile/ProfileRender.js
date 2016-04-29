@@ -376,7 +376,7 @@ class ProfileRender extends Component {
         return (<LImage
           style={styles.userImg}
           defaultSource={require('../../../assets/defaultUserPhoto.png')}
-          source={{uri: this.props.auth.form.user.photoUrl}}
+          source={{uri: this.props.auth.user.photoUrl}}
           resizeMode='contain'
           indicator={Progress.CircleSnail}
           indicatorProps={{
@@ -386,7 +386,7 @@ class ProfileRender extends Component {
     }else{
       (<Image
         style={styles.userImg}
-        source={{uri: this.props.auth.form.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
+        source={{uri: this.props.auth.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
         resizeMode='contain'
       />);
     }
@@ -395,8 +395,8 @@ class ProfileRender extends Component {
 
 
   renderProfileHeader(styles){
-    let firstName = this.props.auth.form.user.firstName|| "-";
-    let lastName = this.props.auth.form.user.lastName || "";
+    let firstName = this.props.auth.user.firstName|| "-";
+    let lastName = this.props.auth.user.lastName || "";
     let fullName =  firstName+" "+lastName;
     return (<LinearGradient
             colors={['#4D6EB2', '#6B55A2']}
@@ -429,7 +429,7 @@ class ProfileRender extends Component {
 
                   <View style={styles.locationContainer}>
                     <PavIcon name="loc" size={12} style={styles.locationPinIcon}/>
-                    <Text style={styles.locationText}>{this.formUserLocationText(this.props.auth.form.user)}</Text>
+                    <Text style={styles.locationText}>{this.formUserLocationText(this.props.auth.user)}</Text>
                   </View>
 
                   <Button
@@ -439,7 +439,7 @@ class ProfileRender extends Component {
                   isDisabled={this.props.profile.form.isFetching.profileData || this.props.profile.form.isFetching.followUser}
                   isLoading={this.props.profile.form.isFetching.profileData || this.props.profile.form.isFetching.followUser}
                   iconProps={this.props.profile.form.profileData.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}>
-                    {this.getFollowBtnLabelText(this.props.auth.form.user.firstName, this.props.profile.form.profileData.currentlyFollowingUser)}
+                    {this.getFollowBtnLabelText(this.props.auth.user.firstName, this.props.profile.form.profileData.currentlyFollowingUser)}
                   </Button>
                 </View>
               </View>
@@ -452,7 +452,7 @@ class ProfileRender extends Component {
       <View style={styles.bodyLoadingContainer}>
         <ScrollView style={styles.scrollView}>
           <Text style={styles.recentActivityText}>Recent Activity:</Text>
-          {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.form.user)}
+          {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.user)}
         </ScrollView>
 
 

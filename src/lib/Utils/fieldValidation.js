@@ -48,22 +48,6 @@ const birthdateConstraints = {
 
 
 /**
-* ## username validation rule
-* read the message.. ;)
-*/
-// const usernamePattern = /^[a-zA-Z0-9]{6,12}$/;
-// const usernameConstraints = {
-//   username: {
-//     presence: true,
-//     format: {
-//       pattern: usernamePattern,
-//       flags: 'i',
-//       message: "must have 6-12 numbers, letters or special characters"
-//     }
-//   }
-// };
-
-/**
 * ## name validation rule
 * read the message.. ;)
 */

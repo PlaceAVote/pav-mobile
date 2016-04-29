@@ -12,12 +12,12 @@ module.exports =  {
     mainBorderColor: "rgba(0,0,0,0.2)", //very transparent black
 
     mainTextColor: "white",
-    secondaryTextColor: "#B8B8BD",   //light grey
+    secondaryTextColor: "#B8B8BD",   //ultra light grey
     thirdTextColor: "black",
-    fourthTextColor: "#707070",
-
-    errorTextColor: "#a94442",
-    helpTextColor: "#999999"
+    fourthTextColor: "#707070",   //grey
+    fifthTextColor: "#4A4A4A",     //brownish grey
+    errorTextColor: "#a94442",    //red
+    helpTextColor: "#999999"      //light grey
 
   },
 
