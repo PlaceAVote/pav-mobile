@@ -20,7 +20,7 @@ const {
   // LOGOUT_SUCCESS,
   // GET_STATE,
   // SET_STATE,
-  // SET_STORE
+  SET_STORE,
   SET_NAVBAR_DIMENSIONS,
 
 } = ActionNames;
@@ -83,8 +83,8 @@ export default function globalReducer(state = initialState, action) {
      * ```store``` itself.
      *
      */
-  // case SET_STORE:
-  //   return state.set('store',action.payload);
+  case SET_STORE:
+    return state.set('store',action.payload);
 
     /**
      * ### Get the current state from the store

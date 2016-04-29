@@ -51,6 +51,7 @@ module.exports =  {
 
    /* global */
    SET_NAVBAR_DIMENSIONS: null,
+   SET_STORE: null,
 
    /* device */
    SET_PLATFORM: null,
@@ -152,7 +153,6 @@ module.exports =  {
     /* Not really needed */
    //  SET_STATE: null,
    //  GET_STATE: null,
-   //  SET_STORE: null,
    //  SESSION_TOKEN_REQUEST: null,
    //  SESSION_TOKEN_SUCCESS: null,
    //  SESSION_TOKEN_FAILURE: null,

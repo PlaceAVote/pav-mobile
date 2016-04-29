@@ -30,7 +30,7 @@ var InitialState = Record({
   // currentUser: null,
   // showState: false,
   // currentState: null,
-  // store: null,
+  store: null,
   navBarDimensions: new (Record({
     width: null,
     height: null

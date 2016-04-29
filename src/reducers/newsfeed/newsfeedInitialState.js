@@ -29,7 +29,8 @@ var InitialState = Record({
   })),
 
   newsFeedData: new (Record({
-    curSelectedFilter: NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER
+    curSelectedFilter: NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER,
+    items: null,
   }))
 });
 

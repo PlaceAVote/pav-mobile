@@ -28,9 +28,11 @@ const initialState = new InitialState;
 import {ActionNames, ScheneKeys} from '../../config/constants';
 const {
   SET_ACTIVITY_FILTER,
+
   GET_FEED_REQUEST,
   GET_FEED_SUCCESS,
   GET_FEED_FAILURE,
+
 } = ActionNames
 
 
@@ -49,8 +51,24 @@ export default function newsfeedReducer(state = initialState, action) {
 
   switch (action.type) {
     case SET_ACTIVITY_FILTER:
-    return state.setIn(['newsFeedData', 'curSelectedFilter'], action.payload)
-    break;
+      return state.setIn(['newsFeedData', 'curSelectedFilter'], action.payload)
+      break;
+
+
+    case GET_FEED_REQUEST:
+      return state.setIn([ 'isFetching', 'newsFeedData'], true)
+        .setIn(['error'],null);
+      break;
+
+    case GET_FEED_SUCCESS:
+      return state.setIn([ 'isFetching', 'newsFeedData'], false)
+      .setIn(['error'],null)
+      .setIn([ 'newsFeedData', 'items'], action.payload.results);
+
+    case GET_FEED_FAILURE:
+      return state.setIn([ 'isFetching', 'newsFeedData'], false)
+        .setIn(['error'], action.payload);
+      break;
   }//switch
   /**
    * # Default

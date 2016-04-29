@@ -437,7 +437,6 @@ class NewsFeedRender extends Component {
    * Setup some default presentations and render
    */
   render() {
-    console.log(JSON.stringify(this.props.newsfeed))
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);

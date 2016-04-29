@@ -12,10 +12,10 @@ import {ActionNames} from '../../config/constants';
  * The actions supported
  */
 const {
-  SET_SESSION_TOKEN,
+  // SET_SESSION_TOKEN,
   SET_STORE,
-  SET_STATE,
-  GET_STATE,
+  // SET_STATE,
+  // GET_STATE,
   SET_NAVBAR_DIMENSIONS
 } = ActionNames;
 
@@ -23,12 +23,12 @@ const {
  * ## set the sessionToken
  *
  */
-export function setSessionToken(sessionToken) {
-  return {
-    type: SET_SESSION_TOKEN,
-    payload: sessionToken
-  };
-}
+// export function setSessionToken(sessionToken) {
+//   return {
+//     type: SET_SESSION_TOKEN,
+//     payload: sessionToken
+//   };
+// }
 /**
  * ## set the store
  *
@@ -47,22 +47,22 @@ export function setStore(store) {
  * ## set state
  *
  */
-export function setState(newState) {
-  return {
-    type: SET_STATE,
-    payload: newState
-  };
-}
+// export function setState(newState) {
+//   return {
+//     type: SET_STATE,
+//     payload: newState
+//   };
+// }
 /**
  * ## getState
  *
  */
-export function getState(toggle) {
-  return {
-    type: GET_STATE,
-    payload: toggle
-  };
-}
+// export function getState(toggle) {
+//   return {
+//     type: GET_STATE,
+//     payload: toggle
+//   };
+// }
 
 
 
