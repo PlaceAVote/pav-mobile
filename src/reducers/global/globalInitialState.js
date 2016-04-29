@@ -1,4 +1,4 @@
-/**
+ /**
  * # globalInitialState.js
  *
  * This class is a Immutable object
@@ -27,10 +27,10 @@ import {Record} from 'immutable';
  *
  */
 var InitialState = Record({
-  currentUser: null,
-  showState: false,
-  currentState: null,
-  store: null,
+  // currentUser: null,
+  // showState: false,
+  // currentState: null,
+  // store: null,
   navBarDimensions: new (Record({
     width: null,
     height: null

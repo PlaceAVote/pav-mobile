@@ -21,9 +21,9 @@ import {List} from 'immutable'
  * ## Auth actions
  */
 const {
-  SESSION_TOKEN_REQUEST,
-  SESSION_TOKEN_SUCCESS,
-  SESSION_TOKEN_FAILURE,
+  // SESSION_TOKEN_REQUEST,
+  // SESSION_TOKEN_SUCCESS,
+  // SESSION_TOKEN_FAILURE,
 
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
@@ -110,7 +110,7 @@ export default function authReducer(state = initialState, action) {
      * set the form to fetching and clear any errors
      */
   case VALIDATE_REQUEST:
-  case SESSION_TOKEN_REQUEST:
+  // case SESSION_TOKEN_REQUEST:
   case LOGOUT_REQUEST:
   case LOGIN_REQUEST:
   case RESET_PASSWORD_REQUEST:
@@ -183,8 +183,8 @@ export default function authReducer(state = initialState, action) {
      * Set the fetching flag so the forms will be enabled
      */
   case VALIDATE_SUCCESS:
-  case SESSION_TOKEN_SUCCESS:
-  case SESSION_TOKEN_FAILURE:
+  // case SESSION_TOKEN_SUCCESS:
+  // case SESSION_TOKEN_FAILURE:
   case LOGOUT_SUCCESS:
   case RESET_PASSWORD_SUCCESS:
   case FORGOT_PASSWORD_SUCCESS:

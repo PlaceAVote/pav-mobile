@@ -49,25 +49,26 @@ module.exports =  {
   },
   ActionNames:  keyMirror({
 
+   /* global */
    SET_NAVBAR_DIMENSIONS: null,
 
+   /* device */
    SET_PLATFORM: null,
    SET_VERSION: null,
    SET_ORIENTATION: null,
    SET_ORIENTATION_LOCK:null,
 
-   SESSION_TOKEN_REQUEST: null,
-   SESSION_TOKEN_SUCCESS: null,
-   SESSION_TOKEN_FAILURE: null,
 
-   DELETE_TOKEN_REQUEST: null,
-   DELETE_TOKEN_SUCCESS: null,
-
-   ON_LOGIN_STATE_CHANGE: null,
-   LOGOUT: null,
-
+   /* Topic Pick */
    ON_TOPICS_FORM_FIELD_CHANGE: null,
    ON_AUTH_FORM_FIELD_CHANGE: null,
+
+
+   /* Auth */
+   SET_AUTH_METHOD: null,
+   SET_SESSION_TOKEN: null,
+   SET_USER_DATA: null,
+   RESET_ERROR_STATE:null,
 
    SIGNUP_REQUEST: null,
    SIGNUP_SUCCESS: null,
@@ -76,9 +77,6 @@ module.exports =  {
    SIGNUP_FACEBOOK_REQUEST: null,
    SIGNUP_FACEBOOK_SUCCESS: null,
    SIGNUP_FACEBOOK_FAILURE: null,
-
-   SET_AUTH_METHOD: null,
-
 
    VALIDATE_REQUEST: null,
    VALIDATE_SUCCESS: null,
@@ -92,7 +90,6 @@ module.exports =  {
    LOGIN_FACEBOOK_SUCCESS:null,
    LOGIN_FACEBOOK_FAILURE:null,
 
-
    FORGOT_PASSWORD_REQUEST: null,
    FORGOT_PASSWORD_SUCCESS: null,
    FORGOT_PASSWORD_FAILURE: null,
@@ -102,21 +99,13 @@ module.exports =  {
    FACEBOOK_DATA_ACQ_FAILURE: null,
 
 
-   LOGOUT_REQUEST: null,
-   LOGOUT_SUCCESS: null,
-   LOGOUT_FAILURE: null,
+   /* Routing */
+   NAVIGATE_TO: null,
+   NAVIGATE_PREVIOUS: null,
+   SET_MODAL_VISIBILITY: null,
 
-   LOGGED_IN: null,
-   LOGGED_OUT: null,
 
-   SET_SESSION_TOKEN: null,
-
-   SET_USER_DATA: null,
-
-   RESET_PASSWORD_REQUEST: null,
-   RESET_PASSWORD_SUCCESS: null,
-   RESET_PASSWORD_FAILURE: null,
-   RESET_ERROR_STATE:null,
+   /* Profile*/
 
    GET_PROFILE_REQUEST: null,
    GET_PROFILE_SUCCESS: null,
@@ -134,23 +123,40 @@ module.exports =  {
    UNFOLLOW_USER_SUCCESS: null,
    UNFOLLOW_USER_FAILURE: null,
 
-   ON_PROFILE_FORM_FIELD_CHANGE: null,
-
-   PROFILE_UPDATE_REQUEST: null,
-   PROFILE_UPDATE_SUCCESS: null,
-   PROFILE_UPDATE_FAILURE: null,
-
-   SET_STATE: null,
-   GET_STATE: null,
-   SET_STORE: null,
-
-   NAVIGATE_TO: null,
-   NAVIGATE_PREVIOUS: null,
-   SET_MODAL_VISIBILITY: null,
-
 
    /* News Feed */
    SET_ACTIVITY_FILTER: null,
+
+   GET_FEED_REQUEST: null,
+   GET_FEED_SUCCESS: null,
+   GET_FEED_FAILURE: null,
+
+
+    /* Not yet implemented */
+   //  DELETE_TOKEN_REQUEST: null,
+   //  DELETE_TOKEN_SUCCESS: null,
+   //  LOGOUT: null,
+   //  LOGOUT_REQUEST: null,
+   //  LOGOUT_SUCCESS: null,
+   //  LOGOUT_FAILURE: null,
+   //  LOGGED_IN: null,
+   //  LOGGED_OUT: null,
+   //  RESET_PASSWORD_REQUEST: null,
+   //  RESET_PASSWORD_SUCCESS: null,
+   //  RESET_PASSWORD_FAILURE: null,
+   //  ON_PROFILE_FORM_FIELD_CHANGE: null,
+   //  PROFILE_UPDATE_REQUEST: null,
+   //  PROFILE_UPDATE_SUCCESS: null,
+   //  PROFILE_UPDATE_FAILURE: null,
+
+    /* Not really needed */
+   //  SET_STATE: null,
+   //  GET_STATE: null,
+   //  SET_STORE: null,
+   //  SESSION_TOKEN_REQUEST: null,
+   //  SESSION_TOKEN_SUCCESS: null,
+   //  SESSION_TOKEN_FAILURE: null,
+
 
  })
 
