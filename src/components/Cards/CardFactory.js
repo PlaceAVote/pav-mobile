@@ -100,49 +100,24 @@ class CardFactory extends Component {
 
 
   renderNewsFeedCards(){
-    let d = this.props.timelineData;
+    let n = this.props.itemData;
     let u = this.props.curUser;
     switch(this.props.timelineData.type){
-      case "comment":
-      // console.log("Real comment is: "+JSON.stringify(d));
-        return (<CommentCard
-          {...this.props}
-          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
-          userFullNameText={d.author_first_name+" "+d.author_last_name}
-          commentParentTitle={d.bill_title}
-          commentText={d.body}
-          userPhotoUrl={d.author_img_url}
-          />);
-        break;
-      case "vote":
-        return (<VoteCard
-          {...this.props}
-          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
-          userFullNameText={u.firstName+" "+u.lastName}
-          voteParentTitle={d.bill_title}
-          />);
-        break;
-      case "followinguser":
-        //Discovered a react native bug here, if I don't add the " " empty space character in the end of followedFullNameText the last name of the person might be invisible
-        return (<FollowCard
-        {...this.props}
-        dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
-        followerFullNameText={u.firstName+" "+u.lastName}
-        followedFullNameText={d.first_name+" "+d.last_name+" "}
-        />);
-        break;
-      case "dislikecomment":
-      case "likecomment":
-        // console.log("Like comment is: "+JSON.stringify(d));
-        return (<LikeCard
-          {...this.props}
-          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
-          authorFullNameText={u.firstName+" "+u.lastName}
-          userFullNameText={d.author_first_name+" "+d.author_last_name}
-          commentParentTitle={d.bill_title}
-          commentText={d.body}
-          userPhotoUrl={d.author_img_url}
-          isLike={d.liked}
+      case "userissue":
+      // console.log("Real comment is: "+JSON.stringify(n));
+          return (<UserIssueCard
+          dateTime={moment(n.timestamp).fromNow()}
+          userFullNameText={n.first_name+" "+n.last_name}
+          issueText={n.comment}
+          userPhotoUrl={n.img_url}
+          relatedArticleUrl={n.article_link}
+          relatedArticleTitle={n.article_title}
+          relatedArticlePhotoUrl={n.article_img}
+          relatedBillTitle={n.bill_title}
+          userReaction={n.emotional_response}
+          happyCnt={n.positive_responses}
+          neutralCnt={n.neutral_responses}
+          sadCnt={n.negative_responses}
           />);
         break;
 
@@ -161,9 +136,9 @@ class CardFactory extends Component {
    */
   render() {
     if(this.props.type=="profile"){
-      this.renderProfileCards();
+      return this.renderProfileCards();
     }else if(this.props.type=="newsfeed"){
-      this.renderNewsFeedCards();
+      return this.renderNewsFeedCards();
     }
 
   }

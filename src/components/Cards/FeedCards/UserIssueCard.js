@@ -53,10 +53,10 @@ import Progress from 'react-native-progress';
 import LinearGradient from 'react-native-linear-gradient';
 
 const Reactions = {
-  NONE:0,
-  HAPPY:1,
-  NEUTRAL:2,
-  SAD:3,
+  NONE:'none',
+  HAPPY:'positive',
+  NEUTRAL:'neutral',
+  SAD:'negative',
 };
 
 

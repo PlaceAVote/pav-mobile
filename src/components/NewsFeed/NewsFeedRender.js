@@ -374,14 +374,13 @@ class NewsFeedRender extends Component {
         <UserIssueCard
         dateTime="Whatever time"
         userFullNameText="Whatever Name"
-        issueParentTitle="Whatever title"
         issueText="Allowing guns into schools will not make them safer. Gun violence in schools won't stop until guns are completely out of the picture."
         userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
         relatedArticleUrl="http://www.google.com"
         relatedArticleTitle="Craig Wright revealed as Bitcoin creator Satoshi Nakamoto - BBC News"
         relatedArticlePhotoUrl="https://cdn.placeavote.com/users/issues/images/c3b436bf-8fb5-4c02-b76d-f3b2859dd65f/main.jpg"
         relatedBillTitle="Every Child Achieves Act of 2015"
-        userReaction={1}
+        userReaction={"neutral"}
         happyCnt={1}
         neutralCnt={2}
         sadCnt={155}
