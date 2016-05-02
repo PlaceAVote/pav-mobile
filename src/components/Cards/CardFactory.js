@@ -43,11 +43,8 @@ class CardFactory extends Component {
 
 
 
-  /**
-   * ### render
-   * Setup some default presentations and render
-   */
-  render() {
+
+  renderProfileCards(){
     let d = this.props.timelineData;
     let u = this.props.curUser;
     switch(this.props.timelineData.type){
@@ -99,6 +96,76 @@ class CardFactory extends Component {
         return <View {...this.props}></View>;
         break;
     }
+  }
+
+
+  renderNewsFeedCards(){
+    let d = this.props.timelineData;
+    let u = this.props.curUser;
+    switch(this.props.timelineData.type){
+      case "comment":
+      // console.log("Real comment is: "+JSON.stringify(d));
+        return (<CommentCard
+          {...this.props}
+          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          userFullNameText={d.author_first_name+" "+d.author_last_name}
+          commentParentTitle={d.bill_title}
+          commentText={d.body}
+          userPhotoUrl={d.author_img_url}
+          />);
+        break;
+      case "vote":
+        return (<VoteCard
+          {...this.props}
+          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          userFullNameText={u.firstName+" "+u.lastName}
+          voteParentTitle={d.bill_title}
+          />);
+        break;
+      case "followinguser":
+        //Discovered a react native bug here, if I don't add the " " empty space character in the end of followedFullNameText the last name of the person might be invisible
+        return (<FollowCard
+        {...this.props}
+        dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+        followerFullNameText={u.firstName+" "+u.lastName}
+        followedFullNameText={d.first_name+" "+d.last_name+" "}
+        />);
+        break;
+      case "dislikecomment":
+      case "likecomment":
+        // console.log("Like comment is: "+JSON.stringify(d));
+        return (<LikeCard
+          {...this.props}
+          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          authorFullNameText={u.firstName+" "+u.lastName}
+          userFullNameText={d.author_first_name+" "+d.author_last_name}
+          commentParentTitle={d.bill_title}
+          commentText={d.body}
+          userPhotoUrl={d.author_img_url}
+          isLike={d.liked}
+          />);
+        break;
+
+
+      default:
+        return <View {...this.props}></View>;
+        break;
+    }
+  }
+
+
+
+  /**
+   * ### render
+   * Setup some default presentations and render
+   */
+  render() {
+    if(this.props.type=="profile"){
+      this.renderProfileCards();
+    }else if(this.props.type=="newsfeed"){
+      this.renderNewsFeedCards();
+    }
+
   }
 }
 

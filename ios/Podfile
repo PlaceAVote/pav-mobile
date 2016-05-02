@@ -3,13 +3,12 @@
 
 target 'PlaceAVoteApp' do
   source 'https://github.com/CocoaPods/Specs.git'
-  pod 'React', :subspecs => ['Core', 'RCTImage', 'RCTNetwork', 'RCTText', 'RCTWebSocket'], :path => '../node_modules/react-native'
+  pod 'React', :subspecs => ['Core', 'RCTImage', 'RCTNetwork', 'RCTText', 'RCTWebSocket', 'ART', 'RCTLinkingIOS'], :path => '../node_modules/react-native'
   pod 'react-native-fbsdkcore', :path => '../node_modules/react-native-fbsdk/iOS/core'
   pod 'react-native-fbsdklogin', :path => '../node_modules/react-native-fbsdk/iOS/login'
   pod 'react-native-fbsdkshare', :path => '../node_modules/react-native-fbsdk/iOS/share'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
-  pod 'react-native-material-kit', :path => '../node_modules/react-native-material-kit'
 
 end
 

@@ -5,7 +5,7 @@ module.exports =  {
     primaryColor : "#536EB2",
     secondaryColor: "#3D5B96",  //dark blue
     accentColor: "#A5CB75", //green
-    negativeAccentColor: "#e64a33",
+    negativeAccentColor: "#e64a33", //pinkred
 
     transparentColor: "rgba(0,0,0,0)",  //clear
 

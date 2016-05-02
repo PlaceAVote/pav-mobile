@@ -26,12 +26,14 @@ PODS:
     - FBSDKCoreKit
     - FBSDKShareKit
     - React
-  - react-native-material-kit (0.3.1):
-    - React
+  - React/ART (0.24.1):
+    - React/Core
   - React/Core (0.24.1)
   - React/RCTImage (0.24.1):
     - React/Core
     - React/RCTNetwork
+  - React/RCTLinkingIOS (0.24.1):
+    - React/Core
   - React/RCTNetwork (0.24.1):
     - React/Core
   - React/RCTText (0.24.1):
@@ -46,9 +48,10 @@ DEPENDENCIES:
   - react-native-fbsdkcore (from `../node_modules/react-native-fbsdk/iOS/core`)
   - react-native-fbsdklogin (from `../node_modules/react-native-fbsdk/iOS/login`)
   - react-native-fbsdkshare (from `../node_modules/react-native-fbsdk/iOS/share`)
-  - react-native-material-kit (from `../node_modules/react-native-material-kit`)
+  - React/ART (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
   - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTLinkingIOS (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
@@ -65,8 +68,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk/iOS/login"
   react-native-fbsdkshare:
     :path: "../node_modules/react-native-fbsdk/iOS/share"
-  react-native-material-kit:
-    :path: "../node_modules/react-native-material-kit"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
 
@@ -80,9 +81,8 @@ SPEC CHECKSUMS:
   react-native-fbsdkcore: 4b4f0d94b9d19dc8d21427fbb0fe54180486885c
   react-native-fbsdklogin: 9857d698accf58ab07039fd39320df9476eb40a6
   react-native-fbsdkshare: 30022ca3609aa4bfe5daf0a77a7444084e8e7c9f
-  react-native-material-kit: 02c8903edd815151f87a39f69ab10bf13bd8cdd7
   RNVectorIcons: d3d4e80e180750ae8967fa7b2a4de50592703859
 
-PODFILE CHECKSUM: 5fe755e0b78c137cd0c86765b4dd3d4fdcb3eee5
+PODFILE CHECKSUM: 85f38f79f04982460fb9f97a2c843b2b04aeca12
 
 COCOAPODS: 1.0.0.beta.3

@@ -67,9 +67,16 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 */
 
 var Icon = require('react-native-vector-icons/FontAwesome');
-
 var LImage = require('react-native-image-progress');
 var Progress = require('react-native-progress');
+
+
+/**
+* Cards
+*/
+import CardFactory from '../Cards/CardFactory';
+import UserIssueCard from '../Cards/FeedCards/UserIssueCard';
+
 
 /**
  * The states were interested in
@@ -154,6 +161,15 @@ class NewsFeedRender extends Component {
         justifyContent:'center',
         alignItems:'center'
       },
+
+      cardsContainer:{
+        // backgroundColor:'red',
+      },
+
+
+
+
+
       recentActivityText: {
         // top:0,
         // width:w,
@@ -208,10 +224,14 @@ class NewsFeedRender extends Component {
         paddingBottom:h*0.006,
         // backgroundColor:'blue'
     },
-      filterIcon:{
-        paddingHorizontal:3,
-        color:Colors.primaryColor
-      },
+    inactiveFilterIcon:{
+      paddingHorizontal:3,
+      color:Colors.primaryColor
+    },
+    activeFilterIcon:{
+      paddingHorizontal:3,
+      color:Colors.negativeAccentColor
+    },
       filterText:{
         paddingHorizontal: w*0.009,
         fontFamily: 'Whitney-Bold',
@@ -267,86 +287,59 @@ class NewsFeedRender extends Component {
   }
 
 
-  formUserLocationText(user){
-    if(!!user.city){
-      if(user.stateProvince!=null){
-        return user.city+", "+user.stateProvince
-      }else{
-        return user.city;
-      }
-    }else{
-      return "Location";
-    }
 
+
+
+
+
+
+
+/*
+ HEADER - FILTERS
+*/
+
+  renderNewsFeedHeader(curSelectedFilter, styles, userFirstName){
+    return (
+      <View style={styles.scrollerViewHeader}>
+        {this.renderFilterView(curSelectedFilter, styles)}
+
+      <Text style={styles.recentActivityText}>{this.getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName)}</Text>
+    </View>);
   }
 
-  getFollowBtnLabelText(name, currentlyFollowingUser){
-    let nm = name || "";
-    return currentlyFollowingUser?"Unfollow ":"Follow "+nm;
-  }
-
-
-
-
-  parseTimelineDataIntoComponents(timelineData, styles, user){
-    if(!!timelineData){
-      var cards = [];
-      for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
-        let curTimelineItem = timelineData[ii];
-        // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
-        cards.push(<CardFactory
-          key={curTimelineItem.event_id}
-          style={styles.card}
-          timelineData={curTimelineItem}
-          device={this.props.device}
-          curUser={user}
-          />);
-      }
-      return cards;
+  getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName){
+    switch(curSelectedFilter){
+      case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
+        return "Welcome back, "+userFirstName+"! Here's whats new: ";
+      case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
+        return "Here's whats new from the people you follow: ";
+      case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
+        return "Here's whats new from the bills you follow: ";
+      case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
+        return "Here are some bills you might be interested in: ";
+      case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
+      return "Here are a few statistics you might be interested in: ";
     }
   }
 
-
-  getLastActivityDayDiff(lastTimestamp){
-    if(!!lastTimestamp){
-        return moment(lastTimestamp).fromNow();
-    }else{
-      return "-"
-    }
-
+  renderFilterView(nameOfActiveFilter, styles){
+    return (
+      <View style={styles.filtersViewContainer}>
+        {this.renderFilterButton((NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER==nameOfActiveFilter), "globe", NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER, styles)}
+        {this.renderFilterButton((NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER==nameOfActiveFilter), "add-lined", NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER, styles)}
+        {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==nameOfActiveFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER, styles)}
+        {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==nameOfActiveFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER, styles)}
+        {this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==nameOfActiveFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER, styles)}
+      </View>
+    );
   }
-
-  getUserPhoto(styles){
-    if(this.props.device.platform=="ios"){
-        return (<LImage
-          style={styles.userImg}
-          defaultSource={require('../../../assets/defaultUserPhoto.png')}
-          source={{uri: this.props.auth.user.photoUrl}}
-          resizeMode='contain'
-          indicator={Progress.CircleSnail}
-          indicatorProps={{
-            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
-          }}
-        />);
-    }else{
-      (<Image
-        style={styles.userImg}
-        source={{uri: this.props.auth.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
-        resizeMode='contain'
-      />);
-    }
-
-  }
-
-
-
 
   renderFilterButton(isActive, iconName, filterName, styles){
     if(isActive){
       return(
         <View style={styles.expandedFilterContainer}>
           <TouchableOpacity style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
-            <PavIcon name={iconName} size={15} style={styles.filterIcon}/>
+            <PavIcon name={iconName} size={15} style={styles.activeFilterIcon}/>
             <Text style={styles.filterText}>{filterName}</Text>
           </TouchableOpacity>
           <View style={styles.filterIndicatorIconContainer}>
@@ -357,7 +350,7 @@ class NewsFeedRender extends Component {
       return(
         <View style={styles.collapsedFilterContainer}>
           <TouchableOpacity style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
-            <PavIcon name={iconName} size={15} style={styles.filterIcon}/>
+            <PavIcon name={iconName} size={15} style={styles.inactiveFilterIcon}/>
           </TouchableOpacity>
           <View style={styles.filterIndicatorIconContainer}>
             <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
@@ -366,25 +359,35 @@ class NewsFeedRender extends Component {
     }
   }
 
-  //TODO
 
-  renderFilterView(nameOfActiveFilter, styles){
-    return (
-      <View style={styles.filtersViewContainer}>
-        {this.renderFilterButton((NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER==nameOfActiveFilter), "exclamation", NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER, styles)}
-        {this.renderFilterButton((NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER==nameOfActiveFilter), "add-lined", NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER, styles)}
-        {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==nameOfActiveFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER, styles)}
-        {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==nameOfActiveFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER, styles)}
-        {this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==nameOfActiveFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER, styles)}
-      </View>
-    );
-  }
 
+
+
+
+  /*
+  BODY - FEED
+  */
 // {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.user)}
   renderNewsFeedBody(dataReady, styles){
     if(dataReady==true){
-      return
-      (<View><Text>No data yet</Text></View>);
+      return(<View style={styles.cardsContainer}>
+        <UserIssueCard
+        dateTime="Whatever time"
+        userFullNameText="Whatever Name"
+        issueParentTitle="Whatever title"
+        issueText="Allowing guns into schools will not make them safer. Gun violence in schools won't stop until guns are completely out of the picture."
+        userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
+        relatedArticleUrl="http://www.google.com"
+        relatedArticleTitle="Craig Wright revealed as Bitcoin creator Satoshi Nakamoto - BBC News"
+        relatedArticlePhotoUrl="https://cdn.placeavote.com/users/issues/images/c3b436bf-8fb5-4c02-b76d-f3b2859dd65f/main.jpg"
+        relatedBillTitle="Every Child Achieves Act of 2015"
+        userReaction={1}
+        happyCnt={1}
+        neutralCnt={2}
+        sadCnt={155}
+        device={this.props.device}
+        />
+        </View>);
     }else{
       if(this.props.device.platform=="android"){
           return (
@@ -407,34 +410,33 @@ class NewsFeedRender extends Component {
   }
 
 
+    // parseTimelineDataIntoComponents(timelineData, styles, user){
+    //   if(!!timelineData){
+    //     var cards = [];
+    //     for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
+    //       let curTimelineItem = timelineData[ii];
+    //       // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
+    //       cards.push(<CardFactory
+    //         key={curTimelineItem.event_id}
+    //         style={styles.card}
+    //         timelineData={curTimelineItem}
+    //         device={this.props.device}
+    //         curUser={user}
+    //         />);
+    //     }
+    //     return cards;
+    //   }
+    // }
 
-  getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName){
-    switch(curSelectedFilter){
-      case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
-        return "Welcome back, "+userFirstName+"! Here's whats new: ";
-      case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
-        return "Here's whats new from the people you follow: ";
-      case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
-        return "Here's whats new from the bills you follow: ";
-      case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
-        return "Here are some bills you might be interested in: ";
-      case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
-      return "Here are a few statistics you might be interested in: ";
-    }
-  }
-  renderNewsFeedHeader(curSelectedFilter, styles, userFirstName){
-    return (
-      <View style={styles.scrollerViewHeader}>
-        {this.renderFilterView(curSelectedFilter, styles)}
 
-      <Text style={styles.recentActivityText}>{this.getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName)}</Text>
-    </View>);
-  }
+
+
+
+
 
 
   /**
-   * ### render
-   * Setup some default presentations and render
+   * ### render method
    */
   render() {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
@@ -446,7 +448,8 @@ class NewsFeedRender extends Component {
           <View style={styles.bodyView}>
             <ScrollView style={styles.scrollView}>
               {this.renderNewsFeedHeader(this.props.newsfeed.newsFeedData.curSelectedFilter, styles, this.props.auth.user.firstName)}
-              {this.renderNewsFeedBody(!this.props.newsfeed.isFetching.newsFeedData, styles)}
+              {/*{this.renderNewsFeedBody(!this.props.newsfeed.isFetching.newsFeedData, styles)}*/}
+              {this.renderNewsFeedBody(true, styles)}
             </ScrollView>
           </View>
         </View>

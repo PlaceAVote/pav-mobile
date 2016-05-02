@@ -102,7 +102,7 @@ class NewsFeed extends Component {
   constructor(props) {
     super(props);
 
-    this.connectAndGetFeed();
+    // this.connectAndGetFeed();
   }
 
 
@@ -112,12 +112,12 @@ class NewsFeed extends Component {
   }
 
   orientationDidChange(orientation) {
-    // console.log("Orientation: "+orientation);
+    console.log("Orientation: "+orientation);
     this.props.actions.setOrientation(orientation);
   }
 
   componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange);
+    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
     this.props.actions.unlockOrientation();
   }
 

@@ -350,6 +350,7 @@ class ProfileRender extends Component {
         let curTimelineItem = timelineData[ii];
         // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
         cards.push(<CardFactory
+          type="profile"
           key={curTimelineItem.event_id}
           style={styles.card}
           timelineData={curTimelineItem}
