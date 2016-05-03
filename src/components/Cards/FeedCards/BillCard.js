@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # UserIssueCard.js
+ * # BillCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -65,7 +65,7 @@ const Reactions = {
 
 
 
-class UserIssueCard extends Component {
+class BillCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -319,7 +319,7 @@ class UserIssueCard extends Component {
 }
 
 
-UserIssueCard.propTypes= {
+BillCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   subjectTitle: React.PropTypes.string.isRequired,
   billTitle: React.PropTypes.string.isRequired,
@@ -327,4 +327,4 @@ UserIssueCard.propTypes= {
   commentCnt: React.PropTypes.number.isRequired,
   favorPercentage: React.PropTypes.number.isRequired,
 };
-export default UserIssueCard;
+export default BillCard;

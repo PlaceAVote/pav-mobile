@@ -47,6 +47,7 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
+import PavImage from '../../../lib/UI/PavImage'
 import LImage from 'react-native-image-progress';
 import Progress from 'react-native-progress';
 
@@ -130,7 +131,7 @@ class UserIssueCard extends Component {
       },
 
       cardContentContainer:{
-        // backgroundColor:'red',
+        // backgroundColor:'brown',
         paddingHorizontal: w*0.02,
         paddingBottom: h*0.012,
         borderStyle: 'solid',
@@ -289,20 +290,14 @@ class UserIssueCard extends Component {
 
       relatedArticleContainer:{
           flex:1,
-          justifyContent:'center',
-          alignItems:'center',
           paddingVertical: h*0.014,
-          // backgroundColor:'red'
+          // backgroundColor:'green'
       },
 
       relatedArticleTitleContainer:{
-        top:0,
-        width:w*0.93,
-        height:h*0.15,
-        alignSelf:'center',
-        position:'absolute',
+        flex:1,
         justifyContent:'flex-start',
-        backgroundColor:Colors.transparentColor
+        backgroundColor:Colors.transparentColor,
       },
       relatedArticleTitleText:{
         paddingVertical: h*0.015,
@@ -323,8 +318,11 @@ class UserIssueCard extends Component {
 
 
       articleImage:{
-        width:w*0.917,
-        height:h*0.15,
+        flex:1,
+        // width:w*0.917,
+        // height:h*0.15,
+        backgroundColor:'blue'
+
       },
 
 
@@ -457,49 +455,27 @@ class UserIssueCard extends Component {
 
   renderRelatedArticlePreview(styles){
     if(!!this.props.relatedArticleUrl && this.props.relatedArticleUrl.length>0){
-      if(this.props.device.platform=="ios"){
-          return (
-            <TouchableOpacity style={styles.relatedArticleContainer} onPress={this.onRelatedArticleClicked.bind(this)}>
-              <LImage
-                defaultSource={require('../../../../assets/defaultUserPhoto.png')}
-                style={styles.articleImage}
-                source={{uri: this.props.relatedArticlePhotoUrl}}
-                resizeMode='cover'
-                indicator={Progress.CircleSnail}
-                indicatorProps={{
-                  colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
-                }}
-              >
-                <LinearGradient
-                      colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
-                      start={[-0.3, 0.0]} end={[1.3, 0.0]}
-                      style={styles.relatedArticleTitleContainer}>
-                  <Text style={styles.relatedArticleTitleText}>{this.props.relatedArticleTitle}</Text>
-                  <PavIcon name="links" size={19} style={styles.relatedArticleUrlIcon}/>
-                </LinearGradient>
-              </LImage>
-
-            </TouchableOpacity>
-          );
-      }else{
-        return (
-          <TouchableOpacity style={styles.relatedArticleContainer} onPress={this.onRelatedArticleClicked.bind(this)}>
-            <Image
-            defaultSource={require('../../../../assets/defaultUserPhoto.png')}
-            style={styles.articleImage}
-            source={{uri: this.props.relatedArticlePhotoUrl}}
-            resizeMode='cover'
-            >
-            <LinearGradient
-                  colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
-                  start={[-0.3, 0.0]} end={[1.3, 0.0]}
-                  style={styles.relatedArticleTitleContainer}>
-              <Text style={styles.relatedArticleTitleText}>{this.props.relatedArticleTitle}</Text>
-              <PavIcon name="links" size={19} style={styles.relatedArticleUrlIcon}/>
-            </LinearGradient>
-            </Image>
-          </TouchableOpacity>);
-      }
+      return (
+      <TouchableOpacity style={styles.relatedArticleContainer} onPress={this.onRelatedArticleClicked.bind(this)}>
+        <PavImage
+          device={this.props.device}
+          style={styles.articleImage}
+          source={{uri: this.props.relatedArticlePhotoUrl}}
+          resizeMode='cover'
+          indicator={Progress.CircleSnail}
+          indicatorProps={{
+            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
+          }}
+        >
+          <LinearGradient
+                colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
+                start={[-0.3, 0.0]} end={[1.3, 0.0]}
+                style={styles.relatedArticleTitleContainer}>
+            <Text style={styles.relatedArticleTitleText}>{this.props.relatedArticleTitle}</Text>
+            <PavIcon name="links" size={19} style={styles.relatedArticleUrlIcon}/>
+          </LinearGradient>
+        </PavImage>
+      </TouchableOpacity>);
     }else{  //related article does not exist
       return <View></View>;
     }
@@ -557,6 +533,19 @@ class UserIssueCard extends Component {
 
 
 
+UserIssueCard.propTypes= {
+  device: React.PropTypes.object.isRequired,
+  dateTime: React.PropTypes.string.isRequired,
+  userPhotoUrl: React.PropTypes.string.isRequired,
+  relatedArticleUrl: React.PropTypes.string.isRequired,
+  relatedArticleTitle: React.PropTypes.string.isRequired,
+  relatedArticlePhotoUrl: React.PropTypes.string.isRequired,
+  relatedBillTitle: React.PropTypes.string.isRequired,
+  userReaction: React.PropTypes.string.isRequired,
+  happyCnt: React.PropTypes.number.isRequired,
+  neutralCnt: React.PropTypes.number.isRequired,
+  sadCnt: React.PropTypes.number.isRequired,
+};
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
 export default UserIssueCard;

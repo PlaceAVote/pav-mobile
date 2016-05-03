@@ -380,6 +380,21 @@ class NewsFeedRender extends Component {
         favorPercentage={62}
         device={this.props.device}
         />
+        <UserIssueCard
+        device={this.props.device}
+        dateTime="20 minutes ago"
+        userFullNameText="Ioannis Kokkinidis"
+        issueText="I can't share bills without a true comment"
+        userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
+        relatedArticleUrl="http://www.bbc.co.uk/news/technology-36168863"
+        relatedArticleTitle="Craig Wright revealed as Bitcoin creator Satoshi Nakamoto - BBC News"
+        relatedArticlePhotoUrl="https://cdn.placeavote.com/users/issues/images/c3b436bf-8fb5-4c02-b76d-f3b2859dd65f/main.jpg"
+        relatedBillTitle="E-Free Act"
+        userReaction="positive"
+        happyCnt={23}
+        neutralCnt={1}
+        sadCnt={2}
+        />
         </View>);
     }else{
       if(this.props.device.platform=="android"){
