@@ -10,8 +10,8 @@ import React,
 }
 from 'react-native';
 
-
-
+import Progress from 'react-native-progress';
+import {Colors} from '../../config/constants';
 
 class PavImage extends Component {
   constructor(props) {
@@ -27,7 +27,12 @@ class PavImage extends Component {
   render() {
     if(this.props.platform=="ios"){
         return (
-          <LImage {...this.props}>
+          <LImage {...this.props}
+          indicator={Progress.CircleSnail}
+          indicatorProps={{
+            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
+          }}
+          >
           {this.props.children}
           </LImage>
         );

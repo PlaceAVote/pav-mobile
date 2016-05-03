@@ -1,5 +1,5 @@
 /**
- * # VoteCard.js
+ * # LikeCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -23,7 +23,7 @@ import Button from 'sp-react-native-iconbutton'
 // var Icon = require('react-native-vector-icons/FontAwesome');
 
 
-import {Colors, ScheneKeys} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../../config/constants';
 
 /**
  * The necessary React components
@@ -33,15 +33,16 @@ import React,
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 }
 from 'react-native';
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
@@ -52,7 +53,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-class VoteCard extends Component {
+class LikeCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -137,18 +138,18 @@ class VoteCard extends Component {
       },
 
 
-      voteDescriptionContainer:{
+      commentDescriptionContainer:{
         flexDirection:'column',
         // backgroundColor:'red',
+        padding: 5
       },
 
 
-      voteIconContainer:{
+      commentIconContainer:{
           justifyContent:'center',
           alignItems:'center',
           width: w*0.09,
           height: w*0.09,
-          backgroundColor: "#8B2392",
           paddingHorizontal:2,
           paddingVertical:4,
           borderRadius: 3,
@@ -156,39 +157,59 @@ class VoteCard extends Component {
           borderWidth: 1,
       },
 
-      voteIcon:{
-        color: Colors.mainTextColor,
+      commentIcon:{
         paddingHorizontal:3,
+        color: Colors.mainTextColor,
+      },
+      likeIcon:{
+        backgroundColor: Colors.accentColor,
+      },
+      dislikeIcon:{
+        backgroundColor: Colors.negativeAccentColor,
       },
 
-      voteRowContainer:{
+      userImage:{
+        width:w*0.09,
+        height:w*0.09,
+        // marginHorizontal: 10,
+      },
+      commentLocationContainer:{
         flexDirection:'row',
         alignItems:'center',
         // backgroundColor:'red',
       },
-      voteNameText:{
+      commentNameText:{
         // backgroundColor:'blue',
-        color:"#e64a33",
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        color:Colors.negativeAccentColor,
+        paddingLeft: 5,
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
-      voteInText:{
+      commentInText:{
         color: Colors.thirdTextColor,
-        paddingHorizontal: w*0.01,
+        paddingHorizontal: 5,
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
-      voteLocationText:{
+      commentLocationText:{
         // backgroundColor:'yellow',
         color: Colors.primaryColor,
-        paddingHorizontal: w*0.005,
-        paddingVertical: h*0.003,
+        paddingHorizontal: 1,
         fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
         width: w*0.7,
       },
-
-
+      cardContentBody:{
+        // backgroundColor:'green'
+        // marginTop: h*0.01
+      },
+      cardContentText:{
+        padding:2,
+        // backgroundColor:'green',
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,7),
+        color: 'rgba(0, 0, 0, 0.54)',
+      },
 
 
 
@@ -249,22 +270,43 @@ class VoteCard extends Component {
         <View style={styles.card}>
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
-              <View style={styles.voteIconContainer}>
-                <PavIcon name="logo" size={26} style={styles.voteIcon}/>
+              <View style={[styles.commentIconContainer, this.props.isLike?styles.likeIcon:styles.dislikeIcon]}>
+                <PavIcon
+                name={this.props.isLike?"thumbs-up":"thumbs-down"}
+                size={17}
+                style={styles.commentIcon}
+                />
               </View>
-              <Text style={styles.cardTitleText}>NEW VOTE</Text>
+              <Text style={styles.cardTitleText}>COMMENT {this.props.isLike?"UPVOTE":"DOWNVOTE"}</Text>
             </View>
             <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
           </View>
           <View style={styles.cardContentContainer}>
+
             <View style={styles.cardContentHeader}>
-              <View style={styles.voteDescriptionContainer}>
-                <View style={styles.voteRowContainer}>
-                  <Text style={styles.voteNameText}>{this.props.userFullNameText}</Text>
-                  <Text style={styles.voteInText}>voted on the bill: </Text>
+              <Image
+                style={styles.userImage}
+                source={{uri: this.props.userPhotoUrl}}
+                defaultSource={require('../../../../assets/defaultUserPhoto.png')}
+                resizeMode='cover'
+              />
+              <View style={styles.commentDescriptionContainer}>
+                <View style={styles.commentLocationContainer}>
+                  <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
+                  <Text style={styles.commentInText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
                 </View>
-                <Text style={styles.voteLocationText}>{this.props.voteParentTitle}</Text>
+                <Text style={styles.commentNameText}>{this.props.authorFullNameText}</Text>
+                <View style={styles.commentLocationContainer}>
+                  <Text style={styles.commentInText}>in</Text>
+                  <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
+                </View>
+
               </View>
+            </View>
+            <View style={styles.cardContentBody}>
+              <Text style={styles.cardContentText}>
+              {this.props.commentText}
+              </Text>
             </View>
           </View>
         </View>
@@ -277,4 +319,4 @@ class VoteCard extends Component {
 
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default VoteCard;
+export default LikeCard;

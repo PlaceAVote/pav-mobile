@@ -5,10 +5,10 @@
  *
  */
 'use strict';
-import CommentCard from './CommentCard';
-import LikeCard from './LikeCard';
-import VoteCard from './VoteCard';
-import FollowCard from './FollowCard';
+import CommentCard from './ProfileCards/CommentCard';
+import LikeCard from './ProfileCards/LikeCard';
+import VoteCard from './ProfileCards/VoteCard';
+import FollowCard from './ProfileCards/FollowCard';
 
 
 

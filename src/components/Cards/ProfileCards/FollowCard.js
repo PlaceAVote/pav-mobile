@@ -1,5 +1,5 @@
 /**
- * # CommentCard.js
+ * # FollowCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -23,7 +23,7 @@ import Button from 'sp-react-native-iconbutton'
 // var Icon = require('react-native-vector-icons/FontAwesome');
 
 
-import {Colors, ScheneKeys} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../../config/constants';
 
 /**
  * The necessary React components
@@ -33,16 +33,15 @@ import React,
   Component,
   StyleSheet,
   Text,
-  View,
-  Image
+  View
 }
 from 'react-native';
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
@@ -53,7 +52,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-class CommentCard extends Component {
+class FollowCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -131,26 +130,18 @@ class CommentCard extends Component {
       },
       cardContentHeader:{
         flex:1,
-        paddingVertical:h*0.01,
+        paddingVertical:h*0.02,
         flexDirection:'row',
         // backgroundColor:'red',
         alignItems:'center'
       },
 
-
-      commentDescriptionContainer:{
-        flexDirection:'column',
-        // backgroundColor:'red',
-        padding: 5
-      },
-
-
-      commentIconContainer:{
+      followIconContainer:{
           justifyContent:'center',
           alignItems:'center',
           width: w*0.09,
           height: w*0.09,
-          backgroundColor: "#708BC4",
+          backgroundColor: Colors.accentColor,
           paddingHorizontal:2,
           paddingVertical:4,
           borderRadius: 3,
@@ -158,52 +149,24 @@ class CommentCard extends Component {
           borderWidth: 1,
       },
 
-      commentIcon:{
+      followIcon:{
         color: Colors.mainTextColor,
         paddingHorizontal:3,
       },
 
-      userImage:{
-        width:w*0.09,
-        height:w*0.09,
-        // marginHorizontal: 10,
-      },
-      commentLocationContainer:{
-        flexDirection:'row',
-        alignItems:'center',
-        // backgroundColor:'red',
-      },
-      commentNameText:{
+
+      nameText:{
         // backgroundColor:'blue',
         color:"#e64a33",
-        paddingHorizontal: 5,
+        paddingHorizontal: w*0.005,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
-      commentInText:{
+      followBetweenText:{
         color: Colors.thirdTextColor,
-        paddingHorizontal: 5,
+        paddingHorizontal: w*0.005,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      commentLocationText:{
-        // backgroundColor:'yellow',
-        color: Colors.primaryColor,
-        paddingHorizontal: 1,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-        width: w*0.7,
-      },
-      cardContentBody:{
-        // backgroundColor:'green'
-        // marginTop: h*0.01
-      },
-      cardContentText:{
-        padding:2,
-        // backgroundColor:'green',
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-        color: 'rgba(0, 0, 0, 0.54)',
       },
 
 
@@ -257,7 +220,6 @@ class CommentCard extends Component {
   render() {
 
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
     return(
@@ -265,35 +227,18 @@ class CommentCard extends Component {
         <View style={styles.card}>
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
-              <View style={styles.commentIconContainer}>
-                <PavIcon name="comment" size={17} style={styles.commentIcon}/>
+              <View style={styles.followIconContainer}>
+                <PavIcon name="add" size={17} style={styles.followIcon}/>
               </View>
-              <Text style={styles.cardTitleText}>NEW COMMENT</Text>
+              <Text style={styles.cardTitleText}>NEW FOLLOW</Text>
             </View>
             <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
           </View>
           <View style={styles.cardContentContainer}>
-
             <View style={styles.cardContentHeader}>
-              <Image
-                defaultSource={require('../../../assets/defaultUserPhoto.png')}
-                style={styles.userImage}
-                source={{uri: this.props.userPhotoUrl}}
-                resizeMode='cover'
-              />
-              <View style={styles.commentDescriptionContainer}>
-                <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
-                <View style={styles.commentLocationContainer}>
-                  <Text style={styles.commentInText}>in</Text>
-                  <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
-                </View>
-
-              </View>
-            </View>
-            <View style={styles.cardContentBody}>
-              <Text style={styles.cardContentText}>
-              {this.props.commentText}
-              </Text>
+              <Text style={styles.nameText}>{this.props.followerFullNameText}</Text>
+              <Text style={styles.followBetweenText}>followed</Text>
+              <Text style={styles.nameText}>{this.props.followedFullNameText}</Text>
             </View>
           </View>
         </View>
@@ -306,4 +251,4 @@ class CommentCard extends Component {
 
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default CommentCard;
+export default FollowCard;

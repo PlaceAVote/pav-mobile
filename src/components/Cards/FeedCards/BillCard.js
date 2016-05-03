@@ -35,7 +35,6 @@ import React,
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
   Linking
 }
@@ -49,9 +48,6 @@ const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import PavImage from '../../../lib/UI/PavImage'
-
-
-import Progress from 'react-native-progress';
 
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -294,10 +290,6 @@ class BillCard extends Component {
           style={styles.billImage}
           source={{uri: this.props.billImgUrl}}
           resizeMode='cover'
-          indicator={Progress.CircleSnail}
-          indicatorProps={{
-            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
-          }}
           >
             <LinearGradient
                 colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}

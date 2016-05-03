@@ -48,8 +48,6 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import PavImage from '../../../lib/UI/PavImage'
 
-import Progress from 'react-native-progress';
-
 import LinearGradient from 'react-native-linear-gradient';
 
 const Reactions = {
@@ -105,7 +103,7 @@ class UserIssueCard extends Component {
       cardTitleContainer:{
         flex: 1,
         flexDirection:'row',
-        paddingHorizontal: w*0.02,
+        // paddingHorizontal: w*0.02,
         paddingVertical: w*0.02,
         justifyContent:'space-between',
         alignItems:'center'
@@ -126,7 +124,7 @@ class UserIssueCard extends Component {
         paddingHorizontal: 5,
         // color: Colors.thirdTextColor,
         color: 'rgba(0, 0, 0, 0.60)',
-        fontFamily: 'Whitney',
+        fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
 
@@ -461,10 +459,6 @@ class UserIssueCard extends Component {
           style={styles.articleImage}
           source={{uri: this.props.relatedArticlePhotoUrl}}
           resizeMode='cover'
-          indicator={Progress.CircleSnail}
-          indicatorProps={{
-            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
-          }}
         >
           <LinearGradient
                 colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}

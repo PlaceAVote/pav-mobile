@@ -1,5 +1,5 @@
 /**
- * # FollowCard.js
+ * # VoteCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -23,7 +23,7 @@ import Button from 'sp-react-native-iconbutton'
 // var Icon = require('react-native-vector-icons/FontAwesome');
 
 
-import {Colors, ScheneKeys} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../../config/constants';
 
 /**
  * The necessary React components
@@ -36,12 +36,12 @@ import React,
   View
 }
 from 'react-native';
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
@@ -52,7 +52,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-class FollowCard extends Component {
+class VoteCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -130,18 +130,25 @@ class FollowCard extends Component {
       },
       cardContentHeader:{
         flex:1,
-        paddingVertical:h*0.02,
+        paddingVertical:h*0.01,
         flexDirection:'row',
         // backgroundColor:'red',
         alignItems:'center'
       },
 
-      followIconContainer:{
+
+      voteDescriptionContainer:{
+        flexDirection:'column',
+        // backgroundColor:'red',
+      },
+
+
+      voteIconContainer:{
           justifyContent:'center',
           alignItems:'center',
           width: w*0.09,
           height: w*0.09,
-          backgroundColor: Colors.accentColor,
+          backgroundColor: "#8B2392",
           paddingHorizontal:2,
           paddingVertical:4,
           borderRadius: 3,
@@ -149,25 +156,39 @@ class FollowCard extends Component {
           borderWidth: 1,
       },
 
-      followIcon:{
+      voteIcon:{
         color: Colors.mainTextColor,
         paddingHorizontal:3,
       },
 
-
-      nameText:{
+      voteRowContainer:{
+        flexDirection:'row',
+        alignItems:'center',
+        // backgroundColor:'red',
+      },
+      voteNameText:{
         // backgroundColor:'blue',
         color:"#e64a33",
-        paddingHorizontal: w*0.005,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      followBetweenText:{
-        color: Colors.thirdTextColor,
-        paddingHorizontal: w*0.005,
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
       },
+      voteInText:{
+        color: Colors.thirdTextColor,
+        paddingHorizontal: w*0.01,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+      },
+      voteLocationText:{
+        // backgroundColor:'yellow',
+        color: Colors.primaryColor,
+        paddingHorizontal: w*0.005,
+        paddingVertical: h*0.003,
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        width: w*0.7,
+      },
+
+
 
 
 
@@ -220,6 +241,7 @@ class FollowCard extends Component {
   render() {
 
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
     return(
@@ -227,18 +249,22 @@ class FollowCard extends Component {
         <View style={styles.card}>
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
-              <View style={styles.followIconContainer}>
-                <PavIcon name="add" size={17} style={styles.followIcon}/>
+              <View style={styles.voteIconContainer}>
+                <PavIcon name="logo" size={26} style={styles.voteIcon}/>
               </View>
-              <Text style={styles.cardTitleText}>NEW FOLLOW</Text>
+              <Text style={styles.cardTitleText}>NEW VOTE</Text>
             </View>
             <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
           </View>
           <View style={styles.cardContentContainer}>
             <View style={styles.cardContentHeader}>
-              <Text style={styles.nameText}>{this.props.followerFullNameText}</Text>
-              <Text style={styles.followBetweenText}>followed</Text>
-              <Text style={styles.nameText}>{this.props.followedFullNameText}</Text>
+              <View style={styles.voteDescriptionContainer}>
+                <View style={styles.voteRowContainer}>
+                  <Text style={styles.voteNameText}>{this.props.userFullNameText}</Text>
+                  <Text style={styles.voteInText}>voted on the bill: </Text>
+                </View>
+                <Text style={styles.voteLocationText}>{this.props.voteParentTitle}</Text>
+              </View>
             </View>
           </View>
         </View>
@@ -251,4 +277,4 @@ class FollowCard extends Component {
 
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default FollowCard;
+export default VoteCard;

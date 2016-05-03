@@ -1,5 +1,5 @@
 /**
- * # LikeCard.js
+ * # CommentCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -23,7 +23,7 @@ import Button from 'sp-react-native-iconbutton'
 // var Icon = require('react-native-vector-icons/FontAwesome');
 
 
-import {Colors, ScheneKeys} from '../../config/constants';
+import {Colors, ScheneKeys} from '../../../config/constants';
 
 /**
  * The necessary React components
@@ -37,12 +37,12 @@ import React,
   Image
 }
 from 'react-native';
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
@@ -53,7 +53,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-class LikeCard extends Component {
+class CommentCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -150,6 +150,7 @@ class LikeCard extends Component {
           alignItems:'center',
           width: w*0.09,
           height: w*0.09,
+          backgroundColor: "#708BC4",
           paddingHorizontal:2,
           paddingVertical:4,
           borderRadius: 3,
@@ -158,14 +159,8 @@ class LikeCard extends Component {
       },
 
       commentIcon:{
-        paddingHorizontal:3,
         color: Colors.mainTextColor,
-      },
-      likeIcon:{
-        backgroundColor: Colors.accentColor,
-      },
-      dislikeIcon:{
-        backgroundColor: Colors.negativeAccentColor,
+        paddingHorizontal:3,
       },
 
       userImage:{
@@ -180,8 +175,8 @@ class LikeCard extends Component {
       },
       commentNameText:{
         // backgroundColor:'blue',
-        color:Colors.negativeAccentColor,
-        paddingLeft: 5,
+        color:"#e64a33",
+        paddingHorizontal: 5,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
@@ -270,14 +265,10 @@ class LikeCard extends Component {
         <View style={styles.card}>
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
-              <View style={[styles.commentIconContainer, this.props.isLike?styles.likeIcon:styles.dislikeIcon]}>
-                <PavIcon
-                name={this.props.isLike?"thumbs-up":"thumbs-down"}
-                size={17}
-                style={styles.commentIcon}
-                />
+              <View style={styles.commentIconContainer}>
+                <PavIcon name="comment" size={17} style={styles.commentIcon}/>
               </View>
-              <Text style={styles.cardTitleText}>COMMENT {this.props.isLike?"UPVOTE":"DOWNVOTE"}</Text>
+              <Text style={styles.cardTitleText}>NEW COMMENT</Text>
             </View>
             <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
           </View>
@@ -285,17 +276,13 @@ class LikeCard extends Component {
 
             <View style={styles.cardContentHeader}>
               <Image
+                defaultSource={require('../../../../assets/defaultUserPhoto.png')}
                 style={styles.userImage}
                 source={{uri: this.props.userPhotoUrl}}
-                defaultSource={require('../../../assets/defaultUserPhoto.png')}
                 resizeMode='cover'
               />
               <View style={styles.commentDescriptionContainer}>
-                <View style={styles.commentLocationContainer}>
-                  <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
-                  <Text style={styles.commentInText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
-                </View>
-                <Text style={styles.commentNameText}>{this.props.authorFullNameText}</Text>
+                <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
                 <View style={styles.commentLocationContainer}>
                   <Text style={styles.commentInText}>in</Text>
                   <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
@@ -319,4 +306,4 @@ class LikeCard extends Component {
 
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default LikeCard;
+export default CommentCard;

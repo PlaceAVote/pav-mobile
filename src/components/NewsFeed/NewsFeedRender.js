@@ -1,3 +1,4 @@
+/* @flow weak */
 /**
  * # Login.js
  *
@@ -77,6 +78,7 @@ var Progress = require('react-native-progress');
 import CardFactory from '../Cards/CardFactory';
 import UserIssueCard from '../Cards/FeedCards/UserIssueCard';
 import BillCard from '../Cards/FeedCards/BillCard';
+import FeedCommentCard from '../Cards/FeedCards/FeedCommentCard';
 
 
 /**
@@ -372,6 +374,17 @@ class NewsFeedRender extends Component {
   renderNewsFeedBody(dataReady, styles){
     if(dataReady==true){
       return(<View style={styles.cardsContainer}>
+
+        <FeedCommentCard
+          device={this.props.device}
+          timeString="10 minutes ago"
+          userFullNameText="Ioannis Kokkinidis"
+          commentParentTitle="A bill title"
+          commentText="A comment"
+          likeCount={127}
+          userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
+          />
+
         <BillCard
         subjectTitle="Crime"
         billTitle="Should an Attack on a Police Officer be Considered a Hate Crime?"
