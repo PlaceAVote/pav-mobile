@@ -218,7 +218,15 @@ class FeedCommentCard extends Component {
         borderLeftColor: '#D8D6E2',
         borderLeftWidth: 1,
       },
-      likeDislikeIcon:{
+      activeLikeIcon:{
+        color: Colors.accentColor,
+        paddingHorizontal:w*0.04,
+      },
+      activeDislikeIcon:{
+        color: Colors.negativeAccentColor,
+        paddingHorizontal:w*0.04,
+      },
+      inactiveLikeDislikeIcon:{
         color: Colors.fourthTextColor,
         paddingHorizontal:w*0.04,
       },
@@ -337,10 +345,10 @@ class FeedCommentCard extends Component {
       <View style={styles.footerContainer}>
         <View style={styles.likeDislikeButtonContainer}>
           <TouchableOpacity onPress={this.onLikeClick.bind(this)}>
-            <PavIcon name="thumbs-up" size={15} style={styles.likeDislikeIcon}/>
+            <PavIcon name="thumbs-up" size={15} style={this.props.isLiked?styles.activeLikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.onDislikeClick.bind(this)}>
-            <PavIcon name="thumbs-down" size={15} style={styles.likeDislikeIcon}/>
+            <PavIcon name="thumbs-down" size={15} style={this.props.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
           <Text style={styles.likeCountText}>{this.props.likeCount}</Text>
         </View>
@@ -381,6 +389,8 @@ FeedCommentCard.propTypes= {
   commentText: React.PropTypes.string.isRequired,
   userPhotoUrl: React.PropTypes.string.isRequired,
   likeCount: React.PropTypes.number.isRequired,
+  isLiked: React.PropTypes.bool.isRequired,
+  isDisliked: React.PropTypes.bool.isRequired,
 };
 
 //isDisabled={this.props.isDisabled}

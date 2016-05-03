@@ -11,6 +11,9 @@ import VoteCard from './ProfileCards/VoteCard';
 import FollowCard from './ProfileCards/FollowCard';
 
 
+import FeedCommentCard from './FeedCards/FeedCommentCard';
+import BillCard from './FeedCards/BillCard';
+import UserIssueCard from './FeedCards/UserIssueCard';
 
 /**
  * Immutable
@@ -131,6 +134,19 @@ class CardFactory extends Component {
         commentCnt={n.comment_count}
         favorPercentage={favorPercent}
         />);
+        break;
+      case "comment":
+        return (<FeedCommentCard
+          {...this.props}
+          timeString={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          userFullNameText={d.author_first_name+" "+d.author_last_name}
+          commentParentTitle={d.bill_title}
+          commentText={d.body}
+          userPhotoUrl={d.author_img_url}
+          likeCount={d.score}
+          isLiked={d.liked}
+          isDisliked={d.disliked}
+          />);
         break;
 
       default:
