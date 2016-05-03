@@ -128,7 +128,11 @@ class CardFactory extends Component {
           />);
         break;
       case "bill":
-        let favorPercent = n["yes-count"]/(n["yes-count"]+n["no-count"]);
+        let yesCount = n["yes-count"], noCount = n["no-count"];
+        let favorPercent = -1;
+        if((yesCount+noCount)!=0){
+          favorPercent = ((yesCount/yesCount+noCount)*100.00) | 0;  //Bitwise OR operator | 0, converts the float value to int value
+        }
         return (<FeedBillCard
         {...this.props}
         subjectTitle={n.subject}
