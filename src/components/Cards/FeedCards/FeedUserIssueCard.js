@@ -1,5 +1,5 @@
 /**
- * # UserIssueCard.js
+ * # FeedUserIssueCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -60,7 +60,7 @@ const Reactions = {
 
 
 
-class UserIssueCard extends Component {
+class FeedUserIssueCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -385,7 +385,7 @@ class UserIssueCard extends Component {
         </View>
         <Text style={styles.userIssueTitleActionStaticText}>Issue</Text>
       </View>
-      <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+      <Text style={styles.cardDateText}>{this.props.timeString}</Text>
     </View>);
   }
 
@@ -526,14 +526,14 @@ class UserIssueCard extends Component {
 
 
 
-UserIssueCard.propTypes= {
+FeedUserIssueCard.propTypes= {
   device: React.PropTypes.object.isRequired,
-  dateTime: React.PropTypes.string.isRequired,
-  userPhotoUrl: React.PropTypes.string.isRequired,
-  relatedArticleUrl: React.PropTypes.string.isRequired,
-  relatedArticleTitle: React.PropTypes.string.isRequired,
-  relatedArticlePhotoUrl: React.PropTypes.string.isRequired,
-  relatedBillTitle: React.PropTypes.string.isRequired,
+  timeString: React.PropTypes.string.isRequired,
+  userPhotoUrl: React.PropTypes.string,
+  relatedArticleUrl: React.PropTypes.string,
+  relatedArticleTitle: React.PropTypes.string,
+  relatedArticlePhotoUrl: React.PropTypes.string,
+  relatedBillTitle: React.PropTypes.string,
   userReaction: React.PropTypes.string.isRequired,
   happyCnt: React.PropTypes.number.isRequired,
   neutralCnt: React.PropTypes.number.isRequired,
@@ -541,4 +541,4 @@ UserIssueCard.propTypes= {
 };
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default UserIssueCard;
+export default FeedUserIssueCard;

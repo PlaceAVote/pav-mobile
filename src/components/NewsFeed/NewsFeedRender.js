@@ -76,10 +76,10 @@ var Progress = require('react-native-progress');
 * Cards
 */
 import CardFactory from '../Cards/CardFactory';
-import UserIssueCard from '../Cards/FeedCards/UserIssueCard';
-import BillCard from '../Cards/FeedCards/BillCard';
-import FeedCommentCard from '../Cards/FeedCards/FeedCommentCard';
-import VoteCard from '../Cards/FeedCards/VoteCard';
+// import FeedUserIssueCard from '../Cards/FeedCards/FeedUserIssueCard';
+// import FeedBillCard from '../Cards/FeedCards/FeedBillCard';
+// import FeedCommentCard from '../Cards/FeedCards/FeedCommentCard';
+// import FeedVoteCard from '../Cards/FeedCards/FeedVoteCard';
 
 
 /**
@@ -366,57 +366,34 @@ class NewsFeedRender extends Component {
 
 
 
+  parseFeedDataIntoComponents(items, styles, user){
+    if(!!items){
+      var cards = [];
+      for(var ii=0, ll=items.length;ii<ll;ii++){ //for each timeline item
+        let curFeedItem = items[ii];
+        // console.log(ii+" @ "+JSON.stringify(curFeedItem))
+        cards.push(<CardFactory
+          type="newsfeed"
+          key={curFeedItem.event_id}
+          style={styles.card}
+          itemData={curFeedItem}
+          device={this.props.device}
+          curUser={user}
+          />);
+      }
+      return cards;
+    }
+  }
+
 
 
   /*
   BODY - FEED
   */
-// {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.user)}
   renderNewsFeedBody(dataReady, styles){
     if(dataReady==true){
       return(<View style={styles.cardsContainer}>
-
-        <VoteCard
-        device={this.props.device}
-        timeString="10 minutes ago"
-        userFullNameText="Ioannis Kokkinidis"
-        voteParentTitle="A bill title"
-        userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
-        />
-        <FeedCommentCard
-        device={this.props.device}
-        timeString="10 minutes ago"
-        userFullNameText="Ioannis Kokkinidis"
-        commentParentTitle="A bill title"
-        commentText="A comment"
-        likeCount={127}
-        userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
-        isLiked={false}
-        isDisliked={true}
-        />
-        <BillCard
-        subjectTitle="Crime"
-        billTitle="Should an Attack on a Police Officer be Considered a Hate Crime?"
-        billImgUrl="https://cdn.placeavote.com/bills/114/images/hr4760-114/main.jpg"
-        commentCnt={20}
-        favorPercentage={62}
-        device={this.props.device}
-        />
-        <UserIssueCard
-        device={this.props.device}
-        dateTime="20 minutes ago"
-        userFullNameText="Ioannis Kokkinidis"
-        issueText="I can't share bills without a true comment"
-        userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
-        relatedArticleUrl="http://www.bbc.co.uk/news/technology-36168863"
-        relatedArticleTitle="Craig Wright revealed as Bitcoin creator Satoshi Nakamoto - BBC News"
-        relatedArticlePhotoUrl="https://cdn.placeavote.com/users/issues/images/c3b436bf-8fb5-4c02-b76d-f3b2859dd65f/main.jpg"
-        relatedBillTitle="E-Free Act"
-        userReaction="positive"
-        happyCnt={23}
-        neutralCnt={1}
-        sadCnt={2}
-        />
+        {this.parseFeedDataIntoComponents(this.props.newsfeed.newsFeedData.items, styles, this.props.auth.user)}
         </View>);
     }else{
       if(this.props.device.platform=="android"){
@@ -439,24 +416,48 @@ class NewsFeedRender extends Component {
     }
   }
 
-
-    // parseTimelineDataIntoComponents(timelineData, styles, user){
-    //   if(!!timelineData){
-    //     var cards = [];
-    //     for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
-    //       let curTimelineItem = timelineData[ii];
-    //       // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
-    //       cards.push(<CardFactory
-    //         key={curTimelineItem.event_id}
-    //         style={styles.card}
-    //         timelineData={curTimelineItem}
-    //         device={this.props.device}
-    //         curUser={user}
-    //         />);
-    //     }
-    //     return cards;
-    //   }
-    // }
+/*
+  <FeedVoteCard
+  device={this.props.device}
+  timeString="10 minutes ago"
+  userFullNameText="Ioannis Kokkinidis"
+  voteParentTitle="A bill title"
+  userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
+  />
+  <FeedCommentCard
+  device={this.props.device}
+  timeString="10 minutes ago"
+  userFullNameText="Ioannis Kokkinidis"
+  commentParentTitle="A bill title"
+  commentText="A comment"
+  likeCount={127}
+  userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
+  isLiked={false}
+  isDisliked={true}
+  />
+  <FeedBillCard
+  subjectTitle="Crime"
+  billTitle="Should an Attack on a Police Officer be Considered a Hate Crime?"
+  billImgUrl="https://cdn.placeavote.com/bills/114/images/hr4760-114/main.jpg"
+  commentCnt={20}
+  favorPercentage={62}
+  device={this.props.device}
+  />
+  <FeedUserIssueCard
+  device={this.props.device}
+  timeString="20 minutes ago"
+  userFullNameText="Ioannis Kokkinidis"
+  issueText="I can't share bills without a true comment"
+  userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
+  relatedArticleUrl="http://www.bbc.co.uk/news/technology-36168863"
+  relatedArticleTitle="Craig Wright revealed as Bitcoin creator Satoshi Nakamoto - BBC News"
+  relatedArticlePhotoUrl="https://cdn.placeavote.com/users/issues/images/c3b436bf-8fb5-4c02-b76d-f3b2859dd65f/main.jpg"
+  relatedBillTitle="E-Free Act"
+  userReaction="positive"
+  happyCnt={23}
+  neutralCnt={1}
+  sadCnt={2}
+  />*/
 
 
 
@@ -478,8 +479,7 @@ class NewsFeedRender extends Component {
           <View style={styles.bodyView}>
             <ScrollView style={styles.scrollView}>
               {this.renderNewsFeedHeader(this.props.newsfeed.newsFeedData.curSelectedFilter, styles, this.props.auth.user.firstName)}
-              {/*{this.renderNewsFeedBody(!this.props.newsfeed.isFetching.newsFeedData, styles)}*/}
-              {this.renderNewsFeedBody(true, styles)}
+              {this.renderNewsFeedBody((!this.props.newsfeed.isFetching.newsFeedData && this.props.newsfeed.newsFeedData.items!=null), styles)}
             </ScrollView>
           </View>
         </View>

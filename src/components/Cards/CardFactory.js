@@ -12,8 +12,10 @@ import FollowCard from './ProfileCards/FollowCard';
 
 
 import FeedCommentCard from './FeedCards/FeedCommentCard';
-import BillCard from './FeedCards/BillCard';
-import UserIssueCard from './FeedCards/UserIssueCard';
+import FeedBillCard from './FeedCards/FeedBillCard';
+import FeedUserIssueCard from './FeedCards/FeedUserIssueCard';
+import FeedVoteCard from './FeedCards/FeedVoteCard';
+
 
 /**
  * Immutable
@@ -103,14 +105,15 @@ class CardFactory extends Component {
 
 
   renderNewsFeedCards(){
+
     let n = this.props.itemData;
     let u = this.props.curUser;
-    switch(this.props.timelineData.type){
+    switch(n.type){
       case "userissue":
       // console.log("Real comment is: "+JSON.stringify(n));
-          return (<UserIssueCard
+          return (<FeedUserIssueCard
           {...this.props}
-          dateTime={moment(n.timestamp).fromNow()}
+          timeString={moment(n.timestamp).fromNow()}
           userFullNameText={n.first_name+" "+n.last_name}
           issueText={n.comment}
           userPhotoUrl={n.img_url}
@@ -126,7 +129,7 @@ class CardFactory extends Component {
         break;
       case "bill":
         let favorPercent = n["yes-count"]/(n["yes-count"]+n["no-count"]);
-        return (<BillCard
+        return (<FeedBillCard
         {...this.props}
         subjectTitle={n.subject}
         billTitle={n.featured_bill_title}
@@ -138,17 +141,25 @@ class CardFactory extends Component {
       case "comment":
         return (<FeedCommentCard
           {...this.props}
-          timeString={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
-          userFullNameText={d.author_first_name+" "+d.author_last_name}
-          commentParentTitle={d.bill_title}
-          commentText={d.body}
-          userPhotoUrl={d.author_img_url}
-          likeCount={d.score}
-          isLiked={d.liked}
-          isDisliked={d.disliked}
+          timeString={moment(n.timestamp).fromNow()}
+          userFullNameText={n.author_first_name+" "+n.author_last_name}
+          commentParentTitle={n.bill_title}
+          commentText={n.body}
+          userPhotoUrl={n.author_img_url}
+          likeCount={n.score}
+          isLiked={n.liked}
+          isDisliked={n.disliked}
           />);
         break;
-
+      case "vote":
+        return (<FeedVoteCard
+        {...this.props}
+        timeString={moment(n.timestamp).fromNow()}
+        userFullNameText={n.voter_first_name+" "+n.voter_last_name}
+        voteParentTitle={n.bill_title}
+        userPhotoUrl={n.voter_img_url}
+        />);
+        break;
       default:
         return <View {...this.props}></View>;
         break;

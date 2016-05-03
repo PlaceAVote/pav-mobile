@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # VoteCard.js
+ * # FeedVoteCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -52,7 +52,7 @@ import PavImage from '../../../lib/UI/PavImage'
 
 
 
-class VoteCard extends Component {
+class FeedVoteCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -287,14 +287,14 @@ class VoteCard extends Component {
   }
 }
 
-VoteCard.propTypes= {
+FeedVoteCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   timeString: React.PropTypes.string.isRequired,
   voteParentTitle: React.PropTypes.string.isRequired,
   userFullNameText: React.PropTypes.string.isRequired,
-  userPhotoUrl: React.PropTypes.string.isRequired,
+  userPhotoUrl: React.PropTypes.string,
 };
 
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}
-export default VoteCard;
+export default FeedVoteCard;

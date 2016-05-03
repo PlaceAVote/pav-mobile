@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # BillCard.js
+ * # FeedBillCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -52,7 +52,7 @@ import PavImage from '../../../lib/UI/PavImage'
 import LinearGradient from 'react-native-linear-gradient';
 
 
-class BillCard extends Component {
+class FeedBillCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -306,7 +306,7 @@ class BillCard extends Component {
 }
 
 
-BillCard.propTypes= {
+FeedBillCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   subjectTitle: React.PropTypes.string.isRequired,
   billTitle: React.PropTypes.string.isRequired,
@@ -314,4 +314,4 @@ BillCard.propTypes= {
   commentCnt: React.PropTypes.number.isRequired,
   favorPercentage: React.PropTypes.number.isRequired,
 };
-export default BillCard;
+export default FeedBillCard;
