@@ -106,6 +106,7 @@ class CardFactory extends Component {
       case "userissue":
       // console.log("Real comment is: "+JSON.stringify(n));
           return (<UserIssueCard
+          {...this.props}
           dateTime={moment(n.timestamp).fromNow()}
           userFullNameText={n.first_name+" "+n.last_name}
           issueText={n.comment}
@@ -120,7 +121,17 @@ class CardFactory extends Component {
           sadCnt={n.negative_responses}
           />);
         break;
-
+      case "bill":
+        let favorPercent = n["yes-count"]/(n["yes-count"]+n["no-count"]);
+        return (<BillCard
+        {...this.props}
+        subjectTitle={n.subject}
+        billTitle={n.featured_bill_title}
+        billImgUrl={n.featured_img_link}
+        commentCnt={n.comment_count}
+        favorPercentage={favorPercent}
+        />);
+        break;
 
       default:
         return <View {...this.props}></View>;
