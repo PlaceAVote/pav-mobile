@@ -25,12 +25,12 @@ class PavImage extends Component {
    * Setup some default presentations and render
    */
   render() {
-    if(this.props.platform=="ios"){
+    if(this.props.platform=="ios" && (!!this.props.source && this.props.source.uri!=null)){
         return (
           <LImage {...this.props}
           indicator={Progress.CircleSnail}
           indicatorProps={{
-            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
+            color:Colors.primaryColor
           }}
           >
           {this.props.children}
