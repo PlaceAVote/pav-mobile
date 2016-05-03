@@ -25,7 +25,7 @@ class PavImage extends Component {
    * Setup some default presentations and render
    */
   render() {
-    if(this.props.device.platform=="ios"){
+    if(this.props.platform=="ios"){
         return (
           <LImage {...this.props}>
           {this.props.children}
@@ -47,7 +47,7 @@ class PavImage extends Component {
 // onPress={this.props.onPress}
 
 PavImage.propTypes= {
-  device: React.PropTypes.object.isRequired,
+  platform: React.PropTypes.string.isRequired,
   children: React.PropTypes.element,
 };
 // PavImage.defaultProps = { device: {platform: 'ios'} };

@@ -34,7 +34,6 @@ import React,
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
   Linking
 }
@@ -48,7 +47,7 @@ const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import PavImage from '../../../lib/UI/PavImage'
-import LImage from 'react-native-image-progress';
+
 import Progress from 'react-native-progress';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -374,7 +373,7 @@ class UserIssueCard extends Component {
   renderHeader(styles){
     return (<View resizeMode="cover" style={styles.cardTitleContainer}>
       <View style={styles.cardTitleTextAndIconContainer}>
-        <Image
+        <PavImage platform={this.props.device.platform}
           defaultSource={require('../../../../assets/defaultUserPhoto.png')}
           style={styles.userImage}
           source={{uri: this.props.userPhotoUrl}}
@@ -458,8 +457,7 @@ class UserIssueCard extends Component {
     if(!!this.props.relatedArticleUrl && this.props.relatedArticleUrl.length>0){
       return (
       <TouchableOpacity style={styles.relatedArticleContainer} onPress={this.onRelatedArticleClicked.bind(this)}>
-        <PavImage
-          device={this.props.device}
+        <PavImage platform={this.props.device.platform}
           style={styles.articleImage}
           source={{uri: this.props.relatedArticlePhotoUrl}}
           resizeMode='cover'

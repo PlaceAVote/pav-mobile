@@ -50,19 +50,10 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import PavImage from '../../../lib/UI/PavImage'
 
-import LImage from 'react-native-image-progress';
+
 import Progress from 'react-native-progress';
 
 import LinearGradient from 'react-native-linear-gradient';
-
-const Reactions = {
-  NONE:'none',
-  HAPPY:'positive',
-  NEUTRAL:'neutral',
-  SAD:'negative',
-};
-
-
 
 
 class BillCard extends Component {
@@ -299,10 +290,14 @@ class BillCard extends Component {
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={styles.card}>
-          <PavImage device={this.props.device}
+          <PavImage platform={this.props.device.platform}
           style={styles.billImage}
           source={{uri: this.props.billImgUrl}}
           resizeMode='cover'
+          indicator={Progress.CircleSnail}
+          indicatorProps={{
+            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
+          }}
           >
             <LinearGradient
                 colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
