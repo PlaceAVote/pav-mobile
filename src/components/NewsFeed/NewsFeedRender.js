@@ -79,6 +79,7 @@ import CardFactory from '../Cards/CardFactory';
 import UserIssueCard from '../Cards/FeedCards/UserIssueCard';
 import BillCard from '../Cards/FeedCards/BillCard';
 import FeedCommentCard from '../Cards/FeedCards/FeedCommentCard';
+import VoteCard from '../Cards/FeedCards/VoteCard';
 
 
 /**
@@ -375,6 +376,13 @@ class NewsFeedRender extends Component {
     if(dataReady==true){
       return(<View style={styles.cardsContainer}>
 
+        <VoteCard
+        device={this.props.device}
+        timeString="10 minutes ago"
+        userFullNameText="Ioannis Kokkinidis"
+        voteParentTitle="A bill title"
+        userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
+        />
         <FeedCommentCard
         device={this.props.device}
         timeString="10 minutes ago"
