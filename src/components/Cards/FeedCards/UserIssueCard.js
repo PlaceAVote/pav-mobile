@@ -515,23 +515,21 @@ class UserIssueCard extends Component {
           </Text>
         </View>
 
-
         {this.renderRelatedBillLink(styles)}
         {this.renderRelatedArticlePreview(styles)}
-
-        <View style={styles.cardFooterContainer}>
-          <Text style={styles.cardFooterText}>What's your reaction?</Text>
-          <View style={styles.cardFooterIconsContainer}>
-            {this.renderReactionIcon("happy", this.props.happyCnt, (this.props.userReaction==Reactions.HAPPY), styles)}
-            {this.renderReactionIcon("neutral", this.props.neutralCnt, (this.props.userReaction==Reactions.NEUTRAL), styles)}
-            {this.renderReactionIcon("sad", this.props.sadCnt, (this.props.userReaction==Reactions.SAD), styles)}
-          </View>
-        </View>
-
       </View>);
   }
 
-
+  renderFooter(styles){
+      return (<View style={styles.cardFooterContainer}>
+        <Text style={styles.cardFooterText}>What's your reaction?</Text>
+        <View style={styles.cardFooterIconsContainer}>
+          {this.renderReactionIcon("happy", this.props.happyCnt, (this.props.userReaction==Reactions.HAPPY), styles)}
+          {this.renderReactionIcon("neutral", this.props.neutralCnt, (this.props.userReaction==Reactions.NEUTRAL), styles)}
+          {this.renderReactionIcon("sad", this.props.sadCnt, (this.props.userReaction==Reactions.SAD), styles)}
+        </View>
+      </View>);
+  }
   /**
    * ### render
    * Setup some default presentations and render
@@ -548,7 +546,7 @@ class UserIssueCard extends Component {
 
           {this.renderHeader(styles)}
           {this.renderBody(styles)}
-
+          {this.renderFooter(styles)}
 
 
         </View>
