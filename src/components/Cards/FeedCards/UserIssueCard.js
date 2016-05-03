@@ -101,6 +101,7 @@ class UserIssueCard extends Component {
           height: 1,
           width: 2,
         },
+        paddingHorizontal: w*0.02,
       },
       cardTitleContainer:{
         flex: 1,
@@ -132,7 +133,6 @@ class UserIssueCard extends Component {
 
       cardContentContainer:{
         // backgroundColor:'brown',
-        paddingHorizontal: w*0.02,
         paddingBottom: h*0.012,
         borderStyle: 'solid',
         borderTopColor: 'rgba(0, 0, 0, 0.1)',
@@ -216,13 +216,14 @@ class UserIssueCard extends Component {
         justifyContent:'space-between',
         alignItems:'center',
         paddingVertical: h*0.015,
-
+        // backgroundColor:'red'
       },
       cardFooterText:{
         flex:1,
         // backgroundColor:'green',
+        paddingHorizontal:w*0.008,
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
         color: 'rgba(0, 0, 0, 0.54)',
       },
       cardFooterIconsContainer:{
