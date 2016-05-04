@@ -306,8 +306,7 @@ class NewsFeedRender extends Component {
     return (
       <View style={styles.scrollerViewHeader}>
         {this.renderFilterView(curSelectedFilter, styles)}
-
-      <Text style={styles.recentActivityText}>{this.getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName)}</Text>
+        <Text style={styles.recentActivityText}>{this.getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName)}</Text>
     </View>);
   }
 
@@ -322,7 +321,7 @@ class NewsFeedRender extends Component {
       case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
         return "Here are some bills you might be interested in: ";
       case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
-      return "Here are a few statistics you might be interested in: ";
+        return "Here are a few statistics you might be interested in: ";
     }
   }
 
@@ -341,23 +340,23 @@ class NewsFeedRender extends Component {
   renderFilterButton(isActive, iconName, filterName, styles){
     if(isActive){
       return(
-        <View style={styles.expandedFilterContainer}>
-          <TouchableOpacity style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
-            <PavIcon name={iconName} size={15} style={styles.activeFilterIcon}/>
+        <View key={iconName+"container"} style={styles.expandedFilterContainer}>
+          <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
+            <PavIcon key={iconName+"icon1"} name={iconName} size={15} style={styles.activeFilterIcon}/>
             <Text style={styles.filterText}>{filterName}</Text>
           </TouchableOpacity>
-          <View style={styles.filterIndicatorIconContainer}>
-            <PavIcon name="activeIndicatorShrinked" size={7} style={styles.activeFilterIndicatorIcon}/>
+          <View key={iconName+"indicatorContainer"} style={styles.filterIndicatorIconContainer}>
+            <PavIcon key={iconName+"indicatorIcon"} name="activeIndicatorShrinked" size={7} style={styles.activeFilterIndicatorIcon}/>
           </View>
         </View>);
     }else{
       return(
-        <View style={styles.collapsedFilterContainer}>
-          <TouchableOpacity style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
-            <PavIcon name={iconName} size={15} style={styles.inactiveFilterIcon}/>
+        <View key={iconName+"container"} style={styles.collapsedFilterContainer}>
+          <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
+            <PavIcon key={iconName+"icon1"} name={iconName} size={15} style={styles.inactiveFilterIcon}/>
           </TouchableOpacity>
-          <View style={styles.filterIndicatorIconContainer}>
-            <PavIcon name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
+          <View key={iconName+"indicatorContainer"} style={styles.filterIndicatorIconContainer}>
+            <PavIcon key={iconName+"indicatorIcon"} name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
           </View>
         </View>);
     }
@@ -387,13 +386,58 @@ class NewsFeedRender extends Component {
 
 
 
+
+  iterateThroughItemsAndPickTheOnesWithType(items, typeArray){
+    if(!!items && !!typeArray && typeArray.length>0){
+      let pickedArray = [];
+      for(let zz=0, lll=items.length; zz<lll;zz++){
+          let curItem = items[zz];
+          for (let xx=0, kkk=typeArray.length;xx<kkk;xx++){
+            let curType = typeArray[xx];
+            if(curItem.type==curType){
+              pickedArray.push(curItem);
+            }
+          }
+      }
+      return pickedArray;
+    }else{
+      return items;
+    }
+  }
+  // All Activity: Comments, Votes, Issues
+  // Following: Issues
+  // Bill Activity: Votes, Comments
+
+
+  filterResultsByActivityFilter(activityFilter, allItems){
+    let newItems = [];
+    switch(activityFilter){
+      case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
+        newItems = allItems;
+        break;
+      case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
+        newItems = this.iterateThroughItemsAndPickTheOnesWithType(allItems, ["userissue"])
+        break;
+      case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
+        newItems = this.iterateThroughItemsAndPickTheOnesWithType(allItems, ["bill", "comment", "vote"])
+        break;
+      case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
+      case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
+        alert("Now implemented yet");
+        newItems = allItems;
+        break;
+    }
+    return newItems;
+  }
+
+
   /*
   BODY - FEED
   */
   renderNewsFeedBody(dataReady, styles){
     if(dataReady==true){
       return(<View style={styles.cardsContainer}>
-        {this.parseFeedDataIntoComponents(this.props.newsfeed.newsFeedData.items, styles, this.props.auth.user)}
+        {this.parseFeedDataIntoComponents(this.filterResultsByActivityFilter(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.newsFeedData.items), styles, this.props.auth.user)}
         </View>);
     }else{
       if(this.props.device.platform=="android"){
