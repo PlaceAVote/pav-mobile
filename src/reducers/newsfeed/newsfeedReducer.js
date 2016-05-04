@@ -33,6 +33,9 @@ const {
   GET_FEED_SUCCESS,
   GET_FEED_FAILURE,
 
+  FILTER_ITEMS_START,
+  FILTER_ITEMS_END
+
 } = ActionNames
 
 
@@ -63,12 +66,23 @@ export default function newsfeedReducer(state = initialState, action) {
     case GET_FEED_SUCCESS:
       return state.setIn([ 'isFetching', 'newsFeedData'], false)
       .setIn(['error'],null)
-      .setIn([ 'newsFeedData', 'items'], action.payload.results);
+      .setIn([ 'newsFeedData', 'items'], action.payload.results)
+      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], action.payload.results);
 
     case GET_FEED_FAILURE:
       return state.setIn([ 'isFetching', 'newsFeedData'], false)
         .setIn(['error'], action.payload);
       break;
+    case FILTER_ITEMS_START:
+      return state.setIn([ 'isFetching', 'newsFeedData'], true)
+      // .setIn([ 'newsFeedData', 'itemsAfterFiltration'], null)
+      .setIn(['newsFeedData', 'curSelectedFilter'], action.payload)
+      break;
+    case FILTER_ITEMS_END:
+      return state.setIn([ 'isFetching', 'newsFeedData'], false)
+      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], action.payload);
+      break;
+
   }//switch
   /**
    * # Default

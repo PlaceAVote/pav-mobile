@@ -51,9 +51,17 @@ import React, {Component} from 'react-native';
 
 
 
+import {
+ScheneKeys,
+Other
+} from '../config/constants';
 const {
-MAIN
-} = require('../config/constants').ScheneKeys
+  NEWS_FEED_FILTERS
+} = Other;
+const {
+  MAIN
+} = ScheneKeys;
+
 
 
 /**
@@ -126,10 +134,20 @@ class NewsFeed extends Component {
   }
 
 
-  onFilterBtnClick(filterName){
+  onFilterBtnClick(filterName, topicType){
     // alert("Filter clicked: "+filterName);
-    this.props.actions.setActivityFilter(filterName);
+    if(filterName!=NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER){
+      this.props.actions.filterFeedItems(filterName, topicType);
+    }else{
+      this.props.actions.setActivityFilter(filterName);
+    }
   }
+
+
+
+
+
+
 
   render() {
     return(

@@ -45,6 +45,22 @@ module.exports =  {
       BILL_ACTIVITY_FILTER:'Bill Activity ',
       DISCOVER_ACTIVITY_FILTER:'Discover ',
       STATISTICS_ACTIVITY_FILTER:'Statistics ',
+    },
+    TOPICS:{
+      CRIME:'crime',
+      HEALTHCARE: 'healthcare',
+      TAXES: 'taxes',
+      IMMIGRATION: 'immigration',
+      EDUCATION: 'education',
+      DRUGS: 'drugs',
+      DEFENSE: 'defense',
+      POLITICS: 'politics',
+      GUN_RIGHTS: 'gun rights',
+      TECHNOLOGY: 'technology',
+      ECONOMICS: 'economics',
+      SOCIAL_INTEREST: 'social interest',
+
+      TRENDING: 'trending'
     }
   },
   ActionNames:  keyMirror({
@@ -131,6 +147,9 @@ module.exports =  {
    GET_FEED_REQUEST: null,
    GET_FEED_SUCCESS: null,
    GET_FEED_FAILURE: null,
+
+   FILTER_ITEMS_START: null,
+   FILTER_ITEMS_END: null,
 
 
     /* Not yet implemented */
