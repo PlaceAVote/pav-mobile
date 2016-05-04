@@ -322,19 +322,12 @@ class FeedUserIssueCard extends Component {
         backgroundColor:'blue'
 
       },
-
-
-      bodyView:{
-        flex:1.45,
-        backgroundColor: '#E8E7EE',
+      userDetailsTouchableView:{
+        flexDirection:'row',
+        alignItems:'center',
       },
-      // titleText: {
-      //   // backgroundColor: 'black',
-      //   fontSize: getCorrectFontSizeForScreen(w,h,27),
-      //   fontFamily: 'Whitney Semibold',
-      //   color: Colors.mainTextColor,
-      //   textAlign: 'center',
-      // },
+
+
     });
   }
 
@@ -368,17 +361,44 @@ class FeedUserIssueCard extends Component {
 
 
 
+
+  onRelatedArticleClicked(){
+      Linking.openURL("http://www.google.com").catch(err => console.error('An error occurred', err));
+      alert("related article clicked");
+  }
+  onRelatedBillClicked(){
+    alert('related bill clicked - should navigate user to this bill.')
+  }
+
+  onHappyClick(){
+    alert("on happy click");
+  }
+  onNeutralClick(){
+    alert("on neutral click");
+  }
+  onSadClick(){
+    alert("on sad click");
+  }
+  onUserClick(){
+    alert("on User click");
+  }
+
+
+
+
+
   renderHeader(styles){
     return (<View resizeMode="cover" style={styles.cardTitleContainer}>
       <View style={styles.cardTitleTextAndIconContainer}>
-        <PavImage platform={this.props.device.platform}
-          defaultSource={require('../../../../assets/defaultUserPhoto.png')}
-          style={styles.userImage}
-          source={{uri: this.props.userPhotoUrl}}
-          resizeMode='cover'
-        />
-
-        <Text style={styles.userIssueFullNameDynamicText}>{this.props.userFullNameText}</Text>
+        <TouchableOpacity style={styles.userDetailsTouchableView} onPress={this.onUserClick.bind(this)}>
+          <PavImage platform={this.props.device.platform}
+            defaultSource={require('../../../../assets/defaultUserPhoto.png')}
+            style={styles.userImage}
+            source={{uri: this.props.userPhotoUrl}}
+            resizeMode='cover'
+          />
+          <Text style={styles.userIssueFullNameDynamicText}>{this.props.userFullNameText}</Text>
+        </TouchableOpacity>
         <Text style={styles.userIssueTitleActionStaticText}>shared an</Text>
         <View style={styles.userIssueIconContainer}>
           <PavIcon name="issues" size={12} style={styles.userIssueIcon}/>
@@ -389,37 +409,40 @@ class FeedUserIssueCard extends Component {
     </View>);
   }
 
-  // "type": "userissue",
-  //
-  // "first_name": "Homer",
-  // "last_name": "Simpson",
-  // "img_url": "https://cdn.placeavote.com/users/ddb6f9ba-c4f2-4b78-9790-8c3d3468d276/profile/img/p200xp200x/9fa929d9-302a-42e7-8c18-f943ea62d56e.jpeg",
-  //
-  //
-  // "comment": "I have 99 issues and this bug is all of them.",
-  //
-  //
-  //  "issue_id": "72e40ba5-711a-4a25-9ba8-2ad9990e1188",
-  //  "author_id": "ddb6f9ba-c4f2-4b78-9790-8c3d3468d276",
-  //  "event_id": "de712bf9-5baf-4f20-9031-484e4e118218",
-  //
-  //  "positive_responses": 0,
-  //  "neutral_responses": 0,
-  //  "negative_responses": 0,
-  //
-  //  "short_issue_id": "cuQLpXEaSiWbqCrZmQ4RiA",
-  //  "user_id": "ddb6f9ba-c4f2-4b78-9790-8c3d3468d276",
-  //  "emotional_response": "none",
-  //
-  //  "timestamp": 1461926704743
 
-  onRelatedArticleClicked(e){
-      Linking.openURL("http://www.google.com").catch(err => console.error('An error occurred', err));
-      alert("related article clicked");
+  renderBody(styles){
+    return (
+      <View style={styles.cardContentContainer}>
+
+        <View style={styles.cardContentHeader}>
+          <Text style={styles.cardContentText}>
+          {this.props.issueText}
+          </Text>
+        </View>
+
+        {this.renderRelatedBillLink(styles)}
+        {this.renderRelatedArticlePreview(styles)}
+      </View>);
   }
-  onRelatedBillClicked(e){
-    alert('related bill clicked - should navigate user to this bill.')
+
+  renderFooter(styles){
+      return (<View style={styles.cardFooterContainer}>
+        <Text style={styles.cardFooterText}>What's your reaction?</Text>
+        <View style={styles.cardFooterIconsContainer}>
+          <TouchableOpacity  onPress={this.onHappyClick.bind(this)}>
+            {this.renderReactionIcon("happy", this.props.happyCnt, (this.props.userReaction==Reactions.HAPPY), styles)}
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={this.onNeutralClick.bind(this)}>
+            {this.renderReactionIcon("neutral", this.props.neutralCnt, (this.props.userReaction==Reactions.NEUTRAL), styles)}
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={this.onSadClick.bind(this)}>
+            {this.renderReactionIcon("sad", this.props.sadCnt, (this.props.userReaction==Reactions.SAD), styles)}
+          </TouchableOpacity>
+        </View>
+      </View>);
   }
+
+
 
   renderReactionIcon(type, count, userVotedThis, styles){
 
@@ -474,31 +497,9 @@ class FeedUserIssueCard extends Component {
     }
   }
 
-  renderBody(styles){
-    return (
-      <View style={styles.cardContentContainer}>
 
-        <View style={styles.cardContentHeader}>
-          <Text style={styles.cardContentText}>
-          {this.props.issueText}
-          </Text>
-        </View>
 
-        {this.renderRelatedBillLink(styles)}
-        {this.renderRelatedArticlePreview(styles)}
-      </View>);
-  }
 
-  renderFooter(styles){
-      return (<View style={styles.cardFooterContainer}>
-        <Text style={styles.cardFooterText}>What's your reaction?</Text>
-        <View style={styles.cardFooterIconsContainer}>
-          {this.renderReactionIcon("happy", this.props.happyCnt, (this.props.userReaction==Reactions.HAPPY), styles)}
-          {this.renderReactionIcon("neutral", this.props.neutralCnt, (this.props.userReaction==Reactions.NEUTRAL), styles)}
-          {this.renderReactionIcon("sad", this.props.sadCnt, (this.props.userReaction==Reactions.SAD), styles)}
-        </View>
-      </View>);
-  }
   /**
    * ### render
    * Setup some default presentations and render
@@ -522,6 +523,7 @@ class FeedUserIssueCard extends Component {
       </View>
     );
   }
+
 }
 
 

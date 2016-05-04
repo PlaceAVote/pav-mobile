@@ -273,22 +273,41 @@ class FeedBillCard extends Component {
       return (<View style={styles.cardFooterContainer}>
 
         <View style={styles.cardFooterContentContainer}>
-          <View style={styles.cardFooterTextContainer}>
+          <TouchableOpacity style={styles.cardFooterTextContainer} onPress={this.onCommentsClicked.bind(this)}>
             <Text style={styles.cardFooterValueText}>{this.props.commentCnt} </Text>
             <Text style={styles.cardFooterTitleText}>Comments</Text>
-          </View>
+          </TouchableOpacity>
           {this.renderFavourPercentageText(this.props.favorPercentage, styles)}
         </View>
 
         <View style={styles.cardFooterSocialShareIconsContainer}>
-          <PavIcon name="social-twitter" size={18} style={styles.cardFooterSocialShareIcon}/>
-          <PavIcon name="facebook" size={15} style={styles.cardFooterSocialShareIcon}/>
+          <TouchableOpacity onPress={this.onTwitterBtnClicked.bind(this)}>
+            <PavIcon name="social-twitter" size={18} style={styles.cardFooterSocialShareIcon}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onFacebookBtnClicked.bind(this)}>
+            <PavIcon name="facebook" size={15} style={styles.cardFooterSocialShareIcon}/>
+          </TouchableOpacity>
         </View>
-
-
-
       </View>);
   }
+
+  onTwitterBtnClicked(){
+    alert("On twitter clicked");
+  }
+
+  onFacebookBtnClicked(){
+    alert("On facebook clicked");
+  }
+
+  onBillClicked(){
+    alert("On Bill clicked")
+  }
+
+  onCommentsClicked(){
+    alert("On comments clicked")
+  }
+
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -302,18 +321,20 @@ class FeedBillCard extends Component {
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={styles.card}>
-          <PavImage platform={this.props.device.platform}
-          style={styles.billImage}
-          source={{uri: this.props.billImgUrl}}
-          resizeMode='cover'
-          >
-            <LinearGradient
-                colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
-                start={[-0.3, 0.0]} end={[1.3, 0.0]}>
-                {this.renderHeader(styles)}
-                {this.renderBody(styles)}
-            </LinearGradient>
-          </PavImage>
+          <TouchableOpacity  onPress={this.onBillClicked.bind(this)}>
+            <PavImage platform={this.props.device.platform}
+            style={styles.billImage}
+            source={{uri: this.props.billImgUrl}}
+            resizeMode='cover'
+            >
+              <LinearGradient
+                  colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
+                  start={[-0.3, 0.0]} end={[1.3, 0.0]}>
+                  {this.renderHeader(styles)}
+                  {this.renderBody(styles)}
+              </LinearGradient>
+            </PavImage>
+          </TouchableOpacity>
           {this.renderFooter(styles)}
         </View>
       </View>
