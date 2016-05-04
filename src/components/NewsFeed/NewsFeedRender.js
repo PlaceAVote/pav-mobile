@@ -312,8 +312,8 @@ class NewsFeedRender extends Component {
  HEADER - FILTERS
 */
 
-  renderNewsFeedHeader(styles){
-    let curSelectedFilter = this.props.newsfeed.newsFeedData.curSelectedFilter, curSelectedDiscoverTopic = this.props.newsfeed.newsFeedData.curSelectedTopic, userFirstName = this.props.auth.user.firstName;
+  renderNewsFeedHeader(curSelectedFilter, curSelectedDiscoverTopic, userFirstName, styles){
+
     return (
       <View key="scrollerViewHeader" style={styles.scrollerViewHeader}>
         {this.renderFilterView(curSelectedFilter, curSelectedDiscoverTopic, styles)}
@@ -425,7 +425,6 @@ class NewsFeedRender extends Component {
           return(<ListView
              style={styles.itemList}
              initialListSize={5}
-             renderHeader={this.renderNewsFeedHeader.bind(this,styles)}
              dataSource={this.getDataSource(this.props.newsfeed.newsFeedData.itemsAfterFiltration)}
              renderRow={(rowData) =>
                <CardFactory
@@ -524,12 +523,12 @@ class NewsFeedRender extends Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-
     return(
         <View style={styles.container}>
-          <View style={styles.bodyView}>
+          <ScrollView style={styles.bodyView}>
+            {this.renderNewsFeedHeader(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.newsFeedData.curSelectedTopic, this.props.auth.user.firstName, styles)}
             {this.renderNewsFeedBody(this.props.newsfeed.newsFeedData.curSelectedFilter, (!this.props.newsfeed.isFetching.newsFeedData && this.props.newsfeed.newsFeedData.itemsAfterFiltration!=null), styles)}
-          </View>
+          </ScrollView>
         </View>
     );
   }
