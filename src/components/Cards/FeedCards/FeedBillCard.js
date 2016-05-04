@@ -251,17 +251,21 @@ class FeedBillCard extends Component {
   }
 
   renderFavourPercentageText(favorPercentage, styles){
-    if(favorPercentage>0){
+    if(favorPercentage>0 && favorPercentage!=50){
       return (
         <View style={styles.cardFooterTextContainer}>
           <Text style={styles.cardFooterValueText}>{favorPercentage}% </Text>
           <Text style={styles.cardFooterTitleText}>Vote In Favor</Text>
         </View>);
-    }else{
+    }else if(favorPercentage==50){
       return (
         <View style={styles.cardFooterTextContainer}>
           <Text style={styles.cardFooterTitleText}>Vote 50% - 50%</Text>
         </View>);
+    }else{
+      return (<View style={styles.cardFooterTextContainer}>
+        <Text style={styles.cardFooterTitleText}>No votes yet</Text>
+      </View>);
     }
   }
 
