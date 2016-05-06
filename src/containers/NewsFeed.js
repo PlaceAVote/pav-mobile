@@ -110,7 +110,7 @@ class NewsFeed extends Component {
   constructor(props) {
     super(props);
 
-    this.connectAndGetFeed();
+    // this.connectAndGetFeed();
   }
 
 
@@ -142,6 +142,9 @@ class NewsFeed extends Component {
       this.props.actions.setActivityFilter(filterName);
     }
   }
+  onTopicBtnClick(topicName){
+    alert("Topic: "+topicName+" clicked.");
+  }
 
 
 
@@ -160,6 +163,7 @@ class NewsFeed extends Component {
           device={ this.props.device}
           newsfeed={this.props.newsfeed}
           onFilterBtnClick={this.onFilterBtnClick.bind(this)}
+          onTopicBtnClick={this.onTopicBtnClick.bind(this)}
           onFeedRefresh={this.onFeedRefresh.bind(this)}
       />
 

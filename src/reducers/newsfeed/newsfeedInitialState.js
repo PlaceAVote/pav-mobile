@@ -12,7 +12,7 @@
 
 const  {Record, List} = require('immutable');
 import {Other} from '../../config/constants';
-const {NEWS_FEED_FILTERS} = Other;
+const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
 /**
  * ##
@@ -31,7 +31,7 @@ var InitialState = Record({
 
   newsFeedData: new (Record({
     curSelectedFilter: NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER,
-    curSelectedTopic : null,
+    curSelectedTopic : TOPICS.TRENDING,
     items: null,
     itemsAfterFiltration: null,
 

@@ -229,6 +229,7 @@ class NewsFeedRender extends Component {
               device={this.props.device}
               discoveryData={discoveryData}
               height={h*0.7}
+              topicList={this.props.auth.form.fields.topicsList.toJS()}
               />
             </View>);
         case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
@@ -266,9 +267,11 @@ class NewsFeedRender extends Component {
               colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
             />}>
             <FiltersRender
+              topicList={this.props.auth.form.fields.topicsList.toJS()}
               curSelectedTopic={this.props.newsfeed.newsFeedData.curSelectedTopic}
               curSelectedFilter={this.props.newsfeed.newsFeedData.curSelectedFilter}
               onFilterBtnClick={this.props.onFilterBtnClick}
+              onTopicBtnClick={this.props.onTopicBtnClick}
               user={this.props.auth.user.firstName}
               orientation={this.props.device.orientation}
               style={styles.headerView}

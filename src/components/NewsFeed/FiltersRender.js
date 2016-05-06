@@ -8,7 +8,7 @@
 
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
-const {NEWS_FEED_FILTERS} = Other;
+const {NEWS_FEED_FILTERS, TOPICS} = Other;
 /**
  * The necessary React components
  */
@@ -19,7 +19,7 @@ import React,
   Text,
   View,
   TouchableOpacity,
-
+  ScrollView,
 }
 from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -87,6 +87,7 @@ class FiltersRender extends Component {
         backgroundColor: "white",
         flexDirection:'row',
       },
+
       expandedFilterContainer:{
         flex:3,
         // backgroundColor:'yellow',
@@ -114,15 +115,16 @@ class FiltersRender extends Component {
         paddingTop:h*0.013,
         paddingBottom:h*0.006,
         // backgroundColor:'blue'
-    },
-    inactiveFilterIcon:{
-      paddingHorizontal:3,
-      color:Colors.primaryColor
-    },
-    activeFilterIcon:{
-      paddingHorizontal:3,
-      color:Colors.negativeAccentColor
-    },
+      },
+      inactiveFilterIcon:{
+        paddingHorizontal:3,
+        color:Colors.primaryColor
+      },
+      activeFilterIcon:{
+        paddingHorizontal:3,
+        color:Colors.negativeAccentColor
+      },
+
       filterText:{
         paddingHorizontal: w*0.009,
         fontFamily: 'Whitney-Bold',
@@ -147,6 +149,58 @@ class FiltersRender extends Component {
       },
 
 
+
+      topicSelectorContainer:{
+        // backgroundColor:'green',
+        flex:1,
+        paddingVertical: h*0.02,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center'
+      },
+      topicViewContainer:{
+        backgroundColor: "white",
+        flex:1,
+        // flexDirection:'row',
+      },
+      activeTopicContainer:{
+        // backgroundColor:'yellow',
+        paddingHorizontal:w*0.04,
+        borderStyle: 'solid',
+        borderLeftColor: 'rgba(0, 0, 0, 0.1)',
+        borderLeftWidth:1,
+        borderTopColor: Colors.negativeAccentColor,
+        borderTopWidth:2,
+        alignItems:'center',
+        justifyContent:'center'
+      },
+      inactiveTopicContainer:{
+        // backgroundColor:'yellow',
+        borderStyle: 'solid',
+        borderLeftColor: 'rgba(0, 0, 0, 0.1)',
+        borderLeftWidth:1,
+        alignItems:'center',
+        justifyContent:'center'
+      },
+      topicContent:{
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        paddingHorizontal:w*0.015,
+        paddingVertical:h*0.021,
+        // backgroundColor:'blue'
+      },
+      topicText:{
+        paddingHorizontal: w*0.009,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,5),
+        color: Colors.primaryColor,
+      },
+      topicArrowIcon:{
+        paddingHorizontal: w*0.009,
+        color:Colors.primaryColor
+      }
+
     });
   }
 
@@ -169,7 +223,12 @@ class FiltersRender extends Component {
 
 
 
-
+/*
+ *
+ *
+ *   FILTERS     FILTERS     FILTERS     FILTERS     FILTERS     FILTERS
+ *
+*/
 
   getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName){
     switch(curSelectedFilter){
@@ -218,6 +277,70 @@ class FiltersRender extends Component {
 
 
 
+
+
+  /*
+   *
+   *
+   *   TOPICS       TOPICS       TOPICS       TOPICS       TOPICS       TOPICS
+   *
+  */
+
+    renderTopicButton(isActive, topicName, topicList, styles ){
+        // let filterName = this.props.curSelectedFilter;
+        let curTopicTitle = topicName==TOPICS.TRENDING?"Trending ":topicList[topicName].title;
+        // console.log("@@@@@@@@: "+curTopicObj)
+        return(
+          <View key={topicName+"container"} style={isActive?styles.activeTopicContainer:styles.inactiveTopicContainer}>
+            <TouchableOpacity key={topicName+"touchable"} style={styles.topicContent} onPress={()=>{this.props.onTopicBtnClick(topicName)}}>
+              <Text style={styles.topicText}>{curTopicTitle} </Text>
+            </TouchableOpacity>
+          </View>);
+    }
+
+
+
+
+
+  renderTopicSelector(renderTopicSelector, styles){
+    if(renderTopicSelector==true){
+        return (
+        <View key="discoverTopicSelector" style={styles.topicSelectorContainer}>
+          <PavIcon key="leftIcon" name="arrow-left" size={15} style={styles.topicArrowIcon}/>
+          <ScrollView horizontal={true} style={styles.topicViewContainer}>
+            {this.renderTopicButton((TOPICS.TRENDING==this.props.curSelectedTopic), TOPICS.TRENDING, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.HEALTHCARE==this.props.curSelectedTopic), TOPICS.HEALTHCARE, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.TECHNOLOGY==this.props.curSelectedTopic), TOPICS.TECHNOLOGY, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.SOCIAL_INTEREST==this.props.curSelectedTopic), TOPICS.SOCIAL_INTEREST, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.EDUCATION==this.props.curSelectedTopic), TOPICS.EDUCATION, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.POLITICS==this.props.curSelectedTopic), TOPICS.POLITICS, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.TAXES==this.props.curSelectedTopic), TOPICS.TAXES, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.IMMIGRATION==this.props.curSelectedTopic), TOPICS.IMMIGRATION, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.DRUGS==this.props.curSelectedTopic), TOPICS.DRUGS, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.DEFENSE==this.props.curSelectedTopic), TOPICS.DEFENSE, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.CRIME==this.props.curSelectedTopic), TOPICS.CRIME, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.GUN_RIGHTS==this.props.curSelectedTopic), TOPICS.GUN_RIGHTS, this.props.topicList, styles)}
+            {this.renderTopicButton((TOPICS.ECONOMICS==this.props.curSelectedTopic), TOPICS.ECONOMICS, this.props.topicList, styles)}
+          </ScrollView>
+          <PavIcon key="rightIcon" name="arrow-right" size={15} style={styles.topicArrowIcon}/>
+
+
+        </View>);
+    }else{
+        return <View></View>;
+    }
+
+
+  }
+
+
+  /*
+   *
+   *
+   *   RENDER       RENDER       RENDER       RENDER       RENDER       RENDER
+   *
+  */
+
   /**
    * ### render method
    */
@@ -236,8 +359,9 @@ class FiltersRender extends Component {
           {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==this.props.curSelectedFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER, this.props.curSelectedTopic, styles)}
           {this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==this.props.curSelectedFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER, this.props.curSelectedTopic, styles)}
         </View>
+        {this.renderTopicSelector((this.props.curSelectedFilter!=NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER), styles)}
         <Text key="recentActivityText" style={styles.recentActivityText}>{this.getHeaderTextBasedOnFilter(this.props.curSelectedFilter, this.props.user.firstName)}</Text>
-        {()=>(this.props.curSelectedFilter!=NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER)?<View></View>:<View key="discoverTopicSelector"><Text>Current Topic selector</Text></View>}
+
       </View>
       );
   }
