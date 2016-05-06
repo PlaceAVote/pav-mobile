@@ -53,7 +53,8 @@
     "react-native-material-kit": "^0.3.1",
     "react-native-image-progress": "^0.4.0",
     "react-native-progress": "^2.2.2",
-    "react-art": "^0.14.0"
+    "react-art": "^0.14.0",
+    "react-native-viewpager":"^0.2.1"
 
   },
   "devDependencies": {

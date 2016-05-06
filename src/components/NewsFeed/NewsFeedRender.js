@@ -54,7 +54,8 @@ import React,
   ActivityIndicatorIOS,
   TouchableOpacity,
   ListView,
-  RefreshControl
+  RefreshControl,
+
 }
 from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -65,6 +66,10 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
+
+
+
+
 /**
 * Icons library
 */
@@ -74,14 +79,10 @@ var LImage = require('react-native-image-progress');
 var Progress = require('react-native-progress');
 
 
-/**
-* Cards
-*/
-import CardFactory from '../Cards/CardFactory';
-// import FeedUserIssueCard from '../Cards/FeedCards/FeedUserIssueCard';
-// import FeedBillCard from '../Cards/FeedCards/FeedBillCard';
-// import FeedCommentCard from '../Cards/FeedCards/FeedCommentCard';
-// import FeedVoteCard from '../Cards/FeedCards/FeedVoteCard';
+import ActivityFeedRender from './ActivityFeedRender';
+import DiscoveryFeedRender from './DiscoveryFeedRender';
+import FiltersRender from './FiltersRender';
+
 
 
 /**
@@ -156,12 +157,16 @@ class NewsFeedRender extends Component {
         // marginVertical: 10,
         // marginHorizontal:15
       },
-
-
-      bodyView:{
+      scrollView:{
         flex:1,
         backgroundColor: '#E8E7EE',
       },
+      headerView:{
+        paddingVertical:h*0.02,
+        paddingHorizontal:w*0.016,
+        // backgroundColor:'red'
+      },
+
       bodyLoadingContainer:{
         flex:1,
         // height:h*0.5,
@@ -170,105 +175,6 @@ class NewsFeedRender extends Component {
         // backgroundColor:'red'
       },
 
-      cardsContainer:{
-        flex:1,
-        // backgroundColor:'red',
-      },
-
-
-
-
-
-      recentActivityText: {
-        // top:0,
-        // width:w,
-        // height:h*0.065,
-        // position:'absolute',
-        // backgroundColor: "rgba(0,0,0,0.06)",
-        paddingHorizontal: w*0.009,
-        paddingVertical: h*0.02,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,10),
-        color: Colors.fifthTextColor,
-        // textAlign: 'center',
-      },
-      scrollView:{
-        flex:1
-      },
-      scrollerViewHeader:{
-        // backgroundColor: "rgba(0,0,0,0.06)",
-        flex:1,
-        flexDirection:'column',
-        padding:10,
-      },
-      filtersViewContainer:{
-        backgroundColor: "white",
-        flexDirection:'row',
-      },
-      expandedFilterContainer:{
-        flex:3,
-        // backgroundColor:'yellow',
-        borderStyle: 'solid',
-        borderLeftColor: 'rgba(0, 0, 0, 0.1)',
-        borderLeftWidth:1,
-        // alignItems:'center',
-        justifyContent:'center'
-      },
-      collapsedFilterContainer:{
-        flex:1,
-        justifyContent:'center',
-        // paddingHorizontal:w*0.037,
-        // paddingVertical:h*0.015,
-        borderStyle: 'solid',
-        borderLeftColor: 'rgba(0, 0, 0, 0.1)',
-        borderLeftWidth:1,
-      },
-      filterContent:{
-        flex:1,
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
-        paddingHorizontal:w*0.015,
-        paddingTop:h*0.013,
-        paddingBottom:h*0.006,
-        // backgroundColor:'blue'
-    },
-    inactiveFilterIcon:{
-      paddingHorizontal:3,
-      color:Colors.primaryColor
-    },
-    activeFilterIcon:{
-      paddingHorizontal:3,
-      color:Colors.negativeAccentColor
-    },
-      filterText:{
-        paddingHorizontal: w*0.009,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,5),
-        color: Colors.thirdTextColor,
-
-      },
-      filterIndicatorIconContainer:{
-        // backgroundColor:'red',
-        // alignSelf:'center',
-        // justifyContent:'flex-end',
-      },
-      activeFilterIndicatorIcon:{
-        // backgroundColor:'yellow',
-        alignSelf:'center',
-        color:'#E8E7EE'
-      },
-      inactiveFilterIndicatorIcon:{
-        // backgroundColor:'yellow',
-        alignSelf:'center',
-        color:Colors.transparentColor
-      },
-      spinner:{
-      },
-      itemList:{
-        flex:1,
-        // backgroundColor:'red'
-      }
 
     });
   }
@@ -283,21 +189,6 @@ class NewsFeedRender extends Component {
   getLandscapeStyles(self){
     return StyleSheet.create({
 
-      container: {
-        // backgroundColor: 'orange',
-        flex:1,
-        flexDirection: 'column',
-        marginVertical: 10,
-        marginHorizontal:10
-      },
-
-      titleText: {
-        // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,27),
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-      }
-
     });
   }
 
@@ -306,213 +197,45 @@ class NewsFeedRender extends Component {
 
 
 
-
-
-
-/*
- HEADER - FILTERS
-*/
-
-  renderNewsFeedHeader(curSelectedFilter, curSelectedDiscoverTopic, userFirstName, styles){
-
-    return (
-      <View key="scrollerViewHeader" style={styles.scrollerViewHeader}>
-        {this.renderFilterView(curSelectedFilter, curSelectedDiscoverTopic, styles)}
-        <Text key="recentActivityText" style={styles.recentActivityText}>{this.getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName)}</Text>
-        {()=>(curSelectedFilter!=NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER)?<View></View>:<View key="discoverTopicSelector"><Text>Current Topic selector</Text></View>}
-    </View>);
-  }
-
-  getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName){
-    switch(curSelectedFilter){
-      case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
-        return "Welcome back, "+userFirstName+"! Here's whats new: ";
-      case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
-        return "Here's whats new from the people you follow: ";
-      case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
-        return "Here's whats new from the bills you follow: ";
-      case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
-        return "Here are some bills you might be interested in: ";
-      case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
-        return "Here are a few statistics you might be interested in: ";
-    }
-  }
-
-  renderFilterView(nameOfActiveFilter, nameOfDiscoverTopicSelected, styles){
-    return (
-      <View key="filtersViewContainer" style={styles.filtersViewContainer}>
-        {this.renderFilterButton((NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER==nameOfActiveFilter), "globe", NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER, nameOfDiscoverTopicSelected, styles)}
-        {this.renderFilterButton((NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER==nameOfActiveFilter), "add-lined", NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER, nameOfDiscoverTopicSelected, styles)}
-        {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==nameOfActiveFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER, nameOfDiscoverTopicSelected, styles)}
-        {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==nameOfActiveFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER, nameOfDiscoverTopicSelected, styles)}
-        {this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==nameOfActiveFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER, nameOfDiscoverTopicSelected, styles)}
-      </View>
-    );
-  }
-
-  renderFilterButton(isActive, iconName, filterName, topicName, styles ){
-    if(isActive){
-      return(
-        <View key={iconName+"container"} style={styles.expandedFilterContainer}>
-          <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName, topicName)}}>
-            <PavIcon key={iconName+"icon1"} name={iconName} size={15} style={styles.activeFilterIcon}/>
-            <Text style={styles.filterText}>{filterName}</Text>
-          </TouchableOpacity>
-          <View key={iconName+"indicatorContainer"} style={styles.filterIndicatorIconContainer}>
-            <PavIcon key={iconName+"indicatorIcon"} name="activeIndicatorShrinked" size={7} style={styles.activeFilterIndicatorIcon}/>
-          </View>
-        </View>);
-    }else{
-      return(
-        <View key={iconName+"container"} style={styles.collapsedFilterContainer}>
-          <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName, topicName)}}>
-            <PavIcon key={iconName+"icon1"} name={iconName} size={15} style={styles.inactiveFilterIcon}/>
-          </TouchableOpacity>
-          <View key={iconName+"indicatorContainer"} style={styles.filterIndicatorIconContainer}>
-            <PavIcon key={iconName+"indicatorIcon"} name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>
-          </View>
-        </View>);
-    }
-  }
-
-
-
-
-
-
-
-
-
-
-  getDataSource(data){
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.event_id !== r2.event_id});
-    return ds.cloneWithRows(data);
-  }
-
-  // parseFeedDataIntoComponents(items, styles, user){
-  //   if(!!items){
-  //     var cards = [];
-  //     for(var ii=0, ll=items.length;ii<ll;ii++){ //for each timeline item
-  //       let curFeedItem = items[ii];
-  //       // console.log(ii+" @ "+JSON.stringify(curFeedItem))
-  //       cards.push(<CardFactory
-  //         type="newsfeed"
-  //         key={curFeedItem.event_id}
-  //         style={styles.card}
-  //         itemData={curFeedItem}
-  //         device={this.props.device}
-  //         curUser={user}
-  //         />);
-  //     }
-  //     return cards;
-  //   }
-  // }
-// {/*{this.parseFeedDataIntoComponents(this.props.newsfeed.newsFeedData.itemsAfterFiltration, styles, this.props.auth.user)}*/}
-
-
   /*
   BODY - FEED
   */
-  renderNewsFeedBody(filterName, isFetching, data, styles){
+  renderNewsFeedBody(filterName, isFetchingFeed, feedData, isFetchingDiscovery, discoveryData, styles){
     // console.log("RenderNewsFeedBody Ran with filterName: "+filterName+" while data "+(dataReady==true?"WAS ready.":"was NOT ready."))
-    let dataReady= (!isFetching && data!=null)
-    if(dataReady==true){
+
+      let dataReady=false;
       switch(filterName){
         case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
         case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
         case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
+          dataReady= (!isFetchingFeed && feedData!=null)
+          if(dataReady==true){
+            return(
+              <View key="bodyContainerView">
+                <ActivityFeedRender
+                feedData={feedData}
+                device={this.props.device}
+                curUser={this.props.auth.user}
+               />
+             </View>);
+          }else{
+            return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
+          }
         case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
+          dataReady = (!isFetchingDiscovery && discoveryData!=null)
           return(
             <View key="bodyContainerView">
-              <ListView
-               enableEmptySections={true}
-               style={styles.itemList}
-               initialListSize={5}
-               dataSource={this.getDataSource(data)}
-               renderRow={(rowData) =>
-                 <CardFactory
-                 type="newsfeed"
-                 key={rowData.event_id}
-                 style={styles.card}
-                 itemData={rowData}
-                 device={this.props.device}
-                 curUser={this.props.auth.user}
-                 />}
-             />
-           </View>);
-          break;
+              <DiscoveryFeedRender
+              device={this.props.device}
+              discoveryData={discoveryData}
+              height={h*0.7}
+              />
+            </View>);
         case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
           return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>Statistics page not ready yet</Text></View>);
-          break;
       }
-    }else{
-      return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
-      // if(this.props.device.platform=="android"){
-      //     return (
-      //     <View key="bodyContainerView" style={styles.bodyLoadingContainer}>
-      //       <ProgressBar styleAttr="Large" color="red" style={styles.spinner}/>
-      //     </View>);
-      // }else if(this.props.device.platform=="ios"){
-      //     return (
-      //       <View  key="bodyContainerView" style={styles.bodyLoadingContainer}>
-      //         <ActivityIndicatorIOS
-      //           animating={true}
-      //           size="large"
-      //           style={styles.spinner}
-      //         />
-      //       </View>);
-      // }else{
-      //   alert("Other");
-      //   return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>Now Loading</Text></View>);
-      // }
-    }
-
-
-
   }
 
-/*
-  <FeedVoteCard
-  device={this.props.device}
-  timeString="10 minutes ago"
-  userFullNameText="Ioannis Kokkinidis"
-  voteParentTitle="A bill title"
-  userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
-  />
-  <FeedCommentCard
-  device={this.props.device}
-  timeString="10 minutes ago"
-  userFullNameText="Ioannis Kokkinidis"
-  commentParentTitle="A bill title"
-  commentText="A comment"
-  likeCount={127}
-  userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
-  isLiked={false}
-  isDisliked={true}
-  />
-  <FeedBillCard
-  subjectTitle="Crime"
-  billTitle="Should an Attack on a Police Officer be Considered a Hate Crime?"
-  billImgUrl="https://cdn.placeavote.com/bills/114/images/hr4760-114/main.jpg"
-  commentCnt={20}
-  favorPercentage={62}
-  device={this.props.device}
-  />
-  <FeedUserIssueCard
-  device={this.props.device}
-  timeString="20 minutes ago"
-  userFullNameText="Ioannis Kokkinidis"
-  issueText="I can't share bills without a true comment"
-  userPhotoUrl="https://cdn.placeavote.com/users/3f52df6d-de6f-4564-abf3-be64f9f7fbbe/profile/img/p200xp200x/6458ceb0-fe46-4cd9-97cc-e6994ba66f71.jpeg"
-  relatedArticleUrl="http://www.bbc.co.uk/news/technology-36168863"
-  relatedArticleTitle="Craig Wright revealed as Bitcoin creator Satoshi Nakamoto - BBC News"
-  relatedArticlePhotoUrl="https://cdn.placeavote.com/users/issues/images/c3b436bf-8fb5-4c02-b76d-f3b2859dd65f/main.jpg"
-  relatedBillTitle="E-Free Act"
-  userReaction="positive"
-  happyCnt={23}
-  neutralCnt={1}
-  sadCnt={2}
-  />*/
 
 
 
@@ -527,12 +250,12 @@ class NewsFeedRender extends Component {
   render() {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
+    // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
         <View style={styles.container}>
           <ScrollView
-          style={styles.bodyView}
+          style={styles.scrollView}
           refreshControl={
               <RefreshControl
               refreshing={this.props.newsfeed.isFetching.newsFeedData}
@@ -542,8 +265,18 @@ class NewsFeedRender extends Component {
               titleColor={Colors.primaryColor}
               colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
             />}>
-            {this.renderNewsFeedHeader(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.newsFeedData.curSelectedTopic, this.props.auth.user.firstName, styles)}
-            {this.renderNewsFeedBody(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.isFetching.newsFeedData, this.props.newsfeed.newsFeedData.itemsAfterFiltration, styles)}
+            <FiltersRender
+              curSelectedTopic={this.props.newsfeed.newsFeedData.curSelectedTopic}
+              curSelectedFilter={this.props.newsfeed.newsFeedData.curSelectedFilter}
+              onFilterBtnClick={this.props.onFilterBtnClick}
+              user={this.props.auth.user.firstName}
+              orientation={this.props.device.orientation}
+              style={styles.headerView}
+            />
+
+
+
+            {this.renderNewsFeedBody(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.isFetching.newsFeedData, this.props.newsfeed.newsFeedData.itemsAfterFiltration, this.props.newsfeed.isFetching.discoveryData, this.props.newsfeed.newsFeedData.discoveryAfterFiltration, styles)}
           </ScrollView>
         </View>
     );

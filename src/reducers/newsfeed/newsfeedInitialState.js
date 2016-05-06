@@ -26,6 +26,7 @@ var InitialState = Record({
   // isValid: false,
   isFetching: new (Record({
     newsFeedData: false,
+    discoveryData: false,
   })),
 
   newsFeedData: new (Record({
@@ -33,6 +34,11 @@ var InitialState = Record({
     curSelectedTopic : null,
     items: null,
     itemsAfterFiltration: null,
+
+
+
+    discoveryItems: [],
+    discoveryAfterFiltration: [1,2,3],
 
   }))
 });
