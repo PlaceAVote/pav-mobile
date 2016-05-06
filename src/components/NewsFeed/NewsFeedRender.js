@@ -53,7 +53,8 @@ import React,
   ScrollView,
   ActivityIndicatorIOS,
   TouchableOpacity,
-  ListView
+  ListView,
+  RefreshControl
 }
 from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -409,57 +410,61 @@ class NewsFeedRender extends Component {
 // {/*{this.parseFeedDataIntoComponents(this.props.newsfeed.newsFeedData.itemsAfterFiltration, styles, this.props.auth.user)}*/}
 
 
-
-
   /*
   BODY - FEED
   */
-  renderNewsFeedBody(filterName, dataReady, styles){
+  renderNewsFeedBody(filterName, isFetching, data, styles){
     // console.log("RenderNewsFeedBody Ran with filterName: "+filterName+" while data "+(dataReady==true?"WAS ready.":"was NOT ready."))
+    let dataReady= (!isFetching && data!=null)
     if(dataReady==true){
       switch(filterName){
         case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
         case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
         case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
         case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
-          return(<ListView
-             style={styles.itemList}
-             initialListSize={5}
-             dataSource={this.getDataSource(this.props.newsfeed.newsFeedData.itemsAfterFiltration)}
-             renderRow={(rowData) =>
-               <CardFactory
-               type="newsfeed"
-               key={rowData.event_id}
-               style={styles.card}
-               itemData={rowData}
-               device={this.props.device}
-               curUser={this.props.auth.user}
-               />}
-           />);
+          return(
+            <View key="bodyContainerView">
+              <ListView
+               enableEmptySections={true}
+               style={styles.itemList}
+               initialListSize={5}
+               dataSource={this.getDataSource(data)}
+               renderRow={(rowData) =>
+                 <CardFactory
+                 type="newsfeed"
+                 key={rowData.event_id}
+                 style={styles.card}
+                 itemData={rowData}
+                 device={this.props.device}
+                 curUser={this.props.auth.user}
+                 />}
+             />
+           </View>);
           break;
         case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
           return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>Statistics page not ready yet</Text></View>);
           break;
       }
     }else{
-      if(this.props.device.platform=="android"){
-          return (
-          <View key="bodyContainerView" style={styles.bodyLoadingContainer}>
-            <ProgressBar styleAttr="Large" color="red" style={styles.spinner}/>
-          </View>);
-      }else if(this.props.device.platform=="ios"){
-          return (
-            <View  key="bodyContainerView" style={styles.bodyLoadingContainer}>
-              <ActivityIndicatorIOS
-                animating={true}
-                size="large"
-                style={styles.spinner}
-              />
-            </View>);
-      }else{
-        alert("Other");
-        return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>Now Loading</Text></View>);
-      }
+      return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
+      // if(this.props.device.platform=="android"){
+      //     return (
+      //     <View key="bodyContainerView" style={styles.bodyLoadingContainer}>
+      //       <ProgressBar styleAttr="Large" color="red" style={styles.spinner}/>
+      //     </View>);
+      // }else if(this.props.device.platform=="ios"){
+      //     return (
+      //       <View  key="bodyContainerView" style={styles.bodyLoadingContainer}>
+      //         <ActivityIndicatorIOS
+      //           animating={true}
+      //           size="large"
+      //           style={styles.spinner}
+      //         />
+      //       </View>);
+      // }else{
+      //   alert("Other");
+      //   return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>Now Loading</Text></View>);
+      // }
     }
 
 
@@ -522,12 +527,23 @@ class NewsFeedRender extends Component {
   render() {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
+    console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
         <View style={styles.container}>
-          <ScrollView style={styles.bodyView}>
+          <ScrollView
+          style={styles.bodyView}
+          refreshControl={
+              <RefreshControl
+              refreshing={this.props.newsfeed.isFetching.newsFeedData}
+              onRefresh={this.props.onFeedRefresh}
+              tintColor={Colors.primaryColor}
+              title="Loading..."
+              titleColor={Colors.primaryColor}
+              colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
+            />}>
             {this.renderNewsFeedHeader(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.newsFeedData.curSelectedTopic, this.props.auth.user.firstName, styles)}
-            {this.renderNewsFeedBody(this.props.newsfeed.newsFeedData.curSelectedFilter, (!this.props.newsfeed.isFetching.newsFeedData && this.props.newsfeed.newsFeedData.itemsAfterFiltration!=null), styles)}
+            {this.renderNewsFeedBody(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.isFetching.newsFeedData, this.props.newsfeed.newsFeedData.itemsAfterFiltration, styles)}
           </ScrollView>
         </View>
     );

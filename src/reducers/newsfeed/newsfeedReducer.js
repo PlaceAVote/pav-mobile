@@ -74,12 +74,14 @@ export default function newsfeedReducer(state = initialState, action) {
         .setIn(['error'], action.payload);
       break;
     case FILTER_ITEMS_START:
-      return state.setIn([ 'isFetching', 'newsFeedData'], true)
-      // .setIn([ 'newsFeedData', 'itemsAfterFiltration'], null)
+      return state
       .setIn(['newsFeedData', 'curSelectedFilter'], action.payload)
+      // .setIn([ 'newsFeedData', 'itemsAfterFiltration'], null)
+      // .setIn([ 'isFetching', 'newsFeedData'], true)
       break;
     case FILTER_ITEMS_END:
-      return state.setIn([ 'isFetching', 'newsFeedData'], false)
+      return state
+      // .setIn([ 'isFetching', 'newsFeedData'], false)
       .setIn([ 'newsFeedData', 'itemsAfterFiltration'], action.payload);
       break;
 
