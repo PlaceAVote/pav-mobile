@@ -10,7 +10,7 @@
  */
 'use strict';
 
-const  {Record, List} = require('immutable');
+const  {Record, List, Map} = require('immutable');
 import {Other} from '../../config/constants';
 const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
@@ -36,9 +36,22 @@ var InitialState = Record({
     itemsAfterFiltration: null,
 
 
-
-    discoveryItems: [],
-    discoveryAfterFiltration: [1,2,3],
+    discoveryItems: new Map([
+      [TOPICS.TRENDING, null],
+      [TOPICS.HEALTHCARE, null],
+      [TOPICS.TECHNOLOGY, null],
+      [TOPICS.SOCIAL_INTEREST, null],
+      [TOPICS.EDUCATION, null],
+      [TOPICS.POLITICS, null],
+      [TOPICS.TAXES, null],
+      [TOPICS.IMMIGRATION, null],
+      [TOPICS.DRUGS, null],
+      [TOPICS.DEFENSE, null],
+      [TOPICS.CRIME, null],
+      [TOPICS.GUN_RIGHTS, null],
+      [TOPICS.ECONOMICS, null],
+    ]),
+    discoveryAfterFiltration: null,
 
   }))
 });

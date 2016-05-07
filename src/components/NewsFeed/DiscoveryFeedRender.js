@@ -33,8 +33,13 @@ import ViewPager from 'react-native-viewpager';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TopicSelectTabBar from './TopicSelectTabBar'
+import ActivityFeedRender from './ActivityFeedRender'
 import {Colors, Other} from '../../config/constants';
 const {TOPICS}=Other;
+
+
+
+
 
 
 
@@ -42,7 +47,26 @@ const {TOPICS}=Other;
 class DiscoveryFeedRender extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      pagesToRender : [
+        {key:TOPICS.TRENDING, title:"Trending"},
+        {key:TOPICS.HEALTHCARE, title:this.props.topicList[TOPICS.HEALTHCARE].title},
+        {key:TOPICS.TECHNOLOGY, title:this.props.topicList[TOPICS.TECHNOLOGY].title},
+        {key:TOPICS.SOCIAL_INTEREST, title:this.props.topicList[TOPICS.SOCIAL_INTEREST].title},
+        {key:TOPICS.EDUCATION, title:this.props.topicList[TOPICS.EDUCATION].title},
+        {key:TOPICS.POLITICS, title:this.props.topicList[TOPICS.POLITICS].title},
+        {key:TOPICS.TAXES, title:this.props.topicList[TOPICS.TAXES].title},
+        {key:TOPICS.IMMIGRATION, title:this.props.topicList[TOPICS.IMMIGRATION].title},
+        {key:TOPICS.DRUGS, title:this.props.topicList[TOPICS.DRUGS].title},
+        {key:TOPICS.DEFENSE, title:this.props.topicList[TOPICS.DEFENSE].title},
+        {key:TOPICS.CRIME, title:this.props.topicList[TOPICS.CRIME].title},
+        {key:TOPICS.GUN_RIGHTS, title:this.props.topicList[TOPICS.GUN_RIGHTS].title},
+        {key:TOPICS.ECONOMICS, title:this.props.topicList[TOPICS.ECONOMICS].title},
+      ]
+    }
   }
+
+
 
 
 
@@ -131,12 +155,28 @@ class DiscoveryFeedRender extends Component {
 
 
 
-  renderDiscoverPage(rowData){
+
+
+
+
+
+
+
+
+
+
+  renderDiscoverPage(pageTitle, discoveryData, device, curUser){
     return (
-      <View tabLabel={rowData} style={{backgroundColor:'green',flex:1, height:this.props.height}}>
-        <Text style={{backgroundColor:'red',flex:1,}}>Discovery page{rowData}</Text>
-      </View>)
+      <ActivityFeedRender
+      key={pageTitle}
+      tabLabel={pageTitle}
+      feedData={discoveryData}
+      device={device}
+      curUser={curUser}
+      type="discovery"
+      />)
   }
+
 
 
 
@@ -149,28 +189,17 @@ class DiscoveryFeedRender extends Component {
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <ScrollableTabView
-      initialPage={0}
-      renderTabBar={() =>
-        <TopicSelectTabBar
-          underlineColor={Colors.negativeAccentColor}
-          activeTextColor={Colors.primaryColor}
-          inactiveTextColor={Colors.primaryColor}
-        />}
+        onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
+        renderTabBar={() =>
+          <TopicSelectTabBar
+            underlineColor={Colors.negativeAccentColor}
+            activeTextColor={Colors.primaryColor}
+            inactiveTextColor={Colors.primaryColor}
+          />}
+        initialPage={0}
+        style={styles.pagesContainer}
       >
-        {this.renderDiscoverPage("Trending")}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.HEALTHCARE].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.TECHNOLOGY].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.SOCIAL_INTEREST].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.EDUCATION].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.POLITICS].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.TAXES].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.IMMIGRATION].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.DRUGS].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.DEFENSE].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.CRIME].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.GUN_RIGHTS].title)}
-        {this.renderDiscoverPage(this.props.topicList[TOPICS.ECONOMICS].title)}
-
+        {this.state.pagesToRender.map((page, i) => this.renderDiscoverPage(page.title, this.props.discoveryData.get(this.state.pagesToRender[i].key), this.props.device, this.props.curUser))}
      </ScrollableTabView>
 
     );

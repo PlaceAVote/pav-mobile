@@ -127,21 +127,7 @@ class CardFactory extends Component {
           sadCnt={n.negative_responses}
           />);
         break;
-      case "bill":
-        let yesCount = n["yes-count"], noCount = n["no-count"];
-        let favorPercent = -1;
-        if((yesCount+noCount)!=0){
-          favorPercent = ((yesCount/yesCount+noCount)*100.00) | 0;  //Bitwise OR operator | 0, converts the float value to int value
-        }
-        return (<FeedBillCard
-        {...this.props}
-        subjectTitle={n.subject}
-        billTitle={n.featured_bill_title}
-        billImgUrl={n.featured_img_link}
-        commentCnt={n.comment_count}
-        favorPercentage={favorPercent}
-        />);
-        break;
+
       case "comment":
         return (<FeedCommentCard
           {...this.props}
@@ -164,9 +150,23 @@ class CardFactory extends Component {
         userPhotoUrl={n.voter_img_url}
         />);
         break;
-      default:
-        return <View {...this.props}></View>;
-        break;
+
+        case "bill":
+        default:
+          let yesCount = n["yes-count"], noCount = n["no-count"];
+          let favorPercent = -1;
+          if((yesCount+noCount)!=0){
+            favorPercent = ((yesCount/(yesCount+noCount))*100.00) | 0;  //Bitwise OR operator | 0, converts the float value to int value
+          }
+          return (<FeedBillCard
+          {...this.props}
+          subjectTitle={n.subject}
+          billTitle={n.featured_bill_title}
+          billImgUrl={n.featured_img_link}
+          commentCnt={n.comment_count}
+          favorPercentage={favorPercent}
+          />);
+          break;
     }
   }
 

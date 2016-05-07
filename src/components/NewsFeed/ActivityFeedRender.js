@@ -40,6 +40,18 @@ import CardFactory from '../Cards/CardFactory';
 class ActivityFeedRender extends Component {
   constructor(props) {
     super(props);
+    let data = this.props.feedData || [];
+    // console.log("Data within getFeedDataSource is :"+data);
+    let ds = null;
+    if(this.props.type=="feed"){
+      ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
+    }else{
+      ds = new ListView.DataSource({rowHasChanged: (r1, r2) =>  (r1 !== r2) || (r1['bill_id'] !== r2['bill_id']) });
+    }
+    // ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.state = {
+      dataSource: ds.cloneWithRows(data),
+    };
   }
 
 
@@ -52,7 +64,6 @@ class ActivityFeedRender extends Component {
     return StyleSheet.create({
       itemList:{
         flex:1,
-        // backgroundColor:'red'
       }
 
     });
@@ -73,21 +84,14 @@ class ActivityFeedRender extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  getFeedDataSource(data){
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.event_id !== r2.event_id});
-    return ds.cloneWithRows(data);
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.feedData!=null &&  nextProps.feedData!== this.props.feedData) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.feedData)
+      })
+    }
   }
+
 
 
 
@@ -104,7 +108,8 @@ class ActivityFeedRender extends Component {
          enableEmptySections={true}
          style={[styles.itemList, this.props.style]}
          initialListSize={5}
-         dataSource={this.getFeedDataSource(this.props.feedData)}
+         dataSource={this.state.dataSource}
+         scrollEnabled={this.props.type=="discovery"?false:true}
          renderRow={(rowData) =>
            <CardFactory
            type="newsfeed"

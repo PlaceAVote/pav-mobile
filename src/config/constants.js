@@ -148,8 +148,11 @@ module.exports =  {
    GET_FEED_SUCCESS: null,
    GET_FEED_FAILURE: null,
 
-   FILTER_ITEMS_START: null,
-   FILTER_ITEMS_END: null,
+   GET_DISCOVERY_REQUEST: null,
+   GET_DISCOVERY_SUCCESS: null,
+   GET_DISCOVERY_FAILURE: null,
+
+   FILTER_ITEMS: null,
 
 
     /* Not yet implemented */

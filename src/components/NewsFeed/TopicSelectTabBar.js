@@ -182,9 +182,12 @@ const ScrollableTabBar = React.createClass({
       style={styles.container}
       onLayout={this.onContainerLayout}
     >
-      <View style={styles.iconContainer}>
+
+      <TouchableOpacity style={styles.iconContainer} onPress={()=>{
+        this._scrollView.scrollTo({x: 0, y: 0, });
+      }}>
         <PavIcon key="leftIcon" name="arrow-left" size={15} style={[styles.topicArrowIcon, this.props.activeTab==0?{color:Colors.transparentColor,}:{}]}/>
-      </View>
+      </TouchableOpacity>
       <ScrollView
         ref={(scrollView) => { this._scrollView = scrollView; }}
         horizontal={true}
@@ -204,9 +207,16 @@ const ScrollableTabBar = React.createClass({
           <Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, ]} />
         </View>
       </ScrollView>
-      <View style={styles.iconContainer}>
+      <TouchableOpacity style={styles.iconContainer} onPress={()=>{
+        if (Platform === 'android') {
+          this._scrollView.scrollTo({x: 0, y: 0, });
+        } else {
+          const rightBoundScroll = this._tabContainerMeasurements.width - (this._containerMeasurements.width);
+          this._scrollView.scrollTo({x: rightBoundScroll, y: 0, });
+        }
+      }}>
         <PavIcon key="leftIcon" name="arrow-right" size={15} style={[styles.topicArrowIcon, this.props.activeTab==this.props.tabs.length-1?{color:Colors.transparentColor,}:{}]}/>
-      </View>
+      </TouchableOpacity>
     </View>);
   },
 
@@ -216,7 +226,7 @@ module.exports = ScrollableTabBar;
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex:0,
     height: TAB_HEIGHT,
     flexDirection:'row',
     backgroundColor:'white',

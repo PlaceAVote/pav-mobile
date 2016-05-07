@@ -23,36 +23,34 @@ import PavClientSdk from 'pavclient';
 import {ActionNames, ScheneKeys, Other} from '../../config/constants';
 const {
   SET_ACTIVITY_FILTER,
+
+  GET_DISCOVERY_REQUEST,
+  GET_DISCOVERY_SUCCESS,
+  GET_DISCOVERY_FAILURE,
+
   GET_FEED_REQUEST,
   GET_FEED_SUCCESS,
   GET_FEED_FAILURE,
-  FILTER_ITEMS_START,
-  FILTER_ITEMS_END
+
+  FILTER_ITEMS,
 } = ActionNames;
-const {NEWS_FEED_FILTERS} = Other;
+const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
 
 
 
-function filterItemsRequest(activityName) {
-  return {
-    type: FILTER_ITEMS_START,
-    payload: activityName
-  };
-}
 function filterItemsSuccess(itemsAfterFiltration) {
   return {
-    type: FILTER_ITEMS_END,
+    type: FILTER_ITEMS,
     payload: itemsAfterFiltration
   };
 }
 export function filterFeedItems(filterName, topicType){
   return function (dispatch, getState){
-    dispatch(filterItemsRequest(filterName));
     let state = getState();
     // console.log("@@@@@@@@@@@@@@"+JSON.stringify(state.newsfeed))
-    let newItems = getFeedItemsDependingOnFilter(filterName, state.newsfeed.newsFeedData.items, topicType)
-    dispatch(filterItemsSuccess(newItems));
+    let newItems = getFeedItemsDependingOnFilter(filterName, state.newsfeed.newsFeedData.items)
+    dispatch(filterItemsSuccess({items:newItems,filterName:filterName}));
   }
 }
 
@@ -61,7 +59,7 @@ export function filterFeedItems(filterName, topicType){
   Following: Issues
   Bill Activity: Votes, Comments
 */
-function getFeedItemsDependingOnFilter(activityFilter, allItems, topicFilter){
+function getFeedItemsDependingOnFilter(activityFilter, allItems){
   // this.props.actions.setNewsFeedDataAvailable(false);
   let newItems = [];
   switch(activityFilter){
@@ -73,13 +71,6 @@ function getFeedItemsDependingOnFilter(activityFilter, allItems, topicFilter){
       break;
     case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
       newItems = iterateThroughItemsAndPickTheOnesWithType(allItems, ["bill", "comment", "vote"])
-      break;
-    case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
-      if(topicFilter!=null){
-        //TODO: set the new items with the fetched data of the trending endpoint
-      }else{
-        newItems = iterateThroughItemsAndPickTheOnesWithTypeAndSubtype(allItems, ["bill"], "Crime")
-      }
       break;
     case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
       alert("Now implemented yet");
@@ -102,35 +93,32 @@ function iterateThroughItemsAndPickTheOnesWithType(items, typeArray){
           }
         }
     }
-    // for(var i=0;i<999999999;i++){
-    //
-    // }
     return pickedArray;
   }else{
     return items;
   }
 }
 
-function iterateThroughItemsAndPickTheOnesWithTypeAndSubtype(items, typeArray, topicArray){
-  if(!!items && !!typeArray && typeArray.length>0){
-    let pickedArray = [];
-    for(let zz=0, lll=items.length; zz<lll;zz++){
-        let curItem = items[zz];
-        for (let xx=0, kkk=typeArray.length;xx<kkk;xx++){
-          let curType = typeArray[xx];
-            // for( let yy=0, jjj=topicArray.length;yy<jjj;yy+){
-            //   let curTopic = topicArray[yy];
-            //   if(curItem.type==curType && curItem.pav_topic==curTopic){
-            //     pickedArray.push(curItem);
-            //   }
-            // }
-        }
-    }
-    return pickedArray;
-  }else{
-    return items;
-  }
-}
+// function iterateThroughItemsAndPickTheOnesWithTypeAndSubtype(items, typeArray, topicArray){
+//   if(!!items && !!typeArray && typeArray.length>0){
+//     let pickedArray = [];
+//     for(let zz=0, lll=items.length; zz<lll;zz++){
+//         let curItem = items[zz];
+//         for (let xx=0, kkk=typeArray.length;xx<kkk;xx++){
+//           let curType = typeArray[xx];
+//             // for( let yy=0, jjj=topicArray.length;yy<jjj;yy+){
+//             //   let curTopic = topicArray[yy];
+//             //   if(curItem.type==curType && curItem.pav_topic==curTopic){
+//             //     pickedArray.push(curItem);
+//             //   }
+//             // }
+//         }
+//     }
+//     return pickedArray;
+//   }else{
+//     return items;
+//   }
+// }
 
 
 
@@ -180,7 +168,7 @@ export function getFeedFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getFeed(sessionToken=null, dev = null) {
+export function getFeedItems(sessionToken=null, dev = null) {
   console.log("Get feed called");
   return async function (dispatch){
     dispatch(getFeedRequest());
@@ -203,6 +191,77 @@ export function getFeed(sessionToken=null, dev = null) {
       return res.error;
     }else{
       dispatch(getFeedSuccess(res.data));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## retreiving newsfeed actions
+ */
+export function getDiscoveryRequest() {
+  return {
+    type: GET_DISCOVERY_REQUEST
+  };
+}
+export function getDiscoverySuccess(json) {
+  return {
+    type: GET_DISCOVERY_SUCCESS,
+    payload: json
+  };
+}
+export function getDiscoveryFailure(json) {
+  return {
+    type: GET_DISCOVERY_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
+  console.log("Get feed called");
+  return async function (dispatch){
+    dispatch(getDiscoveryRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in newsfeedActions.getDiscovery() with error: "+e.message);
+      dispatch(getDiscoveryFailure(e.message));
+    }
+
+    let res = null;
+    if(topicsString==TOPICS.TRENDING){
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getTrendingBills();
+    }else{
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.searchBills({searchTag:topicsString});
+    }
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in feed call"+res.error.error_message);
+      dispatch(getDiscoveryFailure("Unable to get user newsfeed data with this token."));
+      return res.error;
+    }else{
+      dispatch(getDiscoverySuccess({data:res.data, topic:topicsString}));
       return res.data;
     }
   };

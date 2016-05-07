@@ -33,8 +33,11 @@ const {
   GET_FEED_SUCCESS,
   GET_FEED_FAILURE,
 
-  FILTER_ITEMS_START,
-  FILTER_ITEMS_END
+  GET_DISCOVERY_REQUEST,
+  GET_DISCOVERY_SUCCESS,
+  GET_DISCOVERY_FAILURE,
+
+  FILTER_ITEMS,
 
 } = ActionNames
 
@@ -58,6 +61,22 @@ export default function newsfeedReducer(state = initialState, action) {
       break;
 
 
+    case GET_DISCOVERY_REQUEST:
+      return state.setIn([ 'isFetching', 'discoveryData'], true)
+        .setIn(['error'],null);
+      break;
+
+    case GET_DISCOVERY_SUCCESS:
+      return state.setIn([ 'isFetching', 'discoveryData'], false)
+      .setIn(['error'],null)
+      .setIn([ 'newsFeedData', 'discoveryItems', action.payload.topic], action.payload.data)
+      .setIn([ 'newsFeedData', 'discoveryAfterFiltration'], action.payload.data);
+
+    case GET_DISCOVERY_FAILURE:
+      return state.setIn([ 'isFetching', 'discoveryData'], false)
+        .setIn(['error'], action.payload);
+      break;
+
     case GET_FEED_REQUEST:
       return state.setIn([ 'isFetching', 'newsFeedData'], true)
         .setIn(['error'],null);
@@ -73,16 +92,11 @@ export default function newsfeedReducer(state = initialState, action) {
       return state.setIn([ 'isFetching', 'newsFeedData'], false)
         .setIn(['error'], action.payload);
       break;
-    case FILTER_ITEMS_START:
-      return state
-      .setIn(['newsFeedData', 'curSelectedFilter'], action.payload)
-      // .setIn([ 'newsFeedData', 'itemsAfterFiltration'], null)
-      // .setIn([ 'isFetching', 'newsFeedData'], true)
-      break;
-    case FILTER_ITEMS_END:
+    case FILTER_ITEMS:
       return state
       // .setIn([ 'isFetching', 'newsFeedData'], false)
-      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], action.payload);
+      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], action.payload.items)
+      .setIn(['newsFeedData', 'curSelectedFilter'], action.payload.filterName);
       break;
 
   }//switch

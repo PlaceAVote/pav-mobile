@@ -174,6 +174,10 @@ class NewsFeedRender extends Component {
         alignItems:'center',
         // backgroundColor:'red'
       },
+      bodyContainerView:{
+        flex:1,
+        backgroundColor:'red'
+      }
 
 
     });
@@ -211,34 +215,32 @@ class NewsFeedRender extends Component {
           dataReady= (!isFetchingFeed && feedData!=null)
           if(dataReady==true){
             return(
-              <View key="bodyContainerView">
-                <ActivityFeedRender
-                feedData={feedData}
-                device={this.props.device}
-                curUser={this.props.auth.user}
-               />
-             </View>);
+              <ActivityFeedRender
+              key="bodyContainerView"
+              feedData={feedData}
+              device={this.props.device}
+              curUser={this.props.auth.user}
+              type="feed"
+             />);
           }else{
             return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
           }
         case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
           dataReady = (!isFetchingDiscovery && discoveryData!=null)
           return(
-            <View key="bodyContainerView">
-              <DiscoveryFeedRender
-              device={this.props.device}
-              discoveryData={discoveryData}
-              height={h*0.7}
+            <DiscoveryFeedRender
+              key="bodyContainerView"
               topicList={this.props.auth.form.fields.topicsList.toJS()}
+              onTopicSelected={this.props.onTopicSelect}
+              discoveryData={discoveryData}
+              device={this.props.device}
+              curUser={this.props.auth.user}
               />
-            </View>);
+            );
         case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
           return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>Statistics page not ready yet</Text></View>);
       }
   }
-
-
-
 
 
 
@@ -259,7 +261,7 @@ class NewsFeedRender extends Component {
           style={styles.scrollView}
           refreshControl={
               <RefreshControl
-              refreshing={this.props.newsfeed.isFetching.newsFeedData}
+              refreshing={this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData}
               onRefresh={this.props.onFeedRefresh}
               tintColor={Colors.primaryColor}
               title="Loading..."
@@ -279,7 +281,7 @@ class NewsFeedRender extends Component {
 
 
 
-            {this.renderNewsFeedBody(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.isFetching.newsFeedData, this.props.newsfeed.newsFeedData.itemsAfterFiltration, this.props.newsfeed.isFetching.discoveryData, this.props.newsfeed.newsFeedData.discoveryAfterFiltration, styles)}
+            {this.renderNewsFeedBody(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.isFetching.newsFeedData, this.props.newsfeed.newsFeedData.itemsAfterFiltration, this.props.newsfeed.isFetching.discoveryData, this.props.newsfeed.newsFeedData.discoveryItems, styles)}
           </ScrollView>
         </View>
     );

@@ -346,8 +346,8 @@ class FeedBillCard extends Component {
 FeedBillCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   subjectTitle: React.PropTypes.string.isRequired,
-  billTitle: React.PropTypes.string.isRequired,
-  billImgUrl: React.PropTypes.string.isRequired,
+  billTitle: React.PropTypes.string,
+  billImgUrl: React.PropTypes.string,
   commentCnt: React.PropTypes.number.isRequired,
   favorPercentage: React.PropTypes.number.isRequired,
 };
