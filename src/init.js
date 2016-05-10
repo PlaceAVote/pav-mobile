@@ -24,7 +24,8 @@ import React, {
 *
 * Necessary components from Router-Flux
 */
-import RNRF, {
+import {
+  Router,
   Scene,
   TabBar,
   Modal,
@@ -271,7 +272,7 @@ export default function native(platform) {
       const store = configureStore(getInitialState());
 
       //Connect w/ the Router
-      const RouterWithRedux = connect()(RNRF.Router);
+      const RouterWithRedux = connect()(Router);
 
       // configureStore will combine reducers from placeAVote and main application
       // it will then create the store based on aggregate state from all reducers
@@ -312,7 +313,7 @@ export default function native(platform) {
       // setup the router table with App selected as the initial component
 
       // when the hideNavBar is true we see the right button but not the left, and the opposite.
-
+// tabBarStyle={{borderTopColor: 'darkgrey', borderTopWidth: 1 / PixelRatio.get(), backgroundColor: 'ghostwhite',opacity: 0.98}}
       return (
         <Provider store={store}>
           <RouterWithRedux hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}} >
@@ -325,10 +326,10 @@ export default function native(platform) {
                 <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
-                <Scene key={ScheneKeys.BILL} component={Bill} hideNavBar={false} title="Bill" type="push" renderRightButton={()=><NewsFeedButtons/>}  />
-                <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true} initial={true}>
+                <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true}  initial={true}>
                     <Scene key={ScheneKeys.TAB_NEWS} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} initial={true}>
                       <Scene key={ScheneKeys.TAB_NEWS+"2"}  title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} />
+                      <Scene key={ScheneKeys.BILL} component={Bill} hideNavBar={false} title="Bill" type="push" leftButtonIconStyle={{tintColor: 'white'}} />
                     </Scene>
                     <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={Notifications} icon={TabIconFactory} notifications={["a notification", "another notification"]} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}}/>
                     <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} />

@@ -116,7 +116,9 @@ class NewsFeed extends Component {
   constructor(props) {
     super(props);
 
-    this.connectAndGetFeed();
+    if(this.props.newsfeed.newsFeedData.items==null){
+      this.connectAndGetFeed();
+    }
   }
 
 
@@ -165,7 +167,7 @@ class NewsFeed extends Component {
 
 
   onFeedRefresh(){
-      this.connectAndGetFeed();
+        this.connectAndGetFeed();
       // console.log("Do something on feed refresh")
   }
 
