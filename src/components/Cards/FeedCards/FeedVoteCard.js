@@ -125,20 +125,20 @@ class FeedVoteCard extends Component {
         borderStyle: 'solid',
         borderTopColor: 'rgba(0, 0, 0, 0.1)',
         borderTopWidth: 1,
-        flexDirection:'column'
       },
       cardContentHeader:{
-        flex:1,
         paddingVertical:h*0.01,
         flexDirection:'row',
         // backgroundColor:'red',
         alignItems:'center'
       },
+      imageContainer:{
+      },
 
 
       voteDescriptionContainer:{
         flexDirection:'column',
-        // backgroundColor:'red',
+        // backgroundColor:'blue',
         padding: 5
       },
 
@@ -151,7 +151,7 @@ class FeedVoteCard extends Component {
       },
       voteLocationContainer:{
         flexDirection:'row',
-        alignItems:'center',
+        alignItems:"center",
         // backgroundColor:'red',
       },
       voteNameText:{
@@ -173,8 +173,12 @@ class FeedVoteCard extends Component {
         paddingHorizontal: 1,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
-        width: w*0.7,
+        width: w*0.56,
       },
+      voteLocationTitleContainer:{
+        // backgroundColor:'green',
+        paddingVertical:h*0.001,
+      }
 
     });
   }
@@ -207,25 +211,17 @@ class FeedVoteCard extends Component {
     });
   }
 
-  onLikeClick(e){
-    alert("Like clicked");
+  onBillClick(){
+    if(this.props.onBillClick && !!this.props.billId){
+      this.props.onBillClick(this.props.billId);
+    }
+  }
+  onUserClick(){
+    if(this.props.onUserClick && !!this.props.userId){
+        this.props.onUserClick(this.props.userId);
+    }
   }
 
-  onDislikeClick(e){
-    alert("Dislike clicked");
-  }
-
-  onReplyClick(e){
-    alert("Reply clicked");
-  }
-
-  onBillClick(e){
-    alert("Bill clicked");
-  }
-
-  onUserClick(e){
-    alert("User clicked");
-  }
 
   renderHeader(styles){
     return (<View resizeMode="cover" style={styles.cardTitleContainer}>
@@ -240,7 +236,7 @@ class FeedVoteCard extends Component {
     return (<View style={styles.cardContentContainer}>
 
       <View style={styles.cardContentHeader}>
-        <TouchableOpacity onPress={this.onUserClick.bind(this)}>
+        <TouchableOpacity style={styles.imageContainer} onPress={this.onUserClick.bind(this)}>
           <PavImage
             platform={this.props.device.platform}
             defaultSource={require('../../../../assets/defaultUserPhoto.png')}
@@ -255,12 +251,12 @@ class FeedVoteCard extends Component {
           </TouchableOpacity>
           <View style={styles.voteLocationContainer}>
             <Text style={styles.voteInText}>voted on the bill</Text>
-            <TouchableOpacity onPress={this.onBillClick.bind(this)}>
+            <TouchableOpacity style={styles.voteLocationTitleContainer} onPress={this.onBillClick.bind(this)}>
               <Text style={styles.voteLocationText}>{this.props.voteParentTitle}</Text>
             </TouchableOpacity>
           </View>
-
         </View>
+
       </View>
     </View>);
   }

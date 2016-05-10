@@ -117,6 +117,13 @@ class ActivityFeedRender extends Component {
            itemData={rowData}
            device={this.props.device}
            curUser={this.props.curUser}
+           onUserClick={this.props.onUserClick}
+           onBillClick={this.props.onBillClick}
+           onLikeDislikeClick={this.props.onLikeDislikeClick}
+           onReplyClick={this.props.onReplyClick}
+           onReactionClick={this.props.onReactionClick}
+           onCommentClick={this.props.onCommentClick}
+           onSocialClick={this.props.onSocialClick}
            />}
          />);
   }

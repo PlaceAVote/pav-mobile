@@ -24,7 +24,8 @@ import Button from 'sp-react-native-iconbutton'
 // var Icon = require('react-native-vector-icons/FontAwesome');
 
 
-import {Colors, ScheneKeys} from '../../../config/constants';
+import {Colors, ScheneKeys, Other} from '../../../config/constants';
+const {REACTIONS, SOCIAL_TYPES} = Other;
 
 /**
  * The necessary React components
@@ -277,24 +278,34 @@ class FeedCommentCard extends Component {
     });
   }
 
-  onLikeClick(e){
-    alert("Like clicked");
+  onLikeClick(){
+    if(this.props.onLikeDislikeClick){
+      this.props.onLikeDislikeClick(REACTIONS.HAPPY);
+    }
   }
 
-  onDislikeClick(e){
-    alert("Dislike clicked");
+  onDislikeClick(){
+    if(this.props.onLikeDislikeClick){
+      this.props.onLikeDislikeClick(REACTIONS.SAD);
+    }
   }
 
-  onReplyClick(e){
-    alert("Reply clicked");
+  onReplyClick(){
+    if(this.props.onReplyClick && !!this.props.billId){
+      this.props.onReplyClick(this.props.billId);
+    }
   }
 
-  onBillClick(e){
-    alert("Bill clicked");
-  }
 
-  onUserClick(e){
-    alert("User clicked");
+  onBillClick(){
+    if(this.props.onBillClick && !!this.props.billId){
+      this.props.onBillClick(this.props.billId);
+    }
+  }
+  onUserClick(){
+    if(this.props.onUserClick && !!this.props.userId){
+        this.props.onUserClick(this.props.userId);
+    }
   }
 
   renderHeader(styles){

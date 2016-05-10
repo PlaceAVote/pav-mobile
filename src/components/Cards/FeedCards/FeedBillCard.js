@@ -292,20 +292,29 @@ class FeedBillCard extends Component {
   }
 
   onTwitterBtnClicked(){
-    alert("On twitter clicked");
+    if(this.props.onSocialClick){
+      this.props.onSocialClick(SOCIAL_TYPES.TWITTER, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+    }
   }
 
   onFacebookBtnClicked(){
-    alert("On facebook clicked");
+    if(this.props.onSocialClick){
+      this.props.onSocialClick(SOCIAL_TYPES.FACEBOOK, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+    }
   }
 
   onBillClicked(){
-    alert("On Bill clicked")
+    if(this.props.onBillClick && !!this.props.billId){
+      this.props.onBillClick(this.props.billId);
+    }
   }
 
   onCommentsClicked(){
-    alert("On comments clicked")
+    if(this.props.onCommentClick && !!this.props.billId){
+      this.props.onCommentClick(this.props.billId);
+    }
   }
+
 
 
   /**

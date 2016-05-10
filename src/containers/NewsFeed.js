@@ -47,7 +47,10 @@ import NewsFeedRender from '../components/NewsFeed/NewsFeedRender'
 /**
  * The necessary React
  */
-import React, {Component} from 'react-native';
+import React, {
+  Component,
+  Linking
+} from 'react-native';
 
 
 
@@ -56,7 +59,9 @@ ScheneKeys,
 Other
 } from '../config/constants';
 const {
-  NEWS_FEED_FILTERS
+  NEWS_FEED_FILTERS,
+  REACTIONS,
+  SOCIAL_TYPES
 } = Other;
 const {
   MAIN
@@ -165,6 +170,74 @@ class NewsFeed extends Component {
 
 
 
+
+
+
+  onUserClickedUser(userId){
+    alert("Tapped user with id: "+userId);
+  }
+
+  onUserClickedBill(billId){
+    alert("Tapped bill with id: "+billId);
+  }
+
+  onUserClickedLikeDislike(type){
+    switch(type){
+      case REACTIONS.HAPPY:
+        alert("User tapped like");
+        break;
+      case REACTIONS.SAD:
+        alert("User tapped dislike");
+        break;
+      default:
+        break;
+    }
+  }
+
+  onUserClickedReply(billId){
+    alert("Tapped reply on a comment that belongs to bill with id: "+billId);
+  }
+
+  onUserClickedReaction(reaction){
+    switch(reaction){
+      case REACTIONS.HAPPY:
+        alert("Happy reaction clicked");
+        break;
+      case REACTIONS.SAD:
+        alert("Sad reaction clicked");
+        break;
+      case REACTIONS.NEUTRAL:
+        alert("Neutral reaction clicked");
+        break;
+      default:
+        break;
+    }
+  }
+
+  onUserClickedComments(parentBillId){
+    alert("User tapped a comment that can be found in bill with id: "+parentBillId);
+  }
+
+  onUserClickedSocial(socialType, data){
+    switch(socialType){
+      case SOCIAL_TYPES.SIMPLE_URL:
+        Linking.openURL(data.url).catch(err => console.error('An error occurred while trying to open url: '+data.url, err));
+        break;
+      case SOCIAL_TYPES.FACEBOOK:
+        alert("Facebook button clicked");
+        break;
+      case SOCIAL_TYPES.TWITTER:
+        alert("Twitter button clicked");
+        break;
+      default:
+        break;
+    }
+  }
+
+
+
+
+
   render() {
     return(
       <NewsFeedRender
@@ -175,6 +248,14 @@ class NewsFeed extends Component {
           onFilterBtnClick={this.onFilterBtnClick.bind(this)}
           onTopicSelect={this.onTopicSelect.bind(this)}
           onFeedRefresh={this.onFeedRefresh.bind(this)}
+
+          onUserClick={this.onUserClickedUser.bind(this)}
+          onBillClick={this.onUserClickedBill.bind(this)}
+          onLikeDislikeClick={this.onUserClickedLikeDislike.bind(this)}
+          onReplyClick={this.onUserClickedReply.bind(this)}
+          onReactionClick={this.onUserClickedReaction.bind(this)}
+          onCommentClick={this.onUserClickedComments.bind(this)}
+          onSocialClick={this.onUserClickedSocial.bind(this)}
       />
 
     );

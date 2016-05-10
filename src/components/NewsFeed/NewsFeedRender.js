@@ -221,6 +221,13 @@ class NewsFeedRender extends Component {
               device={this.props.device}
               curUser={this.props.auth.user}
               type="feed"
+              onUserClick={this.props.onUserClick}
+              onBillClick={this.props.onBillClick}
+              onLikeDislikeClick={this.props.onLikeDislikeClick}
+              onReplyClick={this.props.onReplyClick}
+              onReactionClick={this.props.onReactionClick}
+              onCommentClick={this.props.onCommentClick}
+              onSocialClick={this.props.onSocialClick}
              />);
           }else{
             return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
@@ -235,6 +242,13 @@ class NewsFeedRender extends Component {
               discoveryData={discoveryData}
               device={this.props.device}
               curUser={this.props.auth.user}
+              onUserClick={this.props.onUserClick}
+              onBillClick={this.props.onBillClick}
+              onLikeDislikeClick={this.props.onLikeDislikeClick}
+              onReplyClick={this.props.onReplyClick}
+              onReactionClick={this.props.onReactionClick}
+              onCommentClick={this.props.onCommentClick}
+              onSocialClick={this.props.onSocialClick}
               />
             );
         case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:

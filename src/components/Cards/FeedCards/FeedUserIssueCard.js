@@ -23,7 +23,8 @@ import Button from 'sp-react-native-iconbutton'
 // var Icon = require('react-native-vector-icons/FontAwesome');
 
 
-import {Colors, ScheneKeys} from '../../../config/constants';
+import {Colors, ScheneKeys, Other} from '../../../config/constants';
+const {REACTIONS, SOCIAL_TYPES} = Other;
 
 /**
  * The necessary React components
@@ -50,12 +51,7 @@ import PavImage from '../../../lib/UI/PavImage'
 
 import LinearGradient from 'react-native-linear-gradient';
 
-const Reactions = {
-  NONE:'none',
-  HAPPY:'positive',
-  NEUTRAL:'neutral',
-  SAD:'negative',
-};
+
 
 
 
@@ -363,25 +359,37 @@ class FeedUserIssueCard extends Component {
 
 
   onRelatedArticleClicked(){
-      Linking.openURL("http://www.google.com").catch(err => console.error('An error occurred', err));
-      alert("related article clicked");
+    if(this.props.onSocialClick && !!this.props.relatedArticleUrl){
+      this.props.onSocialClick(SOCIAL_TYPES.SIMPLE_URL, {url:this.props.relatedArticleUrl});
+    }
   }
   onRelatedBillClicked(){
-    alert('related bill clicked - should navigate user to this bill.')
+    if(this.props.onBillClick && !!this.props.billId){
+      this.props.onBillClick(this.props.billId);
+    }
+  }
+  onUserClick(){
+    if(this.props.onUserClick && !!this.props.userId){
+        this.props.onUserClick(this.props.userId);
+    }
   }
 
   onHappyClick(){
-    alert("on happy click");
+    if(this.props.onReactionClick){
+      this.props.onReactionClick(REACTIONS.HAPPY);
+    }
   }
   onNeutralClick(){
-    alert("on neutral click");
+    if(this.props.onReactionClick){
+      this.props.onReactionClick(REACTIONS.NEUTRAL);
+    }
   }
   onSadClick(){
-    alert("on sad click");
+    if(this.props.onReactionClick){
+      this.props.onReactionClick(REACTIONS.SAD);
+    }
   }
-  onUserClick(){
-    alert("on User click");
-  }
+
 
 
 
@@ -430,13 +438,13 @@ class FeedUserIssueCard extends Component {
         <Text style={styles.cardFooterText}>What's your reaction?</Text>
         <View style={styles.cardFooterIconsContainer}>
           <TouchableOpacity  onPress={this.onHappyClick.bind(this)}>
-            {this.renderReactionIcon("happy", this.props.happyCnt, (this.props.userReaction==Reactions.HAPPY), styles)}
+            {this.renderReactionIcon("happy", this.props.happyCnt, (this.props.userReaction==REACTIONS.HAPPY), styles)}
           </TouchableOpacity>
           <TouchableOpacity  onPress={this.onNeutralClick.bind(this)}>
-            {this.renderReactionIcon("neutral", this.props.neutralCnt, (this.props.userReaction==Reactions.NEUTRAL), styles)}
+            {this.renderReactionIcon("neutral", this.props.neutralCnt, (this.props.userReaction==REACTIONS.NEUTRAL), styles)}
           </TouchableOpacity>
           <TouchableOpacity  onPress={this.onSadClick.bind(this)}>
-            {this.renderReactionIcon("sad", this.props.sadCnt, (this.props.userReaction==Reactions.SAD), styles)}
+            {this.renderReactionIcon("sad", this.props.sadCnt, (this.props.userReaction==REACTIONS.SAD), styles)}
           </TouchableOpacity>
         </View>
       </View>);

@@ -61,7 +61,19 @@ module.exports =  {
       SOCIAL_INTEREST: 'social interest',
 
       TRENDING: 'trending'
+    },
+    REACTIONS : {
+      NONE:'none',
+      HAPPY:'positive',
+      NEUTRAL:'neutral',
+      SAD:'negative',
+    },
+    SOCIAL_TYPES:{
+      SIMPLE_URL: 'url',
+      FACEBOOK: 'facebook',
+      TWITTER: 'twitter',
     }
+
   },
   ActionNames:  keyMirror({
 

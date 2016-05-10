@@ -125,6 +125,12 @@ class CardFactory extends Component {
           happyCnt={n.positive_responses}
           neutralCnt={n.neutral_responses}
           sadCnt={n.negative_responses}
+          userId={n.user_id}
+          billId={n.bill_id}
+          onUserClick={this.props.onUserClick}
+          onBillClick={this.props.onBillClick}
+          onReactionClick={this.props.onReactionClick}
+          onSocialClick={this.props.onSocialClick}
           />);
         break;
 
@@ -139,6 +145,12 @@ class CardFactory extends Component {
           likeCount={n.score}
           isLiked={n.liked}
           isDisliked={n.disliked}
+          userId={n.user_id}
+          billId={n.bill_id}
+          onUserClick={this.props.onUserClick}
+          onBillClick={this.props.onBillClick}
+          onLikeDislikeClick={this.props.onLikeDislikeClick}
+          onReplyClick={this.props.onReplyClick}
           />);
         break;
       case "vote":
@@ -148,6 +160,10 @@ class CardFactory extends Component {
         userFullNameText={n.voter_first_name+" "+n.voter_last_name}
         voteParentTitle={n.bill_title}
         userPhotoUrl={n.voter_img_url}
+        userId={n.user_id}
+        billId={n.bill_id}
+        onUserClick={this.props.onUserClick}
+        onBillClick={this.props.onBillClick}
         />);
         break;
 
@@ -165,12 +181,14 @@ class CardFactory extends Component {
           billImgUrl={n.featured_img_link}
           commentCnt={n.comment_count}
           favorPercentage={favorPercent}
+          billId={n.bill_id}
+          onBillClick={this.props.onBillClick}
+          onCommentClick={this.props.onCommentClick}
+          onSocialClick={this.props.onSocialClick}
           />);
           break;
     }
   }
-
-
 
   /**
    * ### render

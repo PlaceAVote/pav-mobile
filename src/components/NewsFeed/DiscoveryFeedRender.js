@@ -174,6 +174,13 @@ class DiscoveryFeedRender extends Component {
       device={device}
       curUser={curUser}
       type="discovery"
+      onUserClick={this.props.onUserClick}
+      onBillClick={this.props.onBillClick}
+      onLikeDislikeClick={this.props.onLikeDislikeClick}
+      onReplyClick={this.props.onReplyClick}
+      onReactionClick={this.props.onReactionClick}
+      onCommentClick={this.props.onCommentClick}
+      onSocialClick={this.props.onSocialClick}
       />)
   }
 
