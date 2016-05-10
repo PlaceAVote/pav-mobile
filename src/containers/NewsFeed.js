@@ -64,7 +64,8 @@ const {
   SOCIAL_TYPES
 } = Other;
 const {
-  MAIN
+  MAIN,
+  BILL
 } = ScheneKeys;
 
 
@@ -178,7 +179,8 @@ class NewsFeed extends Component {
   }
 
   onUserClickedBill(billId){
-    alert("Tapped bill with id: "+billId);
+    this.props.actions.navigateTo(BILL);
+    // alert("Tapped bill with id: "+billId);
   }
 
   onUserClickedLikeDislike(type){
