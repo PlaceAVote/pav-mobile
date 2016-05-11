@@ -16,6 +16,7 @@ import global from './global/globalReducer';
 import profile from './profile/profileReducer';
 import router from './routing/routingReducer';
 import newsfeed from './newsfeed/newsfeedReducer';
+import bill from './bill/billReducer';
 
 import { combineReducers } from 'redux';
 
@@ -31,7 +32,8 @@ const rootReducer = combineReducers({
   global,
   profile,
   router,
-  newsfeed
+  newsfeed,
+  bill
 });
 
 export default rootReducer;

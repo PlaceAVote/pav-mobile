@@ -247,11 +247,11 @@ class FiltersRender extends Component {
 
 
 
-  renderFilterButton(isActive, iconName, filterName, topicName, styles ){
+  renderFilterButton(isActive, iconName, filterName, styles ){
     if(isActive){
       return(
         <View key={iconName+"container"} style={styles.expandedFilterContainer}>
-          <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName, topicName)}}>
+          <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
             <PavIcon key={iconName+"icon1"} name={iconName} size={15} style={styles.activeFilterIcon}/>
             <Text style={styles.filterText}>{filterName}</Text>
           </TouchableOpacity>
@@ -262,7 +262,7 @@ class FiltersRender extends Component {
     }else{
       return(
         <View key={iconName+"container"} style={styles.collapsedFilterContainer}>
-          <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName, topicName)}}>
+          <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
             <PavIcon key={iconName+"icon1"} name={iconName} size={15} style={styles.inactiveFilterIcon}/>
           </TouchableOpacity>
           <View key={iconName+"indicatorContainer"} style={styles.filterIndicatorIconContainer}>
@@ -273,63 +273,6 @@ class FiltersRender extends Component {
   }
 
 
-
-
-
-
-
-
-  /*
-   *
-   *
-   *   TOPICS       TOPICS       TOPICS       TOPICS       TOPICS       TOPICS
-   *
-  */
-
-    // renderTopicButton(isActive, topicName, topicList, styles ){
-    //     // let filterName = this.props.curSelectedFilter;
-    //     let curTopicTitle = topicName==TOPICS.TRENDING?"Trending ":topicList[topicName].title;
-    //     // console.log("@@@@@@@@: "+curTopicObj)
-    //     return(
-    //       <View key={topicName+"container"} style={isActive?styles.activeTopicContainer:styles.inactiveTopicContainer}>
-    //         <TouchableOpacity key={topicName+"touchable"} style={styles.topicContent} onPress={()=>{this.props.onTopicBtnClick(topicName)}}>
-    //           <Text style={styles.topicText}>{curTopicTitle} </Text>
-    //         </TouchableOpacity>
-    //       </View>);
-    // }
-
-
-
-
-
-  // renderTopicSelector(renderTopicSelector, styles){
-  //   if(renderTopicSelector==true){
-  //       return (
-  //       <View key="discoverTopicSelector" style={styles.topicSelectorContainer}>
-  //         <PavIcon key="leftIcon" name="arrow-left" size={15} style={styles.topicArrowIcon}/>
-  //         <ScrollView horizontal={true} style={styles.topicViewContainer}>
-  //           {this.renderTopicButton((TOPICS.TRENDING==this.props.curSelectedTopic), TOPICS.TRENDING, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.HEALTHCARE==this.props.curSelectedTopic), TOPICS.HEALTHCARE, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.TECHNOLOGY==this.props.curSelectedTopic), TOPICS.TECHNOLOGY, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.SOCIAL_INTEREST==this.props.curSelectedTopic), TOPICS.SOCIAL_INTEREST, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.EDUCATION==this.props.curSelectedTopic), TOPICS.EDUCATION, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.POLITICS==this.props.curSelectedTopic), TOPICS.POLITICS, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.TAXES==this.props.curSelectedTopic), TOPICS.TAXES, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.IMMIGRATION==this.props.curSelectedTopic), TOPICS.IMMIGRATION, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.DRUGS==this.props.curSelectedTopic), TOPICS.DRUGS, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.DEFENSE==this.props.curSelectedTopic), TOPICS.DEFENSE, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.CRIME==this.props.curSelectedTopic), TOPICS.CRIME, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.GUN_RIGHTS==this.props.curSelectedTopic), TOPICS.GUN_RIGHTS, this.props.topicList, styles)}
-  //           {this.renderTopicButton((TOPICS.ECONOMICS==this.props.curSelectedTopic), TOPICS.ECONOMICS, this.props.topicList, styles)}
-  //         </ScrollView>
-  //         <PavIcon key="rightIcon" name="arrow-right" size={15} style={styles.topicArrowIcon}/>
-  //
-  //
-  //       </View>);
-  //   }else{
-  //       return <View></View>;
-  //   }
-  // }
 
 
 renderRecentActivityText(shouldRender, text, styles){
@@ -351,6 +294,17 @@ renderRecentActivityText(shouldRender, text, styles){
    *
   */
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.curSelectedFilter !== this.props.curSelectedFilter)
+      ||
+      (nextProps.orientation !== this.props.orientation)
+      ||
+      (nextProps.user.firstName !== this.props.user.firstName)
+      ||
+      (nextProps.style !== this.props.style)
+    );
+  }
   /**
    * ### render method
    */
@@ -363,11 +317,11 @@ renderRecentActivityText(shouldRender, text, styles){
     return (
       <View key="feedHeaderContainer" style={this.props.style}>
         <View key="filtersViewContainer" style={styles.filtersViewContainer}>
-          {this.renderFilterButton((NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER==this.props.curSelectedFilter), "globe", NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER, this.props.curSelectedTopic, styles)}
-          {this.renderFilterButton((NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER==this.props.curSelectedFilter), "add-lined", NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER, this.props.curSelectedTopic, styles)}
-          {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==this.props.curSelectedFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER, this.props.curSelectedTopic, styles)}
-          {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==this.props.curSelectedFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER, this.props.curSelectedTopic, styles)}
-          {this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==this.props.curSelectedFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER, this.props.curSelectedTopic, styles)}
+          {this.renderFilterButton((NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER==this.props.curSelectedFilter), "globe", NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER,  styles)}
+          {this.renderFilterButton((NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER==this.props.curSelectedFilter), "add-lined", NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER,  styles)}
+          {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==this.props.curSelectedFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER,  styles)}
+          {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==this.props.curSelectedFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER,  styles)}
+          {this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==this.props.curSelectedFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER,  styles)}
         </View>
         {this.renderRecentActivityText((this.props.curSelectedFilter!=NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER),this.getHeaderTextBasedOnFilter(this.props.curSelectedFilter, this.props.user.firstName), styles)}
 

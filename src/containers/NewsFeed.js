@@ -21,10 +21,12 @@ import { connect } from 'react-redux';
 /**
  * The actions we need
  */
-import * as authActions from '../reducers/auth/authActions';
+// import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
+// import * as billActions from '../reducers/bill/billActions';
+
 
 
 import Orientation from 'react-native-orientation';
@@ -74,10 +76,10 @@ const {
  * ## Redux boilerplate
  */
 const actions = [
-  authActions,
+  // authActions,
   routingActions,
   deviceActions,
-  newsfeedActions
+  newsfeedActions,
 ];
 
 function mapStateToProps(state) {
@@ -181,7 +183,7 @@ class NewsFeed extends Component {
   }
 
   onUserClickedBill(billId){
-    this.props.actions.navigateTo(BILL);
+    this.props.actions.navigateTo(BILL, {billId:billId});
     // alert("Tapped bill with id: "+billId);
   }
 

@@ -161,11 +161,19 @@ module.exports =  {
    GET_FEED_SUCCESS: null,
    GET_FEED_FAILURE: null,
 
+
+   FILTER_ITEMS: null,
+
    GET_DISCOVERY_REQUEST: null,
    GET_DISCOVERY_SUCCESS: null,
    GET_DISCOVERY_FAILURE: null,
 
-   FILTER_ITEMS: null,
+   /*  Bill */
+
+   GET_BILL_REQUEST: null,
+   GET_BILL_SUCCESS: null,
+   GET_BILL_FAILURE: null,
+
 
 
     /* Not yet implemented */

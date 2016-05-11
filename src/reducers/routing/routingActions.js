@@ -121,12 +121,12 @@ Action creators
 
 */
 
-export function navigateTo(schene) {
+export function navigateTo(schene, dataToTransferToNewShene) {
   return (dispatch, getState) => {
     const state = getState()
     if(state.router.currentSchene!=schene){
       try{
-        Actions[schene]();
+        Actions[schene](dataToTransferToNewShene);
       }catch(e){
         throw new Error("Schene: "+schene+ "nav error: "+e);
       }

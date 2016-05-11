@@ -300,6 +300,18 @@ class NewsFeedRender extends Component {
         </View>
     );
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.newsfeed !== this.props.newsfeed)
+      ||
+      (nextProps.auth.user !== this.props.auth.user)
+      ||
+      (nextProps.auth.form.fields.topicsList !== this.props.auth.form.fields.topicsList)
+      ||
+      (nextProps.device.orientation !== this.props.device.orientation)
+    );
+  }
 }
 
 

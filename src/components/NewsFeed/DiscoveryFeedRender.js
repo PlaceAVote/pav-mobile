@@ -158,7 +158,15 @@ class DiscoveryFeedRender extends Component {
 
 
 
-
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.discoveryData !== this.props.discoveryData)
+      ||
+      (nextProps.device !== this.props.device)
+      ||
+      (nextProps.curUser !== this.props.curUser)
+    );
+  }
 
 
 
@@ -199,6 +207,8 @@ class DiscoveryFeedRender extends Component {
         onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
         renderTabBar={() =>
           <TopicSelectTabBar
+            indicatorPosition="top"
+            indicatorArrowsEnabled={true}
             underlineColor={Colors.negativeAccentColor}
             activeTextColor={Colors.primaryColor}
             inactiveTextColor={Colors.primaryColor}

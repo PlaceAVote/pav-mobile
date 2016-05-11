@@ -8,28 +8,20 @@
 'use strict';
 
 
-/**
- * The actions we need
- */
-import * as authActions from '../../reducers/auth/authActions';
-import * as globalActions from '../../reducers/global/globalActions';
-
-
 
 import LinearGradient from 'react-native-linear-gradient';
 
-
+import SummaryPageRender from './SummaryPageRender';
 
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
 
-var ProgressBar = require('ProgressBarAndroid');
 
-
-
+import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
+// import TopicSelectTabBar from '../NewsFeed/TopicSelectTabBar'
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
-// const {NEWS_FEED_FILTERS} = Other;
+const {SOCIAL_TYPES} = Other;
 /**
  * The necessary React components
  */
@@ -62,10 +54,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 * Icons library
 */
 
-var Icon = require('react-native-vector-icons/FontAwesome');
-var LImage = require('react-native-image-progress');
-var Progress = require('react-native-progress');
-
+import PavImage from '../../lib/UI/PavImage'
 
 
 
@@ -108,7 +97,7 @@ class BillRender extends Component {
 
 
       container: {
-        // backgroundColor: 'orange',
+        backgroundColor: 'white',
         flex:1,
         flexDirection: 'column',
         paddingTop:64, //nav bar height
@@ -116,27 +105,165 @@ class BillRender extends Component {
         // marginVertical: 10,
         // marginHorizontal:15
       },
-      scrollView:{
+      billContainer:{
         flex:1,
-        backgroundColor: '#E8E7EE',
-      },
-      headerView:{
-        paddingVertical:h*0.02,
-        paddingHorizontal:w*0.016,
-        // backgroundColor:'red'
+        // backgroundColor: 'blue',
       },
 
-      bodyLoadingContainer:{
+
+      //HEADER
+      billImage:{
+        // flex:1,
+        height: h*0.23
+      },
+      headerContainer:{
         flex:1,
-        // height:h*0.5,
+        flexDirection: 'column',
+      },
+      headerTitleContainer:{
+        // backgroundColor:'purple'
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',  //horizontally
+      },
+      headerTitle:{
+        backgroundColor: Colors.transparentColor,
+        paddingVertical: h*0.015,
+        color: Colors.mainTextColor,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,18),
+      },
+      headerBtnsContainer:{
+        // backgroundColor:'pink',
+        flexDirection:'row',
+        paddingVertical: h*0.020,
+        justifyContent:'space-around',
+        alignItems:'center'
+      },
+      headerSocialShareBtnContainer:{
+        flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
         // backgroundColor:'red'
       },
-      bodyContainerView:{
+      headerSocialShareBtn:{
+        backgroundColor: Colors.transparentColor,
+        color: Colors.secondaryTextColor,
+        paddingHorizontal: w*0.020,
+      },
+      headerTagBtnContainer:{
+        // backgroundColor:'white',
+        flexDirection:'row',
+        justifyContent:'space-around',
+        alignItems:'center'
+      },
+      tagsLblContainer:{
+        justifyContent:'center',
+        backgroundColor:'red',
+        height:23,
+      },
+      tagsLblText:{
+        backgroundColor: Colors.transparentColor,
+        paddingHorizontal: w*0.011,
+        color: Colors.secondaryTextColor,
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+      },
+
+      tagBtn:{
+        justifyContent:'center',
+        height:23,
+        borderRadius: 2,
+        borderWidth: 1,
+        backgroundColor: Colors.accentColor,
+        borderColor: Colors.accentColor
+      },
+      tagTitleText:{
+        backgroundColor: Colors.transparentColor,
+        paddingHorizontal: w*0.020,
+        color: Colors.mainTextColor,
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+      },
+
+
+
+
+
+
+      /* BODY */
+      pagesContainer:{
         flex:1,
-        backgroundColor:'red'
+        // backgroundColor:'blue',
+        // backgroundColor:'red'
+      },
+      tabText:{
+        paddingHorizontal: w*0.009,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        color: Colors.primaryColor,
+        textAlign:'center',
+      },
+      /* BODY - Pages */
+
+      summaryPageContainer:{
+        backgroundColor:'white'
+      },
+
+
+
+
+
+
+
+
+
+
+      //FOOTER
+      billBtnsContainer:{
+
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        paddingVertical: h*0.005,
+      },
+      // btnIconStyle:{
+      //   marginHorizontal: 10
+      // },
+      footerBtnText:{
+        paddingHorizontal: w*0.008,
+        color: Colors.primaryColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        textAlign:'center',
+        // backgroundColor:'blue',
+      },
+
+      footerBtn:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'center',
+        width: w*0.45,
+        paddingHorizontal:w*0.010,
+        paddingVertical: h*0.020,
+        backgroundColor: "#F4F4F4",
+        borderWidth:1,
+        borderColor: 'rgba(0, 0, 0, 0.11)',
+        borderTopWidth:2,
+
+        // shadowColor: 'rgba(0, 0, 0, 0.12)',
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        // shadowOffset: {
+        //   height: 1,
+        //   width: 2,
+        // },
+      },
+      footerBtnIcon:{
+        // backgroundColor: 'red',
+        color: 'rgba(0, 0, 0, 0.71)',
+        paddingHorizontal: w*0.020,
       }
+
 
 
     });
@@ -157,10 +284,111 @@ class BillRender extends Component {
 
 
 
+  onTwitterBtnClicked(){
+    if(this.props.onSocialClick){
+      this.props.onSocialClick(SOCIAL_TYPES.TWITTER, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+    }
+  }
+
+  onFacebookBtnClicked(){
+    if(this.props.onSocialClick){
+      this.props.onSocialClick(SOCIAL_TYPES.FACEBOOK, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+    }
+  }
 
 
+  renderHeader(billData, platform, styles){
+    // console.log("bill: "+JSON.stringify(billData))
+    if(!!billData){
+      return (
+        <PavImage
+        key="bill_header"
+        platform={platform}
+        style={styles.billImage}
+        source={{uri: billData.featured_img_link}}
+        resizeMode='cover'
+        >
+          <LinearGradient
+              colors={['black', 'rgba(0, 0, 0, 0.41)', 'black']}
+              start={[-0.3, 0.0]} end={[1.3, 0.0]}
+              style={styles.headerContainer}
+              >
+              <View style={styles.headerTitleContainer}>
+                <Text style={styles.headerTitle}>{billData.featured_bill_title}</Text>
+              </View>
+              <View style={styles.headerBtnsContainer}>
+
+                <View style={styles.headerSocialShareBtnContainer}>
+                  <TouchableOpacity onPress={this.onTwitterBtnClicked.bind(this)}>
+                    <PavIcon name="social-twitter" size={18} style={styles.headerSocialShareBtn}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={this.onFacebookBtnClicked.bind(this)}>
+                    <PavIcon name="facebook" size={16} style={styles.headerSocialShareBtn}/>
+                  </TouchableOpacity>
+                </View>
+
+                <View style={styles.headerTagBtnContainer}>
+                  <Text style={styles.tagsLblText}>Tags: </Text>
+                  {billData.pav_tags.map((tag, i) =>
+                    (<TouchableOpacity
+                      key={"tag"+i+"btn"}
+                      onPress={this.props.onTagPress}
+                      style={styles.tagBtn}>
+                      <Text key={"tag"+i+"txt"}style={styles.tagTitleText}>{tag}</Text>
+                    </TouchableOpacity>)
+                  )}
+                </View>
+
+              </View>
+          </LinearGradient>
+        </PavImage>);
+    }else{
+      return <Text key="bill_header">NO DATA</Text>
+    }
+
+  }
+// onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
+  renderBody(styles){
+    return (<ScrollableTabView
+      renderTabBar={() =>
+        <DefaultTabBar
+          indicatorPosition="bottom"
+          indicatorArrowsEnabled={false}
+          underlineColor={Colors.negativeAccentColor}
+          activeTextColor={Colors.primaryColor}
+          inactiveTextColor={Colors.primaryColor}
+          backgroundColor='rgba(255, 255, 255, 0.85)'
+        />}
+      initialPage={0}
+      style={styles.pagesContainer}
+      tabBarTextStyle={styles.tabText}
+    >
+      <SummaryPageRender
+        tabLabel="Summary"
+        summaryData={{data:"someData"}}
+        orientation={this.props.device.orientation}
+      />
+    <View tabLabel="Bill Info "><Text>Bill Info</Text></View>
+    <View tabLabel="Comments"><Text>Comments</Text></View>
+    <View tabLabel="Statistics"><Text>Statistics</Text></View>
+
+   </ScrollableTabView>);
+  }
 
 
+  renderFooter(styles){
+    return (
+      <View style={styles.billBtnsContainer}>
+        <TouchableOpacity style={styles.footerBtn}>
+          <PavIcon name="bolt" size={16} style={styles.footerBtnIcon}/>
+          <Text style={styles.footerBtnText}>I'M READY TO VOTE</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerBtn}>
+          <PavIcon name="comment" size={16} style={styles.footerBtnIcon}/>
+          <Text style={styles.footerBtnText}>COMMENT</Text>
+        </TouchableOpacity>
+      </View>);
+  }
 
 
   /**
@@ -172,11 +400,24 @@ class BillRender extends Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
-        <View style={styles.container}>
-          <Text>Bill screen</Text>
+      <View style={styles.container}>
+        <View style={styles.billContainer}>
+          {this.renderHeader(this.props.bill.data, this.props.device.platform, styles)}
+          {this.renderBody(styles)}
         </View>
+          {this.renderFooter(styles)}
+      </View>
     );
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.bill !== this.props.bill)
+      ||
+      (nextProps.device.orientation !== this.props.device.orientation)
+    );
+  }
+
 }
 
 

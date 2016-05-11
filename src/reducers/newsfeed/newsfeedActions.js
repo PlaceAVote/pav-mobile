@@ -251,9 +251,9 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
 
     let res = null;
     if(topicsString==TOPICS.TRENDING){
-      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getTrendingBills();
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getTrendingBills();
     }else{
-      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.searchBills({searchTag:topicsString});
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBills({searchTag:topicsString});
     }
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){

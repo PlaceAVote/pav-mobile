@@ -92,7 +92,17 @@ class ActivityFeedRender extends Component {
     }
   }
 
-
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.feedData !== this.props.feedData)
+      ||
+      (nextProps.device !== this.props.device)
+      ||
+      (nextProps.style !== this.props.style)
+      ||
+      (nextProps.curUser !== this.props.curUser)
+    );
+  }
 
 
   /**
@@ -117,6 +127,7 @@ class ActivityFeedRender extends Component {
            itemData={rowData}
            device={this.props.device}
            curUser={this.props.curUser}
+
            onUserClick={this.props.onUserClick}
            onBillClick={this.props.onBillClick}
            onLikeDislikeClick={this.props.onLikeDislikeClick}
