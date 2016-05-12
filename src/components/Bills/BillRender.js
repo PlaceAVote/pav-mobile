@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import SummaryPageRender from './SummaryPageRender';
 import MoreInfoPageRender from './MoreInfoPageRender';
-
+import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
 
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
@@ -350,39 +350,54 @@ class BillRender extends Component {
 
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
-  renderBody(styles){
-    return (<ScrollableTabView
-      ref="scrollableTabView"
-      renderTabBar={() =>
-        <DefaultTabBar
-          indicatorPosition="bottom"
-          indicatorArrowsEnabled={false}
-          underlineColor={Colors.negativeAccentColor}
-          activeTextColor={Colors.primaryColor}
-          inactiveTextColor={Colors.primaryColor}
-          backgroundColor='rgba(255, 255, 255, 0.85)'
-        />}
-      initialPage={1}
-      style={styles.pagesContainer}
-      tabBarTextStyle={styles.tabText}
-    >
-      <SummaryPageRender
-        tabLabel="Summary"
-        summaryData={{data:"someData"}}
-        orientation={this.props.device.orientation}
-        goToMoreInfoPage={()=>this.refs.scrollableTabView.goToPage(1)}
-      />
-      <MoreInfoPageRender
-        tabLabel="Bill Info "
-        summaryData={{data:"someData"}}
-        orientation={this.props.device.orientation}
-        goToReadEntireBillPage={()=>alert("Read entire bill")}
-      />
+  renderBody(billData, styles){
+    if(!!billData){
+      return (<ScrollableTabView
+        ref="scrollableTabView"
+        renderTabBar={() =>
+          <DefaultTabBar
+            indicatorPosition="bottom"
+            indicatorArrowsEnabled={false}
+            underlineColor={Colors.negativeAccentColor}
+            activeTextColor={Colors.primaryColor}
+            inactiveTextColor={Colors.primaryColor}
+            backgroundColor='rgba(255, 255, 255, 0.85)'
+          />}
+        initialPage={1}
+        style={styles.pagesContainer}
+        tabBarTextStyle={styles.tabText}
+      >
+        <SummaryPageRender
+          tabLabel="Summary"
+          billData={{
+              shortSummary: billData.featured_bill_summary,
+              pointAgainst: billData.points_against,
+              pointInFavor: billData.points_infavor,
+
+            }}
+          orientation={this.props.device.orientation}
+          goToMoreInfoPage={()=>this.refs.scrollableTabView.goToPage(1)}
+        />
+        <MoreInfoPageRender
+          tabLabel="Bill Info "
+          billData={{
+              officialSummary: stripBrsFromText(billData.summary),
+              sponsorPhoto: "https://cdn.placeavote.com/bills/114/images/hr1152-114/main.jpg",
+              sponsorName: billData.sponsor.name,
+
+            }}
+          orientation={this.props.device.orientation}
+          goToReadEntireBillPage={()=>alert("Read entire bill")}
+          platform={this.props.device.platform}
+        />
 
 
-    <View tabLabel="Comments"><Text>Comments</Text></View>
+      <View tabLabel="Comments"><Text>Comments</Text></View>
 
-   </ScrollableTabView>);
+     </ScrollableTabView>);
+   }else{
+     return <View></View>;
+   }
   }
 
 
@@ -413,7 +428,7 @@ class BillRender extends Component {
       <View style={styles.container}>
         <View style={styles.billContainer}>
           {this.renderHeader(this.props.bill.data, this.props.device.platform, styles)}
-          {this.renderBody(styles)}
+          {this.renderBody(this.props.bill.data, styles)}
         </View>
           {this.renderFooter(styles)}
       </View>

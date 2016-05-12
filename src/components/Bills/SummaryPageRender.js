@@ -103,8 +103,8 @@ class SummaryPageRender extends Component {
         fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
       summaryBodyContainer:{
-        paddingVertical: h*0.015,
-        paddingHorizontal: w*0.011,
+        paddingVertical: h*0.017,
+        paddingHorizontal: w*0.030,
         backgroundColor:'white'
       },
       summaryFavorContainer:{
@@ -173,15 +173,7 @@ class SummaryPageRender extends Component {
           </View>
           <View style={styles.summaryBodyContainer}>
             <Text style={styles.summaryBodyText}>
-              Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
-              Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
-              Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
-
-              Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
-              vLorem ipsum for ever and ever..
-              Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
-              Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
-              Lorem ipsum for ever and ever..
+              {this.props.billData.shortSummary}
             </Text>
             <TouchableOpacity onPress={this.props.goToMoreInfoPage}>
               <Text style={styles.summaryBodyReadMoreText}>
@@ -197,7 +189,7 @@ class SummaryPageRender extends Component {
           </View>
           <View style={styles.summaryBodyContainer}>
             <Text style={styles.summaryBodyPointsFavorText}>
-              - Supports research and data collection of gun violence.
+              - {this.props.billData.pointInFavor}
             </Text>
           </View>
           <View style={styles.summaryFavorContainer}>
@@ -208,7 +200,7 @@ class SummaryPageRender extends Component {
           </View>
           <View style={styles.summaryBodyContainer}>
             <Text style={styles.summaryBodyPointsFavorText}>
-              - Puts more restrictions on law abiding-gun owners..
+              - {this.props.billData.pointAgainst}
             </Text>
           </View>
         </ScrollView>
@@ -220,7 +212,7 @@ class SummaryPageRender extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.summaryData !== this.props.summaryData)
+      (nextProps.billData !== this.props.billData)
       ||
       (nextProps.orientation !== this.props.orientation)
     );
