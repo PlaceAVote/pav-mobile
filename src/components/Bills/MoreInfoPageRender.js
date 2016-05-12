@@ -107,7 +107,7 @@ class MoreInfoPageRender extends Component {
       },
       titleContainer:{
         flex:1,
-        backgroundColor: "#F6F5FF",
+        backgroundColor: Colors.titleBgColor,
         borderBottomColor: "rgba(0, 0, 0, 0.07)",
         borderBottomWidth: 1,
       },
@@ -127,13 +127,44 @@ class MoreInfoPageRender extends Component {
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
-      statusIcon:{
+
+
+      statusContainer:{
+        flexDirection:'row',
+        paddingVertical: h*0.015,
         paddingHorizontal: w*0.011,
-        color:Colors.accentColor
+        backgroundColor:'white'
       },
-      againstIcon:{
-        paddingHorizontal: w*0.011,
-        color:Colors.negativeAccentColor
+      statusIconContainer:{
+        backgroundColor:Colors.titleBgColorDark,
+        padding: w*0.071,
+      },
+      statusIcon:{
+        // paddingHorizontal: w*0.011,
+        color:Colors.fourthTextColor
+      },
+      statusTextContainer:{
+        flexDirection:'column',
+        paddingHorizontal: w*0.015,
+      },
+      statusTitleText:{
+        paddingVertical: h*0.008,
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+      },
+      statusDescriptionText:{
+        paddingVertical: h*0.008,
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney-Book',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+      },
+      statusDescription2Text:{
+        paddingVertical: h*0.008,
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney-MediumItalic',
+
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       }
 
 
@@ -194,10 +225,19 @@ class MoreInfoPageRender extends Component {
               BILL STATUS
             </Text>
           </View>
-          <View style={styles.bodyContainer}>
-            <Text style={styles.bodyPointsFavorText}>
-              - Supports research and data collection of gun violence.
-            </Text>
+          <View style={styles.statusContainer}>
+            <View style={styles.statusIconContainer}>
+              <PavIcon name="happy" size={32} style={styles.statusIcon}/>
+            </View>
+            <View style={styles.statusTextContainer}>
+              <Text style={styles.statusTitleText}>
+                Bill Introduced
+              </Text>
+              <Text style={styles.statusDescriptionText}>
+                <Text style={styles.statusDescription2Text}>Meaning:</Text> This bill has been introduced by its sponsors.
+              </Text>
+            </View>
+
           </View>
           <View style={[styles.titleContainer, styles.titleWithMultipleChildren]}>
             <Text style={styles.headerText}>

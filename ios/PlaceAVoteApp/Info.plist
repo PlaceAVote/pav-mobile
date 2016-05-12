@@ -67,6 +67,11 @@
       <string>pavicon.ttf</string>
       <string>icomoon.ttf</string>
       <string>pavFontastic.ttf</string>
+      <string>Whitney-BoldItal.ttf</string>
+      <string>Whitney-BookItal.ttf</string>
+      <string>Whitney-LightItal.ttf</string>
+      <string>Whitney-MediumItal.ttf</string>
+      <string>Whitney-SemiboldItal.ttf</string>
     </array>
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>

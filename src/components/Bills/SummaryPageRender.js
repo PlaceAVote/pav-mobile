@@ -89,7 +89,7 @@ class SummaryPageRender extends Component {
       },
       summaryHeaderContainer:{
         flex:1,
-        backgroundColor: "#F6F5FF",
+        backgroundColor: Colors.titleBgColor,
         borderBottomColor: "rgba(0, 0, 0, 0.07)",
         borderBottomWidth: 1,
 
@@ -110,7 +110,7 @@ class SummaryPageRender extends Component {
       summaryFavorContainer:{
         flex:1,
         flexDirection:'row',
-        backgroundColor: "#F6F5FF",
+        backgroundColor: Colors.titleBgColor,
         borderBottomColor: "rgba(0, 0, 0, 0.07)",
         borderBottomWidth: 1,
         alignItems:'center'
