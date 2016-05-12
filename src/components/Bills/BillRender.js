@@ -12,6 +12,8 @@
 import LinearGradient from 'react-native-linear-gradient';
 
 import SummaryPageRender from './SummaryPageRender';
+import MoreInfoPageRender from './MoreInfoPageRender';
+
 
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
@@ -114,7 +116,7 @@ class BillRender extends Component {
       //HEADER
       billImage:{
         // flex:1,
-        height: h*0.23
+        height: h*0.26
       },
       headerContainer:{
         flex:1,
@@ -350,6 +352,7 @@ class BillRender extends Component {
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
   renderBody(styles){
     return (<ScrollableTabView
+      ref="scrollableTabView"
       renderTabBar={() =>
         <DefaultTabBar
           indicatorPosition="bottom"
@@ -359,7 +362,7 @@ class BillRender extends Component {
           inactiveTextColor={Colors.primaryColor}
           backgroundColor='rgba(255, 255, 255, 0.85)'
         />}
-      initialPage={0}
+      initialPage={1}
       style={styles.pagesContainer}
       tabBarTextStyle={styles.tabText}
     >
@@ -367,10 +370,17 @@ class BillRender extends Component {
         tabLabel="Summary"
         summaryData={{data:"someData"}}
         orientation={this.props.device.orientation}
+        goToMoreInfoPage={()=>this.refs.scrollableTabView.goToPage(1)}
       />
-    <View tabLabel="Bill Info "><Text>Bill Info</Text></View>
+      <MoreInfoPageRender
+        tabLabel="Bill Info "
+        summaryData={{data:"someData"}}
+        orientation={this.props.device.orientation}
+        goToReadEntireBillPage={()=>alert("Read entire bill")}
+      />
+
+
     <View tabLabel="Comments"><Text>Comments</Text></View>
-    <View tabLabel="Statistics"><Text>Statistics</Text></View>
 
    </ScrollableTabView>);
   }
@@ -383,7 +393,7 @@ class BillRender extends Component {
           <PavIcon name="bolt" size={16} style={styles.footerBtnIcon}/>
           <Text style={styles.footerBtnText}>I'M READY TO VOTE</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerBtn}>
+        <TouchableOpacity style={styles.footerBtn} onPress={()=>this.refs.scrollableTabView.goToPage(2)}>
           <PavIcon name="comment" size={16} style={styles.footerBtnIcon}/>
           <Text style={styles.footerBtnText}>COMMENT</Text>
         </TouchableOpacity>

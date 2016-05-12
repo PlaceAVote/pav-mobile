@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # SummaryPageRender.js
+ * # MoreInfoPageRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -28,6 +28,11 @@ from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
+
+
+// import { createIconSet} from 'react-native-vector-icons';
+// const glyphMap = { 'icon-arrow-down': 'l', 'arrow-down': 'l' };
+// const PavIcon = createIconSet(glyphMap, 'pav');
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');
@@ -61,7 +66,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-class SummaryPageRender extends Component {
+class MoreInfoPageRender extends Component {
   constructor(props) {
     super(props);
 
@@ -80,54 +85,49 @@ class SummaryPageRender extends Component {
     return StyleSheet.create({
 
 
-      summaryPageContainer:{
+      pageContainer:{
         flex:1,
         backgroundColor:'white'
       },
       scrollViewContainer:{
         flex:1,
       },
-      summaryHeaderContainer:{
-        flex:1,
-        backgroundColor: "#F6F5FF",
-        borderBottomColor: "rgba(0, 0, 0, 0.07)",
-        borderBottomWidth: 1,
 
-        // shadowColor: 'rgba(0, 0, 0, 0.12)',
-      },
-      summaryHeaderText:{
+      headerText:{
         paddingHorizontal: w*0.011,
         paddingVertical: h*0.015,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
-      summaryBodyContainer:{
+      bodyContainer:{
         paddingVertical: h*0.015,
         paddingHorizontal: w*0.011,
         backgroundColor:'white'
       },
-      summaryFavorContainer:{
+      titleContainer:{
         flex:1,
-        flexDirection:'row',
         backgroundColor: "#F6F5FF",
         borderBottomColor: "rgba(0, 0, 0, 0.07)",
         borderBottomWidth: 1,
+      },
+      titleWithMultipleChildren:{
+        flexDirection:'row',
         alignItems:'center'
       },
-      summaryBodyText:{
+      bodyText:{
         paddingVertical: h*0.008,
         color: Colors.thirdTextColor,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
-      summaryBodyReadMoreText:{
+      bodyReadMoreText:{
         paddingVertical: h*0.008,
         color: Colors.negativeAccentColor,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
-      favorIcon:{
+      statusIcon:{
         paddingHorizontal: w*0.011,
         color:Colors.accentColor
       },
@@ -164,15 +164,15 @@ class SummaryPageRender extends Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
-      <View style={styles.summaryPageContainer}>
+      <View style={styles.pageContainer}>
         <ScrollView style={styles.scrollViewContainer}>
-          <View style={styles.summaryHeaderContainer}>
-            <Text style={styles.summaryHeaderText}>
-              SHORT SUMMARY
+          <View style={styles.titleContainer}>
+            <Text style={styles.headerText}>
+              OFFICIAL SUMMARY
             </Text>
           </View>
-          <View style={styles.summaryBodyContainer}>
-            <Text style={styles.summaryBodyText}>
+          <View style={styles.bodyContainer}>
+            <Text style={styles.bodyText}>
               Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
               Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
               Lorem ipsum for ever and ever.. Lorem ipsum for ever and ever..
@@ -184,30 +184,28 @@ class SummaryPageRender extends Component {
               Lorem ipsum for ever and ever..
             </Text>
             <TouchableOpacity onPress={this.props.goToMoreInfoPage}>
-              <Text style={styles.summaryBodyReadMoreText}>
+              <Text style={styles.bodyReadMoreText}>
                 Read more information about this bill.
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.summaryFavorContainer}>
-            <PavIcon name="check-mark" size={12} style={styles.favorIcon}/>
-            <Text style={styles.summaryHeaderText}>
-              POINTS IN FAVOR
+          <View style={[styles.titleContainer, styles.titleWithMultipleChildren]}>
+            <Text style={styles.headerText}>
+              BILL STATUS
             </Text>
           </View>
-          <View style={styles.summaryBodyContainer}>
-            <Text style={styles.summaryBodyPointsFavorText}>
+          <View style={styles.bodyContainer}>
+            <Text style={styles.bodyPointsFavorText}>
               - Supports research and data collection of gun violence.
             </Text>
           </View>
-          <View style={styles.summaryFavorContainer}>
-            <PavIcon name="close" size={13} style={styles.againstIcon}/>
-            <Text style={styles.summaryHeaderText}>
+          <View style={[styles.titleContainer, styles.titleWithMultipleChildren]}>
+            <Text style={styles.headerText}>
               POINTS AGAINST
             </Text>
           </View>
-          <View style={styles.summaryBodyContainer}>
-            <Text style={styles.summaryBodyPointsFavorText}>
+          <View style={styles.bodyContainer}>
+            <Text style={styles.bodyPointsFavorText}>
               - Puts more restrictions on law abiding-gun owners..
             </Text>
           </View>
@@ -229,4 +227,4 @@ class SummaryPageRender extends Component {
 }
 
 
-export default SummaryPageRender;
+export default MoreInfoPageRender;
