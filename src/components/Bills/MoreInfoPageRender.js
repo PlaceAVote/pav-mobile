@@ -235,8 +235,16 @@ class MoreInfoPageRender extends Component {
         left: 4,
         bottom: 4,
         right: 16,
-      }
+      },
 
+
+
+      /* OFFICIAL TITLE */
+      officialTitleText:{
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+      }
 
     });
   }
@@ -257,7 +265,7 @@ class MoreInfoPageRender extends Component {
   handleScroll(e){
     let percentageShow = e.nativeEvent.contentOffset.y/h;
     // console.log();
-    this.refs.animatedLine.animate(percentageShow>0.51)
+    this.refs.animatedLine.animate(percentageShow>0.58)
   }
 
   /**
@@ -359,9 +367,25 @@ class MoreInfoPageRender extends Component {
               <View style={styles.sponsorTextContainer}>
                 <Text style={styles.sponsorTitleText}>BILL SPONSOR</Text>
                 <Text style={styles.sponsorNameText}>Gun Owners of America</Text>
-
               </View>
+            </View>
+            <Text style={styles.bodyText}>
+              Gun Owners of America (GOA) is a bla, once upon a bla, because the bla later became more bla than the original bla ever was... There used to be a bla, once upon a bla,
+              because the bla later became more bla than the original bla ever was...
 
+              There used to be a bla, once upon a bla, because the bla later became more bla than the original bla ever was...
+
+              There used to be a bla, once upon a bla, because the bla later became more bla than the original bla ever was...
+            </Text>
+            <View style={styles.titleContainer}>
+              <Text style={styles.headerText}>
+                OFFICIAL TITLE
+              </Text>
+            </View>
+            <View style={styles.bodyContainer}>
+              <Text style={styles.officialTitleText}>
+                {this.props.billData.officialTitle}
+              </Text>
             </View>
 
           </View>

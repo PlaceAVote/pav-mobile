@@ -384,6 +384,7 @@ class BillRender extends Component {
               officialSummary: stripBrsFromText(billData.summary),
               sponsorPhoto: "https://cdn.placeavote.com/bills/114/images/hr1152-114/main.jpg",
               sponsorName: billData.sponsor.name,
+              officialTitle: billData.official_title
 
             }}
           orientation={this.props.device.orientation}
