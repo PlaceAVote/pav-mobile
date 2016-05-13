@@ -428,6 +428,7 @@ class BillRender extends Component {
         modalText2={"no text"}
         modalBtnText="Back"
         btnBackground={Colors.errorTextColor}
+        renderCloseButton={true}
          />);
       }else{
         return <View></View>;
@@ -460,6 +461,8 @@ class BillRender extends Component {
       (nextProps.bill !== this.props.bill)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
+      ||
+      (nextProps.voteModalPopupEnabled !== this.props.voteModalPopupEnabled)
     );
   }
 

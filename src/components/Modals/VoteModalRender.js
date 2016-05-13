@@ -3,7 +3,6 @@
 
 import Button from 'sp-react-native-iconbutton';
 import {Actions} from 'react-native-router-flux';
-import  Modal from 'react-native-modalbox';
 import React from 'react-native';
 
 const {
@@ -158,45 +157,32 @@ class VoteModalBox extends React.Component {
     render(){
       let styles = this.getStyles();
         return (
-            <Modal animationDuration={200}
-                    swipeToClose={true}
-                    swipeThreshold={90}
-                    style={styles.modal}
-                    position={"center"}
-                    ref={"welcomeModal"}
-                    isOpen={this.props.isOpen}
-                    onClosed={this.props.onModalClosed}>
+          <View style={styles.modalVerticalParent}>
 
-              <View style={styles.modalVerticalParent}>
+            <View style={styles.modalContentContainer}>
+              <View style={styles.baseContainer}>
+                <View style={styles.contentContainer}>
 
-                {this.renderXbutton(this.props.renderCloseButton, styles)}
-
-                <View style={styles.modalContentContainer}>
-                  <View style={styles.baseContainer}>
-                    <View style={styles.contentContainer}>
-
-                      <View style={styles.explanationContainer}>
-                        <Text style={styles.descriptionText} >{this.props.modalText}</Text>
-                        <Text style={styles.descriptionText2}>{this.props.modalText2}</Text>
-                      </View>
-
-                      <View style={styles.buttonContainer}>
-                        <Button textStyle={styles.whiteBtnText} style={styles.sendButton}
-                            isDisabled={this.props.modalButtonDisabled}
-                            onPress={()=>{
-                              this.refs.welcomeModal.close();
-                            }}>
-                          {this.props.modalBtnText}
-                        </Button>
-                      </View>
-                    </View>
+                  <View style={styles.explanationContainer}>
+                    <Text style={styles.descriptionText} >{this.props.modalText}</Text>
+                    <Text style={styles.descriptionText2}>{this.props.modalText2}</Text>
                   </View>
 
+                  <View style={styles.buttonContainer}>
+                    <Button textStyle={styles.whiteBtnText} style={styles.sendButton}
+                        isDisabled={this.props.modalButtonDisabled}
+                        onPress={()=>{
+                          this.refs.welcomeModal.close();
+                        }}>
+                      {this.props.modalBtnText}
+                    </Button>
+                  </View>
                 </View>
-
               </View>
 
-            </Modal>
+            </View>
+
+          </View>
         );
     }
 }

@@ -130,11 +130,12 @@ class Bill extends Component {
 
 
   onVoteBtnPress(){
-
+    // this.props.actions.setModalVisibility(VOTE, true);
+    this.props.actions.navigateTo("VoteModal");
   }
 
   onVoteModalClosed(){
-
+    this.props.actions.setModalVisibility(VOTE, false);
   }
 
 
