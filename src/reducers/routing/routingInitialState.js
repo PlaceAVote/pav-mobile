@@ -12,15 +12,18 @@
 /**
  * ## Import
  */
-import {ScheneKeys} from '../../config/constants';
+import {ScheneKeys, Modals} from '../../config/constants';
 const {Record, Map} = require('immutable');
 const {
   NAVIGATE_TO,
   ONBOARDING,
-  FORGOT_PASSWORD,
-  TOPIC_PICK,
   ACCOUNT_SETTINGS
 } = ScheneKeys;
+const {
+  WELCOME,
+  VOTE,
+  FORGOT_PASSWORD
+} = Modals;
 
 
 /**
@@ -33,8 +36,8 @@ const Router = new Record({
   previousSchene: null,
   modalIsOpen: new Map([
     [FORGOT_PASSWORD, false],
-    [TOPIC_PICK, false],
-    [ACCOUNT_SETTINGS, false],
+    [WELCOME, false],
+    [VOTE, false],
   ])
 });
 

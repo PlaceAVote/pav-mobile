@@ -41,8 +41,8 @@ import React from 'react-native';
  */
 
 const {
-  TOPIC_PICK
-} = require('../config/constants').ScheneKeys
+  WELCOME
+} = require('../config/constants').Modals
 
 /**
  * ## Redux boilerplate
@@ -116,7 +116,7 @@ let TopicPick = React.createClass({
     // console.log("On welcome modal closed");
     if(!!this.props.auth.form.error){
       // this.props.actions.resetErrorState();
-      this.props.actions.setModalVisibility(TOPIC_PICK, false);
+      this.props.actions.setModalVisibility(WELCOME, false);
     }else{
       this.props.actions.navigateUserToTheCorrectNextOnboardingStep(TOPIC_PICK);
     }
@@ -133,7 +133,7 @@ let TopicPick = React.createClass({
           auth={ this.props.auth }
           global={ this.props.global }
           device={this.props.device}
-          modalPopupEnabled={this.props.router.modalIsOpen.get(TOPIC_PICK)}
+          modalPopupEnabled={this.props.router.modalIsOpen.get(WELCOME)}
           modalPopupErrorMsg={this.props.auth.form.error}
           onModalClosed={this.onWelcomeModalClosed}
       />

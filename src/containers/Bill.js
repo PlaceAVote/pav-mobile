@@ -53,7 +53,8 @@ import React, {Component} from 'react-native';
 
 import {
 ScheneKeys,
-Other
+Other,
+Modals
 } from '../config/constants';
 const {
   NEWS_FEED_FILTERS
@@ -61,8 +62,9 @@ const {
 const {
   MAIN
 } = ScheneKeys;
-
-
+const {
+  VOTE
+} = Modals;
 
 /**
  * ## Redux boilerplate
@@ -127,11 +129,23 @@ class Bill extends Component {
 
 
 
+  onVoteBtnPress(){
+
+  }
+
+  onVoteModalClosed(){
+
+  }
+
+
   render() {
     return(
       <BillRender
           device={ this.props.device}
           bill={this.props.bill}
+          onVoteBtnPress={this.onVoteBtnPress.bind(this)}
+          voteModalPopupEnabled={this.props.router.modalIsOpen.get(VOTE)}
+          onVoteModalClosed={this.onVoteModalClosed.bind(this)}
       />
 
     );

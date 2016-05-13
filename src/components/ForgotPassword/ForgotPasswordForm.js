@@ -28,7 +28,6 @@ import { ScheneKeys, Colors } from '../../config/constants';
  */
 // const {
 //   LOGIN,
-//   FORGOT_PASSWORD
 // } = ScheneKeys
 
 /**

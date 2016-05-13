@@ -11,7 +11,7 @@
  */
 import InitialRouterState from './routingInitialState';
 
-import {ActionNames} from '../../config/constants';
+import {ActionNames, Modals} from '../../config/constants';
 
 /**
  * Routing actions to test
@@ -21,7 +21,7 @@ import {ActionNames} from '../../config/constants';
    NAVIGATE_PREVIOUS,
    SET_MODAL_VISIBILITY
  } = ActionNames;
-
+ 
 
 const initialRouterState = new InitialRouterState
 

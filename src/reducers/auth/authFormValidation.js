@@ -8,7 +8,7 @@
  */
 'use strict';
 
-import {ScheneKeys} from '../../config/constants';
+import {ScheneKeys, Modals} from '../../config/constants';
 /**
  * ## Imports
  * the actions being addressed
@@ -20,9 +20,10 @@ const {
   REGISTER_STEP_3,
   REGISTER_STEP_4,
   LOGIN,
-  FORGOT_PASSWORD
 } = ScheneKeys;
-
+const {
+  FORGOT_PASSWORD
+} = Modals;
 
 //returns the index of the object if found in an array, otherwise false if the object was not found
 export function arrayContainsObject(obj, list) {

@@ -24,9 +24,15 @@ module.exports =  {
 
   },
 
+
+  Modals: keyMirror({
+    WELCOME: null,
+    VOTE: null,
+    FORGOT_PASSWORD: null
+  }),
+
   ScheneKeys: keyMirror({
     ONBOARDING: null,
-    FORGOT_PASSWORD: null,
     LOGIN: null,
     REGISTER_STEP_1: null,
     REGISTER_STEP_2: null,

@@ -48,7 +48,7 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
-
+import VoteModalBox from '../Modals/VoteModalBox'
 
 
 
@@ -405,7 +405,7 @@ class BillRender extends Component {
   renderFooter(styles){
     return (
       <View style={styles.billBtnsContainer}>
-        <TouchableOpacity style={styles.footerBtn}>
+        <TouchableOpacity style={styles.footerBtn} onPress={this.props.onVoteBtnPress}>
           <PavIcon name="bolt" size={16} style={styles.footerBtnIcon}/>
           <Text style={styles.footerBtnText}>I'M READY TO VOTE</Text>
         </TouchableOpacity>
@@ -416,6 +416,24 @@ class BillRender extends Component {
       </View>);
   }
 
+
+
+  voteModalPopupRender(enabled, onClosed){
+      if(enabled){
+        return (<VoteModalBox
+        isOpen={enabled}
+        modalButtonDisabled = {false}
+        onModalClosed={onClosed}
+        modalText="Oops"
+        modalText2={"no text"}
+        modalBtnText="Back"
+        btnBackground={Colors.errorTextColor}
+         />);
+      }else{
+        return <View></View>;
+      }
+
+  }
 
   /**
    * ### render method
@@ -431,7 +449,8 @@ class BillRender extends Component {
           {this.renderHeader(this.props.bill.data, this.props.device.platform, styles)}
           {this.renderBody(this.props.bill.data, styles)}
         </View>
-          {this.renderFooter(styles)}
+        {this.renderFooter(styles)}
+        {this.voteModalPopupRender(this.props.voteModalPopupEnabled, this.props.onVoteModalClosed)}
       </View>
     );
   }

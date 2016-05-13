@@ -8,7 +8,7 @@
  *
  */
 'use strict';
-import {ActionNames, ScheneKeys} from '../../config/constants';
+import {ActionNames, ScheneKeys, Modals} from '../../config/constants';
 import {LoginManager, AccessToken, GraphRequestManager, GraphRequest} from 'react-native-fbsdk';
 import moment from 'moment';
 import {validateEmail, validatePassword} from '../../lib/Utils/fieldValidation';
@@ -88,10 +88,12 @@ const  _ = require('underscore');
    REGISTER_STEP_3,
    REGISTER_STEP_4,
    LOGIN,
-   FORGOT_PASSWORD,
-   TOPIC_PICK
  } = ScheneKeys;
 
+const {
+  WELCOME,
+  FORGOT_PASSWORD,
+} = Modals
 // /**
 //  * ## Logout actions
 //  */
@@ -265,7 +267,7 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
           first_name: first_name
   			})));
     }
-    return dispatch(setModalVisibility(TOPIC_PICK, true));
+    return dispatch(setModalVisibility(WELCOME, true));
   };
 }
 
@@ -580,7 +582,7 @@ export function facebookSignupFailure(error) {
    			});
        dispatch(facebookSignupSuccess(curUser));
      }
-     dispatch(setModalVisibility(TOPIC_PICK, true));
+     dispatch(setModalVisibility(WELCOME, true));
      return curUser;
    };
  }

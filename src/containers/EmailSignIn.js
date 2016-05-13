@@ -35,12 +35,14 @@ import EmailSignInRender from '../components/EmailSignIn/EmailSignInRender';
  */
 import React from 'react-native';
 
-
+const {ScheneKeys, Modals} = require('../config/constants')
 const {
   LOGIN,
-  FORGOT_PASSWORD,
   MAIN
-} = require('../config/constants').ScheneKeys
+} = ScheneKeys;
+const {
+  FORGOT_PASSWORD,
+} = Modals;
 
 /**
  * ## Redux boilerplate

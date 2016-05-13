@@ -69,7 +69,6 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
  */
 const {
   LOGIN,
-  FORGOT_PASSWORD
 } = ScheneKeys;
 
 
@@ -238,9 +237,6 @@ class EmailSignInRender extends Component {
   render() {
 
     let self = this;
-    let onForgotBtnPress = ()=>{
-      (FORGOT_PASSWORD);
-    };
     // renderForgotPasswordModalBox = ()=>{
     //   if(===true){
     //     return ;

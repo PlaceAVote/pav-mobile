@@ -276,7 +276,7 @@ class TopicPickRender extends Component {
     if(enabled){
       if(!!errorMsg){
         return (<WelcomeModalBox
-        isOpen={this.props.modalPopupEnabled}
+        isOpen={enabled}
         modalButtonDisabled = {this.props.modalButtonDisabled}
         onModalClosed={this.props.onModalClosed}
         modalText="Oops"
@@ -286,7 +286,7 @@ class TopicPickRender extends Component {
          />);
       }else{
         return (<WelcomeModalBox
-        isOpen={this.props.modalPopupEnabled}
+        isOpen={enabled}
         modalButtonDisabled = {this.props.modalButtonDisabled}
         onModalClosed={this.props.onModalClosed}
         modalText="Its a thrill to have you with us"

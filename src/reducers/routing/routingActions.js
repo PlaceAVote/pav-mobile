@@ -9,7 +9,7 @@
  */
 'use strict';
 
-import {ActionNames, ScheneKeys} from '../../config/constants';
+import {ActionNames, ScheneKeys, Modals} from '../../config/constants';
 /**
  * ## Imports
  *
@@ -30,6 +30,7 @@ const {
   MAIN,
   ACCOUNT_SETTINGS
 } = ScheneKeys;
+
 
 /**
 * Import our router

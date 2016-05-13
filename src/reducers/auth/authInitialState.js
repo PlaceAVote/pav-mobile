@@ -12,7 +12,7 @@
 /**
  * ## Import
  */
-import {ScheneKeys, Other} from '../../config/constants';
+import {ScheneKeys, Other, Modals} from '../../config/constants';
 import {Record, Map, List} from 'immutable';
 
 const {
@@ -21,11 +21,13 @@ const {
   REGISTER_STEP_3,
   REGISTER_STEP_4,
   LOGIN,
-  FORGOT_PASSWORD
 } = ScheneKeys;
 const {
   TOPICS
 } = Other;
+const {
+  FORGOT_PASSWORD
+} = Modals;
 
 /**
  * ## Form
