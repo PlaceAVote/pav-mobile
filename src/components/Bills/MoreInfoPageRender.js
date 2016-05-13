@@ -10,7 +10,7 @@
 
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
-const {US_STATES} = Other;
+const {US_STATES, BILL_STATUSES} = Other;
 /**
  * The necessary React components
  */
@@ -165,10 +165,11 @@ class MoreInfoPageRender extends Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       statusDescriptionText:{
+        width: w*0.73,
         paddingVertical: h*0.008,
         color: Colors.thirdTextColor,
         fontFamily: 'Whitney-Book',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
       statusDescription2Text:{
         paddingVertical: h*0.008,
@@ -259,7 +260,13 @@ class MoreInfoPageRender extends Component {
   }
 
 
-
+  getLastIcon(array){
+    if(!!array){
+      return array[array.length-1]
+    }else{
+      return "exclamation";
+    }
+  }
 
 
   /**
@@ -320,14 +327,14 @@ class MoreInfoPageRender extends Component {
           </View>
           <View style={[styles.bodyContainer, styles.statusContainer]}>
             <View style={styles.statusIconContainer}>
-              <PavIcon name="happy" size={32} style={styles.statusIcon}/>
+              <PavIcon name={this.getLastIcon(BILL_STATUSES[this.props.billData.status].icons)} size={32} style={styles.statusIcon}/>
             </View>
             <View style={styles.statusTextContainer}>
               <Text style={styles.statusTitleText}>
-                Bill Introduced
+                {BILL_STATUSES[this.props.billData.status].title}
               </Text>
               <Text style={styles.statusDescriptionText}>
-                <Text style={styles.statusDescription2Text}>Meaning:</Text> This bill has been introduced by its sponsors.
+                <Text style={styles.statusDescription2Text}>Meaning:</Text> {BILL_STATUSES[this.props.billData.status].explanation}
               </Text>
             </View>
           </View>

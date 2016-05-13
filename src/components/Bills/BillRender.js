@@ -377,6 +377,7 @@ class BillRender extends Component {
               officialSummary: stripBrsFromText(billData.summary),
               officialTitle: billData.official_title,
               pdfUrl: billData.last_version.urls.pdf,
+              status: billData.status,
               sponsor:{
                 photo: billData.sponsor.img_url,
                 firstName: billData.sponsor.first_name,

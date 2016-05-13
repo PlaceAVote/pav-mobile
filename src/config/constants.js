@@ -83,6 +83,57 @@ module.exports =  {
       FACEBOOK: 'facebook',
       TWITTER: 'twitter',
     },
+
+
+
+
+
+    BILL_STATUSES: {
+      "INTRODUCED":{title:"Bill Introduced", explanation:"The bill or resolution was introduced but not yet referred to committee.", icons:["introduced"]},
+      "REFERRED":{title:"Bill Referred", explanation:"The bill or resolution has been referred to committee in the originating chamber and needs committee action to continue.", icons:["introduced"]},
+      "REPORTED":{title:"Bill Reported", explanation:"The bill or resolution was reported by committee in the originating chamber and can now continue with floor debate in the originating chamber.", icons:["introduced", "committee"]},
+
+      "PROV_KILL:SUSPENSIONFAILED":{title:"Failed in the House Under Suspension", explanation:"The bill or resolution was brought under a fast track procedure called `under suspension of the rules` but failed that vote. Since it can be voted on again, we call it provisionally killed.", icons:["introduced", "committee", "fail-house"]},
+      "PROV_KILL:CLOTUREFAILED":{title:"Failed Cloture in the Senate", explanation:"The Senate must often vote to end debate before voting on a bill, called a cloture vote. The vote on cloture failed. This is often considered a filibuster. The bill is provisionally dead, in a sense, but the Senate may try again.", icons:["introduced", "committee", "fail-senate"]},
+
+      "FAIL:ORIGINATING:HOUSE":{title:"Failed in House", explanation:"The bill or resolution failed in the House. The bill is now dead.", icons:["introduced", "committee", "fail-house"]},
+      "FAIL:ORIGINATING:SENATE":{title:"Failed in Senate", explanation:"The bill or resolution failed in the Senate. The bill is now dead.", icons:["introduced", "committee", "fail-senate"]},
+      "FAIL:SECOND:HOUSE":{title:"Failed in the House", explanation:"The bill passed in the Senate but failed in the House. The bill is now dead.", icons:["introduced", "committee", "fail-house"]},
+      "FAIL:SECOND:SENATE":{title:"Failed in the Senate", explanation:"The bill or resolution passed in its originating chamber but failed in the other chamber. The bill is now dead.", icons:["introduced", "committee", "fail-senate"]},
+
+      "PASSED:SIMPLERES":{title:"Simple Resolution passed", explanation:"A simple resolution has been passed in the bills originating chamber. This is the end of the life for a simple resolution.", icons:["introduced", "committee", "passed-senate", "passed-house"]},
+      "PASSED:CONSTAMEND":{title:"Constitution amendment passed", explanation:" A joint resolution which is proposing an amendment to the Constitution has passed both chambers in identical form. This is the end of the life for the resolution in the legislative branch. It goes on subsequently to the states.", icons:["introduced", "committee", "passed-senate", "passed-house"]},
+      "PASSED:CONCURRENTRES":{title:"Passed Through Concurrent Resolution", explanation:"A concurrent resolution has been passed by both chambers in identical form. This is the end of the life for concurrent resolutions.", icons:["introduced", "committee", "passed-senate", "passed-house"]},
+      "PASSED:BILL":{title:"Bill Passed", explanation:" A bill (or a joint resolution not proposing an amendment to the constitution) has been passed by both chambers in identical form. This is normally displayed as `Enrolled Bill`. The bill will go on to the President next. This status typically is applied when the second chamber passes a bill", icons:["introduced", "committee", "passed-senate", "passed-house"]},
+
+      "PASS_OVER:HOUSE":{title:"Passed Favorably (House)", explanation:"The bill was passed in a vote in the House. It goes to the Senate next. The vote was by Unanimous Consent so no record of individual votes exists.", icons:["introduced", "committee", "passed-house"]},
+      "PASS_OVER:SENATE":{title:"Passed Favorably (Senate)", explanation:"The bill was passed in a vote in the Senate. It goes to the House next. The vote was by Unanimous Consent so no record of individual votes exists.", icons:["introduced", "committee", "passed-senate"]},
+
+      "PASS_BACK:HOUSE":{title:"House Passes Bill Back to the Senate", explanation:"The House voted and made changes that the Senate now has to agree on, so they send the bill back to the Senate. Ping pong can go around and around.", icons:["introduced", "committee", "passed-house"]},
+      "PASS_BACK:SENATE":{title:"Senate Passes Bill Back to the House", explanation:"The Senate voted and made changes that the House now has to agree on, so they send the bill back to the House. Ping pong can go around and around.", icons:["introduced", "committee", "passed-senate"]},
+
+      "CONFERENCE:PASSED:HOUSE":{title:"Conference passed house", explanation:"After the Senate and the House failed to agree upon a bill, a conference committee was formed. That conference committee issued a report but only the House has aggreed on this report so far. When the Senate aggrees as well, the bill will pass.", icons:["introduced", "committee", "passed-house"]},
+      "CONFERENCE:PASSED:SENATE":{title:"Conference passed Senate", explanation:"After the Senate and the House failed to agree upon a bill, a conference committee was formed. That conference committee issued a report but only the Senated has aggreed on this report so far. When the House aggrees as well, the bill will pass.", icons:["introduced", "committee", "passed-senate"]},
+
+      "PROV_KILL:PINGPONGFAIL":{title:"Ping Pong Failure",explanation:"The House or Senate did not approve of changes to the bill made in the other chamber. They can try again.", icons:["introduced", "committee", "failed"]},
+
+      "PROV_KILL:VETO":{title:"Passed Bill Vetoed.", explanation:"A passed bill was vetoed by the president. A veto can be overridden by the Congress though.", icons:["introduced", "committee", "passed-senate", "passed-house"]},
+
+      "VETOED:POCKET":{title:"Bill Pocket-Vetoed", explanation:"When a bill gets pocket-vetoed, that means that the President did not sign the bill neither did he veto it for 10 days. The bill does not become law and Congress has no opportunity to override.", icons:["introduced", "committee", "failed"]},
+
+      "VETOED:OVERRIDE_FAIL_ORIGINATING:HOUSE":{title:"Veto Override Failed in House", explanation:"Veto override failed in the House, the bill's originating chamber.", icons:["introduced", "committee", "passed-senate", "failed-house"]},
+      "VETOED:OVERRIDE_FAIL_ORIGINATING:SENATE":{title:"Veto Override Failed in Senate", explanation:"Veto override failed in the Senate, the bill's originating chamber.", icons:["introduced", "committee", "passed-house", "failed-senate"]},
+      "VETOED:OVERRIDE_PASS_OVER:HOUSE":{title:"Override Pass over - House", explanation:" This status code indicate a veto override attempt was successful in the originating chamber, and that it is now up to the House to attempt the override. The chamber named in the status is the chamber that just had a successful override vote.", icons:["introduced", "committee", "passed-senate"]},
+      "VETOED:OVERRIDE_PASS_OVER:SENATE":{title:"Override Pass over - Senate", explanation:" This status code indicate a veto override attempt was successful in the originating chamber, and that it is now up to the House to attempt the override. The chamber named in the status is the chamber that just had a successful override vote.", icons:["introduced", "committee", "passed-house"]},
+      "VETOED:OVERRIDE_FAIL_SECOND:HOUSE":{title:"Override Failed second - House", explanation:"Veto override passed in the Senate but failed in the House.", icons:["introduced", "committee", "passed-senate", "failed-house"]},
+      "VETOED:OVERRIDE_FAIL_SECOND:SENATE":{title:"Override Failed second - Senate", explanation:"Veto override passed in the House but failed in the Senate.", icons:["introduced", "committee", "passed-house", "failed-senate"]},
+
+      "ENACTED:VETO_OVERRIDE":{title:"Bill Vetoed but Veto Overriden", explanation:"The bill was vetoed but the veto was overridden in both chambers.", icons:["introduced", "committee", "passed-senate", "passed-house", "enacted"]},
+      "ENACTED:TENDAYRULE":{title:"Ten day Rule", explanation:" The bill became law because ten Days passed (Sundays excepted) while the president neither singed nor vetoed the bill. This has happened only six times since the 93rd Congress, none recently.", icons:["introduced", "committee", "passed-senate", "passed-house", "enacted"]},
+      "ENACTED:SIGNED":{title:"Singed", explanation:"The President signed the bill and it became a law.", icons:["introduced", "committee", "passed-senate", "passed-house", "enacted"]},
+    },
+
+
     US_STATES:{
       AL: "Alabama",
       AK: "Alaska",
