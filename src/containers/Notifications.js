@@ -101,30 +101,27 @@ class Notifications extends Component {
   constructor(props) {
     super(props);
     // console.log("Now calling the get profile data action"+JSON.stringify(this.props));
-
     // this.loginAndGetNotifications();
-
-
-
   }
 
-  async loginAndGetNotifications(){
-    await this.props.actions.login("whatevah@placeavote.com", "Asdasd1");
-    await this.props.actions.getNotifications();
-  }
-  orientationDidChange(orientation) {
-    // console.log("Orientation: "+orientation);
-    this.props.actions.setOrientation(orientation);
-  }
-
-  componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange);
-    this.props.actions.unlockOrientation();
-  }
-
-  componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange);
-  }
+  
+  // async loginAndGetNotifications(){
+  //   await this.props.actions.login("whatevah@placeavote.com", "Asdasd1");
+  //   await this.props.actions.getNotifications();
+  // }
+  // orientationDidChange(orientation) {
+  //   // console.log("Orientation: "+orientation);
+  //   this.props.actions.setOrientation(orientation);
+  // }
+  //
+  // componentDidMount() {
+  //   Orientation.addOrientationListener(this.orientationDidChange.bind(this));
+  //   this.props.actions.unlockOrientation();
+  // }
+  //
+  // componentWillUnmount() {
+  //   Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
+  // }
 
   render() {
     return(

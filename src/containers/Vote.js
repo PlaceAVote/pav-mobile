@@ -1,7 +1,8 @@
+/* @flow*/
 /**
- * # TopicPick.js
+ * # Vote.js
  *
- *  The container to display the TopicPick form
+ *  The container to display the Vote form
  *
  */
 'use strict';
@@ -27,9 +28,9 @@ import moment from 'moment';
 import {Map} from 'immutable';
 
 /**
- *   TopicPickRender
+ *   VoteRender
  */
-import VoteModalRender from '../components/Modals/VoteModalRender';
+import VoteRender from '../components/Vote/VoteRender';
 
 /**
  * The necessary React components
@@ -40,17 +41,17 @@ import React from 'react-native';
  * The states were interested in
  */
 
-const {
-  WELCOME
-} = require('../config/constants').Modals
+// const {
+//   WELCOME
+// } = require('../config/constants').Modals
 
 /**
  * ## Redux boilerplate
  */
 const actions = [
-  authActions,
-  routingActions,
-  deviceActions
+  // authActions,
+  // routingActions,
+  // deviceActions
 ];
 
 
@@ -82,26 +83,20 @@ function mapDispatchToProps(dispatch) {
 //
 // }
 
-let TopicPick = React.createClass({
+let Vote = React.createClass({
 
 
   render() {
     //
     return(
-      <VoteModalRender
-          backButtonEnabled={true}
-          onBack={this.onBackBtnPress}
-          onNextStep={ this.onButtonPress}
+      <VoteRender
           auth={ this.props.auth }
-          global={ this.props.global }
           device={this.props.device}
-          modalPopupEnabled={this.props.router.modalIsOpen.get(WELCOME)}
-          modalPopupErrorMsg={this.props.auth.form.error}
-          onModalClosed={this.onWelcomeModalClosed}
+          bill={this.props.bill}
       />
     );
   }
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicPick);
+export default connect(mapStateToProps, mapDispatchToProps)(Vote);

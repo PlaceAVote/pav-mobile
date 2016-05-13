@@ -52,6 +52,8 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
+import Dimensions from 'Dimensions';
+var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 // const {} = require('../config/constants').ScheneKeys
 
 
@@ -92,10 +94,6 @@ function mapDispatchToProps(dispatch) {
 
 
 
-
-
-
-
 class ProfileButtons extends Component {
 
   onSettingsBarBtnClicked(){
@@ -104,12 +102,12 @@ class ProfileButtons extends Component {
 
   render(){
       return (
-          <View style={{ flexDirection:'row', justifyContent:'space-between', paddingHorizontal:10}}>
-            <TouchableOpacity>
+          <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'flex-end', paddingVertical:h*0.013}}>
+            <TouchableOpacity style={{paddingHorizontal:w*0.020}}>
               <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.7)'}}/>
             </TouchableOpacity>
             <View style={{ flexDirection:'row', justifyContent:'flex-end', alignItems:'center'}}>
-              <TouchableOpacity style={{paddingHorizontal:3}} onPress={this.onSettingsBarBtnClicked.bind(this)}>
+              <TouchableOpacity style={{paddingHorizontal:w*0.020}} onPress={this.onSettingsBarBtnClicked.bind(this)}>
                 <PavIcon name='gear' size={35} style={{color:'white'}}/>
               </TouchableOpacity>
             </View>

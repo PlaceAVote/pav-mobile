@@ -33,10 +33,7 @@ import React,
   StyleSheet,
   Text,
   View,
-  ScrollView,
   TouchableOpacity,
-  ListView,
-  RefreshControl,
 
 }
 from 'react-native';
@@ -48,7 +45,6 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
-import VoteModalBox from '../Modals/VoteModalBox'
 
 
 
@@ -82,10 +78,6 @@ import PavImage from '../../lib/UI/PavImage'
 class BillRender extends Component {
   constructor(props) {
     super(props);
-
-    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        // dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-
   }
 
 
@@ -351,6 +343,7 @@ class BillRender extends Component {
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
   renderBody(billData, styles){
+
     if(!!billData){
       return (<ScrollableTabView
         ref="scrollableTabView"
@@ -382,11 +375,27 @@ class BillRender extends Component {
           tabLabel="Bill Info "
           billData={{
               officialSummary: stripBrsFromText(billData.summary),
-              sponsorPhoto: "https://cdn.placeavote.com/bills/114/images/hr1152-114/main.jpg",
-              sponsorName: billData.sponsor.name,
-              officialTitle: billData.official_title
-
+              officialTitle: billData.official_title,
+              pdfUrl: billData.last_version.urls.pdf,
+              sponsor:{
+                photo: billData.sponsor.img_url,
+                firstName: billData.sponsor.first_name,
+                lastName: billData.sponsor.last_name,
+                party:  billData.sponsor.current_term.party,
+                state:  billData.sponsor.state,
+                termStart:  billData.sponsor.current_term.start,
+                termEnd:  billData.sponsor.current_term.end,
+                district:  billData.sponsor.current_term.district,
+                sponsorUrl:  billData.sponsor.current_term.url,
+              },
+              coSponsorsCount:{
+                independent: billData.cosponsors_count.independent,
+                republican: billData.cosponsors_count.republican,
+                democrat: billData.cosponsors_count.democrat,
+              }
             }}
+          onDownloadBillAsPDF={this.props.onDownloadBillAsPDF}
+          onSponsorClick={this.props.onSponsorClick}
           orientation={this.props.device.orientation}
           goToReadEntireBillPage={()=>alert("Read entire bill")}
           platform={this.props.device.platform}
@@ -418,23 +427,6 @@ class BillRender extends Component {
 
 
 
-  voteModalPopupRender(enabled, onClosed){
-      if(enabled){
-        return (<VoteModalBox
-        isOpen={enabled}
-        modalButtonDisabled = {false}
-        onModalClosed={onClosed}
-        modalText="Oops"
-        modalText2={"no text"}
-        modalBtnText="Back"
-        btnBackground={Colors.errorTextColor}
-        renderCloseButton={true}
-         />);
-      }else{
-        return <View></View>;
-      }
-
-  }
 
   /**
    * ### render method
@@ -451,7 +443,6 @@ class BillRender extends Component {
           {this.renderBody(this.props.bill.data, styles)}
         </View>
         {this.renderFooter(styles)}
-        {this.voteModalPopupRender(this.props.voteModalPopupEnabled, this.props.onVoteModalClosed)}
       </View>
     );
   }
@@ -461,8 +452,6 @@ class BillRender extends Component {
       (nextProps.bill !== this.props.bill)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
-      ||
-      (nextProps.voteModalPopupEnabled !== this.props.voteModalPopupEnabled)
     );
   }
 

@@ -10,7 +10,7 @@
 
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
-const {SOCIAL_TYPES} = Other;
+const {US_STATES} = Other;
 /**
  * The necessary React components
  */
@@ -25,6 +25,10 @@ import React,
 
 }
 from 'react-native';
+
+import {getNumberWithOrdinalSufix} from '../../lib/Utils/numberText';
+
+
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -39,12 +43,15 @@ const icomoonConfig = require('../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
+
+
 /**
 * Image library
 */
 
 import PavImage from '../../lib/UI/PavImage'
 
+import moment from 'moment';
 
 
 
@@ -95,7 +102,8 @@ class MoreInfoPageRender extends Component {
       },
 
       headerText:{
-        paddingHorizontal: w*0.011,
+        flex:1,
+        paddingHorizontal: w*0.015,
         paddingVertical: h*0.015,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
@@ -197,7 +205,7 @@ class MoreInfoPageRender extends Component {
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
       },
-      sponsorTypeText:{
+      sponsorPartyText:{
         paddingVertical: h*0.008,
         color: Colors.primaryColor,
         fontFamily: 'Whitney',
@@ -221,7 +229,8 @@ class MoreInfoPageRender extends Component {
       },
       cosponsorVisualGraphContainer:{
         // flexDirection:'row',
-        justifyContent:'center'
+        justifyContent:'center',
+        paddingVertical: h*0.008,
       },
       chartContainer:{
         flex: 1,
@@ -264,8 +273,8 @@ class MoreInfoPageRender extends Component {
 
   handleScroll(e){
     let percentageShow = e.nativeEvent.contentOffset.y/h;
-    // console.log();
-    this.refs.animatedLine.animate(percentageShow>0.58)
+    console.log(percentageShow);
+    this.refs.animatedLine.animate(percentageShow>0.62)
   }
 
   /**
@@ -277,6 +286,10 @@ class MoreInfoPageRender extends Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    let sponsor = this.props.billData.sponsor;
+    // console.log("BILL DATA: "+JSON.stringify(this.props.billData))
+    // console.log("SPONSOR: "+JSON.stringify(sponsor));
+    console.log("@@@@ BILL PDF URL: "+this.props.billData.pdfUrl)
     return(
       <View style={styles.pageContainer}>
         <ScrollView
@@ -293,9 +306,9 @@ class MoreInfoPageRender extends Component {
             <Text style={styles.bodyText}>
               {this.props.billData.officialSummary}
             </Text>
-            <TouchableOpacity onPress={/*this.props.goToMoreInfoPage*/()=>{}}>
+            <TouchableOpacity onPress={()=>this.props.onDownloadBillAsPDF(this.props.billData.pdfUrl)}>
               <Text style={styles.bodyReadMoreText}>
-                Read more information about this bill.
+                Download Full Bill as PDF
               </Text>
             </TouchableOpacity>
           </View>
@@ -321,31 +334,25 @@ class MoreInfoPageRender extends Component {
 
           <View style={[styles.titleContainer, styles.titleWithMultipleChildren]}>
             <Text style={styles.headerText}>
-              CONGRESSMEN AND ORGANISATIONS INVOLVED
+              REPRESENTATIVES AND ORGANISATIONS INVOLVED
             </Text>
           </View>
           <View style={[styles.bodyContainer, styles.cnoContainer]}>
-            <View style={styles.cnoBillSponsorContainer}>
+            <TouchableOpacity onPress={()=>{this.props.onSponsorClick(sponsor)}}
+            style={styles.cnoBillSponsorContainer}>
               <PavImage
-              platform={this.props.platform}
-              style={styles.sponsorImage}
-              source={{uri: this.props.billData.sponsorPhoto}}
-              resizeMode='cover'
+                platform={this.props.platform}
+                style={styles.sponsorImage}
+                source={{uri: sponsor.photo}}
+                resizeMode='cover'
               />
               <View style={styles.sponsorTextContainer}>
                 <Text style={styles.sponsorTitleText}>BILL SPONSOR</Text>
-                <Text style={styles.sponsorNameText}>Mike Thompson</Text>
-                <Text style={styles.sponsorTypeText}>Democrat</Text>
+                <Text style={styles.sponsorNameText}>{sponsor.firstName} {sponsor.lastName} </Text>
+                <Text style={styles.sponsorPartyText}>{sponsor.party} </Text>
               </View>
-            </View>
-            <Text style={styles.bodyText}>
-              There used to be a bla, once upon a bla, because the bla later became more bla than the original bla ever was... There used to be a bla, once upon a bla,
-              because the bla later became more bla than the original bla ever was...
-
-              There used to be a bla, once upon a bla, because the bla later became more bla than the original bla ever was...
-
-              There used to be a bla, once upon a bla, because the bla later became more bla than the original bla ever was...
-            </Text>
+            </TouchableOpacity>
+            <Text style={styles.bodyText}>{sponsor.lastName} a {sponsor.party}, has been the representative for {US_STATES[sponsor.state]}'s {getNumberWithOrdinalSufix(sponsor.district)} congressional district since {moment(sponsor.termStart, 'YYYY-MM-DD').format('MMM D, YYYY')} (next election in November {moment(sponsor.termEnd, 'YYYY-MM-DD').format('YYYY')-1}).</Text>
             <View style={styles.cnoCosponsorContainer}>
               <Text style={styles.coponsorTitleText}>BILL CO SPONSORS</Text>
               <Text style={styles.cosponsorCntText}>130 Total</Text>
@@ -360,7 +367,7 @@ class MoreInfoPageRender extends Component {
               </View>
             </View>
 
-            <View style={[styles.bodyContainer, styles.statusContainer]}>
+            {/*<View style={[styles.bodyContainer, styles.statusContainer]}>
               <View style={styles.statusIconContainer}>
                 <PavIcon name="happy" size={32} style={styles.statusIcon}/>
               </View>
@@ -376,7 +383,9 @@ class MoreInfoPageRender extends Component {
               There used to be a bla, once upon a bla, because the bla later became more bla than the original bla ever was...
 
               There used to be a bla, once upon a bla, because the bla later became more bla than the original bla ever was...
-            </Text>
+            </Text>*/}
+            </View>
+
             <View style={styles.titleContainer}>
               <Text style={styles.headerText}>
                 OFFICIAL TITLE
@@ -388,7 +397,7 @@ class MoreInfoPageRender extends Component {
               </Text>
             </View>
 
-          </View>
+
 
         </ScrollView>
 

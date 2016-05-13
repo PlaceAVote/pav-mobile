@@ -134,6 +134,12 @@ class SummaryPageRender extends Component {
       againstIcon:{
         paddingHorizontal: w*0.011,
         color:Colors.negativeAccentColor
+      },
+      summaryBodyPointsFavorText:{
+        paddingVertical: h*0.008,
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney-MediumItalic',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       }
 
 

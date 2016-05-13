@@ -69,7 +69,7 @@ import NewsFeed from './containers/NewsFeed';
 import Bill from './containers/Bill';
 import Profile from './containers/Profile';
 import Notifications from './containers/Notifications';
-import VoteModal from './containers/Vote';
+import Vote from './containers/Vote';
 
 // import Logout from './containers/Logout';
 import Onboarding from './containers/Onboarding';
@@ -317,7 +317,6 @@ export default function native(platform) {
       return (
         <Provider store={store}>
           <RouterWithRedux hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}} >
-            <Scene key="modal" component={Modal} >
               <Scene key="root"  hideNavBar={true} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}>
                 <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} />
                 <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" renderBackButton={()=><BackBtnImg/>}  renderRightButton={()=><RightPavLogo/>}/>
@@ -326,7 +325,7 @@ export default function native(platform) {
                 <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
-                <Scene key="VoteModal" component={VoteModal}  hideNavBar={true} title="Vote" type="push" direction="vertical" schema="modal"/>
+                <Scene key={ScheneKeys.VOTE} component={Vote}  hideNavBar={true} title="Vote" type="push" direction="vertical"/>
                 <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true}  initial={true}>
                     <Scene key={ScheneKeys.TAB_NEWS} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} initial={true}>
                       <Scene key={ScheneKeys.TAB_NEWS+"2"}  title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} />
@@ -336,7 +335,6 @@ export default function native(platform) {
                     <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} />
                 </Scene>
               </Scene>
-            </Scene>
           </RouterWithRedux>
         </Provider>
       );

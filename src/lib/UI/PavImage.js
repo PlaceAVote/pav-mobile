@@ -7,6 +7,7 @@ import React,
 {
   Component,
   Image,
+  View
 }
 from 'react-native';
 
@@ -25,6 +26,7 @@ class PavImage extends Component {
    * Setup some default presentations and render
    */
   render() {
+    let children = this.props.children || <View></View>;
     if(this.props.platform=="ios" && (!!this.props.source && this.props.source.uri!=null)){
         return (
           <LImage {...this.props}
@@ -33,13 +35,13 @@ class PavImage extends Component {
             color:Colors.primaryColor
           }}
           >
-          {this.props.children}
+
           </LImage>
         );
     }else{
       return (
         <Image {...this.props}>
-        {this.props.children}
+
         </Image>
       );
     }

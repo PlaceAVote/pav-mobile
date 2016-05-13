@@ -274,14 +274,14 @@ class NewsFeedRender extends Component {
           <ScrollView
           style={styles.scrollView}
           refreshControl={
-              <RefreshControl
-              refreshing={this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData}
-              onRefresh={this.props.onFeedRefresh}
-              tintColor={Colors.primaryColor}
-              title="Loading..."
-              titleColor={Colors.primaryColor}
-              colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
-            />}>
+            <RefreshControl
+            refreshing={this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData}
+            onRefresh={this.props.onFeedRefresh}
+            tintColor={Colors.primaryColor}
+            title="Loading..."
+            titleColor={Colors.primaryColor}
+            colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
+          />}>
             <FiltersRender
               topicList={this.props.auth.form.fields.topicsList.toJS()}
               curSelectedTopic={this.props.newsfeed.newsFeedData.curSelectedTopic}

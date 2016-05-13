@@ -138,12 +138,12 @@ class NewsFeed extends Component {
   }
 
   componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
+    Orientation.addOrientationListener(this.orientationDidChange.bind(this).bind(this));
     this.props.actions.unlockOrientation();
   }
 
   componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange);
+    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
   }
 
 

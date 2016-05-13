@@ -133,12 +133,12 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange);
+    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
     this.props.actions.unlockOrientation();
   }
 
   componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange);
+    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
   }
 
   onFollowBtnPress(e){
