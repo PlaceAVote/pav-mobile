@@ -81,6 +81,7 @@ import PavImage from '../../lib/UI/PavImage'
 class BillRender extends Component {
   constructor(props) {
     super(props);
+
   }
 
 
@@ -350,6 +351,7 @@ class BillRender extends Component {
     if(!!billData){
       return (<ScrollableTabView
         ref="scrollableTabView"
+        onChangeTab={({i, ref}) => {if(i==1){this.refs.status_tab.onTabFocus()}}}
         renderTabBar={() =>
           <DefaultTabBar
             indicatorPosition="bottom"
@@ -359,12 +361,13 @@ class BillRender extends Component {
             inactiveTextColor={Colors.primaryColor}
             backgroundColor='rgba(255, 255, 255, 0.85)'
           />}
-        initialPage={1}
+        initialPage={0}
         style={styles.pagesContainer}
         tabBarTextStyle={styles.tabText}
       >
         <SummaryPageRender
           tabLabel="Summary"
+          ref="summary_tab"
           billData={{
               shortSummary: billData.featured_bill_summary,
               pointAgainst: billData.points_against,
@@ -374,8 +377,19 @@ class BillRender extends Component {
           orientation={this.props.device.orientation}
           goToMoreInfoPage={()=>this.refs.scrollableTabView.goToPage(1)}
         />
+
+        <BillStatusPageRender
+          tabLabel="Status "
+          ref="status_tab"
+          orientation={this.props.device.orientation}
+          billStatus={billData.status}
+          billHistory={billData.history}
+        />
+
+
         <MoreInfoPageRender
           tabLabel="Bill Info "
+          ref="info_tab"
           billData={{
               officialSummary: stripBrsFromText(billData.summary),
               officialTitle: billData.official_title,
@@ -405,15 +419,9 @@ class BillRender extends Component {
           platform={this.props.device.platform}
         />
 
-        <BillStatusPageRender
-          tabLabel="Status "
-          orientation={this.props.device.orientation}
-          billStatus={billData.status}
-          billHistory={billData.history}
-        />
 
 
-      <View tabLabel="Comments"><Text>Comments</Text></View>
+      <View tabLabel="Comments" ref="comments_tab"><Text>Comments</Text></View>
 
      </ScrollableTabView>);
    }else{

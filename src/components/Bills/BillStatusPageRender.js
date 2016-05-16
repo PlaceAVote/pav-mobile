@@ -22,6 +22,7 @@ import React,
   View,
   ScrollView,
   TouchableOpacity,
+  Animated
 
 }
 from 'react-native';
@@ -33,6 +34,8 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
+
+import AnimatedStatusCard from "./AnimatedStatusCard";
 
 /**
 * Image library
@@ -64,10 +67,9 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 class BillStatusPageRender extends Component {
   constructor(props) {
     super(props);
-
-    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        // dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-
+    this.state={
+      statusVisible:false
+    }
   }
 
 
@@ -106,97 +108,12 @@ class BillStatusPageRender extends Component {
         paddingBottom: h*0.015,
       },
 
-
-
-
-
       statusIconsContainer:{
         flex:1,
         flexDirection:'column',
         // justifyContent:'space-between',
         alignItems:'center',
       },
-      statusPartContainer:{
-        flex:1,
-        flexDirection:'row',
-        // backgroundColor:'purple',
-        alignItems:"center",
-      },
-
-
-      /* LEFT SIDE */
-      lineViewContainer:{
-        paddingHorizontal: w*0.04,
-        flexDirection:'column',
-        // width:10,
-        justifyContent:'center',
-        // backgroundColor:'red',
-        alignItems:'center'
-      },
-      line:{
-        // flex:1,
-        height:h*0.08,
-        width:8,
-        // marginHorizontal:6,
-        backgroundColor:Colors.negativeAccentColor,
-      },
-      iconContainer:{
-        backgroundColor:Colors.titleBgColor,
-        padding: w*0.04,
-        borderRadius:2,
-        borderWidth:1,
-        borderColor: "rgba(0, 0, 0, 0.07)",
-      },
-
-      activeStatusIcon:{
-        // paddingHorizontal: w*0.011,
-        color:Colors.primaryColor,
-        // backgroundColor:'purple',
-      },
-      inactiveStatusIcon:{
-        color:Colors.titleBgColorDark,
-      },
-
-
-
-
-
-
-
-
-
-      /* RIGHT SIDE */
-
-      explanationsContainer:{
-        flexDirection:'column',
-        paddingHorizontal: w*0.05,
-        // backgroundColor:'yellow'
-      },
-      statusTitleText:{
-        width: w*0.6,
-        paddingVertical: h*0.008,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      inactiveStatusText:{
-        color: Colors.helpTextColor,
-      },
-      activeStatusText:{
-        color: Colors.thirdTextColor,
-      },
-      statusDescriptionText:{
-        width: w*0.6,
-        paddingVertical: h*0.008,
-        fontFamily: 'Whitney-Book',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-      },
-      statusDescription2Text:{
-        paddingVertical: h*0.008,
-        fontFamily: 'Whitney-MediumItalic',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-
-
 
     });
   }
@@ -217,29 +134,6 @@ class BillStatusPageRender extends Component {
 
 
 
-  createStatusRow(active, iconName, title, explanation, styles, finalItem){
-    finalItem = finalItem || false;
-    let key = iconName+Date();
-    console.log("Active: "+active);
-    return (<View key={key+"_container"} style={finalItem==true?[styles.statusPartContainer,styles.finalItemPadding]:styles.statusPartContainer}>
-
-
-      <View key={key+"_line_container"} style={styles.lineViewContainer}>
-        <View key={key+"_line_1"} style={styles.line}></View>
-        <View key={key+"_icon_container"} style={styles.iconContainer}>
-          <PavIcon key={key+"_icon"} name={iconName} size={55} style={active?styles.activeStatusIcon:styles.inactiveStatusIcon}/>
-        </View>
-        {finalItem==true?<View></View>:<View key={key+"_line_2"} style={styles.line}></View>}
-      </View>
-
-      <View key={key+"_explan_container"} style={styles.explanationsContainer}>
-        <Text key={key+"_title"} style={active==true?[styles.statusTitleText, styles.activeStatusText]:[styles.statusTitleText, styles.inactiveStatusText]}>{title}</Text>
-        <Text key={key+"_description"} style={active==true?[styles.statusDescriptionText, styles.activeStatusText]:[styles.statusDescriptionText, styles.inactiveStatusText]}>
-          <Text style={active==true?[styles.statusDescription2Text, styles.activeStatusText]:[styles.statusDescription2Text, styles.inactiveStatusText]}> Meaning:</Text> {explanation}
-        </Text>
-      </View>
-    </View>);
-  }
 
 
 
@@ -256,35 +150,36 @@ class BillStatusPageRender extends Component {
 
 
   createHouseIcon(billHistory, styles){
+    let keyName = "house_status_card";
     if(!!billHistory.house_passage_result && billHistory.house_passage_result=="pass"){ //a vote took place in the House and the bill passed
-      return {element: (this.createStatusRow(true,"bill-house-pass", "Passed House", BILL_STATUSES["PASS_OVER:HOUSE"].explanation, styles)), lastItem:false}
+      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={h*0.08} ref={keyName} key={keyName} active={true} iconName="bill-house-pass" title="Passed House" explanation={BILL_STATUSES["PASS_OVER:HOUSE"].explanation} finalItem={false}/>), lastItem:false}
     }else if(!!billHistory.house_passage_result && billHistory.house_passage_result=="fail"){ //a vote took place in the House and the bill was rejected
-      return {element: (this.createStatusRow(true,"bill-house-reject", BILL_STATUSES["FAIL:ORIGINATING:HOUSE"].title, BILL_STATUSES["FAIL:ORIGINATING:HOUSE"].explanation, styles, true)), lastItem:true} //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
+      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={h*0.08}  ref={keyName} key={keyName} active={true} iconName="bill-house-reject" title={BILL_STATUSES["FAIL:ORIGINATING:HOUSE"].title} explanation={BILL_STATUSES["FAIL:ORIGINATING:HOUSE"].explanation} finalItem={true}/>), lastItem:true} //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
     }else{  //not vote has taken place yet in the house
-      return {element: (this.createStatusRow(false,"bill-house", "No House Vote Yet.", "The House hasn't voted for this bill yet.", styles)), lastItem:false}
+      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={h*0.08}  ref={keyName} key={keyName} active={false} iconName="bill-house" title="No House Vote Yet." explanation="The House hasn't voted for this bill yet." finalItem={false}/>), lastItem:false}
     }
   }
 
   createSenateIcon(billHistory, styles){
+    let keyName = "senate_status_card";
     if(!!billHistory.senate_passage_result && billHistory.senate_passage_result=="pass"){ //a vote took place in the House and the bill passed
-      return {element: (this.createStatusRow(true,"bill-senate-pass", "Passed Senate", BILL_STATUSES["PASS_OVER:SENATE"].explanation, styles)), lastItem:false}
+      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={h*0.08} ref={keyName} key={keyName} active={true} iconName="bill-senate-pass" title="Passed Senate" explanation={BILL_STATUSES["PASS_OVER:SENATE"].explanation} finalItem={false}/>), lastItem:false}
     }else if(!!billHistory.senate_passage_result && billHistory.senate_passage_result=="fail"){ //a vote took place in the House and the bill was rejected
-      return {element: (this.createStatusRow(true,"bill-senate-reject", BILL_STATUSES["FAIL:ORIGINATING:SENATE"].title, BILL_STATUSES["FAIL:ORIGINATING:SENATE"].explanation, styles, true)), lastItem:true}
+      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={h*0.08} ref={keyName}  key={keyName} active={true} iconName="bill-senate-reject" title={BILL_STATUSES["FAIL:ORIGINATING:SENATE"].title} explanation={BILL_STATUSES["FAIL:ORIGINATING:SENATE"].explanation} finalItem={true}/>), lastItem:true} //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
     }else{  //not vote has taken place yet in the house
-      return {element: (this.createStatusRow(false,"bill-senate", "No Senate Vote Yet.", "The Senate hasn't voted for this bill yet.", styles)), lastItem:false}
+      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={h*0.08} ref={keyName}  key={keyName} active={false} iconName="bill-senate" title="No Senate Vote Yet." explanation="The Senate hasn't voted for this bill yet." finalItem={false}/>), lastItem:false}
     }
   }
 
 
   createIconsBasedOnBillStatus(billStatus, billHistory, styles){
     let iconElements = [];
+
     // let icons=BILL_STATUSES[billStatus].icons;
     // let title = BILL_STATUSES[billStatus].title;
     // let explanation = BILL_STATUSES[billStatus].explanation;
-
-    iconElements.push(this.createStatusRow(true, "introduced", BILL_STATUSES["INTRODUCED"].title, BILL_STATUSES["INTRODUCED"].explanation, styles));
-    iconElements.push(this.createStatusRow(true, "committee", BILL_STATUSES["REPORTED"].title, BILL_STATUSES["REPORTED"].explanation, styles));
-
+    iconElements.push(<AnimatedStatusCard lineHeight={h*0.08} ref="introduced_status_card"  key="introduced_status_card" active={true} iconName="introduced" title={BILL_STATUSES["INTRODUCED"].title} explanation={BILL_STATUSES["INTRODUCED"].explanation} finalItem={false}/>)
+    iconElements.push(<AnimatedStatusCard lineHeight={h*0.08} ref="committee_status_card" key="committee_status_card" active={true} iconName="committee" title={BILL_STATUSES["REPORTED"].title} explanation={BILL_STATUSES["REPORTED"].explanation} finalItem={false}/>)
 
     let houseFirst = this.houseIconShouldBeRenderedFirst(billHistory);
     if(houseFirst==true){
@@ -311,41 +206,65 @@ class BillStatusPageRender extends Component {
       }
     }
 
+    let keyName="enacted_status_card"
     if(billHistory.enacted==true && billHistory.vetoed==false){
-      iconElements.push(this.createStatusRow(true, "bill-passed", BILL_STATUSES["PASSED:BILL"].title, BILL_STATUSES["PASSED:BILL"].explanation, styles,true));
+      iconElements.push(<AnimatedStatusCard lineHeight={h*0.08} ref={keyName}  key={keyName} active={true} iconName="bill-passed" title={BILL_STATUSES["PASSED:BILL"].title} explanation={BILL_STATUSES["PASSED:BILL"].explanation} finalItem={true}/>)
     }else if(billHistory.enacted==true && billHistory.vetoed==true){
-      iconElements.push(this.createStatusRow(true, "bill-passed", BILL_STATUSES["PROV_KILL:VETO"].title, BILL_STATUSES["PROV_KILL:VETO"].explanation, styles, true));   //TODO: perhaps add more statuses after the veto here in the future
+      iconElements.push(<AnimatedStatusCard lineHeight={h*0.08} ref={keyName}  key={keyName} active={true} iconName="bill-passed" title={BILL_STATUSES["PROV_KILL:VETO"].title} explanation={BILL_STATUSES["PROV_KILL:VETO"].explanation} finalItem={true}/>)//TODO: perhaps add more statuses after the veto here in the future
     }else{  //NOT enacted and NOT vetoed
       if((!!billHistory.house_passage_result && billHistory.house_passage_result=="pass") && (!!billHistory.senate_passage_result && billHistory.senate_passage_result=="pass")){ //it passed both in the house and the senate
-          iconElements.push(this.createStatusRow(true, "bill-passed", "Awaiting for the president to vote.", "The bill has passed from both the House and the Senate and we are now waiting for the president to sign the bill into a law.", styles, true));
+        iconElements.push(<AnimatedStatusCard lineHeight={h*0.08} ref={keyName}  key={keyName} active={false} iconName="bill-passed" title="Awaiting for the president to vote." explanation="The bill has passed from both the House and the Senate and we are now waiting for the president to sign the bill into a law." finalItem={true}/>)
       }else{
-        iconElements.push(this.createStatusRow(false, "bill-passed", "Awaiting for the houses to aggree.", "The bill cannot go to the president before both the House and the Senate vote for it.", styles, true));
+        iconElements.push(<AnimatedStatusCard lineHeight={h*0.08} ref={keyName}  key={keyName} active={false} iconName="bill-passed" title="Awaiting for the houses to aggree." explanation="The bill cannot go to the president before both the House and the Senate vote for it." finalItem={true}/>)
       }
     }
 
-
-
-
-
-
-
-    // alert(icons);
     return iconElements;
   }
 
+
+
+
+
+  async onTabFocus(){
+      if(!!this.props.billHistory && this.state.statusVisible==false){
+
+        let scrollResponder = this.refs.stat_scrollview.getScrollResponder();
+        scrollResponder.scrollResponderScrollTo({x: 0, y: 0, animated: true});
+        let houseFirst = this.houseIconShouldBeRenderedFirst(this.props.billHistory);
+        let toAnimateArr = ["introduced_status_card", "committee_status_card", houseFirst==true?"house_status_card":"senate_status_card",houseFirst==true?"senate_status_card":"house_status_card", "enacted_status_card"];
+        // console.log("To animate array length: "+toAnimateArr.length);
+
+        for(var iii=0,lll=toAnimateArr.length;iii<lll;iii++){
+          let toBeAnimated = toAnimateArr[iii];
+          // console.log(" with toBeAnimated: "+toBeAnimated);
+          await this.refs[toBeAnimated].animate();
+          if(iii<4){
+              scrollResponder.scrollResponderScrollTo({x: 0, y: (iii+1)*h*0.26, animated: true});
+          }
+          // Dimensions.get(this.refs.stat_scrollview.getInnerViewNode(), (...data)=>{console.log(data)});
+          // this.refs.stat_scrollview.scrollTo({y:, animated:true});
+        }
+        this.setState({statusVisible:true});
+      }
+  }
 
 
   /**
    * ### render method
    */
   render() {
+
+    // this.animateCardsIfNeeded(this.props.isCurrent==true);
+
+
     let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <View style={styles.statusPageContainer}>
-        <ScrollView style={styles.scrollViewContainer}>
+        <ScrollView ref="stat_scrollview" style={styles.scrollViewContainer}>
           <View style={styles.statusHeaderContainer}>
             <Text style={styles.statusHeaderText}>
               BILL STATUS
@@ -356,12 +275,7 @@ class BillStatusPageRender extends Component {
             {this.createIconsBasedOnBillStatus(this.props.billStatus,this.props.billHistory, styles)}
           </View>
 
-
-
-
         </ScrollView>
-
-
       </View>
     );
   }

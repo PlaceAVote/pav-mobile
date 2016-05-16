@@ -413,6 +413,11 @@ class MoreInfoPageRender extends Component {
     );
   }
 
+
+  onTabFocus(){
+
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return(
       (nextProps.billData !== this.props.billData)

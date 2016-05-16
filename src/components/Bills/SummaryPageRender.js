@@ -159,7 +159,9 @@ class SummaryPageRender extends Component {
     });
   }
 
+  onTabFocus(){
 
+  }
 
   /**
    * ### render method
