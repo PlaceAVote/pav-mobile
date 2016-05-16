@@ -35,7 +35,9 @@ import VoteRender from '../components/Vote/VoteRender';
 /**
  * The necessary React components
  */
-import React from 'react-native';
+import React, {
+  Component
+} from 'react-native';
 
 /**
  * The states were interested in
@@ -50,7 +52,7 @@ import React from 'react-native';
  */
 const actions = [
   // authActions,
-  // routingActions,
+  routingActions,
   // deviceActions
 ];
 
@@ -83,8 +85,16 @@ function mapDispatchToProps(dispatch) {
 //
 // }
 
-let Vote = React.createClass({
+class Vote extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
+  onCloseBtnTap(){
+      // alert("on close");
+      this.props.actions.navigateToPrevious();
+  }
 
   render() {
     //
@@ -93,10 +103,12 @@ let Vote = React.createClass({
           auth={ this.props.auth }
           device={this.props.device}
           bill={this.props.bill}
+          onCloseBtnTap={this.onCloseBtnTap.bind(this)}
       />
     );
   }
-});
+
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Vote);

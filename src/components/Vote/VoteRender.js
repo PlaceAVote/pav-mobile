@@ -31,10 +31,7 @@ import React,
   StyleSheet,
   Text,
   View,
-  ScrollView,
   TouchableOpacity,
-  ListView,
-  RefreshControl,
 
 }
 from 'react-native';
@@ -105,13 +102,40 @@ class VoteRender extends Component {
 
       /* HEADER */
       billImage:{
-        height: h*0.29
+        flex:1,
+        // height: h*0.29
       },
       headerContainer:{
         flex:1,
         flexDirection: 'column',
-        justifyContent:'center'
       },
+
+      closeBtnContainer:{
+        paddingVertical: h*0.015,
+        paddingHorizontal: w*0.015,
+        backgroundColor:Colors.transparentColor,
+        flexDirection:'row',
+        justifyContent:'flex-end',
+        alignItems:'center',
+      },
+      closeBtnText:{
+        backgroundColor: Colors.transparentColor,
+        paddingVertical: h*0.015,
+        paddingHorizontal: w*0.015,
+        color: Colors.mainTextColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,7),
+        textAlign:'center'
+      },
+      closeBtnIcon:{
+        color: Colors.mainTextColor,
+        backgroundColor: Colors.transparentColor,
+      },
+
+
+
+
+
       headerTitleContainer:{
         // backgroundColor:'purple'
         flex:1,
@@ -128,38 +152,21 @@ class VoteRender extends Component {
         textAlign:'center'
       },
 
-      /* BODY */
-      voteBodyContainer:{
-        height: h*0.32,
-        backgroundColor:'white',
-        justifyContent:'center',
-      },
+
 
 
 
       /* FOOTER */
       voteFooterContainer:{
-        flexDirection: 'column',
+        flexDirection: 'row',
       },
 
       /* FOOTER - FOR */
-      voteForContainer:{
-        flexDirection: 'column',
-      },
-      voteForImg:{
-        // height: h*0.20
-      },
       voteForBtn:{
         backgroundColor: Colors.accentColor,
       },
 
       /* FOOTER - AGAINST */
-      voteAgainstContainer:{
-        flexDirection: 'column',
-      },
-      voteAgainstImg:{
-        // height: h*0.20
-      },
       voteAgainstBtn:{
         backgroundColor: Colors.negativeAccentColor,
       },
@@ -171,21 +178,12 @@ class VoteRender extends Component {
         height:60,
         borderRadius:0,
       },
-      pointForAgainstText:{
-        backgroundColor: Colors.transparentColor,
-        paddingTop: h*0.025,
-        paddingBottom: h*0.045,
-        paddingHorizontal: w*0.015,
-        color: Colors.mainTextColor,
-        fontFamily: 'Whitney-LightItalic',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-        textAlign:'center'
-      },
+
       btnText:{
         color: Colors.mainTextColor,
         textAlign: 'center',
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,16),
+        fontSize: getCorrectFontSizeForScreen(w,h,14),
       },
       btnIconStyle:{
         color: Colors.mainTextColor,
@@ -224,8 +222,7 @@ class VoteRender extends Component {
     // console.log("@@@ BILL: "+JSON.stringify(bilLData));
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
-      <ScrollView
-      bounces={false}
+      <View
       style={styles.container}>
         <PavImage
         key="vote_header"
@@ -239,6 +236,11 @@ class VoteRender extends Component {
               start={[-0.3, 0.0]} end={[1.3, 0.0]}
               style={styles.headerContainer}
               >
+              <TouchableOpacity onPress={this.props.onCloseBtnTap}
+              style={styles.closeBtnContainer}>
+                <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
+                <Text style={styles.closeBtnText}>CLOSE</Text>
+              </TouchableOpacity>
               <View style={styles.headerTitleContainer}>
                 <Text style={styles.headerTitle}>{bilLData.featured_bill_title}</Text>
               </View>
@@ -246,80 +248,37 @@ class VoteRender extends Component {
         </PavImage>
 
 
-        <View key="vote_body" style={styles.voteBodyContainer}>
-          <Text>In favour pie</Text>
-        </View>
+
 
 
         <View key="vote_footer" style={styles.voteFooterContainer}>
-
-          <View style={styles.voteForContainer}>
-            <PavImage
-            key="vote_for_img"
-            platform={this.props.device.platform}
-            style={styles.voteForImg}
-            source={{uri: bilLData.featured_img_link}}
-            >
-              <LinearGradient
-                  colors={['black', 'rgba(0, 0, 0, 0.61)', 'black']}
-                  start={[-0.3, 0.0]} end={[1.3, 0.0]}
-                  style={styles.headerContainer}
-                  >
-                  <View style={styles.headerTitleContainer}>
-                    <Text style={styles.pointForAgainstText}>{bilLData.points_infavor}</Text>
-                  </View>
-              </LinearGradient>
-            </PavImage>
-            <Button onPress={this.props.onVoteForBtnPressed}
-              style={[styles.voteBtn, styles.voteForBtn]}
-              isDisabled={false}
-              isLoading={false}
-              activityIndicatorColor={Colors.mainTextColor}
-              textStyle={styles.btnText}
-              customIcon={()=><PavIcon name="arrow-up" size={22} style={styles.btnIconStyle}/>}
-            >
-              Vote In Favor
-            </Button>
-          </View>
-
-          <View style={styles.voteAgainstContainer}>
-            <PavImage
-            key="vote_against_img"
-            platform={this.props.device.platform}
-            style={styles.voteAgainstImg}
-            source={{uri: bilLData.featured_img_link}}
-            >
-              <LinearGradient
-                  colors={['black', 'rgba(0, 0, 0, 0.61)', 'black']}
-                  start={[-0.3, 0.0]} end={[1.3, 0.0]}
-                  style={styles.headerContainer}
-                  >
-                  <View style={styles.headerTitleContainer}>
-                    <Text style={styles.pointForAgainstText}>{bilLData.points_against}</Text>
-                  </View>
-              </LinearGradient>
-            </PavImage>
-            <Button onPress={this.props.onVoteAgainstBtnPressed}
-              style={[styles.voteBtn, styles.voteAgainstBtn]}
-              isDisabled={false}
-              isLoading={false}
-              activityIndicatorColor={Colors.mainTextColor}
-              textStyle={styles.btnText}
-              customIcon={()=><PavIcon name="arrow-down" size={22} style={styles.btnIconStyle}/>}
-            >
-              Vote Against
-            </Button>
-
-          </View>
-
-
+          <Button onPress={this.props.onVoteForBtnPressed}
+            style={[styles.voteBtn, styles.voteForBtn]}
+            isDisabled={false}
+            isLoading={false}
+            activityIndicatorColor={Colors.mainTextColor}
+            textStyle={styles.btnText}
+            customIcon={()=><PavIcon name="arrow-up" size={16} style={styles.btnIconStyle}/>}
+          >
+            Vote In Favor
+          </Button>
+          <Button onPress={this.props.onVoteAgainstBtnPressed}
+            style={[styles.voteBtn, styles.voteAgainstBtn]}
+            isDisabled={false}
+            isLoading={false}
+            activityIndicatorColor={Colors.mainTextColor}
+            textStyle={styles.btnText}
+            customIcon={()=><PavIcon name="arrow-down" size={16} style={styles.btnIconStyle}/>}
+          >
+            Vote Against
+          </Button>
         </View>
 
 
 
 
 
-      </ScrollView>
+      </View>
     );
   }
 

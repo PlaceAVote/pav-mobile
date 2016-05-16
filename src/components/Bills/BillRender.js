@@ -409,6 +409,7 @@ class BillRender extends Component {
           tabLabel="Status "
           orientation={this.props.device.orientation}
           billStatus={billData.status}
+          billHistory={billData.history}
         />
 
 
@@ -425,11 +426,11 @@ class BillRender extends Component {
     return (
       <View style={styles.billBtnsContainer}>
         <TouchableOpacity style={styles.footerBtn} onPress={this.props.onVoteBtnPress}>
-          <PavIcon name="bolt" size={16} style={styles.footerBtnIcon}/>
+          <PavIcon name="quill-write" size={16} style={styles.footerBtnIcon}/>
           <Text style={styles.footerBtnText}>I'M READY TO VOTE</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.footerBtn} onPress={()=>this.refs.scrollableTabView.goToPage(2)}>
-          <PavIcon name="comment" size={16} style={styles.footerBtnIcon}/>
+          <PavIcon name="chat" size={16} style={styles.footerBtnIcon}/>
           <Text style={styles.footerBtnText}>COMMENT</Text>
         </TouchableOpacity>
       </View>);
