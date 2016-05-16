@@ -1,6 +1,6 @@
-/* @flow weak */
+  /* @flow weak */
 /**
- * # SummaryPageRender.js
+ * # BillStatusPageRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -10,7 +10,7 @@
 
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
-const {SOCIAL_TYPES} = Other;
+const {BILL_STATUSES} = Other;
 /**
  * The necessary React components
  */
@@ -61,7 +61,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-class SummaryPageRender extends Component {
+class BillStatusPageRender extends Component {
   constructor(props) {
     super(props);
 
@@ -80,14 +80,14 @@ class SummaryPageRender extends Component {
     return StyleSheet.create({
 
 
-      summaryPageContainer:{
+      statusPageContainer:{
         flex:1,
         backgroundColor:'white'
       },
       scrollViewContainer:{
         flex:1,
       },
-      summaryHeaderContainer:{
+      statusHeaderContainer:{
         flex:1,
         backgroundColor: Colors.titleBgColor,
         borderBottomColor: "rgba(0, 0, 0, 0.07)",
@@ -95,52 +95,98 @@ class SummaryPageRender extends Component {
 
         // shadowColor: 'rgba(0, 0, 0, 0.12)',
       },
-      summaryHeaderText:{
+      statusHeaderText:{
         paddingHorizontal: w*0.011,
         paddingVertical: h*0.015,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
-      summaryBodyContainer:{
-        paddingVertical: h*0.017,
-        paddingHorizontal: w*0.030,
-        backgroundColor:'white'
+
+
+
+
+
+      statusIconsContainer:{
+        flex:1,
+        flexDirection:'column',
+        // justifyContent:'space-between',
+        alignItems:'center',
       },
-      summaryFavorContainer:{
+      statusPartContainer:{
         flex:1,
         flexDirection:'row',
-        backgroundColor: Colors.titleBgColor,
-        borderBottomColor: "rgba(0, 0, 0, 0.07)",
-        borderBottomWidth: 1,
+        // backgroundColor:'purple',
+        alignItems:"center",
+      },
+
+
+      /* LEFT SIDE */
+      lineViewContainer:{
+        paddingHorizontal: w*0.04,
+        flexDirection:'column',
+        // width:10,
+        justifyContent:'center',
+        // backgroundColor:'red',
         alignItems:'center'
       },
-      summaryBodyText:{
+      line:{
+        // flex:1,
+        height:h*0.08,
+        width:8,
+        // marginHorizontal:6,
+        backgroundColor:Colors.negativeAccentColor,
+      },
+      iconContainer:{
+        backgroundColor:Colors.titleBgColor,
+        padding: w*0.04,
+        borderRadius:2,
+        borderWidth:1,
+        borderColor: "rgba(0, 0, 0, 0.07)",
+      },
+
+      statusIcon:{
+        // paddingHorizontal: w*0.011,
+        color:Colors.primaryColor,
+        // backgroundColor:'purple',
+      },
+
+
+
+
+
+
+
+
+
+      /* RIGHT SIDE */
+
+      explanationsContainer:{
+        flexDirection:'column',
+        paddingHorizontal: w*0.05,
+        // backgroundColor:'yellow'
+      },
+      statusTitleText:{
+        width: w*0.6,
         paddingVertical: h*0.008,
         color: Colors.thirdTextColor,
-        fontFamily: 'Whitney',
+        fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
-      summaryBodyReadMoreText:{
+      statusDescriptionText:{
+        width: w*0.6,
         paddingVertical: h*0.008,
-        color: Colors.negativeAccentColor,
-        fontFamily: 'Whitney',
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney-Book',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
-      favorIcon:{
-        paddingHorizontal: w*0.011,
-        color:Colors.accentColor
-      },
-      againstIcon:{
-        paddingHorizontal: w*0.011,
-        color:Colors.negativeAccentColor
-      },
-      summaryBodyPointsFavorText:{
+      statusDescription2Text:{
         paddingVertical: h*0.008,
         color: Colors.thirdTextColor,
         fontFamily: 'Whitney-MediumItalic',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
-      }
+      },
+
 
 
     });
@@ -159,6 +205,42 @@ class SummaryPageRender extends Component {
     });
   }
 
+  createIconsBasedOnBillStatus(billStatus, styles){
+    let iconElements = [];
+    billStatus = "PASSED:BILL";
+    let icons=BILL_STATUSES[billStatus].icons;
+    let title = BILL_STATUSES[billStatus].title;
+    let explanation = BILL_STATUSES[billStatus].explanation;
+
+    for (let ii=0, ll=icons.length;ii<ll;ii++){
+      iconElements.push(
+        <View key={"container_"+ii} style={styles.statusPartContainer}>
+
+
+          <View style={styles.lineViewContainer}>
+            <View style={styles.line}></View>
+            <View style={styles.iconContainer}>
+              <PavIcon name={icons[ii]} size={55} style={styles.statusIcon}/>
+            </View>
+            <View style={styles.line}></View>
+          </View>
+
+          <View style={styles.explanationsContainer}>
+            <Text style={styles.statusTitleText}>{title}</Text>
+            <Text style={styles.statusDescriptionText}>
+              <Text style={styles.statusDescription2Text}>Meaning:</Text> {explanation}
+            </Text>
+          </View>
+        </View>
+
+
+
+      )
+    }
+    // alert(icons);
+    return iconElements;
+  }
+
 
 
   /**
@@ -170,13 +252,21 @@ class SummaryPageRender extends Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
-      <View style={styles.summaryPageContainer}>
+      <View style={styles.statusPageContainer}>
         <ScrollView style={styles.scrollViewContainer}>
-          <View style={styles.summaryHeaderContainer}>
-            <Text style={styles.summaryHeaderText}>
-              SHORT SUMMARY
+          <View style={styles.statusHeaderContainer}>
+            <Text style={styles.statusHeaderText}>
+              BILL STATUS
             </Text>
           </View>
+
+          <View style={styles.statusIconsContainer}>
+            {this.createIconsBasedOnBillStatus(this.props.billStatus, styles)}
+          </View>
+
+
+
+
         </ScrollView>
 
 
@@ -186,7 +276,7 @@ class SummaryPageRender extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.billData !== this.props.billData)
+      (nextProps.billStatus !== this.props.billStatus)
       ||
       (nextProps.orientation !== this.props.orientation)
     );
@@ -195,4 +285,4 @@ class SummaryPageRender extends Component {
 }
 
 
-export default SummaryPageRender;
+export default BillStatusPageRender;

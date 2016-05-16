@@ -13,6 +13,9 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import SummaryPageRender from './SummaryPageRender';
 import MoreInfoPageRender from './MoreInfoPageRender';
+import BillStatusPageRender from './BillStatusPageRender';
+
+
 import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
 
 /*A react native button*/
@@ -400,6 +403,12 @@ class BillRender extends Component {
           orientation={this.props.device.orientation}
           goToReadEntireBillPage={()=>alert("Read entire bill")}
           platform={this.props.device.platform}
+        />
+
+        <BillStatusPageRender
+          tabLabel="Status "
+          orientation={this.props.device.orientation}
+          billStatus={billData.status}
         />
 
 
