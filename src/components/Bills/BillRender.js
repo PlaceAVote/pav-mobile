@@ -37,9 +37,11 @@ import React,
   Text,
   View,
   TouchableOpacity,
-
+  ActivityIndicatorIOS
 }
 from 'react-native';
+import ProgressBar from 'ProgressBarAndroid';
+
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -155,11 +157,7 @@ class BillRender extends Component {
         justifyContent:'space-around',
         alignItems:'center'
       },
-      tagsLblContainer:{
-        justifyContent:'center',
-        backgroundColor:'red',
-        height:23,
-      },
+
       tagsLblText:{
         backgroundColor: Colors.transparentColor,
         paddingHorizontal: w*0.011,
@@ -194,6 +192,12 @@ class BillRender extends Component {
         flex:1,
         // backgroundColor:'blue',
         // backgroundColor:'red'
+      },
+      spinnerContainer:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+        // backgroundColor:'red',
       },
       tabText:{
         paddingHorizontal: w*0.009,
@@ -341,15 +345,15 @@ class BillRender extends Component {
           </LinearGradient>
         </PavImage>);
     }else{
-      return <Text key="bill_header">NO DATA</Text>
+      return <Text key="bill_header"></Text>
     }
-
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
   renderBody(billData, styles){
 
     if(!!billData){
       return (<ScrollableTabView
+        key="bill_render_body"
         ref="scrollableTabView"
         onChangeTab={({i, ref}) => {if(i==1){this.refs.status_tab.onTabFocus()}}}
         renderTabBar={() =>
@@ -425,7 +429,22 @@ class BillRender extends Component {
 
      </ScrollableTabView>);
    }else{
-     return <View></View>;
+     if(this.props.device.platform=="android"){
+         return (
+         <View key="bill_render_body" style={styles.spinnerContainer}>
+           <ProgressBar styleAttr="Large" color="red" />
+         </View>);
+     }else if(this.props.device.platform=="ios"){
+         return (
+           <View key="bill_render_body" style={styles.spinnerContainer}>
+             <ActivityIndicatorIOS
+               animating={true}
+               size="large"
+             />
+           </View>);
+     }else{
+       return <View key="bill_render_body" style={styles.spinnerContainer}><Text>Now Loading</Text></View>;
+     }
    }
   }
 

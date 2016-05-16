@@ -31,7 +31,7 @@ import {Map} from 'immutable';
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
 
-var ProgressBar = require('ProgressBarAndroid');
+import ProgressBar from 'ProgressBarAndroid';
 
 import moment from 'moment'
 /**
