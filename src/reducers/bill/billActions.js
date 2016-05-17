@@ -27,6 +27,10 @@ const {
   GET_BILL_SUCCESS,
   GET_BILL_FAILURE,
 
+  GET_BILL_COMMENTS_REQUEST,
+  GET_BILL_COMMENTS_SUCCESS,
+  GET_BILL_COMMENTS_FAILURE,
+
 } = ActionNames;
 
 
@@ -83,6 +87,75 @@ export function getBill(billId, sessionToken=null, dev = null) {
       return res.error;
     }else{
       dispatch(getBillSuccess(res.data));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## retreiving bill actions
+ */
+function getBillCommentsRequest() {
+  return {
+    type: GET_BILL_COMMENTS_REQUEST
+  };
+}
+function getBillCommentsSuccess(json) {
+  return {
+    type: GET_BILL_COMMENTS_SUCCESS,
+    payload: json
+  };
+}
+function getBillCommentsFailure(json) {
+  return {
+    type: GET_BILL_COMMENTS_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function getBillComments(billId, sortFilter, sessionToken=null, dev = null) {
+  console.log("getBillComments called");
+  return async function (dispatch){
+    dispatch(getBillCommentsRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in billActions.getBillComments() with error: "+e.message);
+      dispatch(getBillCommentsFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getBillCommentsById({billId:billId, sortBy:sortFilter});
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in feed call"+res.error.error_message);
+      dispatch(getBillCommentsFailure("Unable to get user bill data with this token."));
+      return res.error;
+    }else{
+      dispatch(getBillCommentsSuccess(res.data));
       return res.data;
     }
   };

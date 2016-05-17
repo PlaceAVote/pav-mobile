@@ -295,6 +295,10 @@ module.exports =  {
    GET_BILL_SUCCESS: null,
    GET_BILL_FAILURE: null,
 
+   GET_BILL_COMMENTS_REQUEST: null,
+   GET_BILL_COMMENTS_SUCCESS: null,
+   GET_BILL_COMMENTS_FAILURE: null,
+
 
 
     /* Not yet implemented */

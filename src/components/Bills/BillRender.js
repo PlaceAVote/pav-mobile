@@ -14,6 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import SummaryPageRender from './SummaryPageRender';
 import MoreInfoPageRender from './MoreInfoPageRender';
 import BillStatusPageRender from './BillStatusPageRender';
+import CommentsPageRender from './CommentsPageRender';
 
 
 import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
@@ -349,7 +350,7 @@ class BillRender extends Component {
     }
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
-  renderBody(billData, styles){
+  renderBody(billData, commentData, isFetchingComments, styles){
 
     if(!!billData){
       return (<ScrollableTabView
@@ -365,7 +366,7 @@ class BillRender extends Component {
             inactiveTextColor={Colors.primaryColor}
             backgroundColor='rgba(255, 255, 255, 0.85)'
           />}
-        initialPage={0}
+        initialPage={3}
         style={styles.pagesContainer}
         tabBarTextStyle={styles.tabText}
       >
@@ -376,7 +377,6 @@ class BillRender extends Component {
               shortSummary: billData.featured_bill_summary,
               pointAgainst: billData.points_against,
               pointInFavor: billData.points_infavor,
-
             }}
           orientation={this.props.device.orientation}
           goToMoreInfoPage={()=>this.refs.scrollableTabView.goToPage(1)}
@@ -424,8 +424,14 @@ class BillRender extends Component {
         />
 
 
-
-      <View tabLabel="Comments" ref="comments_tab"><Text>Comments</Text></View>
+        <CommentsPageRender
+          tabLabel="Comments"
+          ref="comments_tab"
+          orientation={this.props.device.orientation}
+          commentData={commentData}
+          commentsAreFetching={isFetchingComments}
+          onCommentsRefresh={this.props.onCommentsRefresh}
+        />
 
      </ScrollableTabView>);
    }else{
@@ -478,7 +484,7 @@ class BillRender extends Component {
       <View style={styles.container}>
         <View style={styles.billContainer}>
           {this.renderHeader(this.props.bill.data, this.props.device.platform, styles)}
-          {this.renderBody(this.props.bill.data, styles)}
+          {this.renderBody(this.props.bill.data, this.props.bill.comments, this.props.bill.isFetching.billComments, styles)}
         </View>
         {this.renderFooter(styles)}
       </View>

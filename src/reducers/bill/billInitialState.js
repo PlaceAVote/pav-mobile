@@ -24,10 +24,12 @@ var InitialState = Record({
   error: null,
   // isValid: false,
   isFetching: new (Record({
-    billData: false
+    billData: false,
+    billComments: false
   })),
 
-  data: null
+  data: null,
+  comments: null
 });
 
 export default InitialState;
