@@ -36,7 +36,10 @@ const icomoonConfig = require('../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
+import BillCommentCard from '../Cards/BillCards/BillCommentCard';
 import CommentReplyBox from './CommentReplyBox';
+
+import moment from 'moment';
 /**
 * Image library
 */
@@ -70,7 +73,10 @@ const SORT_FILTERS={
 class CommentsPageRender extends Component {
   constructor(props) {
     super(props);
-    let commentData = this.props.commentData || [];
+    let commentData = [];
+    if(!!this.props.commentData && !!this.props.commentData.comments){
+      let commentData = this.props.commentData.comments;
+    }
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
       curSortFilter: SORT_FILTERS.HIGHEST_RATE,
@@ -90,7 +96,7 @@ class CommentsPageRender extends Component {
 
       commentsPageContainer:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor:Colors.titleBgColorDark
       },
       headerContainer:{
 
@@ -154,6 +160,11 @@ class CommentsPageRender extends Component {
       },
       sortBtnInactive:{
         borderBottomWidth:0,
+      },
+
+      commentCard:{
+        paddingVertical: h*0.011,
+        // backgroundColor:'red'
       }
 
     });
@@ -178,11 +189,17 @@ class CommentsPageRender extends Component {
 
 
 
+
   componentWillReceiveProps (nextProps) {
-    if (nextProps.commentData!=null &&  nextProps.commentData!== this.props.commentData) {
-      this.setState({
-        commentDataSource: this.state.commentDataSource.cloneWithRows(nextProps.commentData)
-      })
+    // console.log("ROK1: "+nextProps.commentData);
+    if (nextProps.commentData!=null && nextProps.commentData.comments!=null) {
+      let previousCommentData = (!!this.props.commentData && !!this.props.commentData.comments)?this.props.commentData.comments:null;
+      let nextCommentData = nextProps.commentData.comments;
+      if(previousCommentData==null || (previousCommentData!==nextCommentData) ){
+        this.setState({
+          commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData)
+        })
+      }
     }
   }
 
@@ -211,7 +228,7 @@ class CommentsPageRender extends Component {
     return (
       <View style={styles.headerContainer}>
         <CommentReplyBox
-          orientation={this.props.orientation}
+          orientation={this.props.device.orientation}
           onPostBtnPress={(comment)=>{alert("Comment: "+comment)}}
         />
         {this.renderSortHeader(styles)}
@@ -223,7 +240,7 @@ class CommentsPageRender extends Component {
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.orientation!="LANDSCAPE");
+    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
@@ -235,9 +252,34 @@ class CommentsPageRender extends Component {
          dataSource={this.state.commentDataSource}
          renderHeader={()=>this.renderHeader(styles)}
 
-         renderRow={(rowData) =>(
-             <Text>row</Text>
+         renderRow={(rowData) =>{
+           console.log("Comment: "+JSON.stringify(rowData))
+
+           return (
+            <BillCommentCard
+              style={styles.commentCard}
+              key={rowData.comment_id}
+              device={this.props.device}
+              timeString={moment(rowData.timestamp).fromNow()}
+              userFullNameText={rowData.author_first_name+" "+rowData.author_last_name}
+              commentText={rowData.body}
+              userPhotoUrl={rowData.author_img_url}
+              likeCount={rowData.score}
+              isLiked={rowData.liked}
+              isDisliked={rowData.disliked}
+              userId={rowData.author}
+              billId={rowData.bill_id}
+
+              isTopCommentInFavor={true}
+              isTopCommentAgainst={false}
+
+              onUserClick={this.props.onCommentUserClick}
+              onLikeDislikeClick={this.props.onCommentLikeDislikeClick}
+              onReplyClick={this.props.onCommentReplyClick}
+
+              />
            )}
+         }
          refreshControl={
            <RefreshControl
              refreshing={this.props.commentsAreFetching}
@@ -258,7 +300,7 @@ class CommentsPageRender extends Component {
       ||
       (nextProps.commentsAreFetching !== this.props.commentsAreFetching)
       ||
-      (nextProps.orientation !== this.props.orientation)
+      (nextProps.device !== this.props.device)
       ||
       (nextState.curSortFilter !== this.state.curSortFilter)
     );

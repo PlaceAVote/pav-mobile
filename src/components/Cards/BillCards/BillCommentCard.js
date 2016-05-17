@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # FeedCommentCard.js
+ * # BillCommentCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -53,7 +53,7 @@ import PavImage from '../../../lib/UI/PavImage'
 
 
 
-class FeedCommentCard extends Component {
+class BillCommentCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -80,9 +80,10 @@ class FeedCommentCard extends Component {
 
       card:{
         flex: 1,
+        padding: w*0.02,
         backgroundColor: '#ffffff',
         borderRadius: 2,
-        borderColor: '#ffffff',
+        // borderColor: Colors.mainBorderColor,
         borderWidth: 0,
         shadowColor: 'rgba(0, 0, 0, 0.12)',
         shadowOpacity: 0.8,
@@ -93,23 +94,21 @@ class FeedCommentCard extends Component {
         },
       },
       cardTitleContainer:{
-        flex: 1,
-        flexDirection:'row',
         paddingHorizontal: w*0.02,
         paddingVertical: w*0.02,
-        justifyContent:'space-between',
-        alignItems:'center'
+        alignItems:'center',
+        // backgroundColor:'red',
       },
-      cardTitleTextAndIconContainer:{
-        flexDirection:'row',
-        alignItems:'center'
-      },
-      cardTitleText:{
-        // backgroundColor: 'red',
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
+      // cardTitleTextAndIconContainer:{
+      //   flexDirection:'row',
+      //   alignItems:'center'
+      // },
+      // cardTitleText:{
+      //   // backgroundColor: 'red',
+      //   color: Colors.primaryColor,
+      //   fontFamily: 'Whitney-Bold',
+      //   fontSize: getCorrectFontSizeForScreen(w,h,8),
+      // },
       cardDateText:{
         // backgroundColor: 'red',
         paddingHorizontal: 5,
@@ -138,6 +137,7 @@ class FeedCommentCard extends Component {
 
 
       commentDescriptionContainer:{
+        flex:1,
         flexDirection:'column',
         // backgroundColor:'red',
         padding: 5
@@ -150,7 +150,7 @@ class FeedCommentCard extends Component {
         height:w*0.09,
         // marginHorizontal: 10,
       },
-      commentLocationContainer:{
+      topCommentContainer:{
         flexDirection:'row',
         alignItems:'center',
         // backgroundColor:'red',
@@ -162,11 +162,11 @@ class FeedCommentCard extends Component {
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
-      commentInText:{
-        color: Colors.thirdTextColor,
+      topCommentText:{
+        color: Colors.helpTextColor,
         paddingHorizontal: 5,
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        fontSize: getCorrectFontSizeForScreen(w,h,6),
       },
       commentLocationText:{
         // backgroundColor:'yellow',
@@ -183,6 +183,7 @@ class FeedCommentCard extends Component {
       cardContentText:{
         padding:2,
         // backgroundColor:'green',
+        paddingVertical: h*0.015,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
         color: 'rgba(0, 0, 0, 0.54)',
@@ -194,12 +195,19 @@ class FeedCommentCard extends Component {
         flexDirection:'row',
         backgroundColor: '#EDECF1',
         borderStyle: 'solid',
-        borderColor: 'rgba(216, 214, 226, 0.5)',
-        borderTopColor: 'rgba(216, 214, 226, 0.7)',
-        borderLeftColor: 'rgba(216, 214, 226, 0.5)',
-        borderRightColor: 'rgba(216, 214, 226, 0.5)',
-        borderBottomColor: 'rgba(216, 214, 226, 1)',
+        borderColor: 'rgba(216, 214, 226, 0.25)',
+        // borderTopColor: 'rgba(216, 214, 226, 0.7)',
+        // borderLeftColor: 'rgba(216, 214, 226, 0.5)',
+        // borderRightColor: 'rgba(216, 214, 226, 0.5)',
+        // borderBottomColor: 'rgba(216, 214, 226, 0.7)',
         borderWidth: 1,
+        shadowColor: 'rgba(0, 0, 0, 0.12)',
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 1,
+          width: 2,
+        },
       },
       likeDislikeButtonContainer:{
         flex:1,
@@ -309,40 +317,49 @@ class FeedCommentCard extends Component {
   }
 
   renderHeader(styles){
-    return (<View resizeMode="cover" style={styles.cardTitleContainer}>
-      <View style={styles.cardTitleTextAndIconContainer}>
-        <Text style={styles.cardTitleText}>NEW COMMENT</Text>
+    // return (<View resizeMode="cover" style={styles.cardTitleContainer}>
+    //   <View style={styles.cardTitleTextAndIconContainer}>
+    //     <Text style={styles.cardTitleText}>NEW COMMENT</Text>
+    //   </View>
+    //   <Text style={styles.cardDateText}>{this.props.timeString}</Text>
+    // </View>);
+    return (<View style={styles.cardContentHeader}>
+      <TouchableOpacity onPress={this.onUserClick.bind(this)}>
+        <PavImage
+          platform={this.props.device.platform}
+          defaultSource={require('../../../../assets/defaultUserPhoto.png')}
+          style={styles.userImage}
+          source={{uri: this.props.userPhotoUrl}}
+          resizeMode='cover'
+        />
+      </TouchableOpacity>
+      <View style={styles.commentDescriptionContainer}>
+        <TouchableOpacity onPress={this.onUserClick.bind(this)}>
+          <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
+        </TouchableOpacity>
+        {this.renderTopComment(styles)}
       </View>
-      <Text style={styles.cardDateText}>{this.props.timeString}</Text>
+
+      <View resizeMode="cover" style={styles.cardTitleContainer}>
+        <Text style={styles.cardDateText}>{this.props.timeString}</Text>
+      </View>
     </View>);
+  }
+
+
+  renderTopComment(styles){
+    if(this.props.isTopCommentInFavor==true || this.props.isTopCommentAgainst==true){
+      return (
+      <View style={styles.topCommentContainer}>
+        <Text style={styles.topCommentText}>{this.props.isTopCommentInFavor==true?"Highest rated in Favor":"Highest rated Against"}</Text>
+      </View>)
+    }else{
+      return <View></View>;
+    }
   }
 
   renderBody(styles){
     return (<View style={styles.cardContentContainer}>
-
-      <View style={styles.cardContentHeader}>
-        <TouchableOpacity onPress={this.onUserClick.bind(this)}>
-          <PavImage
-            platform={this.props.device.platform}
-            defaultSource={require('../../../../assets/defaultUserPhoto.png')}
-            style={styles.userImage}
-            source={{uri: this.props.userPhotoUrl}}
-            resizeMode='cover'
-          />
-        </TouchableOpacity>
-        <View style={styles.commentDescriptionContainer}>
-          <TouchableOpacity onPress={this.onUserClick.bind(this)}>
-            <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
-          </TouchableOpacity>
-          <View style={styles.commentLocationContainer}>
-            <Text style={styles.commentInText}>in</Text>
-            <TouchableOpacity onPress={this.onBillClick.bind(this)}>
-              <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
-      </View>
       <View style={styles.cardContentBody}>
         <Text style={styles.cardContentText}>
         {this.props.commentText}
@@ -392,20 +409,20 @@ class FeedCommentCard extends Component {
   }
 }
 
-FeedCommentCard.propTypes= {
+BillCommentCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   timeString: React.PropTypes.string.isRequired,
-  commentParentTitle: React.PropTypes.string.isRequired,
   userFullNameText: React.PropTypes.string.isRequired,
   commentText: React.PropTypes.string,
   userPhotoUrl: React.PropTypes.string,
   likeCount: React.PropTypes.number.isRequired,
   isLiked: React.PropTypes.bool.isRequired,
   isDisliked: React.PropTypes.bool.isRequired,
+  isTopCommentInFavor: React.PropTypes.bool,
+  isTopCommentInAgainst: React.PropTypes.bool,
 
   onUserClick: React.PropTypes.func.isRequired,
-  onBillClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,
   onReplyClick: React.PropTypes.func.isRequired,
 };
-export default FeedCommentCard;
+export default BillCommentCard;

@@ -427,10 +427,13 @@ class BillRender extends Component {
         <CommentsPageRender
           tabLabel="Comments"
           ref="comments_tab"
-          orientation={this.props.device.orientation}
           commentData={commentData}
           commentsAreFetching={isFetchingComments}
           onCommentsRefresh={this.props.onCommentsRefresh}
+          onCommentUserClick={this.props.onCommentUserClick}
+          onCommentLikeDislikeClick={this.props.onCommentLikeDislikeClick}
+          onCommentReplyClick={this.props.onCommentReplyClick}
+          device={this.props.device}
         />
 
      </ScrollableTabView>);
