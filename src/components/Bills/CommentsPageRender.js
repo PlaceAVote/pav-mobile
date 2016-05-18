@@ -96,7 +96,7 @@ class CommentsPageRender extends Component {
 
       commentsPageContainer:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor: '#E8E7EE',
       },
       headerContainer:{
 
@@ -162,9 +162,12 @@ class CommentsPageRender extends Component {
         borderBottomWidth:0,
       },
 
+
+      /* ROWS */
       commentCard:{
         paddingVertical: h*0.011,
-      }
+      },
+
 
     });
   }
@@ -260,28 +263,31 @@ class CommentsPageRender extends Component {
           //  }
 
            return (
-            <BillCommentCard
-              style={styles.commentCard}
-              key={rowData.comment_id}
-              device={this.props.device}
-              timeString={moment(rowData.timestamp).fromNow()}
-              userFullNameText={rowData.author_first_name+" "+rowData.author_last_name}
-              commentText={rowData.body}
-              userPhotoUrl={rowData.author_img_url}
-              likeCount={rowData.score}
-              isLiked={rowData.liked}
-              isDisliked={rowData.disliked}
-              userId={rowData.author}
-              billId={rowData.bill_id}
+             <BillCommentCard
+               style={styles.commentCard}
+               key={rowData.comment_id}
+               device={this.props.device}
+               timeString={moment(rowData.timestamp).fromNow()}
+               userFullNameText={rowData.author_first_name+" "+rowData.author_last_name}
+               commentText={rowData.body}
+               userPhotoUrl={rowData.author_img_url}
+               likeCount={rowData.score}
+               isLiked={rowData.liked}
+               isDisliked={rowData.disliked}
+               userId={rowData.author}
+               commentId={rowData.comment_id}
+               billId={rowData.bill_id}
+               replies={rowData.replies}
+               isTopCommentInFavor={rowData.isTopCommentInFavor}
+               isTopCommentAgainst={rowData.isTopCommentAgainst}
 
-              isTopCommentInFavor={rowData.isTopCommentInFavor}
-              isTopCommentAgainst={rowData.isTopCommentAgainst}
+               onRepliesClick={this.props.onCommentRepliesClick}
+               onUserClick={this.props.onCommentUserClick}
+               onLikeDislikeClick={this.props.onCommentLikeDislikeClick}
+               onReplyClick={this.props.onCommentReplyClick}
 
-              onUserClick={this.props.onCommentUserClick}
-              onLikeDislikeClick={this.props.onCommentLikeDislikeClick}
-              onReplyClick={this.props.onCommentReplyClick}
+               />
 
-              />
            )}
          }
          refreshControl={

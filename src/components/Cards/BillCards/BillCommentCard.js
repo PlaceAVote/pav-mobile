@@ -72,25 +72,44 @@ class BillCommentCard extends Component {
       cardContainer:{
         flex: 1,
         alignItems: 'stretch',
+        padding:7,
         // backgroundColor: 'blue',
-        paddingHorizontal: 7,
-        paddingVertical: 7,
         marginTop: self.props.device.platform === 'android' ? 56 : 0,
       },
 
       card:{
         flex: 1,
-        padding: w*0.02,
-        backgroundColor: '#ffffff',
+        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+      },
+      cardShadowContainer:{
+        flex: 1,
+
         borderRadius: 2,
         // borderColor: Colors.mainBorderColor,
-        borderWidth: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.12)',
+        backgroundColor: 'white',
+        shadowColor: 'rgba(0, 0, 0, 0.42)',
         shadowOpacity: 0.8,
         shadowRadius: 2,
         shadowOffset: {
           height: 1,
           width: 2,
+        },
+      },
+      cardContent:{
+        flex: 1,
+        padding: w*0.03,
+        backgroundColor: '#ffffff',
+        // borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+        // borderBottomWidth: 1,
+        // borderWidth:1,
+        // borderColor: Colors.transparentColor,
+
+        shadowColor: 'rgba(0, 0, 0, 0.12)',
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 1,
+          width: 0,
         },
       },
       cardTitleContainer:{
@@ -139,8 +158,10 @@ class BillCommentCard extends Component {
       commentDescriptionContainer:{
         flex:1,
         flexDirection:'column',
+        alignItems:'flex-start',
+        justifyContent:'flex-end',
         // backgroundColor:'red',
-        padding: 5
+        paddingHorizontal: 10
       },
 
 
@@ -158,13 +179,25 @@ class BillCommentCard extends Component {
       commentNameText:{
         // backgroundColor:'blue',
         color:"#e64a33",
-        paddingHorizontal: 5,
+        paddingVertical: h*0.008,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       topCommentText:{
         color: Colors.helpTextColor,
-        paddingHorizontal: 5,
+        paddingVertical: h*0.001,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,6),
+      },
+      topCommentInFavorText:{
+        color: "#8E9599",
+        paddingVertical: h*0.001,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,6),
+      },
+      topCommentAgainstText:{
+        color: "#998E8E",
+        paddingVertical: h*0.001,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,6),
       },
@@ -201,7 +234,7 @@ class BillCommentCard extends Component {
         // borderRightColor: 'rgba(216, 214, 226, 0.5)',
         // borderBottomColor: 'rgba(216, 214, 226, 0.7)',
         borderWidth: 1,
-        shadowColor: 'rgba(0, 0, 0, 0.12)',
+        shadowColor: 'rgba(0, 0, 0, 0.32)',
         shadowOpacity: 0.8,
         shadowRadius: 2,
         shadowOffset: {
@@ -249,9 +282,34 @@ class BillCommentCard extends Component {
         flex:1,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
         // backgroundColor:'brown'
       },
+      footerBtn:{
+        backgroundColor:Colors.transparentColor
+      },
+
+
+      /* REPLIES BOX */
+      repliesBoxContainer:{
+        marginTop: 2, //I added this to allow the shadow from the above child to be seen
+        paddingVertical: h*0.014,
+        justifyContent:'center',
+        alignItems:'center',
+        // borderWidth: 1,
+        // borderColor: 'rgba(0, 0, 0, 0.06)',
+        // borderTopWidth:0,
+        // borderTopColor: 'rgba(0, 0, 0, 0.06)',
+        // borderTopWidth: 1,
+
+
+      },
+      repliesBoxText:{
+        flex:1,
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        color: 'rgba(0, 0, 0, 0.60)',
+        fontFamily: 'Whitney-Book',
+      }
 
 
     });
@@ -299,20 +357,21 @@ class BillCommentCard extends Component {
   }
 
   onReplyClick(){
-    if(this.props.onReplyClick && !!this.props.billId){
-      this.props.onReplyClick(this.props.billId);
+    if(this.props.onReplyClick && !!this.props.commentId){
+      this.props.onReplyClick(this.props.commentId, this.props.billId);
     }
   }
 
 
-  onBillClick(){
-    if(this.props.onBillClick && !!this.props.billId){
-      this.props.onBillClick(this.props.billId);
-    }
-  }
   onUserClick(){
     if(this.props.onUserClick && !!this.props.userId){
         this.props.onUserClick(this.props.userId);
+    }
+  }
+
+  onRepliesClick(){
+    if(this.props.onRepliesClick && !!this.props.commentId && !!this.props.replies){
+        this.props.onRepliesClick(this.props.replies, this.props.commentId);
     }
   }
 
@@ -347,11 +406,19 @@ class BillCommentCard extends Component {
   }
 
 
+  getTopCommentText(isInFavor, styles){
+    if(isInFavor==true){
+      return <Text style={styles.topCommentText}>Highest rated <Text style={styles.topCommentInFavorText}>in Favor</Text></Text>
+    }else{
+      return <Text style={styles.topCommentText}>Highest rated <Text style={styles.topCommentAgainstText}>Against</Text></Text>
+    }
+  }
+
   renderTopComment(styles){
     if(this.props.isTopCommentInFavor==true || this.props.isTopCommentAgainst==true){
       return (
       <View style={styles.topCommentContainer}>
-        <Text style={styles.topCommentText}>{this.props.isTopCommentInFavor==true?"Highest rated in Favor":"Highest rated Against"}</Text>
+        {this.getTopCommentText((this.props.isTopCommentInFavor==true),styles)}
       </View>)
     }else{
       return <View></View>;
@@ -372,10 +439,10 @@ class BillCommentCard extends Component {
     return (
       <View style={styles.footerContainer}>
         <View style={styles.likeDislikeButtonContainer}>
-          <TouchableOpacity onPress={this.onLikeClick.bind(this)}>
+          <TouchableOpacity style={styles.footerBtn} onPress={this.onLikeClick.bind(this)}>
             <PavIcon name="thumbs-up" size={15} style={this.props.isLiked?styles.activeLikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.onDislikeClick.bind(this)}>
+          <TouchableOpacity style={styles.footerBtn} onPress={this.onDislikeClick.bind(this)}>
             <PavIcon name="thumbs-down" size={15} style={this.props.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
           <Text style={styles.likeCountText}>{this.props.likeCount}</Text>
@@ -387,6 +454,19 @@ class BillCommentCard extends Component {
   }
 
 
+
+  renderRepliesBox(replies, styles){
+    if(!!replies && replies.length>0){
+      return (
+          <TouchableOpacity onPress={this.onRepliesClick.bind(this)} style={styles.repliesBoxContainer}>
+            <Text style={styles.repliesBoxText}>{replies.length} Replies</Text>
+          </TouchableOpacity>
+        );
+    }else{
+      return <View></View>;
+    }
+
+  }
   /**
    * ### render
    * Setup some default presentations and render
@@ -399,15 +479,26 @@ class BillCommentCard extends Component {
 
     return(
       <View style={[styles.cardContainer, this.props.style]}>
-        <View style={styles.card}>
-          {this.renderHeader(styles)}
-          {this.renderBody(styles)}
-          {this.renderFooter(styles)}
+        <View style={styles.cardShadowContainer}>
+          <View style={styles.card}>
+            <View style={styles.cardContent}>
+              {this.renderHeader(styles)}
+              {this.renderBody(styles)}
+              {this.renderFooter(styles)}
+            </View>
+            {this.renderRepliesBox(this.props.replies, styles)}
+          </View>
         </View>
       </View>
     );
   }
 }
+
+
+
+
+
+
 
 BillCommentCard.propTypes= {
   device: React.PropTypes.object.isRequired,
@@ -420,7 +511,13 @@ BillCommentCard.propTypes= {
   isDisliked: React.PropTypes.bool.isRequired,
   isTopCommentInFavor: React.PropTypes.bool,
   isTopCommentInAgainst: React.PropTypes.bool,
+  replies:React.PropTypes.array.isRequired,
+  userId: React.PropTypes.string.isRequired,
+  commentId: React.PropTypes.string.isRequired,
+  billId: React.PropTypes.string.isRequired,
 
+
+  onRepliesClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,
   onReplyClick: React.PropTypes.func.isRequired,

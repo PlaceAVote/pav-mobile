@@ -437,6 +437,7 @@ class BillRender extends Component {
           onCommentUserClick={this.props.onCommentUserClick}
           onCommentLikeDislikeClick={this.props.onCommentLikeDislikeClick}
           onCommentReplyClick={this.props.onCommentReplyClick}
+          onCommentRepliesClick={this.props.onCommentRepliesClick}
           device={this.props.device}
         />
 
