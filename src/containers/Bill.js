@@ -64,6 +64,7 @@ const {
 } = Other;
 const {
   VOTE,
+  COMMENTS
 } = ScheneKeys;
 
 
@@ -152,17 +153,16 @@ class Bill extends Component {
   async onCommentsRefresh(sortFilter){
     await this.props.actions.getBillComments(this.props.bill.data.bill_id, sortFilter, TOKEN, DEV);
   }
-  onCommentUserClick(){
+  onCommentUserClick(userId){
 
   }
-  onCommentLikeDislikeClick(){
+  onCommentLikeDislikeClick(reaction){
 
   }
-  onCommentReplyClick(billId){
-
+  onCommentReplyClick(commentId, billId){
   }
-  onCommentRepliesClick(replies){
-
+  onCommentRepliesClick(replies, commentId){
+    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data});
   }
 
   render() {

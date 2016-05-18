@@ -44,6 +44,7 @@ module.exports =  {
     TAB_PROFILE: null,
     ACCOUNT_SETTINGS: null,
     BILL: null,
+    COMMENTS: null,
     VOTE: null,
 
   }),

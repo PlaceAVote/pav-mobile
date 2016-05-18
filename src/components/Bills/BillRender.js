@@ -84,7 +84,7 @@ import PavImage from '../../lib/UI/PavImage'
 class BillRender extends Component {
   constructor(props) {
     super(props);
-
+    this.state={curImgHeight:0}
   }
 
 
@@ -115,7 +115,7 @@ class BillRender extends Component {
       //HEADER
       billImage:{
         // flex:1,
-        height: h*0.26
+        // height: h*0.26
       },
       headerContainer:{
         flex:1,
@@ -130,6 +130,7 @@ class BillRender extends Component {
       headerTitle:{
         backgroundColor: Colors.transparentColor,
         paddingVertical: h*0.015,
+        paddingHorizontal: w*0.012,
         color: Colors.mainTextColor,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,18),
@@ -307,9 +308,17 @@ class BillRender extends Component {
         <PavImage
         key="bill_header"
         platform={platform}
-        style={styles.billImage}
+        style={[styles.billImage, {height:(this.state.curImgHeight<=0?null:this.state.curImgHeight)}]}
         source={{uri: billData.featured_img_link}}
         resizeMode='cover'
+        onLayout={(e)=>{
+          let {height} = e.nativeEvent.layout;
+          let minimumImgHeight = h*0.4;
+          // console.log("Min height implementation: "+minimumImgHeight+" when the image height was "+height);
+          if(height<= minimumImgHeight){
+            this.setState({curImgHeight:minimumImgHeight});
+          }
+        }}
         >
           <LinearGradient
               colors={['black', 'rgba(0, 0, 0, 0.41)', 'black']}
@@ -511,6 +520,8 @@ class BillRender extends Component {
       (nextProps.bill !== this.props.bill)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
+      ||
+      (nextState.minimumImgHeight!==this.state.minimumImgHeight)
     );
   }
 

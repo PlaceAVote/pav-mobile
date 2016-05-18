@@ -35,13 +35,13 @@ class PavImage extends Component {
             color:Colors.primaryColor
           }}
           >
-
+          {children}
           </LImage>
         );
     }else{
       return (
         <Image {...this.props}>
-
+          {children}
         </Image>
       );
     }
