@@ -31,6 +31,10 @@ const {
   GET_BILL_COMMENTS_SUCCESS,
   GET_BILL_COMMENTS_FAILURE,
 
+  GET_BILL_TOP_COMMENTS_REQUEST,
+  GET_BILL_TOP_COMMENTS_SUCCESS,
+  GET_BILL_TOP_COMMENTS_FAILURE,
+
 } = ActionNames;
 
 
@@ -156,6 +160,73 @@ export function getBillComments(billId, sortFilter, sessionToken=null, dev = nul
       return res.error;
     }else{
       dispatch(getBillCommentsSuccess(res.data));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## retreiving bill actions
+ */
+function getBillTopCommentsRequest() {
+  return {
+    type: GET_BILL_TOP_COMMENTS_REQUEST
+  };
+}
+function getBillTopCommentsSuccess(json) {
+  return {
+    type: GET_BILL_TOP_COMMENTS_SUCCESS,
+    payload: json
+  };
+}
+function getBillTopCommentsFailure(json) {
+  return {
+    type: GET_BILL_TOP_COMMENTS_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function getBillTopComments(billId, sessionToken=null, dev = null) {
+  console.log("getBillTopComments called");
+  return async function (dispatch){
+    dispatch(getBillTopCommentsRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in billActions.getBillTopComments() with error: "+e.message);
+      dispatch(getBillTopCommentsFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getBillTopCommentsById({billId:billId});
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in feed call"+res.error.error_message);
+      dispatch(getBillTopCommentsFailure("Unable to get user bill data with this token."));
+      return res.error;
+    }else{
+      dispatch(getBillTopCommentsSuccess(res.data));
       return res.data;
     }
   };

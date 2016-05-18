@@ -34,9 +34,13 @@ const {
   GET_BILL_COMMENTS_REQUEST,
   GET_BILL_COMMENTS_SUCCESS,
   GET_BILL_COMMENTS_FAILURE,
+
+  GET_BILL_TOP_COMMENTS_REQUEST,
+  GET_BILL_TOP_COMMENTS_SUCCESS,
+  GET_BILL_TOP_COMMENTS_FAILURE,
 } = ActionNames
 
-
+import Immutable from 'immutable';
 
 
 
@@ -56,33 +60,74 @@ export default function newsfeedReducer(state = initialState, action) {
     case GET_BILL_REQUEST:
       return state.setIn([ 'isFetching', 'billData'], true)
         .setIn(['error'],null);
-      break;
+
     case GET_BILL_COMMENTS_REQUEST:
       return state.setIn([ 'isFetching', 'billComments'], true)
         .setIn(['error'],null);
-      break;
+
+    case GET_BILL_TOP_COMMENTS_REQUEST:
+      return state.setIn([ 'isFetching', 'billTopComments'], true)
+        .setIn(['error'],null);
+
 
     case GET_BILL_SUCCESS:
       return state.setIn([ 'isFetching', 'billData'], false)
       .setIn(['error'],null)
       .setIn(['data'], action.payload)
     case GET_BILL_COMMENTS_SUCCESS:
+      let newCommentsArray = []
+      let comments = action.payload.comments;
+      if(!!comments){
+        for(let ii=0,ll=comments.length;ii<ll;ii++){
+            let curComment = comments[ii];
+            newCommentsArray.push({...curComment, isTopCommentInFavor:(state.commentTopForId==curComment.comment_id), isTopCommentAgainst:(state.commentTopAgainstId==curComment.comment_id) });
+        }
+      }
       return state.setIn([ 'isFetching', 'billComments'], false)
       .setIn(['error'],null)
-      .setIn(['comments'], action.payload)
+      // .setIn(['comments'], {total: comments.total, comments: newCommentsArray })
+      .setIn(['comments'], Immutable.fromJS(newCommentsArray))
+
+    case GET_BILL_TOP_COMMENTS_SUCCESS:
+      let topComments = action.payload;
+      let forComment = topComments["for-comment"];
+      let againstComment = topComments["against-comment"];
+      let newState = state.setIn([ 'isFetching', 'billTopComments'], false)
+      .setIn(['error'],null)
+      .setIn(['commentTopForId'],forComment.comment_id)
+      .setIn(['commentTopAgainstId'],againstComment.comment_id);
+
+
+      let curStateComments = newState.comments;
+      if(!!curStateComments){ //if there are comments
+        for(let ii=0,ll=curStateComments.size;ii<ll;ii++){  //iterate through them
+            let curComment = curStateComments.get(ii);  //for each comment
+            if(!!forComment && curComment.get("comment_id")==forComment.comment_id){  //check to see if its id is the same as the top for comment id
+              newState = newState.setIn(['comments',ii, "isTopCommentInFavor"], true);  //if it is, go to the comments array, and update the comment to reflect that
+            }
+            if(!!againstComment && curComment.get("comment_id")==againstComment.comment_id){//check to see if its id is the same as the top against comment id
+              newState = newState.setIn(['comments',ii, 'isTopCommentAgainst'], true);  //if it is, go to the comments array, and update the comment to reflect that
+            }
+        }
+      }
+      return newState;
 
     case GET_BILL_FAILURE:
       return state.setIn([ 'isFetching', 'billData'], false)
         .setIn(['error'], action.payload);
-      break;
+
     case GET_BILL_COMMENTS_FAILURE:
       return state.setIn([ 'isFetching', 'billComments'], false)
         .setIn(['error'], action.payload);
-      break;
+
+    case GET_BILL_TOP_COMMENTS_FAILURE:
+      return state.setIn([ 'isFetching', 'billTopComments'], false)
+        .setIn(['error'], action.payload);
+
 
     default:
       return state;
-      break;
+
 
   }//switch
   /**

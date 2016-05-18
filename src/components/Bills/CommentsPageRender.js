@@ -74,8 +74,8 @@ class CommentsPageRender extends Component {
   constructor(props) {
     super(props);
     let commentData = [];
-    if(!!this.props.commentData && !!this.props.commentData.comments){
-      let commentData = this.props.commentData.comments;
+    if(!!this.props.commentData ){
+      let commentData = this.props.commentData;
     }
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
@@ -96,7 +96,7 @@ class CommentsPageRender extends Component {
 
       commentsPageContainer:{
         flex:1,
-        backgroundColor:Colors.titleBgColorDark
+        backgroundColor:'white'
       },
       headerContainer:{
 
@@ -164,7 +164,6 @@ class CommentsPageRender extends Component {
 
       commentCard:{
         paddingVertical: h*0.011,
-        // backgroundColor:'red'
       }
 
     });
@@ -192,12 +191,12 @@ class CommentsPageRender extends Component {
 
   componentWillReceiveProps (nextProps) {
     // console.log("ROK1: "+nextProps.commentData);
-    if (nextProps.commentData!=null && nextProps.commentData.comments!=null) {
-      let previousCommentData = (!!this.props.commentData && !!this.props.commentData.comments)?this.props.commentData.comments:null;
-      let nextCommentData = nextProps.commentData.comments;
+    if (nextProps.commentData!=null) {
+      let previousCommentData = this.props.commentData;
+      let nextCommentData = nextProps.commentData;
       if(previousCommentData==null || (previousCommentData!==nextCommentData) ){
         this.setState({
-          commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData)
+          commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData.toJS())
         })
       }
     }
@@ -253,7 +252,12 @@ class CommentsPageRender extends Component {
          renderHeader={()=>this.renderHeader(styles)}
 
          renderRow={(rowData) =>{
-           console.log("Comment: "+JSON.stringify(rowData))
+          //  console.log("Comment: "+JSON.stringify(rowData))
+
+          //  console.log("Cur comment id: "+rowData.comment_id+" when top comment id is: "+this.props.topCommentInFavorId);
+          //  if(this.props.topCommentInFavorId==rowData["comment_id"]){
+          //     console.log("top in favor")
+          //  }
 
            return (
             <BillCommentCard
@@ -270,8 +274,8 @@ class CommentsPageRender extends Component {
               userId={rowData.author}
               billId={rowData.bill_id}
 
-              isTopCommentInFavor={true}
-              isTopCommentAgainst={false}
+              isTopCommentInFavor={rowData.isTopCommentInFavor}
+              isTopCommentAgainst={rowData.isTopCommentAgainst}
 
               onUserClick={this.props.onCommentUserClick}
               onLikeDislikeClick={this.props.onCommentLikeDislikeClick}
@@ -282,7 +286,7 @@ class CommentsPageRender extends Component {
          }
          refreshControl={
            <RefreshControl
-             refreshing={this.props.commentsAreFetching}
+             refreshing={this.props.commentsAreFetching || this.props.topCommentsAreFetching}
              onRefresh={()=>this.props.onCommentsRefresh(this.state.curSortFilter)}
              tintColor={Colors.primaryColor}
              title="Loading..."

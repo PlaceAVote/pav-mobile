@@ -25,11 +25,14 @@ var InitialState = Record({
   // isValid: false,
   isFetching: new (Record({
     billData: false,
-    billComments: false
+    billComments: false,
+    billTopComments: false,
   })),
 
   data: null,
-  comments: null
+  comments: null,
+  commentTopForId: null,
+  commentTopAgainstId: null,
 });
 
 export default InitialState;

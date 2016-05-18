@@ -296,7 +296,7 @@ class MoreInfoPageRender extends Component {
     let sponsor = this.props.billData.sponsor;
     // console.log("BILL DATA: "+JSON.stringify(this.props.billData))
     // console.log("SPONSOR: "+JSON.stringify(sponsor));
-    console.log("@@@@ BILL PDF URL: "+this.props.billData.pdfUrl)
+    // console.log("@@@@ BILL PDF URL: "+this.props.billData.pdfUrl)
     return(
       <View style={styles.pageContainer}>
         <ScrollView

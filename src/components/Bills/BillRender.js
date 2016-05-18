@@ -350,7 +350,8 @@ class BillRender extends Component {
     }
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
-  renderBody(billData, commentData, isFetchingComments, styles){
+  renderBody(data, styles){
+    let {billData, commentData, isFetchingComments, topCommentInFavorId, topCommentAgainstId, isFetchingTopComments} = data;
 
     if(!!billData){
       return (<ScrollableTabView
@@ -429,6 +430,9 @@ class BillRender extends Component {
           ref="comments_tab"
           commentData={commentData}
           commentsAreFetching={isFetchingComments}
+          topCommentsAreFetching={isFetchingTopComments}
+          topCommentAgainstId={topCommentAgainstId}
+          topCommentInFavorId={topCommentInFavorId}
           onCommentsRefresh={this.props.onCommentsRefresh}
           onCommentUserClick={this.props.onCommentUserClick}
           onCommentLikeDislikeClick={this.props.onCommentLikeDislikeClick}
@@ -487,7 +491,14 @@ class BillRender extends Component {
       <View style={styles.container}>
         <View style={styles.billContainer}>
           {this.renderHeader(this.props.bill.data, this.props.device.platform, styles)}
-          {this.renderBody(this.props.bill.data, this.props.bill.comments, this.props.bill.isFetching.billComments, styles)}
+          {this.renderBody({
+            billData: this.props.bill.data,
+            commentData: this.props.bill.comments,
+            isFetchingComments: this.props.bill.isFetching.billComments,
+            topCommentInFavorId: this.props.bill.topCommentInFavorId,
+            topCommentAgainstId: this.props.bill.topCommentAgainstId,
+            isFetchingTopComments: this.props.bill.isFetching.billTopComments,
+          }, styles)}
         </View>
         {this.renderFooter(styles)}
       </View>
