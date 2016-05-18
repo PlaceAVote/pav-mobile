@@ -99,9 +99,10 @@ class CommentsPageRender extends Component {
         backgroundColor: '#E8E7EE',
       },
       headerContainer:{
-
+        paddingBottom: h*0.020,
       },
       sortContainer:{
+        backgroundColor: 'white',
         paddingHorizontal: w*0.027,
         paddingVertical: h*0.010,
         flexDirection:'row',
@@ -109,10 +110,10 @@ class CommentsPageRender extends Component {
         alignItems:'center',
 
         // borderWidth:1,
-        borderColor: 'rgba(0, 0, 0, 0.11)',
-        borderBottomWidth:1,
+        // borderColor: 'rgba(0, 0, 0, 0.11)',
+        // borderBottomWidth:1,
 
-        shadowColor: 'rgba(0, 0, 0, 0.12)',
+        shadowColor: 'rgba(0, 0, 0, 0.15)',
         shadowOpacity: 0.8,
         shadowRadius: 2,
         shadowOffset: {

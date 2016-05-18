@@ -158,7 +158,10 @@ class Bill extends Component {
   onCommentLikeDislikeClick(){
 
   }
-  onCommentReplyClick(){
+  onCommentReplyClick(billId){
+
+  }
+  onCommentRepliesClick(replies){
 
   }
 
@@ -174,6 +177,7 @@ class Bill extends Component {
           onCommentUserClick={this.onCommentUserClick.bind(this)}
           onCommentLikeDislikeClick={this.onCommentLikeDislikeClick.bind(this)}
           onCommentReplyClick={this.onCommentReplyClick.bind(this)}
+          onCommentRepliesClick={this.onCommentRepliesClick.bind(this)}
       />
 
     );
