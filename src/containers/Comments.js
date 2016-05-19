@@ -139,8 +139,8 @@ class Comments extends Component {
   async onCommentsRefresh(sortFilter){
     await this.props.actions.getCommentsComments(this.props.bill.data.bill_id, sortFilter, TOKEN, DEV);
   }
-  onCommentUserClick(){
-
+  onCommentUserClick(userId, photoUrl){
+    
   }
   onCommentLikeDislikeClick(){
 

@@ -364,7 +364,7 @@ class BillCommentCard extends Component {
 
   onUserClick(){
     if(this.props.onUserClick && !!this.props.userId){
-        this.props.onUserClick(this.props.userId);
+        this.props.onUserClick(this.props.userId, this.props.userPhotoUrl);
     }
   }
 

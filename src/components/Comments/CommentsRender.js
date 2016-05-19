@@ -79,7 +79,7 @@ class CommentsRender extends Component {
   constructor(props) {
     super(props);
     let commentData = this.props.commentData || [];
-    console.log("@@: "+JSON.stringify(commentData));
+    // console.log("@@: "+JSON.stringify(commentData));
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
       curSortFilter: SORT_FILTERS.HIGHEST_RATE,

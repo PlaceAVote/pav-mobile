@@ -135,7 +135,7 @@ class AccordionBillCommentCardContainer extends Component {
   renderAccordionHeader(styles){
     return (
       <TouchableOpacity onPress={this.onHeaderClick.bind(this)} style={styles.repliesBoxContainer}>
-        <Text style={styles.repliesBoxText}>{this.props.replies.length} Replies (Tap to expand)</Text>
+        <Text style={styles.repliesBoxText}>{this.props.replies.length} Replies {this.state.isCollapsed==true?"(Tap to expand)":"(Tap to collapse)"}</Text>
       </TouchableOpacity>
     );
   }
