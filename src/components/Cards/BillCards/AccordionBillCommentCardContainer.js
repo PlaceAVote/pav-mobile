@@ -38,9 +38,9 @@ import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-// import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-// const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
-// const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
+import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
+const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 // import PavImage from '../../../lib/UI/PavImage'
 import Accordion from 'react-native-collapsible/Accordion'
@@ -75,16 +75,17 @@ class AccordionBillCommentCardContainer extends Component {
         alignItems: 'stretch',
         padding:7,
         // backgroundColor: 'blue',
+        
         marginTop: self.props.device.platform === 'android' ? 56 : 0,
       },
 
 
       /* Accordion Header */
       repliesBoxContainer:{
-        marginTop: 2, //I added this to allow the shadow from the above child to be seen
-        paddingVertical: h*0.014,
+        paddingTop: h*0.017,
         justifyContent:'center',
         alignItems:'center',
+        flexDirection:'row',
         // borderWidth: 1,
         // borderColor: 'rgba(0, 0, 0, 0.06)',
         // borderTopWidth:0,
@@ -96,8 +97,13 @@ class AccordionBillCommentCardContainer extends Component {
       repliesBoxText:{
         flex:1,
         fontSize: getCorrectFontSizeForScreen(w,h,9),
-        color: 'rgba(0, 0, 0, 0.60)',
         fontFamily: 'Whitney-Book',
+      },
+      collapsedRepliesColor:{
+        color: Colors.negativeAccentColor,
+      },
+      expandedRepliesColor:{
+        color: Colors.accentColor,
       },
 
 
@@ -105,8 +111,12 @@ class AccordionBillCommentCardContainer extends Component {
       /* Accordion Content */
       commentsList:{
         flex:1,
-        backgroundColor: '#E8E7EE',
+        // backgroundColor: '#E8E7EE',
       },
+      commentCard:{
+        // marginTop: h*0.017
+      }
+
 
 
     });
@@ -135,7 +145,8 @@ class AccordionBillCommentCardContainer extends Component {
   renderAccordionHeader(styles){
     return (
       <TouchableOpacity onPress={this.onHeaderClick.bind(this)} style={styles.repliesBoxContainer}>
-        <Text style={styles.repliesBoxText}>{this.props.replies.length} Replies {this.state.isCollapsed==true?"(Tap to expand)":"(Tap to collapse)"}</Text>
+        <Text style={[styles.repliesBoxText, (this.state.isCollapsed==true?styles.collapsedRepliesColor:styles.expandedRepliesColor)]}>{this.props.replies.length} Replies {this.state.isCollapsed==true?"(Tap to expand)":"(Tap to collapse)"}</Text>
+        <PavIcon name={this.state.isCollapsed==true?"arrow-down":"arrow-up"} size={15} style={this.state.isCollapsed==true?styles.collapsedRepliesColor:styles.expandedRepliesColor}/>
       </TouchableOpacity>
     );
   }
@@ -164,6 +175,7 @@ class AccordionBillCommentCardContainer extends Component {
        renderRow={(rowData) =>(
            <BillCommentCard
              key={rowData.comment_id}
+             style={styles.commentCard}
              commentLvl={this.props.commentLvl}
              device={this.props.device}
              timeString={moment(rowData.timestamp).fromNow()}

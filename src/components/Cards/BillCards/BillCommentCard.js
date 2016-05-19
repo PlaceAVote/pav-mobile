@@ -70,39 +70,24 @@ class BillCommentCard extends Component {
         marginTop: self.props.device.platform === 'android' ? 56 : 0,
       },
 
-      card:{
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.08)',
-      },
-      cardShadowContainer:{
-        flex: 1,
 
-        borderRadius: 2,
-        // borderColor: Colors.mainBorderColor,
-        backgroundColor: 'white',
+
+      cardContent:{
+        flex: 1,
+        padding: w*0.03,
+        backgroundColor: '#ffffff',
+        margin:2,
+        // borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+        // borderBottomWidth: 1,
+        // borderWidth:1,
+        // borderColor: 'rgba(0, 0, 0, 0.05)',
+        borderRadius:2,
         shadowColor: 'rgba(0, 0, 0, 0.42)',
         shadowOpacity: 0.8,
         shadowRadius: 2,
         shadowOffset: {
           height: 1,
           width: 2,
-        },
-      },
-      cardContent:{
-        flex: 1,
-        padding: w*0.03,
-        backgroundColor: '#ffffff',
-        // borderBottomColor: 'rgba(0, 0, 0, 0.1)',
-        // borderBottomWidth: 1,
-        // borderWidth:1,
-        // borderColor: Colors.transparentColor,
-
-        shadowColor: 'rgba(0, 0, 0, 0.12)',
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 0,
         },
       },
       cardTitleContainer:{
@@ -291,8 +276,8 @@ class BillCommentCard extends Component {
 
       /* REPLIES BOX */
       repliesBoxContainer:{
-        marginTop: 2, //I added this to allow the shadow from the above child to be seen
-        paddingVertical: h*0.014,
+        // backgroundColor:'red',
+        paddingTop: h*0.017,
         justifyContent:'center',
         alignItems:'center',
         // borderWidth: 1,
@@ -304,9 +289,8 @@ class BillCommentCard extends Component {
 
       },
       repliesBoxText:{
-        flex:1,
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-        color: 'rgba(0, 0, 0, 0.60)',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        color: Colors.negativeAccentColor,
         fontFamily: 'Whitney-Book',
       }
 
@@ -501,16 +485,13 @@ class BillCommentCard extends Component {
     }
     return(
       <View style={[styles.cardContainer, {paddingLeft: paddingLeftIfCommentLvlAbove0, paddingRight:paddingRightIfCommentLvlAbove0},this.props.style]}>
-        <View style={styles.cardShadowContainer}>
-          <View style={styles.card}>
-            <View style={styles.cardContent}>
-              {this.renderHeader(styles)}
-              {this.renderBody(styles)}
-              {this.renderFooter(styles)}
-            </View>
-            {this.renderRepliesBox(this.props.replies, styles)}
-          </View>
-        </View>
+      <View style={styles.cardContent}>
+        {this.renderHeader(styles)}
+        {this.renderBody(styles)}
+        {this.renderFooter(styles)}
+        {this.renderRepliesBox(this.props.replies, styles)}
+      </View>
+
       </View>
     );
   }
