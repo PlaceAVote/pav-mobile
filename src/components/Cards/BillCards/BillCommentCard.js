@@ -266,11 +266,17 @@ class BillCommentCard extends Component {
         paddingHorizontal:w*0.04,
       },
       likeCountText:{
-        color: Colors.accentColor,
         paddingHorizontal:w*0.04,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
       },
+      likeCountPositive:{
+        color: Colors.accentColor,
+      },
+      likeCountNegative:{
+        color: Colors.negativeAccentColor,
+      },
+
       replyButtonText:{
         flex:1,
         color: Colors.primaryColor,
@@ -438,7 +444,7 @@ class BillCommentCard extends Component {
           <TouchableOpacity style={styles.footerBtn} onPress={this.onDislikeClick.bind(this)}>
             <PavIcon name="thumbs-down" size={15} style={this.props.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
-          <Text style={styles.likeCountText}>{this.props.likeCount}</Text>
+          <Text style={[styles.likeCountText, this.props.likeCount>0?styles.likeCountPositive:styles.likeCountNegative]}>{this.props.likeCount}</Text>
         </View>
         <TouchableOpacity onPress={this.onReplyClick.bind(this)} style={styles.replyButtonContainer}>
           <Text style={styles.replyButtonText}>REPLY</Text>
