@@ -11,14 +11,6 @@
 
 
 /**
- * Immutable
- */
-import {Map} from 'immutable';
-
-/*A react native button*/
-import Button from 'sp-react-native-iconbutton'
-
-/**
 * Icons library
 */
 // var Icon = require('react-native-vector-icons/FontAwesome');
@@ -49,6 +41,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import PavImage from '../../../lib/UI/PavImage'
 
+import AccordionBillCommentCardContainer from './AccordionBillCommentCardContainer';
 
 
 
@@ -371,7 +364,7 @@ class BillCommentCard extends Component {
 
   onRepliesClick(){
     if(this.props.onRepliesClick && !!this.props.commentId && !!this.props.replies){
-        this.props.onRepliesClick(this.props.replies, this.props.commentId);
+        this.props.onRepliesClick(this.props.replies, this.props.commentId, this.props.commentLvl);
     }
   }
 
@@ -456,15 +449,33 @@ class BillCommentCard extends Component {
 
 
   renderRepliesBox(replies, styles){
+
     if(!!replies && replies.length>0){
-      return (
-          <TouchableOpacity onPress={this.onRepliesClick.bind(this)} style={styles.repliesBoxContainer}>
-            <Text style={styles.repliesBoxText}>{replies.length} Replies</Text>
-          </TouchableOpacity>
-        );
-    }else{
+      if(this.props.commentLvl<=0){ //for comment lvl 0
+        return (
+            <TouchableOpacity onPress={this.onRepliesClick.bind(this)} style={styles.repliesBoxContainer}>
+              <Text style={styles.repliesBoxText}>{replies.length} Replies</Text>
+            </TouchableOpacity>
+          );
+      }else{//for comment lvl 1 and above
+        return (
+          <AccordionBillCommentCardContainer
+            device={this.props.device}
+            collapsed={false}
+            commentLvl={this.props.commentLvl}
+            replies={this.props.replies}
+            onRepliesClick={this.props.onRepliesClick}
+            onUserClick={this.props.onUserClick}
+            onLikeDislikeClick={this.props.onLikeDislikeClick}
+            onReplyClick={this.props.onReplyClick}
+        />)
+      }
+
+    }else{  //if we have no replies object, theres no reason to draw anything
       return <View></View>;
     }
+
+
 
   }
   /**
@@ -477,8 +488,13 @@ class BillCommentCard extends Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
+    let paddingLeftIfCommentLvlAbove0  = null, paddingRightIfCommentLvlAbove0 = null;
+    if(this.props.commentLvl>0){
+      paddingLeftIfCommentLvlAbove0 = this.props.commentLvl*(w*0.015);
+      paddingRightIfCommentLvlAbove0 = 0;
+    }
     return(
-      <View style={[styles.cardContainer, this.props.style]}>
+      <View style={[styles.cardContainer, {paddingLeft: paddingLeftIfCommentLvlAbove0, paddingRight:paddingRightIfCommentLvlAbove0},this.props.style]}>
         <View style={styles.cardShadowContainer}>
           <View style={styles.card}>
             <View style={styles.cardContent}>
@@ -492,15 +508,16 @@ class BillCommentCard extends Component {
       </View>
     );
   }
+
+
+
 }
 
 
-
-
-
-
+BillCommentCard.defaultProps = {commentLvl: 0};
 
 BillCommentCard.propTypes= {
+  commentLvl: React.PropTypes.number.isRequired,
   device: React.PropTypes.object.isRequired,
   timeString: React.PropTypes.string.isRequired,
   userFullNameText: React.PropTypes.string.isRequired,

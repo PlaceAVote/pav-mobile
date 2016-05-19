@@ -84,6 +84,10 @@ module.exports =  {
       FACEBOOK: 'facebook',
       TWITTER: 'twitter',
     },
+    SORT_FILTERS:{
+      HIGHEST_RATE:'highest-score',
+      NEWEST:'latest',
+    },
 
 
 

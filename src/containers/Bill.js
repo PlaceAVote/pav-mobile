@@ -117,7 +117,7 @@ class Bill extends Component {
   }
   componentDidMount(){
 
-    this.connectAndGetBills("ma06001-114");
+    this.connectAndGetBills("hr25-114");
 
     //TODO: Uncomment
     // if(this.props.bill.data==null && !!this.props.billId){
@@ -161,8 +161,8 @@ class Bill extends Component {
   }
   onCommentReplyClick(commentId, billId){
   }
-  onCommentRepliesClick(replies, commentId){
-    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data});
+  onCommentRepliesClick(replies, commentId, curCommentLvl){
+    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, replies: replies, commentLvl: (curCommentLvl+1)});
   }
 
   render() {

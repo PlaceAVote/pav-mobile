@@ -10,7 +10,7 @@
 
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
-const {SOCIAL_TYPES} = Other;
+const {SORT_FILTERS} = Other;
 /**
  * The necessary React components
  */
@@ -57,14 +57,6 @@ import moment from 'moment';
 
 
 
-const SORT_FILTERS={
-  HIGHEST_RATE:'highest-score',
-  NEWEST:'latest',
-}
-
-
-
-
 
 
 
@@ -73,10 +65,7 @@ const SORT_FILTERS={
 class CommentsPageRender extends Component {
   constructor(props) {
     super(props);
-    let commentData = [];
-    if(!!this.props.commentData ){
-      let commentData = this.props.commentData;
-    }
+    let commentData = this.props.commentData || [];
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
       curSortFilter: SORT_FILTERS.HIGHEST_RATE,
@@ -267,6 +256,7 @@ class CommentsPageRender extends Component {
              <BillCommentCard
                style={styles.commentCard}
                key={rowData.comment_id}
+               commentLvl={0}
                device={this.props.device}
                timeString={moment(rowData.timestamp).fromNow()}
                userFullNameText={rowData.author_first_name+" "+rowData.author_last_name}
@@ -281,7 +271,6 @@ class CommentsPageRender extends Component {
                replies={rowData.replies}
                isTopCommentInFavor={rowData.isTopCommentInFavor}
                isTopCommentAgainst={rowData.isTopCommentAgainst}
-
                onRepliesClick={this.props.onCommentRepliesClick}
                onUserClick={this.props.onCommentUserClick}
                onLikeDislikeClick={this.props.onCommentLikeDislikeClick}
@@ -307,17 +296,31 @@ class CommentsPageRender extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.commentData !== this.props.commentData)
-      ||
       (nextProps.commentsAreFetching !== this.props.commentsAreFetching)
       ||
       (nextProps.device !== this.props.device)
       ||
       (nextState.curSortFilter !== this.state.curSortFilter)
+      ||
+      (nextState.commentDataSource !== this.state.commentDataSource)
     );
   }
 
 }
 
+CommentsPageRender.propTypes = {
+  commentData: React.PropTypes.object,
+  device: React.PropTypes.object.isRequired,
+  commentsAreFetching: React.PropTypes.bool.isRequired,
+  topCommentsAreFetching: React.PropTypes.bool.isRequired,
+  topCommentAgainstId: React.PropTypes.string,
+  topCommentInFavorId: React.PropTypes.string,
+  onCommentRepliesClick: React.PropTypes.func.isRequired,
+  onCommentUserClick: React.PropTypes.func.isRequired,
+  onCommentLikeDislikeClick: React.PropTypes.func.isRequired,
+  onCommentReplyClick: React.PropTypes.func.isRequired,
+  onCommentsRefresh: React.PropTypes.func.isRequired,
+
+}
 
 export default CommentsPageRender;

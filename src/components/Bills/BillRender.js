@@ -313,7 +313,7 @@ class BillRender extends Component {
         resizeMode='cover'
         onLayout={(e)=>{
           let {height} = e.nativeEvent.layout;
-          let minimumImgHeight = h*0.4;
+          let minimumImgHeight = h*0.23;
           // console.log("Min height implementation: "+minimumImgHeight+" when the image height was "+height);
           if(height<= minimumImgHeight){
             this.setState({curImgHeight:minimumImgHeight});
