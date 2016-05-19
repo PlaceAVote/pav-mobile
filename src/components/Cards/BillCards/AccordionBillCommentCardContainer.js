@@ -75,14 +75,15 @@ class AccordionBillCommentCardContainer extends Component {
         alignItems: 'stretch',
         padding:7,
         // backgroundColor: 'blue',
-        
+
         marginTop: self.props.device.platform === 'android' ? 56 : 0,
       },
 
 
       /* Accordion Header */
       repliesBoxContainer:{
-        paddingTop: h*0.017,
+        paddingTop: h*0.041,
+        paddingBottom: h*0.012,
         justifyContent:'center',
         alignItems:'center',
         flexDirection:'row',
@@ -91,26 +92,29 @@ class AccordionBillCommentCardContainer extends Component {
         // borderTopWidth:0,
         // borderTopColor: 'rgba(0, 0, 0, 0.06)',
         // borderTopWidth: 1,
-
-
+      },
+      repliesBoxTextContainer:{
+        flex:1,
+        alignItems:'center',
+        // backgroundColor:'red',
       },
       repliesBoxText:{
         flex:1,
         fontSize: getCorrectFontSizeForScreen(w,h,9),
         fontFamily: 'Whitney-Book',
-      },
-      collapsedRepliesColor:{
         color: Colors.negativeAccentColor,
       },
-      expandedRepliesColor:{
-        color: Colors.accentColor,
+      repliesBoxIcon:{
+          color: Colors.negativeAccentColor,
       },
+
 
 
 
       /* Accordion Content */
       commentsList:{
         flex:1,
+        paddingTop: h*0.025,
         // backgroundColor: '#E8E7EE',
       },
       commentCard:{
@@ -145,8 +149,10 @@ class AccordionBillCommentCardContainer extends Component {
   renderAccordionHeader(styles){
     return (
       <TouchableOpacity onPress={this.onHeaderClick.bind(this)} style={styles.repliesBoxContainer}>
-        <Text style={[styles.repliesBoxText, (this.state.isCollapsed==true?styles.collapsedRepliesColor:styles.expandedRepliesColor)]}>{this.props.replies.length} Replies {this.state.isCollapsed==true?"(Tap to expand)":"(Tap to collapse)"}</Text>
-        <PavIcon name={this.state.isCollapsed==true?"arrow-down":"arrow-up"} size={15} style={this.state.isCollapsed==true?styles.collapsedRepliesColor:styles.expandedRepliesColor}/>
+        <View style={styles.repliesBoxTextContainer}>
+          <Text style={styles.repliesBoxText}>{this.props.replies.length>1?this.props.replies.length+" Replies ":"1 Reply"}  {this.state.isCollapsed==true?"(Tap to expand)":"(Tap to collapse)"}</Text>
+        </View>
+        <PavIcon name={this.state.isCollapsed==true?"arrow-down":"arrow-up"} size={15} style={styles.repliesBoxIcon}/>
       </TouchableOpacity>
     );
   }
