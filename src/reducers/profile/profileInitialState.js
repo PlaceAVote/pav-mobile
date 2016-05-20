@@ -10,7 +10,7 @@
  */
 'use strict';
 
-const  {Record, List} = require('immutable');
+import  {Record, List} from 'immutable';
 
 /**
  * ## Form

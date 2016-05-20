@@ -25,7 +25,7 @@ import * as globalActions from '../../reducers/global/globalActions';
 import {Map} from 'immutable';
 
 /*A react native button*/
-// const  Button = require('sp-react-native-iconbutton');
+// import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
 
 
@@ -60,8 +60,8 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
  * The states were interested in
  */
 
-
-
+import pIndic3 from '../../../assets/pIndic3.jpg';
+import signupExpl3 from '../../../assets/signupExpl3.jpg';
 
 /**
  * ## Styles
@@ -244,7 +244,7 @@ class EmailSignUpStep3Render extends Component {
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} resizeMode= 'contain' source={require('../../../assets/pIndic3.jpg')}></Image>
+        <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic3}></Image>
       </View>);
     }
   }
@@ -265,7 +265,7 @@ class EmailSignUpStep3Render extends Component {
             <View style={styles.explanationContainer}>
 
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl3.jpg')}></Image>
+                <Image style={styles.explanImg} resizeMode= 'contain' source={signupExpl3}></Image>
               </View>
 
 

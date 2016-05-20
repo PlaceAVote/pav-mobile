@@ -37,11 +37,11 @@ import {Map} from 'immutable';
 // import LoginRender from '../components/LoginRender';
 import OnboardingRender from '../components/Onboarding/OnboardingRender'
 import React from 'react';
-
+import {ScheneKeys} from '../config/constants';
 const {
 REGISTER_STEP_1,
 LOGIN
-} = require('../config/constants').ScheneKeys
+} = ScheneKeys
 
 
 /**

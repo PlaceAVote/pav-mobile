@@ -32,10 +32,10 @@ import EmailSignUpStep3Render from '../components/EmailSignUp/EmailSignUpStep3Re
 
 import React from 'react';
 
-
+import {ScheneKeys} from '../config/constants';
 const {
   REGISTER_STEP_3,
-} = require('../config/constants').ScheneKeys
+} = ScheneKeys
 
 /**
  * ## Redux boilerplate

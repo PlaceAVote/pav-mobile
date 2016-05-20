@@ -1,5 +1,4 @@
-const React = require('react');
-const ReactNative = require('react');
+import React from 'react';
 const {
   View,
   Animated,
@@ -10,13 +9,13 @@ const {
   Platform,
   findNodeHandle,
   Dimensions,
-} = ReactNative;
+} = React;
 
 const TAB_HEIGHT = 50;
 const {height:h, width:w} = Dimensions.get('window');
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import {Colors} from '../../config/constants';

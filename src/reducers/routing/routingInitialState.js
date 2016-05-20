@@ -13,7 +13,7 @@
  * ## Import
  */
 import {ScheneKeys, Modals} from '../../config/constants';
-const {Record, Map} = require('immutable');
+import {Record, Map} from 'immutable';
 const {
   NAVIGATE_TO,
   ONBOARDING,

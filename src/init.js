@@ -1,8 +1,8 @@
 'use strict';
 
 
-import React from 'react';
-import {AppRegistry, Navigator, View, Image, Text, TouchableOpacity} from 'react-native';
+import React, {Component} from 'react';
+import {Navigator, View, Image, Text, TouchableOpacity} from 'react-native';
 
 /**
 * ### Router-Flux
@@ -78,7 +78,7 @@ import {Colors, ScheneKeys} from './config/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../assets/fonts/icomoon.json');
+import icomoonConfig from '../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 /**
@@ -143,115 +143,30 @@ function getInitialState() {
 }
 
 
-/**
-* ## TabIcon
-*
-* Displays the icon for the tab w/ color dependent upon selection
-*/
-class TabIcon extends React.Component {
-  render() {
-    var color = this.props.selected ? 'FF3366' : 'FFB3B3';
 
-    return (
-      <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'}}>
-      <Icon style={{color: color}} name={this.props.iconName} size={30} />
-      <Text style={{color: color}}>{this.props.title}</Text>
-      </View>
-    );
-  }
-}
 
-/**
-* ## Native
-*
-* ```configureStore``` with the ```initialState``` and set the
-* ```platform``` and ```version``` into the store by ```dispatch```.
-* *Note* the ```store``` itself is set into the ```store```.  This
-* will be used when doing hot loading
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+       \/    \/    \/     PROJECT STARTS HERE     \/    \/    \/
 */
 
 
 
-class RightPavLogo extends React.Component {
-  render(){
-      return <Image source={require("../assets/pavBtnRight.png")} resizeMode='cover' style={{
-        flex:1,
-        alignSelf:'flex-end',
-        width: 30,
-        height: null,
-        // backgroundColor:'green'
-        overflow: "hidden"
-    }}></Image>
-  }
-}
 
-class BackBtnImg extends React.Component {
-  render(){
-      return (<TouchableOpacity style={{
-        width: 100,
-        height: 37,
-        position: 'absolute',
-        bottom: 4,
-        left: 2,
-        padding: 8,
-        justifyContent:'center',
-    }} onPress={Actions.pop} >
-        <View style={{flexDirection:'row', alignItems:'center'}}>
-          <Icon name="chevron-left" size={25} color={'#ffffff'} style={{marginTop:2,paddingRight:6}} />
-          <Text style={{color: '#FFFFFF21', fontFamily:'Whitney'}}>Back</Text>
-        </View>
-      </TouchableOpacity>);
-  }
-}
+export default class PlaceAVote extends Component {
 
-
-
-
-class TabIconFactory extends React.Component {
-    render(){
-
-
-        let iconName = "", tabText;
-        switch(this.props.name){
-          case ScheneKeys.TAB_NEWS:
-          case ScheneKeys.TAB_NEWS+"2":
-            iconName="mailbox";
-            tabText = "News Feed";
-            break;
-          case ScheneKeys.TAB_NOTIFS:
-            iconName="ios-pulse-strong";
-            tabText = "Notifications";
-            // console.log("Notifications array: "+this.props.notifications);
-            break;
-          case ScheneKeys.TAB_PROFILE:
-            iconName="person"
-            tabText = "Profile";
-            break;
-          default:
-            break;
-        }
-        return (
-          <View style={{flexDirection:'row', justifyContent:'center', padding:3}}>
-            <PavIcon name={iconName} size={25} style={{color: this.props.selected ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
-            <View style={{flexDirection: "column", justifyContent: 'center', paddingHorizontal:4}}>
-              <Text style={{color: this.props.selected ? Colors.primaryColor :Colors.secondaryTextColor}}>{tabText}</Text>
-            </View>
-          </View>
-        );
-    }
-}
-
-
-
-// <TouchableOpacity style={{paddingHorizontal:3}}>
-
-// </TouchableOpacity>
-// <TouchableOpacity style={{paddingHorizontal:3}}>
-
-// </TouchableOpacity>
-
-export default function native(platform) {
-  let PlaceAVote = React.createClass( {
     render() {
 
 
@@ -326,10 +241,118 @@ export default function native(platform) {
         </Provider>
       );
     }
-  });
-  /**
-  * registerComponent to the AppRegistery and off we go....
-  */
+}
 
-  AppRegistry.registerComponent('PlaceAVoteApp', () => PlaceAVote);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* ## TabIcon
+*
+* Displays the icon for the tab w/ color dependent upon selection
+*/
+class TabIcon extends Component {
+  render() {
+    var color = this.props.selected ? 'FF3366' : 'FFB3B3';
+
+    return (
+      <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'}}>
+      <Icon style={{color: color}} name={this.props.iconName} size={30} />
+      <Text style={{color: color}}>{this.props.title}</Text>
+      </View>
+    );
+  }
+}
+
+/**
+* ## Native
+*
+* ```configureStore``` with the ```initialState``` and set the
+* ```platform``` and ```version``` into the store by ```dispatch```.
+* *Note* the ```store``` itself is set into the ```store```.  This
+* will be used when doing hot loading
+*/
+
+
+
+class RightPavLogo extends Component {
+  render(){
+      return <Image source={require("../assets/pavBtnRight.png")} resizeMode='cover' style={{
+        flex:1,
+        alignSelf:'flex-end',
+        width: 30,
+        height: null,
+        // backgroundColor:'green'
+        overflow: "hidden"
+    }}></Image>
+  }
+}
+
+class BackBtnImg extends Component {
+  render(){
+      return (<TouchableOpacity style={{
+        width: 100,
+        height: 37,
+        position: 'absolute',
+        bottom: 4,
+        left: 2,
+        padding: 8,
+        justifyContent:'center',
+    }} onPress={Actions.pop} >
+        <View style={{flexDirection:'row', alignItems:'center'}}>
+          <Icon name="chevron-left" size={25} color={'#ffffff'} style={{marginTop:2,paddingRight:6}} />
+          <Text style={{color: '#FFFFFF21', fontFamily:'Whitney'}}>Back</Text>
+        </View>
+      </TouchableOpacity>);
+  }
+}
+
+
+
+
+class TabIconFactory extends Component {
+    render(){
+
+
+        let iconName = "", tabText;
+        switch(this.props.name){
+          case ScheneKeys.TAB_NEWS:
+          case ScheneKeys.TAB_NEWS+"2":
+            iconName="mailbox";
+            tabText = "News Feed";
+            break;
+          case ScheneKeys.TAB_NOTIFS:
+            iconName="ios-pulse-strong";
+            tabText = "Notifications";
+            // console.log("Notifications array: "+this.props.notifications);
+            break;
+          case ScheneKeys.TAB_PROFILE:
+            iconName="person"
+            tabText = "Profile";
+            break;
+          default:
+            break;
+        }
+        return (
+          <View style={{flexDirection:'row', justifyContent:'center', padding:3}}>
+            <PavIcon name={iconName} size={25} style={{color: this.props.selected ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
+            <View style={{flexDirection: "column", justifyContent: 'center', paddingHorizontal:4}}>
+              <Text style={{color: this.props.selected ? Colors.primaryColor :Colors.secondaryTextColor}}>{tabText}</Text>
+            </View>
+          </View>
+        );
+    }
 }

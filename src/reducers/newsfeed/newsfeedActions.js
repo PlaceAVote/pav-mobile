@@ -14,7 +14,7 @@
 /**
  * AppAuthToken for localStorage sessionToken access
  */
-const AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
+import AppAuthToken from '../../lib/Storage/AppAuthToken';
 import PavClientSdk from 'pavclient';
 // import {setUserData} from '../auth/authActions'
 

@@ -46,10 +46,10 @@ import ProfileRender from '../components/Profile/ProfileRender'
 import React, {Component} from 'react';
 
 
-
+import {ScheneKeys} from '../config/constants';
 const {
 MAIN
-} = require('../config/constants').ScheneKeys
+} = ScheneKeys
 
 
 /**

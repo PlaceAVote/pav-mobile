@@ -20,7 +20,7 @@ import Button from 'sp-react-native-iconbutton'
 /**
 * Icons library
 */
-// var Icon = require('react-native-vector-icons/FontAwesome');
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import {Colors, ScheneKeys} from '../../../config/constants';
@@ -32,7 +32,7 @@ import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 

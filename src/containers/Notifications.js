@@ -46,10 +46,10 @@ import NotificationsRender from '../components/Notifications/NotificationsRender
 import React, {Component} from 'react';
 
 
-
+import {ScheneKeys} from '../config/constants';
 const {
 MAIN
-} = require('../config/constants').ScheneKeys
+} = ScheneKeys
 
 
 /**
@@ -101,7 +101,7 @@ class Notifications extends Component {
     // this.loginAndGetNotifications();
   }
 
-  
+
   // async loginAndGetNotifications(){
   //   await this.props.actions.login("whatevah@placeavote.com", "Asdasd1");
   //   await this.props.actions.getNotifications();

@@ -42,7 +42,7 @@ import {Actions} from 'react-native-router-flux';
  */
 
 // import {Actions} from 'react-native-router-flux';
-// const  _ = require('underscore');
+// import _ from 'underscore';
 
 export function navigateState(schene) {
   return {

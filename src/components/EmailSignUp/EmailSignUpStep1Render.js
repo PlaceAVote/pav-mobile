@@ -25,7 +25,7 @@ import * as globalActions from '../../reducers/global/globalActions';
 import {Map} from 'immutable';
 
 /*A react native button*/
-// const  Button = require('sp-react-native-iconbutton');
+// import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
 
 
@@ -56,6 +56,8 @@ import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
+import pIndic1Img from '../../../assets/pIndic1.jpg';
+import signupExpl1 from '../../../assets/signupExpl1.jpg';
 /**
  * The states were interested in
  */
@@ -235,7 +237,7 @@ class EmailSignUpStep1Render extends Component {
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} resizeMode= 'contain' source={require('../../../assets/pIndic1.jpg')}></Image>
+        <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic1Img}></Image>
       </View>);
     }
   }
@@ -255,7 +257,7 @@ class EmailSignUpStep1Render extends Component {
         <View style={styles.contentContainer}>
             <View style={styles.explanationContainer}>
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} resizeMode= 'cover' source={require('../../../assets/signupExpl1.jpg')}></Image>
+                <Image style={styles.explanImg} resizeMode= 'cover' source={signupExpl1}></Image>
               </View>
               <View style={styles.descriptionTextContainer}>
                 <Text style={styles.descriptionText} >

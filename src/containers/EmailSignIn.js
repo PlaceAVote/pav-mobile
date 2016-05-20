@@ -32,7 +32,7 @@ import EmailSignInRender from '../components/EmailSignIn/EmailSignInRender';
 
 import React from 'react';
 
-const {ScheneKeys, Modals} = require('../config/constants')
+import {ScheneKeys, Modals} from '../config/constants';
 const {
   LOGIN,
   MAIN

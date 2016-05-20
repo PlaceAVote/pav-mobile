@@ -43,12 +43,12 @@ import React, {Component} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
-// const {} = require('../config/constants').ScheneKeys
+// const {} = ScheneKeys
 
 
 /**

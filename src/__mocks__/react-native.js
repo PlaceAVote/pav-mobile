@@ -1,22 +1,22 @@
 /**
  * # __mockes__/react-native.js
- * 
+ *
  * This class stubs out the React-Native classes with React classes
  */
 'use strict';
 /**
  * ## Imports
- * 
+ *
  * ReactNative is actually React
- */ 
-const React = require('react');
+ */
+import React from 'react';
 const ReactNative = React;
 
 /**
  * ## These need additional mocking
- * 
+ *
  * ReactNative is actually React
- */ 
+ */
 ReactNative.StyleSheet = {
     create: function create(styles) {
         return styles;
@@ -30,9 +30,9 @@ class PixelRatio extends React.Component {
 }
 /**
  * ## Stubs
- * 
+ *
  * Simple replacements for testing
- */ 
+ */
 ReactNative.View = View;
 ReactNative.ScrollView = View;
 ReactNative.Text = View;

@@ -11,18 +11,10 @@
  */
 
 /**
- * ## Actions
- *
- */
-// const {
-//
-// } = require('../../config/constants').ActionNames
-
-/**
  * ## Initial State
  *
  */
-const InitialState = require('./newsfeedInitialState').default;
+import InitialState from './newsfeedInitialState';
 const initialState = new InitialState;
 
 import {ActionNames, ScheneKeys} from '../../config/constants';

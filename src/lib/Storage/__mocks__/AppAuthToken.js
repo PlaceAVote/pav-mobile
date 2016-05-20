@@ -1,14 +1,14 @@
 /**
  * # AppAuthToken.js
- * 
+ *
  * Simple mock of lib/AppAuthToken.js
  */
 'use strict';
 /**
  * ## Async
- * 
+ *
  * Need to still treat as async
- */ 
+ */
 require('regenerator/runtime');
 export default class AppAuthToken {
   /**
@@ -33,10 +33,8 @@ export default class AppAuthToken {
   }
   /**
    * ### deleteSessionToken
-   */  
+   */
   async deleteSessionToken () {
     return await {};
   }
 };
-
-
