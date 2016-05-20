@@ -21,20 +21,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {SORT_FILTERS} = Other;
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ListView,
-  RefreshControl
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity, ListView, RefreshControl} from 'react-native';
 // import ProgressBar from 'ProgressBarAndroid';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'

@@ -12,7 +12,7 @@
  *
  * React
  */
-const React = require('react-native');
+const React = require('react');
 const {
   PropTypes,
   PixelRatio

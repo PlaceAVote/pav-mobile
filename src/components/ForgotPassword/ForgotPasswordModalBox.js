@@ -4,14 +4,18 @@ import Button from 'sp-react-native-iconbutton';
 import ForgotPasswordRender from './ForgotPasswordRender';
 import {Actions} from 'react-native-router-flux';
 import  Modal from 'react-native-modalbox';
-import React from 'react-native';
+import React from 'react';
+import ReactNative from 'react-native';
+
+const {} = React;
 
 const {
   View,
   Text,
   StyleSheet,
-  PixelRatio
-} = React;
+  PixelRatio,
+} = ReactNative;
+
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation

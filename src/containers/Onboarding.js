@@ -36,10 +36,7 @@ import {Map} from 'immutable';
  */
 // import LoginRender from '../components/LoginRender';
 import OnboardingRender from '../components/Onboarding/OnboardingRender'
-/**
- * The necessary React
- */
-import React from 'react-native';
+import React from 'react';
 
 const {
 REGISTER_STEP_1,

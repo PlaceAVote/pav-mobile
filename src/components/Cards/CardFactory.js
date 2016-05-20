@@ -24,15 +24,8 @@ import {Map} from 'immutable';
 import moment from 'moment';
 import {Colors, ScheneKeys} from '../../config/constants';
 
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  View
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {View} from 'react-native';
 
 
 

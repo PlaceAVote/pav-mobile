@@ -3,14 +3,17 @@
 import Button from 'sp-react-native-iconbutton';
 import {Actions} from 'react-native-router-flux';
 import  Modal from 'react-native-modalbox';
-import React from 'react-native';
+import React from 'react';
+import ReactNative from 'react-native';
+
+const {} = React;
 
 const {
   View,
   Text,
   StyleSheet,
-  PixelRatio
-} = React;
+  PixelRatio,
+} = ReactNative;
 
 import {Colors} from '../../config/constants';
 

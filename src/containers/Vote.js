@@ -32,12 +32,7 @@ import {Map} from 'immutable';
  */
 import VoteRender from '../components/Vote/VoteRender';
 
-/**
- * The necessary React components
- */
-import React, {
-  Component
-} from 'react-native';
+import React, {Component} from 'react';
 
 /**
  * The states were interested in

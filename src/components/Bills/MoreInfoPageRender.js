@@ -11,20 +11,8 @@
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {US_STATES, BILL_STATUSES} = Other;
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, ScrollView, TouchableOpacity} from 'react-native';
 
 import {getNumberWithOrdinalSufix} from '../../lib/Utils/numberText';
 

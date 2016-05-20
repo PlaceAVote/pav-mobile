@@ -1,9 +1,12 @@
 'use strict';
 
-import React from 'react-native';
+import React from 'react';
+import ReactNative from 'react-native';
 
 import {Colors} from '../../config/constants';
 import LinearGradient from 'react-native-linear-gradient';
+
+const {} = React;
 
 const {
   Image,
@@ -12,8 +15,8 @@ const {
   StyleSheet,
   Text,
   View,
-  PixelRatio
-} = React;
+  PixelRatio,
+} = ReactNative;
 
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'

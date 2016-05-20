@@ -30,10 +30,7 @@ import {Map} from 'immutable';
  */
 import EmailSignUpStep1Render from '../components/EmailSignUp/EmailSignUpStep1Render';
 
-/**
- * The necessary React components
- */
-import React from 'react-native';
+import React from 'react';
 
 
 const {

@@ -1,15 +1,7 @@
 /* @flow weak */
 import LImage from 'react-native-image-progress';
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  Image,
-  View
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {Image, View} from 'react-native';
 
 import Progress from 'react-native-progress';
 import {Colors} from '../../config/constants';

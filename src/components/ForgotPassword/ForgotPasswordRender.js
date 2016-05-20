@@ -42,20 +42,8 @@ import ForgotPasswordForm from './ForgotPasswordForm';
 
 import {Colors, ScheneKeys,Modals} from '../../config/constants';
 
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  StyleSheet,
-  ScrollView,
-  Text,
-  TouchableHighlight,
-  View,
-  Image
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image} from 'react-native';
 
 import Dimensions from 'Dimensions';
 var {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Screen dimensions in current orientation

@@ -44,21 +44,8 @@ import SignInForm from './SignInForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  StyleSheet,
-  ScrollView,
-  Text,
-  TouchableHighlight,
-  View,
-  Image,
-  PixelRatio
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';

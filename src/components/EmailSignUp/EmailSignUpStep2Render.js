@@ -41,21 +41,8 @@ import SignUpEmailForm from './SignUpEmailForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  StyleSheet,
-  ScrollView,
-  Text,
-  TouchableHighlight,
-  View,
-  Image,
-  PixelRatio
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -64,9 +51,9 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 /**
  * The states were interested in
  */
- const {
-   REGISTER_STEP_2
- } = ScheneKeys;
+const {
+  REGISTER_STEP_2
+} = ScheneKeys;
 
 
 

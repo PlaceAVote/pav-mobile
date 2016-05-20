@@ -46,13 +46,8 @@ import {Map} from 'immutable';
 import NewsFeedRender from '../components/NewsFeed/NewsFeedRender'
 
 
-/**
- * The necessary React
- */
-import React, {
-  Component,
-  Linking
-} from 'react-native';
+import React, {Component} from 'react';
+import {Linking} from 'react-native';
 
 
 
