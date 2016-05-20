@@ -14,25 +14,25 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		17E32B822FA94807AC59378C /* Whitney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 845791FDAE43403AB886FA21 /* Whitney-Bold.ttf */; };
+		24B654E5C52C48D28714144C /* Whitney-BookItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EE1E8AF2A6C4F4E8284E06C /* Whitney-BookItal.ttf */; };
 		2C279CEB863F41EE8FF89C06 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D84D429C65E14FEB840019A2 /* Zocial.ttf */; };
 		3F2BEFB701FC47E4BFA057C8 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10CAB4FBE2724127891F10AA /* MaterialIcons.ttf */; };
+		5171FD29B57847F0AFFAAFFF /* Whitney-SemiboldItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEB97CD8BB4C46978B0FD7AE /* Whitney-SemiboldItal.ttf */; };
 		52DF1559EBD74767BA4AC746 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E13E1F1D15B94ADA8B3365D3 /* Ionicons.ttf */; };
 		53FF33ECB73341DAA7881C2F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60DC4A337A7949B38D49BBB7 /* Entypo.ttf */; };
 		5EB7CCB5D1BB44AA8073C09C /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC79F48DEB32471FAACCA839 /* EvilIcons.ttf */; };
 		7D3F44C61C2544DCBEEEA902 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A2B7C6B277E42DA949F139F /* Octicons.ttf */; };
 		7E4C6173CA3D4036829D47FF /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14A31AD120CC4DB4A062BBDD /* Foundation.ttf */; };
 		8E0D94E40DAF4257A5B8FD91 /* Whitney-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE7C3E5E45C04785BF773CC9 /* Whitney-Book.ttf */; };
+		937648502FF9483C9EF8A699 /* Whitney-LightItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37484D02FE97477F94660543 /* Whitney-LightItal.ttf */; };
 		93CDBCDBC9583B9288B00129 /* libPods-PlaceAVoteApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E666E8E326173253EB5DB92 /* libPods-PlaceAVoteApp.a */; };
+		96A9586B6EE74447AB692526 /* Whitney-BoldItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BC4C5A3AA394D74A3439F46 /* Whitney-BoldItal.ttf */; };
 		A5D5C5FD28194E0EA87FCAA5 /* Whitney-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F4462147841FAA6BB2E89 /* Whitney-Medium.ttf */; };
+		BAEC4E963380491F89AF142B /* Whitney-MediumItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F44344E136944CB3A823D419 /* Whitney-MediumItal.ttf */; };
 		BD8EE78C772E4484ACE34AFC /* Whitney-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B164D8BEA598413FA309BDA5 /* Whitney-Light.ttf */; };
 		D3546E011CBE96970086B3BA /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3546E001CBE96970086B3BA /* Orientation.m */; };
 		E08D6038C0074BD0BA01380B /* Whitney-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6263A662BD9C4B85BDFF98ED /* Whitney-Semibold.ttf */; };
 		F0C6E75D312C3C237E3B059F /* libPods-PlaceAVoteAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 580A83FEB7945DF0ECBE00A2 /* libPods-PlaceAVoteAppTests.a */; };
-		96A9586B6EE74447AB692526 /* Whitney-BoldItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BC4C5A3AA394D74A3439F46 /* Whitney-BoldItal.ttf */; };
-		24B654E5C52C48D28714144C /* Whitney-BookItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EE1E8AF2A6C4F4E8284E06C /* Whitney-BookItal.ttf */; };
-		937648502FF9483C9EF8A699 /* Whitney-LightItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37484D02FE97477F94660543 /* Whitney-LightItal.ttf */; };
-		BAEC4E963380491F89AF142B /* Whitney-MediumItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F44344E136944CB3A823D419 /* Whitney-MediumItal.ttf */; };
-		5171FD29B57847F0AFFAAFFF /* Whitney-SemiboldItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEB97CD8BB4C46978B0FD7AE /* Whitney-SemiboldItal.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +63,9 @@
 		1A2333133F12F79467AE815F /* Pods-PlaceAVoteApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteApp/Pods-PlaceAVoteApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2A2B7C6B277E42DA949F139F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		3299DD9D3F4C40599C34ED7B /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
+		37484D02FE97477F94660543 /* Whitney-LightItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-LightItal.ttf"; path = "../assets/fonts/Whitney-LightItal.ttf"; sourceTree = "<group>"; };
+		4BC4C5A3AA394D74A3439F46 /* Whitney-BoldItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-BoldItal.ttf"; path = "../assets/fonts/Whitney-BoldItal.ttf"; sourceTree = "<group>"; };
+		4EE1E8AF2A6C4F4E8284E06C /* Whitney-BookItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-BookItal.ttf"; path = "../assets/fonts/Whitney-BookItal.ttf"; sourceTree = "<group>"; };
 		53BD75153D7B5A5E0996C64E /* Pods-PlaceAVoteAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteAppTests/Pods-PlaceAVoteAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		580A83FEB7945DF0ECBE00A2 /* libPods-PlaceAVoteAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlaceAVoteAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6F4462147841FAA6BB2E89 /* Whitney-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Medium.ttf"; path = "../assets/fonts/Whitney-Medium.ttf"; sourceTree = "<group>"; };
@@ -79,11 +82,8 @@
 		DC79F48DEB32471FAACCA839 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		DE7C3E5E45C04785BF773CC9 /* Whitney-Book.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Book.ttf"; path = "../assets/fonts/Whitney-Book.ttf"; sourceTree = "<group>"; };
 		E13E1F1D15B94ADA8B3365D3 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		4BC4C5A3AA394D74A3439F46 /* Whitney-BoldItal.ttf */ = {isa = PBXFileReference; name = "Whitney-BoldItal.ttf"; path = "../assets/fonts/Whitney-BoldItal.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4EE1E8AF2A6C4F4E8284E06C /* Whitney-BookItal.ttf */ = {isa = PBXFileReference; name = "Whitney-BookItal.ttf"; path = "../assets/fonts/Whitney-BookItal.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		37484D02FE97477F94660543 /* Whitney-LightItal.ttf */ = {isa = PBXFileReference; name = "Whitney-LightItal.ttf"; path = "../assets/fonts/Whitney-LightItal.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F44344E136944CB3A823D419 /* Whitney-MediumItal.ttf */ = {isa = PBXFileReference; name = "Whitney-MediumItal.ttf"; path = "../assets/fonts/Whitney-MediumItal.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FEB97CD8BB4C46978B0FD7AE /* Whitney-SemiboldItal.ttf */ = {isa = PBXFileReference; name = "Whitney-SemiboldItal.ttf"; path = "../assets/fonts/Whitney-SemiboldItal.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F44344E136944CB3A823D419 /* Whitney-MediumItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-MediumItal.ttf"; path = "../assets/fonts/Whitney-MediumItal.ttf"; sourceTree = "<group>"; };
+		FEB97CD8BB4C46978B0FD7AE /* Whitney-SemiboldItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-SemiboldItal.ttf"; path = "../assets/fonts/Whitney-SemiboldItal.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,12 +224,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "PlaceAVoteAppTests" */;
 			buildPhases = (
-				23CFBFA529B39E9C99A7789B /* Check Pods Manifest.lock */,
+				23CFBFA529B39E9C99A7789B /* 📦 Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				AF5A5F241383501A51DE60CC /* Embed Pods Frameworks */,
-				D6FAA108F1474FA2639D0B91 /* Copy Pods Resources */,
+				AF5A5F241383501A51DE60CC /* 📦 Embed Pods Frameworks */,
+				D6FAA108F1474FA2639D0B91 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -245,13 +245,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "PlaceAVoteApp" */;
 			buildPhases = (
-				3BBADC5B698506A12D82EE2B /* Check Pods Manifest.lock */,
+				3BBADC5B698506A12D82EE2B /* 📦 Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				003F6AD0E0285C00DE9CFE75 /* Embed Pods Frameworks */,
-				2A8BFCFCF48C2AB599CFAA48 /* Copy Pods Resources */,
+				003F6AD0E0285C00DE9CFE75 /* 📦 Embed Pods Frameworks */,
+				2A8BFCFCF48C2AB599CFAA48 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -338,14 +338,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		003F6AD0E0285C00DE9CFE75 /* Embed Pods Frameworks */ = {
+		003F6AD0E0285C00DE9CFE75 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,14 +367,14 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
-		23CFBFA529B39E9C99A7789B /* Check Pods Manifest.lock */ = {
+		23CFBFA529B39E9C99A7789B /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,14 +382,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		2A8BFCFCF48C2AB599CFAA48 /* Copy Pods Resources */ = {
+		2A8BFCFCF48C2AB599CFAA48 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,14 +397,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVoteApp/Pods-PlaceAVoteApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3BBADC5B698506A12D82EE2B /* Check Pods Manifest.lock */ = {
+		3BBADC5B698506A12D82EE2B /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,14 +412,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		AF5A5F241383501A51DE60CC /* Embed Pods Frameworks */ = {
+		AF5A5F241383501A51DE60CC /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,14 +427,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVoteAppTests/Pods-PlaceAVoteAppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D6FAA108F1474FA2639D0B91 /* Copy Pods Resources */ = {
+		D6FAA108F1474FA2639D0B91 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

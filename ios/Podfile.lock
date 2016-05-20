@@ -5,13 +5,13 @@ PODS:
   - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
-  - BVLinearGradient (1.5.2):
+  - BVLinearGradient (1.5.7):
     - React
-  - FBSDKCoreKit (4.11.0):
+  - FBSDKCoreKit (4.12.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.11.0):
+  - FBSDKLoginKit (4.12.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.11.0):
+  - FBSDKShareKit (4.12.0):
     - FBSDKCoreKit
   - React (0.22.2):
     - React/Core (= 0.22.2)
@@ -73,10 +73,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
-  BVLinearGradient: b073c62d4e4eaa47a63c73d75d81d0945f164bba
-  FBSDKCoreKit: 686ac982723a14ec9ddb85e2f81235d7706c891b
-  FBSDKLoginKit: bade9fc78277764149ccc5bfaadbf13c83175c6a
-  FBSDKShareKit: 2d1746144cfc8a9dbbd24997c34ee0471be51b6a
+  BVLinearGradient: c1f6616e7c3a78032db823f30e426158136f6976
+  FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
+  FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
+  FBSDKShareKit: df1491f064cffc8ebcc3fc8b71be94cc190c728e
   React: be2dc9f9a325f0b4db1fcd3a0cea29c0e00af9b7
   react-native-fbsdkcore: 4b4f0d94b9d19dc8d21427fbb0fe54180486885c
   react-native-fbsdklogin: 9857d698accf58ab07039fd39320df9476eb40a6
@@ -85,4 +85,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 85f38f79f04982460fb9f97a2c843b2b04aeca12
 
-COCOAPODS: 1.0.0.beta.3
+COCOAPODS: 1.0.0

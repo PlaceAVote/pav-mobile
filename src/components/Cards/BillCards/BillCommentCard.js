@@ -277,8 +277,8 @@ class BillCommentCard extends Component {
       /* REPLIES BOX */
       repliesBoxContainer:{
         // backgroundColor:'red',
-        paddingTop: h*0.042,
-        paddingBottom: h*0.015,
+        paddingTop: h*0.045,
+        paddingBottom: h*0.018,
         justifyContent:'center',
         alignItems:'center',
         flexDirection:'row'
@@ -291,7 +291,7 @@ class BillCommentCard extends Component {
 
       },
       repliesBoxText:{
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
         color: Colors.negativeAccentColor,
         fontFamily: 'Whitney-Book',
       },
@@ -451,7 +451,7 @@ class BillCommentCard extends Component {
         return (
             <TouchableOpacity onPress={this.onRepliesClick.bind(this)} style={styles.repliesBoxContainer}>
               <Text style={styles.repliesBoxText}>{replies.length>1?replies.length+" Replies ":"1 Reply"}</Text>
-              <PavIcon name="arrow-right" size={13} style={styles.repliesBoxIcon}/>
+              <PavIcon name="show-more" size={17} style={styles.repliesBoxIcon}/>
             </TouchableOpacity>
           );
       }else{//for comment lvl 1 and above

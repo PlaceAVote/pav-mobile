@@ -24,11 +24,12 @@
     "setup": "npm install -g npm3 && npm3 install -g rnpm && npm3 install && rnpm link && rnpm link assets",
     "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest  --no-cache",
     "pavclient": "npm i git+https://a7ee7e677992613cade67c796347ad55e3a0ab64:x-oauth-basic@github.com/PlaceAVote/pav-client-sdk.git#master",
-    "releaseAndroid": "cd android && ./gradlew assembleRelease"
+    "releaseAndroid": "cd android && ./gradlew assembleRelease",
+    "clean": "watchman watch-del-all"
   },
   "dependencies": {
     "react-native": "^0.22.0",
-    "react-native-router-flux": "^3.22.23",
+    "react-native-router-flux": "3.22.23",
     "react-native-vector-icons": "^1.1.0",
     "react-native-simple-store": "^0.1.0",
     "redux": "^3.1.2",
@@ -62,10 +63,10 @@
     "babel-core": "^6.7.4",
     "babel-jest": "^9.0.3",
     "jest-cli": "^0.9.2",
-    "react": "^0.14.8",
+    "react": "^0.14.0",
     "react-addons-test-utils": "^0.14.7",
     "redux-mock-store": "^1.0.2",
-    "remote-redux-devtools": "0.1.5"
+    "remote-redux-devtools": "^0.3.2"
   },
   "rnpm": {
     "assets": [
