@@ -140,15 +140,16 @@ class Comments extends Component {
     await this.props.actions.getCommentsComments(this.props.bill.data.bill_id, sortFilter, TOKEN, DEV);
   }
   onCommentUserClick(userId, photoUrl){
-    
+
   }
   onCommentLikeDislikeClick(){
 
   }
-  onCommentReplyClick(billId){
-
+  onCommentPostClick(comment, commentParentData){
+    //this is always above lvl 0 of comments
+    alert(commentParentData.newCommentLvl==0?"Replying on a BILL":"Replying on a comment")
   }
-  onCommentRepliesClick(replies){
+  onShowMoreCommentsClick(replies){
 
   }
 
@@ -164,14 +165,15 @@ class Comments extends Component {
       <CommentsRender
           device={ this.props.device}
           billData={this.props.billData}
-          commentsAreFetching={this.props.bill.isFetching.billComments}
+          commentBeingPosted={this.props.bill.isFetching.commentBeingPosted}
+          commentsBeingFetched={this.props.bill.isFetching.billComments}
           commentData={this.props.replies}
           commentLvl={this.props.commentLvl}
           onCommentsRefresh={this.onCommentsRefresh.bind(this)}
           onUserClick={this.onCommentUserClick.bind(this)}
-          onReplyClick={this.onCommentReplyClick.bind(this)}
+          onCommentPost={this.onCommentPostClick.bind(this)}
           onLikeDislikeClick={this.onCommentLikeDislikeClick.bind(this)}
-          onRepliesClick={this.onCommentRepliesClick.bind(this)}
+          onShowMoreCommentsClick={this.onShowMoreCommentsClick.bind(this)}
       />
 
     );

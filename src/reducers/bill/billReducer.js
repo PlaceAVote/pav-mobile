@@ -38,6 +38,14 @@ const {
   GET_BILL_TOP_COMMENTS_REQUEST,
   GET_BILL_TOP_COMMENTS_SUCCESS,
   GET_BILL_TOP_COMMENTS_FAILURE,
+
+  POST_COMMENT_ON_BILL_REQUEST,
+  POST_COMMENT_ON_BILL_SUCCESS,
+  POST_COMMENT_ON_BILL_FAILURE,
+
+  POST_COMMENT_ON_COMMENT_REQUEST,
+  POST_COMMENT_ON_COMMENT_SUCCESS,
+  POST_COMMENT_ON_COMMENT_FAILURE,
 } = ActionNames
 
 import Immutable from 'immutable';
@@ -57,6 +65,12 @@ export default function newsfeedReducer(state = initialState, action) {
   switch (action.type) {
 
 
+
+    case POST_COMMENT_ON_BILL_REQUEST:
+    case POST_COMMENT_ON_COMMENT_REQUEST:
+      return state.setIn([ 'isFetching', 'commentBeingPosted'], true)
+        .setIn(['error'],null);
+
     case GET_BILL_REQUEST:
       return state.setIn([ 'isFetching', 'billData'], true)
         .setIn(['error'],null);
@@ -68,6 +82,18 @@ export default function newsfeedReducer(state = initialState, action) {
     case GET_BILL_TOP_COMMENTS_REQUEST:
       return state.setIn([ 'isFetching', 'billTopComments'], true)
         .setIn(['error'],null);
+
+    case POST_COMMENT_ON_BILL_SUCCESS:
+    case POST_COMMENT_ON_COMMENT_SUCCESS:
+
+      let newlyCreatedComment = action.payload;
+      // console.log("@@@ NEW COMMENT: "+JSON.stringify(newlyCreatedComment));
+      let newComment = {...newlyCreatedComment, replies:null, liked:false, disliked:false};
+      let commentsNewList = state.comments.push(newComment)
+      // console.log("@@@ NEW COMMENT: "+JSON.stringify(newComment));
+      return state.setIn([ 'isFetching', 'commentBeingPosted'], false)
+        .setIn(['error'],null)
+        .setIn(['comments'], commentsNewList);
 
 
     case GET_BILL_SUCCESS:
@@ -111,6 +137,11 @@ export default function newsfeedReducer(state = initialState, action) {
         }
       }
       return newState;
+
+    case POST_COMMENT_ON_BILL_FAILURE:
+    case POST_COMMENT_ON_COMMENT_FAILURE:
+      return state.setIn([ 'isFetching', 'commentBeingPosted'], false)
+        .setIn(['error'],action.payload);
 
     case GET_BILL_FAILURE:
       return state.setIn([ 'isFetching', 'billData'], false)

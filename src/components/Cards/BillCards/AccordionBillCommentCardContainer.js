@@ -182,25 +182,28 @@ class AccordionBillCommentCardContainer extends Component {
            <BillCommentCard
              key={rowData.comment_id}
              style={styles.commentCard}
-             commentLvl={this.props.commentLvl}
              device={this.props.device}
-             timeString={moment(rowData.timestamp).fromNow()}
-             userFullNameText={rowData.author_first_name+" "+rowData.author_last_name}
-             commentText={rowData.body}
-             userPhotoUrl={rowData.author_img_url}
-             likeCount={rowData.score}
-             isLiked={rowData.liked}
-             isDisliked={rowData.disliked}
-             userId={rowData.author}
-             commentId={rowData.comment_id}
-             billId={rowData.bill_id}
-             replies={rowData.replies}
-             isTopCommentInFavor={rowData.isTopCommentInFavor}
-             isTopCommentAgainst={rowData.isTopCommentAgainst}
-             onRepliesClick={this.props.onRepliesClick}
+             commentData={{
+               commentBeingPosted: this.props.commentBeingPosted,
+               commentLvl:this.props.commentLvl,
+               timeString:moment(rowData.timestamp).fromNow(),
+               userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
+               commentText:rowData.body,
+               userPhotoUrl:rowData.author_img_url,
+               likeCount:rowData.score,
+               isLiked:rowData.liked,
+               isDisliked:rowData.disliked,
+               userId:rowData.author,
+               commentId:rowData.comment_id,
+               billId:rowData.bill_id,
+               replies:rowData.replies,
+               isTopCommentInFavor:rowData.isTopCommentInFavor,
+               isTopCommentAgainst:rowData.isTopCommentAgainst,
+             }}
+             onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
              onUserClick={this.props.onUserClick}
              onLikeDislikeClick={this.props.onLikeDislikeClick}
-             onReplyClick={this.props.onReplyClick}
+             onCommentPost={this.props.onCommentPost}
              />)
        }
        initialListSize={2}
@@ -232,7 +235,7 @@ class AccordionBillCommentCardContainer extends Component {
       <View style={[styles.cardContainer,this.props.style]}>
         <Accordion
           style={styles.container}
-          sections={['Date']}
+          sections={['Comment']}
           renderHeader={this.renderAccordionHeader.bind(this, styles)}
           renderContent={this.renderAccordionContent.bind(this, styles)}
           collapsed={this.state.isCollapsed}
@@ -278,18 +281,16 @@ AccordionBillCommentCardContainer.propTypes= {
 
   replies:React.PropTypes.array.isRequired,
 
-  onRepliesClick: React.PropTypes.func.isRequired,
+  onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,
-  onReplyClick: React.PropTypes.func.isRequired,
+  onCommentPost: React.PropTypes.func.isRequired,
 
 
   device: React.PropTypes.object.isRequired,
   collapsed: React.PropTypes.bool.isRequired,
   commentLvl: React.PropTypes.number.isRequired,
 
-
-  // onRepliesClick: React.PropTypes.func.isRequired,
 
 };
 export default AccordionBillCommentCardContainer;

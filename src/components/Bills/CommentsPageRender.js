@@ -37,7 +37,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 import BillCommentCard from '../Cards/BillCards/BillCommentCard';
-import CommentReplyBox from './CommentReplyBox';
+import CommentReplyCard from '../Cards/BillCards/CommentReplyCard';
 
 import moment from 'moment';
 /**
@@ -213,15 +213,23 @@ class CommentsPageRender extends Component {
   }
 
 
-
+  onCommentPost(comment){
+    if(!!comment && comment.length>0){
+      if(!!this.props.billId){
+          this.props.onCommentPost(comment, {billId: this.props.billId, newCommentLvl: 0});
+      }
+    }
+  }
 
 
   renderHeader(styles){
     return (
       <View style={styles.headerContainer}>
-        <CommentReplyBox
+        <CommentReplyCard
           orientation={this.props.device.orientation}
-          onPostBtnPress={(comment)=>{alert("Comment: "+comment)}}
+          onPostBtnPress={this.onCommentPost.bind(this)}
+          postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingPosted==false)}
+          postBtnLoading={this.props.commentBeingPosted}
         />
         {this.renderSortHeader(styles)}
       </View>
@@ -236,14 +244,16 @@ class CommentsPageRender extends Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+
+    //TODO: Create a function that scrolls this list to the bottom, and pass its reference as a onCommentPost argument, to scrollOnBottom when the comment is posted.
     return(
       <ListView
+         ref="commentPageRenderList"
          enableEmptySections={true}
          style={styles.commentsPageContainer}
          initialListSize={2}
          dataSource={this.state.commentDataSource}
          renderHeader={()=>this.renderHeader(styles)}
-
          renderRow={(rowData) =>{
           //  console.log("Comment: "+JSON.stringify(rowData))
 
@@ -256,25 +266,28 @@ class CommentsPageRender extends Component {
              <BillCommentCard
                style={styles.commentCard}
                key={rowData.comment_id}
-               commentLvl={0}
                device={this.props.device}
-               timeString={moment(rowData.timestamp).fromNow()}
-               userFullNameText={rowData.author_first_name+" "+rowData.author_last_name}
-               commentText={rowData.body}
-               userPhotoUrl={rowData.author_img_url}
-               likeCount={rowData.score}
-               isLiked={rowData.liked}
-               isDisliked={rowData.disliked}
-               userId={rowData.author}
-               commentId={rowData.comment_id}
-               billId={rowData.bill_id}
-               replies={rowData.replies}
-               isTopCommentInFavor={rowData.isTopCommentInFavor}
-               isTopCommentAgainst={rowData.isTopCommentAgainst}
-               onRepliesClick={this.props.onCommentRepliesClick}
+               commentData={{
+                 commentBeingPosted: this.props.commentBeingPosted,
+                 commentLvl:0,
+                 timeString:moment(rowData.timestamp).fromNow(),
+                 userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
+                 commentText:rowData.body,
+                 userPhotoUrl:rowData.author_img_url,
+                 likeCount:rowData.score,
+                 isLiked:rowData.liked,
+                 isDisliked:rowData.disliked,
+                 userId:rowData.author,
+                 commentId:rowData.comment_id,
+                 billId:rowData.bill_id,
+                 replies:rowData.replies,
+                 isTopCommentInFavor:rowData.isTopCommentInFavor,
+                 isTopCommentAgainst:rowData.isTopCommentAgainst,
+               }}
+               onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
                onUserClick={this.props.onCommentUserClick}
                onLikeDislikeClick={this.props.onCommentLikeDislikeClick}
-               onReplyClick={this.props.onCommentReplyClick}
+               onCommentPost={this.props.onCommentPost}
 
                />
 
@@ -282,7 +295,7 @@ class CommentsPageRender extends Component {
          }
          refreshControl={
            <RefreshControl
-             refreshing={this.props.commentsAreFetching || this.props.topCommentsAreFetching}
+             refreshing={(this.props.commentsBeingFetched==true)}
              onRefresh={()=>this.props.onCommentsRefresh(this.state.curSortFilter)}
              tintColor={Colors.primaryColor}
              title="Loading..."
@@ -296,7 +309,9 @@ class CommentsPageRender extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.commentsAreFetching !== this.props.commentsAreFetching)
+      (nextProps.commentsBeingFetched !== this.props.commentsBeingFetched)
+      ||
+      (nextProps.commentBeingPosted !== this.props.commentBeingPosted)
       ||
       (nextProps.device !== this.props.device)
       ||
@@ -309,16 +324,16 @@ class CommentsPageRender extends Component {
 }
 
 CommentsPageRender.propTypes = {
+  billId: React.PropTypes.string,
   commentData: React.PropTypes.object,
   device: React.PropTypes.object.isRequired,
-  commentsAreFetching: React.PropTypes.bool.isRequired,
-  topCommentsAreFetching: React.PropTypes.bool.isRequired,
-  topCommentAgainstId: React.PropTypes.string,
-  topCommentInFavorId: React.PropTypes.string,
-  onCommentRepliesClick: React.PropTypes.func.isRequired,
+  commentBeingPosted: React.PropTypes.bool.isRequired,
+  commentsBeingFetched: React.PropTypes.bool.isRequired,
+  topCommentsBeingFetched: React.PropTypes.bool.isRequired,
+  onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onCommentUserClick: React.PropTypes.func.isRequired,
   onCommentLikeDislikeClick: React.PropTypes.func.isRequired,
-  onCommentReplyClick: React.PropTypes.func.isRequired,
+  onCommentPost: React.PropTypes.func.isRequired,
   onCommentsRefresh: React.PropTypes.func.isRequired,
 
 }

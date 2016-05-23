@@ -360,7 +360,7 @@ class BillRender extends Component {
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
   renderBody(data, styles){
-    let {billData, commentData, isFetchingComments, topCommentInFavorId, topCommentAgainstId, isFetchingTopComments} = data;
+    let {billData, commentData, isFetchingComments, isFetchingTopComments, isFetchingCommentBeingPosted} = data;
 
     if(!!billData){
       return (<ScrollableTabView
@@ -438,15 +438,15 @@ class BillRender extends Component {
           tabLabel="Comments"
           ref="comments_tab"
           commentData={commentData}
-          commentsAreFetching={isFetchingComments}
-          topCommentsAreFetching={isFetchingTopComments}
-          topCommentAgainstId={topCommentAgainstId}
-          topCommentInFavorId={topCommentInFavorId}
+          billId={billData.bill_id}
+          commentBeingPosted={isFetchingCommentBeingPosted}
+          commentsBeingFetched={isFetchingComments}
+          topCommentsBeingFetched={isFetchingTopComments}
           onCommentsRefresh={this.props.onCommentsRefresh}
           onCommentUserClick={this.props.onCommentUserClick}
           onCommentLikeDislikeClick={this.props.onCommentLikeDislikeClick}
-          onCommentReplyClick={this.props.onCommentReplyClick}
-          onCommentRepliesClick={this.props.onCommentRepliesClick}
+          onCommentPost={this.props.onCommentPost}
+          onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
           device={this.props.device}
         />
 
@@ -505,9 +505,8 @@ class BillRender extends Component {
             billData: this.props.bill.data,
             commentData: this.props.bill.comments,
             isFetchingComments: this.props.bill.isFetching.billComments,
-            topCommentInFavorId: this.props.bill.topCommentInFavorId,
-            topCommentAgainstId: this.props.bill.topCommentAgainstId,
             isFetchingTopComments: this.props.bill.isFetching.billTopComments,
+            isFetchingCommentBeingPosted: this.props.bill.isFetching.commentBeingPosted,
           }, styles)}
         </View>
         {this.renderFooter(styles)}

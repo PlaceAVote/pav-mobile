@@ -9,7 +9,7 @@
 
 
 
-import {Colors, ScheneKeys, Other} from '../../config/constants';
+import {Colors, ScheneKeys, Other} from '../../../config/constants';
 const {SOCIAL_TYPES} = Other;
 /**
  * The necessary React components
@@ -24,12 +24,12 @@ import React,
   TextInput
 }
 from 'react-native';
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -151,7 +151,6 @@ class CommentReplyBox extends Component {
   render() {
     let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <LinearGradient
@@ -168,7 +167,8 @@ class CommentReplyBox extends Component {
             />
             <Button
             onPress={()=>this.props.onPostBtnPress(this.state.comment)}
-            isDisabled={false}
+            isDisabled={!this.props.postBtnEnabled}
+            isLoading={this.props.postBtnLoading}
             style={styles.postBtn}
             textStyle={styles.whiteBtnText}>
             Post
@@ -180,13 +180,21 @@ class CommentReplyBox extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.commentData !== this.props.commentData)
-      ||
       (nextProps.orientation !== this.props.orientation)
+      ||
+      (nextProps.postBtnEnabled !== this.props.postBtnEnabled)
+      ||
+      (nextProps.postBtnLoading !== this.props.postBtnLoading)
     );
   }
 
 }
 
 
+CommentReplyBox.propTypes= {
+  orientation: React.PropTypes.string.isRequired,
+  onPostBtnPress: React.PropTypes.func.isRequired,
+  postBtnEnabled: React.PropTypes.bool.isRequired,
+  postBtnLoading: React.PropTypes.bool.isRequired,
+};
 export default CommentReplyBox;

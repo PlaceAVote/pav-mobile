@@ -31,9 +31,20 @@ const {
   GET_BILL_COMMENTS_SUCCESS,
   GET_BILL_COMMENTS_FAILURE,
 
+
+
   GET_BILL_TOP_COMMENTS_REQUEST,
   GET_BILL_TOP_COMMENTS_SUCCESS,
   GET_BILL_TOP_COMMENTS_FAILURE,
+
+  POST_COMMENT_ON_BILL_REQUEST,
+  POST_COMMENT_ON_BILL_SUCCESS,
+  POST_COMMENT_ON_BILL_FAILURE,
+
+
+  POST_COMMENT_ON_COMMENT_REQUEST,
+  POST_COMMENT_ON_COMMENT_SUCCESS,
+  POST_COMMENT_ON_COMMENT_FAILURE,
 
 } = ActionNames;
 
@@ -113,7 +124,7 @@ export function getBill(billId, sessionToken=null, dev = null) {
 
 
 /**
- * ## retreiving bill actions
+ * ## retreiving comment actions
  */
 function getBillCommentsRequest() {
   return {
@@ -180,7 +191,7 @@ export function getBillComments(billId, sortFilter, sessionToken=null, dev = nul
 
 
 /**
- * ## retreiving bill actions
+ * ## retreiving top comment
  */
 function getBillTopCommentsRequest() {
   return {
@@ -227,6 +238,138 @@ export function getBillTopComments(billId, sessionToken=null, dev = null) {
       return res.error;
     }else{
       dispatch(getBillTopCommentsSuccess(res.data));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## Posting a comment on a bill actions
+ */
+function commentOnBillRequest() {
+  return {
+    type: POST_COMMENT_ON_BILL_REQUEST
+  };
+}
+function commentOnBillSuccess(json) {
+  return {
+    type: POST_COMMENT_ON_BILL_SUCCESS,
+    payload: json
+  };
+}
+function commentOnBillFailure(json) {
+  return {
+    type: POST_COMMENT_ON_BILL_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function commentOnBill(commentText, billId, sessionToken=null, dev = null) {
+  console.log("commentOnBill called");
+  return async function (dispatch){
+    dispatch(commentOnBillRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in billActions.commentOnBill() with error: "+e.message);
+      dispatch(commentOnBillFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.commentOnBill({body:commentText, billId:billId});
+    console.log("Comment on bill RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in feed call"+res.error.error_message);
+      dispatch(commentOnBillFailure("Unable to get user bill data with this token."));
+      return res.error;
+    }else{
+      dispatch(commentOnBillSuccess(res.data));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## Posting a comment on a bill actions
+ */
+function commentOnCommentRequest() {
+  return {
+    type: POST_COMMENT_ON_COMMENT_REQUEST
+  };
+}
+function commentOnCommentSuccess(json) {
+  return {
+    type: POST_COMMENT_ON_COMMENT_SUCCESS,
+    payload: json
+  };
+}
+function commentOnCommentFailure(json) {
+  return {
+    type: POST_COMMENT_ON_COMMENT_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function commentOnComment(commentText, billId, commentId, sessionToken=null, dev = null) {
+  console.log("commentOnComment called");
+  return async function (dispatch){
+    dispatch(commentOnCommentRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in billActions.commentOnComment() with error: "+e.message);
+      dispatch(commentOnCommentFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.commentOnComment({body:commentText, billId:billId, commentId:commentId});
+    console.log("Comment on comment RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in feed call"+res.error.error_message);
+      dispatch(commentOnCommentFailure("Unable to get user bill data with this token."));
+      return res.error;
+    }else{
+      dispatch(commentOnCommentSuccess(res.data));
       return res.data;
     }
   };

@@ -209,32 +209,35 @@ class CommentsRender extends Component {
                <BillCommentCard
                  style={styles.commentCard}
                  key={rowData.comment_id}
-                 commentLvl={this.props.commentLvl}
                  device={this.props.device}
-                 timeString={moment(rowData.timestamp).fromNow()}
-                 userFullNameText={rowData.author_first_name+" "+rowData.author_last_name}
-                 commentText={rowData.body}
-                 userPhotoUrl={rowData.author_img_url}
-                 likeCount={rowData.score}
-                 isLiked={rowData.liked}
-                 isDisliked={rowData.disliked}
-                 userId={rowData.author}
-                 commentId={rowData.comment_id}
-                 billId={rowData.bill_id}
-                 replies={rowData.replies}
-                 isTopCommentInFavor={rowData.isTopCommentInFavor}
-                 isTopCommentAgainst={rowData.isTopCommentAgainst}
-                 onRepliesClick={this.props.onRepliesClick}
+                 commentData={{
+                   commentBeingPosted: this.props.commentBeingPosted,
+                   commentLvl:this.props.commentLvl,
+                   timeString:moment(rowData.timestamp).fromNow(),
+                   userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
+                   commentText:rowData.body,
+                   userPhotoUrl:rowData.author_img_url,
+                   likeCount:rowData.score,
+                   isLiked:rowData.liked,
+                   isDisliked:rowData.disliked,
+                   userId:rowData.author,
+                   commentId:rowData.comment_id,
+                   billId:rowData.bill_id,
+                   replies:rowData.replies,
+                   isTopCommentInFavor:rowData.isTopCommentInFavor,
+                   isTopCommentAgainst:rowData.isTopCommentAgainst,
+                 }}
+                 onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
                  onUserClick={this.props.onUserClick}
                  onLikeDislikeClick={this.props.onLikeDislikeClick}
-                 onReplyClick={this.props.onReplyClick}
+                 onCommentPost={this.props.onCommentPost}
                  />
 
              )}
            }
            refreshControl={
              <RefreshControl
-               refreshing={this.props.commentsAreFetching}
+               refreshing={this.props.commentsBeingFetched}
                onRefresh={()=>this.props.onCommentsRefresh(this.state.curSortFilter)}
                tintColor={Colors.primaryColor}
                title="Loading..."
@@ -266,7 +269,9 @@ class CommentsRender extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.commentsAreFetching !== this.props.commentsAreFetching)
+      (nextProps.commentBeingPosted !== this.props.commentBeingPosted)
+      ||
+      (nextProps.commentsBeingFetched !== this.props.commentsBeingFetched)
       ||
       (nextProps.billData !== this.props.billData)
       ||
@@ -285,12 +290,13 @@ CommentsRender.propTypes = {
   commentData: React.PropTypes.array.isRequired,
   billData: React.PropTypes.object.isRequired,
   device: React.PropTypes.object.isRequired,
-  commentsAreFetching: React.PropTypes.bool.isRequired,
+  commentsBeingFetched: React.PropTypes.bool.isRequired,
+  commentBeingPosted: React.PropTypes.bool.isRequired,
 
-  onRepliesClick: React.PropTypes.func.isRequired,
+  onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,
-  onReplyClick: React.PropTypes.func.isRequired,
+  onCommentPost: React.PropTypes.func.isRequired,
   onCommentsRefresh: React.PropTypes.func.isRequired,
 }
 export default CommentsRender;

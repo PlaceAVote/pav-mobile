@@ -42,13 +42,16 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import PavImage from '../../../lib/UI/PavImage'
 
 import AccordionBillCommentCardContainer from './AccordionBillCommentCardContainer';
-
+import CommentReplyCard from './CommentReplyCard';
 
 
 
 class BillCommentCard extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      replyBoxVisible: false
+    }
   }
 
 
@@ -76,7 +79,7 @@ class BillCommentCard extends Component {
         flex: 1,
         padding: w*0.03,
         backgroundColor: '#ffffff',
-        margin:2,
+        marginRight:6,
         // borderBottomColor: 'rgba(0, 0, 0, 0.1)',
         // borderBottomWidth: 1,
         // borderWidth:1,
@@ -346,21 +349,25 @@ class BillCommentCard extends Component {
   }
 
   onReplyClick(){
-    if(this.props.onReplyClick && !!this.props.commentId){
-      this.props.onReplyClick(this.props.commentId, this.props.billId);
+    this.setState({replyBoxVisible:!this.state.replyBoxVisible});
+  }
+  onCommentPost(comment){
+    if(!!comment && comment.length>0){
+      if(!!this.props.commentData.commentId && !!this.props.commentData.billId){
+          this.props.onCommentPost(comment, {replies: this.props.commentData.replies, billId: this.props.commentData.billId, commentId: this.props.commentData.commentId, newCommentLvl: (this.props.commentData.commentLvl+1)});
+      }
     }
   }
-
 
   onUserClick(){
-    if(this.props.onUserClick && !!this.props.userId){
-        this.props.onUserClick(this.props.userId, this.props.userPhotoUrl);
+    if(this.props.onUserClick && !!this.props.commentData.userId){
+        this.props.onUserClick(this.props.commentData.userId, this.props.commentData.userPhotoUrl);
     }
   }
 
-  onRepliesClick(){
-    if(this.props.onRepliesClick && !!this.props.commentId && !!this.props.replies){
-        this.props.onRepliesClick(this.props.replies, this.props.commentId, this.props.commentLvl);
+  onShowMoreCommentsClick(){
+    if(this.props.onShowMoreCommentsClick && !!this.props.commentData.commentId && !!this.props.commentData.replies){
+        this.props.onShowMoreCommentsClick(this.props.commentData.replies, this.props.commentData.commentId, this.props.commentData.commentLvl);
     }
   }
 
@@ -369,7 +376,7 @@ class BillCommentCard extends Component {
     //   <View style={styles.cardTitleTextAndIconContainer}>
     //     <Text style={styles.cardTitleText}>NEW COMMENT</Text>
     //   </View>
-    //   <Text style={styles.cardDateText}>{this.props.timeString}</Text>
+    //   <Text style={styles.cardDateText}>{this.props.commentData.timeString}</Text>
     // </View>);
     return (<View style={styles.cardContentHeader}>
       <TouchableOpacity onPress={this.onUserClick.bind(this)}>
@@ -377,19 +384,19 @@ class BillCommentCard extends Component {
           platform={this.props.device.platform}
           defaultSource={require('../../../../assets/defaultUserPhoto.png')}
           style={styles.userImage}
-          source={{uri: this.props.userPhotoUrl}}
+          source={{uri: this.props.commentData.userPhotoUrl}}
           resizeMode='cover'
         />
       </TouchableOpacity>
       <View style={styles.commentDescriptionContainer}>
         <TouchableOpacity onPress={this.onUserClick.bind(this)}>
-          <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
+          <Text style={styles.commentNameText}>{this.props.commentData.userFullNameText}</Text>
         </TouchableOpacity>
         {this.renderTopComment(styles)}
       </View>
 
       <View resizeMode="cover" style={styles.cardTitleContainer}>
-        <Text style={styles.cardDateText}>{this.props.timeString}</Text>
+        <Text style={styles.cardDateText}>{this.props.commentData.timeString}</Text>
       </View>
     </View>);
   }
@@ -404,10 +411,10 @@ class BillCommentCard extends Component {
   }
 
   renderTopComment(styles){
-    if(this.props.isTopCommentInFavor==true || this.props.isTopCommentAgainst==true){
+    if(this.props.commentData.isTopCommentInFavor==true || this.props.commentData.isTopCommentAgainst==true){
       return (
       <View style={styles.topCommentContainer}>
-        {this.getTopCommentText((this.props.isTopCommentInFavor==true),styles)}
+        {this.getTopCommentText((this.props.commentData.isTopCommentInFavor==true),styles)}
       </View>)
     }else{
       return <View></View>;
@@ -418,7 +425,7 @@ class BillCommentCard extends Component {
     return (<View style={styles.cardContentContainer}>
       <View style={styles.cardContentBody}>
         <Text style={styles.cardContentText}>
-        {this.props.commentText}
+        {this.props.commentData.commentText}
         </Text>
       </View>
     </View>);
@@ -429,12 +436,12 @@ class BillCommentCard extends Component {
       <View style={styles.footerContainer}>
         <View style={styles.likeDislikeButtonContainer}>
           <TouchableOpacity style={styles.footerBtn} onPress={this.onLikeClick.bind(this)}>
-            <PavIcon name="thumbs-up" size={15} style={this.props.isLiked?styles.activeLikeIcon:styles.inactiveLikeDislikeIcon}/>
+            <PavIcon name="thumbs-up" size={15} style={this.props.commentData.isLiked?styles.activeLikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.footerBtn} onPress={this.onDislikeClick.bind(this)}>
-            <PavIcon name="thumbs-down" size={15} style={this.props.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
+            <PavIcon name="thumbs-down" size={15} style={this.props.commentData.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
-          <Text style={[styles.likeCountText, this.props.likeCount>0?styles.likeCountPositive:styles.likeCountNegative]}>{this.props.likeCount}</Text>
+          <Text style={[styles.likeCountText, this.props.commentData.likeCount>0?styles.likeCountPositive:styles.likeCountNegative]}>{this.props.commentData.likeCount}</Text>
         </View>
         <TouchableOpacity onPress={this.onReplyClick.bind(this)} style={styles.replyButtonContainer}>
           <Text style={styles.replyButtonText}>REPLY</Text>
@@ -444,12 +451,12 @@ class BillCommentCard extends Component {
 
 
 
-  renderRepliesBox(replies, styles){
+  renderMoreCommentsLbl(replies, styles){
 
     if(!!replies && replies.length>0){
-      if(this.props.commentLvl<=0){ //for comment lvl 0
+      if(this.props.commentData.commentLvl<=0){ //for comment lvl 0
         return (
-            <TouchableOpacity onPress={this.onRepliesClick.bind(this)} style={styles.repliesBoxContainer}>
+            <TouchableOpacity onPress={this.onShowMoreCommentsClick.bind(this)} style={styles.repliesBoxContainer}>
               <Text style={styles.repliesBoxText}>{replies.length>1?replies.length+" Replies ":"1 Reply"}</Text>
               <PavIcon name="show-more" size={17} style={styles.repliesBoxIcon}/>
             </TouchableOpacity>
@@ -459,12 +466,13 @@ class BillCommentCard extends Component {
           <AccordionBillCommentCardContainer
             device={this.props.device}
             collapsed={false}
-            commentLvl={this.props.commentLvl}
-            replies={this.props.replies}
-            onRepliesClick={this.props.onRepliesClick}
+            commentBeingPosted={this.props.commentBeingPosted}
+            commentLvl={this.props.commentData.commentLvl}
+            replies={this.props.commentData.replies}
+            onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
             onUserClick={this.props.onUserClick}
             onLikeDislikeClick={this.props.onLikeDislikeClick}
-            onReplyClick={this.props.onReplyClick}
+            onCommentPost={this.props.onCommentPost}
         />)
       }
 
@@ -475,6 +483,26 @@ class BillCommentCard extends Component {
 
 
   }
+
+
+
+
+  renderReplyBox(){
+    if(this.state.replyBoxVisible==true){
+      return (
+        <CommentReplyCard
+          orientation={this.props.device.orientation}
+          onPostBtnPress={this.onCommentPost.bind(this)}
+          postBtnEnabled={(this.props.commentData.commentBeingPosted==false)}
+          postBtnLoading={this.props.commentData.commentBeingPosted}
+      />);
+    }else{
+      return <View></View>;
+    }
+  }
+
+
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -486,8 +514,8 @@ class BillCommentCard extends Component {
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
     let paddingLeftIfCommentLvlAbove0  = null, paddingRightIfCommentLvlAbove0 = null;
-    if(this.props.commentLvl>0){
-      paddingLeftIfCommentLvlAbove0 = this.props.commentLvl*(w*0.015);
+    if(this.props.commentData.commentLvl>0){
+      paddingLeftIfCommentLvlAbove0 = this.props.commentData.commentLvl*(w*0.015);
       paddingRightIfCommentLvlAbove0 = 0;
     }
     return(
@@ -496,10 +524,22 @@ class BillCommentCard extends Component {
         {this.renderHeader(styles)}
         {this.renderBody(styles)}
         {this.renderFooter(styles)}
-        {this.renderRepliesBox(this.props.replies, styles)}
+        {this.renderReplyBox(styles)}
+        {this.renderMoreCommentsLbl(this.props.commentData.replies, styles)}
       </View>
 
       </View>
+    );
+  }
+
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.commentData !== this.props.commentData)
+      ||
+      (nextProps.device !== this.props.device)
+      ||
+      (nextState.replyBoxVisible !== this.state.curSortFilter)
     );
   }
 
@@ -511,26 +551,12 @@ class BillCommentCard extends Component {
 BillCommentCard.defaultProps = {commentLvl: 0};
 
 BillCommentCard.propTypes= {
-  commentLvl: React.PropTypes.number.isRequired,
   device: React.PropTypes.object.isRequired,
-  timeString: React.PropTypes.string.isRequired,
-  userFullNameText: React.PropTypes.string.isRequired,
-  commentText: React.PropTypes.string,
-  userPhotoUrl: React.PropTypes.string,
-  likeCount: React.PropTypes.number.isRequired,
-  isLiked: React.PropTypes.bool.isRequired,
-  isDisliked: React.PropTypes.bool.isRequired,
-  isTopCommentInFavor: React.PropTypes.bool,
-  isTopCommentInAgainst: React.PropTypes.bool,
-  replies:React.PropTypes.array.isRequired,
-  userId: React.PropTypes.string.isRequired,
-  commentId: React.PropTypes.string.isRequired,
-  billId: React.PropTypes.string.isRequired,
+  commentData: React.PropTypes.object.isRequired,
 
-
-  onRepliesClick: React.PropTypes.func.isRequired,
+  onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,
-  onReplyClick: React.PropTypes.func.isRequired,
+  onCommentPost: React.PropTypes.func.isRequired,
 };
 export default BillCommentCard;
