@@ -39,14 +39,8 @@ import {Map} from 'immutable';
 
 
 
-/**
- * The necessary React
- */
-import React, {
-  Component,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import React, {Component} from 'react';
+import {View, TouchableOpacity} from 'react-native';
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 const icomoonConfig = require('../../../assets/fonts/icomoon.json');

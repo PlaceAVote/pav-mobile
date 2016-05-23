@@ -5,19 +5,8 @@
  */
 'use strict';
 
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  StyleSheet,
-  View,
-  Text,
-  Animated,
-  Easing,
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, Animated, Easing} from 'react-native';
 // import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
 // import Dimensions from 'Dimensions';

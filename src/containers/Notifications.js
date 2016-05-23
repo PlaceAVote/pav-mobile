@@ -43,10 +43,7 @@ import {Map} from 'immutable';
 import NotificationsRender from '../components/Notifications/NotificationsRender'
 
 
-/**
- * The necessary React
- */
-import React, {Component} from 'react-native';
+import React, {Component} from 'react';
 
 
 

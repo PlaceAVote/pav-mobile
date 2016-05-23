@@ -10,21 +10,8 @@
 
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
-// const {SOCIAL_TYPES} = Other;
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  // ScrollView,
-  // TouchableOpacity,
-  Animated
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, Animated} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation

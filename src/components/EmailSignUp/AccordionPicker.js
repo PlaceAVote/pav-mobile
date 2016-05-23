@@ -1,4 +1,5 @@
-      import React, { View, Text } from 'react-native'
+      import React from 'react';
+      import {View, Text} from 'react-native';
       import t from 'tcomb-form-native'
       import Accordion from 'react-native-collapsible/Accordion'
       import moment from 'moment';

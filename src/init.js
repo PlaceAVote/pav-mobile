@@ -1,23 +1,8 @@
 'use strict';
 
 
-/**
-* ## imports
-*
-*/
-/**
-* ### React
-*
-* Necessary components from ReactNative
-*/
-import React, {
-  AppRegistry,
-  Navigator,
-  View,
-  Image,
-  Text,
-  TouchableOpacity
-} from 'react-native';
+import React from 'react';
+import {AppRegistry, Navigator, View, Image, Text, TouchableOpacity} from 'react-native';
 
 /**
 * ### Router-Flux

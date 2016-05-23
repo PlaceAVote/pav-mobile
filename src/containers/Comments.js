@@ -44,13 +44,8 @@ import {Map} from 'immutable';
 import CommentsRender from '../components/Comments/CommentsRender'
 
 
-/**
- * The necessary React
- */
-import React, {
-  Component,
-  Linking
-} from 'react-native';
+import React, {Component} from 'react';
+import {Linking} from 'react-native';
 
 
 

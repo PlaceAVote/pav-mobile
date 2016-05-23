@@ -43,10 +43,7 @@ import {Map} from 'immutable';
 import ProfileRender from '../components/Profile/ProfileRender'
 
 
-/**
- * The necessary React
- */
-import React, {Component} from 'react-native';
+import React, {Component} from 'react';
 
 
 

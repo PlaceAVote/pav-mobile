@@ -30,10 +30,7 @@ import {Map} from 'immutable';
  */
 import EmailSignInRender from '../components/EmailSignIn/EmailSignInRender';
 
-/**
- * The necessary React components
- */
-import React from 'react-native';
+import React from 'react';
 
 const {ScheneKeys, Modals} = require('../config/constants')
 const {

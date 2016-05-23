@@ -31,10 +31,7 @@ import {Map} from 'immutable';
  */
 import TopicPickRender from '../components/TopicPick/TopicPickRender';
 
-/**
- * The necessary React components
- */
-import React from 'react-native';
+import React from 'react';
 
 /**
  * The states were interested in
