@@ -351,10 +351,18 @@ class BillCommentCard extends Component {
   onReplyClick(){
     this.setState({replyBoxVisible:!this.state.replyBoxVisible});
   }
-  onCommentPost(comment){
+  async onCommentPost(comment){
     if(!!comment && comment.length>0){
       if(!!this.props.commentData.commentId && !!this.props.commentData.billId){
-          this.props.onCommentPost(comment, {replies: this.props.commentData.replies, billId: this.props.commentData.billId, commentId: this.props.commentData.commentId, newCommentLvl: (this.props.commentData.commentLvl+1)});
+          let postSuccessful = await this.props.onCommentPost(comment, {replies: this.props.commentData.replies, billId: this.props.commentData.billId, commentId: this.props.commentData.commentId, newCommentLvl: (this.props.commentData.commentLvl+1)});
+          if(postSuccessful==true){
+            console.log("Comment lvl for this post: "+this.props.commentData.commentLvl);
+            if(this.props.commentData.commentLvl>1){  //if we are on comment lvl above 1
+                this.setState({replyBoxVisible:true});
+            }else{                                  //if we are on comment lvl 1
+              this.onShowMoreCommentsClick();
+            }
+          }
       }
     }
   }
@@ -466,7 +474,7 @@ class BillCommentCard extends Component {
           <AccordionBillCommentCardContainer
             device={this.props.device}
             collapsed={false}
-            commentBeingPosted={this.props.commentBeingPosted}
+            commentBeingPosted={this.props.commentData.commentBeingPosted}
             commentLvl={this.props.commentData.commentLvl}
             replies={this.props.commentData.replies}
             onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}

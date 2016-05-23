@@ -38,7 +38,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import BillCommentCard from '../Cards/BillCards/BillCommentCard';
 import CommentReplyCard from '../Cards/BillCards/CommentReplyCard';
-
+// import _ from 'underscore';
 import moment from 'moment';
 /**
 * Image library
@@ -69,7 +69,7 @@ class CommentsPageRender extends Component {
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
       curSortFilter: SORT_FILTERS.HIGHEST_RATE,
-      commentDataSource:ds.cloneWithRows(commentData),
+      commentDataSource:ds.cloneWithRows(commentData)
     }
   }
 
@@ -182,18 +182,7 @@ class CommentsPageRender extends Component {
 
 
 
-  componentWillReceiveProps (nextProps) {
-    // console.log("ROK1: "+nextProps.commentData);
-    if (nextProps.commentData!=null) {
-      let previousCommentData = this.props.commentData;
-      let nextCommentData = nextProps.commentData;
-      if(previousCommentData==null || (previousCommentData!==nextCommentData) ){
-        this.setState({
-          commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData.toJS())
-        })
-      }
-    }
-  }
+
 
 
   renderSortHeader(styles){
@@ -213,11 +202,30 @@ class CommentsPageRender extends Component {
   }
 
 
-  onCommentPost(comment){
+
+
+
+  onCommentPostToBill(comment){
+
+    // console.log("@@ Data source len: "+this.state.commentDataSource._cachedRowCount);
+
     if(!!comment && comment.length>0){
-      if(!!this.props.billId){
-          this.props.onCommentPost(comment, {billId: this.props.billId, newCommentLvl: 0});
+      if(!!this.props.billId && !!this.props.onCommentPost){
+          let postSuccessful = this.props.onCommentPost(comment, {billId: this.props.billId, newCommentLvl: 0});
+          if(postSuccessful == true){
+            let scrollResponder = this.refs.commentPageRenderList.getScrollResponder();
+            let rowCnt = this.state.commentDataSource._cachedRowCount;
+            setTimeout(()=>{
+              scrollResponder.scrollResponderScrollTo({x: 0, y: rowCnt*h*0.25, animated: true});
+            }, 500);
+          }
       }
+    }
+  }
+
+  async onCommentPostToComment(){
+    if(!!this.props.onCommentPost){
+        return await this.props.onCommentPost(...arguments);
     }
   }
 
@@ -227,7 +235,7 @@ class CommentsPageRender extends Component {
       <View style={styles.headerContainer}>
         <CommentReplyCard
           orientation={this.props.device.orientation}
-          onPostBtnPress={this.onCommentPost.bind(this)}
+          onPostBtnPress={this.onCommentPostToBill.bind(this)}
           postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingPosted==false)}
           postBtnLoading={this.props.commentBeingPosted}
         />
@@ -235,6 +243,11 @@ class CommentsPageRender extends Component {
       </View>
     );
   }
+
+
+
+  // Dimensions.get(this.refs.stat_scrollview.getInnerViewNode(), (...data)=>{console.log(data)});
+  // this.refs.stat_scrollview.scrollTo({y:, animated:true});
 
   /**
    * ### render method
@@ -287,8 +300,7 @@ class CommentsPageRender extends Component {
                onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
                onUserClick={this.props.onCommentUserClick}
                onLikeDislikeClick={this.props.onCommentLikeDislikeClick}
-               onCommentPost={this.props.onCommentPost}
-
+               onCommentPost={this.onCommentPostToComment.bind(this)}
                />
 
            )}
@@ -306,6 +318,23 @@ class CommentsPageRender extends Component {
       />
     );
   }
+
+
+
+  componentWillReceiveProps (nextProps) {
+    // console.log("ROK1: "+nextProps.commentData);
+    if (nextProps.commentData!=null) {
+      let previousCommentData = this.props.commentData;
+      let nextCommentData = nextProps.commentData;
+      // console.log("ROK1 CommentsRender BEFORE @@@@@@ EQUAL: "+(previousCommentData===nextCommentData));
+      if(previousCommentData==null || (previousCommentData!==nextCommentData)){
+        this.setState({
+          commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData.toJS())
+        })
+      }
+    }
+  }
+
 
   shouldComponentUpdate(nextProps, nextState) {
     return(

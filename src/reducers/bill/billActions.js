@@ -304,7 +304,7 @@ export function commentOnBill(commentText, billId, sessionToken=null, dev = null
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(commentOnBillFailure("Unable to get user bill data with this token."));
-      return res.error;
+      return null;
     }else{
       dispatch(commentOnBillSuccess(res.data));
       return res.data;
@@ -347,7 +347,7 @@ function commentOnCommentFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function commentOnComment(commentText, billId, commentId, sessionToken=null, dev = null) {
+export function commentOnComment(commentText, billId, commentId, commentLvl, sessionToken=null, dev = null) {
   console.log("commentOnComment called");
   return async function (dispatch){
     dispatch(commentOnCommentRequest());
@@ -363,13 +363,13 @@ export function commentOnComment(commentText, billId, commentId, sessionToken=nu
       dispatch(commentOnCommentFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.commentOnComment({body:commentText, billId:billId, commentId:commentId});
-    console.log("Comment on comment RES: "+JSON.stringify(res));
+    // console.log("Comment on comment RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(commentOnCommentFailure("Unable to get user bill data with this token."));
-      return res.error;
+      return null;
     }else{
-      dispatch(commentOnCommentSuccess(res.data));
+      dispatch(commentOnCommentSuccess({newComment: res.data, parentCommentId: commentId, newCommentLvl:commentLvl}));
       return res.data;
     }
   };

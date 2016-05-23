@@ -43,7 +43,7 @@ import {Map} from 'immutable';
  */
 import BillRender from '../components/Bills/BillRender'
 
-
+import {findCommentPath} from '../lib/Utils/commentCrawler';
 /**
  * The necessary React
  */
@@ -165,15 +165,17 @@ class Bill extends Component {
 
   }
   async onCommentPost(comment, commentParentData){  //runs when the user hits the POST button either on a bill or on a comment reply box
+    let postResponse = null;
     if(commentParentData.newCommentLvl==0){  //The user currently replies on a bill
-      this.props.actions.commentOnBill(comment, commentParentData.billId, TOKEN, DEV);
+      postResponse = await this.props.actions.commentOnBill(comment, commentParentData.billId, TOKEN, DEV);
     }else{  //The user currently replies on a lvl 1 comment
-      await this.props.actions.commentOnComment(comment, commentParentData.billId, commentParentData.commentId, TOKEN, DEV);
-      //TODO: refresh the comment parent now
+      postResponse = await this.props.actions.commentOnComment(comment, commentParentData.billId, commentParentData.commentId, commentParentData.newCommentLvl, TOKEN, DEV);
     }
+    return (postResponse!=null);
   }
   onShowMoreCommentsClick(replies, commentId, curCommentLvl){
-    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, replies: replies, commentLvl: (curCommentLvl+1)});
+    let commentPath = findCommentPath(this.props.bill.comments.toJS(), commentId);
+    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, commentPath: commentPath[0], commentLvl: (curCommentLvl+1)});
   }
 
   render() {

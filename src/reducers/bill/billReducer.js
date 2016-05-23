@@ -50,6 +50,9 @@ const {
 
 import Immutable from 'immutable';
 
+import {findCommentPath} from '../../lib/Utils/commentCrawler';
+
+
 
 
 /**
@@ -84,16 +87,32 @@ export default function newsfeedReducer(state = initialState, action) {
         .setIn(['error'],null);
 
     case POST_COMMENT_ON_BILL_SUCCESS:
-    case POST_COMMENT_ON_COMMENT_SUCCESS:
-
-      let newlyCreatedComment = action.payload;
-      // console.log("@@@ NEW COMMENT: "+JSON.stringify(newlyCreatedComment));
-      let newComment = {...newlyCreatedComment, replies:null, liked:false, disliked:false};
-      let commentsNewList = state.comments.push(newComment)
-      // console.log("@@@ NEW COMMENT: "+JSON.stringify(newComment));
+      let commentsNewList = state.comments.push(action.payload) //push the new comment to the comments array
       return state.setIn([ 'isFetching', 'commentBeingPosted'], false)
         .setIn(['error'],null)
         .setIn(['comments'], commentsNewList);
+    case POST_COMMENT_ON_COMMENT_SUCCESS:
+      // console.log("@@COMMENT on COMMENT: "+JSON.stringify(action.payload))
+      // let commentsNewList = state.comments.push(action.payload) //push the new comment to the comments array
+      let {newComment, parentCommentId, newCommentLvl} = action.payload;
+      let commentArr = state.comments.toJS();
+      let commentPath = findCommentPath(commentArr, parentCommentId);
+      // console.log("Comment path: "+commentPath);
+      let curComArr = commentArr;
+
+      let lll = commentPath.length;
+      for(let iii=0;iii<lll;iii++){
+          let curCommentIt = commentPath[iii];
+          curComArr = curComArr[curCommentIt].replies || [];
+      }
+      curComArr.push(newComment);
+      return state.setIn([ 'isFetching', 'commentBeingPosted'], false)
+        .setIn(['error'],null)
+        .setIn(['comments'], Immutable.fromJS(commentArr));
+
+
+
+
 
 
     case GET_BILL_SUCCESS:

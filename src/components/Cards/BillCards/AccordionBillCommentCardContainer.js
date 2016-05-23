@@ -176,6 +176,7 @@ class AccordionBillCommentCardContainer extends Component {
   renderAccordionContent(styles){
     return (<ListView
        enableEmptySections={true}
+       removeClippedSubviews={true}
        style={styles.commentsList}
        dataSource={this.state.repliesSource}
        renderRow={(rowData) =>(

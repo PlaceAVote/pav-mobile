@@ -47,6 +47,7 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 
 import BillCommentCard from '../Cards/BillCards/BillCommentCard';
 import moment from 'moment';
+// import _ from 'underscore';
 
 /**
 * Icons library
@@ -78,7 +79,7 @@ import PavImage from '../../lib/UI/PavImage'
 class CommentsRender extends Component {
   constructor(props) {
     super(props);
-    let commentData = this.props.commentData || [];
+    let commentData = this.props.commentData.toJS() || [];
     // console.log("@@: "+JSON.stringify(commentData));
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
@@ -181,6 +182,19 @@ class CommentsRender extends Component {
 
 
 
+
+
+    onCommentPostToComment(){
+      if(!!this.props.onCommentPost){
+          let postSuccessful = this.props.onCommentPost(...arguments);
+          if(postSuccessful==true){
+              // this.onCommentPostSuccess()
+              //TODO scroll listview down
+          }
+          return postSuccessful;
+      }
+    }
+
   /**
    * ### render method
    */
@@ -194,10 +208,10 @@ class CommentsRender extends Component {
         <ListView
            enableEmptySections={true}
            style={styles.commentsPageContainer}
-           initialListSize={2}
+           initialListSize={3}
            dataSource={this.state.commentDataSource}
            renderHeader={()=>this.renderHeader(this.props.billData, this.props.device.platform, styles)}
-
+           removeClippedSubviews={true}
            renderRow={(rowData) =>{
             //  console.log("Comment: "+JSON.stringify(rowData))
             //  console.log("Cur comment id: "+rowData.comment_id+" when top comment id is: "+this.props.topCommentInFavorId);
@@ -230,7 +244,7 @@ class CommentsRender extends Component {
                  onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
                  onUserClick={this.props.onUserClick}
                  onLikeDislikeClick={this.props.onLikeDislikeClick}
-                 onCommentPost={this.props.onCommentPost}
+                 onCommentPost={this.onCommentPostToComment.bind(this)}
                  />
 
              )}
@@ -255,13 +269,14 @@ class CommentsRender extends Component {
 
 
   componentWillReceiveProps (nextProps) {
-    // console.log("ROK1: "+nextProps.commentData);
     if (nextProps.commentData!=null) {
       let previousCommentData = this.props.commentData;
       let nextCommentData = nextProps.commentData;
+      // console.log("ROK1 CommentsRender BEFORE @@@@@@ EQUAL: "+(previousCommentData===nextCommentData));
       if(previousCommentData==null || (previousCommentData!==nextCommentData) ){
+        // console.log("ROK1 AFTER @@@@@@ : "+nextProps.commentData);
         this.setState({
-          commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData)
+          commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData.toJS())
         })
       }
     }
@@ -287,7 +302,7 @@ class CommentsRender extends Component {
 }
 
 CommentsRender.propTypes = {
-  commentData: React.PropTypes.array.isRequired,
+  commentData: React.PropTypes.object.isRequired,
   billData: React.PropTypes.object.isRequired,
   device: React.PropTypes.object.isRequired,
   commentsBeingFetched: React.PropTypes.bool.isRequired,
