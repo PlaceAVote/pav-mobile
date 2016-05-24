@@ -31,10 +31,7 @@ import Button from 'sp-react-native-iconbutton'
 
 
 
-/**
- * The ErrorAlert displays an alert for both ios & android
- */
-import ErrorAlert from '../../components/ErrorAlert';
+
 
 /**
  *  The SignInForm does the heavy lifting of displaying the fields for
@@ -44,7 +41,7 @@ import SignInForm from './SignInForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -170,10 +167,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-class EmailSignInRender extends Component {
+class EmailSignInRender extends React.Component {
   constructor(props) {
     super(props);
-    this.errorAlert = new ErrorAlert();
     this.state ={
       value: {
         email: this.props.auth.form.fields.email,

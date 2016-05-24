@@ -28,7 +28,7 @@ import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {SOCIAL_TYPES} = Other;
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, ActivityIndicatorIOS} from 'react-native';
 import ProgressBar from 'ProgressBarAndroid';
 
@@ -70,7 +70,7 @@ import PavImage from '../../lib/UI/PavImage'
 
 
 
-class BillRender extends Component {
+class BillRender extends React.Component {
   constructor(props) {
     super(props);
     this.state={curImgHeight:0}

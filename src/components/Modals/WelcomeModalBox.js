@@ -2,18 +2,15 @@
 
 import Button from 'sp-react-native-iconbutton';
 import {Actions} from 'react-native-router-flux';
-import  Modal from 'react-native-modalbox';
+import Modal from 'react-native-modalbox';
 import React from 'react';
-import ReactNative from 'react-native';
-
-const {} = React;
-
-const {
+import {
   View,
   Text,
   StyleSheet,
   PixelRatio,
-} = ReactNative;
+} from 'react-native';
+
 
 import {Colors} from '../../config/constants';
 

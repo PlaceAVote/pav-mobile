@@ -49,7 +49,7 @@ const {
   REGISTER_STEP_1
 } = ScheneKeys;
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -182,7 +182,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class EmailSignUpStep1Render extends Component {
+class EmailSignUpStep1Render extends React.Component {
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();

@@ -71,11 +71,12 @@ function mapDispatchToProps(dispatch) {
 
 
 
-let EmailSignIn = React.createClass({
+
+class EmailSignIn extends React.Component {
 
   componentWillMount() {
       this.props.actions.lockOrientation("PORTRAIT");
-  },
+  }
 
   async onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");
@@ -88,7 +89,7 @@ let EmailSignIn = React.createClass({
           this.props.actions.navigateTo(MAIN);
         }
     }
-  },
+  }
 
   async onSignInBtnPress(){
     this.props.actions.setAuthMethod('email');
@@ -101,24 +102,24 @@ let EmailSignIn = React.createClass({
       this.props.actions.navigateTo(MAIN);
     }
 
-  },
+  }
 
   onForgotPasswordBtnPress(){
     this.props.actions.setModalVisibility(FORGOT_PASSWORD, true);
-  },
+  }
 
   onForgotPasswordModalClosed(){
     this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
-  },
+  }
 
   onForgotPasswordCloseBtnClicked(){
     this.props.actions.setModalVisibility(FORGOT_PASSWORD, false);
-  },
+  }
 
   onForgotPasswordNextBtnClicked(){
     let forgotEmail = this.props.auth.form.fields.forgotPasswordEmail;
     this.props.actions.forgotPassword(forgotEmail);
-  },
+  }
 
 
   render() {
@@ -138,6 +139,6 @@ let EmailSignIn = React.createClass({
       />
     );
   }
-});
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmailSignIn);

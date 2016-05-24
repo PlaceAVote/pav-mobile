@@ -43,7 +43,7 @@ import {Map} from 'immutable';
 import NotificationsRender from '../components/Notifications/NotificationsRender'
 
 
-import React, {Component} from 'react';
+import React from 'react';
 
 
 import {ScheneKeys} from '../config/constants';
@@ -93,7 +93,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class Notifications extends Component {
+class Notifications extends React.Component {
 
   constructor(props) {
     super(props);

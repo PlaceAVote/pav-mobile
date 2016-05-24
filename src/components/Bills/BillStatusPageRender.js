@@ -11,7 +11,7 @@
 
   import {Colors, ScheneKeys, Other} from '../../config/constants';
   const {BILL_STATUSES} = Other;
-  import React, {Component} from 'react';
+  import React from 'react';
   import {StyleSheet, Text, View, ScrollView, TouchableOpacity, Animated} from 'react-native';
   import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
   import Dimensions from 'Dimensions';
@@ -51,7 +51,7 @@
 
 
 
-  class BillStatusPageRender extends Component {
+  class BillStatusPageRender extends React.Component {
     constructor(props) {
       super(props);
       this.state={

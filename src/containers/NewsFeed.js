@@ -46,7 +46,7 @@ import {Map} from 'immutable';
 import NewsFeedRender from '../components/NewsFeed/NewsFeedRender'
 
 
-import React, {Component} from 'react';
+import React from 'react';
 import {Linking} from 'react-native';
 
 
@@ -108,7 +108,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class NewsFeed extends Component {
+class NewsFeed extends React.Component {
 
   constructor(props) {
     super(props);

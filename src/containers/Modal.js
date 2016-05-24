@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import DefaultRenderer from "./DefaultRenderer";
 
-export default class extends Component {
+export default class extends React.Component {
     render(){
         const children = this.props.navigationState.children;
         const state = children[0];

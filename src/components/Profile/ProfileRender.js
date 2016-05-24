@@ -42,7 +42,7 @@ import moment from 'moment'
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, Image, ScrollView, ActivityIndicatorIOS} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -56,7 +56,7 @@ import CardFactory from '../Cards/CardFactory';
 
 import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
 import LImage from 'react-native-image-progress';
-import Progress from 'react-native-progress';
+import * as Progress from 'react-native-progress';
 
 /**
  * The states were interested in
@@ -105,7 +105,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class ProfileRender extends Component {
+class ProfileRender extends React.Component {
   constructor(props) {
     super(props);
 

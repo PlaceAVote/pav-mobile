@@ -1,14 +1,7 @@
 'use strict';
 
 import React from 'react';
-import ReactNative from 'react-native';
-
-import {Colors} from '../../config/constants';
-import LinearGradient from 'react-native-linear-gradient';
-
-const {} = React;
-
-const {
+import {
   Image,
   ListView,
   TouchableHighlight,
@@ -16,7 +9,11 @@ const {
   Text,
   View,
   PixelRatio,
-} = ReactNative;
+} from 'react-native';
+
+import {Colors} from '../../config/constants';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -34,23 +31,10 @@ const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-var GridLayoutExample = React.createClass({
-
-  // getInitialState: function() {
-  //
-  //   // let rowData = this._genRows();
-  //   // this.props.onSelectedTopicsChange("this represents the topics change object.");
-  //   return {
-  //     dataSource: ds.cloneWithRows(this.props.topicData),
-  //   };
-  // },
+class GridLayoutExample extends React.Component {
 
 
-  // componentWillMount: function() {},
-
-// this.props.selectedTopics TODO:
-
-  render: function() {
+  render() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return (
       // ListView wraps ScrollView and so takes on its properties.
@@ -60,12 +44,12 @@ var GridLayoutExample = React.createClass({
         renderRow={this._renderRow}
       />
     );
-  },
-
-  // componentWillReceiveProps: function(nextProps){},
+  }
 
 
-  renderTopicIconDependingOnChecked: function (isChecked, rowIconName, rowTitle){
+
+
+  renderTopicIconDependingOnChecked (isChecked, rowIconName, rowTitle){
     // console.log("Should be checked: "+isChecked);
     if(isChecked){
       return (<LinearGradient
@@ -98,12 +82,12 @@ var GridLayoutExample = React.createClass({
           </View>
       </View>);
     }
-  },
+  }
 
 
 
 
-  isCurrentRowChecked: function(rowKey, selectedList){
+  isCurrentRowChecked(rowKey, selectedList){
     for (var ii= 0,ll=selectedList.length; ii < ll; ii++) {
         if (list[ii] === rowKey) {
           console.log(rowKey+' is checked');
@@ -112,9 +96,9 @@ var GridLayoutExample = React.createClass({
     }
     // console.log(rowKey+' NOT checked');
     return false;
-  },
+  }
 
-  _renderRow: function(rowData, sectionID, rowID) {
+  _renderRow(rowData, sectionID, rowID) {
 
 
     // var curIconName = this.state.iconNameList[rowID];
@@ -131,7 +115,7 @@ var GridLayoutExample = React.createClass({
         </View>
       </TouchableHighlight>
     );
-  },
+  }
 
 
   // _genRows: function() : Array<string> {
@@ -155,14 +139,14 @@ var GridLayoutExample = React.createClass({
   //   return rowsData;
   // },
 
-  _pressRow: function(rowID, e, rowData) {
+  _pressRow(rowID, e, rowData) {
     // console.log("Row was pressed with rowData: "+JSON.stringify(rowData));
     if(!this.props.disabled){
         this.props.onSelectedTopicsChange(rowData.key);
     }
-  },
+  }
 
-});
+}
 
 
 

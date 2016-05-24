@@ -20,7 +20,7 @@ var {
 // import SimpleAlert from 'react-native-simpledialog-android';
 import  _ from 'underscore';
 
-var ErrorAlert = class ErrorAlertClass{
+var ErrorAlert = class ErrorAlertClass {
   /**
    * ## ErrorAlert
    * setup to support testing

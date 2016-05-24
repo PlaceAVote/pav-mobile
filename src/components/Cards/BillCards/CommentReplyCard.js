@@ -14,16 +14,14 @@ const {SOCIAL_TYPES} = Other;
 /**
  * The necessary React components
  */
-import React,
-{
-  Component,
+import React from 'react';
+import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   TextInput
-}
-from 'react-native';
+} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -61,7 +59,7 @@ import Button from 'sp-react-native-iconbutton'
 
 
 
-class CommentReplyBox extends Component {
+class CommentReplyBox extends React.Component {
   constructor(props) {
     super(props);
     this.state={

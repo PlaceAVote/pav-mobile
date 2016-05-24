@@ -41,7 +41,7 @@ import SignUpEmailForm from './SignUpEmailForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -186,7 +186,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class EmailSignUpStep2Render extends Component {
+class EmailSignUpStep2Render extends React.Component {
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();

@@ -1,5 +1,5 @@
 import React from 'react';
-const {
+import {
   View,
   Animated,
   StyleSheet,
@@ -9,7 +9,7 @@ const {
   Platform,
   findNodeHandle,
   Dimensions,
-} = React;
+} from 'react-native';
 
 const TAB_HEIGHT = 50;
 const {height:h, width:w} = Dimensions.get('window');

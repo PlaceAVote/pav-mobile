@@ -10,7 +10,7 @@
 
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, Animated} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 
 
 
-class AnimatedStatusCard extends Component {
+class AnimatedStatusCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

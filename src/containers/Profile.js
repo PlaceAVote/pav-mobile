@@ -43,7 +43,7 @@ import {Map} from 'immutable';
 import ProfileRender from '../components/Profile/ProfileRender'
 
 
-import React, {Component} from 'react';
+import React from 'react';
 
 
 import {ScheneKeys} from '../config/constants';
@@ -93,7 +93,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class Profile extends Component {
+class Profile extends React.Component {
 
   constructor(props) {
     super(props);

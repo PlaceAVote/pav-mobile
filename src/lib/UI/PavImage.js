@@ -1,12 +1,12 @@
 /* @flow weak */
 import LImage from 'react-native-image-progress';
-import React, {Component} from 'react';
+import React from 'react';
 import {Image, View} from 'react-native';
 
-import Progress from 'react-native-progress';
+import * as Progress from 'react-native-progress';
 import {Colors} from '../../config/constants';
 
-class PavImage extends Component {
+class PavImage extends React.Component {
   constructor(props) {
     super(props);
   }

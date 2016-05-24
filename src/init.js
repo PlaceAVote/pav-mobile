@@ -1,11 +1,11 @@
 'use strict';
+/* @flow */
+console.log("@@@@@@@@@@@@@@@@@@@@ before react");
+import React from 'react';
+console.log("@@@@@@@@@@@@@@@@@@@@ React.Component is"+React.Component);
 
 
-import {Component} from 'react';
-console.log("@@@@@@@@@@@@@@@@@@@@ Component is"+Component);
-
-
-import {Navigator, View, Image, Text, TouchableOpacity} from 'react-native';
+import {Navigator, View, Image, Text, TouchableOpacity, Platform} from 'react-native';
 
 /**
 * ### Router-Flux
@@ -70,7 +70,7 @@ import Onboarding from './containers/Onboarding';
 
 import {Colors, ScheneKeys} from './config/constants';
 
-
+import pavBtnRightImg from '../assets/pavBtnRight.png';
 
 /**
 * ### icons
@@ -168,7 +168,7 @@ function getInitialState() {
 
 
 
-export default class PlaceAVote extends Component {
+export default class PlaceAVote extends React.Component {
 
     render() {
 
@@ -180,15 +180,12 @@ export default class PlaceAVote extends Component {
 
       // configureStore will combine reducers from placeAVote and main application
       // it will then create the store based on aggregate state from all reducers
-      store.dispatch(setPlatform(platform));
+      store.dispatch(setPlatform(Platform.OS));
       store.dispatch(setVersion(VERSION));
       store.dispatch(setStore(store));
 
 
-      var self = this;
-      var renderRtBtn = function renderRtBtn(){
-        return
-      }
+
       const reducerCreate = params=>{
           const defaultReducer = Reducer(params);
           return (state, action)=>{
@@ -244,6 +241,9 @@ export default class PlaceAVote extends Component {
         </Provider>
       );
     }
+
+
+
 }
 
 
@@ -267,7 +267,7 @@ export default class PlaceAVote extends Component {
 *
 * Displays the icon for the tab w/ color dependent upon selection
 */
-class TabIcon extends Component {
+class TabIcon extends React.Component {
   render() {
     var color = this.props.selected ? 'FF3366' : 'FFB3B3';
 
@@ -291,9 +291,9 @@ class TabIcon extends Component {
 
 
 
-class RightPavLogo extends Component {
+class RightPavLogo extends React.Component {
   render(){
-      return <Image source={require("../assets/pavBtnRight.png")} resizeMode='cover' style={{
+      return <Image source={pavBtnRightImg} resizeMode='cover' style={{
         flex:1,
         alignSelf:'flex-end',
         width: 30,
@@ -304,7 +304,7 @@ class RightPavLogo extends Component {
   }
 }
 
-class BackBtnImg extends Component {
+class BackBtnImg extends React.Component {
   render(){
       return (<TouchableOpacity style={{
         width: 100,
@@ -326,7 +326,7 @@ class BackBtnImg extends Component {
 
 
 
-class TabIconFactory extends Component {
+class TabIconFactory extends React.Component {
     render(){
 
 

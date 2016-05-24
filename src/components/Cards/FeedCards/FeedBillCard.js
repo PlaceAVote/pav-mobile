@@ -26,7 +26,7 @@ import Button from 'sp-react-native-iconbutton'
 
 import {Colors, ScheneKeys} from '../../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Linking} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -41,7 +41,7 @@ import PavImage from '../../../lib/UI/PavImage'
 import LinearGradient from 'react-native-linear-gradient';
 
 
-class FeedBillCard extends Component {
+class FeedBillCard extends React.Component {
   constructor(props) {
     super(props);
   }

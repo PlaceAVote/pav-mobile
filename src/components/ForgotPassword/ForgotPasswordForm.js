@@ -13,10 +13,6 @@
  * React
  */
 import React from 'react';
-const {
-  PropTypes,
-  PixelRatio
-} = React;
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -36,7 +32,8 @@ import { ScheneKeys, Colors } from '../../config/constants';
 import t from 'tcomb-form-native';
 let Form = t.form.Form;
 
-var ForgotPasswordForm = React.createClass({
+class ForgotPasswordForm extends React.Component {
+
   /**
    * ## ForgotPasswordForm class
    *
@@ -44,12 +41,7 @@ var ForgotPasswordForm = React.createClass({
    * * value: the values to set in the input fields
    * * onChange: function to call when user enters text
    */
-  propTypes: {
-    formType: PropTypes.string,
-    form: PropTypes.object,
-    value: PropTypes.object,
-    onChange: PropTypes.func
-  },
+
 
 
 
@@ -231,6 +223,12 @@ var ForgotPasswordForm = React.createClass({
       />
     );
   }
-});
+}
 
+ForgotPasswordForm.propTypes = {
+  formType: React.PropTypes.string,
+  form: React.PropTypes.object,
+  value: React.PropTypes.object,
+  onChange: React.PropTypes.func
+};
 module.exports = ForgotPasswordForm;

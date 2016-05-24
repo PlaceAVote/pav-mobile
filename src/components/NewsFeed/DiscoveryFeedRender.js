@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, View, Text, Animated, Easing} from 'react-native';
 // import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
@@ -17,8 +17,6 @@ import {StyleSheet, View, Text, Animated, Easing} from 'react-native';
 // const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
-//TODO Remove ViewPager
-import ViewPager from 'react-native-viewpager';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TopicSelectTabBar from './TopicSelectTabBar'
@@ -33,7 +31,7 @@ const {TOPICS}=Other;
 
 
 
-class DiscoveryFeedRender extends Component {
+class DiscoveryFeedRender extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -35,7 +35,7 @@ import Button from 'sp-react-native-iconbutton'
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -77,7 +77,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-class OnboardingRender extends Component {
+class OnboardingRender extends React.Component {
   constructor(props) {
     super(props);
 

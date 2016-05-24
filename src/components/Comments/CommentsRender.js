@@ -21,7 +21,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {SORT_FILTERS} = Other;
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, ListView, RefreshControl} from 'react-native';
 // import ProgressBar from 'ProgressBarAndroid';
 
@@ -64,7 +64,7 @@ import PavImage from '../../lib/UI/PavImage'
 
 
 
-class CommentsRender extends Component {
+class CommentsRender extends React.Component {
   constructor(props) {
     super(props);
     let commentData = this.props.commentData.toJS() || [];

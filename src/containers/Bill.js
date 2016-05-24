@@ -44,7 +44,7 @@ import {Map} from 'immutable';
 import BillRender from '../components/Bills/BillRender'
 
 
-import React, {Component} from 'react';
+import React from 'react';
 import {Linking} from 'react-native';
 
 
@@ -110,7 +110,7 @@ const TOKEN = DEV==true?DEV_TOKEN:PROD_TOKEN;
 
 
 
-class Bill extends Component {
+class Bill extends React.Component {
 
   constructor(props) {
     super(props);

@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, View, ListView} from 'react-native';
 // import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
@@ -28,7 +28,7 @@ import CardFactory from '../Cards/CardFactory';
 
 
 
-class ActivityFeedRender extends Component {
+class ActivityFeedRender extends React.Component {
   constructor(props) {
     super(props);
     let data = this.props.feedData || [];

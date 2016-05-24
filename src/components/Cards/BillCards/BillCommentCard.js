@@ -19,7 +19,7 @@
 import {Colors, ScheneKeys, Other} from '../../../config/constants';
 const {REACTIONS, SOCIAL_TYPES} = Other;
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -36,7 +36,7 @@ import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 
 
 
-class BillCommentCard extends Component {
+class BillCommentCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

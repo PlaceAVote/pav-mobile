@@ -39,7 +39,7 @@ import Button from 'sp-react-native-iconbutton'
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -92,7 +92,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class NotificationsRender extends Component {
+class NotificationsRender extends React.Component {
   constructor(props) {
     super(props);
 

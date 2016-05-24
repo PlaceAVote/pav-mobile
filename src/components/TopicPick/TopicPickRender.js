@@ -51,7 +51,7 @@ const {
   REGISTER_STEP_4
 } = ScheneKeys;
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -92,7 +92,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class TopicPickRender extends Component {
+class TopicPickRender extends React.Component {
 
 
   /**

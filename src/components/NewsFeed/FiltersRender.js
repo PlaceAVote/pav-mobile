@@ -9,7 +9,7 @@
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {NEWS_FEED_FILTERS, TOPICS} = Other;
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -42,7 +42,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
-class FiltersRender extends Component {
+class FiltersRender extends React.Component {
   constructor(props) {
     super(props);
 

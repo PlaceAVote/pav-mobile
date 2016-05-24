@@ -11,7 +11,7 @@
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {US_STATES, BILL_STATUSES} = Other;
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, ScrollView, TouchableOpacity} from 'react-native';
 
 import {getNumberWithOrdinalSufix} from '../../lib/Utils/numberText';
@@ -62,7 +62,7 @@ import AnimatedPavLineChart from './AnimatedPavLineChart'
 
 
 
-class MoreInfoPageRender extends Component {
+class MoreInfoPageRender extends React.Component {
   constructor(props) {
     super(props);
 

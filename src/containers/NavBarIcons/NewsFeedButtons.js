@@ -39,7 +39,7 @@ import {Map} from 'immutable';
 
 
 
-import React, {Component} from 'react';
+import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
@@ -92,7 +92,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class NewsFeedButtons extends Component {
+class NewsFeedButtons extends React.Component {
 
 
   render(){

@@ -44,7 +44,7 @@ import {Map} from 'immutable';
 import CommentsRender from '../components/Comments/CommentsRender'
 
 
-import React, {Component} from 'react';
+import React from 'react';
 import {Linking} from 'react-native';
 
 
@@ -107,7 +107,7 @@ const TOKEN = DEV==true?DEV_TOKEN:PROD_TOKEN;
 
 
 
-class Comments extends Component {
+class Comments extends React.Component {
 
   constructor(props) {
     super(props);

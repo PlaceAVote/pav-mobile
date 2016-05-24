@@ -24,7 +24,7 @@ import {Map} from 'immutable';
 import moment from 'moment';
 import {Colors, ScheneKeys} from '../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 
 
@@ -34,7 +34,7 @@ import {View} from 'react-native';
 
 
 
-class CardFactory extends Component {
+class CardFactory extends React.Component {
   constructor(props) {
     super(props);
   }

@@ -26,7 +26,7 @@ import Button from 'sp-react-native-iconbutton'
 
 import {Colors, ScheneKeys} from '../../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -42,7 +42,7 @@ import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 
 
 
-class FeedVoteCard extends Component {
+class FeedVoteCard extends React.Component {
   constructor(props) {
     super(props);
   }

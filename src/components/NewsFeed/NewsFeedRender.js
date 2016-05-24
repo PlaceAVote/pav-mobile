@@ -40,7 +40,7 @@ import moment from 'moment'
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {NEWS_FEED_FILTERS} = Other;
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, Image, ScrollView, ActivityIndicatorIOS, TouchableOpacity, ListView, RefreshControl} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -60,7 +60,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LImage from 'react-native-image-progress';
-import Progress from 'react-native-progress';
+import * as Progress from 'react-native-progress';
 
 
 import ActivityFeedRender from './ActivityFeedRender';
@@ -113,7 +113,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class NewsFeedRender extends Component {
+class NewsFeedRender extends React.Component {
   constructor(props) {
     super(props);
 

@@ -11,7 +11,7 @@
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {SOCIAL_TYPES} = Other;
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, ScrollView, TouchableOpacity} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -49,7 +49,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-class SummaryPageRender extends Component {
+class SummaryPageRender extends React.Component {
   constructor(props) {
     super(props);
 

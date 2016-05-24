@@ -29,10 +29,7 @@ import {Map} from 'immutable';
 import Button from 'sp-react-native-iconbutton'
 
 
-/**
- * The ErrorAlert displays an alert for both ios & android
- */
-import ErrorAlert from '../../components/ErrorAlert';
+
 
 /**
  *  The ForgotPasswordForm does the heavy lifting of displaying the fields for
@@ -42,7 +39,7 @@ import ForgotPasswordForm from './ForgotPasswordForm';
 
 import {Colors, ScheneKeys,Modals} from '../../config/constants';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image} from 'react-native';
 
 import Dimensions from 'Dimensions';
@@ -151,10 +148,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-class ForgotPasswordRender extends Component {
+class ForgotPasswordRender extends React.Component {
   constructor(props) {
     super(props);
-    this.errorAlert = new ErrorAlert();
     this.state ={
       value: {
         forgotPasswordEmail: this.props.auth.form.fields.forgotPasswordEmail

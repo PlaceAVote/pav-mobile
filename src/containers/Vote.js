@@ -32,7 +32,7 @@ import {Map} from 'immutable';
  */
 import VoteRender from '../components/Vote/VoteRender';
 
-import React, {Component} from 'react';
+import React from 'react';
 
 
 /**
@@ -73,7 +73,7 @@ function mapDispatchToProps(dispatch) {
 //
 // }
 
-class Vote extends Component {
+class Vote extends React.Component {
 
   constructor(props) {
     super(props);
