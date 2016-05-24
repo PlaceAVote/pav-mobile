@@ -32,7 +32,7 @@ import {Map} from 'immutable';
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
 
-var ProgressBar = require('ProgressBarAndroid');
+import ProgressBar from 'ProgressBarAndroid';
 
 import moment from 'moment'
 
@@ -47,7 +47,7 @@ import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
@@ -58,9 +58,9 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 * Icons library
 */
 
-var Icon = require('react-native-vector-icons/FontAwesome');
-var LImage = require('react-native-image-progress');
-var Progress = require('react-native-progress');
+import Icon from 'react-native-vector-icons/FontAwesome';
+import LImage from 'react-native-image-progress';
+import Progress from 'react-native-progress';
 
 
 import ActivityFeedRender from './ActivityFeedRender';

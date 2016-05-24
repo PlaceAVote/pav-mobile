@@ -34,13 +34,6 @@ import VoteRender from '../components/Vote/VoteRender';
 
 import React, {Component} from 'react';
 
-/**
- * The states were interested in
- */
-
-// const {
-//   WELCOME
-// } = require('../config/constants').Modals
 
 /**
  * ## Redux boilerplate

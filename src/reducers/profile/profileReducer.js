@@ -11,13 +11,13 @@
  * fieldValidation for validating the fields
  * formValidation for setting the form's valid flag
  */
-const fieldValidation = require('../../lib/Utils/fieldValidation').default;
-// const formValidation = require('./profileFormValidation').default;
+import fieldValidation from '../../lib/Utils/fieldValidation';
 
 /**
  * ## Actions
  *
  */
+import {ActionNames} from '../../config/constants';
 const {
   ON_PROFILE_FORM_FIELD_CHANGE,
 
@@ -44,13 +44,13 @@ const {
   LOGOUT_SUCCESS,
 
   SET_STATE
-} = require('../../config/constants').ActionNames
+} = ActionNames;
 
 /**
  * ## Initial State
  *
  */
-const InitialState = require('./profileInitialState').default;
+import InitialState from './profileInitialState';
 const initialState = new InitialState;
 
 /**

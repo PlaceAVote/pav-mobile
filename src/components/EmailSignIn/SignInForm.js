@@ -12,7 +12,7 @@
  *
  * React
  */
-const React = require('react');
+import React from 'react';
 const {
   PropTypes,
   PixelRatio
@@ -34,7 +34,7 @@ import { ScheneKeys, Colors } from '../../config/constants';
 /**
  *  The fantastic little form library
  */
-const t = require('tcomb-form-native');
+import t from 'tcomb-form-native';
 let Form = t.form.Form;
 
 var SignInForm = React.createClass({

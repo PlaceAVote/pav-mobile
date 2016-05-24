@@ -25,7 +25,7 @@ import * as globalActions from '../../reducers/global/globalActions';
 import {Map} from 'immutable';
 
 /*A react native button*/
-// const  Button = require('sp-react-native-iconbutton');
+// import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
 
 /**
@@ -55,8 +55,8 @@ const {
   REGISTER_STEP_2
 } = ScheneKeys;
 
-
-
+import pIndic2 from '../../../assets/pIndic2.jpg';
+import signupExpl2 from '../../../assets/signupExpl2.gif';
 
 /**
  * ## Styles
@@ -235,7 +235,7 @@ class EmailSignUpStep2Render extends Component {
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} resizeMode= 'contain' source={require('../../../assets/pIndic2.jpg')}></Image>
+        <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic2}></Image>
       </View>);
     }
   }
@@ -253,7 +253,7 @@ class EmailSignUpStep2Render extends Component {
         <View style={styles.contentContainer}>
             <View style={styles.explanationContainer}>
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl2.gif')}></Image>
+                <Image style={styles.explanImg} resizeMode= 'contain' source={signupExpl2}></Image>
               </View>
               <View style={styles.descriptionTextContainer} >
                 <Text style={styles.descriptionText} >

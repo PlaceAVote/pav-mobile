@@ -27,7 +27,7 @@ const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in cu
 // const PavIcon = createIconSet(glyphMap, 'pav');
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 

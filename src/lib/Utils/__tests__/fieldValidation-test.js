@@ -26,13 +26,12 @@ jest.unmock('immutable');
 describe('Tests that the fieldValidation function validates the input correctly.', () => {
 
 
-  let fieldValidation = require('../fieldValidation.js').default;
+  import fieldValidation from '../fieldValidation.js';
   // jest.unmock('immutable');
   // jest.unmock('validate.js');
   // jest.unmock("underscore");
 
-  let Immutable = require('immutable');
-  let {Record, Map} = Immutable;
+  import {Record, Map} from 'immutable';
 
 
   let Form = Record({

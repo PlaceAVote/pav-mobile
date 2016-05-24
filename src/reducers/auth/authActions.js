@@ -16,9 +16,9 @@ import PavClientSdk from 'pavclient';
 import {setModalVisibility, navigateTo} from '../routing/routingActions'
 import {Actions} from 'react-native-router-flux';
 
-const  AppAuthToken = require('../../lib/Storage/AppAuthToken').default;
+import AppAuthToken from '../../lib/Storage/AppAuthToken';
 
-const  _ = require('underscore');
+import _ from 'underscore';
 
 
 

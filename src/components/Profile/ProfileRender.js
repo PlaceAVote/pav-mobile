@@ -37,7 +37,7 @@ import moment from 'moment'
 /**
 * Icons library
 */
-// var Icon = require('react-native-vector-icons/FontAwesome');
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import {Colors, ScheneKeys} from '../../config/constants';
@@ -49,14 +49,14 @@ import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import CardFactory from '../Cards/CardFactory';
 
-
-var LImage = require('react-native-image-progress');
-var Progress = require('react-native-progress');
+import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
+import LImage from 'react-native-image-progress';
+import Progress from 'react-native-progress';
 
 /**
  * The states were interested in
@@ -364,7 +364,7 @@ class ProfileRender extends Component {
     if(this.props.device.platform=="ios"){
         return (<LImage
           style={styles.userImg}
-          defaultSource={require('../../../assets/defaultUserPhoto.png')}
+          defaultSource={defaultUserPhoto}
           source={{uri: this.props.auth.user.photoUrl}}
           resizeMode='contain'
           indicator={Progress.CircleSnail}

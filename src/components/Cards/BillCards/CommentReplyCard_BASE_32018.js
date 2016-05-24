@@ -11,25 +11,14 @@
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {SOCIAL_TYPES} = Other;
-/**
- * The necessary React components
- */
-import React,
-{
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput
-}
-from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import LinearGradient from 'react-native-linear-gradient';

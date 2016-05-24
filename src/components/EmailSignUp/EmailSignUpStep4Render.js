@@ -26,7 +26,7 @@ import * as globalActions from '../../reducers/global/globalActions';
 import {Map} from 'immutable';
 
 /*A react native button*/
-// const  Button = require('sp-react-native-iconbutton');
+// import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
 
 
@@ -57,11 +57,8 @@ import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-
-/**
- * The states were interested in
- */
-
+import pIndic4Img from '../../../assets/pIndic4.jpg';
+import signupExpl4Img from '../../../assets/signupExpl4.jpg';
 
 
 
@@ -253,7 +250,7 @@ class EmailSignUpStep4Render extends Component {
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} resizeMode= 'contain' source={require('../../../assets/pIndic4.jpg')}></Image>
+        <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic4Img}></Image>
       </View>);
     }
   }
@@ -289,7 +286,7 @@ class EmailSignUpStep4Render extends Component {
 
             <View style={styles.explanationContainer}>
               <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} resizeMode= 'contain' source={require('../../../assets/signupExpl4.jpg')}></Image>
+                <Image style={styles.explanImg} resizeMode= 'contain' source={signupExpl4Img}></Image>
               </View>
               <Button style={styles.backBtn} iconProps={{name: "chevron-left",size:getCorrectFontSizeForScreen(w,h,20), color: "white"}} onPress={this.props.onBack}/>
               {this.renderDescriptionText()}

@@ -24,10 +24,10 @@ import Dimensions from 'Dimensions';
 
 
 
-// const fontelloConfig = require('../../../assets/fonts/paviconFontelloConfig.json');
+//import fontelloConfig from '../../../assets/fonts/paviconFontelloConfig.json';
 // const Icon = createIconSetFromIcoMoon(fontelloConfig);
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 

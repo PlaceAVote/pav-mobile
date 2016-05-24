@@ -29,7 +29,7 @@ import {LoginButton} from 'react-native-fbsdk';
 import {Map} from 'immutable';
 
 /*A react native button*/
-// const  Button = require('sp-react-native-iconbutton');
+// import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
 
 
@@ -41,7 +41,7 @@ import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRati
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
-
+import pavBG from '../../../assets/pavBG.jpg';
 /**
  * The states were interested in
  */
@@ -49,7 +49,7 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 //   SET_ORIENTATION
 // } = ScheneKeys;
 
-
+import logoWhiteImg from '../../../assets/logo-white.png';
 
 /**
  * ## Redux boilerplate
@@ -97,12 +97,12 @@ class OnboardingRender extends Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?portraitStyles:landscapeStyles;
     return(
-        <Image style={styles.backgroundImg} resizeMode= 'cover' source={require('../../../assets/pavBG.jpg')}>
+        <Image style={styles.backgroundImg} resizeMode= 'cover' source={pavBG}>
           <View style={styles.container}>
 
             <View style={styles.explanContainer}>
               <View style={styles.logoImgContainer}>
-                <Image style={styles.logoImg} resizeMode= 'contain' source={require('../../../assets/logo-white.png')}></Image>
+                <Image style={styles.logoImg} resizeMode= 'contain' source={logoWhiteImg}></Image>
               </View>
 
               <View style={styles.titleTextContainerVer}>

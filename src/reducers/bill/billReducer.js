@@ -10,19 +10,12 @@
  *
  */
 
-/**
- * ## Actions
- *
- */
-// const {
-//
-// } = require('../../config/constants').ActionNames
 
 /**
  * ## Initial State
  *
  */
-const InitialState = require('./billInitialState').default;
+import InitialState from './billInitialState';
 const initialState = new InitialState;
 
 import {ActionNames, ScheneKeys} from '../../config/constants';

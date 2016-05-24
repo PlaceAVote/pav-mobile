@@ -1,0 +1,794 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E356F31AD99517003FC87E /* PlaceAVoteAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PlaceAVoteAppTests.m */; };
+		083655E53428433F899DF4B9 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3299DD9D3F4C40599C34ED7B /* icomoon.ttf */; };
+		0E77FABEB7224B2DA61BA4FE /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 014C973349834A168A14DB53 /* FontAwesome.ttf */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		17E32B822FA94807AC59378C /* Whitney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 845791FDAE43403AB886FA21 /* Whitney-Bold.ttf */; };
+<<<<<<< HEAD
+=======
+		247B770B9177371BF35F4C10 /* libPods-PlaceAVoteApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E666E8E326173253EB5DB92 /* libPods-PlaceAVoteApp.a */; };
+>>>>>>> rn26
+		24B654E5C52C48D28714144C /* Whitney-BookItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EE1E8AF2A6C4F4E8284E06C /* Whitney-BookItal.ttf */; };
+		2C279CEB863F41EE8FF89C06 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D84D429C65E14FEB840019A2 /* Zocial.ttf */; };
+		3F2BEFB701FC47E4BFA057C8 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10CAB4FBE2724127891F10AA /* MaterialIcons.ttf */; };
+		5171FD29B57847F0AFFAAFFF /* Whitney-SemiboldItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEB97CD8BB4C46978B0FD7AE /* Whitney-SemiboldItal.ttf */; };
+		52DF1559EBD74767BA4AC746 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E13E1F1D15B94ADA8B3365D3 /* Ionicons.ttf */; };
+		53FF33ECB73341DAA7881C2F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60DC4A337A7949B38D49BBB7 /* Entypo.ttf */; };
+		5EB7CCB5D1BB44AA8073C09C /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC79F48DEB32471FAACCA839 /* EvilIcons.ttf */; };
+		7D3F44C61C2544DCBEEEA902 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A2B7C6B277E42DA949F139F /* Octicons.ttf */; };
+		7E4C6173CA3D4036829D47FF /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14A31AD120CC4DB4A062BBDD /* Foundation.ttf */; };
+		8E0D94E40DAF4257A5B8FD91 /* Whitney-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE7C3E5E45C04785BF773CC9 /* Whitney-Book.ttf */; };
+		937648502FF9483C9EF8A699 /* Whitney-LightItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37484D02FE97477F94660543 /* Whitney-LightItal.ttf */; };
+<<<<<<< HEAD
+		93CDBCDBC9583B9288B00129 /* libPods-PlaceAVoteApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E666E8E326173253EB5DB92 /* libPods-PlaceAVoteApp.a */; };
+=======
+>>>>>>> rn26
+		96A9586B6EE74447AB692526 /* Whitney-BoldItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BC4C5A3AA394D74A3439F46 /* Whitney-BoldItal.ttf */; };
+		A5D5C5FD28194E0EA87FCAA5 /* Whitney-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F4462147841FAA6BB2E89 /* Whitney-Medium.ttf */; };
+		BAEC4E963380491F89AF142B /* Whitney-MediumItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F44344E136944CB3A823D419 /* Whitney-MediumItal.ttf */; };
+		BD8EE78C772E4484ACE34AFC /* Whitney-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B164D8BEA598413FA309BDA5 /* Whitney-Light.ttf */; };
+		D3546E011CBE96970086B3BA /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3546E001CBE96970086B3BA /* Orientation.m */; };
+		D3FB8AA91CEF4C9D009389D5 /* libPods-PlaceAVoteApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FB8AA81CEF4C9D009389D5 /* libPods-PlaceAVoteApp.a */; };
+		E08D6038C0074BD0BA01380B /* Whitney-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6263A662BD9C4B85BDFF98ED /* Whitney-Semibold.ttf */; };
+		F0C6E75D312C3C237E3B059F /* libPods-PlaceAVoteAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 580A83FEB7945DF0ECBE00A2 /* libPods-PlaceAVoteAppTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = PlaceAVoteApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		00E356EE1AD99517003FC87E /* PlaceAVoteAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaceAVoteAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* PlaceAVoteAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceAVoteAppTests.m; sourceTree = "<group>"; };
+		014C973349834A168A14DB53 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		10CAB4FBE2724127891F10AA /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* PlaceAVoteApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaceAVoteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = PlaceAVoteApp/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = PlaceAVoteApp/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PlaceAVoteApp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PlaceAVoteApp/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PlaceAVoteApp/main.m; sourceTree = "<group>"; };
+		14A31AD120CC4DB4A062BBDD /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		1A2333133F12F79467AE815F /* Pods-PlaceAVoteApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteApp/Pods-PlaceAVoteApp.debug.xcconfig"; sourceTree = "<group>"; };
+		2A2B7C6B277E42DA949F139F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		3299DD9D3F4C40599C34ED7B /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
+		37484D02FE97477F94660543 /* Whitney-LightItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-LightItal.ttf"; path = "../assets/fonts/Whitney-LightItal.ttf"; sourceTree = "<group>"; };
+		4BC4C5A3AA394D74A3439F46 /* Whitney-BoldItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-BoldItal.ttf"; path = "../assets/fonts/Whitney-BoldItal.ttf"; sourceTree = "<group>"; };
+		4EE1E8AF2A6C4F4E8284E06C /* Whitney-BookItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-BookItal.ttf"; path = "../assets/fonts/Whitney-BookItal.ttf"; sourceTree = "<group>"; };
+		53BD75153D7B5A5E0996C64E /* Pods-PlaceAVoteAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteAppTests/Pods-PlaceAVoteAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		580A83FEB7945DF0ECBE00A2 /* libPods-PlaceAVoteAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlaceAVoteAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E6F4462147841FAA6BB2E89 /* Whitney-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Medium.ttf"; path = "../assets/fonts/Whitney-Medium.ttf"; sourceTree = "<group>"; };
+		60DC4A337A7949B38D49BBB7 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		6263A662BD9C4B85BDFF98ED /* Whitney-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Semibold.ttf"; path = "../assets/fonts/Whitney-Semibold.ttf"; sourceTree = "<group>"; };
+		7E666E8E326173253EB5DB92 /* libPods-PlaceAVoteApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlaceAVoteApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		845791FDAE43403AB886FA21 /* Whitney-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Bold.ttf"; path = "../assets/fonts/Whitney-Bold.ttf"; sourceTree = "<group>"; };
+		8A9A1B80B4DE73199E1A9A0F /* Pods-PlaceAVoteApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteApp/Pods-PlaceAVoteApp.release.xcconfig"; sourceTree = "<group>"; };
+		B164D8BEA598413FA309BDA5 /* Whitney-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Light.ttf"; path = "../assets/fonts/Whitney-Light.ttf"; sourceTree = "<group>"; };
+		BE02320DE084B4FDB8766C49 /* Pods-PlaceAVoteAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteAppTests/Pods-PlaceAVoteAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		D3546DFF1CBE96970086B3BA /* Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
+		D3546E001CBE96970086B3BA /* Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
+		D3FB8A921CEF4C83009389D5 /* libBolts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBolts.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libBolts.a"; sourceTree = "<group>"; };
+		D3FB8A931CEF4C83009389D5 /* libBVLinearGradient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBVLinearGradient.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libBVLinearGradient.a"; sourceTree = "<group>"; };
+		D3FB8A941CEF4C83009389D5 /* libFBSDKCoreKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKCoreKit.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libFBSDKCoreKit.a"; sourceTree = "<group>"; };
+		D3FB8A951CEF4C83009389D5 /* libFBSDKLoginKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKLoginKit.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libFBSDKLoginKit.a"; sourceTree = "<group>"; };
+		D3FB8A961CEF4C83009389D5 /* libFBSDKShareKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKShareKit.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libFBSDKShareKit.a"; sourceTree = "<group>"; };
+		D3FB8A971CEF4C83009389D5 /* libPods-PlaceAVoteAppTests.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-PlaceAVoteAppTests.a"; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libPods-PlaceAVoteAppTests.a"; sourceTree = "<group>"; };
+		D3FB8A981CEF4C83009389D5 /* libreact-native-fbsdkcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libreact-native-fbsdkcore.a"; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libreact-native-fbsdkcore.a"; sourceTree = "<group>"; };
+		D3FB8A991CEF4C83009389D5 /* libreact-native-fbsdklogin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libreact-native-fbsdklogin.a"; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libreact-native-fbsdklogin.a"; sourceTree = "<group>"; };
+		D3FB8A9A1CEF4C83009389D5 /* libreact-native-fbsdkshare.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libreact-native-fbsdkshare.a"; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libreact-native-fbsdkshare.a"; sourceTree = "<group>"; };
+		D3FB8A9B1CEF4C83009389D5 /* libReact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libReact.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libReact.a"; sourceTree = "<group>"; };
+		D3FB8A9C1CEF4C83009389D5 /* libRNVectorIcons.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNVectorIcons.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libRNVectorIcons.a"; sourceTree = "<group>"; };
+		D3FB8AA81CEF4C9D009389D5 /* libPods-PlaceAVoteApp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-PlaceAVoteApp.a"; path = "../../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphonesimulator/libPods-PlaceAVoteApp.a"; sourceTree = "<group>"; };
+		D84D429C65E14FEB840019A2 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		DC79F48DEB32471FAACCA839 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		DE7C3E5E45C04785BF773CC9 /* Whitney-Book.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Book.ttf"; path = "../assets/fonts/Whitney-Book.ttf"; sourceTree = "<group>"; };
+		E13E1F1D15B94ADA8B3365D3 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		F44344E136944CB3A823D419 /* Whitney-MediumItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-MediumItal.ttf"; path = "../assets/fonts/Whitney-MediumItal.ttf"; sourceTree = "<group>"; };
+		FEB97CD8BB4C46978B0FD7AE /* Whitney-SemiboldItal.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-SemiboldItal.ttf"; path = "../assets/fonts/Whitney-SemiboldItal.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0C6E75D312C3C237E3B059F /* libPods-PlaceAVoteAppTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3FB8AA91CEF4C9D009389D5 /* libPods-PlaceAVoteApp.a in Frameworks */,
+				247B770B9177371BF35F4C10 /* libPods-PlaceAVoteApp.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* PlaceAVoteAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* PlaceAVoteAppTests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = PlaceAVoteAppTests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* PlaceAVoteApp */ = {
+			isa = PBXGroup;
+			children = (
+				D3546DFE1CBE96970086B3BA /* RCTOrientation */,
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = PlaceAVoteApp;
+			sourceTree = "<group>";
+		};
+		2D3C8ADB8BD439B47A37B492 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A2333133F12F79467AE815F /* Pods-PlaceAVoteApp.debug.xcconfig */,
+				8A9A1B80B4DE73199E1A9A0F /* Pods-PlaceAVoteApp.release.xcconfig */,
+				53BD75153D7B5A5E0996C64E /* Pods-PlaceAVoteAppTests.debug.xcconfig */,
+				BE02320DE084B4FDB8766C49 /* Pods-PlaceAVoteAppTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2E3060B8D1F04A73BAA5A4FB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				845791FDAE43403AB886FA21 /* Whitney-Bold.ttf */,
+				DE7C3E5E45C04785BF773CC9 /* Whitney-Book.ttf */,
+				B164D8BEA598413FA309BDA5 /* Whitney-Light.ttf */,
+				5E6F4462147841FAA6BB2E89 /* Whitney-Medium.ttf */,
+				6263A662BD9C4B85BDFF98ED /* Whitney-Semibold.ttf */,
+				60DC4A337A7949B38D49BBB7 /* Entypo.ttf */,
+				DC79F48DEB32471FAACCA839 /* EvilIcons.ttf */,
+				014C973349834A168A14DB53 /* FontAwesome.ttf */,
+				14A31AD120CC4DB4A062BBDD /* Foundation.ttf */,
+				E13E1F1D15B94ADA8B3365D3 /* Ionicons.ttf */,
+				10CAB4FBE2724127891F10AA /* MaterialIcons.ttf */,
+				2A2B7C6B277E42DA949F139F /* Octicons.ttf */,
+				D84D429C65E14FEB840019A2 /* Zocial.ttf */,
+				3299DD9D3F4C40599C34ED7B /* icomoon.ttf */,
+				4BC4C5A3AA394D74A3439F46 /* Whitney-BoldItal.ttf */,
+				4EE1E8AF2A6C4F4E8284E06C /* Whitney-BookItal.ttf */,
+				37484D02FE97477F94660543 /* Whitney-LightItal.ttf */,
+				F44344E136944CB3A823D419 /* Whitney-MediumItal.ttf */,
+				FEB97CD8BB4C46978B0FD7AE /* Whitney-SemiboldItal.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				13B07FAE1A68108700A75B9A /* PlaceAVoteApp */,
+				00E356EF1AD99517003FC87E /* PlaceAVoteAppTests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2E3060B8D1F04A73BAA5A4FB /* Resources */,
+				2D3C8ADB8BD439B47A37B492 /* Pods */,
+				C7CE0B404B8724F4B61A5AE1 /* Frameworks */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* PlaceAVoteApp.app */,
+				00E356EE1AD99517003FC87E /* PlaceAVoteAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C7CE0B404B8724F4B61A5AE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3FB8AA81CEF4C9D009389D5 /* libPods-PlaceAVoteApp.a */,
+				D3FB8A921CEF4C83009389D5 /* libBolts.a */,
+				D3FB8A931CEF4C83009389D5 /* libBVLinearGradient.a */,
+				D3FB8A941CEF4C83009389D5 /* libFBSDKCoreKit.a */,
+				D3FB8A951CEF4C83009389D5 /* libFBSDKLoginKit.a */,
+				D3FB8A961CEF4C83009389D5 /* libFBSDKShareKit.a */,
+				D3FB8A971CEF4C83009389D5 /* libPods-PlaceAVoteAppTests.a */,
+				D3FB8A981CEF4C83009389D5 /* libreact-native-fbsdkcore.a */,
+				D3FB8A991CEF4C83009389D5 /* libreact-native-fbsdklogin.a */,
+				D3FB8A9A1CEF4C83009389D5 /* libreact-native-fbsdkshare.a */,
+				D3FB8A9B1CEF4C83009389D5 /* libReact.a */,
+				D3FB8A9C1CEF4C83009389D5 /* libRNVectorIcons.a */,
+				7E666E8E326173253EB5DB92 /* libPods-PlaceAVoteApp.a */,
+				580A83FEB7945DF0ECBE00A2 /* libPods-PlaceAVoteAppTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3546DFE1CBE96970086B3BA /* RCTOrientation */ = {
+			isa = PBXGroup;
+			children = (
+				D3546DFF1CBE96970086B3BA /* Orientation.h */,
+				D3546E001CBE96970086B3BA /* Orientation.m */,
+			);
+			name = RCTOrientation;
+			path = PlaceAVoteApp/RCTOrientation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* PlaceAVoteAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "PlaceAVoteAppTests" */;
+			buildPhases = (
+				23CFBFA529B39E9C99A7789B /* 📦 Check Pods Manifest.lock */,
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+				AF5A5F241383501A51DE60CC /* 📦 Embed Pods Frameworks */,
+				D6FAA108F1474FA2639D0B91 /* 📦 Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = PlaceAVoteAppTests;
+			productName = PlaceAVoteAppTests;
+			productReference = 00E356EE1AD99517003FC87E /* PlaceAVoteAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* PlaceAVoteApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "PlaceAVoteApp" */;
+			buildPhases = (
+				3BBADC5B698506A12D82EE2B /* 📦 Check Pods Manifest.lock */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				003F6AD0E0285C00DE9CFE75 /* 📦 Embed Pods Frameworks */,
+				2A8BFCFCF48C2AB599CFAA48 /* 📦 Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlaceAVoteApp;
+			productName = "Hello World";
+			productReference = 13B07F961A680F5B00A75B9A /* PlaceAVoteApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 610;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 35WUYAWLQM;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "PlaceAVoteApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* PlaceAVoteApp */,
+				00E356ED1AD99517003FC87E /* PlaceAVoteAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				17E32B822FA94807AC59378C /* Whitney-Bold.ttf in Resources */,
+				8E0D94E40DAF4257A5B8FD91 /* Whitney-Book.ttf in Resources */,
+				BD8EE78C772E4484ACE34AFC /* Whitney-Light.ttf in Resources */,
+				A5D5C5FD28194E0EA87FCAA5 /* Whitney-Medium.ttf in Resources */,
+				E08D6038C0074BD0BA01380B /* Whitney-Semibold.ttf in Resources */,
+				53FF33ECB73341DAA7881C2F /* Entypo.ttf in Resources */,
+				5EB7CCB5D1BB44AA8073C09C /* EvilIcons.ttf in Resources */,
+				0E77FABEB7224B2DA61BA4FE /* FontAwesome.ttf in Resources */,
+				7E4C6173CA3D4036829D47FF /* Foundation.ttf in Resources */,
+				52DF1559EBD74767BA4AC746 /* Ionicons.ttf in Resources */,
+				3F2BEFB701FC47E4BFA057C8 /* MaterialIcons.ttf in Resources */,
+				7D3F44C61C2544DCBEEEA902 /* Octicons.ttf in Resources */,
+				2C279CEB863F41EE8FF89C06 /* Zocial.ttf in Resources */,
+				083655E53428433F899DF4B9 /* icomoon.ttf in Resources */,
+				96A9586B6EE74447AB692526 /* Whitney-BoldItal.ttf in Resources */,
+				24B654E5C52C48D28714144C /* Whitney-BookItal.ttf in Resources */,
+				937648502FF9483C9EF8A699 /* Whitney-LightItal.ttf in Resources */,
+				BAEC4E963380491F89AF142B /* Whitney-MediumItal.ttf in Resources */,
+				5171FD29B57847F0AFFAAFFF /* Whitney-SemiboldItal.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		003F6AD0E0285C00DE9CFE75 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVoteApp/Pods-PlaceAVoteApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+		};
+		23CFBFA529B39E9C99A7789B /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2A8BFCFCF48C2AB599CFAA48 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVoteApp/Pods-PlaceAVoteApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3BBADC5B698506A12D82EE2B /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AF5A5F241383501A51DE60CC /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVoteAppTests/Pods-PlaceAVoteAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6FAA108F1474FA2639D0B91 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVoteAppTests/Pods-PlaceAVoteAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00E356F31AD99517003FC87E /* PlaceAVoteAppTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				D3546E011CBE96970086B3BA /* Orientation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* PlaceAVoteApp */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13B07FB21A68108700A75B9A /* Base */,
+			);
+			name = LaunchScreen.xib;
+			path = PlaceAVoteApp;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53BD75153D7B5A5E0996C64E /* Pods-PlaceAVoteAppTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PlaceAVoteAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlaceAVoteApp.app/PlaceAVoteApp";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE02320DE084B4FDB8766C49 /* Pods-PlaceAVoteAppTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PlaceAVoteAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlaceAVoteApp.app/PlaceAVoteApp";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A2333133F12F79467AE815F /* Pods-PlaceAVoteApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-material-kit/iOS/RCTMaterialKit",
+				);
+				INFOPLIST_FILE = PlaceAVoteApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.PlaceAVoteApp.ios;
+				PRODUCT_NAME = PlaceAVoteApp;
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A9A1B80B4DE73199E1A9A0F /* Pods-PlaceAVoteApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-material-kit/iOS/RCTMaterialKit",
+				);
+				INFOPLIST_FILE = PlaceAVoteApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.PlaceAVoteApp.ios;
+				PRODUCT_NAME = PlaceAVoteApp;
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-material-kit/iOS/RCTMaterialKit",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/core/iOS/**",
+					"$(SRCROOT)/../node_modules/react-native-material-kit/iOS/RCTMaterialKit",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "PlaceAVoteAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "PlaceAVoteApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "PlaceAVoteApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}

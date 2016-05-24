@@ -21,7 +21,7 @@ import Button from 'sp-react-native-iconbutton'
 /**
 * Icons library
 */
-// var Icon = require('react-native-vector-icons/FontAwesome');
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import {Colors, ScheneKeys} from '../../../config/constants';
@@ -33,11 +33,11 @@ import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-const icomoonConfig = require('../../../../assets/fonts/icomoon.json');
+import icomoonConfig from '../../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import PavImage from '../../../lib/UI/PavImage'
-
+import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 
 
 
@@ -229,7 +229,7 @@ class FeedVoteCard extends Component {
         <TouchableOpacity style={styles.imageContainer} onPress={this.onUserClick.bind(this)}>
           <PavImage
             platform={this.props.device.platform}
-            defaultSource={require('../../../../assets/defaultUserPhoto.png')}
+            defaultSource={defaultUserPhoto}
             style={styles.userImage}
             source={{uri: this.props.userPhotoUrl}}
             resizeMode='cover'

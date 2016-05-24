@@ -10,7 +10,7 @@
  */
 'use strict';
 
-const  {Record, List, Map} = require('immutable');
+import  {Record, List, Map} from 'immutable';
 import {Other} from '../../config/constants';
 const {NEWS_FEED_FILTERS, TOPICS} = Other;
 

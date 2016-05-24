@@ -35,10 +35,10 @@ import React from 'react';
 /**
  * The states were interested in
  */
-
+import {ScheneKeys} from '../config/constants';
 const {
   REGISTER_STEP_4
-} = require('../config/constants').ScheneKeys
+} = ScheneKeys
 
 /**
  * ## Redux boilerplate

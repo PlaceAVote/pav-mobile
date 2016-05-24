@@ -36,10 +36,10 @@ import React from 'react';
 /**
  * The states were interested in
  */
-
+import {Modals} from '../config/constants';
 const {
   WELCOME
-} = require('../config/constants').Modals
+} = Modals
 
 /**
  * ## Redux boilerplate
