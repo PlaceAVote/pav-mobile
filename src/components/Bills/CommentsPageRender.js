@@ -45,9 +45,6 @@ import moment from 'moment';
 
 
 
-
-
-
 class CommentsPageRender extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +52,9 @@ class CommentsPageRender extends React.Component {
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
       curSortFilter: SORT_FILTERS.HIGHEST_RATE,
-      commentDataSource:ds.cloneWithRows(commentData)
+      commentDataSource:ds.cloneWithRows(commentData),
+      listHeight:0,
+      footerY:0
     }
   }
 
@@ -191,20 +190,22 @@ class CommentsPageRender extends React.Component {
 
 
 
-  onCommentPostToBill(comment){
+    scrollToBottom(){
+      if(!!this.state.listHeight  && !!this.state.footerY){
+        var scrollDistance = this.state.listHeight + this.state.footerY;
+        let scrollResponder = this.refs.commentPageRenderList.getScrollResponder();
+        scrollResponder.scrollResponderScrollTo({x: 0, y: scrollDistance, animated: true});
+      }
+    }
 
-    // console.log("@@ Data source len: "+this.state.commentDataSource._cachedRowCount);
-
+  async onCommentPostToBill(comment){
     if(!!comment && comment.length>0){
       if(!!this.props.billId && !!this.props.onCommentPost){
-          let postSuccessful = this.props.onCommentPost(comment, {billId: this.props.billId, newCommentLvl: 0});
+          let postSuccessful = await this.props.onCommentPost(comment, {billId: this.props.billId, newCommentLvl: 0});
           if(postSuccessful == true){
-            let scrollResponder = this.refs.commentPageRenderList.getScrollResponder();
-            let rowCnt = this.state.commentDataSource._cachedRowCount;
-            setTimeout(()=>{
-              scrollResponder.scrollResponderScrollTo({x: 0, y: rowCnt*h*0.25, animated: true});
-            }, 500);
+            this.scrollToBottom();
           }
+          return postSuccessful;
       }
     }
   }
@@ -252,6 +253,21 @@ class CommentsPageRender extends React.Component {
          style={styles.commentsPageContainer}
          initialListSize={2}
          dataSource={this.state.commentDataSource}
+         //onLayout and renderFooter is a hackish way to gather properties we need to scroll to bottom
+         onLayout={(event) => {
+                var layout = event.nativeEvent.layout;
+                this.setState({
+                    listHeight : layout.height
+                });
+
+            }}
+         renderFooter={() => (<View onLayout={(event)=>{
+               var layout = event.nativeEvent.layout;
+               this.setState({
+                   footerY : layout.y
+               });
+           }}></View>)}
+
          renderHeader={()=>this.renderHeader(styles)}
          renderRow={(rowData) =>{
           //  console.log("Comment: "+JSON.stringify(rowData))

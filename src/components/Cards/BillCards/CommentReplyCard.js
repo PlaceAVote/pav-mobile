@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # CommentReplyBox.js
+ * # CommentReplyCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -59,7 +59,7 @@ import Button from 'sp-react-native-iconbutton'
 
 
 
-class CommentReplyBox extends React.Component {
+class CommentReplyCard extends React.Component {
   constructor(props) {
     super(props);
     this.state={
@@ -143,6 +143,20 @@ class CommentReplyBox extends React.Component {
 
   }
 
+  reset(){
+    this.commentReplyInput.clear(); //clear the comment text
+  }
+
+  async onPostBtnPress(){
+    if(!!this.props.onPostBtnPress){
+        let success = await this.props.onPostBtnPress(this.state.comment);
+        if(success){
+            this.reset();
+        }
+    }
+
+  }
+
   /**
    * ### render method
    */
@@ -158,13 +172,15 @@ class CommentReplyBox extends React.Component {
           <Text style={styles.addCommentTitleText}>ADD A COMMENT </Text>
           <View style={styles.commentInputContainer}>
             <TextInput
+              ref={(ref) => this.commentReplyInput = ref}
               placeholder="Type a comment"
               multiline={true}
+              editable={this.props.postBtnEnabled}
               style={styles.commentInput}
               onChangeText={(text) => this.setState({comment:text})}
             />
             <Button
-            onPress={()=>this.props.onPostBtnPress(this.state.comment)}
+            onPress={this.onPostBtnPress.bind(this)}
             isDisabled={!this.props.postBtnEnabled}
             isLoading={this.props.postBtnLoading}
             style={styles.postBtn}
@@ -189,10 +205,10 @@ class CommentReplyBox extends React.Component {
 }
 
 
-CommentReplyBox.propTypes= {
+CommentReplyCard.propTypes= {
   orientation: React.PropTypes.string.isRequired,
   onPostBtnPress: React.PropTypes.func.isRequired,
   postBtnEnabled: React.PropTypes.bool.isRequired,
   postBtnLoading: React.PropTypes.bool.isRequired,
 };
-export default CommentReplyBox;
+export default CommentReplyCard;

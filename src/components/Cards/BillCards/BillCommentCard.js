@@ -346,13 +346,16 @@ class BillCommentCard extends React.Component {
       if(!!this.props.commentData.commentId && !!this.props.commentData.billId){
           let postSuccessful = await this.props.onCommentPost(comment, {replies: this.props.commentData.replies, billId: this.props.commentData.billId, commentId: this.props.commentData.commentId, newCommentLvl: (this.props.commentData.commentLvl+1)});
           if(postSuccessful==true){
-            console.log("Comment lvl for this post: "+this.props.commentData.commentLvl);
-            if(this.props.commentData.commentLvl>1){  //if we are on comment lvl above 1
-                this.setState({replyBoxVisible:true});
+            let newCommentLvl = this.props.commentData.commentLvl+1;
+            // console.log("Comment lvl for this post: "+newCommentLvl);
+            if(newCommentLvl>1){  //if we are on comment lvl above 1
+                this.setState({replyBoxVisible:false});
+                this.accordionCard.expandCard();
             }else{                                  //if we are on comment lvl 1
               this.onShowMoreCommentsClick();
             }
           }
+          return postSuccessful;
       }
     }
   }
@@ -463,7 +466,7 @@ class BillCommentCard extends React.Component {
         return (
           <AccordionBillCommentCardContainer
             device={this.props.device}
-            collapsed={false}
+            ref={(ref) => this.accordionCard = ref}
             commentBeingPosted={this.props.commentData.commentBeingPosted}
             commentLvl={this.props.commentData.commentLvl}
             replies={this.props.commentData.replies}

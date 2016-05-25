@@ -1,10 +1,10 @@
 'use strict';
 /* @flow */
-console.log("@@@@@@@@@@@@@@@@@@@@ before react");
+
+
+
+
 import React from 'react';
-console.log("@@@@@@@@@@@@@@@@@@@@ React.Component is"+React.Component);
-
-
 import {Navigator, View, Image, Text, TouchableOpacity, Platform} from 'react-native';
 
 /**

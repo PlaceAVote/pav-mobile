@@ -14,8 +14,7 @@
  */
 import React from 'react';
 const {
-  PropTypes,
-  PixelRatio
+  PropTypes
 } = React;
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';

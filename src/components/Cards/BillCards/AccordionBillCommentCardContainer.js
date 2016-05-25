@@ -116,6 +116,13 @@ class AccordionBillCommentCardContainer extends React.Component {
 
 
 
+  expandCard(){
+    this.setState({isCollapsed:false});
+  }
+
+  collapseCard(){
+    this.setState({isCollapsed:true});
+  }
 
   /**
    * ## Styles for LANDSCAPE
@@ -276,7 +283,6 @@ AccordionBillCommentCardContainer.propTypes= {
 
 
   device: React.PropTypes.object.isRequired,
-  collapsed: React.PropTypes.bool.isRequired,
   commentLvl: React.PropTypes.number.isRequired,
 
 
