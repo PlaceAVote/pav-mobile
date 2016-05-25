@@ -16,8 +16,10 @@
  * ## Under test
  * class under test
  */
-jest.unmock('../fieldValidation.js');
+jest.unmock('../fieldValidation');
 jest.unmock('immutable');
+const fieldValidation = require('../fieldValidation').default;
+const {Record, Map} = require('immutable');
 
 
 /**
@@ -26,12 +28,10 @@ jest.unmock('immutable');
 describe('Tests that the fieldValidation function validates the input correctly.', () => {
 
 
-  import fieldValidation from '../fieldValidation.js';
   // jest.unmock('immutable');
   // jest.unmock('validate.js');
   // jest.unmock("underscore");
 
-  import {Record, Map} from 'immutable';
 
 
   let Form = Record({
