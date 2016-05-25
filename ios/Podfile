@@ -3,7 +3,7 @@
 
 target 'PlaceAVoteApp' do
   source 'https://github.com/CocoaPods/Specs.git'
-  pod 'React', :subspecs => ['Core', 'RCTImage', 'RCTNetwork', 'RCTText', 'RCTWebSocket', 'ART', 'RCTLinkingIOS'], :path => '../node_modules/react-native'
+  pod 'React', :subspecs => ['Core', 'RCTImage', 'RCTNetwork', 'RCTText', 'RCTWebSocket', 'ART', 'RCTLinkingIOS’,  'RCTVibration’,  'RCTSettings’,  'RCTGeolocation’,  'RCTActionSheet’], :path => '../node_modules/react-native'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 end

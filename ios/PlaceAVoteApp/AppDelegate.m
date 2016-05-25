@@ -55,9 +55,10 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
   return YES;
 }
+
+
 
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -69,4 +70,6 @@
   // Add any custom logic here.
   return handled;
 }
+
+
 @end

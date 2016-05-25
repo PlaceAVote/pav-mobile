@@ -6,6 +6,10 @@ PODS:
   - React/ART (0.26.1):
     - React/Core
   - React/Core (0.26.1)
+  - React/RCTActionSheet (0.26.1):
+    - React/Core
+  - React/RCTGeolocation (0.26.1):
+    - React/Core
   - React/RCTImage (0.26.1):
     - React/Core
     - React/RCTNetwork
@@ -13,7 +17,11 @@ PODS:
     - React/Core
   - React/RCTNetwork (0.26.1):
     - React/Core
+  - React/RCTSettings (0.26.1):
+    - React/Core
   - React/RCTText (0.26.1):
+    - React/Core
+  - React/RCTVibration (0.26.1):
     - React/Core
   - React/RCTWebSocket (0.26.1):
     - React/Core
@@ -24,10 +32,14 @@ DEPENDENCIES:
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - React/ART (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
   - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTLinkingIOS (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTSettings (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
 
@@ -44,6 +56,6 @@ SPEC CHECKSUMS:
   React: 9a7eb5f6e7146734fb50ab17f515087d302d5cca
   RNVectorIcons: 9c01d25b155ac9d00888b65ae34e370fbc41956a
 
-PODFILE CHECKSUM: dbb60a85c11caa04a699a00910a2e15ee0ea79d0
+PODFILE CHECKSUM: 15d98c5aab6234e45e21fb041b9375d3969c8f28
 
 COCOAPODS: 1.0.0

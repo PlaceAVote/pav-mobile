@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">PlaceAVoteApp</string>
     <string name="facebook_app_id">949301848442473</string>
 </resources>

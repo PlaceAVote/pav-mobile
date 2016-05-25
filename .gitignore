@@ -3,6 +3,7 @@
 .DS_Store
 
 # Xcode
+#
 build/
 *.pbxuser
 !default.pbxuser
@@ -22,45 +23,18 @@ DerivedData
 project.xcworkspace
 
 # Android/IJ
+#
 .idea
 .gradle
 local.properties
-.keystore
 
 # node.js
+#
 node_modules/
 npm-debug.log
-android/app/src/main/assets/
 
-
-
-#Cocoapods and iOS
-# Mac OS X Finder
-
-# Private Keys
-*.pem
-
-# Xcode legacy
-*.mode1
-*.perspective
-
-xcuserdata/
-project.xcworkspace/
-DerivedData/
-
-# build products
-*.[oa]
-
-# repositories
-.hg
-.svn
-CVS
-
-# automatic backup files
-*~.nib
-*.swp
-*~
-*(Autosaved).rtfd/
-Backup[ ]of[ ]*.pages/
-Backup[ ]of[ ]*.key/
-Backup[ ]of[ ]*.numbers/
+# BUCK
+buck-out/
+\.buckd/
+android/app/libs
+android/keystores/debug.keystore
