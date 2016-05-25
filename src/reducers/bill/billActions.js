@@ -300,7 +300,7 @@ export function commentOnBill(commentText, billId, sessionToken=null, dev = null
       dispatch(commentOnBillFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.commentOnBill({body:commentText, billId:billId});
-    console.log("Comment on bill RES: "+JSON.stringify(res));
+    // console.log("Comment on bill RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(commentOnBillFailure("Unable to get user bill data with this token."));

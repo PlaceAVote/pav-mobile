@@ -53,8 +53,9 @@ class CommentsPageRender extends React.Component {
     this.state={
       curSortFilter: SORT_FILTERS.HIGHEST_RATE,
       commentDataSource:ds.cloneWithRows(commentData),
-      listHeight:0,
-      footerY:0
+      lastRowY:0,
+      nowScrollingToBottom:false,
+      listHeight:0
     }
   }
 
@@ -190,20 +191,29 @@ class CommentsPageRender extends React.Component {
 
 
 
-    scrollToBottom(){
-      if(!!this.state.listHeight  && !!this.state.footerY){
-        var scrollDistance = this.state.listHeight + this.state.footerY;
-        let scrollResponder = this.refs.commentPageRenderList.getScrollResponder();
-        scrollResponder.scrollResponderScrollTo({x: 0, y: scrollDistance, animated: true});
+  scrollToBottom(bottomY){
+    if(!!this.state.lastRowY || bottomY){
+      if(this.state.nowScrollingToBottom==false){
+        this.setState({
+            nowScrollingToBottom: true
+        });
       }
+      let scrollDistance = bottomY || this.state.lastRowY;
+      let scrollResponder = this.refs.commentPageRenderList.getScrollResponder();
+      // console.log("Now scrolling to: "+scrollDistance);
+      scrollResponder.scrollResponderScrollTo({x: 0, y: scrollDistance, animated: true});
     }
+  }
 
   async onCommentPostToBill(comment){
     if(!!comment && comment.length>0){
       if(!!this.props.billId && !!this.props.onCommentPost){
           let postSuccessful = await this.props.onCommentPost(comment, {billId: this.props.billId, newCommentLvl: 0});
           if(postSuccessful == true){
-            this.scrollToBottom();
+            setTimeout(()=>{
+                this.scrollToBottom();
+            },500)
+
           }
           return postSuccessful;
       }
@@ -221,6 +231,7 @@ class CommentsPageRender extends React.Component {
     return (
       <View style={styles.headerContainer}>
         <CommentReplyCard
+          id={this.props.billId}
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPostToBill.bind(this)}
           postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingPosted==false)}
@@ -253,22 +264,27 @@ class CommentsPageRender extends React.Component {
          style={styles.commentsPageContainer}
          initialListSize={2}
          dataSource={this.state.commentDataSource}
-         //onLayout and renderFooter is a hackish way to gather properties we need to scroll to bottom
          onLayout={(event) => {
-                var layout = event.nativeEvent.layout;
-                this.setState({
-                    listHeight : layout.height
-                });
-
-            }}
-         renderFooter={() => (<View onLayout={(event)=>{
-               var layout = event.nativeEvent.layout;
-               this.setState({
-                   footerY : layout.y
-               });
-           }}></View>)}
-
+              var {height} = event.nativeEvent.layout;
+              this.setState({
+                  listHeight : height
+              });
+          }}
          renderHeader={()=>this.renderHeader(styles)}
+         onMomentumScrollEnd={(e)=>{
+           if(this.state.nowScrollingToBottom==true){
+             setTimeout(()=>{
+                //  let isAnimating = this.refs.commentPageRenderList.getScrollResponder().scrollResponderIsAnimating();
+                //  console.log("Momentum ended while animating was: "+isAnimating)
+                 if(this.refs.commentPageRenderList.getScrollResponder().scrollResponderIsAnimating()==false && this.state.nowScrollingToBottom==true){
+                   this.setState({
+                       nowScrollingToBottom: false
+                   });
+                 }
+             }, 250);
+           }
+
+         }}
          renderRow={(rowData) =>{
           //  console.log("Comment: "+JSON.stringify(rowData))
 
@@ -279,6 +295,17 @@ class CommentsPageRender extends React.Component {
 
            return (
              <BillCommentCard
+               onLayout={(event) => {
+                    var {height, y} = event.nativeEvent.layout;
+                    let offsetY = y-(this.state.listHeight-height); //we could just do offsetY = y, but that would mean that our listview would scroll to the comments 0 y and keep an empty space below it, so we don't.
+                    this.setState({
+                        lastRowY : offsetY
+                    });
+                    // console.log("comment: "+rowData.body+"lastRowY: "+this.state.lastRowY+". Now scrolling: "+this.state.nowScrollingToBottom+" WHEN y of it is: "+y);
+                    if(this.state.nowScrollingToBottom==true){
+                      this.scrollToBottom(offsetY);
+                    }
+                }}
                style={styles.commentCard}
                key={rowData.comment_id}
                device={this.props.device}

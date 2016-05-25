@@ -350,7 +350,7 @@ class BillCommentCard extends React.Component {
             // console.log("Comment lvl for this post: "+newCommentLvl);
             if(newCommentLvl>1){  //if we are on comment lvl above 1
                 this.setState({replyBoxVisible:false});
-                this.accordionCard.expandCard();
+                this.refs[this.props.commentData.commentId].expandCard();
             }else{                                  //if we are on comment lvl 1
               this.onShowMoreCommentsClick();
             }
@@ -466,7 +466,7 @@ class BillCommentCard extends React.Component {
         return (
           <AccordionBillCommentCardContainer
             device={this.props.device}
-            ref={(ref) => this.accordionCard = ref}
+            ref={this.props.commentData.commentId}
             commentBeingPosted={this.props.commentData.commentBeingPosted}
             commentLvl={this.props.commentData.commentLvl}
             replies={this.props.commentData.replies}
@@ -492,6 +492,7 @@ class BillCommentCard extends React.Component {
     if(this.state.replyBoxVisible==true){
       return (
         <CommentReplyCard
+          id={this.props.commentData.commentId}
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPost.bind(this)}
           postBtnEnabled={(this.props.commentData.commentBeingPosted==false)}
@@ -520,7 +521,10 @@ class BillCommentCard extends React.Component {
       paddingRightIfCommentLvlAbove0 = 0;
     }
     return(
-      <View style={[styles.cardContainer, {paddingLeft: paddingLeftIfCommentLvlAbove0, paddingRight:paddingRightIfCommentLvlAbove0},this.props.style]}>
+      <View
+        style={[styles.cardContainer, {paddingLeft: paddingLeftIfCommentLvlAbove0, paddingRight:paddingRightIfCommentLvlAbove0},this.props.style]}
+        onLayout={this.props.onLayout}
+      >
       <View style={styles.cardContent}>
         {this.renderHeader(styles)}
         {this.renderBody(styles)}
@@ -554,7 +558,8 @@ BillCommentCard.defaultProps = {commentLvl: 0};
 BillCommentCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   commentData: React.PropTypes.object.isRequired,
-
+  onLayout: React.PropTypes.func,
+  
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,

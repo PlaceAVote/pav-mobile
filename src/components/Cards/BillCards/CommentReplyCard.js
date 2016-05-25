@@ -63,7 +63,7 @@ class CommentReplyCard extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      comment:""
+      comment:"",
     }
   }
 
@@ -144,7 +144,10 @@ class CommentReplyCard extends React.Component {
   }
 
   reset(){
-    this.commentReplyInput.clear(); //clear the comment text
+    if(!!this.props.id){
+      let listRef = this.props.id;
+      this.refs[listRef].clear(); //clear the comment text
+    }
   }
 
   async onPostBtnPress(){
@@ -172,7 +175,7 @@ class CommentReplyCard extends React.Component {
           <Text style={styles.addCommentTitleText}>ADD A COMMENT </Text>
           <View style={styles.commentInputContainer}>
             <TextInput
-              ref={(ref) => this.commentReplyInput = ref}
+              ref={this.props.id}
               placeholder="Type a comment"
               multiline={true}
               editable={this.props.postBtnEnabled}
@@ -206,6 +209,7 @@ class CommentReplyCard extends React.Component {
 
 
 CommentReplyCard.propTypes= {
+  id:React.PropTypes.string.isRequired,
   orientation: React.PropTypes.string.isRequired,
   onPostBtnPress: React.PropTypes.func.isRequired,
   postBtnEnabled: React.PropTypes.bool.isRequired,
