@@ -35,6 +35,8 @@ import AccordionBillCommentCardContainer from './AccordionBillCommentCardContain
 import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 import CommentReplyCard from './CommentReplyCard';
 
+import _ from 'underscore';
+
 
 class BillCommentCard extends React.Component {
   constructor(props) {
@@ -490,13 +492,14 @@ class BillCommentCard extends React.Component {
 
   renderReplyBox(){
     if(this.state.replyBoxVisible==true){
+      console.log("Reply box loading: "+this.props.commentData.commentBeingPosted);
       return (
         <CommentReplyCard
           id={this.props.commentData.commentId}
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPost.bind(this)}
           postBtnEnabled={(this.props.commentData.commentBeingPosted==false)}
-          postBtnLoading={this.props.commentData.commentBeingPosted}
+          postBtnLoading={(this.props.commentData.commentBeingPosted==true)}
       />);
     }else{
       return <View></View>;
@@ -537,6 +540,7 @@ class BillCommentCard extends React.Component {
     );
   }
 
+// (!_.isEqual(nextProps.commentData, this.props.commentData))
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
@@ -559,7 +563,7 @@ BillCommentCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   commentData: React.PropTypes.object.isRequired,
   onLayout: React.PropTypes.func,
-  
+
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,

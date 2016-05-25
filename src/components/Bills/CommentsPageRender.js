@@ -235,7 +235,7 @@ class CommentsPageRender extends React.Component {
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPostToBill.bind(this)}
           postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingPosted==false)}
-          postBtnLoading={this.props.commentBeingPosted}
+          postBtnLoading={(this.props.commentBeingPosted==true)}
         />
         {this.renderSortHeader(styles)}
       </View>

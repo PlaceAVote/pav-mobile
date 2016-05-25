@@ -145,8 +145,10 @@ class CommentReplyCard extends React.Component {
 
   reset(){
     if(!!this.props.id){
-      let listRef = this.props.id;
-      this.refs[listRef].clear(); //clear the comment text
+      let txtInput = this.refs[this.props.id];
+      if(!!txtInput){
+          txtInput.clear(); //clear the comment text
+      }
     }
   }
 
