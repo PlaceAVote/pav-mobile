@@ -23,7 +23,8 @@ import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
 import Button from 'sp-react-native-iconbutton'
 
 
-import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import BillTabBar from './BillTabBar';
 // import TopicSelectTabBar from '../NewsFeed/TopicSelectTabBar'
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
@@ -357,17 +358,15 @@ class BillRender extends React.Component {
         ref="scrollableTabView"
         onChangeTab={({i, ref}) => {if(i==1){this.refs.status_tab.onTabFocus()}}}
         renderTabBar={() =>
-          <DefaultTabBar
-            indicatorPosition="bottom"
-            indicatorArrowsEnabled={false}
+          <BillTabBar
             underlineColor={Colors.negativeAccentColor}
             activeTextColor={Colors.primaryColor}
             inactiveTextColor={Colors.primaryColor}
             backgroundColor='rgba(255, 255, 255, 0.85)'
+            textStyle={styles.tabText}
           />}
         initialPage={3}
         style={styles.pagesContainer}
-        tabBarTextStyle={styles.tabText}
       >
         <SummaryPageRender
           tabLabel="Summary"

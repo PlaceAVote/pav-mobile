@@ -17,7 +17,7 @@ import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
 import Button from 'sp-react-native-iconbutton'
 
 
-import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
+// import ScrollableTabView from 'react-native-scrollable-tab-view';
 // import TopicSelectTabBar from '../NewsFeed/TopicSelectTabBar'
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
