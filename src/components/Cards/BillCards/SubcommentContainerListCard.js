@@ -88,6 +88,7 @@
               commentData={{
                 commentBeingTampered: this.props.commentBeingTampered,
                 commentLvl:this.props.commentLvl,
+                baseCommentLvl: this.props.baseCommentLvl,
                 timeString:moment(rowData.timestamp).fromNow(),
                 userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
                 commentText:rowData.body,
@@ -158,12 +159,12 @@
             //   console.log("@@ nextRepliesData vs previous: "+(nextRepliesData===previousRepliesData)+"@@");
             // }
             if(nextRepliesData instanceof List){
-              console.log("New datasource in our subcomment container list: "+nextProps.replies+" with length: "+nextProps.replies.size+" when previous had length: "+this.props.replies.size);
+              // console.log("New datasource in our subcomment container list: "+nextProps.replies+" with length: "+nextProps.replies.size+" when previous had length: "+this.props.replies.size);
               this.setState({
                 repliesSource: this.state.repliesSource.cloneWithRows(nextRepliesData.toJS())
               })
             }else{
-              console.log("New datasource in our subcomment container list: "+nextProps.replies+" with length: "+nextProps.replies.length+" when previous had length: "+this.props.replies.length);
+              // console.log("New datasource in our subcomment container list: "+nextProps.replies+" with length: "+nextProps.replies.length+" when previous had length: "+this.props.replies.length);
               this.setState({
                 repliesSource: this.state.repliesSource.cloneWithRows(nextRepliesData)
               })
@@ -181,6 +182,21 @@
       }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     SubcommentContainerListCard.propTypes= {
       style: View.propTypes.style,
       header:React.PropTypes.func,
@@ -191,14 +207,16 @@
       refreshable: React.PropTypes.bool,
       commentsBeingFetched: React.PropTypes.bool,
       commentBeingTampered: React.PropTypes.bool.isRequired,
+      device: React.PropTypes.object.isRequired,
+      commentLvl: React.PropTypes.number.isRequired,
+      baseCommentLvl: React.PropTypes.number.isRequired,
 
       onCommentsRefresh: React.PropTypes.func,
       onShowMoreCommentsClick: React.PropTypes.func.isRequired,
       onUserClick: React.PropTypes.func.isRequired,
       onLikeDislikeClick: React.PropTypes.func.isRequired,
       onCommentPost: React.PropTypes.func.isRequired,
-      device: React.PropTypes.object.isRequired,
-      commentLvl: React.PropTypes.number.isRequired,
+
     };
 
 

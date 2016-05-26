@@ -175,11 +175,11 @@ class CommentsRender extends React.Component {
           device={this.props.device}
           commentBeingTampered={this.props.commentBeingTampered}
           commentLvl={this.props.commentLvl+1}
+          baseCommentLvl={this.props.commentLvl}
           onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
           onUserClick={this.props.onUserClick}
           onLikeDislikeClick={this.props.onLikeDislikeClick}
           onCommentPost={this.props.onCommentPost}
-
           refresable={true}
           onCommentsRefresh={this.onCommentsRefresh.bind(this)}
           commentsBeingFetched={this.props.commentsBeingFetched}

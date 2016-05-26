@@ -51,7 +51,7 @@ const {
 
 import Immutable from 'immutable';
 
-import {findCommentPath} from '../../lib/Utils/commentCrawler';
+import {findCommentPath, findCommentBasedOnPath} from '../../lib/Utils/commentCrawler';
 
 
 
@@ -96,66 +96,53 @@ export default function newsfeedReducer(state = initialState, action) {
     case POST_COMMENT_ON_COMMENT_SUCCESS:
 
       let commentArr = state.comments.toJS();
-      let commentPath = findCommentPath(commentArr, action.payload.parentCommentId);
+      let commentPath = findCommentPath(commentArr, action.payload.parentCommentId);//get the comment path of this comment
       // console.log("Comment path: "+commentPath);
-      let curComArr = commentArr;
-
-      let lll = commentPath.length;
-      for(let iii=0;iii<lll;iii++){
-          let curCommentIt = commentPath[iii];
-          // console.log("Crawling comment path level: "+iii+" that is replies["+curCommentIt+"]")
-          // console.log("comment: "+curComArr[curCommentIt]+" with text: "+(curComArr[curCommentIt].body || ""));
-          curComArr = curComArr[curCommentIt].replies || [];
-      }
-      curComArr.push(action.payload.newComment);
+      let {initialArray, refToCurObject} = findCommentBasedOnPath(commentPath, commentArr);//get the comment itself in order to tamper it
+      refToCurObject.replies.push(action.payload.newComment);
       return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
         .setIn(['error'],null)
-        .setIn(['comments'], Immutable.fromJS(commentArr));
+        .setIn(['comments'], Immutable.fromJS(initialArray));
 
 
 
     case LIKE_COMMENT_SUCCESS:
     case DISLIKE_COMMENT_SUCCESS:
     let tmpCommentArr = state.comments.toJS();
-    let likeCommentPath = findCommentPath(tmpCommentArr, action.payload.parentCommentId);
-    let curLikeComArr = tmpCommentArr;
-    let llll = likeCommentPath.length;
-    for(let iiii=0;iiii<llll;iiii++){
-        let curCommentIt = likeCommentPath[iiii];
-        if(iiii+1==llll){//if we are on the last iteration
-          curLikeComArr = curLikeComArr[curCommentIt];  //just get a hold of the comment itself and not the replies
-        }else{  //otherwise
-          curLikeComArr = curLikeComArr[curCommentIt].replies;  //just move on to the next replies array
-        }
-    }
+    let likeCommentPath = findCommentPath(tmpCommentArr, action.payload.parentCommentId);//get the comment path of this comment
+    let l = findCommentBasedOnPath(likeCommentPath, tmpCommentArr); //get the comment itself in order to tamper it
+
+    // console.log("Comment with comment id: "+l.refToCurObject.comment_id+" liked: "+l.refToCurObject.liked);
     if(action.payload.isLike==true){
       //is like
-      curLikeComArr.liked = action.payload.newStatus; //mark as liked
+      l.refToCurObject.liked = action.payload.newStatus; //mark as liked
       if(action.payload.newStatus==true){ //comment is now liked
-        if(curLikeComArr.disliked==true){  //if the comment was disliked before it becomes liked
-          curLikeComArr.score += 1;       //then the score goes up by one for revoking the dislike
-          curLikeComArr.disliked = false; //we just liked a comment, we know its no longer disliked, so disable it
+        if(l.refToCurObject.disliked==true){  //if the comment was disliked before it becomes liked
+          l.refToCurObject.score += 1;       //then the score goes up by one for revoking the dislike
+          l.refToCurObject.disliked = false; //we just liked a comment, we know its no longer disliked, so disable it
         }
-        curLikeComArr.score += 1;
+        l.refToCurObject.score += 1;
       }else{  //comment like is now revoked
-        curLikeComArr.score -= 1;
+        l.refToCurObject.score -= 1;
       }
     }else{
       //is dislike
-      curLikeComArr.disliked = action.payload.newStatus;  //mark as disliked
+      l.refToCurObject.disliked = action.payload.newStatus;  //mark as disliked
       if(action.payload.newStatus==true){ //comment is now disliked
-        if(curLikeComArr.liked==true){  //if the comment was liked before it becomes disliked
-          curLikeComArr.score -= 1;     //then the score goes down by one for revoking the like
-          curLikeComArr.liked = false;  //if we just disliked a comment, we know its no longer liked, so disable it
+        if(l.refToCurObject.liked==true){  //if the comment was liked before it becomes disliked
+          l.refToCurObject.score -= 1;     //then the score goes down by one for revoking the like
+          l.refToCurObject.liked = false;  //if we just disliked a comment, we know its no longer liked, so disable it
         }
-        curLikeComArr.score -= 1;
+        l.refToCurObject.score -= 1;
       }else{  //comment dislike is now revoked
-        curLikeComArr.score += 1;
+        l.refToCurObject.score += 1;
       }
     }
+
+    // console.log("Comment that was liked: "+JSON.stringify(l.initialArray));
     return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
       .setIn(['error'],null)
-      .setIn(['comments'], Immutable.fromJS(tmpCommentArr));
+      .setIn(['comments'], Immutable.fromJS(l.initialArray));
     // return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
     //   .setIn(['error'],null)
 

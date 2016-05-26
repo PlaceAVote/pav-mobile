@@ -122,10 +122,10 @@ Action creators
 
 */
 
-export function navigateTo(schene, dataToTransferToNewShene) {
+export function navigateTo(schene, dataToTransferToNewShene, ableToNavigateToSelf = false) {
   return (dispatch, getState) => {
     const state = getState()
-    if(state.router.currentSchene!=schene){
+    if((ableToNavigateToSelf==false && state.router.currentSchene!=schene) || ableToNavigateToSelf==true){
       try{
         Actions[schene](dataToTransferToNewShene);
       }catch(e){

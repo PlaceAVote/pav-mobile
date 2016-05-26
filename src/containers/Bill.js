@@ -174,9 +174,10 @@ class Bill extends React.Component {
     }
     return (postResponse!=null);
   }
-  onShowMoreCommentsClick(replies, commentId, curCommentLvl){
+  onShowMoreCommentsClick(commentId, curCommentLvl){
+    // console.log("Bill: "+JSON.stringify(this.props.bill));
     let commentPath = findCommentPath(this.props.bill.comments.toJS(), commentId);
-    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, commentPath: commentPath[0], commentLvl: 1});
+    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, commentPath: commentPath, commentLvl: 0}, true);
   }
 
 

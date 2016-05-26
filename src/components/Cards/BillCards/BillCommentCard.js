@@ -37,6 +37,7 @@ import CommentReplyCard from './CommentReplyCard';
 
 import _ from 'underscore';
 
+const SUBCOMMENT_COUNT = 3;
 
 class BillCommentCard extends React.Component {
   constructor(props) {
@@ -364,9 +365,14 @@ class BillCommentCard extends React.Component {
                   replyBoxVisible:false,
                   commentBeingTampered:false
                 });
-                setTimeout(()=>{  //if I don't use this timeout, the collapsible never shows (bug of collapsible)
-                    this.refs[this.props.commentData.commentId].expandCard();
-                },350);
+                if(this.shouldBreakSubcommentToNewScreen()){
+                    this.onShowMoreCommentsClick();
+                }else{
+                  setTimeout(()=>{  //if I don't use this timeout, the collapsible never shows (bug of collapsible)
+                      this.refs[this.props.commentData.commentId].expandCard();
+                  },350);
+                }
+
             }else{
               this.setState({
                 commentBeingTampered:false
@@ -387,8 +393,8 @@ class BillCommentCard extends React.Component {
   }
 
   onShowMoreCommentsClick(){
-    if(this.props.onShowMoreCommentsClick && !!this.props.commentData.commentId && !!this.props.commentData.replies){
-        this.props.onShowMoreCommentsClick(this.props.commentData.replies, this.props.commentData.commentId, this.props.commentData.commentLvl);
+    if(this.props.onShowMoreCommentsClick && !!this.props.commentData.commentId){
+        this.props.onShowMoreCommentsClick( this.props.commentData.commentId, this.props.commentData.commentLvl);
     }
   }
 
@@ -471,11 +477,21 @@ class BillCommentCard extends React.Component {
   }
 
 
+  /*
+   Returns true
+    - for comment lvl 0
+    OR
+    - if we have SUBCOMMENT_COUNT or more lvls of comments inside our container
+  */
+  shouldBreakSubcommentToNewScreen(){
+    // console.log("Cur Comment:"+this.props.commentData.commentText+" lvl: "+comLvl+" when baseComLvl is: "+baseComLvl+" difference: "+(comLvl-baseComLvl));
+    return (this.props.commentData.commentLvl==0 || (this.props.commentData.commentLvl-this.props.commentData.baseCommentLvl>=SUBCOMMENT_COUNT));
+  }
 
   renderMoreCommentsLbl(replies, styles){
 
     if(!!replies && replies.length>0){
-      if(this.props.commentData.commentLvl<=0){ //for comment lvl 0
+      if(this.shouldBreakSubcommentToNewScreen()){
         return (
             <TouchableOpacity onPress={this.onShowMoreCommentsClick.bind(this)} style={styles.repliesBoxContainer}>
               <Text style={styles.repliesBoxText}>{replies.length>1?replies.length+" Replies ":"1 Reply"}</Text>
@@ -489,6 +505,7 @@ class BillCommentCard extends React.Component {
             ref={this.props.commentData.commentId}
             commentBeingTampered={this.state.commentBeingTampered}
             commentLvl={this.props.commentData.commentLvl+1}
+            baseCommentLvl={this.props.commentData.baseCommentLvl}
             replies={this.props.commentData.replies}
             onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
             onUserClick={this.props.onUserClick}
@@ -536,10 +553,11 @@ class BillCommentCard extends React.Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-
+    console.log("Comment: "+this.props.commentData.commentText+" of lvl: "+this.props.commentData.commentLvl+" of base lvl: "+this.props.commentData.baseCommentLvl);
     let paddingLeftIfCommentLvlAbove0  = null, paddingRightIfCommentLvlAbove0 = null;
     if(this.props.commentData.commentLvl>0){
-      paddingLeftIfCommentLvlAbove0 = this.props.commentData.commentLvl*(w*0.015);
+      let difFromParLvl = this.props.commentData.commentLvl-this.props.commentData.baseCommentLvl;
+      paddingLeftIfCommentLvlAbove0 = difFromParLvl*(w*0.015);
       paddingRightIfCommentLvlAbove0 = 0;
     }
     // console.log("@@@@ Comment lvl: "+this.props.commentData.commentLvl+' therefore left padding: '+paddingLeftIfCommentLvlAbove0);

@@ -179,6 +179,7 @@
                 device={this.props.device}
                 commentBeingTampered={this.props.commentBeingTampered}
                 commentLvl={this.props.commentLvl}
+                baseCommentLvl={this.props.baseCommentLvl}
                 onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
                 onUserClick={this.props.onUserClick}
                 onLikeDislikeClick={this.props.onLikeDislikeClick}
@@ -220,6 +221,7 @@
 
       device: React.PropTypes.object.isRequired,
       commentLvl: React.PropTypes.number.isRequired,
+      baseCommentLvl: React.PropTypes.number.isRequired,
 
 
     };

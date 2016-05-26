@@ -46,7 +46,7 @@ import CommentsRender from '../components/Comments/CommentsRender'
 
 import React from 'react';
 import {Linking} from 'react-native';
-
+import {findCommentPath, findCommentBasedOnPath} from '../lib/Utils/commentCrawler';
 
 
 import {
@@ -59,6 +59,7 @@ const {
 } = Other;
 const {
   VOTE,
+  COMMENTS
 } = ScheneKeys;
 
 
@@ -159,8 +160,10 @@ class Comments extends React.Component {
     postResponse = await this.props.actions.commentOnComment(comment, commentParentData.billId, commentParentData.commentId, commentParentData.newCommentLvl, TOKEN, DEV);
     return (postResponse!=null);
   }
-  onShowMoreCommentsClick(replies){
 
+  onShowMoreCommentsClick(commentId, curCommentLvl){
+    let commentPath = findCommentPath(this.props.bill.comments.toJS(), commentId);
+    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, commentPath: commentPath, commentLvl: curCommentLvl}, true);
   }
 
 
@@ -181,7 +184,9 @@ class Comments extends React.Component {
      commentData={replies}
      commentLvl={1}
 */
-    let curComments = this.props.bill.comments.get(this.props.commentPath).get("replies");
+
+    let {refToCurObject} = findCommentBasedOnPath(this.props.commentPath, this.props.bill.comments);
+    let curComments = refToCurObject.get("replies")
     return(
       <CommentsRender
           device={ this.props.device}
