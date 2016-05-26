@@ -79,62 +79,72 @@
         });
       }
 
-
-      render(){
-        let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-        let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+      renderRow(rowData, styles){
         return (
-          <ListView
+            <BillCommentCard
+              key={rowData.comment_id}
+              style={styles.commentCard}
+              device={this.props.device}
+              commentData={{
+                commentBeingTampered: this.props.commentBeingTampered,
+                commentLvl:this.props.commentLvl,
+                timeString:moment(rowData.timestamp).fromNow(),
+                userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
+                commentText:rowData.body,
+                userPhotoUrl:rowData.author_img_url,
+                likeCount:rowData.score,
+                isLiked:rowData.liked,
+                isDisliked:rowData.disliked,
+                userId:rowData.author,
+                commentId:rowData.comment_id,
+                billId:rowData.bill_id,
+                replies:rowData.replies,
+                isTopCommentInFavor:rowData.isTopCommentInFavor,
+                isTopCommentAgainst:rowData.isTopCommentAgainst,
+              }}
+              onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
+              onUserClick={this.props.onUserClick}
+              onLikeDislikeClick={this.props.onLikeDislikeClick}
+              onCommentPost={this.props.onCommentPost}
+              />)
+      }
+
+
+
+      renderList(refreshable, styles){
+        if(refreshable==true){
+          return (<ListView
            enableEmptySections={true}
            style={[styles.commentsList, this.props.style]}
            dataSource={this.state.repliesSource}
            renderHeader={this.props.header}
-           renderRow={(rowData) =>(
-               <BillCommentCard
-                 key={rowData.comment_id}
-                 style={styles.commentCard}
-                 device={this.props.device}
-                 commentData={{
-                   commentBeingTampered: this.props.commentBeingTampered,
-                   commentLvl:this.props.commentLvl,
-                   timeString:moment(rowData.timestamp).fromNow(),
-                   userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
-                   commentText:rowData.body,
-                   userPhotoUrl:rowData.author_img_url,
-                   likeCount:rowData.score,
-                   isLiked:rowData.liked,
-                   isDisliked:rowData.disliked,
-                   userId:rowData.author,
-                   commentId:rowData.comment_id,
-                   billId:rowData.bill_id,
-                   replies:rowData.replies,
-                   isTopCommentInFavor:rowData.isTopCommentInFavor,
-                   isTopCommentAgainst:rowData.isTopCommentAgainst,
-                 }}
-                 onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
-                 onUserClick={this.props.onUserClick}
-                 onLikeDislikeClick={this.props.onLikeDislikeClick}
-                 onCommentPost={this.props.onCommentPost}
-                 />)
-           }
-           refreshControl={this.getRefreshControllsIfNeeded.bind(this)}
-           />);
-      }
-
-      getRefreshControllsIfNeeded(){
-        if(this.props.refreshable==true){
-          return (<RefreshControl
-            refreshing={this.props.commentsBeingFetched}
-            onRefresh={this.props.onCommentsRefresh}
-            tintColor={Colors.primaryColor}
-            title="Loading..."
-            titleColor={Colors.primaryColor}
-            colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
-          />);
+           refreshControl={(<RefreshControl
+             refreshing={this.props.commentsBeingFetched}
+             onRefresh={this.props.onCommentsRefresh}
+             tintColor={Colors.primaryColor}
+             title="Loading..."
+             titleColor={Colors.primaryColor}
+             colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
+           />)}
+           renderRow={(rowData)=>this.renderRow(rowData,styles)}
+           />)
         }else{
-          return <View></View>;
+          return (<ListView
+           enableEmptySections={true}
+           style={[styles.commentsList, this.props.style]}
+           dataSource={this.state.repliesSource}
+           renderHeader={this.props.header}
+           renderRow={(rowData)=>this.renderRow(rowData,styles)}
+           />)
         }
       }
+
+      render(){
+        let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+        let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+        return this.renderList(this.props.refreshable, styles);
+      }
+
 
       componentWillReceiveProps (nextProps) {
         if (nextProps.replies!=null) {
