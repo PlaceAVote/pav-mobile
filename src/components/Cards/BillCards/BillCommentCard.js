@@ -43,7 +43,7 @@ class BillCommentCard extends React.Component {
     super(props);
     this.state = {
       replyBoxVisible: false,
-      commentBeingPosted: false
+      commentBeingTampered: false
     }
   }
 
@@ -329,15 +329,19 @@ class BillCommentCard extends React.Component {
     });
   }
 
-  onLikeClick(){
+  async onLikeClick(){
     if(this.props.onLikeDislikeClick){
-      this.props.onLikeDislikeClick(REACTIONS.HAPPY);
+      if(!!this.props.commentData.commentId && !!this.props.commentData.billId && this.props.commentData.isLiked!=null){
+        let success = await this.props.onLikeDislikeClick(REACTIONS.HAPPY, this.props.commentData.commentId, this.props.commentData.billId, this.props.commentData.isLiked);
+      }
     }
   }
 
-  onDislikeClick(){
+  async onDislikeClick(){
     if(this.props.onLikeDislikeClick){
-      this.props.onLikeDislikeClick(REACTIONS.SAD);
+      if(!!this.props.commentData.commentId && !!this.props.commentData.billId && this.props.commentData.isDisliked!=null){
+        let success = await this.props.onLikeDislikeClick(REACTIONS.SAD, this.props.commentData.commentId, this.props.commentData.billId, this.props.commentData.isDisliked);
+      }
     }
   }
 
@@ -350,7 +354,7 @@ class BillCommentCard extends React.Component {
   async onCommentPost(comment){
     if(!!comment && comment.length>0){
       if(!!this.props.commentData.commentId && !!this.props.commentData.billId){
-          this.setState({commentBeingPosted:true});
+          this.setState({commentBeingTampered:true});
           let postSuccessful = await this.props.onCommentPost(comment, {replies: this.props.commentData.replies, billId: this.props.commentData.billId, commentId: this.props.commentData.commentId, newCommentLvl: (this.props.commentData.commentLvl+1)});
           if(postSuccessful==true){
             let newCommentLvl = this.props.commentData.commentLvl+1;
@@ -358,14 +362,14 @@ class BillCommentCard extends React.Component {
             if(newCommentLvl>1){  //if we are on comment lvl above 1
                 this.setState({
                   replyBoxVisible:false,
-                  commentBeingPosted:false
+                  commentBeingTampered:false
                 });
                 setTimeout(()=>{  //if I don't use this timeout, the collapsible never shows (bug of collapsible)
                     this.refs[this.props.commentData.commentId].expandCard();
                 },350);
             }else{
               this.setState({
-                commentBeingPosted:false
+                commentBeingTampered:false
               });                                  //if we are on comment lvl 1
               this.onShowMoreCommentsClick();
             }
@@ -483,7 +487,7 @@ class BillCommentCard extends React.Component {
           <AccordionBillCommentCardContainer
             device={this.props.device}
             ref={this.props.commentData.commentId}
-            commentBeingPosted={this.state.commentBeingPosted}
+            commentBeingTampered={this.state.commentBeingTampered}
             commentLvl={this.props.commentData.commentLvl+1}
             replies={this.props.commentData.replies}
             onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
@@ -507,14 +511,14 @@ class BillCommentCard extends React.Component {
 
   renderReplyBox(){
     if(this.state.replyBoxVisible==true){
-      // console.log("Reply box loading: "+this.state.commentBeingPosted);
+      // console.log("Reply box loading: "+this.state.commentBeingTampered);
       return (
         <CommentReplyCard
           id={this.props.commentData.commentId}
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPost.bind(this)}
-          postBtnEnabled={(this.state.commentBeingPosted==false)}
-          postBtnLoading={(this.state.commentBeingPosted==true)}
+          postBtnEnabled={(this.state.commentBeingTampered==false)}
+          postBtnLoading={(this.state.commentBeingTampered==true)}
       />);
     }else{
       return <View></View>;
@@ -528,7 +532,7 @@ class BillCommentCard extends React.Component {
    * Setup some default presentations and render
    */
   render() {
-    // console.log("!!update Reply box loading: "+this.state.commentBeingPosted);
+    // console.log("!!update Reply box loading: "+this.state.commentBeingTampered);
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);

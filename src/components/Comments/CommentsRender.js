@@ -173,7 +173,7 @@ class CommentsRender extends React.Component {
           style={styles.commentsPageContainer}
           replies={this.props.replies}
           device={this.props.device}
-          commentBeingPosted={this.props.commentBeingPosted}
+          commentBeingTampered={this.props.commentBeingTampered}
           commentLvl={this.props.commentLvl+1}
           onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
           onUserClick={this.props.onUserClick}
@@ -195,7 +195,7 @@ class CommentsRender extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.commentBeingPosted !== this.props.commentBeingPosted)
+      (nextProps.commentBeingTampered !== this.props.commentBeingTampered)
       ||
       (nextProps.commentsBeingFetched !== this.props.commentsBeingFetched)
       ||
@@ -216,7 +216,7 @@ CommentsRender.propTypes = {
   billData: React.PropTypes.object.isRequired,
   device: React.PropTypes.object.isRequired,
   commentsBeingFetched: React.PropTypes.bool.isRequired,
-  commentBeingPosted: React.PropTypes.bool.isRequired,
+  commentBeingTampered: React.PropTypes.bool.isRequired,
   commentLvl: React.PropTypes.number.isRequired,
 
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,

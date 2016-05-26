@@ -95,7 +95,7 @@
                  style={styles.commentCard}
                  device={this.props.device}
                  commentData={{
-                   commentBeingPosted: this.props.commentBeingPosted,
+                   commentBeingTampered: this.props.commentBeingTampered,
                    commentLvl:this.props.commentLvl,
                    timeString:moment(rowData.timestamp).fromNow(),
                    userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
@@ -132,7 +132,7 @@
             colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
           />);
         }else{
-          return null;
+          return <View></View>;
         }
       }
 
@@ -180,7 +180,7 @@
       ]),
       refreshable: React.PropTypes.bool,
       commentsBeingFetched: React.PropTypes.bool,
-      commentBeingPosted: React.PropTypes.bool.isRequired,
+      commentBeingTampered: React.PropTypes.bool.isRequired,
 
       onCommentsRefresh: React.PropTypes.func,
       onShowMoreCommentsClick: React.PropTypes.func.isRequired,

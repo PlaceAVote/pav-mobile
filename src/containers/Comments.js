@@ -55,7 +55,7 @@ Other,
 Modals
 } from '../config/constants';
 const {
-  NEWS_FEED_FILTERS
+  REACTIONS
 } = Other;
 const {
   VOTE,
@@ -143,9 +143,15 @@ class Comments extends React.Component {
   onCommentUserClick(userId, photoUrl){
 
   }
-  onCommentLikeDislikeClick(){
-
+  async onCommentLikeDislikeClick(reaction, commentId, billId, curLikeDislikeEnabled){
+    switch(reaction){
+      case REACTIONS.HAPPY:
+        return await this.props.actions.likeComment(commentId, billId, curLikeDislikeEnabled, TOKEN, DEV);
+      case REACTIONS.SAD:
+        return await this.props.actions.dislikeComment(commentId, billId, curLikeDislikeEnabled, TOKEN, DEV);
+    }
   }
+
   async onCommentPostClick(comment, commentParentData){
     //this is always above lvl 0 of comments
     // alert(commentParentData.newCommentLvl==0?"Replying on a BILL":"Replying on a comment")
@@ -180,7 +186,7 @@ class Comments extends React.Component {
       <CommentsRender
           device={ this.props.device}
           billData={this.props.billData}
-          commentBeingPosted={this.props.bill.isFetching.commentBeingPosted}
+          commentBeingTampered={this.props.bill.isFetching.commentBeingTampered}
           commentsBeingFetched={this.props.bill.isFetching.billComments}
           replies={curComments}
           commentLvl={this.props.commentLvl}

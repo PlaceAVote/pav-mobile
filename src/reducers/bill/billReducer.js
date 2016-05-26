@@ -39,6 +39,14 @@ const {
   POST_COMMENT_ON_COMMENT_REQUEST,
   POST_COMMENT_ON_COMMENT_SUCCESS,
   POST_COMMENT_ON_COMMENT_FAILURE,
+
+  LIKE_COMMENT_REQUEST,
+  LIKE_COMMENT_SUCCESS,
+  LIKE_COMMENT_FAILURE,
+
+  DISLIKE_COMMENT_REQUEST,
+  DISLIKE_COMMENT_SUCCESS,
+  DISLIKE_COMMENT_FAILURE,
 } = ActionNames
 
 import Immutable from 'immutable';
@@ -61,10 +69,11 @@ export default function newsfeedReducer(state = initialState, action) {
   switch (action.type) {
 
 
-
+    case LIKE_COMMENT_REQUEST:
+    case DISLIKE_COMMENT_REQUEST:
     case POST_COMMENT_ON_BILL_REQUEST:
     case POST_COMMENT_ON_COMMENT_REQUEST:
-      return state.setIn([ 'isFetching', 'commentBeingPosted'], true)
+      return state.setIn([ 'isFetching', 'commentBeingTampered'], true)
         .setIn(['error'],null);
 
     case GET_BILL_REQUEST:
@@ -81,15 +90,13 @@ export default function newsfeedReducer(state = initialState, action) {
 
     case POST_COMMENT_ON_BILL_SUCCESS:
       let commentsNewList = state.comments.push(action.payload) //push the new comment to the comments array
-      return state.setIn([ 'isFetching', 'commentBeingPosted'], false)
+      return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
         .setIn(['error'],null)
         .setIn(['comments'], commentsNewList);
     case POST_COMMENT_ON_COMMENT_SUCCESS:
-      // console.log("@@COMMENT on COMMENT: "+JSON.stringify(action.payload))
-      // let commentsNewList = state.comments.push(action.payload) //push the new comment to the comments array
-      let {newComment, parentCommentId, newCommentLvl} = action.payload;
+
       let commentArr = state.comments.toJS();
-      let commentPath = findCommentPath(commentArr, parentCommentId);
+      let commentPath = findCommentPath(commentArr, action.payload.parentCommentId);
       // console.log("Comment path: "+commentPath);
       let curComArr = commentArr;
 
@@ -100,15 +107,57 @@ export default function newsfeedReducer(state = initialState, action) {
           // console.log("comment: "+curComArr[curCommentIt]+" with text: "+(curComArr[curCommentIt].body || ""));
           curComArr = curComArr[curCommentIt].replies || [];
       }
-      curComArr.push(newComment);
-      return state.setIn([ 'isFetching', 'commentBeingPosted'], false)
+      curComArr.push(action.payload.newComment);
+      return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
         .setIn(['error'],null)
         .setIn(['comments'], Immutable.fromJS(commentArr));
 
 
 
-
-
+    case LIKE_COMMENT_SUCCESS:
+    case DISLIKE_COMMENT_SUCCESS:
+    let tmpCommentArr = state.comments.toJS();
+    let likeCommentPath = findCommentPath(tmpCommentArr, action.payload.parentCommentId);
+    let curLikeComArr = tmpCommentArr;
+    let llll = likeCommentPath.length;
+    for(let iiii=0;iiii<llll;iiii++){
+        let curCommentIt = likeCommentPath[iiii];
+        if(iiii+1==llll){//if we are on the last iteration
+          curLikeComArr = curLikeComArr[curCommentIt];  //just get a hold of the comment itself and not the replies
+        }else{  //otherwise
+          curLikeComArr = curLikeComArr[curCommentIt].replies;  //just move on to the next replies array
+        }
+    }
+    if(action.payload.isLike==true){
+      //is like
+      curLikeComArr.liked = action.payload.newStatus; //mark as liked
+      if(action.payload.newStatus==true){ //comment is now liked
+        if(curLikeComArr.disliked==true){  //if the comment was disliked before it becomes liked
+          curLikeComArr.score += 1;       //then the score goes up by one for revoking the dislike
+          curLikeComArr.disliked = false; //we just liked a comment, we know its no longer disliked, so disable it
+        }
+        curLikeComArr.score += 1;
+      }else{  //comment like is now revoked
+        curLikeComArr.score -= 1;
+      }
+    }else{
+      //is dislike
+      curLikeComArr.disliked = action.payload.newStatus;  //mark as disliked
+      if(action.payload.newStatus==true){ //comment is now disliked
+        if(curLikeComArr.liked==true){  //if the comment was liked before it becomes disliked
+          curLikeComArr.score -= 1;     //then the score goes down by one for revoking the like
+          curLikeComArr.liked = false;  //if we just disliked a comment, we know its no longer liked, so disable it
+        }
+        curLikeComArr.score -= 1;
+      }else{  //comment dislike is now revoked
+        curLikeComArr.score += 1;
+      }
+    }
+    return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
+      .setIn(['error'],null)
+      .setIn(['comments'], Immutable.fromJS(tmpCommentArr));
+    // return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
+    //   .setIn(['error'],null)
 
     case GET_BILL_SUCCESS:
       return state.setIn([ 'isFetching', 'billData'], false)
@@ -152,9 +201,11 @@ export default function newsfeedReducer(state = initialState, action) {
       }
       return newState;
 
+    case LIKE_COMMENT_FAILURE:
+    case DISLIKE_COMMENT_FAILURE:
     case POST_COMMENT_ON_BILL_FAILURE:
     case POST_COMMENT_ON_COMMENT_FAILURE:
-      return state.setIn([ 'isFetching', 'commentBeingPosted'], false)
+      return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
         .setIn(['error'],action.payload);
 
     case GET_BILL_FAILURE:

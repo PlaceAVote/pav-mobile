@@ -27,7 +27,7 @@ var InitialState = Record({
     billData: false,
     billComments: false,
     billTopComments: false,
-    commentBeingPosted: false,
+    commentBeingTampered: false,
   })),
 
   data: null,

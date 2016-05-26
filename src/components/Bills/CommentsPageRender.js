@@ -234,8 +234,8 @@ class CommentsPageRender extends React.Component {
           id={this.props.billId}
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPostToBill.bind(this)}
-          postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingPosted==false)}
-          postBtnLoading={(this.props.commentBeingPosted==true)}
+          postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingTampered==false)}
+          postBtnLoading={(this.props.commentBeingTampered==true)}
         />
         {this.renderSortHeader(styles)}
       </View>
@@ -256,7 +256,7 @@ class CommentsPageRender extends React.Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
-    // console.log("CommentsPageRender rebder .commentBeingPosted: "+this.props.commentBeingPosted);
+    // console.log("CommentsPageRender rebder .commentBeingTampered: "+this.props.commentBeingTampered);
     return(
       <ListView
          ref="commentPageRenderList"
@@ -292,7 +292,7 @@ class CommentsPageRender extends React.Component {
           //  if(this.props.topCommentInFavorId==rowData["comment_id"]){
           //     console.log("top in favor")
           //  }
-          // console.log("CommentsPageRender render ROW commentBeingPosted: "+this.props.commentBeingPosted);
+          // console.log("CommentsPageRender render ROW commentBeingTampered: "+this.props.commentBeingTampered);
            return (
              <BillCommentCard
                onLayout={(event) => {
@@ -310,7 +310,7 @@ class CommentsPageRender extends React.Component {
                key={rowData.comment_id}
                device={this.props.device}
                commentData={{
-                 commentBeingPosted: this.props.commentBeingPosted,
+                 commentBeingTampered: this.props.commentBeingTampered,
                  commentLvl:0,
                  timeString:moment(rowData.timestamp).fromNow(),
                  userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
@@ -369,7 +369,7 @@ class CommentsPageRender extends React.Component {
     return(
       (nextProps.commentsBeingFetched !== this.props.commentsBeingFetched)
       ||
-      (nextProps.commentBeingPosted !== this.props.commentBeingPosted)
+      (nextProps.commentBeingTampered !== this.props.commentBeingTampered)
       ||
       (nextProps.device !== this.props.device)
       ||
@@ -385,7 +385,7 @@ CommentsPageRender.propTypes = {
   billId: React.PropTypes.string,
   commentData: React.PropTypes.object,
   device: React.PropTypes.object.isRequired,
-  commentBeingPosted: React.PropTypes.bool.isRequired,
+  commentBeingTampered: React.PropTypes.bool.isRequired,
   commentsBeingFetched: React.PropTypes.bool.isRequired,
   topCommentsBeingFetched: React.PropTypes.bool.isRequired,
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,

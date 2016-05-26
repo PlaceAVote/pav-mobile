@@ -350,7 +350,7 @@ class BillRender extends React.Component {
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
   renderBody(data, styles){
-    let {billData, commentData, isFetchingComments, isFetchingTopComments, isFetchingCommentBeingPosted} = data;
+    let {billData, commentData, isFetchingComments, isFetchingTopComments, isFetchingcommentBeingTampered} = data;
 
     if(!!billData){
       return (<ScrollableTabView
@@ -427,7 +427,7 @@ class BillRender extends React.Component {
           ref="comments_tab"
           commentData={commentData}
           billId={billData.bill_id}
-          commentBeingPosted={isFetchingCommentBeingPosted}
+          commentBeingTampered={isFetchingcommentBeingTampered}
           commentsBeingFetched={isFetchingComments}
           topCommentsBeingFetched={isFetchingTopComments}
           onCommentsRefresh={this.props.onCommentsRefresh}
@@ -494,7 +494,7 @@ class BillRender extends React.Component {
             commentData: this.props.bill.comments,
             isFetchingComments: this.props.bill.isFetching.billComments,
             isFetchingTopComments: this.props.bill.isFetching.billTopComments,
-            isFetchingCommentBeingPosted: this.props.bill.isFetching.commentBeingPosted,
+            isFetchingcommentBeingTampered: this.props.bill.isFetching.commentBeingTampered,
           }, styles)}
         </View>
         {this.renderFooter(styles)}
@@ -514,5 +514,22 @@ class BillRender extends React.Component {
 
 }
 
+BillRender.propTypes= {
+  device: React.PropTypes.object.isRequired,
+  bill: React.PropTypes.object.isRequired,
+  billTitle: React.PropTypes.string.isRequired,
+  subjectTitle: React.PropTypes.string.isRequired,
+  favorPercentage: React.PropTypes.any.isRequired,
 
+  onSocialClick: React.PropTypes.func.isRequired,
+  onVoteBtnPress: React.PropTypes.func.isRequired,
+  onSponsorClick: React.PropTypes.func.isRequired,
+  onDownloadBillAsPDF: React.PropTypes.func.isRequired,
+  onCommentsRefresh: React.PropTypes.func.isRequired,
+  onCommentUserClick: React.PropTypes.func.isRequired,
+  onCommentLikeDislikeClick: React.PropTypes.func.isRequired,
+  onShowMoreCommentsClick: React.PropTypes.func.isRequired,
+  onCommentPost: React.PropTypes.func.isRequired,
+  onTagPress: React.PropTypes.func.isRequired,
+};
 export default BillRender;

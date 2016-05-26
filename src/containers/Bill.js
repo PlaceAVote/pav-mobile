@@ -55,7 +55,8 @@ Other,
 Modals
 } from '../config/constants';
 const {
-  NEWS_FEED_FILTERS
+  REACTIONS,
+  SOCIAL_TYPES
 } = Other;
 const {
   VOTE,
@@ -156,8 +157,13 @@ class Bill extends React.Component {
   onCommentUserClick(userId, photoUrl){
     alert(photoUrl);
   }
-  onCommentLikeDislikeClick(reaction){
-
+  async onCommentLikeDislikeClick(reaction, commentId, billId, curLikeDislikeEnabled){
+    switch(reaction){
+      case REACTIONS.HAPPY:
+        return await this.props.actions.likeComment(commentId, billId, curLikeDislikeEnabled, TOKEN, DEV);
+      case REACTIONS.SAD:
+        return await this.props.actions.dislikeComment(commentId, billId, curLikeDislikeEnabled, TOKEN, DEV);
+    }
   }
   async onCommentPost(comment, commentParentData){  //runs when the user hits the POST button either on a bill or on a comment reply box
     let postResponse = null;
@@ -173,11 +179,30 @@ class Bill extends React.Component {
     this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, commentPath: commentPath[0], commentLvl: 1});
   }
 
+
+  onSocialClick(type, data){
+    //data = {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+    switch(type){
+      case SOCIAL_TYPES.TWITTER:
+      case SOCIAL_TYPES.FACEBOOK:
+        break;
+    }
+  }
+
+  onTagPress(){
+
+  }
+
   render() {
     return(
       <BillRender
           device={ this.props.device}
           bill={this.props.bill}
+          billTitle="Whatevah"
+          subjectTitle="Whatevah"
+          favorPercentage={23}
+          onSocialClick={this.onSocialClick.bind(this)}
+          onTagPress={this.onTagPress.bind(this)}
           onVoteBtnPress={this.onVoteBtnPress.bind(this)}
           onSponsorClick={this.onSponsorClick.bind(this)}
           onDownloadBillAsPDF={this.onDownloadBillAsPDF.bind(this)}

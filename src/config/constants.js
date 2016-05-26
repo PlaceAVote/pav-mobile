@@ -316,6 +316,14 @@ module.exports =  {
    POST_COMMENT_ON_COMMENT_SUCCESS: null,
    POST_COMMENT_ON_COMMENT_FAILURE: null,
 
+   LIKE_COMMENT_REQUEST: null,
+   LIKE_COMMENT_SUCCESS: null,
+   LIKE_COMMENT_FAILURE: null,
+
+   DISLIKE_COMMENT_REQUEST: null,
+   DISLIKE_COMMENT_SUCCESS: null,
+   DISLIKE_COMMENT_FAILURE: null,
+
     /* Not yet implemented */
    //  DELETE_TOKEN_REQUEST: null,
    //  DELETE_TOKEN_SUCCESS: null,

@@ -131,7 +131,7 @@
       }
 
       renderAccordionHeader(styles){
-        console.log("renderAccordionHeader this.state.isCollapsed "+this.state.isCollapsed);
+        // console.log("renderAccordionHeader this.state.isCollapsed "+this.state.isCollapsed);
         return (
           <TouchableOpacity onPress={this.onHeaderClick.bind(this)} style={styles.headerContainer}>
             <View style={styles.repliesBoxTextContainer}>
@@ -149,11 +149,11 @@
       getBgColorBasedOnCommentLvl(commentLvl){
         switch(commentLvl%3){
           case 0:
-            return 'rgba(165, 203, 117, 0.1)';
+            return 'rgba(165, 203, 117, 0.1)';  //greenish
           case 1:
-            return 'rgba(83, 110, 178, 0.1)';
+            return 'rgba(83, 110, 178, 0.1)';  //blueish
           case 2:
-            return 'rgba(230, 74, 51, 0.1)';
+            return 'rgba(230, 74, 51, 0.05)';  //redish
         }
         return Colors.transparentColor;
       }
@@ -169,7 +169,7 @@
         let isPortrait = (this.props.device.orientation!="LANDSCAPE");
         // console.log("@@@@ IS PORTRAIT : "+isPortrait);
         let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-        console.log("this.state.isCollapsed"+this.state.isCollapsed);
+        // console.log("this.state.isCollapsed"+this.state.isCollapsed);
         return(
           <View style={[styles.cardContainer,{backgroundColor: this.getBgColorBasedOnCommentLvl(this.props.commentLvl)}, this.props.style]}>
             {this.renderAccordionHeader(styles)}
@@ -177,7 +177,7 @@
               <SubcommentContainerListCard
                 replies={this.props.replies}
                 device={this.props.device}
-                commentBeingPosted={this.props.commentBeingPosted}
+                commentBeingTampered={this.props.commentBeingTampered}
                 commentLvl={this.props.commentLvl}
                 onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
                 onUserClick={this.props.onUserClick}
@@ -212,7 +212,7 @@
     AccordionBillCommentCardContainer.propTypes= {
 
       replies:React.PropTypes.array.isRequired,
-      commentBeingPosted: React.PropTypes.bool.isRequired,
+      commentBeingTampered: React.PropTypes.bool.isRequired,
       onShowMoreCommentsClick: React.PropTypes.func.isRequired,
       onUserClick: React.PropTypes.func.isRequired,
       onLikeDislikeClick: React.PropTypes.func.isRequired,
