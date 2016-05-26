@@ -186,14 +186,13 @@ class Comments extends React.Component {
 */
 
     let {refToCurObject} = findCommentBasedOnPath(this.props.commentPath, this.props.bill.comments);
-    let curComments = refToCurObject.get("replies")
     return(
       <CommentsRender
           device={ this.props.device}
           billData={this.props.billData}
           commentBeingTampered={this.props.bill.isFetching.commentBeingTampered}
           commentsBeingFetched={this.props.bill.isFetching.billComments}
-          replies={curComments}
+          replies={refToCurObject.get("replies")}
           commentLvl={this.props.commentLvl}
           onCommentsRefresh={this.onCommentsRefresh.bind(this)}
           onUserClick={this.onCommentUserClick.bind(this)}
