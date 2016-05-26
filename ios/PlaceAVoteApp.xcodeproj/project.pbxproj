@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PlaceAVoteAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PlaceAVoteAppTests.m */; };
 		0EFE5354DB374C699C6937C6 /* Whitney-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AFDBC4DF6CCE4C7A8A8E0E58 /* Whitney-Book.ttf */; };
@@ -27,6 +28,7 @@
 		D33DD0001CF6127900FA3F00 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33DCFFD1CF6127900FA3F00 /* FBSDKCoreKit.framework */; };
 		D33DD0011CF6127900FA3F00 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33DCFFE1CF6127900FA3F00 /* FBSDKLoginKit.framework */; };
 		D33DD0021CF6127900FA3F00 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33DCFFF1CF6127900FA3F00 /* FBSDKShareKit.framework */; };
+		D3D5D22E1CF75F0B00BFF8DB /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D5D22D1CF75F0B00BFF8DB /* Orientation.m */; };
 		ED5CA23BFDB6419A8E6ED64C /* Whitney-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 16A6D96B78CE48759E73063A /* Whitney-Light.ttf */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 		D33DCFFD1CF6127900FA3F00 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		D33DCFFE1CF6127900FA3F00 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		D33DCFFF1CF6127900FA3F00 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		D3D5D22C1CF75F0B00BFF8DB /* Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
+		D3D5D22D1CF75F0B00BFF8DB /* Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,7 @@
 		13B07FAE1A68108700A75B9A /* PlaceAVoteApp */ = {
 			isa = PBXGroup;
 			children = (
+				D3D5D22B1CF75F0B00BFF8DB /* RCTOrientation */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -217,6 +222,15 @@
 				D33DCFFC1CF6125B00FA3F00 /* libRCTFBSDK.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D3D5D22B1CF75F0B00BFF8DB /* RCTOrientation */ = {
+			isa = PBXGroup;
+			children = (
+				D3D5D22C1CF75F0B00BFF8DB /* Orientation.h */,
+				D3D5D22D1CF75F0B00BFF8DB /* Orientation.m */,
+			);
+			path = RCTOrientation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,6 +480,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				D3D5D22E1CF75F0B00BFF8DB /* Orientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
