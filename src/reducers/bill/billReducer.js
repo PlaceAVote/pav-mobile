@@ -96,6 +96,8 @@ export default function newsfeedReducer(state = initialState, action) {
       let lll = commentPath.length;
       for(let iii=0;iii<lll;iii++){
           let curCommentIt = commentPath[iii];
+          // console.log("Crawling comment path level: "+iii+" that is replies["+curCommentIt+"]")
+          // console.log("comment: "+curComArr[curCommentIt]+" with text: "+(curComArr[curCommentIt].body || ""));
           curComArr = curComArr[curCommentIt].replies || [];
       }
       curComArr.push(newComment);

@@ -2,7 +2,7 @@
 /**
  * # CommentsRender.js
  *
- * This class is a little complicated as it handles multiple states.
+ * This class is our render class for the comments container
  *
  */
 'use strict';
@@ -10,49 +10,17 @@
 
 
 import LinearGradient from 'react-native-linear-gradient';
-
-
-/*A react native button*/
-// import Button from 'sp-react-native-iconbutton'
-
-
-
-// import TopicSelectTabBar from '../NewsFeed/TopicSelectTabBar'
-
-import {Colors, ScheneKeys, Other} from '../../config/constants';
+import {Colors, Other} from '../../config/constants';
 const {SORT_FILTERS} = Other;
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, ListView, RefreshControl} from 'react-native';
-// import ProgressBar from 'ProgressBarAndroid';
-
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
-
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-// import icomoonConfig from '../../../assets/fonts/icomoon.json';
-// const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
-
-import BillCommentCard from '../Cards/BillCards/BillCommentCard';
-import moment from 'moment';
-// import _ from 'underscore';
-
-/**
-* Icons library
-*/
-
 import PavImage from '../../lib/UI/PavImage'
-
-
-
-/**
- * The states were interested in
- */
-// const {
-//   SET_ORIENTATION
-// } = ScheneKeys;
-
-
+import SubcommentContainerListCard from '../Cards/BillCards/SubcommentContainerListCard';
+import {List} from 'immutable';
 
 
 
@@ -67,12 +35,8 @@ import PavImage from '../../lib/UI/PavImage'
 class CommentsRender extends React.Component {
   constructor(props) {
     super(props);
-    let commentData = this.props.commentData.toJS() || [];
-    // console.log("@@: "+JSON.stringify(commentData));
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
       curSortFilter: SORT_FILTERS.HIGHEST_RATE,
-      commentDataSource:ds.cloneWithRows(commentData),
     }
   }
 
@@ -95,6 +59,9 @@ class CommentsRender extends React.Component {
         // marginVertical: 10,
         // marginHorizontal:15
       },
+
+
+      //Subcomment list
       commentsPageContainer:{
         flex:1,
         backgroundColor: '#E8E7EE',
@@ -183,6 +150,14 @@ class CommentsRender extends React.Component {
       }
     }
 
+
+    onCommentsRefresh(){
+      if(!!this.props.onCommentsRefresh){
+          this.props.onCommentsRefresh(this.state.curSortFilter)
+      }
+    }
+
+
   /**
    * ### render method
    */
@@ -193,61 +168,22 @@ class CommentsRender extends React.Component {
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <View style={styles.container}>
-        <ListView
-           enableEmptySections={true}
-           style={styles.commentsPageContainer}
-           initialListSize={3}
-           dataSource={this.state.commentDataSource}
-           renderHeader={()=>this.renderHeader(this.props.billData, this.props.device.platform, styles)}
-           removeClippedSubviews={true}
-           renderRow={(rowData) =>{
-            //  console.log("Comment: "+JSON.stringify(rowData))
-            //  console.log("Cur comment id: "+rowData.comment_id+" when top comment id is: "+this.props.topCommentInFavorId);
-            //  if(this.props.topCommentInFavorId==rowData["comment_id"]){
-            //     console.log("top in favor")
-            //  }
+        <SubcommentContainerListCard
+          header={this.renderHeader.bind(this,this.props.billData, this.props.device.platform, styles)}
+          style={styles.commentsPageContainer}
+          replies={this.props.replies}
+          device={this.props.device}
+          commentBeingPosted={this.props.commentBeingPosted}
+          commentLvl={this.props.commentLvl+1}
+          onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
+          onUserClick={this.props.onUserClick}
+          onLikeDislikeClick={this.props.onLikeDislikeClick}
+          onCommentPost={this.props.onCommentPost}
 
-             return (
-               <BillCommentCard
-                 style={styles.commentCard}
-                 key={rowData.comment_id}
-                 device={this.props.device}
-                 commentData={{
-                   commentBeingPosted: this.props.commentBeingPosted,
-                   commentLvl:this.props.commentLvl,
-                   timeString:moment(rowData.timestamp).fromNow(),
-                   userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
-                   commentText:rowData.body,
-                   userPhotoUrl:rowData.author_img_url,
-                   likeCount:rowData.score,
-                   isLiked:rowData.liked,
-                   isDisliked:rowData.disliked,
-                   userId:rowData.author,
-                   commentId:rowData.comment_id,
-                   billId:rowData.bill_id,
-                   replies:rowData.replies,
-                   isTopCommentInFavor:rowData.isTopCommentInFavor,
-                   isTopCommentAgainst:rowData.isTopCommentAgainst,
-                 }}
-                 onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
-                 onUserClick={this.props.onUserClick}
-                 onLikeDislikeClick={this.props.onLikeDislikeClick}
-                 onCommentPost={this.onCommentPostToComment.bind(this)}
-                 />
-
-             )}
-           }
-           refreshControl={
-             <RefreshControl
-               refreshing={this.props.commentsBeingFetched}
-               onRefresh={()=>this.props.onCommentsRefresh(this.state.curSortFilter)}
-               tintColor={Colors.primaryColor}
-               title="Loading..."
-               titleColor={Colors.primaryColor}
-               colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
-             />
-           }
-        />
+          refresable={true}
+          onCommentsRefresh={this.onCommentsRefresh.bind(this)}
+          commentsBeingFetched={this.props.commentsBeingFetched}
+          />
       </View>
     );
 
@@ -256,19 +192,6 @@ class CommentsRender extends React.Component {
 
 
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.commentData!=null) {
-      let previousCommentData = this.props.commentData;
-      let nextCommentData = nextProps.commentData;
-      // console.log("ROK1 CommentsRender BEFORE @@@@@@ EQUAL: "+(previousCommentData===nextCommentData));
-      if(previousCommentData==null || (previousCommentData!==nextCommentData) ){
-        // console.log("ROK1 AFTER @@@@@@ : "+nextProps.commentData);
-        this.setState({
-          commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData.toJS())
-        })
-      }
-    }
-  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
@@ -282,19 +205,19 @@ class CommentsRender extends React.Component {
       ||
       (nextState.curSortFilter !== this.state.curSortFilter)
       ||
-      (nextState.commentDataSource !== this.state.commentDataSource)
-
+      (nextProps.replies !== this.props.replies)
     );
   }
 
 }
 
 CommentsRender.propTypes = {
-  commentData: React.PropTypes.object.isRequired,
+  replies: React.PropTypes.instanceOf(List).isRequired,
   billData: React.PropTypes.object.isRequired,
   device: React.PropTypes.object.isRequired,
   commentsBeingFetched: React.PropTypes.bool.isRequired,
   commentBeingPosted: React.PropTypes.bool.isRequired,
+  commentLvl: React.PropTypes.number.isRequired,
 
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,

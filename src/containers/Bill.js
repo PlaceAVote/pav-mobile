@@ -170,7 +170,7 @@ class Bill extends React.Component {
   }
   onShowMoreCommentsClick(replies, commentId, curCommentLvl){
     let commentPath = findCommentPath(this.props.bill.comments.toJS(), commentId);
-    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, commentPath: commentPath[0], commentLvl: (curCommentLvl+1)});
+    this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data, commentPath: commentPath[0], commentLvl: 1});
   }
 
   render() {

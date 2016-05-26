@@ -42,7 +42,8 @@ class BillCommentCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      replyBoxVisible: false
+      replyBoxVisible: false,
+      commentBeingPosted: false
     }
   }
 
@@ -343,17 +344,29 @@ class BillCommentCard extends React.Component {
   onReplyClick(){
     this.setState({replyBoxVisible:!this.state.replyBoxVisible});
   }
+
+
+
   async onCommentPost(comment){
     if(!!comment && comment.length>0){
       if(!!this.props.commentData.commentId && !!this.props.commentData.billId){
+          this.setState({commentBeingPosted:true});
           let postSuccessful = await this.props.onCommentPost(comment, {replies: this.props.commentData.replies, billId: this.props.commentData.billId, commentId: this.props.commentData.commentId, newCommentLvl: (this.props.commentData.commentLvl+1)});
           if(postSuccessful==true){
             let newCommentLvl = this.props.commentData.commentLvl+1;
             // console.log("Comment lvl for this post: "+newCommentLvl);
             if(newCommentLvl>1){  //if we are on comment lvl above 1
-                this.setState({replyBoxVisible:false});
-                this.refs[this.props.commentData.commentId].expandCard();
-            }else{                                  //if we are on comment lvl 1
+                this.setState({
+                  replyBoxVisible:false,
+                  commentBeingPosted:false
+                });
+                setTimeout(()=>{  //if I don't use this timeout, the collapsible never shows (bug of collapsible)
+                    this.refs[this.props.commentData.commentId].expandCard();
+                },350);
+            }else{
+              this.setState({
+                commentBeingPosted:false
+              });                                  //if we are on comment lvl 1
               this.onShowMoreCommentsClick();
             }
           }
@@ -361,6 +374,7 @@ class BillCommentCard extends React.Component {
       }
     }
   }
+
 
   onUserClick(){
     if(this.props.onUserClick && !!this.props.commentData.userId){
@@ -469,8 +483,8 @@ class BillCommentCard extends React.Component {
           <AccordionBillCommentCardContainer
             device={this.props.device}
             ref={this.props.commentData.commentId}
-            commentBeingPosted={this.props.commentData.commentBeingPosted}
-            commentLvl={this.props.commentData.commentLvl}
+            commentBeingPosted={this.state.commentBeingPosted}
+            commentLvl={this.props.commentData.commentLvl+1}
             replies={this.props.commentData.replies}
             onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
             onUserClick={this.props.onUserClick}
@@ -490,16 +504,17 @@ class BillCommentCard extends React.Component {
 
 
 
+
   renderReplyBox(){
     if(this.state.replyBoxVisible==true){
-      console.log("Reply box loading: "+this.props.commentData.commentBeingPosted);
+      // console.log("Reply box loading: "+this.state.commentBeingPosted);
       return (
         <CommentReplyCard
           id={this.props.commentData.commentId}
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPost.bind(this)}
-          postBtnEnabled={(this.props.commentData.commentBeingPosted==false)}
-          postBtnLoading={(this.props.commentData.commentBeingPosted==true)}
+          postBtnEnabled={(this.state.commentBeingPosted==false)}
+          postBtnLoading={(this.state.commentBeingPosted==true)}
       />);
     }else{
       return <View></View>;
@@ -513,7 +528,7 @@ class BillCommentCard extends React.Component {
    * Setup some default presentations and render
    */
   render() {
-
+    // console.log("!!update Reply box loading: "+this.state.commentBeingPosted);
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
@@ -523,19 +538,19 @@ class BillCommentCard extends React.Component {
       paddingLeftIfCommentLvlAbove0 = this.props.commentData.commentLvl*(w*0.015);
       paddingRightIfCommentLvlAbove0 = 0;
     }
+    // console.log("@@@@ Comment lvl: "+this.props.commentData.commentLvl+' therefore left padding: '+paddingLeftIfCommentLvlAbove0);
     return(
       <View
         style={[styles.cardContainer, {paddingLeft: paddingLeftIfCommentLvlAbove0, paddingRight:paddingRightIfCommentLvlAbove0},this.props.style]}
         onLayout={this.props.onLayout}
       >
-      <View style={styles.cardContent}>
-        {this.renderHeader(styles)}
-        {this.renderBody(styles)}
-        {this.renderFooter(styles)}
-        {this.renderReplyBox(styles)}
-        {this.renderMoreCommentsLbl(this.props.commentData.replies, styles)}
-      </View>
-
+        <View style={styles.cardContent}>
+          {this.renderHeader(styles)}
+          {this.renderBody(styles)}
+          {this.renderFooter(styles)}
+          {this.renderReplyBox(styles)}
+          {this.renderMoreCommentsLbl(this.props.commentData.replies, styles)}
+        </View>
       </View>
     );
   }
@@ -545,6 +560,8 @@ class BillCommentCard extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return(
       (nextProps.commentData !== this.props.commentData)
+      ||
+      (nextProps.commentData.replies !== this.props.commentData.replies)
       ||
       (nextProps.device !== this.props.device)
       ||

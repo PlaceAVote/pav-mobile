@@ -256,7 +256,7 @@ class CommentsPageRender extends React.Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
-    //TODO: Create a function that scrolls this list to the bottom, and pass its reference as a onCommentPost argument, to scrollOnBottom when the comment is posted.
+    // console.log("CommentsPageRender rebder .commentBeingPosted: "+this.props.commentBeingPosted);
     return(
       <ListView
          ref="commentPageRenderList"
@@ -292,7 +292,7 @@ class CommentsPageRender extends React.Component {
           //  if(this.props.topCommentInFavorId==rowData["comment_id"]){
           //     console.log("top in favor")
           //  }
-
+          // console.log("CommentsPageRender render ROW commentBeingPosted: "+this.props.commentBeingPosted);
            return (
              <BillCommentCard
                onLayout={(event) => {
