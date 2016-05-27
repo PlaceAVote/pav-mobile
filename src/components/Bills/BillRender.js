@@ -11,10 +11,10 @@
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import SummaryPageRender from './SummaryPageRender';
-import MoreInfoPageRender from './MoreInfoPageRender';
-import BillStatusPageRender from './BillStatusPageRender';
-import CommentsPageRender from './CommentsPageRender';
+import SummaryTabRender from './SummaryTabRender';
+import InfoTabRender from './InfoTabRender';
+import StatusTabRender from './StatusTabRender';
+import CommentsTabRender from './CommentsTabRender';
 
 
 import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
@@ -373,7 +373,8 @@ class BillRender extends React.Component {
         initialPage={0}
         style={styles.pagesContainer}
       >
-        <SummaryPageRender
+        <SummaryTabRender
+
           tabLabel="Summary"
           ref="summary_tab"
           billData={{
@@ -385,7 +386,8 @@ class BillRender extends React.Component {
           goToMoreInfoPage={()=>this.refs.scrollableTabView.goToPage(1)}
         />
 
-        <BillStatusPageRender
+        <StatusTabRender
+
           tabLabel="Status "
           ref="status_tab"
           orientation={this.props.device.orientation}
@@ -394,7 +396,8 @@ class BillRender extends React.Component {
         />
 
 
-        <MoreInfoPageRender
+        <InfoTabRender
+
           tabLabel="Bill Info "
           ref="info_tab"
           billData={{
@@ -427,7 +430,8 @@ class BillRender extends React.Component {
         />
 
 
-        <CommentsPageRender
+        <CommentsTabRender
+
           tabLabel="Comments"
           ref="comments_tab"
           commentData={commentData}
@@ -489,6 +493,7 @@ class BillRender extends React.Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
+
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <View style={styles.container}>
@@ -509,23 +514,25 @@ class BillRender extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.bill !== this.props.bill)
+      nextProps.parentVisible==true &&
+      ((nextProps.bill !== this.props.bill)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
       ||
-      (nextState.minimumImgHeight!==this.state.minimumImgHeight)
+      (nextState.minimumImgHeight!==this.state.minimumImgHeight))
     );
   }
 
 }
 
 BillRender.propTypes= {
+
   device: React.PropTypes.object.isRequired,
   bill: React.PropTypes.object.isRequired,
   billTitle: React.PropTypes.string.isRequired,
   subjectTitle: React.PropTypes.string.isRequired,
   favorPercentage: React.PropTypes.any.isRequired,
-
+  parentVisible: React.PropTypes.bool.isRequired,
   onSocialClick: React.PropTypes.func.isRequired,
   onVoteBtnPress: React.PropTypes.func.isRequired,
   onSponsorClick: React.PropTypes.func.isRequired,

@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # SummaryPageRender.js
+ * # SummaryTabRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -49,7 +49,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
-class SummaryPageRender extends React.Component {
+class SummaryTabRender extends React.Component {
   constructor(props) {
     super(props);
 
@@ -217,4 +217,4 @@ class SummaryPageRender extends React.Component {
 }
 
 
-export default SummaryPageRender;
+export default SummaryTabRender;

@@ -195,7 +195,8 @@ class CommentsRender extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.commentBeingTampered !== this.props.commentBeingTampered)
+      nextProps.parentVisible==true &&
+      ((nextProps.commentBeingTampered !== this.props.commentBeingTampered)
       ||
       (nextProps.commentsBeingFetched !== this.props.commentsBeingFetched)
       ||
@@ -205,20 +206,21 @@ class CommentsRender extends React.Component {
       ||
       (nextState.curSortFilter !== this.state.curSortFilter)
       ||
-      (nextProps.replies !== this.props.replies)
+      (nextProps.replies !== this.props.replies))
     );
   }
 
 }
 
 CommentsRender.propTypes = {
+
   replies: React.PropTypes.instanceOf(List).isRequired,
   billData: React.PropTypes.object.isRequired,
   device: React.PropTypes.object.isRequired,
   commentsBeingFetched: React.PropTypes.bool.isRequired,
   commentBeingTampered: React.PropTypes.bool.isRequired,
   commentLvl: React.PropTypes.number.isRequired,
-
+  parentVisible: React.PropTypes.bool.isRequired,
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,

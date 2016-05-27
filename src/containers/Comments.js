@@ -186,8 +186,10 @@ class Comments extends React.Component {
 */
 
     let {refToCurObject} = findCommentBasedOnPath(this.props.commentPath, this.props.bill.comments);
+    console.log("Comments visible: "+(this.props.name==this.props.router.currentSchene)+" because name: "+this.props.name+" and cur: "+this.props.router.currentSchene);
     return(
       <CommentsRender
+          parentVisible={(this.props.name==this.props.router.currentSchene)}
           device={ this.props.device}
           billData={this.props.billData}
           commentBeingTampered={this.props.bill.isFetching.commentBeingTampered}

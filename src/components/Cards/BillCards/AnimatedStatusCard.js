@@ -9,16 +9,16 @@
 
 
 
-import {Colors, ScheneKeys, Other} from '../../config/constants';
+import {Colors, ScheneKeys, Other} from '../../../config/constants';
 import React from 'react';
 import {StyleSheet, Text, View, Animated} from 'react-native';
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-import icomoonConfig from '../../../assets/fonts/icomoon.json';
+import icomoonConfig from '../../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 

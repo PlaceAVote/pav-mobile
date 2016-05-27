@@ -1,6 +1,6 @@
   /* @flow weak */
   /**
-   * # BillStatusPageRender.js
+   * # StatusTabRender.js
    *
    * This class is a little complicated as it handles multiple states.
    *
@@ -22,8 +22,7 @@
   const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
-  import AnimatedStatusCard from "./AnimatedStatusCard";
-
+  import AnimatedStatusCard from '../Cards/BillCards/AnimatedStatusCard';
   /**
   * Image library
   */
@@ -51,7 +50,7 @@
 
 
 
-  class BillStatusPageRender extends React.Component {
+  class StatusTabRender extends React.Component {
     constructor(props) {
       super(props);
       this.state={
@@ -285,4 +284,4 @@
   }
 
 
-  export default BillStatusPageRender;
+  export default StatusTabRender;

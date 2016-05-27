@@ -85,6 +85,7 @@
               key={rowData.comment_id}
               style={styles.commentCard}
               device={this.props.device}
+
               commentData={{
                 commentBeingTampered: this.props.commentBeingTampered,
                 commentLvl:this.props.commentLvl,
@@ -204,6 +205,7 @@
         React.PropTypes.array.isRequired,
         React.PropTypes.instanceOf(List).isRequired
       ]),
+      
       refreshable: React.PropTypes.bool,
       commentsBeingFetched: React.PropTypes.bool,
       commentBeingTampered: React.PropTypes.bool.isRequired,

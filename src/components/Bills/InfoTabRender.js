@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # MoreInfoPageRender.js
+ * # InfoTabRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -62,7 +62,7 @@ import AnimatedPavLineChart from './AnimatedPavLineChart'
 
 
 
-class MoreInfoPageRender extends React.Component {
+class InfoTabRender extends React.Component {
   constructor(props) {
     super(props);
 
@@ -268,7 +268,7 @@ class MoreInfoPageRender extends React.Component {
 
   handleScroll(e){
     let percentageShow = e.nativeEvent.contentOffset.y/h;
-    console.log(percentageShow);
+    // console.log(percentageShow);
     this.refs.animatedLine.animate(percentageShow>0.62)
   }
 
@@ -417,4 +417,4 @@ class MoreInfoPageRender extends React.Component {
 }
 
 
-export default MoreInfoPageRender;
+export default InfoTabRender;

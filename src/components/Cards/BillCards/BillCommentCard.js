@@ -501,6 +501,7 @@ class BillCommentCard extends React.Component {
       }else{//for comment lvl 1 and above
         return (
           <AccordionBillCommentCardContainer
+
             device={this.props.device}
             ref={this.props.commentData.commentId}
             commentBeingTampered={this.state.commentBeingTampered}
@@ -553,7 +554,7 @@ class BillCommentCard extends React.Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    console.log("Comment: "+this.props.commentData.commentText+" of lvl: "+this.props.commentData.commentLvl+" of base lvl: "+this.props.commentData.baseCommentLvl);
+    // console.log("Comment: "+this.props.commentData.commentText+" of lvl: "+this.props.commentData.commentLvl+" of base lvl: "+this.props.commentData.baseCommentLvl);
     let paddingLeftIfCommentLvlAbove0  = null, paddingRightIfCommentLvlAbove0 = null;
     if(this.props.commentData.commentLvl>0){
       let difFromParLvl = this.props.commentData.commentLvl-this.props.commentData.baseCommentLvl;
@@ -602,6 +603,7 @@ BillCommentCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   commentData: React.PropTypes.object.isRequired,
   onLayout: React.PropTypes.func,
+
 
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,

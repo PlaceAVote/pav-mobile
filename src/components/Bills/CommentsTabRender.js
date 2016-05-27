@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # CommentsPageRender.js
+ * # CommentsTabRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -45,7 +45,7 @@ import moment from 'moment';
 
 
 
-class CommentsPageRender extends React.Component {
+class CommentsTabRender extends React.Component {
   constructor(props) {
     super(props);
     let commentData = this.props.commentData || [];
@@ -256,7 +256,7 @@ class CommentsPageRender extends React.Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
-    // console.log("CommentsPageRender rebder .commentBeingTampered: "+this.props.commentBeingTampered);
+    // console.log("CommentsTabRender rebder .commentBeingTampered: "+this.props.commentBeingTampered);
     return(
       <ListView
          ref="commentPageRenderList"
@@ -292,7 +292,7 @@ class CommentsPageRender extends React.Component {
           //  if(this.props.topCommentInFavorId==rowData["comment_id"]){
           //     console.log("top in favor")
           //  }
-          // console.log("CommentsPageRender render ROW commentBeingTampered: "+this.props.commentBeingTampered);
+          // console.log("CommentsTabRender render ROW commentBeingTampered: "+this.props.commentBeingTampered);
            return (
              <BillCommentCard
                onLayout={(event) => {
@@ -309,9 +309,11 @@ class CommentsPageRender extends React.Component {
                style={styles.commentCard}
                key={rowData.comment_id}
                device={this.props.device}
+
                commentData={{
                  commentBeingTampered: this.props.commentBeingTampered,
                  commentLvl:0,
+                 baseCommentLvl:0,
                  timeString:moment(rowData.timestamp).fromNow(),
                  userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
                  commentText:rowData.body,
@@ -381,7 +383,8 @@ class CommentsPageRender extends React.Component {
 
 }
 
-CommentsPageRender.propTypes = {
+CommentsTabRender.propTypes = {
+
   billId: React.PropTypes.string,
   commentData: React.PropTypes.object,
   device: React.PropTypes.object.isRequired,
@@ -396,4 +399,4 @@ CommentsPageRender.propTypes = {
 
 }
 
-export default CommentsPageRender;
+export default CommentsTabRender;
