@@ -226,9 +226,14 @@
             let toBeAnimated = toAnimateArr[iii];
             // console.log(" with toBeAnimated: "+toBeAnimated);
             await this.refs[toBeAnimated].animate();
-            if(iii<4){
-                scrollResponder.scrollResponderScrollTo({x: 0, y: (iii+1)*h*0.26, animated: true});
+            // console.log(iii)
+            if(iii+2<lll){ // if thats below the n-2 iteration
+              scrollResponder.scrollResponderScrollTo({x: 0, y: (iii+1)*h*0.26, animated: true});
             }
+            if(iii+2==lll){// if thats the n-2 iteration
+                scrollResponder.scrollResponderScrollTo({x: 0, y: (lll-1)*h*0.22, animated: true});
+            }
+
             // Dimensions.get(this.refs.stat_scrollview.getInnerViewNode(), (...data)=>{console.log(data)});
             // this.refs.stat_scrollview.scrollTo({y:, animated:true});
           }
