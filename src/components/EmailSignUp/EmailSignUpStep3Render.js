@@ -62,7 +62,9 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 
 import pIndic3 from '../../../assets/pIndic3.jpg';
 import signupExpl3 from '../../../assets/signupExpl3.jpg';
-
+import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
+const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 /**
  * ## Styles
  */
@@ -275,7 +277,12 @@ class EmailSignUpStep3Render extends React.Component {
                 </Text>
               </View>
 
-              <Button style={styles.backBtn} iconProps={{name: "chevron-left",size:getCorrectFontSizeForScreen(w,h,20), color: "white"}} onPress={this.props.onBack}/>
+              <Button onPress={this.props.onBack}
+  style={styles.backBtn}
+  isDisabled={false}
+  isLoading={false}
+  customIcon={()=><PavIcon name="arrow-left" size={25} style={{color: '#FFFFFF'}}/>}
+/>
               {this.renderPageIndicatorIcon()}
             </View>
 

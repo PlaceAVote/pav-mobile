@@ -230,7 +230,12 @@ class TopicPickRender extends React.Component {
       return (<View></View>)
     }else{
       return (
-        <Button style={styles.backBtn} iconProps={{name: "chevron-left",size:getCorrectFontSizeForScreen(w,h,20), color: "white"}} onPress={this.props.onBack}/>
+        <Button onPress={this.props.onBack}
+  style={styles.backBtn}
+  isDisabled={false}
+  isLoading={false}
+  customIcon={()=><PavIcon name="arrow-left" size={25} style={{color: '#FFFFFF'}}/>}
+/>
       );
     }
   }
