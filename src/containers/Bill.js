@@ -115,16 +115,19 @@ class Bill extends React.Component {
 
   constructor(props) {
     super(props);
+
   }
   componentDidMount(){
 
-    this.connectAndGetBills("s2517-114");
+    // this.connectAndGetBills("s2517-114");
 
     //TODO: Uncomment
-    // if(this.props.bill.data==null && !!this.props.billId){
-    //   this.connectAndGetBills(this.props.billId);
-    // }
+    if(this.props.billId!=null && (this.props.bill.data==null ||  (this.props.bill.data!=null && this.props.bill.data.bill_id!=this.props.billId))){
+      this.props.actions.clearPastBillData();
+      this.connectAndGetBills(this.props.billId);
+    }
   }
+
 
   async connectAndGetBills(billId){
     await this.props.actions.getBill(billId, TOKEN, DEV);

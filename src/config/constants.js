@@ -295,6 +295,8 @@ module.exports =  {
 
    /*  Bill */
 
+   CLEAR_PAST_BILL_DATA: null,
+
    GET_BILL_REQUEST: null,
    GET_BILL_SUCCESS: null,
    GET_BILL_FAILURE: null,

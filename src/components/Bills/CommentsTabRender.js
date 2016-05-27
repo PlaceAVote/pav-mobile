@@ -26,6 +26,7 @@ import BillCommentCard from '../Cards/BillCards/BillCommentCard';
 import CommentReplyCard from '../Cards/BillCards/CommentReplyCard';
 // import _ from 'underscore';
 import moment from 'moment';
+import {List} from 'immutable';
 /**
 * Image library
 */
@@ -48,7 +49,16 @@ import moment from 'moment';
 class CommentsTabRender extends React.Component {
   constructor(props) {
     super(props);
-    let commentData = this.props.commentData || [];
+    let commentData;
+    if(this.props.commentData!=null){
+      if(this.props.commentData instanceof List){
+        commentData = this.props.commentData.toJS();
+      }else{
+        commentData = this.props.commentData;
+      }
+    }else{
+      commentData = [];
+    }
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     this.state={
       curSortFilter: SORT_FILTERS.HIGHEST_RATE,
@@ -286,13 +296,6 @@ class CommentsTabRender extends React.Component {
 
          }}
          renderRow={(rowData) =>{
-          //  console.log("Comment: "+JSON.stringify(rowData))
-
-          //  console.log("Cur comment id: "+rowData.comment_id+" when top comment id is: "+this.props.topCommentInFavorId);
-          //  if(this.props.topCommentInFavorId==rowData["comment_id"]){
-          //     console.log("top in favor")
-          //  }
-          // console.log("CommentsTabRender render ROW commentBeingTampered: "+this.props.commentBeingTampered);
            return (
              <BillCommentCard
                onLayout={(event) => {
@@ -309,7 +312,6 @@ class CommentsTabRender extends React.Component {
                style={styles.commentCard}
                key={rowData.comment_id}
                device={this.props.device}
-
                commentData={{
                  commentBeingTampered: this.props.commentBeingTampered,
                  commentLvl:0,
@@ -357,7 +359,6 @@ class CommentsTabRender extends React.Component {
     if (nextProps.commentData!=null) {
       let previousCommentData = this.props.commentData;
       let nextCommentData = nextProps.commentData;
-      // console.log("ROK1 CommentsRender BEFORE @@@@@@ EQUAL: "+(previousCommentData===nextCommentData));
       if(previousCommentData==null || (previousCommentData!==nextCommentData)){
         this.setState({
           commentDataSource: this.state.commentDataSource.cloneWithRows(nextCommentData.toJS())

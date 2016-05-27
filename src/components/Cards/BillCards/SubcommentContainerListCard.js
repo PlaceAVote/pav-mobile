@@ -30,13 +30,15 @@
     class SubcommentContainerListCard extends React.Component {
       constructor(props) {
         super(props);
-        let replies = [];
+        let replies;
         if(!!this.props.replies){
           if(this.props.replies instanceof List){
             replies = this.props.replies.toJS();
           }else{
             replies = this.props.replies;
           }
+        }else{
+          replies = [];
         }
         let ds = new ListView.DataSource({rowHasChanged:this.shouldListRowUpdate.bind(this)});
         // console.log("Subcomment elem started with replies: "+replies);
@@ -205,7 +207,7 @@
         React.PropTypes.array.isRequired,
         React.PropTypes.instanceOf(List).isRequired
       ]),
-      
+
       refreshable: React.PropTypes.bool,
       commentsBeingFetched: React.PropTypes.bool,
       commentBeingTampered: React.PropTypes.bool.isRequired,

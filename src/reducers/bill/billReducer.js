@@ -47,6 +47,8 @@ const {
   DISLIKE_COMMENT_REQUEST,
   DISLIKE_COMMENT_SUCCESS,
   DISLIKE_COMMENT_FAILURE,
+
+  CLEAR_PAST_BILL_DATA
 } = ActionNames
 
 import Immutable from 'immutable';
@@ -68,7 +70,10 @@ export default function newsfeedReducer(state = initialState, action) {
 
   switch (action.type) {
 
-
+    case CLEAR_PAST_BILL_DATA:
+      return state
+      .setIn(['comments'], null)
+      .setIn(['data'], null);
     case LIKE_COMMENT_REQUEST:
     case DISLIKE_COMMENT_REQUEST:
     case POST_COMMENT_ON_BILL_REQUEST:

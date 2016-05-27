@@ -495,6 +495,7 @@ class BillRender extends React.Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
 
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+
     return(
       <View style={styles.container}>
         <View style={styles.billContainer}>

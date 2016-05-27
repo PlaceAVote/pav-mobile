@@ -22,6 +22,7 @@ import PavClientSdk from 'pavclient';
 
 import {ActionNames, ScheneKeys, Other} from '../../config/constants';
 const {
+  CLEAR_PAST_BILL_DATA,
 
   GET_BILL_REQUEST,
   GET_BILL_SUCCESS,
@@ -30,8 +31,6 @@ const {
   GET_BILL_COMMENTS_REQUEST,
   GET_BILL_COMMENTS_SUCCESS,
   GET_BILL_COMMENTS_FAILURE,
-
-
 
   GET_BILL_TOP_COMMENTS_REQUEST,
   GET_BILL_TOP_COMMENTS_SUCCESS,
@@ -58,7 +57,11 @@ const {
 
 
 
-
+export function clearPastBillData(){
+  return {
+    type: CLEAR_PAST_BILL_DATA
+  }
+}
 
 
 
