@@ -44,21 +44,20 @@ import {Actions} from 'react-native-router-flux';
 // import {Actions} from 'react-native-router-flux';
 // import _ from 'underscore';
 
-export function navigateState(schene) {
-  return {
-    type: NAVIGATE_TO,
-    payload: schene
-  };
-}
+// export function navigateState(schene) {
+//   return {
+//     type: NAVIGATE_TO,
+//     payload: schene
+//   };
+// }
+//
+// export function navigateToPreviousState() {
+//   return {
+//     type: NAVIGATE_PREVIOUS,
+//     payload: null
+//   };
+// }
 
-export function navigateToPreviousState() {
-  return {
-    type: NAVIGATE_PREVIOUS,
-    payload: null
-  };
-}
-
-// Actions[scheneName]();
 
 
 

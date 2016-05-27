@@ -21,7 +21,7 @@ import {ActionNames, Modals} from '../../config/constants';
    NAVIGATE_PREVIOUS,
    SET_MODAL_VISIBILITY
  } = ActionNames;
- 
+
 
 const initialRouterState = new InitialRouterState
 
@@ -38,20 +38,18 @@ export default function routingReducer(state = initialRouterState, action) {
 
   switch (action.type) {
 
+   case "push":
+     return state.set('previousSchene', currentSchene).set('currentSchene', action.key);
    case NAVIGATE_TO:
      const newSchene = action.payload;
      return state.set('previousSchene', currentSchene).set('currentSchene', newSchene);
-     break;
-
-
+   case "back":
+   case "BackAction":
    case NAVIGATE_PREVIOUS:
-
      return state.set('previousSchene', currentSchene).set('currentSchene', previousSchene);
-     break;
    case SET_MODAL_VISIBILITY:
      const {name, visibility} = action.payload;
      return state.setIn(['modalIsOpen', name], visibility);
-     break;
      default:
     //  console.log("Routing reducer running with no valid action type: "+action.type);
      return state;
