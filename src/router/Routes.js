@@ -58,12 +58,12 @@ export default class Routes extends React.Component{
           <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
           <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
           <Scene key={ScheneKeys.VOTE} component={Vote} hideNavBar={true} title="Vote" type="push" direction="vertical"/>
-          <Scene key={ScheneKeys.BILL} component={Bill} title="Bill" type="push" initial={false}/>
+          <Scene key={ScheneKeys.BILL} component={Bill} title="Bill" type="push" initial={true}/>
           <Scene key={ScheneKeys.COMMENTS} component={Comments} title="Comments" type="push" initial={false}/>
-          <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true} tabBarStyle={{backgroundColor:'white'}} tabBarShadowStyle={{backgroundColor:Colors.secondaryBorderColor,top:-1,height:1, }} tabSceneStyle={{backgroundColor:'red'}} initial={true}>
+          <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true} tabBarStyle={{backgroundColor:'white'}} tabBarShadowStyle={{backgroundColor:Colors.secondaryBorderColor,top:-1,height:1, }} tabSceneStyle={{backgroundColor:'red'}}>
               <Scene key={ScheneKeys.TAB_NEWS} title="News Feed" component={NewsFeed} renderRightButton={()=><NewsFeedButtons/>}icon={TabIconFactory} initial={false}/>
-              <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={Notifications} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}}/>
-              <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} />
+              <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={Notifications} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>}/>
+              <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>}/>
           </Scene>
         </Scene>
     </RouterWithRedux>);

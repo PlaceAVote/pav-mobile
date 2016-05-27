@@ -163,10 +163,13 @@ class BillRender extends React.Component {
       tagBtn:{
         justifyContent:'center',
         height:23,
-        borderRadius: 2,
+        borderRadius: 3,
         borderWidth: 1,
         backgroundColor: Colors.accentColor,
         borderColor: Colors.accentColor
+      },
+      tagBtnContainer:{
+        paddingHorizontal: w*0.003,
       },
       tagTitleText:{
         backgroundColor: Colors.transparentColor,
@@ -334,12 +337,12 @@ class BillRender extends React.Component {
                 <View style={styles.headerTagBtnContainer}>
                   <Text style={styles.tagsLblText}>Tags: </Text>
                   {billData.pav_tags.map((tag, i) =>
-                    (<TouchableOpacity
+                    (<View key={"tag"+i+"container"} style={styles.tagBtnContainer}><TouchableOpacity
                       key={"tag"+i+"btn"}
                       onPress={this.props.onTagPress}
                       style={styles.tagBtn}>
                       <Text key={"tag"+i+"txt"}style={styles.tagTitleText}>{tag}</Text>
-                    </TouchableOpacity>)
+                    </TouchableOpacity></View>)
                   )}
                 </View>
 
