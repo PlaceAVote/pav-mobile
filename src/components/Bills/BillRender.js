@@ -92,7 +92,9 @@ class BillRender extends React.Component {
         flex:1,
         flexDirection: 'column',
         paddingTop:64, //nav bar height
-        paddingBottom:50, //tab bar height
+
+        // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
+
         // marginVertical: 10,
         // marginHorizontal:15
       },

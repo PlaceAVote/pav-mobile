@@ -10,6 +10,7 @@ module.exports =  {
     transparentColor: "rgba(0,0,0,0)",  //clear
 
     mainBorderColor: "rgba(0,0,0,0.2)", //very transparent black
+    secondaryBorderColor: "rgba(0,0,0,0.12)", //very transparent black
 
     mainTextColor: "white",
     secondaryTextColor: "#B8B8BD",   //ultra light grey
