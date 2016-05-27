@@ -78,7 +78,6 @@ import pavBtnRightImg from '../assets/pavBtnRight.png';
 * Add icon support for use in Tabbar
 *
 */
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../assets/fonts/icomoon.json';
@@ -227,8 +226,8 @@ export default class PlaceAVote extends React.Component {
                 <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.VOTE} component={Vote}  hideNavBar={true} title="Vote" type="push" direction="vertical"/>
-                <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true}  initial={true}>
-                    <Scene key={ScheneKeys.TAB_NEWS} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} initial={true}>
+                <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true}  initial={false}>
+                    <Scene key={ScheneKeys.TAB_NEWS} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} initial={false}>
                       <Scene key={ScheneKeys.TAB_NEWS+"2"}  title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} />
                       <Scene key={ScheneKeys.BILL} component={Bill} hideNavBar={false} title="Bill" type="push" leftButtonIconStyle={{tintColor: 'white'}}  initial={false}/>
                       <Scene key={ScheneKeys.COMMENTS} component={Comments} hideNavBar={false} title="Comments" type="push" leftButtonIconStyle={{tintColor: 'white'}}  initial={false}/>
@@ -261,24 +260,6 @@ export default class PlaceAVote extends React.Component {
 
 
 
-
-/**
-* ## TabIcon
-*
-* Displays the icon for the tab w/ color dependent upon selection
-*/
-class TabIcon extends React.Component {
-  render() {
-    var color = this.props.selected ? 'FF3366' : 'FFB3B3';
-
-    return (
-      <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'}}>
-      <Icon style={{color: color}} name={this.props.iconName} size={30} />
-      <Text style={{color: color}}>{this.props.title}</Text>
-      </View>
-    );
-  }
-}
 
 /**
 * ## Native
@@ -316,7 +297,7 @@ class BackBtnImg extends React.Component {
         justifyContent:'center',
     }} onPress={Actions.pop} >
         <View style={{flexDirection:'row', alignItems:'center'}}>
-          <Icon name="chevron-left" size={25} color={'#ffffff'} style={{marginTop:2,paddingRight:6}} />
+          <PavIcon name="arrow-left" size={25} style={{marginTop:2,paddingRight:6, color:'#ffffff'}}/>
           <Text style={{color: '#FFFFFF21', fontFamily:'Whitney'}}>Back</Text>
         </View>
       </TouchableOpacity>);

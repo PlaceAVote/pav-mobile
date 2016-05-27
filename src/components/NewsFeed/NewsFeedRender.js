@@ -58,7 +58,6 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 * Icons library
 */
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 import LImage from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 

@@ -20,12 +20,6 @@ import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
-/**
-* Icons library
-*/
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-
 
 /**
  * The states were interested in

@@ -25,7 +25,7 @@ import Dimensions from 'Dimensions';
 // const Icon = createIconSetFromIcoMoon(fontelloConfig);
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
-const Icon = createIconSetFromIcoMoon(icomoonConfig);
+const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
@@ -57,21 +57,21 @@ class GridLayoutExample extends React.Component {
         start={[0.0, 0.5]} end={[1.0, 0.5]}
         style={styles.row}>
           <View style={styles.iconContainer}>
-            <Icon name={rowIconName} style={styles.thumbChecked} size={68}/>
+            <PavIcon name={rowIconName} style={styles.thumbChecked} size={68}/>
           </View>
           <View style={styles.textAndCheckContainer}>
             <Text style={styles.textChecked}>
               {rowTitle}
             </Text>
             <View style={styles.checkMarkContainerChecked}>
-              <Icon name="check-mark" style={styles.checkMark} size={14}/>
+              <PavIcon name="check-mark" style={styles.checkMark} size={14}/>
             </View>
           </View>
       </LinearGradient>);
     }else{
       return (<View style={styles.row}>
           <View style={styles.iconContainer}>
-            <Icon name={rowIconName} style={styles.thumb} size={68}/>
+            <PavIcon name={rowIconName} style={styles.thumb} size={68}/>
           </View>
           <View style={styles.textAndCheckContainer}>
             <Text style={styles.text}>

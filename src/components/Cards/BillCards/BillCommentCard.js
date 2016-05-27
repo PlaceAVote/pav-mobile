@@ -13,7 +13,7 @@
 /**
 * Icons library
 */
-// import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 
 import {Colors, ScheneKeys, Other} from '../../../config/constants';
