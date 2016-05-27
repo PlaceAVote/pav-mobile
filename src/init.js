@@ -297,7 +297,7 @@ class BackBtnImg extends React.Component {
         justifyContent:'center',
     }} onPress={Actions.pop} >
         <View style={{flexDirection:'row', alignItems:'center'}}>
-          <PavIcon name="arrow-left" size={25} style={{marginTop:2,paddingRight:6, color:'#ffffff'}}/>
+          <PavIcon name="arrow-left" size={23} style={{marginTop:2,paddingRight:6, color:'#ffffff'}}/>
           <Text style={{color: '#FFFFFF21', fontFamily:'Whitney'}}>Back</Text>
         </View>
       </TouchableOpacity>);
