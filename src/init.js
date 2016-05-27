@@ -70,7 +70,7 @@ import Onboarding from './containers/Onboarding';
 
 import {Colors, ScheneKeys} from './config/constants';
 
-import pavBtnRightImg from '../assets/pavBtnRight.png';
+
 
 /**
 * ### icons
@@ -108,10 +108,10 @@ import newsfeedInitialState from './reducers/newsfeed/newsfeedInitialState';
 * ## Nav bar icons
 *
 */
-import ProfileButtons from './containers/NavBarIcons/ProfileButtons';
-import NewsFeedButtons from './containers/NavBarIcons/NewsFeedButtons';
-
-
+import ProfileButtons from './containers/NavIcons/ProfileButtons';
+import NewsFeedButtons from './containers/NavIcons/NewsFeedButtons';
+import {RightPavLogo} from './containers/NavIcons/LoginButtons';
+import TabIconFactory from './containers/NavIcons/TabIconFactory';
 
 
 
@@ -207,19 +207,12 @@ export default class PlaceAVote extends React.Component {
           }
       };
 
-      // let backButtonImg = ()=><Image source={require("../assets/back_chevron.png")} style={{padding: 8,backgroundColor:'red'}}></Image>;
-      //
-      // <Scene key={ScheneKeys.LOGIN} type="push" title="Sign In" navigationBarStyle={{backgroundColor:Colors.primaryColor}} backButtonImage={backButtonImg} renderRightButton={()=><RightPavLogo/>}>
-      // setup the router table with App selected as the initial component
-
-      // when the hideNavBar is true we see the right button but not the left, and the opposite.
-// tabBarStyle={{borderTopColor: 'darkgrey', borderTopWidth: 1 / PixelRatio.get(), backgroundColor: 'ghostwhite',opacity: 0.98}}
       return (
         <Provider store={store}>
           <RouterWithRedux hideNavBar={false} createReducer={reducerCreate} sceneStyle={{backgroundColor:'#F7F7F7'}} >
-              <Scene key="root"  hideNavBar={true} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}}>
+              <Scene key="root"  hideNavBar={true} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} leftButtonIconStyle={{tintColor: 'white'}}>
                 <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} />
-                <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push" renderBackButton={()=><BackBtnImg/>}  renderRightButton={()=><RightPavLogo/>}/>
+                <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push"  renderRightButton={()=><RightPavLogo/>}/>
                 <Scene key={ScheneKeys.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" hideNavBar={true} />
                 <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
@@ -239,104 +232,5 @@ export default class PlaceAVote extends React.Component {
           </RouterWithRedux>
         </Provider>
       );
-    }
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-* ## Native
-*
-* ```configureStore``` with the ```initialState``` and set the
-* ```platform``` and ```version``` into the store by ```dispatch```.
-* *Note* the ```store``` itself is set into the ```store```.  This
-* will be used when doing hot loading
-*/
-
-
-
-class RightPavLogo extends React.Component {
-  render(){
-      return <Image source={pavBtnRightImg} resizeMode='cover' style={{
-        flex:1,
-        alignSelf:'flex-end',
-        width: 30,
-        height: null,
-        // backgroundColor:'green'
-        overflow: "hidden"
-    }}></Image>
-  }
-}
-
-class BackBtnImg extends React.Component {
-  render(){
-      return (<TouchableOpacity style={{
-        width: 100,
-        height: 37,
-        position: 'absolute',
-        bottom: 4,
-        left: 2,
-        padding: 8,
-        justifyContent:'center',
-    }} onPress={Actions.pop} >
-        <View style={{flexDirection:'row', alignItems:'center'}}>
-          <PavIcon name="arrow-left" size={25} style={{marginTop:2,paddingRight:6, color:'#ffffff'}}/>
-          <Text style={{color: '#FFFFFF21', fontFamily:'Whitney'}}>Back</Text>
-        </View>
-      </TouchableOpacity>);
-  }
-}
-
-
-
-
-class TabIconFactory extends React.Component {
-    render(){
-
-
-        let iconName = "", tabText;
-        switch(this.props.name){
-          case ScheneKeys.TAB_NEWS:
-          case ScheneKeys.TAB_NEWS+"2":
-            iconName="mailbox";
-            tabText = "News Feed";
-            break;
-          case ScheneKeys.TAB_NOTIFS:
-            iconName="ios-pulse-strong";
-            tabText = "Notifications";
-            // console.log("Notifications array: "+this.props.notifications);
-            break;
-          case ScheneKeys.TAB_PROFILE:
-            iconName="person"
-            tabText = "Profile";
-            break;
-          default:
-            break;
-        }
-        return (
-          <View style={{flexDirection:'row', justifyContent:'center', padding:3}}>
-            <PavIcon name={iconName} size={25} style={{color: this.props.selected ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
-            <View style={{flexDirection: "column", justifyContent: 'center', paddingHorizontal:4}}>
-              <Text style={{color: this.props.selected ? Colors.primaryColor :Colors.secondaryTextColor}}>{tabText}</Text>
-            </View>
-          </View>
-        );
     }
 }
