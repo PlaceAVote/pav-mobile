@@ -472,7 +472,7 @@ class BillRender extends React.Component {
           <PavIcon name="quill-write" size={16} style={styles.footerBtnIcon}/>
           <Text style={styles.footerBtnText}>I'M READY TO VOTE</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerBtn} onPress={()=>this.refs.scrollableTabView.goToPage(2)}>
+        <TouchableOpacity style={styles.footerBtn} onPress={()=>this.refs.scrollableTabView.goToPage(3)}>
           <PavIcon name="chat" size={16} style={styles.footerBtnIcon}/>
           <Text style={styles.footerBtnText}>COMMENT</Text>
         </TouchableOpacity>
