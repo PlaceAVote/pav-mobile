@@ -220,7 +220,7 @@ class BillRender extends React.Component {
 
         flexDirection: 'row',
         justifyContent:'space-between',
-        paddingVertical: h*0.005,
+        // paddingVertical: h*0.005,
       },
       // btnIconStyle:{
       //   marginHorizontal: 10
