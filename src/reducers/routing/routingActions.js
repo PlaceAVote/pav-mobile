@@ -16,8 +16,6 @@ import {ActionNames, ScheneKeys, Modals} from '../../config/constants';
  * The actions supported
  */
 const {
-  NAVIGATE_TO,
-  NAVIGATE_PREVIOUS,
   SET_MODAL_VISIBILITY
 } = ActionNames;
 

@@ -256,8 +256,6 @@ module.exports =  {
 
 
    /* Routing */
-   NAVIGATE_TO: null,
-   NAVIGATE_PREVIOUS: null,
    SET_MODAL_VISIBILITY: null,
 
 

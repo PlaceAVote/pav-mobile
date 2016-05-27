@@ -15,7 +15,6 @@
 import {ScheneKeys, Modals} from '../../config/constants';
 import {Record, Map} from 'immutable';
 const {
-  NAVIGATE_TO,
   ONBOARDING,
   ACCOUNT_SETTINGS
 } = ScheneKeys;
@@ -30,7 +29,7 @@ const {
  * The form is set
  */
 const Router = new Record({
-  state: NAVIGATE_TO,
+  state: null,
   currentSchene: ONBOARDING,
   previousSchene: null,
   modalIsOpen: new Map([
