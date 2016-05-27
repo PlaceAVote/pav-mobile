@@ -195,7 +195,7 @@ class Bill extends React.Component {
   }
 
   render() {
-    console.log("Bill visible: "+(this.props.name==this.props.router.currentSchene)+" because name: "+this.props.name+" and cur: "+this.props.router.currentSchene);
+    // console.log("Bill visible: "+(this.props.name==this.props.router.currentSchene)+" because name: "+this.props.name+" and cur: "+this.props.router.currentSchene);
     return(
       <BillRender
           parentVisible={(this.props.name==this.props.router.currentSchene)}

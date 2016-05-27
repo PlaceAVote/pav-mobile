@@ -158,7 +158,7 @@ const ScrollableTabBar = React.createClass({
 
 
   renderTabArrow(shouldRender, type){
-    if(shouldRender){
+    if(shouldRender==true){
       if(type=="left"){
         return(<TouchableOpacity style={styles.iconContainer} onPress={()=>{
           this._scrollView.scrollTo({x: 0, y: 0, });
@@ -196,6 +196,7 @@ const ScrollableTabBar = React.createClass({
       top: 0,
     };
 
+
     this.props.scrollValue.addListener(this.updateView);
     const tabs = this.props.tabs;
     const dynamicTabUnderline = {
@@ -207,7 +208,7 @@ const ScrollableTabBar = React.createClass({
       style={styles.container}
       onLayout={this.onContainerLayout}
     >
-      {this.renderTabArrow.bind(this, this.props.indicatorArrowsEnabled==true, "left")}
+      {this.renderTabArrow(this.props.indicatorArrowsEnabled==true, "left")}
       <ScrollView
         ref={(scrollView) => { this._scrollView = scrollView; }}
         horizontal={true}
@@ -227,7 +228,7 @@ const ScrollableTabBar = React.createClass({
           <Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, ]} />
         </View>
       </ScrollView>
-      {this.renderTabArrow.bind(this, this.props.indicatorArrowsEnabled==true, "right")}
+      {this.renderTabArrow( this.props.indicatorArrowsEnabled==true, "right")}
     </View>);
   },
 
@@ -280,11 +281,12 @@ const styles = StyleSheet.create({
   topicArrowIcon:{
     paddingHorizontal: w*0.002,
     color:Colors.primaryColor,
-
+    // backgroundColor:Colors.transparentColor
   },
   iconContainer:{
     justifyContent:'center',
     // backgroundColor:'blue'
+    // backgroundColor:Colors.transparentColor
   },
   tabText:{
     paddingHorizontal: w*0.009,
