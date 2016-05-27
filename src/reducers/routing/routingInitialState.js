@@ -29,7 +29,6 @@ const {
  * The form is set
  */
 const Router = new Record({
-  state: null,
   currentSchene: ONBOARDING,
   previousSchene: null,
   modalIsOpen: new Map([

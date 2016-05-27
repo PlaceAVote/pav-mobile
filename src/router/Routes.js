@@ -58,7 +58,7 @@ export default class Routes extends React.Component{
           <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
           <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
           <Scene key={ScheneKeys.VOTE} component={Vote}  hideNavBar={true} title="Vote" type="push" direction="vertical"/>
-          <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true}  initial={false}>
+          <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true}  initial={true}>
               <Scene key={ScheneKeys.TAB_NEWS} icon={TabIconFactory} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:'white', fontFamily:"Whitney"}} initial={false}>
                 <Scene key={ScheneKeys.TAB_NEWS+"2"}  title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} />
                 <Scene key={ScheneKeys.BILL} component={Bill} hideNavBar={false} title="Bill" type="push" leftButtonIconStyle={{tintColor: 'white'}}  initial={false}/>

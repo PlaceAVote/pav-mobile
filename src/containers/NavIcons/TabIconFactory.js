@@ -5,7 +5,7 @@ import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import {Colors, ScheneKeys} from '../../config/constants';
 
-class TabIconFactory extends React.Component {
+export default class TabIconFactory extends React.Component {
     render(){
 
 
