@@ -129,7 +129,7 @@ const ScrollableTabBar = React.createClass({
       onPress={() => this.props.goToPage(page)}
       onLayout={this.measureTab.bind(this, page)}
     >
-      <View>
+      <View style={styles.tabContainer}>
         <Text style={[{color: textColor, fontWeight, }, textStyle, ]}>
           {name}
         </Text>
@@ -203,12 +203,16 @@ module.exports = ScrollableTabBar;
 
 const styles = StyleSheet.create({
   tab: {
+    flex:1,
+    // backgroundColor:'red',
     height: TAB_HEIGHT - 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 30,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 7,
+  },
+  tabContainer:{
+    // backgroundColor:'green',
   },
   container: {
     height: TAB_HEIGHT,
