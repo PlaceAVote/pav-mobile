@@ -1,6 +1,6 @@
 
 import {List} from 'immutable';
-
+import _ from 'underscore'
 /*
 
 findCommentPath:
@@ -78,47 +78,83 @@ findCommentBasedOnPath:
     This function consumes a comment path and then returns an object that contains:
 
       returns:
-        initialArray: A reference to the initial array we pass,
-        refToCurObject: A reference to the object (a child of initialArray) that corresponds to the commentPath provided.
+        contentArray: A reference to the initial array we pass,
+        refToCurObject: A reference to the object (a child of contentArray) that corresponds to the commentPath provided.
 
 
 */
-export function findCommentBasedOnPath(commentPath, initialArr){
+export function findCommentBasedOnPath(commentPath, initialArr, removeSideSiblings){
   if(commentPath!=null && initialArr!=null){
     let toBeReturned = {
-      initialArray: initialArr,
-      refToCurObject: initialArr  //this will be the reference to the object we're looking, but for now we pass the initialArray to it
+      contentArray: initialArr,
+      refToCurObject: initialArr  //this will be the reference to the object we're looking, but for now we pass the contentArray to it
     }
-    let iiii=0,llll=0;
-    if(initialArr instanceof List){     //if its an Immutable List
-      for( iiii=0, llll=commentPath.length;iiii<llll;iiii++){
-          let curCommentIt = commentPath[iiii];
-          if(iiii+1==llll){//if we are on the last iteration
-            toBeReturned.refToCurObject = toBeReturned.refToCurObject.get(curCommentIt);  //just get a hold of the comment itself and not the replies
-          }else{  //otherwise
-            toBeReturned.refToCurObject = toBeReturned.refToCurObject.get(curCommentIt).get("replies");  //just move on to the next replies array
-          }
+    if(removeSideSiblings===true){
+      let commentWeReInterestedIn;
+      if(commentPath.length>1){   // else if there are more than 1 children in the comment path
+        commentWeReInterestedIn = commentPath.pop();  //remove the last child
+        toBeReturned = iterateThroughCommentsAndFetchTheOneWeNeed(toBeReturned, commentPath);
+        //remove ALL the other siblings except the one were interested in
+        let commentIdOfInterest = toBeReturned.refToCurObject.replies[commentWeReInterestedIn].comment_id;
+        toBeReturned.refToCurObject.replies = _.reject(toBeReturned.refToCurObject.replies, (comment)=>(comment.comment_id !== commentIdOfInterest));
+      }else{  // else if theres only 1 level in the comment path (level 0)
+        commentWeReInterestedIn = commentPath[0];
+        let commentIdOfInterest = toBeReturned.contentArray[commentWeReInterestedIn].comment_id;
+        toBeReturned.contentArray = _.reject(toBeReturned.contentArray, (comment)=>(comment.comment_id !== commentIdOfInterest));
+        toBeReturned.refToCurObject = {replies: toBeReturned.contentArray};
       }
-    }else{    //if its an array
-      for(iiii=0,llll = commentPath.length;iiii<llll;iiii++){
-          let curCommentIt = commentPath[iiii];
-          if(iiii+1==llll){//if we are on the last iteration
-            toBeReturned.refToCurObject = toBeReturned.refToCurObject[curCommentIt];  //just get a hold of the comment itself and not the replies
-          }else{  //otherwise
-            toBeReturned.refToCurObject = toBeReturned.refToCurObject[curCommentIt].replies;  //just move on to the next replies array
-          }
-      }
+
+
+    }else{
+      toBeReturned = iterateThroughCommentsAndFetchTheOneWeNeed(toBeReturned, commentPath);
     }
+
     return toBeReturned;
   }
   return null;
 }
 
+function removeFromArray(array, value) {
+    var idx = array.indexOf(value);
+    if (idx !== -1) {
+        array.splice(idx, 1);
+    }
+    return array;
+}
+
+
+function iterateThroughCommentsAndFetchTheOneWeNeed(toBeReturned, commentPath){
+  let iiii=0,llll=0;
+  if(toBeReturned.initialArr instanceof List){     //if its an Immutable List
+    for( iiii=0, llll=commentPath.length;iiii<llll;iiii++){
+        let curCommentIt = commentPath[iiii];
+        if(iiii+1==llll){//if we are on the last iteration
+          toBeReturned.refToCurObject = toBeReturned.refToCurObject.get(curCommentIt);  //just get a hold of the comment itself and not the replies
+        }else{  //otherwise
+          toBeReturned.refToCurObject = toBeReturned.refToCurObject.get(curCommentIt).get("replies");  //just move on to the next replies array
+        }
+    }
+  }else{    //if its an array
+    for(iiii=0,llll = commentPath.length;iiii<llll;iiii++){
+        let curCommentIt = commentPath[iiii];
+        if(iiii+1==llll){//if we are on the last iteration
+          toBeReturned.refToCurObject = toBeReturned.refToCurObject[curCommentIt];  //just get a hold of the comment itself and not the replies
+        }else{  //otherwise
+          toBeReturned.refToCurObject = toBeReturned.refToCurObject[curCommentIt].replies;  //just move on to the next replies array
+        }
+    }
+  }
+  return toBeReturned;
+}
+
+
+
+
 
 
 /*
 
-extractRepliesForCommentId:
+extractCommentParentByItsId:
 
     This function gets an input of:
 
@@ -132,7 +168,7 @@ extractRepliesForCommentId:
 
 
 */
-export function extractRepliesForCommentId(commentId, arrayToInvestigate){
+export function extractCommentParentByItsId(commentId, arrayToInvestigate){
   if(arrayToInvestigate!=null){
     if(arrayToInvestigate instanceof List){
       arrayToInvestigate = arrayToInvestigate.toJS();
@@ -140,9 +176,9 @@ export function extractRepliesForCommentId(commentId, arrayToInvestigate){
     // console.log("Array to investigate: "+arrayToInvestigate);
     let commentPath = findCommentPath(arrayToInvestigate, commentId);
     // console.log("Comment path produced: "+commentPath);
-    let {refToCurObject} = findCommentBasedOnPath(commentPath, arrayToInvestigate);
-    // console.log(" extractRepliesForCommentId: inserted: "+(typeof arrayToInvestigate)+" got: "+(typeof refToCurObject));
-    return refToCurObject;
+    let {refToCurObject} = findCommentBasedOnPath(commentPath, arrayToInvestigate, true);
+    // console.log(" extractCommentParentByItsId: inserted: "+(typeof arrayToInvestigate)+" got: "+(typeof refToCurObject));
+    return {comment:refToCurObject, commentLvl:(commentPath.length-1)};
   }
   return null;
 }

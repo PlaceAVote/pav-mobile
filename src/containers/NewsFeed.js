@@ -210,7 +210,8 @@ class NewsFeed extends React.Component {
     // let commentPath = findCommentPath(result.comments, commentId);
     // console.log("Result: "+JSON.stringify(commentPath));
     // billData: billData, commentPath: commentPath, commentLvl: commentPath.length-1
-    this.props.actions.navigateTo(COMMENTS, {bill_id: bill_id, comment_id:commentId});
+    // billData
+    this.props.actions.navigateTo(COMMENTS, {billId: bill_id, commentId:commentId });
   }
 
   onUserClickedReaction(reaction){

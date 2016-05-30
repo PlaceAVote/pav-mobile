@@ -46,7 +46,7 @@ import CommentsRender from '../components/Comments/CommentsRender'
 
 import React from 'react';
 import {Linking} from 'react-native';
-import {findCommentPath, findCommentBasedOnPath, extractRepliesForCommentId} from '../lib/Utils/commentCrawler';
+import {findCommentPath, findCommentBasedOnPath, extractCommentParentByItsId} from '../lib/Utils/commentCrawler';
 
 
 import {
@@ -112,45 +112,46 @@ class Comments extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state={curCommentScopeData:[], commentLvl: this.props.commentLvl};
+  }
+
+  async componentWillMount(){
     if(this.props.billId!=null && (this.props.bill.data==null ||  (this.props.bill.data!=null && this.props.bill.data.bill_id!=this.props.billId))){
       this.props.actions.clearPastBillData();
-      this.connectAndGetBills(this.props.billId);
+      await this.connectAndGetBills(this.props.billId);
     }
     let commentData = this.props.replies || this.props.bill.comments;
-    let curComments = this.fetchCommentsFromGenericComObject(commentData, this.props.commentId);
-    this.state={curCommentScopeData:curComments};
-
-  }
-  componentDidMount(){
-
+    let {comment, commentLvl} = extractCommentParentByItsId(this.props.commentId, commentData);
+    this.setState({curCommentScopeData:comment.replies, commentLvl: this.props.commentLvl || commentLvl});
   }
 
   async connectAndGetBills(billId){
     await this.props.actions.getBill(billId, this.TOKEN, this.props.global.isDev);
     await this.props.actions.getBillComments(billId, "highest-score", this.TOKEN, this.props.global.isDev);
+    return 0;
   }
 
 
-  fetchCommentsFromGenericComObject(commentData, commentId){
-    if(commentData!=null){
-      let curCommentData = extractRepliesForCommentId(commentId, commentData);
-      console.log("Replies in Comment.js: "+(typeof curCommentData));
-      return curCommentData.replies;
-    }else{
-      console.log("Comment data is null");
-    }
-    return null;
-  }
+  // fetchCommentsFromGenericComObject(commentData, commentId){
+  //   if(commentData!=null){
+  //     return extractCommentParentByItsId(commentId, commentData);
+  //     // console.log("Replies in Comment.js: "+(typeof curCommentData));
+  //   }else{
+  //
+  //   }
+  //   return null;
+  // }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.bill.comments!=null) {
       let previousCommentData = this.props.bill.comments;
       let nextCommentData = nextProps.bill.comments;
       if (this.props.commentId!=null && (previousCommentData==null || (nextCommentData!==previousCommentData))){
-        // console.log(" @@@@@@@@@@@@@ Next props: "+(!!nextProps.bill.comments))
-        let curComments = this.fetchCommentsFromGenericComObject(nextCommentData, this.props.commentId);
+        console.log(" @@@@@@@@@@@@@ Next props: "+(!!nextCommentData))
+        let {comment, commentLvl} = extractCommentParentByItsId(this.props.commentId, nextCommentData);
         this.setState({
-          curCommentScopeData: curComments
+          curCommentScopeData: comment.replies,
+          commentLvl: nextProps.commentLvl || commentLvl
         })
       }
     }
@@ -238,7 +239,7 @@ class Comments extends React.Component {
           commentBeingTampered={this.props.bill.commentBeingTampered}
           commentsBeingFetched={this.props.bill.isFetching.billComments}
           replies={this.state.curCommentScopeData}
-          commentLvl={this.props.commentLvl}
+          commentLvl={this.state.commentLvl}
           onCommentsRefresh={this.onCommentsRefresh.bind(this)}
           onUserClick={this.onCommentUserClick.bind(this)}
           onCommentPost={this.onCommentPostClick.bind(this)}

@@ -103,11 +103,11 @@ export default function newsfeedReducer(state = initialState, action) {
       let commentArr = state.comments.toJS();
       let commentPath = findCommentPath(commentArr, action.payload.parentCommentId);//get the comment path of this comment
       // console.log("Comment path: "+commentPath);
-      let {initialArray, refToCurObject} = findCommentBasedOnPath(commentPath, commentArr);//get the comment itself in order to tamper it
+      let {contentArray, refToCurObject} = findCommentBasedOnPath(commentPath, commentArr);//get the comment itself in order to tamper it
       refToCurObject.replies.push(action.payload.newComment);
       return state.setIn([ 'commentBeingTampered'], false)
         .setIn(['error'],null)
-        .setIn(['comments'], Immutable.fromJS(initialArray));
+        .setIn(['comments'], Immutable.fromJS(contentArray));
 
 
 
@@ -144,10 +144,10 @@ export default function newsfeedReducer(state = initialState, action) {
       }
     }
 
-    // console.log("Comment that was liked: "+JSON.stringify(l.initialArray));
+    // console.log("Comment that was liked: "+JSON.stringify(l.contentArray));
     return state.setIn([ 'commentBeingTampered'], false)
       .setIn(['error'],null)
-      .setIn(['comments'], Immutable.fromJS(l.initialArray));
+      .setIn(['comments'], Immutable.fromJS(l.contentArray));
 
     case GET_BILL_SUCCESS:
       return state.setIn([ 'isFetching', 'billData'], false)

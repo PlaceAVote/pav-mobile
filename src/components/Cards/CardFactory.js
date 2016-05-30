@@ -128,7 +128,7 @@ class CardFactory extends React.Component {
         break;
 
       case "comment":
-        console.log("COMENT CARD: "+JSON.stringify(n))
+        // console.log("COMENT CARD: "+JSON.stringify(n))
         return (<FeedCommentCard
           {...this.props}
           timeString={moment(n.timestamp).fromNow()}

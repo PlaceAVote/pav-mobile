@@ -171,7 +171,7 @@ class CommentsRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    if(this.props.replies!=null){
+    if(this.props.replies!=null && this.props.billData!=null && this.props.commentLvl!=null){
       return(
         <View style={styles.container}>
           <SubcommentContainerListCard
@@ -241,11 +241,11 @@ CommentsRender.propTypes = {
     React.PropTypes.array,
     React.PropTypes.instanceOf(List),
   ]),
-  billData: React.PropTypes.object.isRequired,
+  billData: React.PropTypes.object,
+  commentLvl: React.PropTypes.number,
   device: React.PropTypes.object.isRequired,
   commentsBeingFetched: React.PropTypes.bool.isRequired,
   commentBeingTampered: React.PropTypes.bool.isRequired,
-  commentLvl: React.PropTypes.number.isRequired,
   parentVisible: React.PropTypes.bool.isRequired,
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
