@@ -153,7 +153,7 @@
           case 1:
             return 'rgba(83, 110, 178, 0.1)';  //blueish
           case 2:
-            return 'rgba(230, 74, 51, 0.05)';  //redish
+            return 'rgba(230, 74, 51, 0.025)';  //redish
         }
         return Colors.transparentColor;
       }
@@ -170,12 +170,13 @@
         // console.log("@@@@ IS PORTRAIT : "+isPortrait);
         let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
         // console.log("this.state.isCollapsed"+this.state.isCollapsed);
+        // console.log("This commentLvl: "+this.props.commentLvl+" with a base of: "+this.props.baseCommentLvl)
         return(
           <View style={[styles.cardContainer,{backgroundColor: this.getBgColorBasedOnCommentLvl(this.props.commentLvl)}, this.props.style]}>
             {this.renderAccordionHeader(styles)}
             <Collapsible collapsed={this.state.isCollapsed} align="center">
               <SubcommentContainerListCard
-                
+
                 replies={this.props.replies}
                 device={this.props.device}
                 commentBeingTampered={this.props.commentBeingTampered}

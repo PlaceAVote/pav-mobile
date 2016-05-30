@@ -113,42 +113,44 @@ export default function newsfeedReducer(state = initialState, action) {
 
     case LIKE_COMMENT_SUCCESS:
     case DISLIKE_COMMENT_SUCCESS:
-    let tmpCommentArr = state.comments.toJS();
-    let likeCommentPath = findCommentPath(tmpCommentArr, action.payload.parentCommentId);//get the comment path of this comment
-    let l = findCommentBasedOnPath(likeCommentPath, tmpCommentArr); //get the comment itself in order to tamper it
+    if(state.comments!=null){
+      let tmpCommentArr = state.comments.toJS();
+      let likeCommentPath = findCommentPath(tmpCommentArr, action.payload.parentCommentId);//get the comment path of this comment
+      let l = findCommentBasedOnPath(likeCommentPath, tmpCommentArr); //get the comment itself in order to tamper it
 
-    // console.log("Comment with comment id: "+l.refToCurObject.comment_id+" liked: "+l.refToCurObject.liked);
-    if(action.payload.isLike==true){
-      //is like
-      l.refToCurObject.liked = action.payload.newStatus; //mark as liked
-      if(action.payload.newStatus==true){ //comment is now liked
-        if(l.refToCurObject.disliked==true){  //if the comment was disliked before it becomes liked
-          l.refToCurObject.score += 1;       //then the score goes up by one for revoking the dislike
-          l.refToCurObject.disliked = false; //we just liked a comment, we know its no longer disliked, so disable it
+      // console.log("Comment with comment id: "+l.refToCurObject.comment_id+" liked: "+l.refToCurObject.liked);
+      if(action.payload.isLike==true){
+        //is like
+        l.refToCurObject.liked = action.payload.newStatus; //mark as liked
+        if(action.payload.newStatus==true){ //comment is now liked
+          if(l.refToCurObject.disliked==true){  //if the comment was disliked before it becomes liked
+            l.refToCurObject.score += 1;       //then the score goes up by one for revoking the dislike
+            l.refToCurObject.disliked = false; //we just liked a comment, we know its no longer disliked, so disable it
+          }
+          l.refToCurObject.score += 1;
+        }else{  //comment like is now revoked
+          l.refToCurObject.score -= 1;
         }
-        l.refToCurObject.score += 1;
-      }else{  //comment like is now revoked
-        l.refToCurObject.score -= 1;
+      }else{
+        //is dislike
+        l.refToCurObject.disliked = action.payload.newStatus;  //mark as disliked
+        if(action.payload.newStatus==true){ //comment is now disliked
+          if(l.refToCurObject.liked==true){  //if the comment was liked before it becomes disliked
+            l.refToCurObject.score -= 1;     //then the score goes down by one for revoking the like
+            l.refToCurObject.liked = false;  //if we just disliked a comment, we know its no longer liked, so disable it
+          }
+          l.refToCurObject.score -= 1;
+        }else{  //comment dislike is now revoked
+          l.refToCurObject.score += 1;
+        }
       }
+      return state.setIn([ 'commentBeingTampered'], false)
+        .setIn(['error'],null)
+        .setIn(['comments'], Immutable.fromJS(l.contentArray));
     }else{
-      //is dislike
-      l.refToCurObject.disliked = action.payload.newStatus;  //mark as disliked
-      if(action.payload.newStatus==true){ //comment is now disliked
-        if(l.refToCurObject.liked==true){  //if the comment was liked before it becomes disliked
-          l.refToCurObject.score -= 1;     //then the score goes down by one for revoking the like
-          l.refToCurObject.liked = false;  //if we just disliked a comment, we know its no longer liked, so disable it
-        }
-        l.refToCurObject.score -= 1;
-      }else{  //comment dislike is now revoked
-        l.refToCurObject.score += 1;
-      }
+      return state.setIn([ 'commentBeingTampered'], false)
+        .setIn(['error'],null);
     }
-
-    // console.log("Comment that was liked: "+JSON.stringify(l.contentArray));
-    return state.setIn([ 'commentBeingTampered'], false)
-      .setIn(['error'],null)
-      .setIn(['comments'], Immutable.fromJS(l.contentArray));
-
     case GET_BILL_SUCCESS:
       return state.setIn([ 'isFetching', 'billData'], false)
       .setIn(['error'],null)

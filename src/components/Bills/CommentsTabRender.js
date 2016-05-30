@@ -312,6 +312,7 @@ class CommentsTabRender extends React.Component {
                style={styles.commentCard}
                key={rowData.comment_id}
                device={this.props.device}
+               alwaysBreakCommentsToNewScreen={true}
                commentData={{
                  commentBeingTampered: this.props.commentBeingTampered,
                  commentLvl:0,

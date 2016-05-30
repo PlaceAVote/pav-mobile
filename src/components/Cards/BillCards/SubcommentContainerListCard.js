@@ -87,7 +87,7 @@
               key={rowData.comment_id}
               style={styles.commentCard}
               device={this.props.device}
-
+              alwaysBreakCommentsToNewScreen={false}
               commentData={{
                 commentBeingTampered: this.props.commentBeingTampered,
                 commentLvl:this.props.commentLvl,

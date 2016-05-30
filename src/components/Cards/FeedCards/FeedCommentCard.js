@@ -268,15 +268,19 @@ class FeedCommentCard extends React.Component {
     });
   }
 
-  onLikeClick(){
+  async onLikeClick(){
     if(this.props.onLikeDislikeClick){
-      this.props.onLikeDislikeClick(REACTIONS.HAPPY);
+      if(!!this.props.commentId && !!this.props.billId && this.props.isLiked!=null){
+        let success = await this.props.onLikeDislikeClick(REACTIONS.HAPPY, this.props.commentId, this.props.billId, this.props.isLiked);
+      }
     }
   }
 
-  onDislikeClick(){
+  async onDislikeClick(){
     if(this.props.onLikeDislikeClick){
-      this.props.onLikeDislikeClick(REACTIONS.SAD);
+      if(!!this.props.commentId && !!this.props.billId && this.props.isDisliked!=null){
+        let success = await this.props.onLikeDislikeClick(REACTIONS.SAD, this.props.commentId, this.props.billId, this.props.isDisliked);
+      }
     }
   }
 

@@ -172,7 +172,7 @@ class AnimatedStatusCard extends React.Component {
  }
 
  componentWillUnmount(){
-   console.log("Animation sudden stop: "+this.animation.active)
+  //  console.log("Animation sudden stop: "+this.animation.active)
    this.animationCanRun = false;
    this.animation.stop();
  }

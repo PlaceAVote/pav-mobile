@@ -145,7 +145,7 @@ class Comments extends React.Component {
       let previousCommentData = this.props.bill.comments;
       let nextCommentData = nextProps.bill.comments;
       if (this.props.commentId!=null && (previousCommentData==null || (nextCommentData!==previousCommentData))){
-        console.log(" @@@@@@@@@@@@@ Next props: "+(!!nextCommentData))
+        // console.log(" @@@@@@@@@@@@@ Next props: "+(!!nextCommentData))
         let {comment, commentLvl} = extractCommentParentByItsId(this.props.commentId, nextCommentData);
         this.setState({
           curCommentScopeData: comment.replies,

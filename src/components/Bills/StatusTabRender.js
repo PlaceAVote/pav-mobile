@@ -218,7 +218,6 @@
 
     componentWillUnmount(){
       this.isVisible = false;
-      console.log("Status WILL unmount"+this.isVisible);
     }
 
     async onTabFocus(){

@@ -187,30 +187,31 @@ class NewsFeed extends React.Component {
     // alert("Tapped bill with id: "+billId);
   }
 
-  onUserClickedLikeDislike(type){
-    switch(type){
+  // onUserClickedLikeDislike(type){
+  //   switch(type){
+  //     case REACTIONS.HAPPY:
+  //       alert("User tapped like");
+  //       break;
+  //     case REACTIONS.SAD:
+  //       alert("User tapped dislike");
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
+
+  async onUserClickedLikeDislike(reaction, commentId, billId, curLikeDislikeEnabled){
+    console.log("Reaction: "+reaction+" commentId: "+commentId+" billId: "+billId+" curLikeDisLikeEnabled: "+curLikeDislikeEnabled+"@@@@ DEV?"+this.props.global.isDev)
+    switch(reaction){
       case REACTIONS.HAPPY:
-        alert("User tapped like");
-        break;
+        return await this.props.actions.likeComment(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);
       case REACTIONS.SAD:
-        alert("User tapped dislike");
-        break;
-      default:
-        break;
+        return await this.props.actions.dislikeComment(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);
     }
   }
 
   async onUserClickedReply(commentId, billData){
-    // this.props.onReplyClick(this.props.commentId,  );
-    // alert("Tapped reply on a comment that belongs to bill with id: "+billId);
     let {bill_id} = billData;
-    // console.log("Result: "+JSON.stringify(billData));
-    // let result = await this.props.actions.getBillComments(bill_id, null, this.TOKEN, this.props.global.isDev);
-    // console.log("Result: "+JSON.stringify(result.comments)+" of commentId: "+commentId);
-    // let commentPath = findCommentPath(result.comments, commentId);
-    // console.log("Result: "+JSON.stringify(commentPath));
-    // billData: billData, commentPath: commentPath, commentLvl: commentPath.length-1
-    // billData
     this.props.actions.navigateTo(COMMENTS, {billId: bill_id, commentId:commentId });
   }
 

@@ -485,7 +485,7 @@ class BillCommentCard extends React.Component {
   */
   shouldBreakSubcommentToNewScreen(){
     // console.log("Cur Comment:"+this.props.commentData.commentText+" lvl: "+comLvl+" when baseComLvl is: "+baseComLvl+" difference: "+(comLvl-baseComLvl));
-    return (this.props.commentData.commentLvl==0 || (this.props.commentData.commentLvl-this.props.commentData.baseCommentLvl>=SUBCOMMENT_COUNT));
+    return (this.props.alwaysBreakCommentsToNewScreen===true || (this.props.commentData.commentLvl-this.props.commentData.baseCommentLvl>=SUBCOMMENT_COUNT));
   }
 
   renderMoreCommentsLbl(replies, styles){
@@ -603,7 +603,7 @@ BillCommentCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   commentData: React.PropTypes.object.isRequired,
   onLayout: React.PropTypes.func,
-
+  alwaysBreakCommentsToNewScreen: React.PropTypes.bool,
 
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
