@@ -418,6 +418,7 @@ export function likeComment(commentId, billId, isLiked, sessionToken=null, dev =
       console.log("Unable to fetch past token in billActions.likeComment() with error: "+e.message);
       dispatch(likeCommentFailure(e.message));
     }
+    console.log("dev: "+dev);
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.likeComment({isAlreadyLiked:isLiked, billId:billId, commentId:commentId});
     console.log("likeComment RES: "+JSON.stringify(res));
     if(!!res.error){
