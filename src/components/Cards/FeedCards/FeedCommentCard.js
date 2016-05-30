@@ -281,8 +281,8 @@ class FeedCommentCard extends React.Component {
   }
 
   onReplyClick(){
-    if(this.props.onReplyClick && !!this.props.billId){
-      this.props.onReplyClick(this.props.billId);
+    if(this.props.onReplyClick && !!this.props.billId && !!this.props.commentId){
+      this.props.onReplyClick(this.props.commentId, {featured_bill_title: this.props.billTitle, bill_id:this.props.billId } );
     }
   }
 
@@ -382,6 +382,13 @@ class FeedCommentCard extends React.Component {
   }
 }
 
+
+
+
+
+
+
+
 FeedCommentCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   timeString: React.PropTypes.string.isRequired,
@@ -392,6 +399,10 @@ FeedCommentCard.propTypes= {
   likeCount: React.PropTypes.number.isRequired,
   isLiked: React.PropTypes.bool.isRequired,
   isDisliked: React.PropTypes.bool.isRequired,
+  commentId: React.PropTypes.string,
+  userId: React.PropTypes.string,
+  billId: React.PropTypes.string,
+  billTitle: React.PropTypes.string,
 
   onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,

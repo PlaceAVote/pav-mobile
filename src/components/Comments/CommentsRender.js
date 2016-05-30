@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Colors, Other} from '../../config/constants';
 const {SORT_FILTERS} = Other;
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, ListView, RefreshControl} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicatorIOS} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -21,7 +21,7 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import PavImage from '../../lib/UI/PavImage'
 import SubcommentContainerListCard from '../Cards/BillCards/SubcommentContainerListCard';
 import {List} from 'immutable';
-
+import ProgressBar from 'ProgressBarAndroid';
 
 
 
@@ -58,6 +58,12 @@ class CommentsRender extends React.Component {
         // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
         // marginVertical: 10,
         // marginHorizontal:15
+      },
+      spinnerContainer:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+        // backgroundColor:'red',
       },
 
 
@@ -110,7 +116,6 @@ class CommentsRender extends React.Component {
   }
 
   renderHeader(billData, platform, styles){
-    // console.log("bill: "+JSON.stringify(billData))
     if(!!billData){
       return (
         <PavImage
@@ -166,26 +171,45 @@ class CommentsRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    return(
-      <View style={styles.container}>
-        <SubcommentContainerListCard
-          header={this.renderHeader.bind(this,this.props.billData, this.props.device.platform, styles)}
-          style={styles.commentsPageContainer}
-          replies={this.props.replies}
-          device={this.props.device}
-          commentBeingTampered={this.props.commentBeingTampered}
-          commentLvl={this.props.commentLvl+1}
-          baseCommentLvl={this.props.commentLvl}
-          onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
-          onUserClick={this.props.onUserClick}
-          onLikeDislikeClick={this.props.onLikeDislikeClick}
-          onCommentPost={this.props.onCommentPost}
-          refresable={true}
-          onCommentsRefresh={this.onCommentsRefresh.bind(this)}
-          commentsBeingFetched={this.props.commentsBeingFetched}
-          />
-      </View>
-    );
+    if(this.props.replies!=null){
+      return(
+        <View style={styles.container}>
+          <SubcommentContainerListCard
+            header={this.renderHeader.bind(this,this.props.billData, this.props.device.platform, styles)}
+            style={styles.commentsPageContainer}
+            replies={this.props.replies}
+            device={this.props.device}
+            commentBeingTampered={this.props.commentBeingTampered}
+            commentLvl={this.props.commentLvl+1}
+            baseCommentLvl={this.props.commentLvl}
+            onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
+            onUserClick={this.props.onUserClick}
+            onLikeDislikeClick={this.props.onLikeDislikeClick}
+            onCommentPost={this.props.onCommentPost}
+            refresable={true}
+            onCommentsRefresh={this.onCommentsRefresh.bind(this)}
+            commentsBeingFetched={this.props.commentsBeingFetched}
+            />
+        </View>
+      );
+    }else{
+      if(this.props.device.platform=="android"){
+          return (
+          <View key="bill_render_body" style={styles.spinnerContainer}>
+            <ProgressBar styleAttr="Large" color="red" />
+          </View>);
+      }else if(this.props.device.platform=="ios"){
+          return (
+            <View key="bill_render_body" style={styles.spinnerContainer}>
+              <ActivityIndicatorIOS
+                animating={true}
+                size="large"
+              />
+            </View>);
+      }else{
+        return <View key="bill_render_body" style={styles.spinnerContainer}><Text>Now Loading</Text></View>;
+      }
+    }
 
 
   }
@@ -213,8 +237,10 @@ class CommentsRender extends React.Component {
 }
 
 CommentsRender.propTypes = {
-
-  replies: React.PropTypes.instanceOf(List).isRequired,
+  replies: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.instanceOf(List),
+  ]),
   billData: React.PropTypes.object.isRequired,
   device: React.PropTypes.object.isRequired,
   commentsBeingFetched: React.PropTypes.bool.isRequired,

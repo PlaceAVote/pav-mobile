@@ -176,7 +176,7 @@ export function getFeedItems(sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -241,7 +241,7 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){

@@ -97,10 +97,8 @@ export function getBill(billId, sessionToken=null, dev = null) {
     //store or get a sessionToken
     let token = sessionToken;
     try{
-        if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
-          token = tk.sessionToken;
-        }
+      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.getBill() with error: "+e.message);
       dispatch(getBillFailure(e.message));
@@ -159,17 +157,15 @@ function getBillCommentsFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getBillComments(billId, sortFilter, sessionToken=null, dev = null) {
+export function getBillComments(billId, sortFilter, sessionToken, dev) {
   console.log("getBillComments called");
   return async function (dispatch){
     dispatch(getBillCommentsRequest());
     //store or get a sessionToken
     let token = sessionToken;
     try{
-        if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
-          token = tk.sessionToken;
-        }
+      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.getBillComments() with error: "+e.message);
       dispatch(getBillCommentsFailure(e.message));
@@ -233,10 +229,8 @@ export function getBillTopComments(billId, sessionToken=null, dev = null) {
     //store or get a sessionToken
     let token = sessionToken;
     try{
-        if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
-          token = tk.sessionToken;
-        }
+        let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+        token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.getBillTopComments() with error: "+e.message);
       dispatch(getBillTopCommentsFailure(e.message));
@@ -302,10 +296,8 @@ export function commentOnBill(commentText, billId, sessionToken=null, dev = null
     //store or get a sessionToken
     let token = sessionToken;
     try{
-        if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
-          token = tk.sessionToken;
-        }
+      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.commentOnBill() with error: "+e.message);
       dispatch(commentOnBillFailure(e.message));
@@ -365,10 +357,8 @@ export function commentOnComment(commentText, billId, commentId, commentLvl, ses
     //store or get a sessionToken
     let token = sessionToken;
     try{
-        if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
-          token = tk.sessionToken;
-        }
+      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.commentOnComment() with error: "+e.message);
       dispatch(commentOnCommentFailure(e.message));
@@ -422,10 +412,8 @@ export function likeComment(commentId, billId, isLiked, sessionToken=null, dev =
     //store or get a sessionToken
     let token = sessionToken;
     try{
-        if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
-          token = tk.sessionToken;
-        }
+      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.likeComment() with error: "+e.message);
       dispatch(likeCommentFailure(e.message));
@@ -476,10 +464,8 @@ export function dislikeComment(commentId, billId, isDisliked, sessionToken=null,
     //store or get a sessionToken
     let token = sessionToken;
     try{
-        if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
-          token = tk.sessionToken;
-        }
+      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.dislikeComment() with error: "+e.message);
       dispatch(dislikeCommentFailure(e.message));

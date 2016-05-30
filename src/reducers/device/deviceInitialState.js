@@ -14,6 +14,14 @@
  */
 import {Record} from 'immutable';
 // import Orientation from 'react-native-orientation';
+
+
+
+
+
+
+
+
 /**
  * ## InitialState
  *
@@ -24,8 +32,7 @@ var InitialState = Record({
   platform: '',
   version: null,
   orientation: 'PORTRAIT',//Orientation.getInitialOrientation()    //can be PORTRAITUPSIDEDOWN, PORTRAIT, LANDSCAPE
-  orientationLocked: false
-
+  orientationLocked: false,
 });
 
 export default InitialState;

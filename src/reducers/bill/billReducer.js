@@ -78,7 +78,7 @@ export default function newsfeedReducer(state = initialState, action) {
     case DISLIKE_COMMENT_REQUEST:
     case POST_COMMENT_ON_BILL_REQUEST:
     case POST_COMMENT_ON_COMMENT_REQUEST:
-      return state.setIn([ 'isFetching', 'commentBeingTampered'], true)
+      return state.setIn([ 'commentBeingTampered'], true)
         .setIn(['error'],null);
 
     case GET_BILL_REQUEST:
@@ -95,7 +95,7 @@ export default function newsfeedReducer(state = initialState, action) {
 
     case POST_COMMENT_ON_BILL_SUCCESS:
       let commentsNewList = state.comments.push(action.payload) //push the new comment to the comments array
-      return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
+      return state.setIn([ 'commentBeingTampered'], false)
         .setIn(['error'],null)
         .setIn(['comments'], commentsNewList);
     case POST_COMMENT_ON_COMMENT_SUCCESS:
@@ -105,7 +105,7 @@ export default function newsfeedReducer(state = initialState, action) {
       // console.log("Comment path: "+commentPath);
       let {initialArray, refToCurObject} = findCommentBasedOnPath(commentPath, commentArr);//get the comment itself in order to tamper it
       refToCurObject.replies.push(action.payload.newComment);
-      return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
+      return state.setIn([ 'commentBeingTampered'], false)
         .setIn(['error'],null)
         .setIn(['comments'], Immutable.fromJS(initialArray));
 
@@ -145,11 +145,9 @@ export default function newsfeedReducer(state = initialState, action) {
     }
 
     // console.log("Comment that was liked: "+JSON.stringify(l.initialArray));
-    return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
+    return state.setIn([ 'commentBeingTampered'], false)
       .setIn(['error'],null)
       .setIn(['comments'], Immutable.fromJS(l.initialArray));
-    // return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
-    //   .setIn(['error'],null)
 
     case GET_BILL_SUCCESS:
       return state.setIn([ 'isFetching', 'billData'], false)
@@ -197,7 +195,7 @@ export default function newsfeedReducer(state = initialState, action) {
     case DISLIKE_COMMENT_FAILURE:
     case POST_COMMENT_ON_BILL_FAILURE:
     case POST_COMMENT_ON_COMMENT_FAILURE:
-      return state.setIn([ 'isFetching', 'commentBeingTampered'], false)
+      return state.setIn([ 'commentBeingTampered'], false)
         .setIn(['error'],action.payload);
 
     case GET_BILL_FAILURE:

@@ -135,7 +135,7 @@ const {
 // export function logout() {
 //   return dispatch => {
 //     dispatch(logoutRequest());
-//     return new AppAuthToken().getSessionToken()
+//     return new AppAuthToken().getOrReplaceSessionToken()
 //
 //       .then((token) => {
 //         return PavClientSdk(token).logout();
@@ -864,10 +864,10 @@ function parseFbBirthday(birthdayString){
 //  * so set the state to logout.
 //  * Otherwise, the user will default to the login in screen.
 //  */
-// export function getSessionToken() {
+// export function getOrReplaceSessionToken() {
 //   return dispatch => {
 //     dispatch(sessionTokenRequest());
-//     return new AppAuthToken().getSessionToken()
+//     return new AppAuthToken().getOrReplaceSessionToken()
 //
 //       .then((token) => {
 //         if (token) {

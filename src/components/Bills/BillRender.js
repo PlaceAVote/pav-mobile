@@ -296,9 +296,29 @@ class BillRender extends React.Component {
   }
 
 
+  renderBillTags(tags, styles){
+    if(tags!=null){
+      return (<View style={styles.headerTagBtnContainer}>
+        <Text style={styles.tagsLblText}>Tags: </Text>
+        {tags.map((tag, i) =>
+          (<View key={"tag"+i+"container"} style={styles.tagBtnContainer}><TouchableOpacity
+            key={"tag"+i+"btn"}
+            onPress={this.props.onTagPress}
+            style={styles.tagBtn}>
+            <Text key={"tag"+i+"txt"}style={styles.tagTitleText}>{tag}</Text>
+          </TouchableOpacity></View>)
+        )}
+      </View>);
+    }else{
+      return <View></View>;
+    }
+  }
+
   renderHeader(billData, platform, styles){
     // console.log("bill: "+JSON.stringify(billData))
     if(!!billData){
+
+
       return (
         <PavImage
         key="bill_header"
@@ -334,17 +354,8 @@ class BillRender extends React.Component {
                   </TouchableOpacity>
                 </View>
 
-                <View style={styles.headerTagBtnContainer}>
-                  <Text style={styles.tagsLblText}>Tags: </Text>
-                  {billData.pav_tags.map((tag, i) =>
-                    (<View key={"tag"+i+"container"} style={styles.tagBtnContainer}><TouchableOpacity
-                      key={"tag"+i+"btn"}
-                      onPress={this.props.onTagPress}
-                      style={styles.tagBtn}>
-                      <Text key={"tag"+i+"txt"}style={styles.tagTitleText}>{tag}</Text>
-                    </TouchableOpacity></View>)
-                  )}
-                </View>
+                {this.renderBillTags(billData.pav_tags, styles)}
+
 
               </View>
           </LinearGradient>
@@ -505,7 +516,7 @@ class BillRender extends React.Component {
             commentData: this.props.bill.comments,
             isFetchingComments: this.props.bill.isFetching.billComments,
             isFetchingTopComments: this.props.bill.isFetching.billTopComments,
-            isFetchingcommentBeingTampered: this.props.bill.isFetching.commentBeingTampered,
+            isFetchingcommentBeingTampered: this.props.bill.commentBeingTampered,
           }, styles)}
         </View>
         {this.renderFooter(styles)}

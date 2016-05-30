@@ -25,6 +25,7 @@ import { connect } from 'react-redux';
 import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
+import * as billActions from '../reducers/bill/billActions';
 // import * as billActions from '../reducers/bill/billActions';
 
 
@@ -44,7 +45,7 @@ import {Map} from 'immutable';
  *   NewsFeedRender
  */
 import NewsFeedRender from '../components/NewsFeed/NewsFeedRender'
-
+import {findCommentPath} from '../lib/Utils/commentCrawler';
 
 import React from 'react';
 import {Linking} from 'react-native';
@@ -62,7 +63,8 @@ const {
 } = Other;
 const {
   MAIN,
-  BILL
+  BILL,
+  COMMENTS
 } = ScheneKeys;
 
 
@@ -75,6 +77,7 @@ const actions = [
   routingActions,
   deviceActions,
   newsfeedActions,
+  billActions
 ];
 
 function mapStateToProps(state) {
@@ -101,6 +104,8 @@ function mapDispatchToProps(dispatch) {
 
 
 
+const PROD_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjpudWxsLCJlbWFpbCI6ImJlbG92ZWRpbmJveEBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSW9hbm5pcyIsImNvbmZpcm1hdGlvbi10b2tlbiI6IjY1YTdkOWM2LTkwYTEtNGQyMi05NzhkLTNmZjk2NmViNTNjNSIsImNpdHkiOiJUaGVzc2Fsb25pa2kgR3JlZWNlIiwiZXhwIjoxNDY2MTY5NzE5LCJwdWJsaWMiOmZhbHNlLCJzdGF0ZSI6bnVsbCwidG9waWNzIjpbIlBvbGl0aWNzIiwiVGVjaG5vbG9neSIsIlNvY2lhbCBJbnRlcmVzdCJdLCJjb3VudHJ5X2NvZGUiOiJHUkMiLCJkb2IiOiIxMS8xNC8xOTg5IiwiaW1nX3VybCI6Imh0dHBzOi8vY2RuLnBsYWNlYXZvdGUuY29tL3VzZXJzL2M1MTQxMmVhLWYyY2YtNDRjZC1hOGJkLTc3ODk3ODQ2ZjliNi9wcm9maWxlL2ltZy9wMjAweHAyMDB4L2E5ZWM0YmFlLTIwZTQtNDBkZC05YmU0LWYyOGEyOWQxMjVkYy5qcGVnIiwibGFzdF9uYW1lIjoiS29ra2luaWRpcyIsImxhdCI6bnVsbCwidXNlcl9pZCI6ImM1MTQxMmVhLWYyY2YtNDRjZC1hOGJkLTc3ODk3ODQ2ZjliNiIsImdlbmRlciI6Im1hbGUiLCJyZWdpc3RlcmVkIjpudWxsLCJjcmVhdGVkX2F0IjoxNDU1NzU3MDQ5MTMzLCJsbmciOm51bGwsImRpc3RyaWN0IjpudWxsfQ.mVwiw_-zA1En2y6eNYN1GErmL7t1NMlWzQRogi1vsOWOlkRNxcrgatyI3Akrd5LwS5NFSa5Lf8GlvdeeFFKEGEjqmFx_2UQ7MIvih9F9DlBZf6LJeeGHNXKembJV8ksJWktLmbspdk2_tVLvskjatJzPHrIM3-dJ_qJQBASEQhjUBRYKc9-GbvVCvL-xpveNkI6H350anJnsIFuOPBnpf3cQn7FJJNUuPdeTVXJIM1ZeqwFGqp7z_4qE2wuZQRwC_m8ELc9GizB62qqJcOWRmnbOLw8j4f59VtOMJVcECW7C7iuwq-0VECDJnv7jpkOTDSntYS-c4Std65m5dEpHQQ";
+const DEV_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjoiV2FzaGluZ3RvbiwgREMgMjAwMDEsIFVTQSIsImVtYWlsIjoid2hhdGV2YWhAcGxhY2Vhdm90ZS5jb20iLCJmaXJzdF9uYW1lIjoiSW9hbm5pcyIsImNvbmZpcm1hdGlvbi10b2tlbiI6IjdmODc0ZDI4LTU3MTMtNGZhOS1hMDljLTZhNDg3ODc2ZTAzMiIsImV4cCI6MTQ2NjM1NzY0NiwicHVibGljIjp0cnVlLCJzdGF0ZSI6IkRDIiwiemlwY29kZSI6IjIwMDAxIiwidG9waWNzIjpbInNleCIsImRydWdzIiwicm9ja05Sb2xsIl0sImNvdW50cnlfY29kZSI6IlVTQSIsImRvYiI6IjE0LzExLzE5ODkiLCJsYXN0X25hbWUiOiJEYVRlc3RhaCIsImxhdCI6IjM4LjkxMjA2OCIsInVzZXJfaWQiOiJlMjMzMzk0Yi1kYjEwLTRiMDMtYjNkNy02NTYxOTZmOTYyNDYiLCJnZW5kZXIiOiJtYWxlIiwicmVnaXN0ZXJlZCI6bnVsbCwiY3JlYXRlZF9hdCI6MTQ2MTE1ODU2MDY4NCwibG5nIjoiLTc3LjAxOTAyMjgiLCJkaXN0cmljdCI6IjAifQ.tZGdfcxCJ4d15cV0RhgXI0jJMm-I1cM0ANR3PGXe0Oni2Qm6Ci-MtMD7d1LxQd4GTAOuLKzeucMqC_jbYsrfgNX6TcE3Ua2hdcN5MQaxDGVsiFIi2A-UHt3_o6Ph5pFG4zuh5d-NfTC17GGmJxbi8roWpNdssR2rh2fuh6nRus_gOoibge8yU3EtEFEjpxTs4nSvTI1n6_B0AiVJrPEZunHNByIlZinDpjZJqe0-OMeEBzs26lzaaIerV8OZNy2WgqPS4aLj2WCe84xx6_oC8QFe7AoboGDDh4k2XVAHKNx022VLYqRG06bSyyrLur7Jvzra92b8h9m63eLy-iyDzA";
 
 
 
@@ -112,7 +117,7 @@ class NewsFeed extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.TOKEN = props.global.isDev==true?DEV_TOKEN:PROD_TOKEN;
     if(this.props.newsfeed.newsFeedData.items==null){
       this.connectAndGetFeed();
     }
@@ -121,10 +126,10 @@ class NewsFeed extends React.Component {
 
 
   async connectAndGetFeed(){
-    return await this.props.actions.getFeedItems('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjpudWxsLCJlbWFpbCI6ImJlbG92ZWRpbmJveEBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSW9hbm5pcyIsImNvbmZpcm1hdGlvbi10b2tlbiI6IjY1YTdkOWM2LTkwYTEtNGQyMi05NzhkLTNmZjk2NmViNTNjNSIsImNpdHkiOiJUaGVzc2Fsb25pa2kgR3JlZWNlIiwiZXhwIjoxNDY1MTc0NjExLCJwdWJsaWMiOmZhbHNlLCJzdGF0ZSI6bnVsbCwidG9waWNzIjpbIlBvbGl0aWNzIiwiVGVjaG5vbG9neSIsIlNvY2lhbCBJbnRlcmVzdCJdLCJjb3VudHJ5X2NvZGUiOiJHUkMiLCJkb2IiOiIxMS8xNC8xOTg5IiwiaW1nX3VybCI6Imh0dHBzOi8vY2RuLnBsYWNlYXZvdGUuY29tL3VzZXJzL2M1MTQxMmVhLWYyY2YtNDRjZC1hOGJkLTc3ODk3ODQ2ZjliNi9wcm9maWxlL2ltZy9wMjAweHAyMDB4L2E5ZWM0YmFlLTIwZTQtNDBkZC05YmU0LWYyOGEyOWQxMjVkYy5qcGVnIiwibGFzdF9uYW1lIjoiS29ra2luaWRpcyIsImxhdCI6bnVsbCwidXNlcl9pZCI6ImM1MTQxMmVhLWYyY2YtNDRjZC1hOGJkLTc3ODk3ODQ2ZjliNiIsImdlbmRlciI6Im1hbGUiLCJyZWdpc3RlcmVkIjpudWxsLCJjcmVhdGVkX2F0IjoxNDU1NzU3MDQ5MTMzLCJsbmciOm51bGwsImRpc3RyaWN0IjpudWxsfQ.kKjA6lS2GHGWNSsOTrVfGvKfG1y27-TXlR7Jx78UaYp2d4n83oQd5aepIYxgwcVqeyiEtyV-yr1X-2ieKMCPoRLqyip2U5ac8EskPkhSZ9Okd0xX3_6Y93ubHSg3_PdlnDA93TAJljzx17ZKAoWP21VckSdOiN31Yrbozgb8cMqzsa4tddm8O21k4jhIJWURduwIhm_6Ys46cz-2sffn73qGNq3b2PS9NqSt5NFSkae3IwtDZdnaPCg0cjSvq_7KMYgOCrQEnFjEiV6HdasPQilEeeCMvH9NWLf2T0l97uK2RvtHAwwv1RShyB66TgAQu_TU4O485VlKVMtgGo0xrA', false);
+    return await this.props.actions.getFeedItems(this.TOKEN, this.props.global.isDev);
   }
   async getDiscoveryItemsForTopic(topicString){
-    return await this.props.actions.getDiscoveryItems(topicString, 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjpudWxsLCJlbWFpbCI6ImJlbG92ZWRpbmJveEBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSW9hbm5pcyIsImNvbmZpcm1hdGlvbi10b2tlbiI6IjY1YTdkOWM2LTkwYTEtNGQyMi05NzhkLTNmZjk2NmViNTNjNSIsImNpdHkiOiJUaGVzc2Fsb25pa2kgR3JlZWNlIiwiZXhwIjoxNDY1MTc0NjExLCJwdWJsaWMiOmZhbHNlLCJzdGF0ZSI6bnVsbCwidG9waWNzIjpbIlBvbGl0aWNzIiwiVGVjaG5vbG9neSIsIlNvY2lhbCBJbnRlcmVzdCJdLCJjb3VudHJ5X2NvZGUiOiJHUkMiLCJkb2IiOiIxMS8xNC8xOTg5IiwiaW1nX3VybCI6Imh0dHBzOi8vY2RuLnBsYWNlYXZvdGUuY29tL3VzZXJzL2M1MTQxMmVhLWYyY2YtNDRjZC1hOGJkLTc3ODk3ODQ2ZjliNi9wcm9maWxlL2ltZy9wMjAweHAyMDB4L2E5ZWM0YmFlLTIwZTQtNDBkZC05YmU0LWYyOGEyOWQxMjVkYy5qcGVnIiwibGFzdF9uYW1lIjoiS29ra2luaWRpcyIsImxhdCI6bnVsbCwidXNlcl9pZCI6ImM1MTQxMmVhLWYyY2YtNDRjZC1hOGJkLTc3ODk3ODQ2ZjliNiIsImdlbmRlciI6Im1hbGUiLCJyZWdpc3RlcmVkIjpudWxsLCJjcmVhdGVkX2F0IjoxNDU1NzU3MDQ5MTMzLCJsbmciOm51bGwsImRpc3RyaWN0IjpudWxsfQ.kKjA6lS2GHGWNSsOTrVfGvKfG1y27-TXlR7Jx78UaYp2d4n83oQd5aepIYxgwcVqeyiEtyV-yr1X-2ieKMCPoRLqyip2U5ac8EskPkhSZ9Okd0xX3_6Y93ubHSg3_PdlnDA93TAJljzx17ZKAoWP21VckSdOiN31Yrbozgb8cMqzsa4tddm8O21k4jhIJWURduwIhm_6Ys46cz-2sffn73qGNq3b2PS9NqSt5NFSkae3IwtDZdnaPCg0cjSvq_7KMYgOCrQEnFjEiV6HdasPQilEeeCMvH9NWLf2T0l97uK2RvtHAwwv1RShyB66TgAQu_TU4O485VlKVMtgGo0xrA', false);
+    return await this.props.actions.getDiscoveryItems(topicString, this.TOKEN, this.props.global.isDev);
   }
 
   orientationDidChange(orientation) {
@@ -195,8 +200,17 @@ class NewsFeed extends React.Component {
     }
   }
 
-  onUserClickedReply(billId){
-    alert("Tapped reply on a comment that belongs to bill with id: "+billId);
+  async onUserClickedReply(commentId, billData){
+    // this.props.onReplyClick(this.props.commentId,  );
+    // alert("Tapped reply on a comment that belongs to bill with id: "+billId);
+    let {bill_id} = billData;
+    // console.log("Result: "+JSON.stringify(billData));
+    // let result = await this.props.actions.getBillComments(bill_id, null, this.TOKEN, this.props.global.isDev);
+    // console.log("Result: "+JSON.stringify(result.comments)+" of commentId: "+commentId);
+    // let commentPath = findCommentPath(result.comments, commentId);
+    // console.log("Result: "+JSON.stringify(commentPath));
+    // billData: billData, commentPath: commentPath, commentLvl: commentPath.length-1
+    this.props.actions.navigateTo(COMMENTS, {bill_id: bill_id, comment_id:commentId});
   }
 
   onUserClickedReaction(reaction){

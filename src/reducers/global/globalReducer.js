@@ -20,6 +20,7 @@ const {
   // LOGOUT_SUCCESS,
   // GET_STATE,
   // SET_STATE,
+  SET_DEV,
   SET_STORE,
   SET_NAVBAR_DIMENSIONS,
 
@@ -37,6 +38,10 @@ export default function globalReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state);
 
   switch (action.type) {
+
+
+  case SET_DEV:
+    return state.set('isDev', action.payload);
 
   case SET_NAVBAR_DIMENSIONS:
     return state.setIn(['navBarDimensions', 'width'],action.payload.width)

@@ -13,6 +13,7 @@ import {ActionNames} from '../../config/constants';
  */
 const {
   // SET_SESSION_TOKEN,
+  SET_DEV,
   SET_STORE,
   // SET_STATE,
   // GET_STATE,
@@ -43,6 +44,22 @@ export function setStore(store) {
     payload: store
   };
 }
+
+
+
+
+/**
+ * ## set the environment
+ *
+ */
+export function setEnvironmentIsDev(environmentIsDev) {
+  return {
+    type: SET_DEV,
+    payload: environmentIsDev
+  };
+}
+
+
 /**
  * ## set state
  *

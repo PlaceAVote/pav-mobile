@@ -35,20 +35,17 @@ export default class AppAuthToken {
 
   }
   /**
-   * ### getSessionToken
+   * ### getOrReplaceSessionToken
    * @param {Object} sessionToken the currentUser object from pav backend
    *
    * When Hot Loading, the sessionToken  will be passed in, and if so,
    * it needs to be stored on the device.  Remember, the store is a
    * promise so, have to be careful.
    */
-  getSessionToken(sessionToken) {
-    if (sessionToken) {
-      return store.save(this.SESSION_TOKEN_STORAGE_KEY,{
-          sessionToken: sessionToken
-      }).then(() => {
-        return store.get(this.SESSION_TOKEN_STORAGE_KEY);
-      });
+  async getOrReplaceSessionToken(sessionToken) {
+    if (!!sessionToken) {
+      await store.save(this.SESSION_TOKEN_STORAGE_KEY,{sessionToken: sessionToken})
+      return store.get(this.SESSION_TOKEN_STORAGE_KEY);
     }
     return store.get(this.SESSION_TOKEN_STORAGE_KEY);
   }

@@ -113,3 +113,36 @@ export function findCommentBasedOnPath(commentPath, initialArr){
   }
   return null;
 }
+
+
+
+/*
+
+extractRepliesForCommentId:
+
+    This function gets an input of:
+
+      commentID: The comment id will will be looking for
+      arrayToInvestigate: The array which on which the search will take place
+
+      returns:
+        {Object} A copy of the replies array that contains this commentId
+        OR
+        null if the comment Id was not found within the arrayToInvestigate
+
+
+*/
+export function extractRepliesForCommentId(commentId, arrayToInvestigate){
+  if(arrayToInvestigate!=null){
+    if(arrayToInvestigate instanceof List){
+      arrayToInvestigate = arrayToInvestigate.toJS();
+    }
+    // console.log("Array to investigate: "+arrayToInvestigate);
+    let commentPath = findCommentPath(arrayToInvestigate, commentId);
+    // console.log("Comment path produced: "+commentPath);
+    let {refToCurObject} = findCommentBasedOnPath(commentPath, arrayToInvestigate);
+    // console.log(" extractRepliesForCommentId: inserted: "+(typeof arrayToInvestigate)+" got: "+(typeof refToCurObject));
+    return refToCurObject;
+  }
+  return null;
+}

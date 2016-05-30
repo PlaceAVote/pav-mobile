@@ -210,6 +210,7 @@ module.exports =  {
    SET_STORE: null,
 
    /* device */
+   SET_DEV: null,
    SET_PLATFORM: null,
    SET_VERSION: null,
    SET_ORIENTATION: null,

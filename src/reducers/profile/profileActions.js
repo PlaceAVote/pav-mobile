@@ -82,7 +82,7 @@ export function getProfile(userId = null, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
       if(!sessionToken){
-        let tk = await new AppAuthToken().getSessionToken(sessionToken);
+        let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
         token = tk.sessionToken;
       }
     }catch(e){
@@ -158,7 +158,7 @@ export function getTimeline(userId = null, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -227,7 +227,7 @@ export function followUser(userId = null, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -291,7 +291,7 @@ export function unfollowUser(userId = null, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getSessionToken(sessionToken);
+          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){

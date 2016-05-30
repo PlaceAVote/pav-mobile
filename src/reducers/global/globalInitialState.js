@@ -31,6 +31,7 @@ var InitialState = Record({
   // showState: false,
   // currentState: null,
   store: null,
+  isDev: true,
   navBarDimensions: new (Record({
     width: null,
     height: null
