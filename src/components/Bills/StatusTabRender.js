@@ -54,8 +54,9 @@
     constructor(props) {
       super(props);
       this.state={
-        statusVisible:false
+        statusAnimationFinished:false
       }
+      this.isVisible = true;
     }
 
 
@@ -209,34 +210,54 @@
     }
 
 
+// this.props.parentVisible==true
 
+    componentWillMount(){
+      this.isVisible = true;
+    }
 
+    componentWillUnmount(){
+      this.isVisible = false;
+      console.log("Status WILL unmount"+this.isVisible);
+    }
 
     async onTabFocus(){
-        if(!!this.props.billHistory && this.state.statusVisible==false){
+        if(!!this.props.billHistory && this.state.statusAnimationFinished==false && this.props.parentVisible===true && this.isVisible===true){
 
           let scrollResponder = this.refs.stat_scrollview.getScrollResponder();
           scrollResponder.scrollResponderScrollTo({x: 0, y: 0, animated: true});
           let houseFirst = this.houseIconShouldBeRenderedFirst(this.props.billHistory);
           let toAnimateArr = ["introduced_status_card", "committee_status_card", houseFirst==true?"house_status_card":"senate_status_card",houseFirst==true?"senate_status_card":"house_status_card", "enacted_status_card"];
           // console.log("To animate array length: "+toAnimateArr.length);
-
-          for(var iii=0,lll=toAnimateArr.length;iii<lll;iii++){
+          let animatedCnt = 0;
+          let iii,lll;
+          for(iii=0,lll=toAnimateArr.length;iii<lll;iii++){
             let toBeAnimated = toAnimateArr[iii];
             // console.log(" with toBeAnimated: "+toBeAnimated);
-            await this.refs[toBeAnimated].animate();
-            // console.log(iii)
-            if(iii+2<lll){ // if thats below the n-2 iteration
-              scrollResponder.scrollResponderScrollTo({x: 0, y: (iii+1)*h*0.26, animated: true});
-            }
-            if(iii+2==lll){// if thats the n-2 iteration
-                scrollResponder.scrollResponderScrollTo({x: 0, y: (lll-1)*h*0.22, animated: true});
+
+            let curCard = this.refs[toBeAnimated];
+
+            if(curCard!=null && this.props.parentVisible===true){
+              animatedCnt++;
+              await curCard.animate();
+              // console.log(iii)
+              if((iii+2<lll) && this.isVisible===true){ // if thats below the n-2 iteration
+                scrollResponder.scrollResponderScrollTo({x: 0, y: (iii+1)*h*0.26, animated: true});
+              }
+              if((iii+2==lll) && this.isVisible===true){// if thats the n-2 iteration
+                  scrollResponder.scrollResponderScrollTo({x: 0, y: (lll-1)*h*0.22, animated: true});
+              }
+            }else{
+              break;
             }
 
             // Dimensions.get(this.refs.stat_scrollview.getInnerViewNode(), (...data)=>{console.log(data)});
             // this.refs.stat_scrollview.scrollTo({y:, animated:true});
           }
-          this.setState({statusVisible:true});
+
+          if(animatedCnt==lll){ // all animations took place
+            this.setState({statusAnimationFinished:true});
+          }
         }
     }
 

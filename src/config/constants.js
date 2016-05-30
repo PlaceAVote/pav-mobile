@@ -49,6 +49,12 @@ module.exports =  {
     VOTE: null,
 
   }),
+  BillPageTabs: {
+    SUMMARY: 0,
+    STATUS: 1,
+    INFO: 2,
+    COMMENTS: 3,
+  },
   Other: {
     SESSION_TOKEN_STORAGE_KEY: "token",
     NEWS_FEED_FILTERS:{
@@ -89,7 +95,6 @@ module.exports =  {
       HIGHEST_RATE:'highest-score',
       NEWEST:'latest',
     },
-
 
 
 

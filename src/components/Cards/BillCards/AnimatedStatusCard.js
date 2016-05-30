@@ -120,6 +120,36 @@ class AnimatedStatusCard extends React.Component {
       line_B_Height: new Animated.Value(0),
       curOpacity: new Animated.Value(0),
     }
+
+    this.animationCanRun = true;
+    this.animation = Animated.sequence([          // after decay, in parallel:
+      Animated.timing(                          // Base: spring, decay, timing
+        this.state.line_A_Height,                 // Animate `bounceValue`
+        {
+          toValue: this.props.lineHeight,
+          duration: 400,
+          // easing: Easing.elastic(2), // Springy
+          // friction: 6,
+          // tension:35,
+        }
+      ),
+      Animated.timing(                          // Base: spring, decay, timing
+        this.state.curOpacity,                 // Animate `bounceValue`
+        {
+          toValue: 1,                         // Animate to smaller size
+          duration: 400,
+        }
+      ),
+      Animated.timing(                          // Base: spring, decay, timing
+        this.state.line_B_Height,                 // Animate `bounceValue`
+        {
+          toValue: this.props.lineHeight,
+          duration: 400,
+          // friction: 6,
+          // tension:35,
+        }
+      ),
+   ]);
   }
 
 
@@ -131,39 +161,21 @@ class AnimatedStatusCard extends React.Component {
     this.state.curOpacity.setValue(0);     // Start at 0
     let self = this;
     return new Promise(function(resolve, reject){
-      Animated.sequence([          // after decay, in parallel:
-        Animated.timing(                          // Base: spring, decay, timing
-          self.state.line_A_Height,                 // Animate `bounceValue`
-          {
-            toValue: self.props.lineHeight,
-            duration: 400,
-            // easing: Easing.elastic(2), // Springy
-            // friction: 6,
-            // tension:35,
-          }
-        ),
-        Animated.timing(                          // Base: spring, decay, timing
-          self.state.curOpacity,                 // Animate `bounceValue`
-          {
-            toValue: 1,                         // Animate to smaller size
-            duration: 400,
-          }
-        ),
-        Animated.timing(                          // Base: spring, decay, timing
-          self.state.line_B_Height,                 // Animate `bounceValue`
-          {
-            toValue: self.props.lineHeight,
-            duration: 400,
-            // friction: 6,
-            // tension:35,
-          }
-        ),
-     ]).start(resolve);                    // start the sequence group
+      if(self.animationCanRun===false){
+        console.log("AnimatedStatusCard unmounted");
+        reject("AnimatedStatusCard unmounted, we can no longer keep on animating.");
+      }else{
+        self.animation.start(resolve);                    // start the sequence group
+      }
    });
 
  }
 
-
+ componentWillUnmount(){
+   console.log("Animation sudden stop: "+this.animation.active)
+   this.animationCanRun = false;
+   this.animation.stop();
+ }
 
 
   /**

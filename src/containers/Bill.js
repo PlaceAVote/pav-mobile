@@ -52,7 +52,8 @@ import {Linking} from 'react-native';
 import {
 ScheneKeys,
 Other,
-Modals
+Modals,
+BillPageTabs
 } from '../config/constants';
 const {
   REACTIONS,
@@ -197,6 +198,7 @@ class Bill extends React.Component {
           billTitle="Whatevah"
           subjectTitle="Whatevah"
           favorPercentage={23}
+          initTab={this.props.initTab || BillPageTabs.SUMMARY}
           onSocialClick={this.onSocialClick.bind(this)}
           onTagPress={this.onTagPress.bind(this)}
           onVoteBtnPress={this.onVoteBtnPress.bind(this)}

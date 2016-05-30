@@ -28,6 +28,7 @@ import BillTabBar from './BillTabBar';
 // import TopicSelectTabBar from '../NewsFeed/TopicSelectTabBar'
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
+
 const {SOCIAL_TYPES} = Other;
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, ActivityIndicatorIOS} from 'react-native';
@@ -372,7 +373,7 @@ class BillRender extends React.Component {
       return (<ScrollableTabView
         key="bill_render_body"
         ref="scrollableTabView"
-        onChangeTab={({i, ref}) => {if(i==1){this.refs.status_tab.onTabFocus()}}}
+        onChangeTab={({i, ref}) => {if(i==1){if(this.props.parentVisible===true){this.refs.status_tab.onTabFocus();} }}}
         renderTabBar={() =>
           <BillTabBar
             underlineColor={Colors.negativeAccentColor}
@@ -381,7 +382,7 @@ class BillRender extends React.Component {
             backgroundColor='rgba(255, 255, 255, 0.85)'
             textStyle={styles.tabText}
           />}
-        initialPage={0}
+        initialPage={this.props.initTab}
         style={styles.pagesContainer}
       >
         <SummaryTabRender
@@ -395,6 +396,7 @@ class BillRender extends React.Component {
             }}
           orientation={this.props.device.orientation}
           goToMoreInfoPage={()=>this.refs.scrollableTabView.goToPage(1)}
+          parentVisible={this.props.parentVisible}
         />
 
         <StatusTabRender
@@ -404,6 +406,7 @@ class BillRender extends React.Component {
           orientation={this.props.device.orientation}
           billStatus={billData.status}
           billHistory={billData.history}
+          parentVisible={this.props.parentVisible}
         />
 
 
@@ -438,6 +441,7 @@ class BillRender extends React.Component {
           orientation={this.props.device.orientation}
           goToReadEntireBillPage={()=>alert("Read entire bill")}
           platform={this.props.device.platform}
+          parentVisible={this.props.parentVisible}
         />
 
 
@@ -456,6 +460,7 @@ class BillRender extends React.Component {
           onCommentPost={this.props.onCommentPost}
           onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
           device={this.props.device}
+          parentVisible={this.props.parentVisible}
         />
 
      </ScrollableTabView>);
@@ -544,6 +549,7 @@ BillRender.propTypes= {
   billTitle: React.PropTypes.string.isRequired,
   subjectTitle: React.PropTypes.string.isRequired,
   favorPercentage: React.PropTypes.any.isRequired,
+  initTab: React.PropTypes.number,
   parentVisible: React.PropTypes.bool.isRequired,
   onSocialClick: React.PropTypes.func.isRequired,
   onVoteBtnPress: React.PropTypes.func.isRequired,
