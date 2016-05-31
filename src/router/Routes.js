@@ -2,7 +2,8 @@
 
 
 import React from 'react';
-// import {} from 'react-native';
+import {StyleSheet} from 'react-native';
+
 import {Colors, ScheneKeys} from '../config/constants';
 
 
@@ -44,27 +45,62 @@ import TabIconFactory from '../containers/NavIcons/TabIconFactory';
 import {Scene} from 'react-native-router-flux';
 
 
+const styles = StyleSheet.create({
+  scene:{
+    backgroundColor:'#F7F7F7'
+  },
+  navBar:{
+    backgroundColor:Colors.primaryColor,
+    borderBottomColor:Colors.transparentColor
+  },
+  tabBar:{
+    backgroundColor:'white'
+  },
+  tabScene:{
+  },
+  tabBarShadow:{
+    backgroundColor:Colors.secondaryBorderColor,
+    top:-1,
+    height:1
+  },
+
+  title:{
+    color:Colors.mainTextColor,
+    fontFamily:"Whitney"
+  },
+
+  leftIcon:{
+    tintColor: 'white'
+  }
+});
+
+const defaultProps = {
+   navigationBarStyle:styles.navBar,
+   titleStyle:styles.title,
+   leftButtonIconStyle:styles.leftIcon
+};
 
 export default class Routes extends React.Component{
+
   render(){
     let RouterWithRedux = this.props.router;
-    return (<RouterWithRedux hideNavBar={false} sceneStyle={{backgroundColor:'#F7F7F7'}} >
-        <Scene key="root"  hideNavBar={true} navigationBarStyle={{backgroundColor:Colors.primaryColor}} titleStyle={{color:Colors.mainTextColor, fontFamily:"Whitney"}} leftButtonIconStyle={{tintColor: 'white'}}>
-          <Scene key={ScheneKeys.ONBOARDING} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} />
-          <Scene key={ScheneKeys.LOGIN} component={EmailSignIn} hideNavBar={false} title="Sign In" type="push"  renderRightButton={()=><RightPavLogo/>}/>
-          <Scene key={ScheneKeys.REGISTER_STEP_1} component={EmailSignUpStep1} type="push" hideNavBar={true} />
-          <Scene key={ScheneKeys.REGISTER_STEP_2} component={EmailSignUpStep2} type="push" hideNavBar={true} />
-          <Scene key={ScheneKeys.REGISTER_STEP_3} component={EmailSignUpStep3} type="push" hideNavBar={true} />
-          <Scene key={ScheneKeys.REGISTER_STEP_4} component={EmailSignUpStep4} type="push" hideNavBar={true} />
-          <Scene key={ScheneKeys.TOPIC_PICK} component={TopicPick} schema="modal" type="push" hideNavBar={true} />
-          <Scene key={ScheneKeys.MAIN} panHandlers={null} duration={1} tabs={true} tabBarStyle={{backgroundColor:'white'}} tabBarShadowStyle={{backgroundColor:Colors.secondaryBorderColor,top:-1,height:1, }} tabSceneStyle={{backgroundColor:'red'}}  initial={true}>
-              <Scene key={ScheneKeys.TAB_NEWS} title="News Feed" component={NewsFeed} renderRightButton={()=><NewsFeedButtons/>}icon={TabIconFactory}/>
-              <Scene key={ScheneKeys.TAB_NOTIFS} title="Notifications" component={Notifications} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>}/>
-              <Scene key={ScheneKeys.TAB_PROFILE} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>}/>
+    return (<RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} >
+        <Scene key="root" hideNavBar={true}>
+          <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} />
+          <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" renderRightButton={()=><RightPavLogo/>}/>
+          <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} component={EmailSignUpStep1} hideNavBar={true} />
+          <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} component={EmailSignUpStep2} hideNavBar={true} />
+          <Scene key={ScheneKeys.REGISTER_STEP_3} {...defaultProps} component={EmailSignUpStep3} hideNavBar={true} />
+          <Scene key={ScheneKeys.REGISTER_STEP_4} {...defaultProps} component={EmailSignUpStep4} hideNavBar={true} />
+          <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
+          <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene}  initial={true}>
+              <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>}/>
+              <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} />
+              <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} />
           </Scene>
-          <Scene key={ScheneKeys.VOTE} component={Vote} hideNavBar={true} title="Vote" type="push" direction="vertical"/>
-          <Scene key={ScheneKeys.BILL} component={Bill} title="Bill" type="push" initial={false}/>
-          <Scene key={ScheneKeys.COMMENTS} component={Comments} title="Comments" type="push" initial={false}/>
+          <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true}/>
+          <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false}/>
+          <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" initial={false}/>
         </Scene>
     </RouterWithRedux>);
   }
