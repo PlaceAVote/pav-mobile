@@ -32,12 +32,15 @@ const {
   GET_FEED_SUCCESS,
   GET_FEED_FAILURE,
 
-  FILTER_ITEMS,
+  UPDATE_ITEMS,
 
   REACT_TO_ISSUE_REQUEST,
   REACT_TO_ISSUE_SUCCESS,
   REACT_TO_ISSUE_FAILURE,
 
+  DEL_REACTION_FROM_ISSUE_REQUEST,
+  DEL_REACTION_FROM_ISSUE_SUCCESS,
+  DEL_REACTION_FROM_ISSUE_FAILURE,
 
   LIKE_COMMENT_FEED_REQUEST,
   LIKE_COMMENT_FEED_SUCCESS,
@@ -53,18 +56,19 @@ const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
 
 
-function filterItemsSuccess(itemsAfterFiltration) {
+function updateItems(itemsAfterFiltration) {
   return {
-    type: FILTER_ITEMS,
+    type: UPDATE_ITEMS,
     payload: itemsAfterFiltration
   };
 }
+
 export function filterFeedItems(filterName){
   return function (dispatch, getState){
     let state = getState();
     // console.log("@@@@@@@@@@@@@@"+JSON.stringify(state.newsfeed))
     let newItems = getFeedItemsDependingOnFilter(filterName, state.newsfeed.newsFeedData.items.toJS())
-    dispatch(filterItemsSuccess({items:newItems,filterName:filterName}));
+    dispatch(updateItems({items:newItems,filterName:filterName}));
   }
 }
 
@@ -263,7 +267,7 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
 
 
 /**
- * ## retreiving newsfeed actions
+ * ## adding an emotional reaction to a user issue
  */
 export function reactToIssueRequest() {
   return {
@@ -287,9 +291,10 @@ export function reactToIssueFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function reactToIssueItems(issueId, reaction, sessionToken=null, dev = null) {
-  console.log("reactToIssueItems called");
-  return async function (dispatch){
+export function reactToIssueItem(issueId, reaction, sessionToken=null, dev = null) {
+  console.log("reactToIssueItem called");
+  return async function (dispatch, getState){
+    let state = getState();
     dispatch(reactToIssueRequest());
     //store or get a sessionToken
     let token = sessionToken;
@@ -307,18 +312,80 @@ export function reactToIssueItems(issueId, reaction, sessionToken=null, dev = nu
 
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
-      console.log("Error in reactToIssueItems"+res.error);
+      console.log("Error in reactToIssueItem: "+res.error);
       dispatch(reactToIssueFailure(res.error));
       return res.error;
     }else{
-      dispatch(reactToIssueSuccess({data:res.data}));
-      return res.data;
+      dispatch(reactToIssueSuccess({data:res.data.emotional_response, parentIssueId:issueId }));
+      dispatch(filterFeedItems(state.newsfeed.newsFeedData.curSelectedFilter));
+      return res.data.emotional_response;
     }
   };
 }
 
 
 
+
+
+
+
+
+/**
+ * ## deleting an emotional reaction from a user issue
+ */
+export function deleteReactionFromIssueRequest() {
+  return {
+    type: DEL_REACTION_FROM_ISSUE_REQUEST
+  };
+}
+export function deleteReactionFromIssueSuccess(json) {
+  return {
+    type: DEL_REACTION_FROM_ISSUE_SUCCESS,
+    payload: json
+  };
+}
+export function deleteReactionFromIssueFailure(json) {
+  return {
+    type: DEL_REACTION_FROM_ISSUE_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function deleteReactionFromIssueItem(issueId, oldReaction, sessionToken=null, dev = null) {
+  console.log("deleteReactionFromIssueItems called");
+  return async function (dispatch, getState){
+    let state = getState();
+    dispatch(deleteReactionFromIssueRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in newsfeedActions.deleteReactionFromIssue() with error: "+e.message);
+      dispatch(deleteReactionFromIssueFailure(e.message));
+    }
+
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.deleteIssueResponse({issueId:issueId});
+
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in deleteReactionFromIssueItems: "+res.error);
+      dispatch(deleteReactionFromIssueFailure(res.error));
+      return res.error;
+    }else{
+      dispatch(deleteReactionFromIssueSuccess({data:res.data.emotional_response, parentIssueId:issueId }));
+      dispatch(filterFeedItems(state.newsfeed.newsFeedData.curSelectedFilter));
+      return res.data.emotional_response;
+    }
+  };
+}
 
 
 

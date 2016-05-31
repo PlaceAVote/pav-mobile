@@ -364,18 +364,18 @@ class FeedUserIssueCard extends React.Component {
   }
 
   onHappyClick(){
-    if(!!this.props.onReactionClick && !!this.props.issueId){
-      this.props.onReactionClick(REACTIONS.HAPPY, this.props.issueId);
+    if(!!this.props.onReactionClick && !!this.props.issueId && this.props.userReaction!=null){
+      this.props.onReactionClick(this.props.issueId, REACTIONS.HAPPY, this.props.userReaction);
     }
   }
   onNeutralClick(){
-    if(!!this.props.onReactionClick && !!this.props.issueId){
-      this.props.onReactionClick(REACTIONS.NEUTRAL, this.props.issueId);
+    if(!!this.props.onReactionClick && !!this.props.issueId && this.props.userReaction!=null){
+      this.props.onReactionClick(this.props.issueId, REACTIONS.NEUTRAL, this.props.userReaction);
     }
   }
   onSadClick(){
-    if(!!this.props.onReactionClick && !!this.props.issueId){
-      this.props.onReactionClick(REACTIONS.SAD, this.props.issueId);
+    if(!!this.props.onReactionClick && !!this.props.issueId && this.props.userReaction!=null){
+      this.props.onReactionClick(this.props.issueId, REACTIONS.SAD, this.props.userReaction);
     }
   }
 

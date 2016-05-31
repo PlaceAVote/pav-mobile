@@ -228,8 +228,19 @@ class NewsFeed extends React.Component {
     // this.props.actions.navigateTo(COMMENTS, {billId: bill_id, commentId:commentId });
   }
 
-  onUserClickedReaction(reaction, issueId){
-    this.props.actions.reactToIssueItems(issueId, reaction, this.TOKEN, this.props.global.isDev);
+  async onUserClickedReaction(issueId, newReaction, oldReaction){
+    if(oldReaction==null || oldReaction=="" || oldReaction=="none"){
+        console.log("New reaction old:"+oldReaction+" new: "+newReaction);
+        return await this.props.actions.reactToIssueItem(issueId, newReaction, oldReaction, this.TOKEN, this.props.global.isDev);
+    }else{
+        if(newReaction!=oldReaction){
+          console.log("new reaction but one already exists old:"+oldReaction+" new: "+newReaction);
+          return await this.props.actions.reactToIssueItem(issueId, newReaction, oldReaction, this.TOKEN, this.props.global.isDev);
+        }else{
+          console.log("DELETE reaction old:"+oldReaction+" new: "+newReaction);
+          return await this.props.actions.deleteReactionFromIssueItem(issueId, oldReaction, this.TOKEN, this.props.global.isDev);
+        }
+    }
   }
 
   onUserClickedComments(parentBillId){
