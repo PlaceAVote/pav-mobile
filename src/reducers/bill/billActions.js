@@ -45,13 +45,13 @@ const {
   POST_COMMENT_ON_COMMENT_SUCCESS,
   POST_COMMENT_ON_COMMENT_FAILURE,
 
-  LIKE_COMMENT_REQUEST,
-  LIKE_COMMENT_SUCCESS,
-  LIKE_COMMENT_FAILURE,
+  LIKE_COMMENT_BILL_REQUEST,
+  LIKE_COMMENT_BILL_SUCCESS,
+  LIKE_COMMENT_BILL_FAILURE,
 
-  DISLIKE_COMMENT_REQUEST,
-  DISLIKE_COMMENT_SUCCESS,
-  DISLIKE_COMMENT_FAILURE,
+  DISLIKE_COMMENT_BILL_REQUEST,
+  DISLIKE_COMMENT_BILL_SUCCESS,
+  DISLIKE_COMMENT_BILL_FAILURE,
 
 } = ActionNames;
 
@@ -388,45 +388,45 @@ export function commentOnComment(commentText, billId, commentId, commentLvl, ses
 /**
  * ## Liking a comment on a bill actions
  */
-function likeCommentRequest() {
+function likeCommentBillRequest() {
   return {
-    type: LIKE_COMMENT_REQUEST
+    type: LIKE_COMMENT_BILL_REQUEST
   };
 }
-function likeCommentSuccess(json) {
+function likeCommentBillSuccess(json) {
   return {
-    type: LIKE_COMMENT_SUCCESS,
+    type: LIKE_COMMENT_BILL_SUCCESS,
     payload: json
   };
 }
-function likeCommentFailure(json) {
+function likeCommentBillFailure(json) {
   return {
-    type: LIKE_COMMENT_FAILURE,
+    type: LIKE_COMMENT_BILL_FAILURE,
     payload: json
   };
 }
-export function likeComment(commentId, billId, isLiked, sessionToken=null, dev = null) {
-  console.log("likeComment called");
+export function likeCommentBill(commentId, billId, isLiked, sessionToken=null, dev = null) {
+  console.log("likeCommentBill called");
   return async function (dispatch){
-    dispatch(likeCommentRequest());
+    dispatch(likeCommentBillRequest());
     //store or get a sessionToken
     let token = sessionToken;
     try{
       let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
-      console.log("Unable to fetch past token in billActions.likeComment() with error: "+e.message);
-      dispatch(likeCommentFailure(e.message));
+      console.log("Unable to fetch past token in billActions.likeCommentBill() with error: "+e.message);
+      dispatch(likeCommentBillFailure(e.message));
     }
     console.log("dev: "+dev);
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.likeComment({isAlreadyLiked:isLiked, billId:billId, commentId:commentId});
-    console.log("likeComment RES: "+JSON.stringify(res));
+    console.log("likeCommentBill RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
-      dispatch(likeCommentFailure("Unable to like this comment."));
+      dispatch(likeCommentBillFailure("Unable to like this comment."));
       return null;
     }else{
-      dispatch(likeCommentSuccess({parentCommentId:commentId, newStatus:!isLiked, isLike:true}));
+      dispatch(likeCommentBillSuccess({parentCommentId:commentId, newStatus:!isLiked, isLike:true}));
       return res.data;
     }
   };
@@ -441,44 +441,44 @@ export function likeComment(commentId, billId, isLiked, sessionToken=null, dev =
 /**
  * ## Disliking a comment on a bill actions
  */
-function dislikeCommentRequest() {
+function dislikeCommentBillRequest() {
   return {
-    type: DISLIKE_COMMENT_REQUEST
+    type: DISLIKE_COMMENT_BILL_REQUEST
   };
 }
-function dislikeCommentSuccess(json) {
+function dislikeCommentBillSuccess(json) {
   return {
-    type: DISLIKE_COMMENT_SUCCESS,
+    type: DISLIKE_COMMENT_BILL_SUCCESS,
     payload: json
   };
 }
-function dislikeCommentFailure(json) {
+function dislikeCommentBillFailure(json) {
   return {
-    type: DISLIKE_COMMENT_FAILURE,
+    type: DISLIKE_COMMENT_BILL_FAILURE,
     payload: json
   };
 }
-export function dislikeComment(commentId, billId, isDisliked, sessionToken=null, dev = null) {
-  console.log("dislikeComment called");
+export function dislikeCommentBill(commentId, billId, isDisliked, sessionToken=null, dev = null) {
+  console.log("dislikeCommentBill called");
   return async function (dispatch){
-    dispatch(dislikeCommentRequest());
+    dispatch(dislikeCommentBillRequest());
     //store or get a sessionToken
     let token = sessionToken;
     try{
       let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
-      console.log("Unable to fetch past token in billActions.dislikeComment() with error: "+e.message);
-      dispatch(dislikeCommentFailure(e.message));
+      console.log("Unable to fetch past token in billActions.dislikeCommentBill() with error: "+e.message);
+      dispatch(dislikeCommentBillFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.dislikeComment({isAlreadyDisliked:isDisliked, billId:billId, commentId:commentId});
-    console.log("dislikeComment RES: "+JSON.stringify(res));
+    console.log("dislikeCommentBill RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
-      dispatch(dislikeCommentFailure("Unable dislike this comment."));
+      dispatch(dislikeCommentBillFailure("Unable dislike this comment."));
       return null;
     }else{
-      dispatch(likeCommentSuccess({parentCommentId:commentId, newStatus:!isDisliked, isLike:false}));
+      dispatch(likeCommentBillSuccess({parentCommentId:commentId, newStatus:!isDisliked, isLike:false}));
       return res.data;
     }
   };

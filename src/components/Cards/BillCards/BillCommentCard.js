@@ -44,7 +44,7 @@ class BillCommentCard extends React.Component {
     super(props);
     this.state = {
       replyBoxVisible: false,
-      commentBeingTampered: false
+      commentBeingAltered: false
     }
   }
 
@@ -355,7 +355,7 @@ class BillCommentCard extends React.Component {
   async onCommentPost(comment){
     if(!!comment && comment.length>0){
       if(!!this.props.commentData.commentId && !!this.props.commentData.billId){
-          this.setState({commentBeingTampered:true});
+          this.setState({commentBeingAltered:true});
           let postSuccessful = await this.props.onCommentPost(comment, {replies: this.props.commentData.replies, billId: this.props.commentData.billId, commentId: this.props.commentData.commentId, newCommentLvl: (this.props.commentData.commentLvl+1)});
           if(postSuccessful==true){
             let newCommentLvl = this.props.commentData.commentLvl+1;
@@ -363,7 +363,7 @@ class BillCommentCard extends React.Component {
             if(newCommentLvl>1){  //if we are on comment lvl above 1
                 this.setState({
                   replyBoxVisible:false,
-                  commentBeingTampered:false
+                  commentBeingAltered:false
                 });
                 if(this.shouldBreakSubcommentToNewScreen()){
                     this.onShowMoreCommentsClick();
@@ -375,7 +375,7 @@ class BillCommentCard extends React.Component {
 
             }else{
               this.setState({
-                commentBeingTampered:false
+                commentBeingAltered:false
               });                                  //if we are on comment lvl 1
               this.onShowMoreCommentsClick();
             }
@@ -504,7 +504,7 @@ class BillCommentCard extends React.Component {
 
             device={this.props.device}
             ref={this.props.commentData.commentId}
-            commentBeingTampered={this.state.commentBeingTampered}
+            commentBeingAltered={this.state.commentBeingAltered}
             commentLvl={this.props.commentData.commentLvl+1}
             baseCommentLvl={this.props.commentData.baseCommentLvl}
             replies={this.props.commentData.replies}
@@ -529,14 +529,14 @@ class BillCommentCard extends React.Component {
 
   renderReplyBox(){
     if(this.state.replyBoxVisible==true){
-      // console.log("Reply box loading: "+this.state.commentBeingTampered);
+      // console.log("Reply box loading: "+this.state.commentBeingAltered);
       return (
         <CommentReplyCard
           id={this.props.commentData.commentId}
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPost.bind(this)}
-          postBtnEnabled={(this.state.commentBeingTampered==false)}
-          postBtnLoading={(this.state.commentBeingTampered==true)}
+          postBtnEnabled={(this.state.commentBeingAltered==false)}
+          postBtnLoading={(this.state.commentBeingAltered==true)}
       />);
     }else{
       return <View></View>;
@@ -550,7 +550,7 @@ class BillCommentCard extends React.Component {
    * Setup some default presentations and render
    */
   render() {
-    // console.log("!!update Reply box loading: "+this.state.commentBeingTampered);
+    // console.log("!!update Reply box loading: "+this.state.commentBeingAltered);
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);

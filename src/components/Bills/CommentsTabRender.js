@@ -244,8 +244,8 @@ class CommentsTabRender extends React.Component {
           id={this.props.billId}
           orientation={this.props.device.orientation}
           onPostBtnPress={this.onCommentPostToBill.bind(this)}
-          postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingTampered==false)}
-          postBtnLoading={(this.props.commentBeingTampered==true)}
+          postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingAltered==false)}
+          postBtnLoading={(this.props.commentBeingAltered==true)}
         />
         {this.renderSortHeader(styles)}
       </View>
@@ -266,7 +266,7 @@ class CommentsTabRender extends React.Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
-    // console.log("CommentsTabRender rebder .commentBeingTampered: "+this.props.commentBeingTampered);
+    // console.log("CommentsTabRender rebder .commentBeingAltered: "+this.props.commentBeingAltered);
     return(
       <ListView
          ref="commentPageRenderList"
@@ -314,7 +314,7 @@ class CommentsTabRender extends React.Component {
                device={this.props.device}
                alwaysBreakCommentsToNewScreen={true}
                commentData={{
-                 commentBeingTampered: this.props.commentBeingTampered,
+                 commentBeingAltered: this.props.commentBeingAltered,
                  commentLvl:0,
                  baseCommentLvl:0,
                  timeString:moment(rowData.timestamp).fromNow(),
@@ -373,7 +373,7 @@ class CommentsTabRender extends React.Component {
     return(
       (nextProps.commentsBeingFetched !== this.props.commentsBeingFetched)
       ||
-      (nextProps.commentBeingTampered !== this.props.commentBeingTampered)
+      (nextProps.commentBeingAltered !== this.props.commentBeingAltered)
       ||
       (nextProps.device !== this.props.device)
       ||
@@ -390,7 +390,7 @@ CommentsTabRender.propTypes = {
   billId: React.PropTypes.string,
   commentData: React.PropTypes.object,
   device: React.PropTypes.object.isRequired,
-  commentBeingTampered: React.PropTypes.bool.isRequired,
+  commentBeingAltered: React.PropTypes.bool.isRequired,
   commentsBeingFetched: React.PropTypes.bool.isRequired,
   topCommentsBeingFetched: React.PropTypes.bool.isRequired,
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,

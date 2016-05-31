@@ -26,8 +26,9 @@ var InitialState = Record({
   // isValid: false,
   isFetching: new (Record({
     newsFeedData: false,
-    discoveryData: false,
+    discoveryData: false
   })),
+  newsFeedDataBeingAltered: false,
 
   newsFeedData: new (Record({
     curSelectedFilter: NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER,

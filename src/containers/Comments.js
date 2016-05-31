@@ -186,9 +186,9 @@ class Comments extends React.Component {
   async onCommentLikeDislikeClick(reaction, commentId, billId, curLikeDislikeEnabled){
     switch(reaction){
       case REACTIONS.HAPPY:
-        return await this.props.actions.likeComment(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);
+        return await this.props.actions.likeCommentBill(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);
       case REACTIONS.SAD:
-        return await this.props.actions.dislikeComment(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);
+        return await this.props.actions.dislikeCommentBill(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);
     }
   }
 
@@ -234,7 +234,7 @@ class Comments extends React.Component {
           parentVisible={(this.props.name==this.props.router.currentSchene)}
           device={ this.props.device}
           billData={this.props.bill.data}
-          commentBeingTampered={this.props.bill.commentBeingTampered}
+          commentBeingAltered={this.props.bill.commentBeingAltered}
           commentsBeingFetched={this.props.bill.isFetching.billComments}
           replies={this.state.curCommentScopeData}
           commentLvl={this.state.commentLvl}

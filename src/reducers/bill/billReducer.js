@@ -40,13 +40,13 @@ const {
   POST_COMMENT_ON_COMMENT_SUCCESS,
   POST_COMMENT_ON_COMMENT_FAILURE,
 
-  LIKE_COMMENT_REQUEST,
-  LIKE_COMMENT_SUCCESS,
-  LIKE_COMMENT_FAILURE,
+  LIKE_COMMENT_BILL_REQUEST,
+  LIKE_COMMENT_BILL_SUCCESS,
+  LIKE_COMMENT_BILL_FAILURE,
 
-  DISLIKE_COMMENT_REQUEST,
-  DISLIKE_COMMENT_SUCCESS,
-  DISLIKE_COMMENT_FAILURE,
+  DISLIKE_COMMENT_BILL_REQUEST,
+  DISLIKE_COMMENT_BILL_SUCCESS,
+  DISLIKE_COMMENT_BILL_FAILURE,
 
   CLEAR_PAST_BILL_DATA
 } = ActionNames
@@ -75,11 +75,11 @@ export default function newsfeedReducer(state = initialState, action) {
       return state
       .setIn(['comments'], null)
       .setIn(['data'], null);
-    case LIKE_COMMENT_REQUEST:
-    case DISLIKE_COMMENT_REQUEST:
+    case LIKE_COMMENT_BILL_REQUEST:
+    case DISLIKE_COMMENT_BILL_REQUEST:
     case POST_COMMENT_ON_BILL_REQUEST:
     case POST_COMMENT_ON_COMMENT_REQUEST:
-      return state.setIn([ 'commentBeingTampered'], true)
+      return state.setIn([ 'commentBeingAltered'], true)
         .setIn(['error'],null);
 
     case GET_BILL_REQUEST:
@@ -96,7 +96,7 @@ export default function newsfeedReducer(state = initialState, action) {
 
     case POST_COMMENT_ON_BILL_SUCCESS:
       let commentsNewList = state.comments.push(action.payload) //push the new comment to the comments array
-      return state.setIn([ 'commentBeingTampered'], false)
+      return state.setIn([ 'commentBeingAltered'], false)
         .setIn(['error'],null)
         .setIn(['comments'], commentsNewList);
     case POST_COMMENT_ON_COMMENT_SUCCESS:
@@ -106,18 +106,18 @@ export default function newsfeedReducer(state = initialState, action) {
       // console.log("Comment path: "+commentPath);
       let {contentArray, refToCurObject} = findCommentBasedOnPath(commentPath, commentArr);//get the comment itself in order to tamper it
       refToCurObject.replies.push(action.payload.newComment);
-      return state.setIn([ 'commentBeingTampered'], false)
+      return state.setIn([ 'commentBeingAltered'], false)
         .setIn(['error'],null)
         .setIn(['comments'], Immutable.fromJS(contentArray));
 
 
 
-    case LIKE_COMMENT_SUCCESS:
-    case DISLIKE_COMMENT_SUCCESS:
+    case LIKE_COMMENT_BILL_SUCCESS:
+    case DISLIKE_COMMENT_BILL_SUCCESS:
     if(state.comments!=null){
       let tmpCommentArr = state.comments.toJS();
-      let likeCommentPath = findCommentPath(tmpCommentArr, action.payload.parentCommentId);//get the comment path of this comment
-      let l = findCommentBasedOnPath(likeCommentPath, tmpCommentArr); //get the comment itself in order to tamper it
+      let likeCommentBillPath = findCommentPath(tmpCommentArr, action.payload.parentCommentId);//get the comment path of this comment
+      let l = findCommentBasedOnPath(likeCommentBillPath, tmpCommentArr); //get the comment itself in order to tamper it
 
       // console.log("Comment with comment id: "+l.refToCurObject.comment_id+" liked: "+l.refToCurObject.liked);
       let {newLiked, newDisliked, newScore} = getCorrectLikeDislikeAndScore(
@@ -129,11 +129,11 @@ export default function newsfeedReducer(state = initialState, action) {
         l.refToCurObject.liked = newLiked;
         l.refToCurObject.disliked = newDisliked;
         l.refToCurObject.score = newScore;
-      return state.setIn([ 'commentBeingTampered'], false)
+      return state.setIn([ 'commentBeingAltered'], false)
         .setIn(['error'],null)
         .setIn(['comments'], Immutable.fromJS(l.contentArray));
     }else{
-      return state.setIn([ 'commentBeingTampered'], false)
+      return state.setIn([ 'commentBeingAltered'], false)
         .setIn(['error'],null);
     }
     case GET_BILL_SUCCESS:
@@ -178,11 +178,11 @@ export default function newsfeedReducer(state = initialState, action) {
       }
       return newState;
 
-    case LIKE_COMMENT_FAILURE:
-    case DISLIKE_COMMENT_FAILURE:
+    case LIKE_COMMENT_BILL_FAILURE:
+    case DISLIKE_COMMENT_BILL_FAILURE:
     case POST_COMMENT_ON_BILL_FAILURE:
     case POST_COMMENT_ON_COMMENT_FAILURE:
-      return state.setIn([ 'commentBeingTampered'], false)
+      return state.setIn([ 'commentBeingAltered'], false)
         .setIn(['error'],action.payload);
 
     case GET_BILL_FAILURE:

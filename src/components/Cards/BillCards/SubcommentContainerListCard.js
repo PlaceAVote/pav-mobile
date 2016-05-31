@@ -89,7 +89,7 @@
               device={this.props.device}
               alwaysBreakCommentsToNewScreen={false}
               commentData={{
-                commentBeingTampered: this.props.commentBeingTampered,
+                commentBeingAltered: this.props.commentBeingAltered,
                 commentLvl:this.props.commentLvl,
                 baseCommentLvl: this.props.baseCommentLvl,
                 timeString:moment(rowData.timestamp).fromNow(),
@@ -210,7 +210,7 @@
 
       refreshable: React.PropTypes.bool,
       commentsBeingFetched: React.PropTypes.bool,
-      commentBeingTampered: React.PropTypes.bool.isRequired,
+      commentBeingAltered: React.PropTypes.bool.isRequired,
       device: React.PropTypes.object.isRequired,
       commentLvl: React.PropTypes.number.isRequired,
       baseCommentLvl: React.PropTypes.number.isRequired,

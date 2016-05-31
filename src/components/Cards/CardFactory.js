@@ -110,6 +110,7 @@ class CardFactory extends React.Component {
           userFullNameText={n.first_name+" "+n.last_name}
           issueText={n.comment}
           userPhotoUrl={n.img_url}
+          issueId={n.issue_id}
           relatedArticleUrl={n.article_link}
           relatedArticleTitle={n.article_title}
           relatedArticlePhotoUrl={n.article_img}

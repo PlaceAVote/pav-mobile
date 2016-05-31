@@ -364,18 +364,18 @@ class FeedUserIssueCard extends React.Component {
   }
 
   onHappyClick(){
-    if(this.props.onReactionClick){
-      this.props.onReactionClick(REACTIONS.HAPPY);
+    if(!!this.props.onReactionClick && !!this.props.issueId){
+      this.props.onReactionClick(REACTIONS.HAPPY, this.props.issueId);
     }
   }
   onNeutralClick(){
-    if(this.props.onReactionClick){
-      this.props.onReactionClick(REACTIONS.NEUTRAL);
+    if(!!this.props.onReactionClick && !!this.props.issueId){
+      this.props.onReactionClick(REACTIONS.NEUTRAL, this.props.issueId);
     }
   }
   onSadClick(){
-    if(this.props.onReactionClick){
-      this.props.onReactionClick(REACTIONS.SAD);
+    if(!!this.props.onReactionClick && !!this.props.issueId){
+      this.props.onReactionClick(REACTIONS.SAD, this.props.issueId);
     }
   }
 
@@ -528,6 +528,7 @@ class FeedUserIssueCard extends React.Component {
 FeedUserIssueCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   timeString: React.PropTypes.string.isRequired,
+  issueId: React.PropTypes.string.isRequired,
   userPhotoUrl: React.PropTypes.string,
   relatedArticleUrl: React.PropTypes.string,
   relatedArticleTitle: React.PropTypes.string,
@@ -537,6 +538,11 @@ FeedUserIssueCard.propTypes= {
   happyCnt: React.PropTypes.number.isRequired,
   neutralCnt: React.PropTypes.number.isRequired,
   sadCnt: React.PropTypes.number.isRequired,
+
+  onSocialClick: React.PropTypes.func.isRequired,
+  onBillClick: React.PropTypes.func.isRequired,
+  onUserClick: React.PropTypes.func.isRequired,
+  onReactionClick: React.PropTypes.func.isRequired,
 };
 //isDisabled={this.props.isDisabled}
 // onPress={this.props.onPress}

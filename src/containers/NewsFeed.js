@@ -55,7 +55,8 @@ import {Linking} from 'react-native';
 import {
 ScheneKeys,
 NewsFeedUpdateTypes,
-Other
+Other,
+BillPageTabs
 } from '../config/constants';
 const {
   NEWS_FEED_FILTERS,
@@ -181,7 +182,6 @@ class NewsFeed extends React.Component {
 
   onUserClickedUser(userId){
     alert("Tapped user with id: "+userId);
-    this.props.actions.navigateTo(BILL, {billId:"hr2745-114"});
   }
 
   onUserClickedBill(billId){
@@ -214,22 +214,10 @@ class NewsFeed extends React.Component {
     let result = false;
     switch(reaction){
       case REACTIONS.HAPPY:
-        result = !!await this.props.actions.likeComment(commentId, billId, newStatus, this.TOKEN, this.props.global.isDev);
-        this.props.actions.updateNewsfeedData(NewsFeedUpdateTypes.COMMENT_CARD_LIKE, {
-          commentId:commentId,
-          liked:(result===true?!newStatus:newStatus),
-          oldDisliked: oldOpposite,
-          oldScore:oldScore
-        });
+        result = !!await this.props.actions.likeCommentFeed(commentId, billId, newStatus, this.TOKEN, this.props.global.isDev);
         break;
       case REACTIONS.SAD:
-        result = !!await this.props.actions.dislikeComment(commentId, billId, newStatus, this.TOKEN, this.props.global.isDev);
-        this.props.actions.updateNewsfeedData(NewsFeedUpdateTypes.COMMENT_CARD_DISLIKE, {
-          commentId:commentId,
-          disliked:(result===true?!newStatus:newStatus),
-          oldLiked: oldOpposite,
-          oldScore:oldScore
-        });
+        result = !!await this.props.actions.dislikeCommentFeed(commentId, billId, newStatus, this.TOKEN, this.props.global.isDev);
         break;
     }
     return result;
@@ -237,27 +225,15 @@ class NewsFeed extends React.Component {
 
   async onUserClickedReply(commentId, billData){
     let {bill_id} = billData;
-    this.props.actions.navigateTo(COMMENTS, {billId: bill_id, commentId:commentId });
+    // this.props.actions.navigateTo(COMMENTS, {billId: bill_id, commentId:commentId });
   }
 
-  onUserClickedReaction(reaction){
-    switch(reaction){
-      case REACTIONS.HAPPY:
-        alert("Happy reaction clicked");
-        break;
-      case REACTIONS.SAD:
-        alert("Sad reaction clicked");
-        break;
-      case REACTIONS.NEUTRAL:
-        alert("Neutral reaction clicked");
-        break;
-      default:
-        break;
-    }
+  onUserClickedReaction(reaction, issueId){
+    this.props.actions.reactToIssueItems(issueId, reaction, this.TOKEN, this.props.global.isDev);
   }
 
   onUserClickedComments(parentBillId){
-    alert("User tapped a comment that can be found in bill with id: "+parentBillId);
+    this.props.actions.navigateTo(BILL, {billId:parentBillId, initTab:BillPageTabs.COMMENTS});
   }
 
   onUserClickedSocial(socialType, data){

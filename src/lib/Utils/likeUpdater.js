@@ -1,3 +1,5 @@
+import {NewsFeedUpdateTypes} from '../../config/constants';
+
 export function getCorrectLikeDislikeAndScore(type, newStatus, oldOpposite, oldScore){
   let newState = {
     newLiked: null,
@@ -5,8 +7,8 @@ export function getCorrectLikeDislikeAndScore(type, newStatus, oldOpposite, oldS
     newScore: oldScore
   }
   switch(type){
-    case "like":
-      console.log("NOW likeUpdater: like");
+    case NewsFeedUpdateTypes.COMMENT_CARD_LIKE:
+      // console.log("NOW likeUpdater: like");
       //is like
       newState.newLiked = newStatus;   //mark as liked
       newState.newDisliked = oldOpposite;
@@ -20,8 +22,8 @@ export function getCorrectLikeDislikeAndScore(type, newStatus, oldOpposite, oldS
         newState.newScore -= 1;
       }
       break;
-    case "dislike":
-      console.log("NOW likeUpdater: dislike");
+    case NewsFeedUpdateTypes.COMMENT_CARD_DISLIKE:
+      // console.log("NOW likeUpdater: dislike");
       //is dislike
       newState.newDisliked = newStatus;  //mark as disliked
       newState.newLiked = oldOpposite;
@@ -36,6 +38,6 @@ export function getCorrectLikeDislikeAndScore(type, newStatus, oldOpposite, oldS
       }
       break;
   }
-  console.log("newState: "+JSON.stringify(newState))
+  // console.log("newState: "+JSON.stringify(newState))
   return newState;
 }

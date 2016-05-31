@@ -179,7 +179,7 @@
 
                 replies={this.props.replies}
                 device={this.props.device}
-                commentBeingTampered={this.props.commentBeingTampered}
+                commentBeingAltered={this.props.commentBeingAltered}
                 commentLvl={this.props.commentLvl}
                 baseCommentLvl={this.props.baseCommentLvl}
                 onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
@@ -215,7 +215,7 @@
     AccordionBillCommentCardContainer.propTypes= {
 
       replies:React.PropTypes.array.isRequired,
-      commentBeingTampered: React.PropTypes.bool.isRequired,
+      commentBeingAltered: React.PropTypes.bool.isRequired,
       onShowMoreCommentsClick: React.PropTypes.func.isRequired,
       onUserClick: React.PropTypes.func.isRequired,
       onLikeDislikeClick: React.PropTypes.func.isRequired,

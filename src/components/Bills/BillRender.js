@@ -367,7 +367,7 @@ class BillRender extends React.Component {
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
   renderBody(data, styles){
-    let {billData, commentData, isFetchingComments, isFetchingTopComments, isFetchingcommentBeingTampered} = data;
+    let {billData, commentData, isFetchingComments, isFetchingTopComments, isFetchingcommentBeingAltered} = data;
 
     if(!!billData){
       return (<ScrollableTabView
@@ -451,7 +451,7 @@ class BillRender extends React.Component {
           ref="comments_tab"
           commentData={commentData}
           billId={billData.bill_id}
-          commentBeingTampered={isFetchingcommentBeingTampered}
+          commentBeingAltered={isFetchingcommentBeingAltered}
           commentsBeingFetched={isFetchingComments}
           topCommentsBeingFetched={isFetchingTopComments}
           onCommentsRefresh={this.props.onCommentsRefresh}
@@ -521,7 +521,7 @@ class BillRender extends React.Component {
             commentData: this.props.bill.comments,
             isFetchingComments: this.props.bill.isFetching.billComments,
             isFetchingTopComments: this.props.bill.isFetching.billTopComments,
-            isFetchingcommentBeingTampered: this.props.bill.commentBeingTampered,
+            isFetchingcommentBeingAltered: this.props.bill.commentBeingAltered,
           }, styles)}
         </View>
         {this.renderFooter(styles)}
