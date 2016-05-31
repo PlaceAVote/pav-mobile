@@ -187,7 +187,15 @@ class NewsFeedRender extends React.Component {
   /*
   BODY - FEED
   */
-  renderNewsFeedBody(filterName, isFetchingFeed, feedData, isFetchingDiscovery, discoveryData, styles){
+  renderNewsFeedBody(data, styles){
+
+    let {
+      filterName,
+      isFetchingFeed,
+      feedData,
+      isFetchingDiscovery,
+      discoveryData
+    }= data;
     // console.log("RenderNewsFeedBody Ran with filterName: "+filterName+" while data "+(dataReady==true?"WAS ready.":"was NOT ready."))
 
       let dataReady=false;
@@ -276,9 +284,15 @@ class NewsFeedRender extends React.Component {
               style={styles.headerView}
             />
 
-
-
-            {this.renderNewsFeedBody(this.props.newsfeed.newsFeedData.curSelectedFilter, this.props.newsfeed.isFetching.newsFeedData, this.props.newsfeed.newsFeedData.itemsAfterFiltration, this.props.newsfeed.isFetching.discoveryData, this.props.newsfeed.newsFeedData.discoveryItems, styles)}
+            {this.renderNewsFeedBody(
+              {
+                filterName: this.props.newsfeed.newsFeedData.curSelectedFilter,
+                isFetchingFeed: this.props.newsfeed.isFetching.newsFeedData,
+                feedData: this.props.newsfeed.newsFeedData.itemsAfterFiltration,
+                isFetchingDiscovery: this.props.newsfeed.isFetching.discoveryData,
+                discoveryData: this.props.newsfeed.newsFeedData.discoveryItems
+              },
+              styles)}
           </ScrollView>
         </View>
     );

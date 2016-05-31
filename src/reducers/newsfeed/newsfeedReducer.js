@@ -17,6 +17,8 @@
 import InitialState from './newsfeedInitialState';
 const initialState = new InitialState;
 
+import Immutable from 'immutable';
+
 import {ActionNames, ScheneKeys} from '../../config/constants';
 const {
   SET_ACTIVITY_FILTER,
@@ -30,6 +32,7 @@ const {
   GET_DISCOVERY_FAILURE,
 
   FILTER_ITEMS,
+  UPDATE_ITEMS
 
 } = ActionNames
 
@@ -61,8 +64,8 @@ export default function newsfeedReducer(state = initialState, action) {
     case GET_DISCOVERY_SUCCESS:
       return state.setIn([ 'isFetching', 'discoveryData'], false)
       .setIn(['error'],null)
-      .setIn([ 'newsFeedData', 'discoveryItems', action.payload.topic], action.payload.data)
-      .setIn([ 'newsFeedData', 'discoveryAfterFiltration'], action.payload.data);
+      .setIn([ 'newsFeedData', 'discoveryItems', action.payload.topic], Immutable.fromJS(action.payload.data))
+      .setIn([ 'newsFeedData', 'discoveryAfterFiltration'], Immutable.fromJS(action.payload.data));
 
     case GET_DISCOVERY_FAILURE:
       return state.setIn([ 'isFetching', 'discoveryData'], false)
@@ -77,8 +80,8 @@ export default function newsfeedReducer(state = initialState, action) {
     case GET_FEED_SUCCESS:
       return state.setIn([ 'isFetching', 'newsFeedData'], false)
       .setIn(['error'],null)
-      .setIn([ 'newsFeedData', 'items'], action.payload.results)
-      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], action.payload.results);
+      .setIn([ 'newsFeedData', 'items'], Immutable.fromJS(action.payload.results))
+      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], Immutable.fromJS(action.payload.results));
 
     case GET_FEED_FAILURE:
       return state.setIn([ 'isFetching', 'newsFeedData'], false)
@@ -87,9 +90,12 @@ export default function newsfeedReducer(state = initialState, action) {
     case FILTER_ITEMS:
       return state
       // .setIn([ 'isFetching', 'newsFeedData'], false)
-      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], action.payload.items)
+      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], Immutable.fromJS(action.payload.items))
       .setIn(['newsFeedData', 'curSelectedFilter'], action.payload.filterName);
       break;
+    case UPDATE_ITEMS:
+    return state.setIn([ 'newsFeedData', 'items'], Immutable.fromJS(action.payload.items))
+    break;
 
   }//switch
   /**

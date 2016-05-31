@@ -54,6 +54,7 @@ import {Linking} from 'react-native';
 
 import {
 ScheneKeys,
+NewsFeedUpdateTypes,
 Other
 } from '../config/constants';
 const {
@@ -157,9 +158,9 @@ class NewsFeed extends React.Component {
       this.getDiscoveryItemsForTopic(Other.TOPICS.TRENDING);
     }else{
       this.props.actions.filterFeedItems(filterName, topicType);
-
     }
   }
+
   onTopicSelect(topicName){
     if(this.props.newsfeed.newsFeedData.discoveryItems.get(topicName)==null){
         this.getDiscoveryItemsForTopic(topicName);
@@ -200,14 +201,37 @@ class NewsFeed extends React.Component {
   //   }
   // }
 
-  async onUserClickedLikeDislike(reaction, commentId, billId, curLikeDislikeEnabled){
-    console.log("Reaction: "+reaction+" commentId: "+commentId+" billId: "+billId+" curLikeDisLikeEnabled: "+curLikeDislikeEnabled+"@@@@ DEV?"+this.props.global.isDev)
+  async onUserClickedLikeDislike(reaction, data){
+    let {
+      commentId,
+      billId,
+      newStatus,
+      oldOpposite,
+      oldScore
+    } = data;
+    console.log("Reaction: "+reaction+" commentId: "+commentId+" billId: "+billId+" newStatus: "+newStatus+"@@@@ DEV?"+this.props.global.isDev)
+    let result = false;
     switch(reaction){
       case REACTIONS.HAPPY:
-        return await this.props.actions.likeComment(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);
+        result = !!await this.props.actions.likeComment(commentId, billId, newStatus, this.TOKEN, this.props.global.isDev);
+        this.props.actions.updateNewsfeedData(NewsFeedUpdateTypes.COMMENT_CARD_LIKE, {
+          commentId:commentId,
+          liked:(result===true?!newStatus:newStatus),
+          oldDisliked: oldOpposite,
+          oldScore:oldScore
+        });
+        break;
       case REACTIONS.SAD:
-        return await this.props.actions.dislikeComment(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);
+        result = !!await this.props.actions.dislikeComment(commentId, billId, newStatus, this.TOKEN, this.props.global.isDev);
+        this.props.actions.updateNewsfeedData(NewsFeedUpdateTypes.COMMENT_CARD_DISLIKE, {
+          commentId:commentId,
+          disliked:(result===true?!newStatus:newStatus),
+          oldLiked: oldOpposite,
+          oldScore:oldScore
+        });
+        break;
     }
+    return result;
   }
 
   async onUserClickedReply(commentId, billData){

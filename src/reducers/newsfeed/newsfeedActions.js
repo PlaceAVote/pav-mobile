@@ -18,9 +18,9 @@ import AppAuthToken from '../../lib/Storage/AppAuthToken';
 import PavClientSdk from 'pavclient';
 // import {setUserData} from '../auth/authActions'
 
-
-
-import {ActionNames, ScheneKeys, Other} from '../../config/constants';
+import {iterateThroughItemsAndPickTheOnesWithType, findFeedItem} from '../../lib/Utils/newsfeedCrawler';
+import {getCorrectLikeDislikeAndScore} from '../../lib/Utils/likeUpdater';
+import {ActionNames, ScheneKeys, NewsFeedUpdateTypes, Other} from '../../config/constants';
 const {
   SET_ACTIVITY_FILTER,
 
@@ -33,6 +33,7 @@ const {
   GET_FEED_FAILURE,
 
   FILTER_ITEMS,
+  UPDATE_ITEMS
 } = ActionNames;
 const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
@@ -45,14 +46,61 @@ function filterItemsSuccess(itemsAfterFiltration) {
     payload: itemsAfterFiltration
   };
 }
-export function filterFeedItems(filterName, topicType){
+export function filterFeedItems(filterName){
   return function (dispatch, getState){
     let state = getState();
     // console.log("@@@@@@@@@@@@@@"+JSON.stringify(state.newsfeed))
-    let newItems = getFeedItemsDependingOnFilter(filterName, state.newsfeed.newsFeedData.items)
+    let newItems = getFeedItemsDependingOnFilter(filterName, state.newsfeed.newsFeedData.items.toJS())
     dispatch(filterItemsSuccess({items:newItems,filterName:filterName}));
   }
 }
+
+
+function updateItemSuccess(itemsAfterUpdate) {
+  return {
+    type: UPDATE_ITEMS,
+    payload: itemsAfterUpdate
+  };
+}
+
+
+//This function now updates comment types, but it can later be tweaked to update anything, if needed.
+export function updateNewsfeedData(updateType, data){
+  return function (dispatch, getState){
+    let state = getState();
+    let {containingArray, foundObjectRef} = findFeedItem(state.newsfeed.newsFeedData.items.toJS(), "comment", "comment_id", data.commentId)
+
+    let type, newStatus, oldOpposite, oldScore;
+    switch(updateType){
+      case NewsFeedUpdateTypes.COMMENT_CARD_LIKE:
+        type = "like";
+        newStatus = data.liked;
+        oldOpposite = data.oldDisliked;
+        oldScore = data.oldScore;
+        break;
+      case NewsFeedUpdateTypes.COMMENT_CARD_DISLIKE:
+        type = "dislike";
+        newStatus = data.disliked;
+        oldOpposite = data.oldLiked;
+        oldScore = data.oldScore;
+        break;
+    }
+    let {newLiked, newDisliked, newScore} = getCorrectLikeDislikeAndScore(
+      type,
+      newStatus,
+      oldOpposite,
+      oldScore);
+
+      foundObjectRef.liked = newLiked;
+      foundObjectRef.disliked = newDisliked;
+      foundObjectRef.score = newScore;
+    dispatch(updateItemSuccess({items:containingArray}));
+    //now change the filtered items as well
+    dispatch(filterFeedItems(state.newsfeed.newsFeedData.curSelectedFilter));
+  }
+}
+
+
 
 /*
   All Activity: Comments, Votes, Issues
@@ -80,47 +128,6 @@ function getFeedItemsDependingOnFilter(activityFilter, allItems){
   // this.props.actions.setNewsFeedDataAvailable(true);
   return newItems;
 }
-
-function iterateThroughItemsAndPickTheOnesWithType(items, typeArray){
-  if(!!items && !!typeArray && typeArray.length>0){
-    let pickedArray = [];
-    for(let zz=0, lll=items.length; zz<lll;zz++){
-        let curItem = items[zz];
-        for (let xx=0, kkk=typeArray.length;xx<kkk;xx++){
-          let curType = typeArray[xx];
-          if(curItem.type==curType){
-            pickedArray.push(curItem);
-          }
-        }
-    }
-    return pickedArray;
-  }else{
-    return items;
-  }
-}
-
-// function iterateThroughItemsAndPickTheOnesWithTypeAndSubtype(items, typeArray, topicArray){
-//   if(!!items && !!typeArray && typeArray.length>0){
-//     let pickedArray = [];
-//     for(let zz=0, lll=items.length; zz<lll;zz++){
-//         let curItem = items[zz];
-//         for (let xx=0, kkk=typeArray.length;xx<kkk;xx++){
-//           let curType = typeArray[xx];
-//             // for( let yy=0, jjj=topicArray.length;yy<jjj;yy+){
-//             //   let curTopic = topicArray[yy];
-//             //   if(curItem.type==curType && curItem.pav_topic==curTopic){
-//             //     pickedArray.push(curItem);
-//             //   }
-//             // }
-//         }
-//     }
-//     return pickedArray;
-//   }else{
-//     return items;
-//   }
-// }
-
-
 
 
 

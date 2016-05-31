@@ -221,7 +221,7 @@ class FeedCommentCard extends React.Component {
         color: Colors.fourthTextColor,
         paddingHorizontal:w*0.04,
       },
-      likeCountText:{
+      scoreText:{
         color: Colors.accentColor,
         paddingHorizontal:w*0.04,
         fontFamily: 'Whitney-Bold',
@@ -270,16 +270,28 @@ class FeedCommentCard extends React.Component {
 
   async onLikeClick(){
     if(this.props.onLikeDislikeClick){
-      if(!!this.props.commentId && !!this.props.billId && this.props.isLiked!=null){
-        let success = await this.props.onLikeDislikeClick(REACTIONS.HAPPY, this.props.commentId, this.props.billId, this.props.isLiked);
+      if(!!this.props.commentId && !!this.props.billId && this.props.score!=null && this.props.isDisliked!=null && this.props.isLiked!=null){
+        let success = await this.props.onLikeDislikeClick(REACTIONS.HAPPY, {
+          commentId: this.props.commentId,
+          billId: this.props.billId,
+          newStatus: this.props.isLiked,
+          oldOpposite: this.props.isDisliked,
+          oldScore: this.props.score,
+        })
       }
     }
   }
 
   async onDislikeClick(){
     if(this.props.onLikeDislikeClick){
-      if(!!this.props.commentId && !!this.props.billId && this.props.isDisliked!=null){
-        let success = await this.props.onLikeDislikeClick(REACTIONS.SAD, this.props.commentId, this.props.billId, this.props.isDisliked);
+      if(!!this.props.commentId && !!this.props.billId && this.props.score!=null && this.props.isDisliked!=null && this.props.isLiked!=null){
+        let success = await this.props.onLikeDislikeClick(REACTIONS.SAD, {
+          commentId: this.props.commentId,
+          billId: this.props.billId,
+          newStatus: this.props.isDisliked,
+          oldOpposite: this.props.isLiked,
+          oldScore: this.props.score,
+        })
       }
     }
   }
@@ -355,7 +367,7 @@ class FeedCommentCard extends React.Component {
           <TouchableOpacity onPress={this.onDislikeClick.bind(this)}>
             <PavIcon name="thumbs-down" size={15} style={this.props.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
-          <Text style={styles.likeCountText}>{this.props.likeCount}</Text>
+          <Text style={styles.scoreText}>{this.props.score} </Text>
         </View>
         <TouchableOpacity onPress={this.onReplyClick.bind(this)} style={styles.replyButtonContainer}>
           <Text style={styles.replyButtonText}>REPLY</Text>
@@ -400,7 +412,7 @@ FeedCommentCard.propTypes= {
   userFullNameText: React.PropTypes.string.isRequired,
   commentText: React.PropTypes.string,
   userPhotoUrl: React.PropTypes.string,
-  likeCount: React.PropTypes.number.isRequired,
+  score: React.PropTypes.number.isRequired,
   isLiked: React.PropTypes.bool.isRequired,
   isDisliked: React.PropTypes.bool.isRequired,
   commentId: React.PropTypes.string,

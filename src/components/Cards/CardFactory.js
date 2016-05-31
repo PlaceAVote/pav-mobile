@@ -136,7 +136,7 @@ class CardFactory extends React.Component {
           commentParentTitle={n.bill_title}
           commentText={n.body}
           userPhotoUrl={n.author_img_url}
-          likeCount={n.score}
+          score={n.score}
           isLiked={n.liked}
           isDisliked={n.disliked}
           commentId={n.comment_id}

@@ -31,7 +31,10 @@ import CardFactory from '../Cards/CardFactory';
 class ActivityFeedRender extends React.Component {
   constructor(props) {
     super(props);
-    let data = this.props.feedData || [];
+    let data = [];
+    if(!!props.feedData){
+      data = props.feedData.toJS();
+    }
     // console.log("Data within getFeedDataSource is :"+data);
     let ds = null;
     if(this.props.type=="feed"){
@@ -75,25 +78,7 @@ class ActivityFeedRender extends React.Component {
 
 
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.feedData!=null &&  nextProps.feedData!== this.props.feedData) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.feedData)
-      })
-    }
-  }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return(
-      (nextProps.feedData !== this.props.feedData)
-      ||
-      (nextProps.device !== this.props.device)
-      ||
-      (nextProps.style !== this.props.style)
-      ||
-      (nextProps.curUser !== this.props.curUser)
-    );
-  }
 
 
   /**
@@ -129,6 +114,27 @@ class ActivityFeedRender extends React.Component {
            />}
          />);
   }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.feedData!=null &&  nextProps.feedData!== this.props.feedData) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.feedData.toJS())
+      })
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.device !== this.props.device)
+      ||
+      (nextProps.style !== this.props.style)
+      ||
+      (nextProps.curUser !== this.props.curUser)
+      ||
+      (nextState.dataSource !== this.state.dataSource)
+    );
+  }
+
 }
 
 

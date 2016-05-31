@@ -55,6 +55,10 @@ module.exports =  {
     INFO: 2,
     COMMENTS: 3,
   },
+  NewsFeedUpdateTypes: keyMirror({
+    COMMENT_CARD_LIKE: null,
+    COMMENT_CARD_DISLIKE: null,
+  }),
   Other: {
     SESSION_TOKEN_STORAGE_KEY: "token",
     NEWS_FEED_FILTERS:{
@@ -294,6 +298,7 @@ module.exports =  {
 
 
    FILTER_ITEMS: null,
+   UPDATE_ITEMS: null,
 
    GET_DISCOVERY_REQUEST: null,
    GET_DISCOVERY_SUCCESS: null,

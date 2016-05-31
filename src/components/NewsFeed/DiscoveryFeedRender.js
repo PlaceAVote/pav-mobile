@@ -145,15 +145,7 @@ class DiscoveryFeedRender extends React.Component {
 
 
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return(
-      (nextProps.discoveryData !== this.props.discoveryData)
-      ||
-      (nextProps.device !== this.props.device)
-      ||
-      (nextProps.curUser !== this.props.curUser)
-    );
-  }
+
 
 
 
@@ -206,6 +198,16 @@ class DiscoveryFeedRender extends React.Component {
         {this.state.pagesToRender.map((page, i) => this.renderDiscoverPage(page.title, this.props.discoveryData.get(this.state.pagesToRender[i].key), this.props.device, this.props.curUser))}
      </ScrollableTabView>
 
+    );
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.discoveryData !== this.props.discoveryData)
+      ||
+      (nextProps.device !== this.props.device)
+      ||
+      (nextProps.curUser !== this.props.curUser)
     );
   }
 }
