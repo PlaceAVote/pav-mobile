@@ -63,7 +63,9 @@ public class OrientationModule extends ReactContextBaseJavaModule {
             public void onHostPause() {
                 try
                 {
+                    FLog.e(ReactConstants.TAG, "onHostPause: Now pausing");
                     activity.unregisterReceiver(receiver);
+                    FLog.e(ReactConstants.TAG, "onHostPause: activity.unregisterReceiver");
                 }
                 catch (java.lang.IllegalArgumentException e) {
                     FLog.e(ReactConstants.TAG, "onHostPause: receiver already unregistered", e);
@@ -74,7 +76,9 @@ public class OrientationModule extends ReactContextBaseJavaModule {
             public void onHostDestroy() {
                 try
                 {
+                    FLog.e(ReactConstants.TAG, "onHostDestroy: Now destroying");
                     activity.unregisterReceiver(receiver);
+                    FLog.e(ReactConstants.TAG, "onHostDestroy: activity.unregisterReceiver");
                 }
                 catch (java.lang.IllegalArgumentException e) {
                     FLog.e(ReactConstants.TAG, "onHostDestroy: receiver already unregistered", e);

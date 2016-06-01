@@ -6,7 +6,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, View, Text, Animated, Easing} from 'react-native';
+import {StyleSheet, View, Text, Platform} from 'react-native';
 // import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
 // import Dimensions from 'Dimensions';
@@ -153,22 +153,22 @@ class DiscoveryFeedRender extends React.Component {
 
 
   renderDiscoverPage(pageTitle, discoveryData, device, curUser){
-    return (
-      <ActivityFeedRender
-      key={pageTitle}
-      tabLabel={pageTitle}
-      feedData={discoveryData}
-      device={device}
-      curUser={curUser}
-      type="discovery"
-      onUserClick={this.props.onUserClick}
-      onBillClick={this.props.onBillClick}
-      onLikeDislikeClick={this.props.onLikeDislikeClick}
-      onReplyClick={this.props.onReplyClick}
-      onReactionClick={this.props.onReactionClick}
-      onCommentClick={this.props.onCommentClick}
-      onSocialClick={this.props.onSocialClick}
-      />)
+      return (
+        <ActivityFeedRender
+        key={pageTitle}
+        tabLabel={pageTitle}
+        feedData={discoveryData}
+        device={device}
+        curUser={curUser}
+        type="discovery"
+        onUserClick={this.props.onUserClick}
+        onBillClick={this.props.onBillClick}
+        onLikeDislikeClick={this.props.onLikeDislikeClick}
+        onReplyClick={this.props.onReplyClick}
+        onReactionClick={this.props.onReactionClick}
+        onCommentClick={this.props.onCommentClick}
+        onSocialClick={this.props.onSocialClick}
+        />)
   }
 
 
@@ -181,24 +181,33 @@ class DiscoveryFeedRender extends React.Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    return(
-      <ScrollableTabView
-        onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
-        renderTabBar={() =>
-          <TopicSelectTabBar
-            indicatorPosition="top"
-            indicatorArrowsEnabled={true}
-            underlineColor={Colors.negativeAccentColor}
-            activeTextColor={Colors.primaryColor}
-            inactiveTextColor={Colors.primaryColor}
-          />}
-        initialPage={0}
-        style={styles.pagesContainer}
-      >
-        {this.state.pagesToRender.map((page, i) => this.renderDiscoverPage(page.title, this.props.discoveryData.get(this.state.pagesToRender[i].key), this.props.device, this.props.curUser))}
-     </ScrollableTabView>
+    // alert(Platform.Version);
+    if(this.props.device.platform=="android" && Platform.Version<=21){
+      return (
+        <Text>
+        The Discovery page will be supported in old Android devices when react native version 27 comes out. (In the next few days)
+        Unfortunately for you, your android version ({Platform.Version}) is too old and lame for facebook to really care at the moment.
+        </Text>);
+    }else{
+      return(
+        <ScrollableTabView
+          onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
+          renderTabBar={() =>
+            <TopicSelectTabBar
+              indicatorPosition="top"
+              indicatorArrowsEnabled={true}
+              underlineColor={Colors.negativeAccentColor}
+              activeTextColor={Colors.primaryColor}
+              inactiveTextColor={Colors.primaryColor}
+            />}
+          initialPage={0}
+          style={styles.pagesContainer}
+        >
+          {this.state.pagesToRender.map((page, i) => this.renderDiscoverPage(page.title, this.props.discoveryData.get(this.state.pagesToRender[i].key), this.props.device, this.props.curUser))}
+       </ScrollableTabView>
 
-    );
+      );
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {

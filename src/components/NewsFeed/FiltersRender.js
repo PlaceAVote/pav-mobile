@@ -51,15 +51,18 @@ class FiltersRender extends React.Component {
   getPortraitStyles(self){
     return StyleSheet.create({
 
-      recentActivityText: {
+      recentActivityTextContainer:{
+        paddingHorizontal: w*0.009,
+        paddingTop: h*0.02,
         // top:0,
         // width:w,
         // height:h*0.065,
         // position:'absolute',
         // backgroundColor: "rgba(0,0,0,0.06)",
         // backgroundColor:'green',
-        paddingHorizontal: w*0.009,
-        paddingTop: h*0.02,
+      },
+      recentActivityText: {
+
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,10),
         color: Colors.fifthTextColor,
@@ -78,7 +81,8 @@ class FiltersRender extends React.Component {
         borderLeftColor: 'rgba(0, 0, 0, 0.1)',
         borderLeftWidth:1,
         // alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        // backgroundColor:'green',
       },
       collapsedFilterContainer:{
         flex:1,
@@ -96,7 +100,6 @@ class FiltersRender extends React.Component {
         alignItems:'center',
         paddingHorizontal:w*0.015,
         paddingTop:h*0.013,
-        paddingBottom:h*0.006,
         // backgroundColor:'blue'
       },
       inactiveFilterIcon:{
@@ -116,17 +119,20 @@ class FiltersRender extends React.Component {
 
       },
       filterIndicatorIconContainer:{
-        // backgroundColor:'red',
+        paddingTop:h*0.006,
+        // backgroundColor:'green',
         // alignSelf:'center',
         // justifyContent:'flex-end',
       },
       activeFilterIndicatorIcon:{
-        // backgroundColor:'yellow',
+        // backgroundColor:'red',
+        margin:0,
+        // borderTopWidth:5,
+        // borderTopColor:'red',
         alignSelf:'center',
         color:'#E8E7EE'
       },
       inactiveFilterIndicatorIcon:{
-        // backgroundColor:'yellow',
         alignSelf:'center',
         color:Colors.transparentColor
       },
@@ -261,10 +267,12 @@ class FiltersRender extends React.Component {
 renderRecentActivityText(shouldRender, text, styles){
   if(shouldRender){
     return (
-      <Text key="recentActivityText"
-        style={styles.recentActivityText}>
-        {text}
-      </Text>);
+      <View key="recentActivityTextContainer" style={styles.recentActivityTextContainer}>
+        <Text key="recentActivityText"
+          style={styles.recentActivityText}>
+          {text}
+        </Text>
+      </View>);
   }else{
     return <View></View>;
   }

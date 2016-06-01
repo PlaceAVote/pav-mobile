@@ -316,9 +316,13 @@
 		{
 			"icon": {
 				"paths": [
-					"M0 1024l1260.064-1024 1260.064 1024z"
+					"M-59.277 1048l1319.123-1072 1319.123 1072z"
 				],
-				"attrs": [],
+				"attrs": [
+					{
+						"fill": "rgb(0, 0, 0)"
+					}
+				],
 				"isMulticolor": false,
 				"width": 2528,
 				"grid": 0,
@@ -326,11 +330,16 @@
 					"activeIndicatorShrinked"
 				],
 				"colorPermutations": {
-					"1204001": [],
-					"1204001206001": []
+					"1204001206001": {
+						"0": 0
+					}
 				}
 			},
-			"attrs": [],
+			"attrs": [
+				{
+					"fill": "rgb(0, 0, 0)"
+				}
+			],
 			"properties": {
 				"order": 82,
 				"id": 64,

@@ -6,7 +6,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, View, ListView, Text} from 'react-native';
+import {StyleSheet, View, ListView} from 'react-native';
 // import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
 // import Dimensions from 'Dimensions';
