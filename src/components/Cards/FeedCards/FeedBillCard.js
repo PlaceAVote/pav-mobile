@@ -177,7 +177,6 @@ class FeedBillCard extends React.Component {
       cardContentText:{
         backgroundColor:Colors.transparentColor,
         paddingVertical:h*0.0065,
-        lineHeight:h*0.031,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,10),
         color: Colors.mainTextColor,
@@ -230,7 +229,7 @@ class FeedBillCard extends React.Component {
       <View style={styles.cardContentContainer}>
 
         <View style={styles.cardContentHeader}>
-          <Text style={styles.cardContentText}>
+          <Text style={styles.cardContentText} lineHeight={h*0.031}>
           {this.props.billTitle}
           </Text>
         </View>

@@ -265,7 +265,6 @@ class FeedUserIssueCard extends React.Component {
       cardContentText:{
         // backgroundColor:'green',
         paddingVertical:h*0.0065,
-        lineHeight:h*0.031,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,10),
         color: 'rgba(0, 0, 0, 0.54)',
@@ -412,7 +411,7 @@ class FeedUserIssueCard extends React.Component {
       <View style={styles.cardContentContainer}>
 
         <View style={styles.cardContentHeader}>
-          <Text style={styles.cardContentText}>
+          <Text style={styles.cardContentText} lineHeight={h*0.031}>
           {this.props.issueText}
           </Text>
         </View>
