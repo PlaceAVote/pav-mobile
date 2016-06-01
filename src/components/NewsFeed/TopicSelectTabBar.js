@@ -75,7 +75,7 @@ const ScrollableTabBar = React.createClass({
     newScrollX -= this.props.scrollOffset;
     newScrollX = newScrollX >= 0 ? newScrollX : 0;
 
-    if (Platform === 'android') {
+    if (Platform.OS === 'android') {
       this._scrollView.scrollTo({x: newScrollX, y: 0, });
     } else {
       const rightBoundScroll = this._tabContainerMeasurements.width - (this._containerMeasurements.width);
@@ -104,13 +104,16 @@ const ScrollableTabBar = React.createClass({
     }
   },
 
-  measureTab(page) {
-    const tabContainerhandle = findNodeHandle(this.refs.tabContainer);
-    this.refs['tab_' + page].measureLayout(tabContainerhandle, (ox, oy, width, height, pageX, pageY) => {
-      this._tabsMeasurements[page] = {left: ox, right: ox + width, width: width, height: height, };
-
-      this.updateView({value: this.props.scrollValue._value, });
-    });
+  measureTab(page, e) {
+    let {x:ox, y:oy, width, height} = e;
+    this._tabsMeasurements[page] = {left: ox, right: ox + width, width: width, height: height, };
+    // console.log(" measureTab: "+JSON.stringify(this._tabsMeasurements[page]));
+    this.updateView({value: this.props.scrollValue._value, });
+    // // const tabContainerhandle = findNodeHandle(this.refs.tabContainer);
+    // this.refs['tab_' + page].measureLayout(tabContainerhandle, (ox, oy, width, height, pageX, pageY) => {
+    //   this._tabsMeasurements[page] = {left: ox, right: ox + width, width: width, height: height, };
+    //   this.updateView({value: this.props.scrollValue._value, });
+    // });
   },
 
     onTabContainerLayout(e) {
@@ -122,9 +125,6 @@ const ScrollableTabBar = React.createClass({
       this.setState({ _containerWidth: width, });
     },
 
-    onContainerLayout(e) {
-      this._containerMeasurements = e.nativeEvent.layout;
-    },
 
 
 
@@ -148,7 +148,8 @@ const ScrollableTabBar = React.createClass({
         accessibilityTraits='button'
         style={styles.tab}
         onPress={() => this.props.goToPage(page)}
-        onLayout={this.measureTab.bind(this, page)}
+        onLayout={(event) => this.measureTab(page,event.nativeEvent.layout)
+        }
       >
         <Text style={[styles.tabText,{ color: textColor}, textStyle, ]}>{name} </Text>
       </TouchableOpacity>);
@@ -158,7 +159,7 @@ const ScrollableTabBar = React.createClass({
 
 
   renderTabArrow(shouldRender, type){
-    if(shouldRender==true){
+    if(shouldRender==true && this.state._containerWidth!=null){
       if(type=="left"){
         return(<TouchableOpacity style={styles.iconContainer} onPress={()=>{
           this._scrollView.scrollTo({x: 0, y: 0, });
@@ -167,10 +168,10 @@ const ScrollableTabBar = React.createClass({
         </TouchableOpacity>);
       }else if (type=="right"){
         return (<TouchableOpacity style={styles.iconContainer} onPress={()=>{
-          if (Platform === 'android') {
+          if (Platform.OS === 'android') {
             this._scrollView.scrollTo({x: 0, y: 0, });
           } else {
-            const rightBoundScroll = this._tabContainerMeasurements.width - (this._containerMeasurements.width);
+            const rightBoundScroll = this.state._containerWidth - (this._containerMeasurements.width);
             this._scrollView.scrollTo({x: rightBoundScroll, y: 0, });
           }
         }}>
@@ -206,7 +207,7 @@ const ScrollableTabBar = React.createClass({
 // {width: this.state._containerWidth, }
     return  (<View
       style={styles.container}
-      onLayout={this.onContainerLayout}
+      onLayout={(e)=>this._containerMeasurements = e.nativeEvent.layout}
     >
       {this.renderTabArrow(this.props.indicatorArrowsEnabled==true, "left")}
       <ScrollView
@@ -220,7 +221,7 @@ const ScrollableTabBar = React.createClass({
         bounces={false}
       >
         <View
-          style={[styles.tabs, ]}
+          style={[styles.tabs ]}
           ref={'tabContainer'}
           onLayout={this.onTabContainerLayout}
         >

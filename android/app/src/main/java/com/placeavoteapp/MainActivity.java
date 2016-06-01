@@ -1,29 +1,29 @@
 package com.placeavoteapp;
 
-import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactPackage;
+import com.facebook.react.shell.MainReactPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.github.yamill.orientation.OrientationPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+
 import java.util.Arrays;
 import java.util.List;
-
-import com.facebook.react.ReactActivity;    //also for FacebookSdk;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;    //for FacebookSdk;
-import com.facebook.CallbackManager;   //for FacebookSdk;
-import com.facebook.FacebookSdk;   //for FacebookSdk;
-
-import com.BV.LinearGradient.LinearGradientPackage; //for gradient
-import com.github.yamill.orientation.OrientationPackage;    //for orientation awareness
-import com.oblador.vectoricons.VectorIconsPackage;  //for vector icons
 
 
 public class MainActivity extends ReactActivity {
 
 
-    CallbackManager mCallbackManager
-            ;
+    CallbackManager mCallbackManager;
+    private static final String TAG = "PlaceAVoteApp";
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -31,7 +31,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "PlaceAVoteApp";
+        return TAG;
     }
 
     /**
@@ -76,6 +76,8 @@ public class MainActivity extends ReactActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        Log.v(TAG, "onConfigChange"+newConfig);
+
         Intent intent = new Intent("onConfigurationChanged");
         intent.putExtra("newConfig", newConfig);
         this.sendBroadcast(intent);
