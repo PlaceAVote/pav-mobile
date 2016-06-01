@@ -64,7 +64,7 @@ class BillCommentCard extends React.Component {
         alignItems: 'stretch',
         padding:7,
         // backgroundColor: 'blue',
-        marginTop: self.props.device.platform === 'android' ? 56 : 0,
+        
       },
 
 

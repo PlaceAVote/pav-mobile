@@ -103,7 +103,6 @@ class ActivityFeedRender extends React.Component {
            itemData={rowData}
            device={this.props.device}
            curUser={this.props.curUser}
-
            onUserClick={this.props.onUserClick}
            onBillClick={this.props.onBillClick}
            onLikeDislikeClick={this.props.onLikeDislikeClick}

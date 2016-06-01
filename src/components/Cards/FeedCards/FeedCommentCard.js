@@ -65,7 +65,7 @@ class FeedCommentCard extends React.Component {
         // backgroundColor: 'blue',
         paddingHorizontal: 7,
         paddingVertical: 7,
-        marginTop: self.props.device.platform === 'android' ? 56 : 0,
+        
       },
 
       card:{

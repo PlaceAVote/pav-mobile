@@ -66,7 +66,7 @@
             alignItems: 'stretch',
             padding:7,
             // backgroundColor: 'pink',
-            marginTop: self.props.device.platform === 'android' ? 56 : 0,
+            
           },
 
 

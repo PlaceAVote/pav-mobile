@@ -64,10 +64,9 @@ class FeedUserIssueCard extends React.Component {
       cardContainer:{
         flex: 1,
         alignItems: 'stretch',
-        // backgroundColor: Colors.transparentColor,
+        // backgroundColor: 'pink',
         paddingHorizontal: 7,
         paddingVertical: 7,
-        marginTop: self.props.device.platform === 'android' ? 56 : 0,
       },
 
       card:{
@@ -147,17 +146,20 @@ class FeedUserIssueCard extends React.Component {
         // marginHorizontal: 10,
       },
 
-
+      userIssueFullNameDynamicTextContainer:{
+        paddingHorizontal: w*0.01,
+      },
       userIssueFullNameDynamicText:{
         // backgroundColor:'blue',
         color:"#e64a33",
-        paddingHorizontal: 3,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+      userIssueTitleActionStaticTextContainer:{
+        paddingHorizontal: w*0.002,
+      },
       userIssueTitleActionStaticText:{
         color: Colors.thirdTextColor,
-        paddingHorizontal: 3,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
@@ -213,6 +215,10 @@ class FeedUserIssueCard extends React.Component {
         justifyContent:'space-between',
         // backgroundColor:'red',
       },
+      reactionContainer:{
+        justifyContent:'center',
+        // backgroundColor:'red',
+      },
 
       zeroCntreactionIconContainer:{
         paddingHorizontal:w*0.03,
@@ -220,6 +226,7 @@ class FeedUserIssueCard extends React.Component {
       reactionIconContainer:{
         justifyContent:'center',
         alignItems:'center',
+        backgroundColor:'pink',
         paddingHorizontal:w*0.01,
         marginHorizontal:w*0.005,
         flexDirection:'row',
@@ -238,6 +245,7 @@ class FeedUserIssueCard extends React.Component {
 
 
       reactionIcon:{
+        textAlignVertical:'center',
         paddingHorizontal: w*0.010,
         paddingVertical: h*0.018,
         color: 'rgba(0, 0, 0, 0.74)',
@@ -250,6 +258,7 @@ class FeedUserIssueCard extends React.Component {
       },
 
       reactionCountText:{
+        textAlign:'center',
         paddingHorizontal: w*0.007,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
@@ -393,9 +402,13 @@ class FeedUserIssueCard extends React.Component {
             source={{uri: this.props.userPhotoUrl}}
             resizeMode='cover'
           />
-          <Text style={styles.userIssueFullNameDynamicText}>{this.props.userFullNameText}</Text>
+          <View style={styles.userIssueFullNameDynamicTextContainer}>
+            <Text style={styles.userIssueFullNameDynamicText}>{this.props.userFullNameText}</Text>
+          </View>
         </TouchableOpacity>
-        <Text style={styles.userIssueTitleActionStaticText}>shared an</Text>
+        <View style={styles.userIssueTitleActionStaticTextContainer}>
+          <Text style={styles.userIssueTitleActionStaticText}>shared an</Text>
+        </View>
         <View style={styles.userIssueIconContainer}>
           <PavIcon name="issues" size={12} style={styles.userIssueIcon}/>
         </View>
@@ -425,13 +438,13 @@ class FeedUserIssueCard extends React.Component {
       return (<View style={styles.cardFooterContainer}>
         <Text style={styles.cardFooterText}>What's your reaction?</Text>
         <View style={styles.cardFooterIconsContainer}>
-          <TouchableOpacity  onPress={this.onHappyClick.bind(this)}>
+          <TouchableOpacity style={styles.reactionContainer} onPress={this.onHappyClick.bind(this)}>
             {this.renderReactionIcon("happy", this.props.happyCnt, (this.props.userReaction==REACTIONS.HAPPY), styles)}
           </TouchableOpacity>
-          <TouchableOpacity  onPress={this.onNeutralClick.bind(this)}>
+          <TouchableOpacity style={styles.reactionContainer} onPress={this.onNeutralClick.bind(this)}>
             {this.renderReactionIcon("neutral", this.props.neutralCnt, (this.props.userReaction==REACTIONS.NEUTRAL), styles)}
           </TouchableOpacity>
-          <TouchableOpacity  onPress={this.onSadClick.bind(this)}>
+          <TouchableOpacity style={styles.reactionContainer} onPress={this.onSadClick.bind(this)}>
             {this.renderReactionIcon("sad", this.props.sadCnt, (this.props.userReaction==REACTIONS.SAD), styles)}
           </TouchableOpacity>
         </View>

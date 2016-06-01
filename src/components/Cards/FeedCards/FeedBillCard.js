@@ -63,7 +63,7 @@ class FeedBillCard extends React.Component {
         // backgroundColor: Colors.transparentColor,
         paddingHorizontal: 7,
         paddingVertical: 7,
-        marginTop: self.props.device.platform === 'android' ? 56 : 0,
+
       },
 
       card:{
