@@ -131,7 +131,6 @@ class FeedUserIssueCard extends React.Component {
           // backgroundColor: "#708BC4",
           paddingHorizontal:1,
           paddingVertical:1,
-          // borderRadius: 3,
           // borderColor: '#ffffff',
           // borderWidth: 1,
       },

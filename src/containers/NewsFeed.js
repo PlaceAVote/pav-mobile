@@ -133,7 +133,7 @@ class NewsFeed extends React.Component {
   }
 
   componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange.bind(this).bind(this));
+    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
     this.props.actions.unlockOrientation();
   }
 

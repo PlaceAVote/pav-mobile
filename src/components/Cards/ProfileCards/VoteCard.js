@@ -65,7 +65,7 @@ class VoteCard extends React.Component {
         // backgroundColor: 'blue',
         paddingHorizontal: 7,
         paddingVertical: 7,
-        
+
       },
 
       card:{

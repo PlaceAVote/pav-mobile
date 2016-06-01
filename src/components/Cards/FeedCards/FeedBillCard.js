@@ -325,6 +325,7 @@ class FeedBillCard extends React.Component {
             resizeMode='cover'
             >
               <LinearGradient
+                  style={{}}
                   colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
                   start={[-0.3, 0.0]} end={[1.3, 0.0]}>
                   {this.renderHeader(styles)}
