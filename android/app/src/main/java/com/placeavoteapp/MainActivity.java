@@ -4,6 +4,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +22,8 @@ import com.oblador.vectoricons.VectorIconsPackage;  //for vector icons
 public class MainActivity extends ReactActivity {
 
 
-    CallbackManager mCallbackManager;
+    CallbackManager mCallbackManager
+            ;
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -68,5 +70,14 @@ public class MainActivity extends ReactActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Intent intent = new Intent("onConfigurationChanged");
+        intent.putExtra("newConfig", newConfig);
+        this.sendBroadcast(intent);
     }
 }
