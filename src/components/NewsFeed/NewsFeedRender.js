@@ -272,7 +272,7 @@ class NewsFeedRender extends React.Component {
             tintColor={Colors.primaryColor}
             title="Loading..."
             titleColor={Colors.primaryColor}
-            colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
+            colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
           />}>
             <FiltersRender
               topicList={this.props.auth.form.fields.topicsList.toJS()}

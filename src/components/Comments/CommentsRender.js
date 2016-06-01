@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Colors, Other} from '../../config/constants';
 const {SORT_FILTERS} = Other;
 import React from 'react';
-import {StyleSheet, Text, View, ActivityIndicatorIOS} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicatorIOS, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -54,7 +54,7 @@ class CommentsRender extends React.Component {
         backgroundColor: 'white',
         flex:1,
         flexDirection: 'column',
-        paddingTop:64, //nav bar height
+        paddingTop:Platform.OS=="ios"?64:43, //nav bar height
         // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
         // marginVertical: 10,
         // marginHorizontal:15
@@ -89,11 +89,11 @@ class CommentsRender extends React.Component {
         flex:1,
         justifyContent:'center',
         alignItems:'center',  //horizontally
+        paddingVertical: h*0.020,
+        paddingHorizontal: w*0.012,
       },
       headerTitle:{
         backgroundColor: Colors.transparentColor,
-        paddingVertical: h*0.020,
-        paddingHorizontal: w*0.012,
         color: Colors.mainTextColor,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,12),

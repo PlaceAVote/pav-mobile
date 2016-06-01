@@ -80,12 +80,15 @@ class SummaryTabRender extends React.Component {
         backgroundColor: Colors.titleBgColor,
         borderBottomColor: "rgba(0, 0, 0, 0.07)",
         borderBottomWidth: 1,
-
-        // shadowColor: 'rgba(0, 0, 0, 0.12)',
-      },
-      summaryHeaderText:{
         paddingHorizontal: w*0.011,
         paddingVertical: h*0.015,
+        // shadowColor: 'rgba(0, 0, 0, 0.12)',
+      },
+      summaryHeaderTextContainer:{
+        paddingHorizontal: w*0.011,
+        paddingVertical: h*0.015,
+      },
+      summaryHeaderText:{
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
@@ -115,12 +118,14 @@ class SummaryTabRender extends React.Component {
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
-      favorIcon:{
+      favorAgainstIconContainer:{
         paddingHorizontal: w*0.011,
+      },
+      favorIcon:{
         color:Colors.accentColor
       },
       againstIcon:{
-        paddingHorizontal: w*0.011,
+        // paddingHorizontal: w*0.011,
         color:Colors.negativeAccentColor
       },
       summaryBodyPointsFavorText:{
@@ -178,10 +183,14 @@ class SummaryTabRender extends React.Component {
             </TouchableOpacity>
           </View>
           <View style={styles.summaryFavorContainer}>
-            <PavIcon name="check-mark" size={12} style={styles.favorIcon}/>
-            <Text style={styles.summaryHeaderText}>
-              POINTS IN FAVOR
-            </Text>
+            <View style={styles.favorAgainstIconContainer}>
+              <PavIcon name="check-mark" size={12} style={styles.favorIcon}/>
+            </View>
+            <View  style={styles.summaryHeaderTextContainer}>
+              <Text style={styles.summaryHeaderText}>
+                POINTS IN FAVOR
+              </Text>
+            </View>
           </View>
           <View style={styles.summaryBodyContainer}>
             <Text style={styles.summaryBodyPointsFavorText}>
@@ -189,10 +198,14 @@ class SummaryTabRender extends React.Component {
             </Text>
           </View>
           <View style={styles.summaryFavorContainer}>
-            <PavIcon name="close" size={13} style={styles.againstIcon}/>
-            <Text style={styles.summaryHeaderText}>
-              POINTS AGAINST
-            </Text>
+            <View style={styles.favorAgainstIconContainer}>
+              <PavIcon name="close" size={13} style={styles.againstIcon}/>
+            </View>
+            <View style={styles.summaryHeaderTextContainer}>
+              <Text style={styles.summaryHeaderText}>
+                POINTS AGAINST
+              </Text>
+            </View>
           </View>
           <View style={styles.summaryBodyContainer}>
             <Text style={styles.summaryBodyPointsFavorText}>

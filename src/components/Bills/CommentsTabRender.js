@@ -107,9 +107,11 @@ class CommentsTabRender extends React.Component {
         },
         // backgroundColor:'pink'
       },
-      sortByTitleText:{
+      sortByTitleTextContainer:{
         paddingHorizontal: w*0.027,
         paddingVertical: h*0.011,
+      },
+      sortByTitleText:{
         color: Colors.primaryColor,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
@@ -123,12 +125,13 @@ class CommentsTabRender extends React.Component {
       },
       sortBtn:{
         justifyContent:'center',
-        // backgroundColor:'red'
+        // alignItems:'center',
+        // backgroundColor:'pink',
+        paddingHorizontal: w*0.027,
+        paddingVertical: h*0.011,
       },
       sortBtnText:{
         // backgroundColor:'green',
-        paddingHorizontal: w*0.027,
-        paddingVertical: h*0.011,
         color: Colors.primaryColor,
         fontSize: getCorrectFontSizeForScreen(w,h,8),
         // backgroundColor:Colors.transparentColor
@@ -184,7 +187,9 @@ class CommentsTabRender extends React.Component {
   renderSortHeader(styles){
     return (
       <View style={styles.sortContainer}>
-        <Text style={styles.sortByTitleText}>Sort by: </Text>
+        <View style={styles.sortByTitleTextContainer}>
+          <Text style={styles.sortByTitleText}>Sort by: </Text>
+        </View>
         <View style={styles.sortBtnsContainer}>
           <TouchableOpacity style={[styles.sortBtn, (this.state.curSortFilter==SORT_FILTERS.HIGHEST_RATE?styles.sortBtnActive:styles.sortBtnInactive)]} onPress={()=>{this.setState({curSortFilter:SORT_FILTERS.HIGHEST_RATE});this.props.onCommentsRefresh(SORT_FILTERS.HIGHEST_RATE);}}>
             <Text style={[styles.sortBtnText, styles.sortBtnActiveText]}>Highest Rated </Text>

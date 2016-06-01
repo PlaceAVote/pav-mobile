@@ -20,7 +20,7 @@ import {Colors, ScheneKeys, Other} from '../../../config/constants';
 const {REACTIONS, SOCIAL_TYPES} = Other;
 
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -64,7 +64,7 @@ class BillCommentCard extends React.Component {
         alignItems: 'stretch',
         padding:7,
         // backgroundColor: 'blue',
-        
+
       },
 
 
@@ -187,11 +187,11 @@ class BillCommentCard extends React.Component {
       cardContentBody:{
         // backgroundColor:'green'
         // marginTop: h*0.01
+        padding:2,
+        paddingVertical: h*0.015,
       },
       cardContentText:{
-        padding:2,
         // backgroundColor:'green',
-        paddingVertical: h*0.015,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
         color: 'rgba(0, 0, 0, 0.54)',
@@ -203,7 +203,7 @@ class BillCommentCard extends React.Component {
         flexDirection:'row',
         backgroundColor: '#EDECF1',
         borderStyle: 'solid',
-        borderColor: 'rgba(216, 214, 226, 0.25)',
+        borderColor: Platform.OS=="android"?'rgba(216, 214, 226, 1)':'rgba(216, 214, 226, 0.25)',
         // borderTopColor: 'rgba(216, 214, 226, 0.7)',
         // borderLeftColor: 'rgba(216, 214, 226, 0.5)',
         // borderRightColor: 'rgba(216, 214, 226, 0.5)',

@@ -31,7 +31,7 @@ import {Colors, ScheneKeys, Other} from '../../config/constants';
 
 const {SOCIAL_TYPES} = Other;
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, ActivityIndicatorIOS} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, ActivityIndicatorIOS, Platform} from 'react-native';
 import ProgressBar from 'ProgressBarAndroid';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -92,7 +92,7 @@ class BillRender extends React.Component {
         backgroundColor: 'white',
         flex:1,
         flexDirection: 'column',
-        paddingTop:64, //nav bar height
+        paddingTop:Platform.OS=="ios"?64:43, //nav bar height
 
         // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
 
@@ -119,11 +119,11 @@ class BillRender extends React.Component {
         flex:1,
         justifyContent:'center',
         alignItems:'center',  //horizontally
+        paddingVertical: h*0.015,
+        paddingHorizontal: w*0.012,
       },
       headerTitle:{
         backgroundColor: Colors.transparentColor,
-        paddingVertical: h*0.015,
-        paddingHorizontal: w*0.012,
         color: Colors.mainTextColor,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,18),
@@ -153,9 +153,11 @@ class BillRender extends React.Component {
         alignItems:'center'
       },
 
+      tagsLblTextContainer:{
+        paddingHorizontal: w*0.011,
+      },
       tagsLblText:{
         backgroundColor: Colors.transparentColor,
-        paddingHorizontal: w*0.011,
         color: Colors.secondaryTextColor,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
@@ -172,9 +174,11 @@ class BillRender extends React.Component {
       tagBtnContainer:{
         paddingHorizontal: w*0.003,
       },
+      tagTitleTextContainer:{
+        paddingHorizontal: w*0.020,
+      },
       tagTitleText:{
         backgroundColor: Colors.transparentColor,
-        paddingHorizontal: w*0.020,
         color: Colors.mainTextColor,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
@@ -300,13 +304,17 @@ class BillRender extends React.Component {
   renderBillTags(tags, styles){
     if(tags!=null){
       return (<View style={styles.headerTagBtnContainer}>
-        <Text style={styles.tagsLblText}>Tags: </Text>
+        <View style={styles.tagsLblTextContainer}>
+          <Text style={styles.tagsLblText}>Tags: </Text>
+        </View>
         {tags.map((tag, i) =>
           (<View key={"tag"+i+"container"} style={styles.tagBtnContainer}><TouchableOpacity
             key={"tag"+i+"btn"}
             onPress={this.props.onTagPress}
             style={styles.tagBtn}>
-            <Text key={"tag"+i+"txt"}style={styles.tagTitleText}>{tag}</Text>
+            <View  key={"tag"+i+"txtContainer"} style={styles.tagTitleTextContainer}>
+              <Text key={"tag"+i+"txt"} style={styles.tagTitleText}>{tag}</Text>
+            </View>
           </TouchableOpacity></View>)
         )}
       </View>);
@@ -468,7 +476,7 @@ class BillRender extends React.Component {
      if(this.props.device.platform=="android"){
          return (
          <View key="bill_render_body" style={styles.spinnerContainer}>
-           <ProgressBar styleAttr="Large" color="red" />
+           <ProgressBar styleAttr="Large" color={Colors.primaryColor} />
          </View>);
      }else if(this.props.device.platform=="ios"){
          return (

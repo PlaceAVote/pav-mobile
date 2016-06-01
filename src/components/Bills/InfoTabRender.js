@@ -91,8 +91,6 @@ class InfoTabRender extends React.Component {
 
       headerText:{
         flex:1,
-        paddingHorizontal: w*0.015,
-        paddingVertical: h*0.015,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
@@ -107,6 +105,8 @@ class InfoTabRender extends React.Component {
         backgroundColor: Colors.titleBgColor,
         borderBottomColor: "rgba(0, 0, 0, 0.07)",
         borderBottomWidth: 1,
+        paddingHorizontal: w*0.015,
+        paddingVertical: h*0.015,
       },
       titleWithMultipleChildren:{
         flexDirection:'row',

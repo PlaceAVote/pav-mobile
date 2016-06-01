@@ -82,10 +82,11 @@ class CommentReplyCard extends React.Component {
         flexDirection:'column',
         // backgroundColor:'white'
       },
-
-      addCommentTitleText:{
+      addCommentTitleTextContainer:{
         paddingHorizontal: w*0.027,
         paddingTop: h*0.015,
+      },
+      addCommentTitleText:{
         color: Colors.mainTextColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
@@ -174,7 +175,9 @@ class CommentReplyCard extends React.Component {
         colors={['#4D6EB2', '#775B96']}
         start={[0.0, 0.5]} end={[1.0, 0.5]}
         style={styles.commentsPageContainer}>
-          <Text style={styles.addCommentTitleText}>ADD A COMMENT </Text>
+          <View style={styles.addCommentTitleTextContainer}>
+            <Text style={styles.addCommentTitleText}>ADD A COMMENT </Text>
+          </View>
           <View style={styles.commentInputContainer}>
             <TextInput
               ref={this.props.id}
