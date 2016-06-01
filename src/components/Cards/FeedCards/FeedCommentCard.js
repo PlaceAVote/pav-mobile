@@ -71,6 +71,7 @@ class FeedCommentCard extends React.Component {
       card:{
         flex: 1,
         backgroundColor: '#ffffff',
+        // backgroundColor: 'orange',
         borderRadius: 2,
         borderColor: '#ffffff',
         borderWidth: 0,
@@ -179,15 +180,20 @@ class FeedCommentCard extends React.Component {
       },
 
 
-      footerContainer:{
+      footerContainer:this.props.device.platform=="android"?{
         flex:1,
         flexDirection:'row',
         backgroundColor: '#EDECF1',
-        borderStyle: 'solid',
-        borderColor: 'rgba(216, 214, 226, 0.5)',
-        borderTopColor: 'rgba(216, 214, 226, 0.7)',
-        borderLeftColor: 'rgba(216, 214, 226, 0.5)',
-        borderRightColor: 'rgba(216, 214, 226, 0.5)',
+        borderWidth: 1,
+        borderColor: 'rgba(216, 214, 226, 1)',
+      }:{
+        flex:1,
+        flexDirection:'row',
+        backgroundColor: '#EDECF1',
+        borderColor: 'rgba(216, 214, 226, 1)',
+        borderTopColor: 'rgba(216, 214, 226, 0)',
+        borderLeftColor: 'rgba(216, 214, 226, 0)',
+        borderRightColor: 'rgba(216, 214, 226, 0.9)',
         borderBottomColor: 'rgba(216, 214, 226, 1)',
         borderWidth: 1,
       },
@@ -332,7 +338,7 @@ class FeedCommentCard extends React.Component {
             platform={this.props.device.platform}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
-            source={{uri: this.props.userPhotoUrl}}
+            source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
             resizeMode='cover'
           />
         </TouchableOpacity>

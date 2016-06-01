@@ -41,7 +41,7 @@ import moment from 'moment'
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {NEWS_FEED_FILTERS} = Other;
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView, ActivityIndicatorIOS, TouchableOpacity, ListView, RefreshControl} from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView, ActivityIndicatorIOS, TouchableOpacity, ListView, RefreshControl, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -132,11 +132,11 @@ class NewsFeedRender extends React.Component {
 
 
       container: {
-        // backgroundColor: 'orange',
         flex:1,
         flexDirection: 'column',
-        paddingTop:64, //nav bar height
+        paddingTop:Platform.OS=="ios"?64:43, //nav bar height
         paddingBottom:50, //tab bar height
+        // backgroundColor: 'orange',
         // marginVertical: 10,
         // marginHorizontal:15
       },
@@ -260,6 +260,7 @@ class NewsFeedRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    console.log("@ LOADING"+(this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData));
     return(
         <View style={styles.container}>
           <ScrollView

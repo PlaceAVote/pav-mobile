@@ -268,7 +268,7 @@ class CommentCard extends React.Component {
               <Image
                 defaultSource={defaultUserPhoto}
                 style={styles.userImage}
-                source={{uri: this.props.userPhotoUrl}}
+                source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
                 resizeMode='cover'
               />
               <View style={styles.commentDescriptionContainer}>

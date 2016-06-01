@@ -276,7 +276,7 @@ class LikeCard extends React.Component {
             <View style={styles.cardContentHeader}>
               <Image
                 style={styles.userImage}
-                source={{uri: this.props.userPhotoUrl}}
+                source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
                 defaultSource={defaultUserPhoto}
                 resizeMode='cover'
               />

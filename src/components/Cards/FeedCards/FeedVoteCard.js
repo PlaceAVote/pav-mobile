@@ -231,7 +231,7 @@ class FeedVoteCard extends React.Component {
             platform={this.props.device.platform}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
-            source={{uri: this.props.userPhotoUrl}}
+            source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
             resizeMode='cover'
           />
         </TouchableOpacity>

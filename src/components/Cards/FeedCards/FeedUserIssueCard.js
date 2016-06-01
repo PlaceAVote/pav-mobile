@@ -167,7 +167,8 @@ class FeedUserIssueCard extends React.Component {
         flex:1,
         // backgroundColor:'green',
         justifyContent:'center',
-        paddingVertical: h*0.01
+        // paddingVertical: h*0.01
+        paddingVertical:h*0.0165,
       },
 
       relatedBillContainer:{
@@ -201,10 +202,12 @@ class FeedUserIssueCard extends React.Component {
         paddingVertical: h*0.015,
         // backgroundColor:'red'
       },
+      cardFooterTextContainer:{
+        paddingHorizontal:w*0.008,
+      },
       cardFooterText:{
         flex:1,
         // backgroundColor:'green',
-        paddingHorizontal:w*0.008,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
         color: 'rgba(0, 0, 0, 0.54)',
@@ -225,7 +228,6 @@ class FeedUserIssueCard extends React.Component {
       reactionIconContainer:{
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'pink',
         paddingHorizontal:w*0.01,
         marginHorizontal:w*0.005,
         flexDirection:'row',
@@ -256,9 +258,11 @@ class FeedUserIssueCard extends React.Component {
         color: 'rgba(0, 0, 0, 0.74)',
       },
 
+      reactionCountTextContainer:{
+        paddingHorizontal: w*0.007,
+      },
       reactionCountText:{
         textAlign:'center',
-        paddingHorizontal: w*0.007,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
       },
@@ -272,7 +276,6 @@ class FeedUserIssueCard extends React.Component {
 
       cardContentText:{
         // backgroundColor:'green',
-        paddingVertical:h*0.0065,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,10),
         color: 'rgba(0, 0, 0, 0.54)',
@@ -398,7 +401,7 @@ class FeedUserIssueCard extends React.Component {
           <PavImage platform={this.props.device.platform}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
-            source={{uri: this.props.userPhotoUrl}}
+            source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
             resizeMode='cover'
           />
           <View style={styles.userIssueFullNameDynamicTextContainer}>
@@ -435,7 +438,9 @@ class FeedUserIssueCard extends React.Component {
 
   renderFooter(styles){
       return (<View style={styles.cardFooterContainer}>
-        <Text style={styles.cardFooterText}>What's your reaction?</Text>
+        <View style={styles.cardFooterTextContainer}>
+          <Text style={styles.cardFooterText}>What's your reaction?</Text>
+        </View>
         <View style={styles.cardFooterIconsContainer}>
           <TouchableOpacity style={styles.reactionContainer} onPress={this.onHappyClick.bind(this)}>
             {this.renderReactionIcon("happy", this.props.happyCnt, (this.props.userReaction==REACTIONS.HAPPY), styles)}
@@ -457,9 +462,11 @@ class FeedUserIssueCard extends React.Component {
     if(count>0){
       return (<View style={[styles.reactionIconContainer, userVotedThis?styles.userVotedContainerView:styles.othersVotedContainerView]}>
         <PavIcon name={type} size={19} style={[styles.reactionIcon, userVotedThis?styles.userVotedReactionIcon:styles.othersVotedReactionIcon]}/>
-        <Text style={[ styles.reactionCountText, userVotedThis?styles.userVotedText:styles.othersVotedText]}>
-          {count+" "}
-        </Text>
+        <View style={styles.reactionCountTextContainer}>
+          <Text style={[ styles.reactionCountText, userVotedThis?styles.userVotedText:styles.othersVotedText]}>
+            {count+" "}
+          </Text>
+        </View>
       </View>);
     }else{
       return (<View style={styles.zeroCntreactionIconContainer}>
