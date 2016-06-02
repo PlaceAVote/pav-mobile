@@ -94,16 +94,20 @@ class VoteCard extends React.Component {
         flexDirection:'row',
         alignItems:'center'
       },
+      cardTitleTextContainer:{
+        paddingHorizontal: w*0.005,
+      },
       cardTitleText:{
         // backgroundColor: 'red',
-        paddingHorizontal: 10,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+      cardDateTextContainer:{
+        paddingHorizontal: w*0.005,
+      },
       cardDateText:{
         // backgroundColor: 'red',
-        paddingHorizontal: 5,
         // color: Colors.thirdTextColor,
         color: 'rgba(0, 0, 0, 0.60)',
         fontFamily: 'Whitney',
@@ -140,7 +144,7 @@ class VoteCard extends React.Component {
           width: w*0.09,
           height: w*0.09,
           backgroundColor: "#8B2392",
-          paddingHorizontal:2,
+          paddingHorizontal:w*0.005,
           paddingVertical:4,
           borderRadius: 3,
           borderColor: '#ffffff',
@@ -149,7 +153,6 @@ class VoteCard extends React.Component {
 
       voteIcon:{
         color: Colors.mainTextColor,
-        paddingHorizontal:3,
       },
 
       voteRowContainer:{
@@ -157,27 +160,35 @@ class VoteCard extends React.Component {
         alignItems:'center',
         // backgroundColor:'red',
       },
+      voteNameTextContainer:{
+        paddingHorizontal: w*0.001,
+      },
       voteNameText:{
         // backgroundColor:'blue',
         color:"#e64a33",
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
       },
+      voteInTextContainer:{
+        paddingHorizontal: w*0.01,
+      },
       voteInText:{
         color: Colors.thirdTextColor,
-        paddingHorizontal: w*0.01,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
+      },
+      voteLocationTextContainer:{
+        paddingHorizontal: w*0.005,
+        paddingVertical: h*0.003,
       },
       voteLocationText:{
         // backgroundColor:'yellow',
         color: Colors.primaryColor,
-        paddingHorizontal: w*0.005,
-        paddingVertical: h*0.003,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
         width: w*0.7,
       },
+
 
 
 
@@ -243,18 +254,28 @@ class VoteCard extends React.Component {
               <View style={styles.voteIconContainer}>
                 <PavIcon name="logo" size={26} style={styles.voteIcon}/>
               </View>
-              <Text style={styles.cardTitleText}>NEW VOTE</Text>
+              <View style={styles.cardTitleTextContainer}>
+                <Text style={styles.cardTitleText}>NEW VOTE</Text>
+              </View>
             </View>
-            <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+            <View style={styles.cardDateTextContainer}>
+              <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+            </View>
           </View>
           <View style={styles.cardContentContainer}>
             <View style={styles.cardContentHeader}>
               <View style={styles.voteDescriptionContainer}>
                 <View style={styles.voteRowContainer}>
-                  <Text style={styles.voteNameText}>{this.props.userFullNameText}</Text>
-                  <Text style={styles.voteInText}>voted on the bill: </Text>
+                  <View style={styles.voteNameTextContainer}>
+                    <Text style={styles.voteNameText}>{this.props.userFullNameText}</Text>
+                  </View>
+                  <View style={styles.voteInTextContainer}>
+                    <Text style={styles.voteInText}>voted on the bill: </Text>
+                  </View>
                 </View>
-                <Text style={styles.voteLocationText}>{this.props.voteParentTitle}</Text>
+                <View style={styles.voteLocationTextContainer}>
+                  <Text style={styles.voteLocationText}>{this.props.voteParentTitle}</Text>
+                </View>
               </View>
             </View>
           </View>

@@ -38,10 +38,9 @@ const Form = Record({
     voteCnt: "-",
     followerCnt: "-",
     followingCnt: "-",
-    timelineData: null, //array of items
     currentlyFollowingUser: false
-
-  }))
+  })),
+  timelineData: null, //array of items
 });
 
 

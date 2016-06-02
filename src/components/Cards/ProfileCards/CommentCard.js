@@ -94,16 +94,20 @@ class CommentCard extends React.Component {
         flexDirection:'row',
         alignItems:'center'
       },
+      cardTitleTextContainer:{
+        paddingHorizontal: 10,
+      },
       cardTitleText:{
         // backgroundColor: 'red',
-        paddingHorizontal: 10,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+      cardDateTextContainer:{
+        paddingHorizontal: w*0.05,
+      },
       cardDateText:{
         // backgroundColor: 'red',
-        paddingHorizontal: 5,
         // color: Colors.thirdTextColor,
         color: 'rgba(0, 0, 0, 0.60)',
         fontFamily: 'Whitney',
@@ -141,7 +145,7 @@ class CommentCard extends React.Component {
           width: w*0.09,
           height: w*0.09,
           backgroundColor: "#708BC4",
-          paddingHorizontal:2,
+          paddingHorizontal:w*0.005,
           paddingVertical:4,
           borderRadius: 3,
           borderColor: '#ffffff',
@@ -150,7 +154,6 @@ class CommentCard extends React.Component {
 
       commentIcon:{
         color: Colors.mainTextColor,
-        paddingHorizontal:3,
       },
 
       userImage:{
@@ -163,23 +166,29 @@ class CommentCard extends React.Component {
         alignItems:'center',
         // backgroundColor:'red',
       },
+      commentNameTextContainer:{
+        paddingHorizontal:w*0.005,
+      },
       commentNameText:{
         // backgroundColor:'blue',
         color:"#e64a33",
-        paddingHorizontal: 5,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+      commentInTextContainer:{
+        paddingHorizontal:w*0.005,
+      },
       commentInText:{
         color: Colors.thirdTextColor,
-        paddingHorizontal: 5,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
+      },
+      commentLocationTextContainer:{
+        paddingHorizontal:w*0.005,
       },
       commentLocationText:{
         // backgroundColor:'yellow',
         color: Colors.primaryColor,
-        paddingHorizontal: 1,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
         width: w*0.7,
@@ -187,9 +196,9 @@ class CommentCard extends React.Component {
       cardContentBody:{
         // backgroundColor:'green'
         // marginTop: h*0.01
+        padding:w*0.003,
       },
       cardContentText:{
-        padding:2,
         // backgroundColor:'green',
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
@@ -258,9 +267,13 @@ class CommentCard extends React.Component {
               <View style={styles.commentIconContainer}>
                 <PavIcon name="comment" size={17} style={styles.commentIcon}/>
               </View>
-              <Text style={styles.cardTitleText}>NEW COMMENT</Text>
+              <View style={styles.cardTitleTextContainer}>
+                <Text style={styles.cardTitleText}>NEW COMMENT</Text>
+              </View>
             </View>
-            <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+            <View style={styles.cardDateTextContainer}>
+              <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+            </View>
           </View>
           <View style={styles.cardContentContainer}>
 
@@ -272,10 +285,16 @@ class CommentCard extends React.Component {
                 resizeMode='cover'
               />
               <View style={styles.commentDescriptionContainer}>
-                <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
+                <View style={styles.commentNameTextContainer}>
+                  <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
+                </View>
                 <View style={styles.commentLocationContainer}>
-                  <Text style={styles.commentInText}>in</Text>
-                  <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
+                  <View  style={styles.commentInTextContainer}>
+                    <Text style={styles.commentInText}>in</Text>
+                  </View>
+                  <View  style={styles.commentLocationTextContainer}>
+                    <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
+                  </View>
                 </View>
 
               </View>

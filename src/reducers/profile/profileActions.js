@@ -74,7 +74,7 @@ export function getProfileFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getProfile(userId = null, sessionToken=null, dev = null) {
+export function getProfile(userId = null, dev = null, sessionToken=null) {
   console.log("Get profile called");
   return async function (dispatch){
     // dispatch(getProfileRequest());
@@ -150,7 +150,7 @@ export function getTimelineFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getTimeline(userId = null, sessionToken=null, dev = null) {
+export function getTimeline(userId = null, dev = null, sessionToken=null) {
   console.log("Get timeline called");
   return async function (dispatch){
     dispatch(getTimelineRequest());
@@ -219,7 +219,7 @@ export function followUserFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function followUser(userId = null, sessionToken=null, dev = null) {
+export function followUser(userId = null, dev = null, sessionToken=null) {
   console.log("followUser called");
   return async function (dispatch){
     dispatch(followUserRequest());
@@ -283,7 +283,7 @@ export function unfollowUserFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function unfollowUser(userId = null, sessionToken=null, dev = null) {
+export function unfollowUser(userId = null, dev = null, sessionToken=null) {
   console.log("unfollowUser called");
   return async function (dispatch){
     dispatch(unfollowUserRequest());

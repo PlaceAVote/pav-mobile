@@ -43,9 +43,9 @@ class CardFactory extends React.Component {
 
 
   renderProfileCards(){
-    let d = this.props.timelineData;
+    let d = this.props.itemData;
     let u = this.props.curUser;
-    switch(this.props.timelineData.type){
+    switch(this.props.itemData.type){
       case "comment":
       // console.log("Real comment is: "+JSON.stringify(d));
         return (<CommentCard

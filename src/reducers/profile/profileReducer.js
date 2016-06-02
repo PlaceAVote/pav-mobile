@@ -12,7 +12,7 @@
  * formValidation for setting the form's valid flag
  */
 import fieldValidation from '../../lib/Utils/fieldValidation';
-
+import Immutable from 'immutable';
 /**
  * ## Actions
  *
@@ -108,7 +108,7 @@ export default function profileReducer(state = initialState, action) {
   case GET_TIMELINE_SUCCESS:
     return state.setIn(['form', 'isFetching', 'timelineData'], false)
     .setIn(['form','error'],null)
-    .setIn(['form', 'profileData', 'timelineData'], action.payload.results);
+    .setIn(['form', 'timelineData'], Immutable.fromJS(action.payload.results));
 
   case GET_PROFILE_SUCCESS:
     // console.log("Profile reducer get profile SUCCESS with payload: "+JSON.stringify(action.payload));

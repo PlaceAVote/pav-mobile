@@ -1,3 +1,4 @@
+/* @flow weak */
 /**
  * Profile.js
  *
@@ -44,7 +45,7 @@ import ProfileRender from '../components/Profile/ProfileRender'
 
 
 import React from 'react';
-
+import CONFIG from '../config/config';
 
 import {ScheneKeys} from '../config/constants';
 const {
@@ -98,30 +99,15 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     // console.log("Now calling the get profile data action"+JSON.stringify(this.props));
-    this.loginAndGetToken();
-
-
+    this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    // console.log("Profile environment dev? : "+props.global.isDev+" with token: "+this.TOKEN);
+    this.getProfileData()
   }
 
 
-
-  async loginAndGetToken(){
-    var userData = await this.props.actions.login("afakeaccount@placeavote.com", "Asdasd1"); //TODO: Remove that later on
-    if(!!userData){
-      this.updateProfileData(userData.token)
-      return userData.token;
-    }else{
-      return null;
-    }
-  }
-
-  async updateProfileData(token){
-    // var token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjoiV2FzaGluZ3RvbiwgREMgMjAwMDEsIFVTQSIsImVtYWlsIjoiYWZha2VhY2NvdW50QHBsYWNlYXZvdGUuY29tIiwiZmlyc3RfbmFtZSI6IklvYW5uaXNkZXYiLCJjb25maXJtYXRpb24tdG9rZW4iOiIyZjk3ODg2Ni1jZjg1LTQ0MTMtYmRiNC05YmRlNmVkMWMxZjciLCJjaXR5IjoiV2hlbmV2ZXIsIFdoZXJldmVyIiwiZXhwIjoxNDY0NDMxNjQxLCJwdWJsaWMiOnRydWUsInN0YXRlIjoiREMiLCJ6aXBjb2RlIjoiMjAwMDEiLCJ0b3BpY3MiOlsiQ3JpbWUiLCJIZWFsdGhjYXJlIiwiVGF4ZXMiXSwiY291bnRyeV9jb2RlIjoiVVNBIiwiZG9iIjoiMTEvMTQvMTk4OSIsImxhc3RfbmFtZSI6Iktva2tpbmlkaXMiLCJsYXQiOiIzOC45MTIwNjgiLCJ1c2VyX2lkIjoiMzZlMmJlYTEtMzRhMi00N2M0LTllMzctNDE4ZmMzOTA3MWQ1IiwiZ2VuZGVyIjoibWFsZSIsInJlZ2lzdGVyZWQiOm51bGwsImNyZWF0ZWRfYXQiOjE0NjE4MzkxMzE0NjYsImxuZyI6Ii03Ny4wMTkwMjI4IiwiZGlzdHJpY3QiOiIwIn0.fstUvbzXmPf9JitZDr-SRHS2UqJAK1Q0RYkmMcf_wPu_r6zI2XElRlplOODTRtJttp1wLaOAuA8AZ5W1VzxGJJ0LXgYUF5aXHYmLt1Pb5FmBTOCvdFVNtxC0Ty-FhmjKOPtod4sRtOa45kEQ0u3LTFwydcpn6A26MZ3Lz1ZGVnk061GrFoEagsQHAOx5JofAbn7mi1LEm-d02GNwfNb7BUynLJ1uPWwtUDYz7ELeeNXd_xkSH0kH8cNdm9cWqVoHtgWWr_bdzQZF5tS_gW_U1aySc7Y8P6eYNNYVkQqmLaxZR0_wUzZnfRx_spDxTHbUBHNO9dPkFNrWptfSfwKxEQ";
-    if(!!token){
-      // console.log("TOKEN: "+JSON.stringify(token));
-      this.props.actions.getProfile(null, token)
-      this.props.actions.getTimeline(null, token)
-    }
+  async getProfileData(){
+    this.props.actions.getProfile(null, this.props.global.isDev, this.TOKEN)
+    this.props.actions.getTimeline(null, this.props.global.isDev, this.TOKEN)
   }
 
   orientationDidChange(orientation) {
@@ -139,11 +125,10 @@ class Profile extends React.Component {
   }
 
   onFollowBtnPress(e){
-    // var token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJhZGRyZXNzIjoiV2FzaGluZ3RvbiwgREMgMjAwMDEsIFVTQSIsImVtYWlsIjoiYWZha2VhY2NvdW50QHBsYWNlYXZvdGUuY29tIiwiZmlyc3RfbmFtZSI6IklvYW5uaXNkZXYiLCJjb25maXJtYXRpb24tdG9rZW4iOiIyZjk3ODg2Ni1jZjg1LTQ0MTMtYmRiNC05YmRlNmVkMWMxZjciLCJjaXR5IjoiV2hlbmV2ZXIsIFdoZXJldmVyIiwiZXhwIjoxNDY0NDMxNjQxLCJwdWJsaWMiOnRydWUsInN0YXRlIjoiREMiLCJ6aXBjb2RlIjoiMjAwMDEiLCJ0b3BpY3MiOlsiQ3JpbWUiLCJIZWFsdGhjYXJlIiwiVGF4ZXMiXSwiY291bnRyeV9jb2RlIjoiVVNBIiwiZG9iIjoiMTEvMTQvMTk4OSIsImxhc3RfbmFtZSI6Iktva2tpbmlkaXMiLCJsYXQiOiIzOC45MTIwNjgiLCJ1c2VyX2lkIjoiMzZlMmJlYTEtMzRhMi00N2M0LTllMzctNDE4ZmMzOTA3MWQ1IiwiZ2VuZGVyIjoibWFsZSIsInJlZ2lzdGVyZWQiOm51bGwsImNyZWF0ZWRfYXQiOjE0NjE4MzkxMzE0NjYsImxuZyI6Ii03Ny4wMTkwMjI4IiwiZGlzdHJpY3QiOiIwIn0.fstUvbzXmPf9JitZDr-SRHS2UqJAK1Q0RYkmMcf_wPu_r6zI2XElRlplOODTRtJttp1wLaOAuA8AZ5W1VzxGJJ0LXgYUF5aXHYmLt1Pb5FmBTOCvdFVNtxC0Ty-FhmjKOPtod4sRtOa45kEQ0u3LTFwydcpn6A26MZ3Lz1ZGVnk061GrFoEagsQHAOx5JofAbn7mi1LEm-d02GNwfNb7BUynLJ1uPWwtUDYz7ELeeNXd_xkSH0kH8cNdm9cWqVoHtgWWr_bdzQZF5tS_gW_U1aySc7Y8P6eYNNYVkQqmLaxZR0_wUzZnfRx_spDxTHbUBHNO9dPkFNrWptfSfwKxEQ";
     if(this.props.profile.form.profileData.currentlyFollowingUser){
-      this.props.actions.unfollowUser(this.props.auth.user.id);//,null, false);//, token)
+      this.props.actions.unfollowUser(this.props.auth.user.id, this.props.global.isDev, this.TOKEN)
     }else{
-      this.props.actions.followUser(this.props.auth.user.id);//,null, false);//, token)
+      this.props.actions.followUser(this.props.auth.user.id, this.props.global.isDev, this.TOKEN)
     }
 
   }
@@ -155,6 +140,13 @@ class Profile extends React.Component {
           global={ this.props.global }
           device={ this.props.device }
           profile={ this.props.profile }
+          isFetchingTimeline={this.props.profile.form.isFetching.timelineData}
+          isFetchingProfile={this.props.profile.form.isFetching.profileData}
+          isFetchingFollow={this.props.profile.form.isFetching.followUser}
+
+          profileData={this.props.profile.form.profileData}
+          timelineData={this.props.profile.form.timelineData}
+          curUser={this.props.auth.user}
           onFollowBtnPress= {this.onFollowBtnPress.bind(this)}
       />
 

@@ -1,5 +1,6 @@
+/* @flow */
 /**
- * # Login.js
+ * # ProfileRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -43,7 +44,7 @@ import moment from 'moment'
 import {Colors, ScheneKeys} from '../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView, ActivityIndicatorIOS} from 'react-native';
+import {StyleSheet, Text, View, Image, ActivityIndicatorIOS, ListView, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -108,10 +109,16 @@ function mapDispatchToProps(dispatch) {
 class ProfileRender extends React.Component {
   constructor(props) {
     super(props);
-
-    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        // dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-
+    let data = [];
+    if(!!props.timelineData){
+      data = props.timelineData.toJS();
+    }
+    // console.log("Data within getFeedDataSource is :"+data);
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
+    // ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.state = {
+      dataSource: ds.cloneWithRows(data),
+    };
   }
 
 
@@ -247,17 +254,22 @@ class ProfileRender extends React.Component {
       },
 
 
-      bodyView:{
+      itemList:{
         flex:1.45,
         backgroundColor: '#E8E7EE',
       },
       card:{
-        paddingHorizontal:7
+        paddingHorizontal: w*0.07,
+        backgroundColor:'red'
       },
 
       scrollSpacerView:{
           height:h*0.07,
           backgroundColor:Colors.transparentColor
+      },
+      recentActivityTextContainer:{
+        paddingHorizontal: w*0.05,
+        paddingVertical: h*0.01,
       },
       recentActivityText: {
         // top:0,
@@ -265,8 +277,6 @@ class ProfileRender extends React.Component {
         // height:h*0.065,
         // position:'absolute',
         // backgroundColor: "rgba(0,0,0,0.06)",
-        paddingHorizontal: w*0.05,
-        paddingVertical: h*0.01,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,20),
         color: Colors.fourthTextColor,
@@ -331,24 +341,7 @@ class ProfileRender extends React.Component {
 
 
 
-  parseTimelineDataIntoComponents(timelineData, styles, user){
-    if(!!timelineData){
-      var cards = [];
-      for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
-        let curTimelineItem = timelineData[ii];
-        // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
-        cards.push(<CardFactory
-          type="profile"
-          key={curTimelineItem.event_id}
-          style={[styles.card, this.props.cardStyle]}
-          timelineData={curTimelineItem}
-          device={this.props.device}
-          curUser={user}
-          />);
-      }
-      return cards;
-    }
-  }
+
 
 
   getLastActivityDayDiff(lastTimestamp){
@@ -365,7 +358,7 @@ class ProfileRender extends React.Component {
         return (<LImage
           style={styles.userImg}
           defaultSource={defaultUserPhoto}
-          source={{uri: this.props.auth.user.photoUrl}}
+          source={{uri: this.props.curUser.photoUrl}}
           resizeMode='contain'
           indicator={Progress.CircleSnail}
           indicatorProps={{
@@ -375,7 +368,7 @@ class ProfileRender extends React.Component {
     }else{
       (<Image
         style={styles.userImg}
-        source={{uri: this.props.auth.user.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
+        source={{uri: this.props.curUser.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
         resizeMode='contain'
       />);
     }
@@ -384,8 +377,8 @@ class ProfileRender extends React.Component {
 
 
   renderProfileHeader(styles){
-    let firstName = this.props.auth.user.firstName|| "-";
-    let lastName = this.props.auth.user.lastName || "";
+    let firstName = this.props.curUser.firstName|| "-";
+    let lastName = this.props.curUser.lastName || "";
     let fullName =  firstName+" "+lastName;
     return (<LinearGradient
             colors={['#4D6EB2', '#6B55A2']}
@@ -418,33 +411,75 @@ class ProfileRender extends React.Component {
 
                   <View style={styles.locationContainer}>
                     <PavIcon name="loc" size={12} style={styles.locationPinIcon}/>
-                    <Text style={styles.locationText}>{this.formUserLocationText(this.props.auth.user)}</Text>
+                    <Text style={styles.locationText}>{this.formUserLocationText(this.props.curUser)}</Text>
                   </View>
 
                   <Button
                   onPress={this.props.onFollowBtnPress}
                   style={styles.followBtn}
                   textStyle={styles.whiteBtnText}
-                  isDisabled={this.props.profile.form.isFetching.profileData || this.props.profile.form.isFetching.followUser}
-                  isLoading={this.props.profile.form.isFetching.profileData || this.props.profile.form.isFetching.followUser}
+                  isDisabled={this.props.isFetchingProfile || this.props.isFetchingFollow}
+                  isLoading={this.props.isFetchingProfile || this.props.isFetchingFollow}
                   iconProps={this.props.profile.form.profileData.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}>
-                    {this.getFollowBtnLabelText(this.props.auth.user.firstName, this.props.profile.form.profileData.currentlyFollowingUser)}
+                    {this.getFollowBtnLabelText(this.props.curUser.firstName, this.props.profile.form.profileData.currentlyFollowingUser)}
                   </Button>
                 </View>
               </View>
             </LinearGradient>);
   }
 
+
+
+
+
+
+
+
+  // parseTimelineDataIntoComponents(timelineData, styles, user){
+  //   if(!!timelineData){
+  //     var cards = [];
+  //     for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
+  //       let curTimelineItem = timelineData[ii];
+  //       // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
+  //       cards.push();
+  //     }
+  //     return cards;
+  //   }
+  // }
+  // this.props.profile.form.profileData.timelineData
   renderProfileBody(dataReady, styles){
     if(dataReady==true){
       return (
       <View style={styles.bodyLoadingContainer}>
-        <ScrollView style={styles.scrollView}>
-          <Text style={styles.recentActivityText}>Recent Activity:</Text>
-          {this.parseTimelineDataIntoComponents(this.props.profile.form.profileData.timelineData, styles, this.props.auth.user)}
-        </ScrollView>
-
-
+        <ListView
+         enableEmptySections={true}
+         style={styles.itemList}
+         initialListSize={5}
+         dataSource={this.state.dataSource}
+         scrollEnabled={true}
+         renderHeader={()=>(
+           <View  style={styles.recentActivityTextContainer}>
+              <Text style={styles.recentActivityText}>Recent Activity:</Text>
+           </View>
+         )}
+         renderRow={(rowData) =>
+           <CardFactory
+           type="profile"
+           key={rowData.event_id}
+           cardStyle={Platform.OS=="android"?{elevation:5}:{}}
+           itemData={rowData}
+           style={styles.card}
+           device={this.props.device}
+           curUser={this.props.curUser}
+           onUserClick={this.props.onUserClick}
+           onBillClick={this.props.onBillClick}
+           onLikeDislikeClick={this.props.onLikeDislikeClick}
+           onReplyClick={this.props.onReplyClick}
+           onReactionClick={this.props.onReactionClick}
+           onCommentClick={this.props.onCommentClick}
+           onSocialClick={this.props.onSocialClick}
+           />}
+         />
       </View>);
     }else{
       if(this.props.device.platform=="android"){
@@ -481,12 +516,36 @@ class ProfileRender extends React.Component {
 
     return(
         <View style={styles.container}>
-
           {this.renderProfileHeader(styles)}
-          <View style={styles.bodyView}>
-            {this.renderProfileBody(!this.props.profile.form.isFetching.timelineData, styles)}
-          </View>
+          {this.renderProfileBody(!this.props.isFetchingTimeline, styles)}
         </View>
+    );
+  }
+
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.timelineData!=null &&  nextProps.timelineData!== this.props.timelineData) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.timelineData.toJS())
+      })
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return(
+      (nextProps.device !== this.props.device)
+      ||
+      (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
+      ||
+      (nextProps.isFetchingProfile !== this.props.isFetchingProfile)
+      ||
+      (nextProps.isFetchingFollow !== this.props.isFetchingFollow)
+      ||
+      (nextProps.profileData !== this.props.profileData)
+      ||
+      (nextProps.curUser !== this.props.curUser)
+      ||
+      (nextState.dataSource !== this.state.dataSource)
     );
   }
 }

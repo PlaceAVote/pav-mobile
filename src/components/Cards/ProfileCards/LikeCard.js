@@ -94,21 +94,26 @@ class LikeCard extends React.Component {
         flexDirection:'row',
         alignItems:'center'
       },
+      cardTitleTextContainer:{
+        paddingHorizontal: 10,
+      },
       cardTitleText:{
         // backgroundColor: 'red',
-        paddingHorizontal: 10,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+      cardDateTextContainer:{
+        paddingHorizontal: w*0.05,
+      },
       cardDateText:{
         // backgroundColor: 'red',
-        paddingHorizontal: 5,
         // color: Colors.thirdTextColor,
         color: 'rgba(0, 0, 0, 0.60)',
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+
 
       cardContentContainer:{
         // backgroundColor:'red',
@@ -140,7 +145,7 @@ class LikeCard extends React.Component {
           alignItems:'center',
           width: w*0.09,
           height: w*0.09,
-          paddingHorizontal:2,
+          paddingHorizontal:w*0.005,
           paddingVertical:4,
           borderRadius: 3,
           borderColor: '#ffffff',
@@ -148,7 +153,6 @@ class LikeCard extends React.Component {
       },
 
       commentIcon:{
-        paddingHorizontal:3,
         color: Colors.mainTextColor,
       },
       likeIcon:{
@@ -168,23 +172,29 @@ class LikeCard extends React.Component {
         alignItems:'center',
         // backgroundColor:'red',
       },
+      commentNameTextContainer:{
+        paddingHorizontal:w*0.005,
+      },
       commentNameText:{
         // backgroundColor:'blue',
-        color:Colors.negativeAccentColor,
-        paddingLeft: 5,
+        color:"#e64a33",
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+      commentInTextContainer:{
+        paddingHorizontal:w*0.005,
+      },
       commentInText:{
         color: Colors.thirdTextColor,
-        paddingHorizontal: 5,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
+      },
+      commentLocationTextContainer:{
+        paddingHorizontal:w*0.005,
       },
       commentLocationText:{
         // backgroundColor:'yellow',
         color: Colors.primaryColor,
-        paddingHorizontal: 1,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
         width: w*0.7,
@@ -267,7 +277,9 @@ class LikeCard extends React.Component {
                 style={styles.commentIcon}
                 />
               </View>
-              <Text style={styles.cardTitleText}>COMMENT {this.props.isLike?"UPVOTE":"DOWNVOTE"}</Text>
+              <View style={styles.cardTitleTextContainer}>
+                <Text style={styles.cardTitleText}>COMMENT {this.props.isLike?"UPVOTE":"DOWNVOTE"}</Text>
+              </View>
             </View>
             <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
           </View>
@@ -280,15 +292,24 @@ class LikeCard extends React.Component {
                 defaultSource={defaultUserPhoto}
                 resizeMode='cover'
               />
+
               <View style={styles.commentDescriptionContainer}>
                 <View style={styles.commentLocationContainer}>
-                  <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
-                  <Text style={styles.commentInText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
+                  <View style={styles.commentNameTextContainer}>
+                    <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
+                  </View>
+                  <View  style={styles.commentInTextContainer}>
+                    <Text style={styles.commentInText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
+                  </View>
                 </View>
                 <Text style={styles.commentNameText}>{this.props.authorFullNameText}</Text>
                 <View style={styles.commentLocationContainer}>
-                  <Text style={styles.commentInText}>in</Text>
-                  <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
+                  <View  style={styles.commentInTextContainer}>
+                    <Text style={styles.commentInText}>in</Text>
+                  </View>
+                  <View  style={styles.commentLocationTextContainer}>
+                    <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
+                  </View>
                 </View>
 
               </View>
