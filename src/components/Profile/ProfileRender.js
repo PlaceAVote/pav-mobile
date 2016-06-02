@@ -56,7 +56,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import CardFactory from '../Cards/CardFactory';
 
 import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
-import LImage from 'react-native-image-progress';
+import PavImage from '../../lib/UI/PavImage'
 import * as Progress from 'react-native-progress';
 
 /**
@@ -131,8 +131,8 @@ class ProfileRender extends React.Component {
         // backgroundColor: 'orange',
         flex:1,
         flexDirection: 'column',
-        paddingTop:64, //nav bar height
         paddingBottom:50, //tab bar height
+        paddingTop:Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,  //nav bar height
         // marginVertical: 10,
         // marginHorizontal:15
       },
@@ -146,7 +146,7 @@ class ProfileRender extends React.Component {
         backgroundColor: Colors.transparentColor,
         flexDirection: 'row',
         paddingVertical: h*0.02,
-        paddingHorizontal: w*0.06,
+        paddingHorizontal: w*0.02,
       },
       userAccSettingsHeaderView:{
         flexDirection: 'row',
@@ -168,6 +168,7 @@ class ProfileRender extends React.Component {
       profileImgContainerView:{
         flex:0.4,
         // backgroundColor: "yellow"
+
       },
       userDataContainerView:{
         flex:0.6,
@@ -178,6 +179,8 @@ class ProfileRender extends React.Component {
       },
       userImg:{
         flex:1,
+        width:null,
+        height:null,
         // backgroundColor: "white"
       },
       followBtn:{
@@ -223,8 +226,10 @@ class ProfileRender extends React.Component {
         paddingHorizontal: w*0.04
       },
 
-      statisticsTitleText:{
+      statisticsTitleTextContainer:{
         paddingTop:2,
+      },
+      statisticsTitleText:{
         color: Colors.fourthTextColor,
         textAlign: 'left',
         fontFamily: 'Whitney Light',
@@ -349,28 +354,6 @@ class ProfileRender extends React.Component {
 
   }
 
-  getUserPhoto(styles){
-    if(this.props.device.platform=="ios"){
-        return (<LImage
-          style={styles.userImg}
-          defaultSource={defaultUserPhoto}
-          source={{uri: this.props.curUser.photoUrl}}
-          resizeMode='contain'
-          indicator={Progress.CircleSnail}
-          indicatorProps={{
-            colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
-          }}
-        />);
-    }else{
-      (<Image
-        style={styles.userImg}
-        source={{uri: this.props.curUser.photoUrl || 'https://cdn.placeavote.com/img/profile/profile-picture.png'}}
-        resizeMode='contain'
-      />);
-    }
-
-  }
-
 
   renderProfileHeader(styles){
     let firstName = this.props.curUser.firstName|| "-";
@@ -383,24 +366,44 @@ class ProfileRender extends React.Component {
               <View style={styles.userDetailsHeaderView}>
                 <View style={styles.statisticsBigContainer}>
                   <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.profile.form.profileData.lastActivityTimestamp)}</Text>
-                  <Text style={styles.statisticsTitleText}>Last Activity</Text>
+
+                  <View style={styles.statisticsTitleTextContainer}>
+                    <Text style={styles.statisticsTitleText}>Last Activity</Text>
+                  </View>
                 </View>
                 <View style={styles.statisticsSmallContainer}>
                   <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.voteCnt}</Text>
-                  <Text style={styles.statisticsTitleText}>Votes</Text>
+                  <View style={styles.statisticsTitleTextContainer}>
+                    <Text style={styles.statisticsTitleText}>Votes</Text>
+                  </View>
                 </View>
                 <View style={styles.statisticsSmallContainer}>
                   <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followerCnt}</Text>
-                  <Text style={styles.statisticsTitleText}>Followers</Text>
+                  <View style={styles.statisticsTitleTextContainer}>
+                    <Text style={styles.statisticsTitleText}>Followers</Text>
+                  </View>
                 </View>
                 <View style={styles.statisticsSmallContainer}>
                   <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followingCnt}</Text>
-                  <Text style={styles.statisticsTitleText}>Following</Text>
+                  <View style={styles.statisticsTitleTextContainer}>
+                    <Text style={styles.statisticsTitleText}>Following</Text>
+                  </View>
                 </View>
               </View>
               <View style={styles.userDataHeaderView}>
                 <View style={styles.profileImgContainerView}>
-                  {this.getUserPhoto(styles)}
+                  <PavImage
+                    style={styles.userImg}
+                    key="profile_user_img"
+                    defaultSource={defaultUserPhoto}
+                    source={!!this.props.userPhotoUrl?{uri: this.props.curUser.photoUrl}:defaultUserPhoto}
+                    platform={this.props.device.platform}
+                    resizeMode='contain'
+                    indicator={Progress.CircleSnail}
+                    indicatorProps={{
+                      colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
+                    }}
+                  />
                 </View>
                 <View style={styles.userDataContainerView}>
                   <Text style={styles.fullNameText}>{fullName}</Text>

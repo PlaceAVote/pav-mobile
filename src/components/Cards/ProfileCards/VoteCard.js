@@ -69,6 +69,7 @@ class VoteCard extends React.Component {
       },
 
       card:{
+
         flex: 1,
         backgroundColor: '#ffffff',
         borderRadius: 2,

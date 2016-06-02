@@ -310,13 +310,13 @@ export function reactToIssueItem(issueId, reaction, sessionToken=null, dev = nul
 
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.newIssueResponse({issueId:issueId, response:reaction });
 
-    // console.log("RES: "+JSON.stringify(res));
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in reactToIssueItem: "+res.error);
       dispatch(reactToIssueFailure(res.error));
       return res.error;
     }else{
-      dispatch(reactToIssueSuccess({data:res.data.emotional_response, parentIssueId:issueId }));
+      dispatch(reactToIssueSuccess({data:res.data, parentIssueId:issueId }));
       dispatch(filterFeedItems(state.newsfeed.newsFeedData.curSelectedFilter));
       return res.data.emotional_response;
     }
@@ -380,7 +380,7 @@ export function deleteReactionFromIssueItem(issueId, oldReaction, sessionToken=n
       dispatch(deleteReactionFromIssueFailure(res.error));
       return res.error;
     }else{
-      dispatch(deleteReactionFromIssueSuccess({data:res.data.emotional_response, parentIssueId:issueId }));
+      dispatch(deleteReactionFromIssueSuccess({data:res.data, parentIssueId:issueId }));
       dispatch(filterFeedItems(state.newsfeed.newsFeedData.curSelectedFilter));
       return res.data.emotional_response;
     }

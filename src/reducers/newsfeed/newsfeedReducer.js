@@ -84,26 +84,21 @@ export default function newsfeedReducer(state = initialState, action) {
     case DEL_REACTION_FROM_ISSUE_SUCCESS:
     case REACT_TO_ISSUE_SUCCESS:
     let {containingArray, foundObjectRef} = findFeedItem(state.newsFeedData.items.toJS(), "userissue", "issue_id", action.payload.parentIssueId)
-    let newResponse = action.payload.data || "none";
+    let {emotional_response, positive_responses, negative_responses, neutral_responses} = action.payload.data;
+    let newResponse =  emotional_response || "none";
     let oldResponse = foundObjectRef.emotional_response;
     console.log("newResponse found: "+newResponse);
     foundObjectRef.emotional_response = newResponse;
-    // foundObjectRef.positive_responses = action.payload.positive_responses;
-    // foundObjectRef.negative_responses = action.payload.negative_responses;
-    // foundObjectRef.neutral_responses = action.payload.neutral_responses;
-    // switch(newResponse){
-    //
-    //   case HAPPY:
-    //     if(oldResponse==null){
-    //       foundObjectRef.
-    //     }
-    //   case NEUTRAL:
-    //   case SAD:
-    //
-    //   case NONE:
-    //   default:
-    //     break;
-    // }
+    if(positive_responses!=null){
+      foundObjectRef.positive_responses = positive_responses;
+    }
+    if(negative_responses!=null){
+      foundObjectRef.negative_responses = negative_responses;
+    }
+    if(neutral_responses!=null){
+      foundObjectRef.neutral_responses = neutral_responses;
+    }
+
     return state.setIn([ 'newsFeedDataBeingAltered'], false)
     .setIn(['error'],null)
     .setIn(['newsFeedData', 'items'], Immutable.fromJS(containingArray));
