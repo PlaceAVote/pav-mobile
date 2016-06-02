@@ -340,7 +340,7 @@ class ProfileRender extends React.Component {
         cards.push(<CardFactory
           type="profile"
           key={curTimelineItem.event_id}
-          style={styles.card}
+          style={[styles.card, this.props.cardStyle]}
           timelineData={curTimelineItem}
           device={this.props.device}
           curUser={user}

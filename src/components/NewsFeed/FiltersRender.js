@@ -114,7 +114,7 @@ class FiltersRender extends React.Component {
       filterText:{
         paddingHorizontal: w*0.009,
         fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,5),
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
         color: Colors.thirdTextColor,
 
       },

@@ -264,7 +264,7 @@ class FeedVoteCard extends React.Component {
 
     return(
       <View style={[styles.cardContainer, this.props.style]}>
-        <View style={styles.card}>
+        <View style={[styles.card, this.props.cardStyle]}>
           {this.renderHeader(styles)}
           {this.renderBody(styles)}
         </View>

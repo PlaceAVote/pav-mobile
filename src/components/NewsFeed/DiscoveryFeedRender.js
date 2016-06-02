@@ -168,7 +168,7 @@ class DiscoveryFeedRender extends React.Component {
         onReactionClick={this.props.onReactionClick}
         onCommentClick={this.props.onCommentClick}
         onSocialClick={this.props.onSocialClick}
-        />)
+        />);
   }
 
 

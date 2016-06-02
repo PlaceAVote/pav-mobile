@@ -54,7 +54,7 @@ class CommentsRender extends React.Component {
         backgroundColor: 'white',
         flex:1,
         flexDirection: 'column',
-        paddingTop:Platform.OS=="ios"?64:43, //nav bar height
+        paddingTop:Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,  //nav bar height
         // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
         // marginVertical: 10,
         // marginHorizontal:15
@@ -95,6 +95,7 @@ class CommentsRender extends React.Component {
       headerTitle:{
         backgroundColor: Colors.transparentColor,
         color: Colors.mainTextColor,
+        textAlign:'center',
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,12),
       },

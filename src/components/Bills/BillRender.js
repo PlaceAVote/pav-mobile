@@ -92,7 +92,7 @@ class BillRender extends React.Component {
         backgroundColor: 'white',
         flex:1,
         flexDirection: 'column',
-        paddingTop:Platform.OS=="ios"?64:43, //nav bar height
+        paddingTop:Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,  //nav bar height
 
         // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
 
@@ -119,14 +119,15 @@ class BillRender extends React.Component {
         flex:1,
         justifyContent:'center',
         alignItems:'center',  //horizontally
-        paddingVertical: h*0.015,
+        paddingVertical: h*0.013,
         paddingHorizontal: w*0.012,
       },
       headerTitle:{
         backgroundColor: Colors.transparentColor,
         color: Colors.mainTextColor,
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,18),
+        textAlign:'center',
+        fontSize: getCorrectFontSizeForScreen(w,h,15),
       },
       headerBtnsContainer:{
         // backgroundColor:'pink',
@@ -233,8 +234,11 @@ class BillRender extends React.Component {
       // btnIconStyle:{
       //   marginHorizontal: 10
       // },
-      footerBtnText:{
+      footerBtnTextContainer:{
         paddingHorizontal: w*0.008,
+        justifyContent:'center'
+      },
+      footerBtnText:{
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
@@ -265,7 +269,8 @@ class BillRender extends React.Component {
       footerBtnIcon:{
         // backgroundColor: 'red',
         color: 'rgba(0, 0, 0, 0.71)',
-        paddingHorizontal: w*0.020,
+        paddingLeft: w*0.020,
+        paddingRight: w*0.002,
       }
 
 
@@ -498,11 +503,15 @@ class BillRender extends React.Component {
       <View style={styles.billBtnsContainer}>
         <TouchableOpacity style={styles.footerBtn} onPress={this.props.onVoteBtnPress}>
           <PavIcon name="quill-write" size={16} style={styles.footerBtnIcon}/>
-          <Text style={styles.footerBtnText}>I'M READY TO VOTE</Text>
+          <View style={styles.footerBtnTextContainer}>
+            <Text style={styles.footerBtnText}>I'M READY TO VOTE</Text>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.footerBtn} onPress={()=>this.refs.scrollableTabView.goToPage(3)}>
           <PavIcon name="chat" size={16} style={styles.footerBtnIcon}/>
-          <Text style={styles.footerBtnText}>COMMENT</Text>
+          <View style={styles.footerBtnTextContainer}>
+            <Text style={styles.footerBtnText}>COMMENT</Text>
+          </View>
         </TouchableOpacity>
       </View>);
   }

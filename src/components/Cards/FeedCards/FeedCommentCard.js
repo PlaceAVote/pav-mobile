@@ -215,26 +215,26 @@ class FeedCommentCard extends React.Component {
         borderLeftColor: '#D8D6E2',
         borderLeftWidth: 1,
       },
+      likeDislikeIconContainer:{
+        paddingHorizontal:w*0.04,
+        justifyContent:'center',
+      },
       activeLikeIcon:{
         color: Colors.accentColor,
-        paddingHorizontal:w*0.04,
       },
       activeDislikeIcon:{
         color: Colors.negativeAccentColor,
-        paddingHorizontal:w*0.04,
       },
       inactiveLikeDislikeIcon:{
         color: Colors.fourthTextColor,
-        paddingHorizontal:w*0.04,
       },
       scoreText:{
         color: Colors.accentColor,
-        paddingHorizontal:w*0.04,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
+        // backgroundColor:'brown'
       },
       replyButtonText:{
-        flex:1,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
@@ -367,15 +367,17 @@ class FeedCommentCard extends React.Component {
     return (
       <View style={styles.footerContainer}>
         <View style={styles.likeDislikeButtonContainer}>
-          <TouchableOpacity onPress={this.onLikeClick.bind(this)}>
+          <TouchableOpacity style={styles.likeDislikeIconContainer} onPress={this.onLikeClick.bind(this)}>
             <PavIcon name="thumbs-up" size={15} style={this.props.isLiked?styles.activeLikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.onDislikeClick.bind(this)}>
+          <TouchableOpacity style={styles.likeDislikeIconContainer} onPress={this.onDislikeClick.bind(this)}>
             <PavIcon name="thumbs-down" size={15} style={this.props.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
-          <Text style={styles.scoreText}>{this.props.score} </Text>
+          <View style={styles.likeDislikeIconContainer} >
+            <Text style={styles.scoreText}>{this.props.score} </Text>
+          </View>
         </View>
-        <TouchableOpacity onPress={this.onReplyClick.bind(this)} style={styles.replyButtonContainer}>
+        <TouchableOpacity  style={styles.replyButtonContainer} onPress={this.onReplyClick.bind(this)}>
           <Text style={styles.replyButtonText}>REPLY</Text>
         </TouchableOpacity>
       </View>);
@@ -394,7 +396,7 @@ class FeedCommentCard extends React.Component {
 
     return(
       <View style={[styles.cardContainer, this.props.style]}>
-        <View style={styles.card}>
+        <View style={[styles.card, this.props.cardStyle]}>
           {this.renderHeader(styles)}
           {this.renderBody(styles)}
           {this.renderFooter(styles)}

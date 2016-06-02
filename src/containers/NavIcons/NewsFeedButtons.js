@@ -97,7 +97,7 @@ class NewsFeedButtons extends React.Component {
 
   render(){
       return (
-          <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'flex-end', paddingVertical:Platform.OS=="android"?h*0.007:h*0.013}}>
+          <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'flex-end', paddingVertical:Platform.OS === 'ios' || Platform.Version > 19 ? h*0.013 : h*0.007}}>
             <TouchableOpacity style={{paddingHorizontal:w*0.020}}>
               <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.7)'}}/>
             </TouchableOpacity>

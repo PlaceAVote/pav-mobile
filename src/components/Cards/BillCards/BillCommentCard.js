@@ -235,20 +235,26 @@ class BillCommentCard extends React.Component {
         borderLeftColor: '#D8D6E2',
         borderLeftWidth: 1,
       },
+
       activeLikeIcon:{
         color: Colors.accentColor,
-        paddingHorizontal:w*0.04,
       },
       activeDislikeIcon:{
         color: Colors.negativeAccentColor,
-        paddingHorizontal:w*0.04,
       },
       inactiveLikeDislikeIcon:{
         color: Colors.fourthTextColor,
-        paddingHorizontal:w*0.04,
       },
-      likeCountText:{
-        paddingHorizontal:w*0.04,
+
+      replyButtonText:{
+        color: Colors.primaryColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        // backgroundColor:'brown'
+      },
+
+
+      scoreText:{
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,9),
       },
@@ -259,15 +265,10 @@ class BillCommentCard extends React.Component {
         color: Colors.negativeAccentColor,
       },
 
-      replyButtonText:{
-        flex:1,
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-        // backgroundColor:'brown'
-      },
-      footerBtn:{
-        backgroundColor:Colors.transparentColor
+      footerItemContainer:{
+        backgroundColor:Colors.transparentColor,
+        paddingHorizontal:w*0.04,
+        justifyContent:'center',
       },
 
 
@@ -462,13 +463,15 @@ class BillCommentCard extends React.Component {
     return (
       <View style={styles.footerContainer}>
         <View style={styles.likeDislikeButtonContainer}>
-          <TouchableOpacity style={styles.footerBtn} onPress={this.onLikeClick.bind(this)}>
+          <TouchableOpacity style={styles.footerItemContainer} onPress={this.onLikeClick.bind(this)}>
             <PavIcon name="thumbs-up" size={15} style={this.props.commentData.isLiked?styles.activeLikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.footerBtn} onPress={this.onDislikeClick.bind(this)}>
+          <TouchableOpacity style={styles.footerItemContainer} onPress={this.onDislikeClick.bind(this)}>
             <PavIcon name="thumbs-down" size={15} style={this.props.commentData.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
-          <Text style={[styles.likeCountText, this.props.commentData.likeCount>0?styles.likeCountPositive:styles.likeCountNegative]}>{this.props.commentData.likeCount}</Text>
+          <View style={styles.footerItemContainer}>
+            <Text style={[styles.scoreText, this.props.commentData.likeCount>0?styles.likeCountPositive:styles.likeCountNegative]}>{this.props.commentData.likeCount}</Text>
+          </View>
         </View>
         <TouchableOpacity onPress={this.onReplyClick.bind(this)} style={styles.replyButtonContainer}>
           <Text style={styles.replyButtonText}>REPLY</Text>

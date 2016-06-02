@@ -151,7 +151,9 @@ const ScrollableTabBar = React.createClass({
         onLayout={(event) => this.measureTab(page,event.nativeEvent.layout)
         }
       >
-        <Text style={[styles.tabText,{ color: textColor}, textStyle, ]}>{name} </Text>
+        <View style={{paddingHorizontal: w*0.009}}>
+          <Text style={[styles.tabText,{ color: textColor}, textStyle, ]}>{name} </Text>
+        </View>
       </TouchableOpacity>);
     },
 
@@ -290,9 +292,9 @@ const styles = StyleSheet.create({
     // backgroundColor:Colors.transparentColor
   },
   tabText:{
-    paddingHorizontal: w*0.009,
+
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,5),
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
     color: Colors.primaryColor,
     textAlign:'center',
   }

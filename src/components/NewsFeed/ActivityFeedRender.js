@@ -6,7 +6,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, View, ListView} from 'react-native';
+import {StyleSheet, View, ListView, Platform} from 'react-native';
 // import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
 // import Dimensions from 'Dimensions';
@@ -100,6 +100,7 @@ class ActivityFeedRender extends React.Component {
            <CardFactory
            type="newsfeed"
            key={rowData.event_id}
+           cardStyle={Platform.OS=="android"?{elevation:5}:{}}
            itemData={rowData}
            device={this.props.device}
            curUser={this.props.curUser}

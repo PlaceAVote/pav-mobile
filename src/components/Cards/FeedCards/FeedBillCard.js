@@ -317,7 +317,7 @@ class FeedBillCard extends React.Component {
 
     return(
       <View style={[styles.cardContainer, this.props.style]}>
-        <View style={styles.card}>
+        <View style={[styles.card, this.props.cardStyle]}>
           <TouchableOpacity  onPress={this.onBillClicked.bind(this)}>
             <PavImage platform={this.props.device.platform}
             style={styles.billImage}

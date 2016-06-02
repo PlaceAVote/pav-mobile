@@ -1,9 +1,11 @@
 import React from 'react'
-import {View, Text} from 'react-native';
+import {View, Text, Dimensions,} from 'react-native';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import {Colors, ScheneKeys} from '../../config/constants';
+const {height:h, width:w} = Dimensions.get('window');
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
 export default class TabIconFactory extends React.Component {
     render(){
@@ -29,10 +31,18 @@ export default class TabIconFactory extends React.Component {
             break;
         }
         return (
-          <View style={{flexDirection:'row', justifyContent:'center', padding:3}}>
-            <PavIcon name={iconName} size={25} style={{color: this.props.selected ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
-            <View style={{flexDirection: "column", justifyContent: 'center', paddingHorizontal:4}}>
-              <Text style={{color: this.props.selected ? Colors.primaryColor :Colors.secondaryTextColor}}>{tabText}</Text>
+          <View style={{top:5, flexDirection:'row', justifyContent:'center', alignItems:'center', paddingHorizontal:w*0.05}}>
+            <View style={{paddingLeft:w*0.006,paddingRight:w*0.004, paddingVertical:h*0.005}}>
+              <PavIcon name={iconName} size={getCorrectFontSizeForScreen(w,h,22)} style={{color: this.props.selected ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
+            </View>
+            <View style={{flexDirection: "column", justifyContent: 'center', paddingLeft:w*0.004,paddingRight:w*0.006}}>
+              <Text style={{
+                color: this.props.selected ? Colors.primaryColor :Colors.secondaryTextColor,
+                fontFamily: 'Whitney',
+                fontSize: getCorrectFontSizeForScreen(w,h,8),
+                color: Colors.primaryColor,
+                textAlign:'center'
+              }}>{tabText}</Text>
             </View>
           </View>
         );

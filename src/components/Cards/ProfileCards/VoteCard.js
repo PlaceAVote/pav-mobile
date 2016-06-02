@@ -237,7 +237,7 @@ class VoteCard extends React.Component {
 
     return(
       <View style={[styles.cardContainer, this.props.style]}>
-        <View style={styles.card}>
+        <View style={[styles.card, this.props.cardStyle]}>
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.voteIconContainer}>

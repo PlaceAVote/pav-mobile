@@ -110,12 +110,20 @@ class TopicPickRender extends React.Component {
         flexDirection: 'column'
       },
       backBtn:{
+        alignItems:'flex-start',
         top:h*0.05,
         left:w*0.02,
-        borderRadius: 0,
+        width:w*0.15,
+        height:w*0.15,
         borderWidth: 0,
         position: 'absolute',
-        // backgroundColor: 'red',
+      },
+      backBtnIconContainer:{
+        paddingVertical:w*0.03,
+      },
+      backBtnIcon:{
+        // backgroundColor: 'pink',
+        color: '#FFFFFF',
       },
       explanationContainer:{
         flex:this.props.backButtonEnabled?0.25:0.21,
@@ -231,11 +239,12 @@ class TopicPickRender extends React.Component {
     }else{
       return (
         <Button onPress={this.props.onBack}
-  style={styles.backBtn}
-  isDisabled={false}
-  isLoading={false}
-  customIcon={()=><PavIcon name="arrow-left" size={25} style={{color: '#FFFFFF'}}/>}
-/>
+          style={styles.backBtn}
+          isDisabled={false}
+          isLoading={false}
+          iconContainerStyle={styles.backBtnIconContainer}
+          customIcon={()=><PavIcon name="arrow-left" size={25} style={styles.backBtnIcon}/>}
+        />
       );
     }
   }
