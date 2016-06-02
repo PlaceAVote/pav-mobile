@@ -94,16 +94,20 @@ class FollowCard extends React.Component {
         flexDirection:'row',
         alignItems:'center'
       },
+      cardTitleTextContainer:{
+        paddingHorizontal: w*0.014,
+      },
       cardTitleText:{
         // backgroundColor: 'red',
-        paddingHorizontal: 10,
         color: Colors.primaryColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+      cardDateTextContainer:{
+        paddingHorizontal: w*0.05,
+      },
       cardDateText:{
         // backgroundColor: 'red',
-        paddingHorizontal: 5,
         // color: Colors.thirdTextColor,
         color: 'rgba(0, 0, 0, 0.60)',
         fontFamily: 'Whitney',
@@ -133,7 +137,7 @@ class FollowCard extends React.Component {
           width: w*0.09,
           height: w*0.09,
           backgroundColor: Colors.accentColor,
-          paddingHorizontal:2,
+          paddingHorizontal: w*0.005,
           paddingVertical:4,
           borderRadius: 3,
           borderColor: '#ffffff',
@@ -142,16 +146,19 @@ class FollowCard extends React.Component {
 
       followIcon:{
         color: Colors.mainTextColor,
-        paddingHorizontal:3,
       },
 
-
+      nameTextContainer:{
+        paddingHorizontal: w*0.005,
+      },
       nameText:{
         // backgroundColor:'blue',
         color:"#e64a33",
-        paddingHorizontal: w*0.005,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
+      },
+      followBetweenTextContainer:{
+        paddingHorizontal: w*0.005,
       },
       followBetweenText:{
         color: Colors.thirdTextColor,
@@ -221,15 +228,25 @@ class FollowCard extends React.Component {
               <View style={styles.followIconContainer}>
                 <PavIcon name="add" size={17} style={styles.followIcon}/>
               </View>
-              <Text style={styles.cardTitleText}>NEW FOLLOW</Text>
+              <View style={styles.cardTitleTextContainer}>
+                <Text style={styles.cardTitleText}>NEW FOLLOW</Text>
+              </View>
             </View>
-            <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+            <View style={styles.cardDateTextContainer}>
+              <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+            </View>
           </View>
           <View style={styles.cardContentContainer}>
             <View style={styles.cardContentHeader}>
-              <Text style={styles.nameText}>{this.props.followerFullNameText}</Text>
-              <Text style={styles.followBetweenText}>followed</Text>
-              <Text style={styles.nameText}>{this.props.followedFullNameText}</Text>
+              <View style={styles.nameTextContainer}>
+                <Text style={styles.nameText}>{this.props.followerFullNameText}</Text>
+              </View>
+              <View style={styles.followBetweenTextContainer}>
+                <Text style={styles.followBetweenText}>followed</Text>
+              </View>
+              <View style={styles.nameTextContainer}>
+                <Text style={styles.nameText}>{this.props.followedFullNameText}</Text>
+              </View>
             </View>
           </View>
         </View>

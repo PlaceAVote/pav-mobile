@@ -110,9 +110,6 @@ class ProfileRender extends React.Component {
   constructor(props) {
     super(props);
     let data = [];
-    if(!!props.timelineData){
-      data = props.timelineData.toJS();
-    }
     // console.log("Data within getFeedDataSource is :"+data);
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     // ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -120,7 +117,6 @@ class ProfileRender extends React.Component {
       dataSource: ds.cloneWithRows(data),
     };
   }
-
 
 
 
@@ -255,12 +251,12 @@ class ProfileRender extends React.Component {
 
 
       itemList:{
-        flex:1.45,
+        flex:1,
         backgroundColor: '#E8E7EE',
       },
       card:{
-        paddingHorizontal: w*0.07,
-        backgroundColor:'red'
+        paddingHorizontal: w*0.03,
+        // backgroundColor:'red'
       },
 
       scrollSpacerView:{
@@ -450,7 +446,6 @@ class ProfileRender extends React.Component {
   renderProfileBody(dataReady, styles){
     if(dataReady==true){
       return (
-      <View style={styles.bodyLoadingContainer}>
         <ListView
          enableEmptySections={true}
          style={styles.itemList}
@@ -479,13 +474,12 @@ class ProfileRender extends React.Component {
            onCommentClick={this.props.onCommentClick}
            onSocialClick={this.props.onSocialClick}
            />}
-         />
-      </View>);
+         />);
     }else{
       if(this.props.device.platform=="android"){
           return (
           <View style={styles.bodyLoadingContainer}>
-            <ProgressBar styleAttr="Large" color="red" />
+            <ProgressBar styleAttr="Large" color={Colors.primaryColor} />
           </View>);
       }else if(this.props.device.platform=="ios"){
           return (
@@ -513,7 +507,6 @@ class ProfileRender extends React.Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-
     return(
         <View style={styles.container}>
           {this.renderProfileHeader(styles)}

@@ -95,7 +95,7 @@ class CommentCard extends React.Component {
         alignItems:'center'
       },
       cardTitleTextContainer:{
-        paddingHorizontal: 10,
+        paddingHorizontal: w*0.014,
       },
       cardTitleText:{
         // backgroundColor: 'red',

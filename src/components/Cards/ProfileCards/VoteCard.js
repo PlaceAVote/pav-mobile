@@ -72,8 +72,8 @@ class VoteCard extends React.Component {
         flex: 1,
         backgroundColor: '#ffffff',
         borderRadius: 2,
-        borderColor: '#ffffff',
-        borderWidth: 1,
+        // borderColor: '#ffffff',
+        // borderWidth: 1,
         shadowColor: 'rgba(0, 0, 0, 0.12)',
         shadowOpacity: 0.8,
         shadowRadius: 2,
@@ -95,7 +95,7 @@ class VoteCard extends React.Component {
         alignItems:'center'
       },
       cardTitleTextContainer:{
-        paddingHorizontal: w*0.005,
+        paddingHorizontal: w*0.014,
       },
       cardTitleText:{
         // backgroundColor: 'red',
