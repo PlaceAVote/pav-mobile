@@ -36,7 +36,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../config/constants';
 
 import React from 'react';
-import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
+import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio, Platform} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -106,23 +106,23 @@ class OnboardingRender extends React.Component {
               </View>
 
               <View style={styles.titleTextContainerVer}>
-                <View style={styles.titleTextContainerHor}>
-                  <Text style={styles.titleText} numberOfLines={2}>
-                  Be Loud. Be Heard. Be Represented.
-                  </Text>
-                </View>
+                <Text style={styles.titleText} numberOfLines={2}>
+                Be Loud. Be Heard. Be Represented.
+                </Text>
               </View>
 
               <View style={styles.descriptionContainerVer}>
-                <View style={styles.descriptionContainerHor}>
-                  <Text style={styles.descriptionText} >
-                  PlaceAVote gives you the opportunity to read, debate, and vote on every bill that is presented before Congress.
-                  </Text>
-                  <Text style={styles.descriptionText2} numberOfLines={5} >
-                  Place your vote today and let your representatives know how to represent you.
-                  </Text>
-                </View>
+                <Text style={styles.descriptionText} >
+                PlaceAVote gives you the opportunity to read, debate, and vote on every bill that is presented before Congress.
+                </Text>
               </View>
+
+              <View style={styles.descriptionContainerVer}>
+                <Text style={styles.descriptionText2} numberOfLines={5} >
+                Place your vote today and let your representatives know how to represent you.
+                </Text>
+              </View>
+
 
             </View>
 
@@ -173,27 +173,32 @@ var portraitStyles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     width: w,
-    height: h
+    height: h,
+    paddingVertical: w*0.05,
   },
   container: {
     // backgroundColor: 'orange',
     flex:1,
     flexDirection: 'column',
-    marginVertical: 10,
-    marginHorizontal:15
+    paddingHorizontal: w*0.05,
   },
 
-  explanContainer:{
+
+
+
+
+
+  explanContainer:{ //child A
     // backgroundColor: 'black',
-    flex:0.62,
+    flex:1,
     flexDirection: 'column',
-    justifyContent: 'flex-end'
+    justifyContent: 'space-around',
+    paddingBottom: w*0.02,
   },
 
-  logoImgContainer:{
+  logoImgContainer:{    //child A1
     // backgroundColor: 'red',
-    flex:0.25,
-    width: w*0.7,
+    width: w,
     flexDirection: 'column',
     alignSelf: 'center',
     justifyContent: 'flex-end'
@@ -206,66 +211,66 @@ var portraitStyles = StyleSheet.create({
     height:h*0.05
   },
 
-  titleTextContainerVer:{
-    flex:0.25, //height (according to its parent)
+  titleTextContainerVer:{ //child A2
     flexDirection: 'row', //its children will be in a row
+    // backgroundColor:'red',
     backgroundColor: Colors.transparentColor,
     justifyContent: 'center'
     // alignSelf: 'center',
   },
 
-  titleTextContainerHor:{
-    width: 274,
-    flexDirection: 'column',    //its children will be in a column
-    // backgroundColor: 'blue',
-    alignItems: 'center', //align items according to this parent (like setting self align on each item)
-    justifyContent: 'center'
-  },
   titleText: {
+    width: w*0.86,
     // backgroundColor: 'black',
-    fontSize: getCorrectFontSizeForScreen(w,h,27),
+    fontSize: getCorrectFontSizeForScreen(w,h,24),
     fontFamily: 'Whitney Semibold',
     color: Colors.mainTextColor,
     textAlign: 'center',
   },
 
-  descriptionContainerVer:{
-    flex:0.55, //height (according to its parent)
+  descriptionContainerVer:{ //child A3 and A4
     flexDirection: 'row', //its children will be in a row
     backgroundColor: Colors.transparentColor,
-    justifyContent: 'center'
+    // backgroundColor:'pink',
+    justifyContent: 'center',
     // alignSelf: 'center',
   },
   descriptionContainerHor:{
     width: w*0.76,
     flexDirection: 'column',    //its children will be in a column
-    // backgroundColor: 'blue',
+    backgroundColor: 'blue',
     alignItems: 'center', //align items according to this parent (like setting self align on each item)
     justifyContent: 'space-around',
   },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     // fontWeight: 'bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,17),
+    width: w*0.90,
+    fontSize: getCorrectFontSizeForScreen(w,h,13),
     color: Colors.mainTextColor,
     textAlign: 'center',
 
   },
   descriptionText2: {
     backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,16),
+    width: w*0.81,
+    fontFamily: 'Whitney-Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontSize: getCorrectFontSizeForScreen(w,h,11),
     color: Colors.mainTextColor,
     textAlign: 'center'
   },
 
 
 
-  btnContainer:{
-    flex:0.45,
+
+
+
+
+
+  btnContainer:{  //Child B
     // backgroundColor: 'red',
-    marginBottom: 10,
+    paddingVertical: h*0.015,
     justifyContent: 'flex-end'
   },
 
@@ -273,13 +278,13 @@ var portraitStyles = StyleSheet.create({
     height:60,
     borderRadius: 4,
     borderWidth: 1,
-    marginBottom: 13,
+    marginVertical: h*0.005,
   },
   whiteBtnText:{
     color: Colors.mainTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,16),
+    fontSize: getCorrectFontSizeForScreen(w,h,13),
   },
   facebookBtn:{
     backgroundColor: Colors.secondaryColor,
@@ -316,26 +321,26 @@ var landscapeStyles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     width: null,
-    height: null
+    height: null,
+    paddingVertical: w*0.05,
   },
   container: {
     // backgroundColor: 'orange',
     flex:1,
     flexDirection: 'column',
-    marginVertical: 10,
-    marginHorizontal:10
+    paddingHorizontal: w*0.05,
+    justifyContent:'flex-end',
   },
 
-  explanContainer:{
+  explanContainer:{ //child A
     // backgroundColor: 'black',
-    flex:0.62,
+    paddingVertical: w*0.05,
     flexDirection: 'column',
     justifyContent: 'flex-end'
   },
 
-  logoImgContainer:{
+  logoImgContainer:{  //child A1
     // backgroundColor: 'red',
-    flex:0.3,
     flexDirection: 'row',
     alignSelf: 'center',
     justifyContent: 'flex-end'
@@ -348,73 +353,72 @@ var landscapeStyles = StyleSheet.create({
     height:h*0.08
   },
 
-  titleTextContainerVer:{
-    flex:0.2, //height (according to its parent)
+  titleTextContainerVer:{  //child A2
     flexDirection: 'row', //its children will be in a row
     backgroundColor: Colors.transparentColor,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingVertical: w*0.02,
     // alignSelf: 'center',
   },
 
-  titleTextContainerHor:{
-    width: 574,
-    flexDirection: 'column',    //its children will be in a column
-    // backgroundColor: 'blue',
-    alignItems: 'center', //align items according to this parent (like setting self align on each item)
-    justifyContent: 'center'
-  },
   titleText: {
+    width: h*0.80,
     // backgroundColor: 'black',
-    fontSize: getCorrectFontSizeForScreen(w,h,27),
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,23),
     color: Colors.mainTextColor,
     textAlign: 'center',
   },
 
-  descriptionContainerVer:{
-    flex:0.55, //height (according to its parent)
+  descriptionContainerVer:{   //child A3
     flexDirection: 'row', //its children will be in a row
     backgroundColor: Colors.transparentColor,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingVertical: w*0.014,
     // alignSelf: 'center',
   },
-  descriptionContainerHor:{
-    width: 510,
-    flexDirection: 'column',    //its children will be in a column
-    // backgroundColor: 'blue',
-    alignItems: 'center', //align items according to this parent (like setting self align on each item)
-    justifyContent: 'space-around',
-  },
+
   descriptionText: {
+    width: h*0.90,
     backgroundColor: Colors.transparentColor,
-    fontSize: getCorrectFontSizeForScreen(w,h,17),
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,14),
     color: Colors.mainTextColor,
     textAlign: 'center',
 
   },
   descriptionText2: {
+    width: h*0.90,
     backgroundColor: Colors.transparentColor,
-    fontSize: getCorrectFontSizeForScreen(w,h,14),
+    fontFamily: 'Whitney-Book',
+    fontSize: getCorrectFontSizeForScreen(w,h,10),
     color: Colors.mainTextColor,
     textAlign: 'center'
   },
 
 
 
-  btnContainer:{
-    flex:0.45,
+  btnContainer:{  //Child B
     flexDirection:'column',
-    // backgroundColor: 'red'
+    // backgroundColor: 'red',
+    // paddingVertical: h*0.015,
+    justifyContent: 'flex-end'
   },
 
   btn: {
+    alignSelf:'center',
     height:36,
+    width:h*0.5,
     borderRadius: 4,
     borderWidth: 1,
-    marginVertical:0
+    marginVertical: w*0.01,
+    // backgroundColor:'pink'
   },
   whiteBtnText:{
     color: Colors.mainTextColor,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,12),
   },
   facebookBtn:{
     backgroundColor: Colors.secondaryColor,

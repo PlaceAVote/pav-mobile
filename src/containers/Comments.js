@@ -104,7 +104,9 @@ class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.state={curCommentScopeData:[], commentLvl: this.props.commentLvl};
-    this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    if(CONFIG.MOCK_TOKEN===true){
+        this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    }
   }
 
   async componentWillMount(){

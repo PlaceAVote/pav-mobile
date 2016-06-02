@@ -75,17 +75,7 @@ var styles = StyleSheet.create({
     marginBottom:20,
     marginHorizontal:w*0.04 //same as 14px
   },
-  titleText: {
-    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    backgroundColor: Colors.transparentColor,
-    // backgroundColor: 'green',
-    fontSize: getCorrectFontSizeForScreen(w,h,27),
-    color: Colors.secondaryTextColor,
-    textAlign: 'center',
-    marginHorizontal: 41,
-    marginTop: 20,
-    marginBottom: 13,
-  },
+
   signInBtn: {
     backgroundColor: Colors.accentColor,
     borderRadius: 2,
@@ -113,7 +103,7 @@ var styles = StyleSheet.create({
     color: Colors.mainTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,16),
+    fontSize: getCorrectFontSizeForScreen(w,h,14),
   },
   orText:{
     fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
@@ -127,7 +117,7 @@ var styles = StyleSheet.create({
     color: "#E76354",
     alignSelf:"center",
     marginVertical:13,
-    fontSize: getCorrectFontSizeForScreen(w,h,16),
+    fontSize: getCorrectFontSizeForScreen(w,h,12),
   },
   btnContainer:{
     // backgroundColor:'blue',

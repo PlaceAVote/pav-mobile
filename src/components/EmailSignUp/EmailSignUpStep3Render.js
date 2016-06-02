@@ -95,6 +95,7 @@ var styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   explanationContainer:{
+    flex:1,
     flexDirection: 'column',
     backgroundColor: Colors.primaryColor,
   },
@@ -112,23 +113,22 @@ var styles = StyleSheet.create({
     justifyContent:'center'
   },
   footerContainer:{
-    flex:1,
     backgroundColor: 'white'
   },
   descriptionTextContainer:{
     // backgroundColor:'black',
+    flex:1,
     justifyContent: 'center',
-    marginVertical:15,
-    flex:1//0.23,
+    alignItems: 'center',
   },
   descriptionText: {
     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
-    fontSize: getCorrectFontSizeForScreen(w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,11),
     color: Colors.mainTextColor,
     textAlign: 'center',
-    marginHorizontal: 21,
+    width: w*0.9,
   },
   explanImgContainer:{
     // backgroundColor: 'red',
@@ -158,7 +158,7 @@ var styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
-    height: 65
+    height: 60
   },
   whiteBtnText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
@@ -318,6 +318,9 @@ class EmailSignUpStep3Render extends React.Component {
         </View>
       </View>
     );
+  }
+  shouldComponentUpdate(nextProps) {
+    return (nextProps.auth.user.isLoggedIn===false);
   }
 }
 //isDisabled={this.props.isDisabled}

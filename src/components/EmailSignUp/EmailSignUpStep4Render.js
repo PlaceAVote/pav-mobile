@@ -124,7 +124,7 @@ var styles = StyleSheet.create({
     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
-    fontSize: getCorrectFontSizeForScreen(w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,11),
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
@@ -158,13 +158,13 @@ var styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
-    height: 65
+    height: 60
   },
   whiteBtnText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     color: Colors.mainTextColor,
     textAlign: 'center',
-    fontSize: getCorrectFontSizeForScreen(w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,11),
   }
 
 });
@@ -333,6 +333,9 @@ class EmailSignUpStep4Render extends React.Component {
         </View>
       </View>
     );
+  }
+  shouldComponentUpdate(nextProps) {
+    return (nextProps.auth.user.isLoggedIn===false);
   }
 }
 //isDisabled={this.props.isDisabled}

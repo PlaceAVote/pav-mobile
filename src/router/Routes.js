@@ -91,16 +91,16 @@ export default class Routes extends React.Component{
           <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} component={EmailSignUpStep1} hideNavBar={true} />
           <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} component={EmailSignUpStep2} hideNavBar={true} />
           <Scene key={ScheneKeys.REGISTER_STEP_3} {...defaultProps} component={EmailSignUpStep3} hideNavBar={true} />
-          <Scene key={ScheneKeys.REGISTER_STEP_4} {...defaultProps} component={EmailSignUpStep4} hideNavBar={true} />
+          <Scene key={ScheneKeys.REGISTER_STEP_4} {...defaultProps} component={EmailSignUpStep4} hideNavBar={true} initial={true}/>
           <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
-          <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene}  initial={true}>
-              <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>}/>
+          <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene}  initial={false}>
+              <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} initial={false}/>
               <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} />
               <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} />
           </Scene>
           <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true}/>
           <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false}/>
-          <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" initial={false}/>
+          <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" />
         </Scene>
     </RouterWithRedux>);
   }

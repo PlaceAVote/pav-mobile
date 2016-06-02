@@ -2,12 +2,14 @@ import { Platform, PixelRatio } from 'react-native';
 
 
     export function getCorrectFontSizeForScreen(screenWidth, screenHeight, currentFontSize){
-      let devRatio = PixelRatio.get();
-      let factor = (((screenWidth*devRatio)/320)*0.65+((screenHeight*devRatio)/640)*0.35)
 
-      let maxFontDifferFactor = 6; //the maximum pixels of font size we can go up or
+      let factor = 0;
+
+      const maxFontDifferFactor = 6; //the maximum pixels of font size we can go up or
 
       if(Platform.OS === 'ios'){
+        let devRatio = PixelRatio.get();
+        factor = (((screenWidth*devRatio)/320)*0.55+((screenHeight*devRatio)/640)*0.45)
         // console.log("The width is: "+screenWidth+" and the height is "+screenHeight+" with a ratio : "+devRatio+ " and factor: "+factor);
         if(factor<=1){
           return currentFontSize-float2int(maxFontDifferFactor*0.3);
@@ -16,7 +18,7 @@ import { Platform, PixelRatio } from 'react-native';
         }else if((factor>=1.6) && (factor<=2)){
           return currentFontSize;
         }else if((factor>=2) && (factor<=3)){
-          return currentFontSize+float2int(maxFontDifferFactor*0.65);
+          return currentFontSize+float2int(maxFontDifferFactor*0.85);
         }else if (factor>=3){
           return currentFontSize+float2int(maxFontDifferFactor);
         }
@@ -31,7 +33,7 @@ import { Platform, PixelRatio } from 'react-native';
         if(factor<=1){
           return currentFontSize-float2int(maxFontDifferFactor*0.3);
         }else if((factor>=1) && (factor<=1.6)){
-          return currentFontSize+float2int(maxFontDifferFactor*0.4);
+          return currentFontSize+float2int(maxFontDifferFactor*0.35);
         }else if((factor>=1.6) && (factor<=2)){
           return currentFontSize+float2int(maxFontDifferFactor*0.5);
         }else if((factor>=2) && (factor<=3)){

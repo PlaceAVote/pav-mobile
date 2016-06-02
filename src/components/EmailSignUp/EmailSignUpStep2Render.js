@@ -90,6 +90,7 @@ var styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   explanationContainer:{
+    flex:1,
     flexDirection: 'column',
     alignItems: 'center', //x axis
     justifyContent: 'flex-end',
@@ -97,7 +98,6 @@ var styles = StyleSheet.create({
     // ,backgroundColor: 'red'
   },
   footerContainer:{
-    flex:1,
     backgroundColor: 'white'
   },
   inputsContainer:{
@@ -122,7 +122,7 @@ var styles = StyleSheet.create({
   descriptionText: {
     backgroundColor: Colors.transparentColor,
     fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,14),
+    fontSize: getCorrectFontSizeForScreen(w,h,11),
     color: Colors.mainTextColor,
     textAlign: 'center',
     marginHorizontal: 21,
@@ -155,7 +155,7 @@ var styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
-    height: 65
+    height: 60
   },
   whiteBtnText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
@@ -305,6 +305,9 @@ class EmailSignUpStep2Render extends React.Component {
         </View>
       </View>
     );
+  }
+  shouldComponentUpdate(nextProps) {
+    return (nextProps.auth.user.isLoggedIn===false);
   }
 }
 //isDisabled={this.props.isDisabled}

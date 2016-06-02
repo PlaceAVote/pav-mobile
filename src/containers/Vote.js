@@ -13,7 +13,7 @@
  */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import CONFIG from '../config/config';
 /**
  * The actions we need
  */
@@ -77,6 +77,9 @@ class Vote extends React.Component {
 
   constructor(props) {
     super(props);
+    if(CONFIG.MOCK_TOKEN===true){
+      this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    }
   }
 
   onCloseBtnTap(){

@@ -41,7 +41,7 @@ class GridLayoutExample extends React.Component {
       // With that in mind you can use the ScrollView's contentContainerStyle prop to style the items.
       <ListView contentContainerStyle={styles.list}
         dataSource={ds.cloneWithRows(this.props.topicData)}
-        renderRow={this._renderRow}
+        renderRow={this._renderRow.bind(this)}
       />
     );
   }
@@ -193,7 +193,7 @@ var styles = StyleSheet.create({
     flexDirection: "row"
   },
   textChecked: {
-    fontSize: getCorrectFontSizeForScreen(w,h,17),
+    fontSize: getCorrectFontSizeForScreen(w,h,11),
     fontFamily: 'Whitney',
     textAlign: 'center',
     alignSelf:'center',
@@ -201,7 +201,7 @@ var styles = StyleSheet.create({
     // backgroundColor: 'red'
   },
   text: {
-    fontSize: getCorrectFontSizeForScreen(w,h,16),
+    fontSize: getCorrectFontSizeForScreen(w,h,10),
     fontFamily: 'Whitney',
     textAlign: 'center',
     alignSelf:'center',

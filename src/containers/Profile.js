@@ -99,7 +99,9 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     // console.log("Now calling the get profile data action"+JSON.stringify(this.props));
-    this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    if(CONFIG.MOCK_TOKEN===true){
+      this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    }
     // console.log("Profile environment dev? : "+props.global.isDev+" with token: "+this.TOKEN);
     this.getProfileData()
   }

@@ -2,19 +2,22 @@
       import {View, Text, StyleSheet} from 'react-native';
       import t from 'tcomb-form-native'
       import Accordion from 'react-native-collapsible/Accordion'
+      import Collapsible from 'react-native-collapsible'
       import moment from 'moment';
       import Button from 'sp-react-native-iconbutton'
       import { Colors } from '../../config/constants';
+      import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+      import Dimensions from 'Dimensions';
+      var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
+
       const Date = t.form.DatePicker;
 
       class AccordionPicker extends Date {
 
-        _renderAndroidHeader(locals){
-          return <View></View>;
-        }
 
-        _renderIOSHeader (locals) {
 
+
+        renderHeader (locals) {
           let curSelectedDate = moment(locals.value).format('Do MMMM YYYY');
           let dateBeingPickedNow = locals.config.dateBeingPickedNow?"Done":"Pick";
           return (
@@ -41,15 +44,6 @@
           );
         }
 
-        _renderContent (locals) {
-          // console.log("@@@@@@ DATE IS: "+locals.value)
-
-          return (
-            <View>
-              {t.form.Form.templates.datepicker({...locals, date: locals.value, mode:'date', onDateChange:(e)=>{console.log("On date change: "+e)}}) }
-            </View>
-          )
-        }
 
         getTemplate () {
           var self = this;
@@ -64,34 +58,23 @@
             // console.log("locals: "+JSON.stringify(locals));
             // console.log("Current platform: "+locals.config.currentOs);
 
-            if(locals.config.currentOs=="android"){//if we are in android
-              return (<Accordion
-                style={styles.container}
-                sections={['Date']}
-                renderHeader={self._renderAndroidHeader.bind(self, locals)}
-                renderContent={self._renderContent.bind(self, locals)}
-                collapsed={false}
-                underlayColor={Colors.transparentColor}
+            return (
+              <View>
+                {self.renderHeader(locals)}
+                <Collapsible
+                collapsed={!locals.config.dateBeingPickedNow}
+                align="center"
                 onChange={
                   (index)=>{if(index===false){locals.config.onCollapsedChange(true)}else{locals.config.onCollapsedChange(false)}}
                 }
-              />);
-            }else{  //if we are in ios
-              return (
-                <Accordion
-                  style={styles.container}
-                  sections={['Date']}
-                  renderHeader={self._renderIOSHeader.bind(self, locals)}
-                  renderContent={self._renderContent.bind(self, locals)}
-                  collapsed={!locals.config.dateBeingPickedNow}
-                  underlayColor={Colors.transparentColor}
-                  onChange={
-                    (index)=>{if(index===false){locals.config.onCollapsedChange(true)}else{locals.config.onCollapsedChange(false)}}
-                  }
-                />
-              );
-            }
+                >
+                  <View style={styles.container}>
+                    {t.form.Form.templates.datepicker({...locals, date: locals.value, mode:'date', onChange:(e)=>{console.log("On date change: "+e)}, minimumDate:moment([1920, 0, 1]).toDate(), maximumDate: moment().toDate() }) }
+                  </View>
+                </Collapsible>
+              </View>
 
+            );
           }
         }
       }
@@ -108,9 +91,9 @@
           // paddingRight: 5,
         },
         label:{
-          flex: 1,
-          fontSize: 16,
-          // backgroundColor: 'red'
+          // flex: 1,
+          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+          fontSize: getCorrectFontSizeForScreen(w,h,14),
         },
         valueContainer:{
           flex: 1,
@@ -118,13 +101,12 @@
           justifyContent: 'space-between'
         },
         value: {
-
+          fontFamily: 'Whitney-Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
           // backgroundColor:'red',
-          fontSize: 16,
+          fontSize: getCorrectFontSizeForScreen(w,h,11),
         },
         header: {
           flex: 1,
-          height: 44,
           // backgroundColor: '#f9f9f9',
         },
         whiteBtnText:{

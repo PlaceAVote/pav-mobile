@@ -58,7 +58,9 @@ import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-
+import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+import icomoonConfig from '../../../assets/fonts/icomoon.json';
+const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 /**
@@ -156,7 +158,7 @@ class TopicPickRender extends React.Component {
         fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
         backgroundColor: Colors.transparentColor,
         // backgroundColor:'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,16),
+        fontSize: getCorrectFontSizeForScreen(w,h,13),
         color: Colors.mainTextColor,
         textAlign: 'center',
         marginHorizontal: w*0.14,
@@ -166,12 +168,13 @@ class TopicPickRender extends React.Component {
         borderRadius: 2,
         borderWidth: 1,
         borderColor: Colors.mainBorderColor,
-        height: 65
+        height: 60
       },
       whiteBtnText:{
         fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
         color: Colors.mainTextColor,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: getCorrectFontSizeForScreen(w,h,14)
       }
 
     });
@@ -357,6 +360,9 @@ class TopicPickRender extends React.Component {
         {this.modalPopupRender(this.props.modalPopupEnabled,this.props.modalPopupErrorMsg)}
       </View>
     );
+  }
+  shouldComponentUpdate(nextProps) {
+    return (nextProps.auth.user.isLoggedIn===false);
   }
 }
 //isDisabled={this.props.isDisabled}

@@ -105,7 +105,7 @@ export default class PlaceAVote extends React.Component {
       store.dispatch(setPlatform(Platform.OS));
       store.dispatch(setVersion(VERSION));
       store.dispatch(setStore(store));
-      store.dispatch(setEnvironmentIsDev(CONFIG.ENVIRONMENT_IS_DEV))
+      store.dispatch(setEnvironmentIsDev(CONFIG.MOCK_TOKEN===true?CONFIG.ENVIRONMENT_IS_DEV:false))
 
 
       return (
