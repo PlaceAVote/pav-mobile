@@ -138,15 +138,16 @@ class ProfileRender extends React.Component {
       },
 
       headerView:{
-        flex:1,
         flexDirection: 'column',
       },
       userDataHeaderView:{
         flex:1,
         backgroundColor: Colors.transparentColor,
         flexDirection: 'row',
-        paddingVertical: h*0.02,
+        // backgroundColor:'red',
+        // paddingVertical: h*0.02,
         paddingHorizontal: w*0.02,
+        alignItems:'center',
       },
       userAccSettingsHeaderView:{
         flexDirection: 'row',
@@ -175,12 +176,13 @@ class ProfileRender extends React.Component {
         flexDirection: 'column',
         paddingHorizontal: w*0.04,
         // backgroundColor: "green",
+        alignItems:'flex-start',
         justifyContent:'space-around'
       },
       userImg:{
         flex:1,
         width:null,
-        height:null,
+        height:h*0.23,
         // backgroundColor: "white"
       },
       followBtn:{
@@ -188,7 +190,8 @@ class ProfileRender extends React.Component {
         borderRadius: 2,
         borderWidth: 1,
         borderColor: Colors.mainBorderColor,
-        marginTop: 15,
+        // marginTop: 15,
+        marginTop: h*0.030,
         height: 36
       },
       whiteBtnText:{
@@ -218,6 +221,7 @@ class ProfileRender extends React.Component {
         paddingHorizontal:3,
       },
       userDetailsHeaderView:{
+        backgroundColor:'pink',
         flexDirection: 'row',
         justifyContent:'space-between',
         alignItems:'center',

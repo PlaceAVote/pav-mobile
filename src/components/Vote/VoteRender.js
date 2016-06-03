@@ -107,10 +107,12 @@ class VoteRender extends React.Component {
         justifyContent:'flex-end',
         alignItems:'center',
       },
-      closeBtnText:{
-        backgroundColor: Colors.transparentColor,
+      closeBtnTextContainer:{
         paddingVertical: h*0.015,
         paddingHorizontal: w*0.015,
+      },
+      closeBtnText:{
+        backgroundColor: Colors.transparentColor,
         color: Colors.mainTextColor,
         fontFamily: 'Whitney-Bold',
         fontSize: getCorrectFontSizeForScreen(w,h,7),
@@ -228,7 +230,9 @@ class VoteRender extends React.Component {
               <TouchableOpacity onPress={this.props.onCloseBtnTap}
               style={styles.closeBtnContainer}>
                 <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
-                <Text style={styles.closeBtnText}>CLOSE</Text>
+                <View style={styles.closeBtnTextContainer}>
+                  <Text style={styles.closeBtnText}>CLOSE</Text>
+                </View>
               </TouchableOpacity>
               <View style={styles.headerTitleContainer}>
                 <Text style={styles.headerTitle}>{bilLData.featured_bill_title}</Text>
