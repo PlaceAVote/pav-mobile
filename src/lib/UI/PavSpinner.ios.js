@@ -30,8 +30,9 @@ class PavSpinner extends React.Component {
           size="large"
         />
       </View>);
+  }
 }
 PavSpinner.propTypes= {
-  animating: React.PropTypes.bool.isRequired,
+  animating: React.PropTypes.bool,
 };
 export default PavSpinner;

@@ -99,7 +99,7 @@ export default class PlaceAVote extends React.Component {
     }
     componentWillMount(){
       //TODO: Find if token exists in disk programmatically
-      this.setState(tokenExists:true)
+      this.setState({tokenExists:true});
     }
 
     render() {

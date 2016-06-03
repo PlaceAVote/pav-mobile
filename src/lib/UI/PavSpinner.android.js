@@ -33,8 +33,9 @@ class PavSpinner extends React.Component {
           colors={[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]}
         />
       </View>);
+  }
 }
 PavSpinner.propTypes= {
-  animating: React.PropTypes.bool.isRequired,
+  animating: React.PropTypes.bool,
 };
 export default PavSpinner;

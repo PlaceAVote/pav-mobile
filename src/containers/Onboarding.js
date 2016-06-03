@@ -76,36 +76,36 @@ function mapDispatchToProps(dispatch) {
 
 
 
-let Onboarding = React.createClass({
+class Onboarding extends React.Component{
 
   componentDidMount() {
     Orientation.addOrientationListener(this.orientationDidChange);
     this.props.actions.unlockOrientation();
-  },
+  }
 
   orientationDidChange(orientation) {
     // console.log("Orientation: "+orientation);
     this.props.actions.setOrientation(orientation);
-  },
+  }
 
   componentWillUnmount() {
     Orientation.removeOrientationListener(this.orientationDidChange);
-  },
+  }
 
   onSignInBtnPressed(){
     this.props.actions.navigateTo(LOGIN);
-  },
+  }
   onSignUpBtnPressed(){
     this.props.actions.setAuthMethod('email');
     this.props.actions.navigateTo(REGISTER_STEP_1);
-  },
+  }
   async onFacebookBtnPressed(){
     this.props.actions.setAuthMethod('facebook');
     let userFbData = await this.props.actions.facebookDataAcquisition(true);
     if(!!userFbData){
       this.props.actions.navigateUserToTheCorrectNextOnboardingStep();
     }
-  },
+  }
   render() {
 
     return(
@@ -120,5 +120,5 @@ let Onboarding = React.createClass({
 
     );
   }
-});
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Onboarding);

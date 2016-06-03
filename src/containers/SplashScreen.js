@@ -4,16 +4,20 @@
  * Allow user to register
  */
 'use strict';
-ort Orientation from 'react-native-orientation';
+
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 /**
  * Router actions
  */
 import { Actions } from 'react-native-router-flux';
-import PavSpinner from '../../lib/UI/PavSpinner'
+import PavSpinner from '../lib/UI/PavSpinner'
 
 import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
-
+import {Map} from 'immutable';
 import React from 'react';
 import {ScheneKeys} from '../config/constants';
 const {
@@ -53,7 +57,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-let SplashScreen = React.createClass({
+class SplashScreen extends React.Component{
 
   componentWillMount(){
     let exists = this.checkTokenExists();
@@ -92,5 +96,5 @@ let SplashScreen = React.createClass({
       <PavSpinner/>
     );
   }
-});
+};
 export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);
