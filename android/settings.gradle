@@ -1,4 +1,4 @@
-rootProject.name = 'PlaceAVoteApp'
+rootProject.name = 'PlaceAVote'
 
 include ':app'
 include ':react-native-vector-icons'

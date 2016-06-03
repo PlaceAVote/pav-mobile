@@ -81,7 +81,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.placeavoteapp"
+        applicationId "com.placeavote"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -89,7 +89,6 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        multiDexEnabled true        //for react-native-fbsdk to work
     }
     signingConfigs {
         release {
@@ -134,9 +133,10 @@ dependencies {
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-fbsdk')
-    compile project(':react-native-linear-gradient')
-    compile project(':react-native-orientation')
     compile project(':react-native-vector-icons')
+    compile project(':react-native-orientation')
+    compile project(':react-native-linear-gradient')
+    
 }
 
 // Run this once to be able to run the application with BUCK

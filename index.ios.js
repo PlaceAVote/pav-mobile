@@ -12,4 +12,4 @@ import PlaceAVote from './src/init';
 /**
 * registerComponent to the AppRegistery and off we go....
 */
-AppRegistry.registerComponent('PlaceAVoteApp', () => PlaceAVote);
+AppRegistry.registerComponent('PlaceAVote', () => PlaceAVote);
