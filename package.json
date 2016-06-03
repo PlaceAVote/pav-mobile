@@ -18,6 +18,10 @@
     "url": "https://github.com/PlaceAVote/pav-mobile/issues",
     "email": "ioannis@placeavote.com"
   },
+  "engines": {
+    "node": ">=5.0",
+    "npm": ">=3.0"
+  },
   "jest": {
     "scriptPreprocessor": "./node_modules/react-native/jestSupport/preprocessor.js",
     "setupEnvScriptFile": "./node_modules/react-native/jestSupport/env.js",
