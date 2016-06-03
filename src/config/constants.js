@@ -1,4 +1,4 @@
-import keyMirror from 'key-mirror';
+import keyMirror from 'keymirror';
 
 module.exports =  {
   Colors: {
