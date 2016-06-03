@@ -18,7 +18,7 @@
 import InitialState from './billInitialState';
 const initialState = new InitialState;
 
-import {ActionNames, ScheneKeys} from '../../config/constants';
+import {ActionNames, ScheneKeys, NewsFeedUpdateTypes} from '../../config/constants';
 const {
   GET_BILL_REQUEST,
   GET_BILL_SUCCESS,
@@ -118,14 +118,13 @@ export default function newsfeedReducer(state = initialState, action) {
       let tmpCommentArr = state.comments.toJS();
       let likeCommentBillPath = findCommentPath(tmpCommentArr, action.payload.parentCommentId);//get the comment path of this comment
       let l = findCommentBasedOnPath(likeCommentBillPath, tmpCommentArr); //get the comment itself in order to tamper it
-
-      // console.log("Comment with comment id: "+l.refToCurObject.comment_id+" liked: "+l.refToCurObject.liked);
+      // console.log("Comment with comment id: "+l.refToCurObject.comment_id+" liked: "+l.refToCurObject.liked+" disliked: "+l.refToCurObject.disliked);
       let {newLiked, newDisliked, newScore} = getCorrectLikeDislikeAndScore(
-        (action.payload.isLike==true?"liked":"disliked"),
+        (action.payload.isLike===true?NewsFeedUpdateTypes.COMMENT_CARD_LIKE:NewsFeedUpdateTypes.COMMENT_CARD_DISLIKE),
         action.payload.newStatus,
-        (action.payload.isLike==true?l.refToCurObject.disliked : l.refToCurObject.liked),
+        (action.payload.isLike===true?l.refToCurObject.disliked : l.refToCurObject.liked),
         l.refToCurObject.score);
-
+        // console.log("newLiked: "+newLiked+" newDisliked: "+newDisliked+"newScore: "+newScore);
         l.refToCurObject.liked = newLiked;
         l.refToCurObject.disliked = newDisliked;
         l.refToCurObject.score = newScore;

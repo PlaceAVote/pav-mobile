@@ -152,6 +152,7 @@ class Bill extends React.Component {
     alert(photoUrl);
   }
   async onCommentLikeDislikeClick(reaction, commentId, billId, curLikeDislikeEnabled){
+    // alert(" curLikeDislikeEnabled: "+curLikeDislikeEnabled);
     switch(reaction){
       case REACTIONS.HAPPY:
         return await this.props.actions.likeCommentBill(commentId, billId, curLikeDislikeEnabled, this.TOKEN, this.props.global.isDev);

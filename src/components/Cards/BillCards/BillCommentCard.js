@@ -333,6 +333,7 @@ class BillCommentCard extends React.Component {
 
   async onLikeClick(){
     if(this.props.onLikeDislikeClick){
+      // alert("onLikeClick commentid: "+this.props.commentData.commentId+" billId: "+this.props.commentData.billId+" isLiked: "+this.props.commentData.isLiked);
       if(!!this.props.commentData.commentId && !!this.props.commentData.billId && this.props.commentData.isLiked!=null){
         let success = await this.props.onLikeDislikeClick(REACTIONS.HAPPY, this.props.commentData.commentId, this.props.commentData.billId, this.props.commentData.isLiked);
       }
