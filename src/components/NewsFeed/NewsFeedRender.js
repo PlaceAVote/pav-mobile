@@ -260,7 +260,7 @@ class NewsFeedRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    console.log("@ LOADING"+(this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData));
+    // console.log("@ LOADING"+(this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData));
     return(
         <View style={styles.container}>
           <ScrollView

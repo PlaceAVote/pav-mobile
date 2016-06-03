@@ -339,7 +339,7 @@ export function loginFailure(error) {
           password: password
         });
         // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-        // console.log("RES: "+JSON.stringify(res));
+        console.log("RES: "+JSON.stringify(res));
         if(!!res.error){
           if(dev){
             alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");

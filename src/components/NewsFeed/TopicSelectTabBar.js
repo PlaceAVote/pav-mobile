@@ -78,7 +78,9 @@ const ScrollableTabBar = React.createClass({
     if (Platform.OS === 'android') {
       this._scrollView.scrollTo({x: newScrollX, y: 0, });
     } else {
-      const rightBoundScroll = this._tabContainerMeasurements.width - (this._containerMeasurements.width);
+      console.log("this._containerMeasurements: "+JSON.stringify(this._containerMeasurements))
+      let rightBracket = (this._containerMeasurements && this._containerMeasurements.width) || 0;
+      const rightBoundScroll = this._tabContainerMeasurements.width - (rightBracket);
       newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
       this._scrollView.scrollTo({x: newScrollX, y: 0, });
     }
@@ -160,14 +162,17 @@ const ScrollableTabBar = React.createClass({
 
 
 
+// this.props.activeTab==0?{color:Colors.transparentColor,}:{}
+
   renderTabArrow(shouldRender, type){
     if(shouldRender==true && this.state._containerWidth!=null){
       if(type=="left"){
-        return(<TouchableOpacity style={styles.iconContainer} onPress={()=>{
-          this._scrollView.scrollTo({x: 0, y: 0, });
-        }}>
-          <PavIcon key="leftIcon" name="arrow-left" size={15} style={[styles.topicArrowIcon, this.props.activeTab==0?{color:Colors.transparentColor,}:{}]}/>
-        </TouchableOpacity>);
+        return(
+          <TouchableOpacity style={styles.iconContainer} onPress={()=>{
+            this._scrollView.scrollTo({x: 0, y: 0, });
+          }}>
+            <PavIcon key="leftIcon" name="arrow-left" size={15} style={styles.topicArrowIcon}/>
+          </TouchableOpacity>);
       }else if (type=="right"){
         return (<TouchableOpacity style={styles.iconContainer} onPress={()=>{
           if (Platform.OS === 'android') {
@@ -211,7 +216,7 @@ const ScrollableTabBar = React.createClass({
       style={styles.container}
       onLayout={(e)=>this._containerMeasurements = e.nativeEvent.layout}
     >
-      {this.renderTabArrow(this.props.indicatorArrowsEnabled==true, "left")}
+      {this.renderTabArrow(this.props.indicatorArrowsEnabled===true, "left")}
       <ScrollView
         ref={(scrollView) => { this._scrollView = scrollView; }}
         horizontal={true}
@@ -231,7 +236,7 @@ const ScrollableTabBar = React.createClass({
           <Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, ]} />
         </View>
       </ScrollView>
-      {this.renderTabArrow( this.props.indicatorArrowsEnabled==true, "right")}
+      {this.renderTabArrow( this.props.indicatorArrowsEnabled===true, "right")}
     </View>);
   },
 

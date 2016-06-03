@@ -95,9 +95,10 @@ class EmailSignIn extends React.Component {
     this.props.actions.setAuthMethod('email');
     console.log("Sign In btn pressed : EmailSignIn");
     let email = this.props.auth.form.fields.email, password = this.props.auth.form.fields.password;
-    // console.log(" Email "+email+" password: "+password)
+    console.log(" Email "+email+" password: "+password)
     // this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
-    let success = await this.props.actions.login(email, password);
+    let success = await this.props.actions.login(email, password, this.props.global.isDev);
+    console.log("Success: "+success);
     if(success){
       this.props.actions.navigateTo(MAIN);
     }
@@ -127,11 +128,11 @@ class EmailSignIn extends React.Component {
     // console.log("OK: "+JSON.stringify(this.props.navigationState));
     return(
       <EmailSignInRender
-          onForgotPasswordCloseBtnClicked={this.onForgotPasswordCloseBtnClicked}
-          onForgotPasswordNextBtnClicked={this.onForgotPasswordNextBtnClicked}
-          onSignInBtnPress = {this.onSignInBtnPress}
-          onForgotBtnPress = {this.onForgotPasswordBtnPress}
-          onFbBtnPress = {this.onFacebookBtnPress}
+          onForgotPasswordCloseBtnClicked={this.onForgotPasswordCloseBtnClicked.bind(this)}
+          onForgotPasswordNextBtnClicked={this.onForgotPasswordNextBtnClicked.bind(this)}
+          onSignInBtnPress = {this.onSignInBtnPress.bind(this)}
+          onForgotBtnPress = {this.onForgotPasswordBtnPress.bind(this)}
+          onFbBtnPress = {this.onFacebookBtnPress.bind(this)}
           auth={ this.props.auth }
           global={ this.props.global }
           forgotPasswordModalOpen = {this.props.router.modalIsOpen.get(FORGOT_PASSWORD)}
