@@ -19,9 +19,11 @@ import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import PavImage from '../../lib/UI/PavImage'
+import PavSpinner from '../../lib/UI/PavSpinner'
+
 import SubcommentContainerListCard from '../Cards/BillCards/SubcommentContainerListCard';
 import {List} from 'immutable';
-import ProgressBar from 'ProgressBarAndroid';
+
 
 
 
@@ -194,22 +196,7 @@ class CommentsRender extends React.Component {
         </View>
       );
     }else{
-      if(this.props.device.platform=="android"){
-          return (
-          <View key="bill_render_body" style={styles.spinnerContainer}>
-            <ProgressBar styleAttr="Large" color="red" />
-          </View>);
-      }else if(this.props.device.platform=="ios"){
-          return (
-            <View key="bill_render_body" style={styles.spinnerContainer}>
-              <ActivityIndicatorIOS
-                animating={true}
-                size="large"
-              />
-            </View>);
-      }else{
-        return <View key="bill_render_body" style={styles.spinnerContainer}><Text>Now Loading</Text></View>;
-      }
+      return <PavSpinner/>
     }
 
 

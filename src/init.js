@@ -92,9 +92,17 @@ function getInitialState() {
 */
 export default class PlaceAVote extends React.Component {
 
+
+    constructor(props){
+      super(props)
+      this.state={tokenExists:false};
+    }
+    componentWillMount(){
+      //TODO: Find if token exists in disk programmatically
+      this.setState(tokenExists:true)
+    }
+
     render() {
-
-
       const store = configureStore(getInitialState());
 
       //Connect w/ the Router
@@ -107,10 +115,9 @@ export default class PlaceAVote extends React.Component {
       store.dispatch(setStore(store));
       store.dispatch(setEnvironmentIsDev(CONFIG.MOCK_TOKEN===true?CONFIG.ENVIRONMENT_IS_DEV:false))
 
-
       return (
         <Provider store={store}>
-          <Routes router={RouterWithRedux}/>
+          <Routes tokenExistsInDisk={this.state.tokenExists} router={RouterWithRedux}/>
         </Provider>
       );
     }

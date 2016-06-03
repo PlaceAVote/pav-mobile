@@ -19,37 +19,33 @@ class PavImage extends React.Component {
    */
   render() {
     let children = this.props.children || <View></View>;
-    if(this.props.platform=="ios" && (!!this.props.source && this.props.source.uri!=null)){
+    if((!!this.props.source && this.props.source.uri!=null) || !!this.props.defaultSource){
+      if(this.props.loadingSpinnerEnabled!==false){
+        let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
+        let indicator = this.props.indicator || Progress.CircleSnail;
         return (
           <LImage {...this.props}
-          indicator={Progress.CircleSnail}
-          indicatorProps={{
-            color:Colors.primaryColor
-          }}
+          indicator={indicator}
+          indicatorProps={indicatorProps}
           >
           {children}
           </LImage>
         );
-    }else{
-      return (
-        <Image {...this.props}>
+      }else{
+        return (
+          <Image {...this.props}>
           {children}
-        </Image>
-      );
+          </Image>
+        );
+      }
+
+    }else{
+      return <View></View>;
     }
   }
 }
-
-
-
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
-
 PavImage.propTypes= {
-  platform: React.PropTypes.string.isRequired,
   children: React.PropTypes.element,
+  loadingSpinnerEnabled:React.PropTypes.bool
 };
-// PavImage.defaultProps = { device: {platform: 'ios'} };
-
-
 export default PavImage;

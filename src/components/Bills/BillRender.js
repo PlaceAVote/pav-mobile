@@ -31,8 +31,7 @@ import {Colors, ScheneKeys, Other} from '../../config/constants';
 
 const {SOCIAL_TYPES} = Other;
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, ActivityIndicatorIOS, Platform} from 'react-native';
-import ProgressBar from 'ProgressBarAndroid';
+import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -41,7 +40,7 @@ const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in cu
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
-
+import PavSpinner from '../../lib/UI/PavSpinner'
 
 
 
@@ -478,22 +477,7 @@ class BillRender extends React.Component {
 
      </ScrollableTabView>);
    }else{
-     if(this.props.device.platform=="android"){
-         return (
-         <View key="bill_render_body" style={styles.spinnerContainer}>
-           <ProgressBar styleAttr="Large" color={Colors.primaryColor} />
-         </View>);
-     }else if(this.props.device.platform=="ios"){
-         return (
-           <View key="bill_render_body" style={styles.spinnerContainer}>
-             <ActivityIndicatorIOS
-               animating={true}
-               size="large"
-             />
-           </View>);
-     }else{
-       return <View key="bill_render_body" style={styles.spinnerContainer}><Text>Now Loading</Text></View>;
-     }
+     return <PavSpinner key="bill_render_body" />;
    }
   }
 

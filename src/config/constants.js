@@ -32,6 +32,7 @@ module.exports =  {
   }),
 
   ScheneKeys: keyMirror({
+    SPLASH_SCREEN:null,
     ONBOARDING: null,
     LOGIN: null,
     REGISTER_STEP_1: null,
@@ -39,7 +40,7 @@ module.exports =  {
     REGISTER_STEP_3: null,
     REGISTER_STEP_4: null,
     TOPIC_PICK: null,
-    MAIN: null,
+    MAIN: "_MAIN",
     TAB_NEWS: null,
     TAB_NOTIFS: null,
     TAB_PROFILE: null,

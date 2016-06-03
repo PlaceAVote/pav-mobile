@@ -32,7 +32,6 @@ import {Map} from 'immutable';
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
 
-import ProgressBar from 'ProgressBarAndroid';
 
 import moment from 'moment'
 
@@ -58,8 +57,6 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 * Icons library
 */
 
-import LImage from 'react-native-image-progress';
-import * as Progress from 'react-native-progress';
 
 
 import ActivityFeedRender from './ActivityFeedRender';
