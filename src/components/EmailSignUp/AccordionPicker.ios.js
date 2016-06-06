@@ -69,7 +69,7 @@
                 }
                 >
                   <View style={styles.container}>
-                    {t.form.Form.templates.datepicker({...locals, date: locals.value, mode:'date', onChange:(e)=>{console.log("On date change: "+e)}, minimumDate:moment([1920, 0, 1]).toDate(), maximumDate: moment().toDate() }) }
+                    {t.form.Form.templates.datepicker({...locals, date: locals.value, mode:'date', minimumDate:moment([1920, 0, 1]).toDate(), maximumDate: moment().toDate() }) }
                   </View>
                 </Collapsible>
               </View>

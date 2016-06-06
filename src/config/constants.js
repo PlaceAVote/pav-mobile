@@ -60,8 +60,11 @@ module.exports =  {
     COMMENT_CARD_LIKE: null,
     COMMENT_CARD_DISLIKE: null,
   }),
-  Other: {
+  StorageKeys:{
     SESSION_TOKEN_STORAGE_KEY: "token",
+    USER_INFO_STORAGE_KEY: "userInfo",
+  },
+  Other: {
     NEWS_FEED_FILTERS:{
       ALL_ACTIVITY_FILTER:'All activity ',
       FOLLOWING_ACTIVITY_FILTER:'Following ',

@@ -1,5 +1,5 @@
 /**
- * # AppAuthToken.js
+ * # AppAuthTokenStoreStore.js
  *
  * A thin wrapper over the react-native-simple-store
  *
@@ -11,17 +11,17 @@
  * Redux  & the config file
  */
 import store from 'react-native-simple-store';
-import {Other} from '../../config/constants';
+import {StorageKeys} from '../../config/constants';
 
 
-export default class AppAuthToken {
+export default class AppAuthTokenStoreStore {
   /**
-   * ## AppAuthToken
+   * ## AppAuthTokenStoreStore
    *
    * set the key from the config
    */
   constructor () {
-    this.SESSION_TOKEN_STORAGE_KEY = Other.SESSION_TOKEN_STORAGE_KEY;
+    this.SESSION_TOKEN_STORAGE_KEY = StorageKeys.SESSION_TOKEN_STORAGE_KEY;
   }
 
   /**

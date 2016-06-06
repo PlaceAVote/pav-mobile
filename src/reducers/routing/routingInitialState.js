@@ -15,7 +15,7 @@
 import {ScheneKeys, Modals} from '../../config/constants';
 import {Record, Map} from 'immutable';
 const {
-  ONBOARDING,
+  SPLASH_SCREEN,
   ACCOUNT_SETTINGS
 } = ScheneKeys;
 const {
@@ -29,7 +29,7 @@ const {
  * The form is set
  */
 const Router = new Record({
-  currentSchene: ONBOARDING,
+  currentSchene: SPLASH_SCREEN,
   previousSchene: null,
   modalIsOpen: new Map([
     [FORGOT_PASSWORD, false],

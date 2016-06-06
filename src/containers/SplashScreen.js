@@ -59,25 +59,25 @@ function mapDispatchToProps(dispatch) {
 
 class SplashScreen extends React.Component{
 
-  componentWillMount(){
-    let isValid = this.validateTokenIfExists();
-    if(isValid===true){
-      this.loginAndNavigateToMain();
+  async componentWillMount(){
+    let isValid = await this.props.actions.validateToken("dawd", this.props.global.isDev);
+    if(isValid!=null){
+      console.log("Old token found, and is VALID.");
+      this.navigateToMain();
     }else{
+      console.log("No valid token was found.");
       this.navigateToLogin();
     }
   }
 
-  validateTokenIfExists(){
 
-  }
 
   navigateToLogin(){
-
+    this.props.actions.navigateTo(ONBOARDING);
   }
 
-  loginAndNavigateToMain(){
-
+  navigateToMain(){
+    this.props.actions.navigateTo(MAIN);
   }
 
 

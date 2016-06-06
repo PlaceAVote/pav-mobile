@@ -12,9 +12,9 @@
 
 
 /**
- * AppAuthToken for localStorage sessionToken access
+ * AppAuthTokenStore for localStorage sessionToken access
  */
-import AppAuthToken from '../../lib/Storage/AppAuthToken';
+import AppAuthTokenStore from '../../lib/Storage/AppAuthTokenStore';
 import PavClientSdk from 'pavclient';
 // import {setUserData} from '../auth/authActions'
 
@@ -155,7 +155,7 @@ export function getFeedItems(sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -220,7 +220,7 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -300,7 +300,7 @@ export function reactToIssueItem(issueId, reaction, sessionToken=null, dev = nul
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -364,7 +364,7 @@ export function deleteReactionFromIssueItem(issueId, oldReaction, sessionToken=n
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -425,7 +425,7 @@ export function likeCommentFeed(commentId, billId, isLiked, sessionToken=null, d
     //store or get a sessionToken
     let token = sessionToken;
     try{
-      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.likeCommentFeed() with error: "+e.message);
@@ -479,7 +479,7 @@ export function dislikeCommentFeed(commentId, billId, isDisliked, sessionToken=n
     //store or get a sessionToken
     let token = sessionToken;
     try{
-      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.dislikeCommentFeed() with error: "+e.message);

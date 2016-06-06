@@ -7,7 +7,7 @@
   React and React native imports
 */
 import React from 'react';
-import {Navigator, View, Image, Text, TouchableOpacity, Platform} from 'react-native';
+import {Platform, DatePickerIOS} from 'react-native';
 
 
 
@@ -56,6 +56,15 @@ import globalInitialState from './reducers/global/globalInitialState';
 import profileInitialState from './reducers/profile/profileInitialState';
 import routerInitialState from './reducers/routing/routingInitialState';
 import newsfeedInitialState from './reducers/newsfeed/newsfeedInitialState';
+
+
+/*
+  Avoiding invalid rn 26 warnings
+*/
+DatePickerIOS.propTypes.date = React.PropTypes.any.isRequired;
+DatePickerIOS.propTypes.onDateChange = React.PropTypes.func;
+DatePickerIOS.propTypes.maximumDate = React.PropTypes.any;
+DatePickerIOS.propTypes.minimumDate = React.PropTypes.any;
 
 
 /**

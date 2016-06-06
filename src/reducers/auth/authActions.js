@@ -16,7 +16,9 @@ import PavClientSdk from 'pavclient';
 import {setModalVisibility, navigateTo} from '../routing/routingActions'
 import {Actions} from 'react-native-router-flux';
 
-import AppAuthToken from '../../lib/Storage/AppAuthToken';
+import AppAuthTokenStore from '../../lib/Storage/AppAuthTokenStore';
+import UserInfoStore from '../../lib/Storage/UserInfoStore';
+
 
 import _ from 'underscore';
 
@@ -37,6 +39,10 @@ import _ from 'underscore';
 
    DELETE_TOKEN_REQUEST,
    DELETE_TOKEN_SUCCESS,
+
+   TOKEN_VALIDATE_REQUEST,
+   TOKEN_VALIDATE_SUCCESS,
+   TOKEN_VALIDATE_FAILURE,
 
    LOGOUT_REQUEST,
    LOGOUT_SUCCESS,
@@ -135,7 +141,7 @@ const {
 // export function logout() {
 //   return dispatch => {
 //     dispatch(logoutRequest());
-//     return new AppAuthToken().getOrReplaceSessionToken()
+//     return new AppAuthTokenStore().getOrReplaceSessionToken()
 //
 //       .then((token) => {
 //         return PavClientSdk(token).logout();
@@ -155,6 +161,83 @@ const {
 //       });
 //   };
 // }
+
+
+
+
+
+/**
+ * ## Signup actions
+ */
+export function validateTokenRequest() {
+  return {
+    type: TOKEN_VALIDATE_REQUEST
+  };
+}
+export function validateTokenSuccess(json) {
+  return {
+    type: TOKEN_VALIDATE_SUCCESS,
+    payload: json
+  };
+}
+export function validateTokenFailure(error) {
+  return {
+    type: TOKEN_VALIDATE_FAILURE,
+    payload: error
+  };
+}
+export function validateToken(sessionToken=null, dev = null) {
+  return async function(dispatch){
+    dispatch(validateTokenRequest());
+
+
+    let tok = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+          tok = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in authActions.validateToken() with error: "+e.message);
+      dispatch(validateTokenFailure("No past token exists."));
+      return null;
+    }
+
+    var res = await PavClientSdk({isDev:dev}).userApi.validateToken({
+      token: tok,
+    });
+    // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      if(res.multipleErrors){
+        dispatch(validateTokenFailure(res.error[0].email));
+        // alert(res.error[0].email);
+        return null;
+      }else{
+        // console.log("authActions.login :: Error msg: "+res.error)
+        dispatch(validateTokenFailure(res.error));
+        return null;
+      }
+    }else{
+      dispatch(validateTokenSuccess(res.data));
+      // dispatch(loginSuccess(res.data));
+      return res.data;
+    }
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -227,7 +310,7 @@ export function signupFailure(error) {
  * @param {string} password - user's password
  * @param {string} first_name - user's first_name
  * @param {string} last_name - user's last_name
- * @param {string} dayOfBirth - user's day of birth
+ * @param {string} dayOfBirth - user's day of birth (timestamp)
  * @param {string} zipcode - user's zipcode
  * @param {string} topics - user's topics of interest (array of strings)
  * @param {string} gender - user's gender
@@ -236,15 +319,15 @@ export function signupFailure(error) {
  *
  * Otherwise, dispatch the error so the user can see
  */
-export function signup(email, password, first_name, last_name, dayOfBirth, zipcode, topics, gender) {
+export function signup(email, password, first_name, last_name, dayOfBirth, zipcode, topics, gender, isDev=null) {
   return async function (dispatch){
     dispatch(signupRequest());
-    var res = await PavClientSdk().userApi.signup({
+    var res = await PavClientSdk({isDev:dev}).userApi.signup({
         "email": email,
         "password": password,
         "first_name": first_name,
         "last_name": last_name,
-        "dob": dayOfBirth,
+        "dob": dayOfBirth.format("x"),
         "zipcode": zipcode,
         "topics": topics,
         "gender": gender
@@ -260,7 +343,11 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
       }
     }else{
       // console.log("Signup success");
-      saveSessionToken(res.data.token)
+      saveSessionTokenAndBasicInfo(res.data.token, {
+        user_id: res.data.user_id,
+        city: res.data.city || "",
+        first_name: first_name
+      })
       dispatch(signupSuccess(Object.assign({}, res.data,
   			{
   			  email: email,
@@ -339,7 +426,7 @@ export function loginFailure(error) {
           password: password
         });
         // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-        console.log("RES: "+JSON.stringify(res));
+        // console.log("RES: "+JSON.stringify(res));
         if(!!res.error){
           if(dev){
             alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
@@ -358,7 +445,11 @@ export function loginFailure(error) {
             alert("Good that was right, the cake was a lie though..");
           }
           // console.log("Login gave us the token"+res.data.token);
-          saveSessionToken(res.data.token)
+          saveSessionTokenAndBasicInfo(res.data.token, {
+            user_id: res.data.user_id,
+            city: res.data.city,
+            first_name: res.data.first_name
+          })
           dispatch(loginSuccess(res.data));
           return res.data;
         }
@@ -402,16 +493,16 @@ export function facebookLoginFailure(error) {
   };
 }
 
-export function loginFacebook(facebookUserId,  facebookAccessToken) {
+export function loginFacebook(facebookUserId,  facebookAccessToken, isDev=null) {
   return async function(dispatch){
     dispatch(facebookLoginRequest());
 
-    var res = await PavClientSdk().userApi.loginFacebook({
+    var res = await PavClientSdk({isDev:dev}).userApi.loginFacebook({
       fbUserId: facebookUserId,
       fbAccessToken: facebookAccessToken
     });
     // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-    // console.log("RES: "+JSON.stringify(res));
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       if(res.multipleErrors){
         // console.log("authActions.login :: Error msg: "+res.error[0].email)
@@ -427,7 +518,11 @@ export function loginFacebook(facebookUserId,  facebookAccessToken) {
     }else{
       alert("Good that was right, the cake was a lie though..");
       // console.log(res.data.token);
-      saveSessionToken(res.data.token)
+      saveSessionTokenAndBasicInfo(res.data.token, {
+        user_id: res.data.user_id,
+        city: res.data.city,
+        first_name: res.data.first_name
+      });
       dispatch(facebookLoginSuccess(res.data));
       return res.data;
       //TODO: Perhaps navigate to the newsfeed screen now?
@@ -468,11 +563,11 @@ export function forgotPasswordFailure() {
  * @param {string} email - user's email
  *
  */
-  export function forgotPassword(email) {
+  export function forgotPassword(email, isDev=null) {
     return async function(dispatch){
       dispatch(forgotPasswordRequest());
 
-      var res = await PavClientSdk().userApi.forgotPassword({
+      var res = await PavClientSdk({isDev:dev}).userApi.forgotPassword({
         email: email
       });
       // console.log("Got res in authActions.forgotPassword with error: "+res.error+" and data: "+res.data);
@@ -539,16 +634,16 @@ export function facebookSignupFailure(error) {
  * @param {string} email - user's email
  * @param {string} firstName - user's first_name
  * @param {string} lastName - user's last_name
- * @param {string} dayOfBirth - user's day of birth
+ * @param {string} dayOfBirth - user's day of birth (timestamp)
  * @param {string} zipCode - user's zipcode
  * @param {string} topics - user's topics of interest (array of strings)
  * @param {string} gender - user's gender
  *
  */
- export function signupFacebook(fbUserId, fbUserToken, imgUrl, email, firstName, lastName, dayOfBirth, zipCode, topics, gender) {
+ export function signupFacebook(fbUserId, fbUserToken, imgUrl, email, firstName, lastName, dayOfBirth, zipCode, topics, gender, isDev=null) {
    return async function (dispatch){
      dispatch(facebookSignupRequest());
-     var res = await PavClientSdk().userApi.signupFacebook({
+     var res = await PavClientSdk({isDev:dev}).userApi.signupFacebook({
          "fbUserId": fbUserId,
          "fbToken": fbUserToken,
          "fbImgUrl": imgUrl,
@@ -560,7 +655,7 @@ export function facebookSignupFailure(error) {
          "topics": topics,
          "gender": gender
        });
-    //  console.log("RES: "+JSON.stringify(res));
+     console.log("RES: "+JSON.stringify(res));
      let curUser = null;
      if(!!res.error){
        if(res.multipleErrors){
@@ -574,7 +669,11 @@ export function facebookSignupFailure(error) {
        }
      }else{
        // console.log("Signup success");
-       saveSessionToken(res.data.token)
+       saveSessionTokenAndBasicInfo(res.data.token, {
+         user_id: res.data.user_id,
+         city: res.data.city || "",
+         first_name: firstName
+       })
         curUser = Object.assign({}, res.data,
    			{
    			    email: email,
@@ -628,10 +727,10 @@ export function facebookSignupFailure(error) {
   * @param {string} email - user's email to validate
   *
   */
-export function validateUserEmail(emailToValidate){
+export function validateUserEmail(emailToValidate, isDev=null){
   return async function (dispatch){
     dispatch(validateRequest());
-    var res = await PavClientSdk().userApi.validate({
+    var res = await PavClientSdk({isDev:dev}).userApi.validate({
       email: emailToValidate
     });
     // console.log("RES: "+JSON.stringify(res));
@@ -707,7 +806,7 @@ export function facebookDataAcquisition(fetchAllAvailableUserData = true){
                 fbUserData.picUrl = userData.picture.data.url || null;
                 fbUserData.gender = userData.gender || null;
                 fbUserData.email = userData.email || null;
-                fbUserData.dob = parseFbBirthday(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
+                fbUserData.dob = parseFbBirthdayToUnixTimestamp(userData.birthday) || null; // facebook returns either MM/DD/YYYY, MM/DD, or YYYY so we have to convert it to DD/MM/YYYY
                 // console.log("Done gathering user data: "+JSON.stringify(fbUserData));
                 dispatch(facebookDataAcqSuccess(fbUserData));
                 return fbUserData;
@@ -740,14 +839,14 @@ export function facebookDataAcquisition(fetchAllAvailableUserData = true){
 *   - same as input , OR
 *   - null
 */
-function parseFbBirthday(birthdayString){
+function parseFbBirthdayToUnixTimestamp(birthdayString){
   if(!!birthdayString){
     if(birthdayString.length==10){ // full date MM/DD/YYYY
-      return moment(birthdayString, 'MM/DD/YYYY').toDate();
+      return moment(birthdayString, 'MM/DD/YYYY').format("x");
     }else if(birthdayString.length==4){  //year only YYYY
-      return moment(birthdayString, 'YYYY').toDate();
+      return moment(birthdayString, 'YYYY').format("x");
     }else if(birthdayString.length==5){  //no year MM/DD
-      return moment(birthdayString, 'MM/DD').toDate();
+      return moment(birthdayString, 'MM/DD').format("x");
     }
   }else{
     // console.log("No birthday received from fb graph.");
@@ -760,7 +859,7 @@ function parseFbBirthday(birthdayString){
  async function getFacebookReadPermissions(readPermissions){
      let res = {
        data:null,
-       error: null
+       error
      };
      try{
        res.data = await LoginManager.logInWithReadPermissions(readPermissions);
@@ -772,7 +871,7 @@ function parseFbBirthday(birthdayString){
  async function getFacebookTokenAndUserId(){
      let res = {
        data:null,
-       error: null
+       error
      };
      try{
        res.data = await AccessToken.getCurrentAccessToken();
@@ -847,12 +946,12 @@ function parseFbBirthday(birthdayString){
 // /**
 //  * ## Delete session token
 //  *
-//  * Call the AppAuthToken deleteSessionToken
+//  * Call the AppAuthTokenStore deleteSessionToken
 //  */
 // export function deleteSessionToken() {
 //   return dispatch => {
 //     dispatch(deleteTokenRequest());
-//     return new  AppAuthToken().deleteSessionToken()
+//     return new  AppAuthTokenStore().deleteSessionToken()
 //       .then(() => {
 //         dispatch(deleteTokenRequestSuccess());
 //       });
@@ -860,14 +959,14 @@ function parseFbBirthday(birthdayString){
 // }
 // /**
 //  * ## Token
-//  * If AppAuthToken has the sessionToken, the user is logged in
+//  * If AppAuthTokenStore has the sessionToken, the user is logged in
 //  * so set the state to logout.
 //  * Otherwise, the user will default to the login in screen.
 //  */
 // export function getOrReplaceSessionToken() {
 //   return dispatch => {
 //     dispatch(sessionTokenRequest());
-//     return new AppAuthToken().getOrReplaceSessionToken()
+//     return new AppAuthTokenStore().getOrReplaceSessionToken()
 //
 //       .then((token) => {
 //         if (token) {
@@ -889,10 +988,15 @@ function parseFbBirthday(birthdayString){
 // }
 
 /**
- * ## saveSessionToken
- * @param {Object} response - to return to keep the promise chain
- * @param {Object} json - object with sessionToken
+ * ## saveSessionTokenAndBasicInfo
+ * @param {Object} token - Our session token
+ * @param {Object} basicInfo - An object that contains basic user info such as user_id, city, first_name
  */
-export function saveSessionToken(token) {
-  return new AppAuthToken().storeSessionToken(token);
+export function saveSessionTokenAndBasicInfo(token, basicInfo=null) {
+
+  if(basicInfo!=null){
+    console.log("NOW saving session token with basic info: "+JSON.stringify(basicInfo))
+    new UserInfoStore().storeUserInfo(basicInfo);
+  }
+  return new AppAuthTokenStore().storeSessionToken(token);
 }

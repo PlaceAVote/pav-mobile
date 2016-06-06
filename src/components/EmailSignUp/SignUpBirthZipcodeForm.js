@@ -56,7 +56,7 @@ var SignUpBirthZipcodeForm = React.createClass({
 
 
   onZipCodeFinishedEditing(){
-    if(this.props.form.isValid.get(REGISTER_STEP_4) && !this.props.form.isFetching){
+    if(this.props.zipCodeIsValid && !this.props.isFetching){
         this.props.onNext();
     }
   },
@@ -206,7 +206,7 @@ var SignUpBirthZipcodeForm = React.createClass({
         //   label: 'Birthdate',
         //   maxLength: 10,
         //   editable: true,
-        //   hasError: this.props.form.fields.dateOfBirthIsCurBeingPicked,
+        //   hasError: this.props.birthdayBeingPicked
         //   error: 'Please give us a valid birthdate DD/MM/YYYY',
         //   placeholder: '14/11/1955'
         // },
@@ -217,7 +217,7 @@ var SignUpBirthZipcodeForm = React.createClass({
                 return moment(value).format('Do MMMM YYYY');
               },
               currentOs: this.props.currentOs,
-              dateBeingPickedNow:this.props.form.fields.dateOfBirthIsCurBeingPicked,
+              dateBeingPickedNow:this.props.birthdayBeingPicked,
               onCollapsedChange: (isNowCollapsed)=>{
                 this.props.onChange({dateOfBirthIsCurBeingPicked: !isNowCollapsed})
               }
@@ -227,8 +227,8 @@ var SignUpBirthZipcodeForm = React.createClass({
         zipCode : {
           label: 'Zip code',
           maxLength: 10,
-          editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.zipCodeHasError,
+          editable: !this.props.isFetching,
+          hasError: this.props.zipCodeHasError,
           error: 'Please provide us with your 5 digit US zip code.',
           placeholder: 'i.e: 20001',
           returnKeyType: 'next',
@@ -242,22 +242,6 @@ var SignUpBirthZipcodeForm = React.createClass({
       }
     };
 
-
-    // var Password = t.refinement(t.String, s => !this.props.form.fields.passwordHasError);
-    // var PasswordAgain = t.refinement(t.String, s => !this.props.form.fields.passwordAgainHasError);
-    //
-    //
-    // Password.getValidationErrorMessage=(value, path, context)=>{
-    //     return "The password should be 3-12 characters.";
-    // };
-    // PasswordAgain.getValidationErrorMessage=(value, path, context)=>{
-    //   // if(this.props.form.fields.passwordHasError){
-    //   //   return "";
-    //   // }else{
-    //   //   return "The passwordAgain should be 4-20 characters.";
-    //   // }
-    //   return "The passwordAgain should be 4-20 characters.";
-    // };
 
 
     let dateZipcodeForm = t.struct({

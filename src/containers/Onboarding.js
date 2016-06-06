@@ -113,9 +113,9 @@ class Onboarding extends React.Component{
           auth={ this.props.auth }
           global={ this.props.global }
           device={ this.props.device}
-          onSignUpBtnPress={ this.onSignUpBtnPressed }
-          onSignUpFacebookBtnPress={ this.onFacebookBtnPressed }
-          onSignInBtnPress={ this.onSignInBtnPressed }
+          onSignUpBtnPress={ this.onSignUpBtnPressed.bind(this) }
+          onSignUpFacebookBtnPress={ this.onFacebookBtnPressed.bind(this) }
+          onSignInBtnPress={ this.onSignInBtnPressed.bind(this) }
       />
 
     );

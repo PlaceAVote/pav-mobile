@@ -31,7 +31,7 @@
 
             return (
                 <View style={styles.container}>
-                  {t.form.Form.templates.datepicker({...locals, date: locals.value, mode:'date', onDateChange:(e)=>{console.log("On date change: "+e) }}) }
+                  {t.form.Form.templates.datepicker({...locals, date: locals.value, mode:'date'}) }
                   <Text style={styles.tapToChangeText}>(Tap on date to change)</Text>
                 </View>
 

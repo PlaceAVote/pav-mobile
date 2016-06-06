@@ -14,8 +14,8 @@ import InitialState from './authInitialState';
 import fieldValidation from '../../lib/Utils/fieldValidation';
 import {formValidation, arrayContainsObject} from './authFormValidation';
 import {ActionNames, ScheneKeys} from '../../config/constants';
-
-import {List} from 'immutable'
+import moment from 'moment';
+import {List} from 'immutable';
 
 /**
  * ## Auth actions
@@ -27,6 +27,10 @@ const {
 
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
+
+  TOKEN_VALIDATE_REQUEST,
+  TOKEN_VALIDATE_SUCCESS,
+  TOKEN_VALIDATE_FAILURE,
 
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
@@ -105,6 +109,21 @@ export default function authReducer(state = initialState, action) {
 
   switch (action.type) {
 
+  case TOKEN_VALIDATE_REQUEST:
+    return state.setIn(['form', 'isFetching'], true)
+      .setIn(['form','error'],null);
+  case TOKEN_VALIDATE_SUCCESS:
+    return state.setIn(['form', 'isFetching'], false)
+      .setIn(['form','error'],null)
+      .setIn(['user', 'isLoggedIn'], true)
+      // .setIn(['user', 'id'], action.payload.user_id)
+      // .setIn(['user', 'firstName'], action.payload.first_name)
+      // .setIn(['user', 'city'], action.payload.city)
+  case TOKEN_VALIDATE_FAILURE:
+    return state.setIn(['form', 'isFetching'], false)
+      .setIn(['form','error'],null);
+
+
     /**
      * ### Requests start
      * set the form to fetching and clear any errors
@@ -117,7 +136,6 @@ export default function authReducer(state = initialState, action) {
   case FORGOT_PASSWORD_REQUEST:
     return state.setIn(['form', 'isFetching'], true)
       .setIn(['form','error'],null);
-     nextState;
   case SIGNUP_REQUEST:
     return state.setIn(['form', 'isFetching'], true)
     .setIn(['form','error'], null)
@@ -215,7 +233,7 @@ export default function authReducer(state = initialState, action) {
     .setIn(['user', 'countryCode'], dt.country_code)
     .setIn(['user', 'createdAt'], dt.created_at)
     .setIn(['user', 'district'], dt.district)
-    .setIn(['user', 'birthday'], dt.dob || new Date())
+    .setIn(['user', 'birthday'], dt.dob || moment())
     .setIn(['user', 'firstName'], dt.first_name)
     .setIn(['user', 'lastName'], dt.last_name)
     .setIn(['user', 'gender'], dt.gender || 'they')
@@ -240,7 +258,7 @@ export default function authReducer(state = initialState, action) {
           .setIn(['form','fields','name'],firstName || '')
           .setIn(['form','fields','surname'],lastName || '')
           .setIn(['form','fields','email'],email || '')
-          .setIn(['form','fields','dateOfBirth'],dob || new Date())
+          .setIn(['form','fields','dateOfBirth'],dob || moment())
           .setIn(['form','fields','gender'],gender || 'they')
           .setIn(['form', 'fields', 'fbAuthUID'], userID || '')
           .setIn(['form', 'fields', 'fbAuthToken'], accessToken || '')

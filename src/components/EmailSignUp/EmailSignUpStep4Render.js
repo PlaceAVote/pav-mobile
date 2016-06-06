@@ -40,7 +40,7 @@ import ErrorAlert from '../../components/ErrorAlert';
  * textinput and displays the error messages
  */
 import SignUpBirthZipcodeForm from './SignUpBirthZipcodeForm';
-
+import moment from 'moment';
 import {Colors, ScheneKeys} from '../../config/constants';
 
 /**
@@ -206,7 +206,7 @@ class EmailSignUpStep4Render extends React.Component {
     this.errorAlert = new ErrorAlert();
     this.state ={
       value: {
-        dateOfBirth: this.props.auth.form.fields.dateOfBirth,
+        dateOfBirth: this.props.auth.form.fields.dateOfBirth.toDate(),
       	zipCode: this.props.auth.form.fields.zipCode
       }
     };
@@ -219,7 +219,7 @@ class EmailSignUpStep4Render extends React.Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	dateOfBirth: nextprops.auth.form.fields.dateOfBirth,
+      	dateOfBirth: nextprops.auth.form.fields.dateOfBirth.toDate(),
       	zipCode: nextprops.auth.form.fields.zipCode
       }
     });
@@ -238,8 +238,8 @@ class EmailSignUpStep4Render extends React.Component {
 
     // console.log("Changed"+JSON.stringify(value));
     if (value.dateOfBirth != ''&& value.dateOfBirth != undefined) {
-      // console.log("DATE value about to change to: "+value.dateOfBirth);
-      this.props.actions.onAuthFormFieldChange('dateOfBirth',value.dateOfBirth, REGISTER_STEP_4);
+      console.log("DATE value about to change to: "+value.dateOfBirth+ " is now: "+moment(value.dateOfBirth));
+      this.props.actions.onAuthFormFieldChange('dateOfBirth',moment(value.dateOfBirth), REGISTER_STEP_4);
     }
     if (value.zipCode != '' && value.zipCode != undefined ) {
       this.props.actions.onAuthFormFieldChange('zipCode',value.zipCode, REGISTER_STEP_4);
@@ -315,6 +315,10 @@ class EmailSignUpStep4Render extends React.Component {
                 <View  style={styles.formContainer}>
                   <SignUpBirthZipcodeForm
                     form={this.props.auth.form}
+                    birthdayBeingPicked={this.props.auth.form.fields.dateOfBirthIsCurBeingPicked}
+                    isFetching={this.props.auth.form.isFetching}
+                    zipCodeHasError={this.props.auth.form.fields.zipCodeHasError}
+                    zipCodeIsValid={this.props.auth.form.isValid.get(REGISTER_STEP_4)}
                     value={this.state.value}
                     currentOs={this.props.device.platform}
                     onChange={this.onChange.bind(this)}
@@ -334,8 +338,27 @@ class EmailSignUpStep4Render extends React.Component {
       </View>
     );
   }
-  shouldComponentUpdate(nextProps) {
-    return (nextProps.auth.user.isLoggedIn===false);
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextProps.auth.user.isLoggedIn===false) && (
+      (nextProps.auth.form != this.props.auth.form)
+      ||
+      (nextState.value.dateOfBirth != this.state.value.dateOfBirth)
+      ||
+      (nextState.value.zipCode != this.state.value.zipCode)
+      // ||
+      // (nextProps.auth.form != this.props.auth.form)
+      ||
+      (nextProps.auth.form.fields.dateOfBirthIsCurBeingPicked != this.props.auth.form.fields.dateOfBirthIsCurBeingPicked)
+      ||
+      (nextProps.auth.form.isFetching != this.props.auth.form.isFetching)
+      ||
+      (nextProps.auth.form.fields.zipCodeHasError != this.props.auth.form.fields.zipCodeHasError)
+      ||
+      (nextProps.auth.form.isValid.get(REGISTER_STEP_4) != this.props.auth.form.isValid.get(REGISTER_STEP_4))
+
+
+
+    );
   }
 }
 //isDisabled={this.props.isDisabled}

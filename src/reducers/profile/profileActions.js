@@ -12,9 +12,9 @@
 import {ActionNames, ScheneKeys} from '../../config/constants';
 
 /**
- * AppAuthToken for localStorage sessionToken access
+ * AppAuthTokenStore for localStorage sessionToken access
  */
-import AppAuthToken from '../../lib/Storage/AppAuthToken';
+import AppAuthTokenStore from '../../lib/Storage/AppAuthTokenStore';
 import PavClientSdk from 'pavclient';
 import {setUserData} from '../auth/authActions'
 
@@ -82,7 +82,7 @@ export function getProfile(userId = null, dev = null, sessionToken=null) {
     let token = sessionToken;
     try{
       if(!sessionToken){
-        let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+        let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
         token = tk.sessionToken;
       }
     }catch(e){
@@ -158,7 +158,7 @@ export function getTimeline(userId = null, dev = null, sessionToken=null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -227,7 +227,7 @@ export function followUser(userId = null, dev = null, sessionToken=null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){
@@ -291,7 +291,7 @@ export function unfollowUser(userId = null, dev = null, sessionToken=null) {
     let token = sessionToken;
     try{
         if(!sessionToken){
-          let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
           token = tk.sessionToken;
         }
     }catch(e){

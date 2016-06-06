@@ -12,9 +12,9 @@
 
 
 /**
- * AppAuthToken for localStorage sessionToken access
+ * AppAuthTokenStore for localStorage sessionToken access
  */
-import AppAuthToken from '../../lib/Storage/AppAuthToken';
+import AppAuthTokenStore from '../../lib/Storage/AppAuthTokenStore';
 import PavClientSdk from 'pavclient';
 // import {setUserData} from '../auth/authActions'
 
@@ -97,7 +97,7 @@ export function getBill(billId, sessionToken=null, dev = null) {
     //store or get a sessionToken
     let token = sessionToken;
     try{
-      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.getBill() with error: "+e.message);
@@ -164,7 +164,7 @@ export function getBillComments(billId, sortFilter, sessionToken, dev) {
     //store or get a sessionToken
     let token = sessionToken;
     try{
-      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.getBillComments() with error: "+e.message);
@@ -229,7 +229,7 @@ export function getBillTopComments(billId, sessionToken=null, dev = null) {
     //store or get a sessionToken
     let token = sessionToken;
     try{
-        let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+        let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
         token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.getBillTopComments() with error: "+e.message);
@@ -296,7 +296,7 @@ export function commentOnBill(commentText, billId, sessionToken=null, dev = null
     //store or get a sessionToken
     let token = sessionToken;
     try{
-      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.commentOnBill() with error: "+e.message);
@@ -357,7 +357,7 @@ export function commentOnComment(commentText, billId, commentId, commentLvl, ses
     //store or get a sessionToken
     let token = sessionToken;
     try{
-      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.commentOnComment() with error: "+e.message);
@@ -412,7 +412,7 @@ export function likeCommentBill(commentId, billId, isLiked, sessionToken=null, d
     //store or get a sessionToken
     let token = sessionToken;
     try{
-      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.likeCommentBill() with error: "+e.message);
@@ -465,7 +465,7 @@ export function dislikeCommentBill(commentId, billId, isDisliked, sessionToken=n
     //store or get a sessionToken
     let token = sessionToken;
     try{
-      let tk = await new AppAuthToken().getOrReplaceSessionToken(sessionToken);
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.dislikeCommentBill() with error: "+e.message);

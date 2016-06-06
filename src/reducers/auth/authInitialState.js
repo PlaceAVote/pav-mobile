@@ -14,6 +14,7 @@
  */
 import {ScheneKeys, Other, Modals} from '../../config/constants';
 import {Record, Map, List} from 'immutable';
+import moment from 'moment';
 
 const {
   REGISTER_STEP_1,
@@ -59,7 +60,7 @@ const Form = Record({
     passwordHasError: false,
     passwordAgain: '',
     passwordAgainHasError: false,
-    dateOfBirth: new Date(),
+    dateOfBirth: moment(),
     dateOfBirthIsCurBeingPicked: false,
     zipCode: '',
     zipCodeHasError: false,
