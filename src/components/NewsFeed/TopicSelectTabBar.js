@@ -75,15 +75,19 @@ const ScrollableTabBar = React.createClass({
     newScrollX -= this.props.scrollOffset;
     newScrollX = newScrollX >= 0 ? newScrollX : 0;
 
-    if (Platform.OS === 'android') {
-      this._scrollView.scrollTo({x: newScrollX, y: 0, });
-    } else {
-      console.log("this._containerMeasurements: "+JSON.stringify(this._containerMeasurements))
-      let rightBracket = (this._containerMeasurements && this._containerMeasurements.width) || 0;
-      const rightBoundScroll = this._tabContainerMeasurements.width - (rightBracket);
-      newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
-      this._scrollView.scrollTo({x: newScrollX, y: 0, });
-    }
+    this._scrollView.scrollTo({x: newScrollX, y: 0 });
+    // if (Platform.OS === 'android') {
+    //   this._scrollView.scrollTo({x: newScrollX, y: 0, });
+    // } else {
+      // console.log("this._containerMeasurements: "+JSON.stringify(this._containerMeasurements))
+      // let rightBracket = (this._containerMeasurements && this._containerMeasurements.width) || 0;
+      // let rightBracketPre = (this._tabContainerMeasurements && this._tabContainerMeasurements.width) || 0;
+      // const rightBoundScroll = rightBracketPre-rightBracket;
+      // console.log("Right bracket: "+rightBracket+" pre: "+rightBracketPre);
+      // newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
+      // console.log("New scroll: "+newScrollX+" rightBound: "+rightBoundScroll);
+    //   this._scrollView.scrollTo({x: newScrollX, y: 0, });
+    // }
 
   },
 
