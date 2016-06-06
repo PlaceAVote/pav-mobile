@@ -98,7 +98,7 @@
     "start": "npm run serve",
     "serve": "node node_modules/react-native/local-cli/cli.js start",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "xcode": "open ios/PlaceAVote.xcworkspace",
+    "xcode": "open ios/PlaceAVote.xcodeproj",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "setup": "npm install -g npm3 && npm3 install -g rnpm && npm3 install && rnpm link && rnpm link assets",
     "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest  --no-cache",

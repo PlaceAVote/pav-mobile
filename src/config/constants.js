@@ -238,6 +238,11 @@ module.exports =  {
    SET_USER_DATA: null,
    RESET_ERROR_STATE:null,
 
+
+   TOKEN_VALIDATE_REQUEST: null,
+   TOKEN_VALIDATE_SUCCESS: null,
+   TOKEN_VALIDATE_FAILURE: null,
+
    SIGNUP_REQUEST: null,
    SIGNUP_SUCCESS: null,
    SIGNUP_FAILURE: null,
