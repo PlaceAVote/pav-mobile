@@ -112,10 +112,6 @@ function mapDispatchToProps(dispatch) {
 class NewsFeedRender extends React.Component {
   constructor(props) {
     super(props);
-
-    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        // dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-
   }
 
 

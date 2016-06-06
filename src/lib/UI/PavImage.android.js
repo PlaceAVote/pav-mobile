@@ -3,7 +3,7 @@ import LImage from 'react-native-image-progress';
 import React from 'react';
 import {Image, View} from 'react-native';
 
-import * as Progress from 'react-native-progress';
+import ProgressBar from 'ProgressBarAndroid';
 import {Colors} from '../../config/constants';
 
 class PavImage extends React.Component {
@@ -22,7 +22,7 @@ class PavImage extends React.Component {
     if((!!this.props.source && this.props.source.uri!=null) || !!this.props.defaultSource){
       if(this.props.loadingSpinnerEnabled!==false){
         let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
-        let indicator = this.props.indicator || Progress.CircleSnail;
+        let indicator = this.props.indicator || ProgressBar;
         return (
           <LImage {...this.props}
           indicator={indicator}

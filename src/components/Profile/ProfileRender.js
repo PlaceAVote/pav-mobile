@@ -32,7 +32,7 @@ import {Map} from 'immutable';
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
 
-import ProgressBar from 'ProgressBarAndroid';
+import PavSpinner from '../../lib/UI/PavSpinner'
 
 import moment from 'moment'
 /**
@@ -57,7 +57,6 @@ import CardFactory from '../Cards/CardFactory';
 
 import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
 import PavImage from '../../lib/UI/PavImage'
-import * as Progress from 'react-native-progress';
 
 /**
  * The states were interested in
@@ -221,7 +220,7 @@ class ProfileRender extends React.Component {
         paddingHorizontal:3,
       },
       userDetailsHeaderView:{
-        backgroundColor:'pink',
+        // backgroundColor:'pink',
         flexDirection: 'row',
         justifyContent:'space-between',
         alignItems:'center',
@@ -403,10 +402,6 @@ class ProfileRender extends React.Component {
                     source={!!this.props.userPhotoUrl?{uri: this.props.curUser.photoUrl}:defaultUserPhoto}
                     platform={this.props.device.platform}
                     resizeMode='contain'
-                    indicator={Progress.CircleSnail}
-                    indicatorProps={{
-                      colors:[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]
-                    }}
                   />
                 </View>
                 <View style={styles.userDataContainerView}>
@@ -483,23 +478,7 @@ class ProfileRender extends React.Component {
            />}
          />);
     }else{
-      if(this.props.device.platform=="android"){
-          return (
-          <View style={styles.bodyLoadingContainer}>
-            <ProgressBar styleAttr="Large" color={Colors.primaryColor} />
-          </View>);
-      }else if(this.props.device.platform=="ios"){
-          return (
-            <View style={styles.bodyLoadingContainer}>
-              <ActivityIndicatorIOS
-                animating={true}
-                size="large"
-              />
-            </View>);
-      }else{
-        return <View style={styles.bodyLoadingContainer}><Text>Now Loading</Text></View>;
-      }
-
+      return <PavSpinner/>
     }
 
   }

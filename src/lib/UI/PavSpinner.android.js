@@ -4,8 +4,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Colors} from '../../config/constants';
-// import ProgressBar from 'ProgressBarAndroid';
-import * as Progress from 'react-native-progress';
+import ProgressBar from 'ProgressBarAndroid';
 
 class PavSpinner extends React.Component {
   constructor(props) {
@@ -27,10 +26,11 @@ class PavSpinner extends React.Component {
         alignItems:'center',
         // backgroundColor:'red',
       }, this.props.style]}>
-        <Progress.CircleSnail
+        <ProgressBar
           animating={this.props.animating}
           size="large"
           colors={[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]}
+          color={Colors.primaryColor}
         />
       </View>);
   }

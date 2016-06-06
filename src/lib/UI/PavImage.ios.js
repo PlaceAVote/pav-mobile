@@ -22,8 +22,11 @@ class PavImage extends React.Component {
 
     if((!!this.props.source && this.props.source.uri!=null) || !!this.props.defaultSource){
       if(this.props.loadingSpinnerEnabled!==false){
-        let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
-        let indicator = this.props.indicator || ActivityIndicatorIOS;
+        // let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
+        // let indicator = this.props.indicator || ActivityIndicatorIOS;
+
+        let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor, colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]};
+        let indicator = this.props.indicator || Progress.CircleSnail;
         return (
           <LImage {...this.props}
           indicator={indicator}
