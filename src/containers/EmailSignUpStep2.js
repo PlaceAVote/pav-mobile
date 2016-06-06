@@ -78,7 +78,8 @@ let EmailSignUpStep2 = React.createClass({
 
 
   async onNextBtnPress(){
-    let success = await this.props.actions.validateUserEmail(this.props.auth.form.fields.email);
+    // console.log("Now validating email: "+this.props.auth.form.fields.email);
+    let success = await this.props.actions.validateUserEmail(this.props.auth.form.fields.email, this.props.global.isDev);
     if(success){
       this.props.actions.navigateUserToTheCorrectNextOnboardingStep(REGISTER_STEP_2);
     }

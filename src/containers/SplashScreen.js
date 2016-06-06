@@ -60,7 +60,8 @@ function mapDispatchToProps(dispatch) {
 class SplashScreen extends React.Component{
 
   async componentWillMount(){
-    let isValid = await this.props.actions.validateToken("dawd", this.props.global.isDev);
+    // console.log("Splash screen is dev: "+this.props.global.isDev);
+    let isValid = await this.props.actions.validateToken("WAFA", this.props.global.isDev);
     if(isValid!=null){
       console.log("Old token found, and is VALID.");
       this.navigateToMain();

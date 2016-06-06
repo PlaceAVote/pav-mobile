@@ -45,15 +45,15 @@ export default class AppAuthTokenStoreStore {
   async getOrReplaceSessionToken(sessionToken) {
     if (!!sessionToken) {
       await store.save(this.SESSION_TOKEN_STORAGE_KEY,{sessionToken: sessionToken})
-      return store.get(this.SESSION_TOKEN_STORAGE_KEY);
+      return await store.get(this.SESSION_TOKEN_STORAGE_KEY);
     }
-    return store.get(this.SESSION_TOKEN_STORAGE_KEY);
+    return await store.get(this.SESSION_TOKEN_STORAGE_KEY);
   }
   /**
    * ### deleteSessionToken
    * Deleted during log out
    */
   deleteSessionToken() {
-    return store.delete(this.SESSION_TOKEN_STORAGE_KEY);
+    store.delete(this.SESSION_TOKEN_STORAGE_KEY);
   }
 }

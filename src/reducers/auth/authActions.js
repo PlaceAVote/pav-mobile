@@ -209,6 +209,11 @@ export function validateToken(sessionToken=null, dev = null) {
     // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
+
+      try{  //delete expire token
+        new AppAuthTokenStore().deleteSessionToken();
+      }catch(e){console.log("Unable to delete expired token: "+e.message);}
+
       if(res.multipleErrors){
         dispatch(validateTokenFailure(res.error[0].email));
         // alert(res.error[0].email);
@@ -220,7 +225,12 @@ export function validateToken(sessionToken=null, dev = null) {
       }
     }else{
       dispatch(validateTokenSuccess(res.data));
-      // dispatch(loginSuccess(res.data));
+      let userInfo = await new UserInfoStore().getOrReplaceUserInfo();
+      dispatch(loginSuccess({
+        user_id:userInfo.user_id,
+        first_name:userInfo.first_name,
+        city:userInfo.city
+      }));
       return res.data;
     }
 }
@@ -327,7 +337,7 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
         "password": password,
         "first_name": first_name,
         "last_name": last_name,
-        "dob": dayOfBirth.format("x"),
+        "dob": dayOfBirth.format('x'),
         "zipcode": zipcode,
         "topics": topics,
         "gender": gender
@@ -445,12 +455,14 @@ export function loginFailure(error) {
             alert("Good that was right, the cake was a lie though..");
           }
           // console.log("Login gave us the token"+res.data.token);
-          saveSessionTokenAndBasicInfo(res.data.token, {
-            user_id: res.data.user_id,
-            city: res.data.city,
-            first_name: res.data.first_name
-          })
-          dispatch(loginSuccess(res.data));
+
+          let userInfo = await new UserInfoStore().getOrReplaceUserInfo();
+          saveSessionTokenAndBasicInfo(res.data.token);
+          dispatch(loginSuccess({
+            user_id:userInfo.user_id,
+            first_name:userInfo.first_name,
+            city:userInfo.city
+          }));
           return res.data;
         }
       }
@@ -518,14 +530,14 @@ export function loginFacebook(facebookUserId,  facebookAccessToken, dev=null) {
     }else{
       alert("Good that was right, the cake was a lie though..");
       // console.log(res.data.token);
-      saveSessionTokenAndBasicInfo(res.data.token, {
-        user_id: res.data.user_id,
-        city: res.data.city,
-        first_name: res.data.first_name
-      });
-      dispatch(facebookLoginSuccess(res.data));
+      saveSessionTokenAndBasicInfo(res.data.token);
+      let userInfo = await new UserInfoStore().getOrReplaceUserInfo();
+      dispatch(facebookLoginSuccess({
+        user_id:userInfo.user_id,
+        first_name:userInfo.first_name,
+        city:userInfo.city
+      }));
       return res.data;
-      //TODO: Perhaps navigate to the newsfeed screen now?
     }
 }
 }
@@ -643,6 +655,7 @@ export function facebookSignupFailure(error) {
  export function signupFacebook(fbUserId, fbUserToken, imgUrl, email, firstName, lastName, dayOfBirth, zipCode, topics, gender, dev=null) {
    return async function (dispatch){
      dispatch(facebookSignupRequest());
+    //  console.log("dayOfBirth: "+dayOfBirth)
      var res = await PavClientSdk({isDev:dev}).userApi.signupFacebook({
          "fbUserId": fbUserId,
          "fbToken": fbUserToken,
@@ -650,7 +663,7 @@ export function facebookSignupFailure(error) {
          "email": email,
          "firstName": firstName,
          "lastName": lastName,
-         "birthday": dayOfBirth,
+         "birthday": dayOfBirth.format('x'),
          "zipCode": zipCode,
          "topics": topics,
          "gender": gender
@@ -669,16 +682,18 @@ export function facebookSignupFailure(error) {
        }
      }else{
        // console.log("Signup success");
-       saveSessionTokenAndBasicInfo(res.data.token, {
-         user_id: res.data.user_id,
-         city: res.data.city || "",
-         first_name: firstName
-       })
-        curUser = Object.assign({}, res.data,
-   			{
-   			    email: email,
-            first_name: firstName
-   			});
+
+      curUser = Object.assign({}, res.data,
+ 			{
+ 			    email: email,
+          first_name: firstName
+ 			});
+      console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
+      saveSessionTokenAndBasicInfo(res.data.token, {
+        user_id: res.data.user_id,
+        city: res.data.city || "",
+        first_name: firstName
+      })
        dispatch(facebookSignupSuccess(curUser));
      }
      dispatch(setModalVisibility(WELCOME, true));
@@ -842,11 +857,11 @@ export function facebookDataAcquisition(fetchAllAvailableUserData = true){
 function parseFbBirthdayToUnixTimestamp(birthdayString){
   if(!!birthdayString){
     if(birthdayString.length==10){ // full date MM/DD/YYYY
-      return moment(birthdayString, 'MM/DD/YYYY').format("x");
+      return moment(birthdayString, 'MM/DD/YYYY').format('x');
     }else if(birthdayString.length==4){  //year only YYYY
-      return moment(birthdayString, 'YYYY').format("x");
+      return moment(birthdayString, 'YYYY').format('x');
     }else if(birthdayString.length==5){  //no year MM/DD
-      return moment(birthdayString, 'MM/DD').format("x");
+      return moment(birthdayString, 'MM/DD').format('x');
     }
   }else{
     // console.log("No birthday received from fb graph.");
@@ -859,7 +874,7 @@ function parseFbBirthdayToUnixTimestamp(birthdayString){
  async function getFacebookReadPermissions(readPermissions){
      let res = {
        data:null,
-       error
+       error:null
      };
      try{
        res.data = await LoginManager.logInWithReadPermissions(readPermissions);
@@ -871,7 +886,7 @@ function parseFbBirthdayToUnixTimestamp(birthdayString){
  async function getFacebookTokenAndUserId(){
      let res = {
        data:null,
-       error
+       error:null
      };
      try{
        res.data = await AccessToken.getCurrentAccessToken();

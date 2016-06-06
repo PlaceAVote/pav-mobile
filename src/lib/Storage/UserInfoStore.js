@@ -30,7 +30,6 @@ export default class UserInfoStore {
    */
   storeUserInfo(userInfo) {
     return store.save(this.USER_INFO_STORAGE_KEY, userInfo);
-
   }
   /**
    * ### getOrReplaceUserInfo
@@ -38,10 +37,10 @@ export default class UserInfoStore {
    *
    */
   async getOrReplaceUserInfo(userInfo) {
-    if (!!sessionToken) {
+    if (!!userInfo) {
       await store.save(this.USER_INFO_STORAGE_KEY,userInfo);
-      return store.get(this.USER_INFO_STORAGE_KEY);
+      return await store.get(this.USER_INFO_STORAGE_KEY);
     }
-    return store.get(this.USER_INFO_STORAGE_KEY);
+    return await store.get(this.USER_INFO_STORAGE_KEY);
   }
 }

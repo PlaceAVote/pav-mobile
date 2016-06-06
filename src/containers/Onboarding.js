@@ -79,7 +79,7 @@ function mapDispatchToProps(dispatch) {
 class Onboarding extends React.Component{
 
   componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange);
+    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
     this.props.actions.unlockOrientation();
   }
 
@@ -89,7 +89,7 @@ class Onboarding extends React.Component{
   }
 
   componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange);
+    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
   }
 
   onSignInBtnPressed(){

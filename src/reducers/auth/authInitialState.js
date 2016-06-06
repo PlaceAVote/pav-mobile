@@ -60,7 +60,7 @@ const Form = Record({
     passwordHasError: false,
     passwordAgain: '',
     passwordAgainHasError: false,
-    dateOfBirth: moment(),
+    dateOfBirth: moment().format('x'),
     dateOfBirthIsCurBeingPicked: false,
     zipCode: '',
     zipCodeHasError: false,

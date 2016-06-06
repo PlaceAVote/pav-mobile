@@ -204,9 +204,14 @@ class EmailSignUpStep4Render extends React.Component {
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();
+    // console.log("@@@ INITIAL birthdate: "+this.props.auth.form.fields.dateOfBirth);
+    let dob = this.props.auth.form.fields.dateOfBirth;
+    if(dob.isMoment==null){
+      dob = moment(dob, "x")
+    }
     this.state ={
       value: {
-        dateOfBirth: this.props.auth.form.fields.dateOfBirth.toDate(),
+        dateOfBirth: moment(dob).toDate(),
       	zipCode: this.props.auth.form.fields.zipCode
       }
     };
@@ -217,12 +222,18 @@ class EmailSignUpStep4Render extends React.Component {
    * As the properties are validated they will be set here.
    */
   componentWillReceiveProps(nextprops) {
-    this.setState({
-      value: {
-      	dateOfBirth: nextprops.auth.form.fields.dateOfBirth.toDate(),
-      	zipCode: nextprops.auth.form.fields.zipCode
+    if(nextprops.auth.form.fields.dateOfBirth!= this.props.auth.form.fields.dateOfBirth){
+      let dob = nextprops.auth.form.fields.dateOfBirth;
+      if(dob.isMoment==null){
+        dob = moment(dob, "x")
       }
-    });
+      this.setState({
+        value: {
+          dateOfBirth: moment(dob).toDate(),
+          zipCode: nextprops.auth.form.fields.zipCode
+        }
+      });
+    }
   }
 
   /**
@@ -238,8 +249,8 @@ class EmailSignUpStep4Render extends React.Component {
 
     // console.log("Changed"+JSON.stringify(value));
     if (value.dateOfBirth != ''&& value.dateOfBirth != undefined) {
-      console.log("DATE value about to change to: "+value.dateOfBirth+ " is now: "+moment(value.dateOfBirth));
-      this.props.actions.onAuthFormFieldChange('dateOfBirth',moment(value.dateOfBirth), REGISTER_STEP_4);
+      // console.log("DATE value about to change to: "+value.dateOfBirth+ " is now: "+moment(value.dateOfBirth).format('x'));
+      this.props.actions.onAuthFormFieldChange('dateOfBirth',moment(value.dateOfBirth).format('x'), REGISTER_STEP_4);
     }
     if (value.zipCode != '' && value.zipCode != undefined ) {
       this.props.actions.onAuthFormFieldChange('zipCode',value.zipCode, REGISTER_STEP_4);

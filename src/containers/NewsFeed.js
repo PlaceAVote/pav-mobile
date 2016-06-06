@@ -115,14 +115,16 @@ class NewsFeed extends React.Component {
     if(CONFIG.MOCK_TOKEN===true){
       this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
     }
+  }
+
+  componentWillMount(){
     if(this.props.newsfeed.newsFeedData.items==null){
       this.connectAndGetFeed();
     }
   }
 
-
-
   async connectAndGetFeed(){
+    // console.log("@@@ NEWS FEED - is dev: "+this.props.global.isDev);
     return await this.props.actions.getFeedItems(this.TOKEN, this.props.global.isDev);
   }
   async getDiscoveryItemsForTopic(topicString){
