@@ -319,7 +319,7 @@ export function signupFailure(error) {
  *
  * Otherwise, dispatch the error so the user can see
  */
-export function signup(email, password, first_name, last_name, dayOfBirth, zipcode, topics, gender, isDev=null) {
+export function signup(email, password, first_name, last_name, dayOfBirth, zipcode, topics, gender, dev=null) {
   return async function (dispatch){
     dispatch(signupRequest());
     var res = await PavClientSdk({isDev:dev}).userApi.signup({
@@ -410,7 +410,7 @@ export function loginFailure(error) {
  * otherwise, dispatch a failure
  */
 
-  export function login(email,  password, dev) {
+  export function login(email,  password, dev=null) {
     return async function(dispatch){
 
       let emailIsInvalid = validateEmail(email), passwordIsInvalid = validatePassword(password);
@@ -493,7 +493,7 @@ export function facebookLoginFailure(error) {
   };
 }
 
-export function loginFacebook(facebookUserId,  facebookAccessToken, isDev=null) {
+export function loginFacebook(facebookUserId,  facebookAccessToken, dev=null) {
   return async function(dispatch){
     dispatch(facebookLoginRequest());
 
@@ -563,7 +563,7 @@ export function forgotPasswordFailure() {
  * @param {string} email - user's email
  *
  */
-  export function forgotPassword(email, isDev=null) {
+  export function forgotPassword(email, dev=null) {
     return async function(dispatch){
       dispatch(forgotPasswordRequest());
 
@@ -640,7 +640,7 @@ export function facebookSignupFailure(error) {
  * @param {string} gender - user's gender
  *
  */
- export function signupFacebook(fbUserId, fbUserToken, imgUrl, email, firstName, lastName, dayOfBirth, zipCode, topics, gender, isDev=null) {
+ export function signupFacebook(fbUserId, fbUserToken, imgUrl, email, firstName, lastName, dayOfBirth, zipCode, topics, gender, dev=null) {
    return async function (dispatch){
      dispatch(facebookSignupRequest());
      var res = await PavClientSdk({isDev:dev}).userApi.signupFacebook({
@@ -727,7 +727,7 @@ export function facebookSignupFailure(error) {
   * @param {string} email - user's email to validate
   *
   */
-export function validateUserEmail(emailToValidate, isDev=null){
+export function validateUserEmail(emailToValidate, dev=null){
   return async function (dispatch){
     dispatch(validateRequest());
     var res = await PavClientSdk({isDev:dev}).userApi.validate({

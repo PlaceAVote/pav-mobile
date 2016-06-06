@@ -36,10 +36,13 @@ import React from 'react';
 /**
  * The states were interested in
  */
-import {Modals} from '../config/constants';
+import {ScheneKeys, Modals} from '../config/constants';
 const {
-  WELCOME
-} = Modals
+  TOPIC_PICK
+} = ScheneKeys;
+const {
+  WELCOME,
+} = Modals;
 
 /**
  * ## Redux boilerplate
@@ -96,7 +99,7 @@ let TopicPick = React.createClass({
         }
       }
       // console.log("Fields: "+name+surname+email+password+dateOfBirth+zipCode+topics);
-      
+
       let curAuthMethod = this.props.auth.form.authMethod;
       if(curAuthMethod=="email"){
         this.props.actions.signup(email, password, name, surname, moment(dateOfBirth), zipCode, topics, gender);
