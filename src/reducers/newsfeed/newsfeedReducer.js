@@ -87,7 +87,7 @@ export default function newsfeedReducer(state = initialState, action) {
     let {emotional_response, positive_responses, negative_responses, neutral_responses} = action.payload.data;
     let newResponse =  emotional_response || "none";
     let oldResponse = foundObjectRef.emotional_response;
-    console.log("newResponse found: "+newResponse);
+    // console.log("newResponse found: "+newResponse);
     foundObjectRef.emotional_response = newResponse;
     if(positive_responses!=null){
       foundObjectRef.positive_responses = positive_responses;

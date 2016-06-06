@@ -29,7 +29,7 @@ export default class UserInfoStore {
    * Store the user info object
    */
   storeUserInfo(userInfo) {
-    return store.save(this.USER_INFO_STORAGE_KEY, userInfo);
+    store.save(this.USER_INFO_STORAGE_KEY, userInfo);
   }
   /**
    * ### getOrReplaceUserInfo

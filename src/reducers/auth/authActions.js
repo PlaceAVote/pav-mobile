@@ -211,6 +211,7 @@ export function validateToken(sessionToken=null, dev = null) {
     if(!!res.error){
 
       try{  //delete expire token
+        console.log("Now deleting expired token.");
         new AppAuthTokenStore().deleteSessionToken();
       }catch(e){console.log("Unable to delete expired token: "+e.message);}
 
@@ -225,11 +226,12 @@ export function validateToken(sessionToken=null, dev = null) {
       }
     }else{
       dispatch(validateTokenSuccess(res.data));
-      let userInfo = await new UserInfoStore().getOrReplaceUserInfo();
+      let userInfo = (await new UserInfoStore().getOrReplaceUserInfo() || {user_id:"", first_name:"", city:""});
+      console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
       dispatch(loginSuccess({
-        user_id:userInfo.user_id,
-        first_name:userInfo.first_name,
-        city:userInfo.city
+        user_id:userInfo.user_id || "",
+        first_name:userInfo.first_name || "",
+        city:userInfo.city || ""
       }));
       return res.data;
     }
