@@ -41,6 +41,7 @@
 		D38A299B1D0212F3005B42F5 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38A29981D0212F3005B42F5 /* FBSDKLoginKit.framework */; };
 		D38A299C1D0212F3005B42F5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38A29991D0212F3005B42F5 /* FBSDKShareKit.framework */; };
 		D38A29A61D02165E005B42F5 /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D38A29A51D02165E005B42F5 /* Orientation.m */; };
+		D3F6AB8E1D05E3B700318198 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F6AB801D05E37500318198 /* libART.a */; };
 		D605FB1F32F1435B82FF7E05 /* Whitney-BookItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB8FF897AB6A450EB6B169E7 /* Whitney-BookItal.ttf */; };
 		D7F525AE85184170910C7739 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BBB781C4046739EB557E1 /* icomoon.ttf */; };
 		D914BA6CE65D44258C6E3FD9 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0452E133FCFA43798968ADCD /* EvilIcons.ttf */; };
@@ -149,6 +150,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		D3F6AB7F1D05E37500318198 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3F6AB7B1D05E37400318198 /* ART.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
+			remoteInfo = ART;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -200,6 +208,7 @@
 		D38A29991D0212F3005B42F5 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = PlaceAVote/FBSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		D38A29A41D02165E005B42F5 /* Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
 		D38A29A51D02165E005B42F5 /* Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
+		D3F6AB7B1D05E37400318198 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		E9A8750C88BA4B8988FCB20C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = ../assets/fonts/MaterialIcons.ttf; sourceTree = "<group>"; };
 		F711A73E4EEB4CA392937F0C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = ../assets/fonts/FontAwesome.ttf; sourceTree = "<group>"; };
 		FEB942BA86B9415FB3D6DDB5 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
@@ -217,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3F6AB8E1D05E3B700318198 /* libART.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				D38A299B1D0212F3005B42F5 /* FBSDKLoginKit.framework in Frameworks */,
@@ -373,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				D38A29901D021186005B42F5 /* Frameworks */,
+				D3F6AB7B1D05E37400318198 /* ART.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -464,6 +475,14 @@
 			path = PlaceAVote/RCTOrientation;
 			sourceTree = "<group>";
 		};
+		D3F6AB7C1D05E37400318198 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3F6AB801D05E37500318198 /* libART.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -530,6 +549,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = D3F6AB7C1D05E37400318198 /* Products */;
+					ProjectRef = D3F6AB7B1D05E37400318198 /* ART.xcodeproj */;
+				},
 				{
 					ProductGroup = D38A29711D021128005B42F5 /* Products */;
 					ProjectRef = 31D3213C83F540AEBA7BA36E /* BVLinearGradient.xcodeproj */;
@@ -681,6 +704,13 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = D38A29881D021128005B42F5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3F6AB801D05E37500318198 /* libART.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libART.a;
+			remoteRef = D3F6AB7F1D05E37500318198 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

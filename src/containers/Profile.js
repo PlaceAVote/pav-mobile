@@ -103,9 +103,11 @@ class Profile extends React.Component {
       this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
     }
     // console.log("Profile environment dev? : "+props.global.isDev+" with token: "+this.TOKEN);
-    this.getProfileData()
   }
 
+  componentWillMount(){
+    this.getProfileData()
+  }
 
   async getProfileData(){
     this.props.actions.getProfile(null, this.props.global.isDev, this.TOKEN)
