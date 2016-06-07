@@ -146,7 +146,7 @@ class Profile extends React.Component {
   render() {
     return(
       <ProfileRender
-          orientation={ this.props.device.orientation }
+          device={ this.props.device }
           lastActivityTimestamp={this.props.profile.form.profileData.lastActivityTimestamp}
           voteCnt={this.props.profile.form.profileData.voteCnt}
           followerCnt={this.props.profile.form.profileData.followerCnt}

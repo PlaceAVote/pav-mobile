@@ -89,7 +89,8 @@ class VoteCard extends React.Component {
         paddingHorizontal: w*0.02,
         paddingVertical: w*0.02,
         justifyContent:'space-between',
-        alignItems:'center'
+        alignItems:'center',
+        // backgroundColor:'purple'
       },
       cardTitleTextAndIconContainer:{
         flexDirection:'row',
@@ -105,7 +106,8 @@ class VoteCard extends React.Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       cardDateTextContainer:{
-        paddingHorizontal: w*0.005,
+        paddingHorizontal: w*0.02,
+        // backgroundColor:'pink'
       },
       cardDateText:{
         // backgroundColor: 'red',
@@ -250,7 +252,7 @@ class VoteCard extends React.Component {
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
-          <View resizeMode="cover" style={styles.cardTitleContainer}>
+          <View style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.voteIconContainer}>
                 <PavIcon name="logo" size={26} style={styles.voteIcon}/>

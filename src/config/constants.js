@@ -48,6 +48,7 @@ module.exports =  {
     BILL: null,
     COMMENTS: null,
     VOTE: null,
+    PROFILE:null
 
   }),
   BillPageTabs: {

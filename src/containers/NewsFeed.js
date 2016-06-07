@@ -179,8 +179,7 @@ class NewsFeed extends React.Component {
 
 
   onUserClickedUser(userId){
-    alert("Tapped user with id: "+userId);
-    this.props.actions.navigateTo(PROFILE, {userId:userId});
+    this.props.actions.navigateTo(PROFILE, {userId:userId, isTab:false});
   }
 
   onUserClickedBill(billId){

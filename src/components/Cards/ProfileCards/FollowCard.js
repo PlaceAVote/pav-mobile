@@ -104,7 +104,7 @@ class FollowCard extends React.Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       cardDateTextContainer:{
-        paddingHorizontal: w*0.05,
+        paddingHorizontal: w*0.02,
       },
       cardDateText:{
         // backgroundColor: 'red',

@@ -104,7 +104,7 @@ class LikeCard extends React.Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       cardDateTextContainer:{
-        paddingHorizontal: w*0.05,
+        paddingHorizontal: w*0.02,
       },
       cardDateText:{
         // backgroundColor: 'red',
@@ -281,7 +281,9 @@ class LikeCard extends React.Component {
                 <Text style={styles.cardTitleText}>COMMENT {this.props.isLike?"UPVOTE":"DOWNVOTE"}</Text>
               </View>
             </View>
-            <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+            <View style={styles.cardDateTextContainer}>
+              <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+            </View>
           </View>
           <View style={styles.cardContentContainer}>
 

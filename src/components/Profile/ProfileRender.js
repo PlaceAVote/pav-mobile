@@ -130,7 +130,7 @@ class ProfileRender extends React.Component {
         // backgroundColor: 'orange',
         flex:1,
         flexDirection: 'column',
-        paddingBottom:50, //tab bar height
+        paddingBottom:self.props.isTab===false?0:50, //tab bar height
         paddingTop:Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,  //nav bar height
         backgroundColor: '#E8E7EE',
         // marginVertical: 10,
@@ -456,7 +456,7 @@ class ProfileRender extends React.Component {
    */
   render() {
 
-    let isPortrait = (this.props.orientation!="LANDSCAPE");
+    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
@@ -514,7 +514,7 @@ class ProfileRender extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.orientation !== this.props.orientation)
+      (nextProps.device !== this.props.device)
       ||
       (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
       ||
@@ -544,8 +544,12 @@ class ProfileRender extends React.Component {
 ProfileRender.propTypes= {
   timelineData: React.PropTypes.object,
   curUser: React.PropTypes.object,
-  orientation: React.PropTypes.string.isRequired,
-  lastActivityTimestamp: React.PropTypes.string,
+  device: React.PropTypes.object.isRequired,
+  isTab: React.PropTypes.bool.isRequired,
+  lastActivityTimestamp: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+  ]),
   voteCnt: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number,
