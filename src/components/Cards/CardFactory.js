@@ -45,12 +45,13 @@ class CardFactory extends React.Component {
   renderProfileCards(){
     let d = this.props.itemData;
     let u = this.props.curUser;
+    // console.log("Real comment is: "+JSON.stringify(d.timestamp));
     switch(this.props.itemData.type){
       case "comment":
-      // console.log("Real comment is: "+JSON.stringify(d));
+      // console.log("Real comment is: "+JSON.stringify(d.timestamp));
         return (<CommentCard
           {...this.props}
-          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
           userFullNameText={d.author_first_name+" "+d.author_last_name}
           commentParentTitle={d.bill_title}
           commentText={d.body}
@@ -66,16 +67,17 @@ class CardFactory extends React.Component {
       case "vote":
         return (<VoteCard
           {...this.props}
-          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
           userFullNameText={u.firstName+" "+u.lastName}
           voteParentTitle={d.bill_title}
           />);
         break;
       case "followinguser":
         //Discovered a react native bug here, if I don't add the " " empty space character in the end of followedFullNameText the last name of the person might be invisible
+        console.log("Real FollowCard is: "+JSON.stringify(d));
         return (<FollowCard
         {...this.props}
-        dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+        dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
         followerFullNameText={u.firstName+" "+u.lastName}
         followedFullNameText={d.first_name+" "+d.last_name+" "}
         />);
@@ -85,7 +87,7 @@ class CardFactory extends React.Component {
         // console.log("Like comment is: "+JSON.stringify(d));
         return (<LikeCard
           {...this.props}
-          dateTime={moment(d.timestamp).format("h:mma, Do MMMM YYYY")}
+          dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
           authorFullNameText={u.firstName+" "+u.lastName}
           userFullNameText={d.author_first_name+" "+d.author_last_name}
           commentParentTitle={d.bill_title}
@@ -112,7 +114,7 @@ class CardFactory extends React.Component {
       // console.log("Real comment is: "+JSON.stringify(n));
           return (<FeedUserIssueCard
           {...this.props}
-          timeString={moment(n.timestamp).fromNow()}
+          timeString={moment(n.timestamp, 'x').fromNow()}
           userFullNameText={n.first_name+" "+n.last_name}
           issueText={n.comment}
           userPhotoUrl={n.img_url}
@@ -138,7 +140,7 @@ class CardFactory extends React.Component {
         // console.log("COMENT CARD: "+JSON.stringify(n))
         return (<FeedCommentCard
           {...this.props}
-          timeString={moment(n.timestamp).fromNow()}
+          timeString={moment(n.timestamp, 'x').fromNow()}
           userFullNameText={n.author_first_name+" "+n.author_last_name}
           commentParentTitle={n.bill_title}
           commentText={n.body}
@@ -159,7 +161,7 @@ class CardFactory extends React.Component {
       case "vote":
         return (<FeedVoteCard
         {...this.props}
-        timeString={moment(n.timestamp).fromNow()}
+        timeString={moment(n.timestamp, 'x').fromNow()}
         userFullNameText={n.voter_first_name+" "+n.voter_last_name}
         voteParentTitle={n.bill_title}
         userPhotoUrl={n.voter_img_url}

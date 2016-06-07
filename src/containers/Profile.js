@@ -136,7 +136,12 @@ class Profile extends React.Component {
         lastActivityTimestamp:"-",
         voteCnt:"-"
       },
-      timelineItems:null
+      timelineItems:null,
+      lastActivityTimestamp:null,
+      voteCnt:"-",
+      followerCnt:"-",
+      followingCnt:"-",
+      currentlyFollowingUser:null
     }
     // console.log("Profile environment dev? : "+props.global.isDev+" with token: "+this.TOKEN);
   }
@@ -183,11 +188,12 @@ class Profile extends React.Component {
             stateProvince:profileRes.data.state,
             publicProfile:profileRes.data.public,
             photoUrl:profileRes.data.img_url,
-            followerCnt:profileRes.data.total_followers,
-            followingCnt:profileRes.data.total_following,
-            lastActivityTimestamp:profileRes.data.last_activity,
-            voteCnt:profileRes.data.total_votes
-          }
+          },
+          lastActivityTimestamp:profileRes.data.last_activity,
+          voteCnt:profileRes.data.total_votes,
+          followingCnt:profileRes.data.total_following,
+          followerCnt:profileRes.data.total_followers,
+          currentlyFollowingUser:profileRes.data.following
         })
       }
 
@@ -217,11 +223,20 @@ class Profile extends React.Component {
     Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
   }
 
-  onFollowBtnPress(e){
-    if(this.props.profile.form.profileData.currentlyFollowingUser){
-      this.props.actions.unfollowUser(this.props.auth.user.id, this.props.global.isDev, this.TOKEN)
+  async onFollowBtnPress(userId, currentlyFollowing){
+    let success = false;
+    if(currentlyFollowing===true){
+      success = await this.props.actions.unfollowUser(userId, this.props.global.isDev, this.TOKEN)
+      if(success){
+        this.setState({
+          currentlyFollowingUser:false
+        })
+      }
     }else{
-      this.props.actions.followUser(this.props.auth.user.id, this.props.global.isDev, this.TOKEN)
+      success = await this.props.actions.followUser(userId, this.props.global.isDev, this.TOKEN)
+      this.setState({
+        currentlyFollowingUser:true
+      })
     }
   }
 
@@ -335,13 +350,19 @@ class Profile extends React.Component {
             if(nextProps.auth.user!== this.props.auth.user){
               // console.log("@@@@@@@@@ profile only: "+nextProps.auth.user);
               this.setState({
-                curUser:nextProps.auth.user
+                curUser:nextProps.auth.user,
+                lastActivityTimestamp:nextProps.profile.form.profileData.lastActivityTimestamp,
+                voteCnt:nextProps.profile.form.profileData.voteCnt,
+                followingCnt:nextProps.profile.form.profileData.voteCnt,
+                followerCnt:nextProps.profile.form.profileData.voteCnt,
+                currentlyFollowingUser:false,
               });
             }
 
           }//else end
       }
   }
+
 
 
   //   shouldComponentUpdate(nextProps, nextState) {
@@ -379,11 +400,12 @@ class Profile extends React.Component {
     return(
       <ProfileRender
           device={ this.props.device }
-          lastActivityTimestamp={this.props.profile.form.profileData.lastActivityTimestamp}
-          voteCnt={this.props.profile.form.profileData.voteCnt}
-          followerCnt={this.props.profile.form.profileData.followerCnt}
-          followingCnt={this.props.profile.form.profileData.followingCnt}
-          currentlyFollowingUser={this.props.profile.form.profileData.currentlyFollowingUser}
+          lastActivityTimestamp={this.state.lastActivityTimestamp}
+          voteCnt={this.state.voteCnt}
+          followerCnt={this.state.followerCnt}
+          followingCnt={this.state.followingCnt}
+          currentlyFollowingUser={this.state.currentlyFollowingUser}
+
           isFetchingTimeline={this.props.profile.form.isFetching.timelineData}
           isFetchingProfile={this.props.profile.form.isFetching.profileData}
           isFetchingFollow={this.props.profile.form.isFetching.followUser}

@@ -239,6 +239,7 @@ export function followUser(userId = null, dev = null, sessionToken=null) {
     }catch(e){
       console.log("Unable to fetch past token in profileActions.followUser() with error: "+e.message);
       dispatch(followUserFailure(e.message));
+      return false;
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.followUser({
       userId: userId
@@ -247,10 +248,10 @@ export function followUser(userId = null, dev = null, sessionToken=null) {
     if(!!res.error){
       alert(res.error);
       dispatch(followUserFailure(res.error));
-      return res.error;
+      return false;
     }else{
       dispatch(followUserSuccess(res.data));
-      return res.data;
+      return true;
     }
   };
 }
@@ -303,6 +304,7 @@ export function unfollowUser(userId = null, dev = null, sessionToken=null) {
     }catch(e){
       console.log("Unable to fetch past token in profileActions.unfollowUser() with error: "+e.message);
       dispatch(unfollowUserFailure(e.message));
+      return false;
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.unfollowUser({
       userId: userId
@@ -310,10 +312,10 @@ export function unfollowUser(userId = null, dev = null, sessionToken=null) {
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       dispatch(unfollowUserFailure(res.error));
-      return res.error;
+      return false;
     }else{
       dispatch(unfollowUserSuccess(res.data));
-      return res.data;
+      return true;
     }
   };
 }

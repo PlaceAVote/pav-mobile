@@ -352,7 +352,7 @@ class ProfileRender extends React.Component {
 
   getLastActivityDayDiff(lastTimestamp){
     if(!!lastTimestamp){
-        return moment(lastTimestamp).fromNow();
+        return moment(lastTimestamp, 'x').fromNow();
     }else{
       return "-"
     }
@@ -392,7 +392,11 @@ class ProfileRender extends React.Component {
     }else{
       return (
         <Button
-        onPress={this.props.onFollowBtnPress}
+        onPress={()=>{
+          if(!!this.props.onFollowBtnPress && !!this.props.curUser && this.props.currentlyFollowingUser!=null){
+              this.props.onFollowBtnPress(this.props.curUser.id, this.props.currentlyFollowingUser)
+          }
+        }}
         style={styles.followBtn}
         textStyle={styles.whiteBtnText}
         isDisabled={this.props.isFetchingProfile || this.props.isFetchingFollow}

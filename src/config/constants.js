@@ -150,7 +150,7 @@ module.exports =  {
 
       "ENACTED:VETO_OVERRIDE":{title:"Bill Vetoed but Veto Overriden", explanation:"The bill was vetoed but the veto was overridden in both chambers.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "bill-passed"]},
       "ENACTED:TENDAYRULE":{title:"Ten day Rule", explanation:" The bill became law because ten Days passed (Sundays excepted) while the president neither singed nor vetoed the bill. This has happened only six times since the 93rd Congress, none recently.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "bill-passed"]},
-      "ENACTED:SIGNED":{title:"Singed", explanation:"The President signed the bill and it became a law.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "bill-passed"]},
+      "ENACTED:SIGNED":{title:"Signed", explanation:"The President signed the bill and it became a law.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "bill-passed"]},
     },
 
 
