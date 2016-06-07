@@ -27,7 +27,9 @@ import pavLogoHq from '../../../assets/pavLogoWhiteHQ.png';
 
 
 
-
+const ANIMATION_PARTS = 8;  //that we will divide the 360 deegrees with
+const ANIMATION_DURATION = 190; //in millisec
+const PAUSE_DURATION = 140; //in millisec
 
 
 class AnimatedPavLogo extends React.Component {
@@ -35,6 +37,7 @@ class AnimatedPavLogo extends React.Component {
     super(props);
     this.state = {
       animation: new Animated.Value(0),
+      animationPart: 1,
       shouldStop: false
     };
   }
@@ -56,15 +59,16 @@ class AnimatedPavLogo extends React.Component {
       Animated.timing(       // Uses easing functions
         this.state.animation, // The value to drive
         {
-          toValue: 1,        // Target
-          duration: 1400,    // Configuration
-          delay:500,
-          easing: Easing.inOut(Easing.ease)
+          toValue: this.state.animationPart/ANIMATION_PARTS,        // Target
+          duration: ANIMATION_DURATION,    // Configuration
+          delay:PAUSE_DURATION,
+          easing: Easing.ease
         },
       ).start(
         ()=>{
+          let newAnimationPart = this.state.animationPart+1;
           this.setState({
-            animation: new Animated.Value(0)
+            animationPart: newAnimationPart
           })
           this.animate();
         }
@@ -144,10 +148,6 @@ class AnimatedPavLogo extends React.Component {
           style={[styles.pavLogoImg,
           {
             transform: [   // Array order matters
-              {scale: this.state.animation.interpolate({
-                inputRange: [0, 0.5, 1],
-                outputRange: [1, 1.3, 1],
-              })},
               {rotate:this.state.animation.interpolate({
                 inputRange: [0, 1],
                 outputRange: [
