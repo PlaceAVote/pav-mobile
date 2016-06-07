@@ -478,8 +478,6 @@ class ProfileRender extends React.Component {
              refreshing={this.props.isFetchingTimeline || this.props.isFetchingProfile}
              onRefresh={this.props.onFeedRefresh}
              tintColor={Colors.primaryColor}
-             title="Loading..."
-             titleColor={Colors.primaryColor}
              colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
            />}
            renderRow={(rowData) =>

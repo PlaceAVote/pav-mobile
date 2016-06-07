@@ -57,8 +57,8 @@ class AnimatedPavLogo extends React.Component {
         this.state.animation, // The value to drive
         {
           toValue: 1,        // Target
-          duration: 1400,    // Configuration
-          delay:500,
+          duration: 1300,    // Configuration
+          delay:100,
           easing: Easing.inOut(Easing.ease)
         },
       ).start(

@@ -185,6 +185,7 @@ class FeedUserIssueCard extends React.Component {
       },
 
       relatedBillTitleText:{
+        width:w*0.81,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,10),
         color: Colors.primaryColor
@@ -292,9 +293,11 @@ class FeedUserIssueCard extends React.Component {
         justifyContent:'flex-start',
         backgroundColor:Colors.transparentColor,
       },
-      relatedArticleTitleText:{
+      relatedArticleTitleTextContainer:{
         paddingVertical: h*0.015,
         paddingHorizontal: w*0.04,
+      },
+      relatedArticleTitleText:{
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,11),
         // backgroundColor:'red',
@@ -502,7 +505,9 @@ class FeedUserIssueCard extends React.Component {
                 colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
                 start={[-0.3, 0.0]} end={[1.3, 0.0]}
                 style={styles.relatedArticleTitleContainer}>
-            <Text style={styles.relatedArticleTitleText}>{this.props.relatedArticleTitle}</Text>
+              <View  style={styles.relatedArticleTitleTextContainer}>
+                <Text style={styles.relatedArticleTitleText}>{this.props.relatedArticleTitle}</Text>
+              </View>
             <PavIcon name="links" size={19} style={styles.relatedArticleUrlIcon}/>
           </LinearGradient>
         </PavImage>
