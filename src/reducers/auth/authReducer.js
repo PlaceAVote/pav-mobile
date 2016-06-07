@@ -211,6 +211,10 @@ export default function authReducer(state = initialState, action) {
   case SIGNUP_SUCCESS:
   case SIGNUP_FACEBOOK_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
+    .setIn(['user', 'isLoggedIn'], true)
+    .setIn(['user', 'id'], action.payload.user_id)
+    .setIn(['user', 'firstName'], action.payload.first_name)
+    .setIn(['user', 'city'], action.payload.city)
     break;
   case LOGIN_SUCCESS:
   case LOGIN_FACEBOOK_SUCCESS:

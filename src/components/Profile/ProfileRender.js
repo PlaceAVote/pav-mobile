@@ -275,6 +275,7 @@ class ProfileRender extends React.Component {
       recentActivityTextContainer:{
         paddingHorizontal: w*0.05,
         paddingVertical: h*0.01,
+        backgroundColor:Colors.transparentColor
       },
       recentActivityText: {
         // top:0,
@@ -359,10 +360,39 @@ class ProfileRender extends React.Component {
   }
 
 
+  renderProfilePhoto(url, styles){
+    if(url==null && this.props.isFetchingProfile===false){
+      return (
+        <PavImage
+          style={styles.userImg}
+          key="profile_user_img"
+          defaultSource={defaultUserPhoto}
+          source={defaultUserPhoto}
+          platform={this.props.device.platform}
+          resizeMode='contain'
+        />
+      )
+    }else{
+      return (
+        <PavImage
+          style={styles.userImg}
+          key="profile_user_img"
+          defaultSource={defaultUserPhoto}
+          source={{uri: url}}
+          platform={this.props.device.platform}
+          resizeMode='contain'
+        />
+      )
+    }
+
+  }
+
   renderProfileHeader(styles){
     let firstName = this.props.curUser.firstName|| "-";
     let lastName = this.props.curUser.lastName || "";
     let fullName =  firstName+" "+lastName;
+    console.log("Profile photo: "+this.props.curUser.photoUrl);
+
     return (<LinearGradient
             colors={['#4D6EB2', '#6B55A2']}
             start={[0.0, 0.0]} end={[0.6, 0.5]}
@@ -396,14 +426,7 @@ class ProfileRender extends React.Component {
               </View>
               <View style={styles.userDataHeaderView}>
                 <View style={styles.profileImgContainerView}>
-                  <PavImage
-                    style={styles.userImg}
-                    key="profile_user_img"
-                    defaultSource={defaultUserPhoto}
-                    source={!!this.props.userPhotoUrl?{uri: this.props.curUser.photoUrl}:defaultUserPhoto}
-                    platform={this.props.device.platform}
-                    resizeMode='contain'
-                  />
+                  {this.renderProfilePhoto(this.props.curUser.photoUrl, styles)}
                 </View>
                 <View style={styles.userDataContainerView}>
                   <Text style={styles.fullNameText}>{fullName}</Text>
@@ -427,25 +450,6 @@ class ProfileRender extends React.Component {
             </LinearGradient>);
   }
 
-
-
-
-
-
-
-
-  // parseTimelineDataIntoComponents(timelineData, styles, user){
-  //   if(!!timelineData){
-  //     var cards = [];
-  //     for(var ii=0, ll=timelineData.length;ii<ll;ii++){ //for each timeline item
-  //       let curTimelineItem = timelineData[ii];
-  //       // console.log(ii+" @ "+JSON.stringify(curTimelineItem))
-  //       cards.push();
-  //     }
-  //     return cards;
-  //   }
-  // }
-  // this.props.profile.form.profileData.timelineData
 
 
   /**

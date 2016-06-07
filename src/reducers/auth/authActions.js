@@ -355,16 +355,16 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
       }
     }else{
       // console.log("Signup success");
-      saveSessionTokenAndBasicInfo(res.data.token, {
-        user_id: res.data.user_id,
-        city: res.data.city || "",
-        first_name: first_name
-      })
+
+      let userInfo = {user_id:res.data.user_id, first_name:first_name, city:res.data.city || res.data.address};
+      saveSessionTokenAndBasicInfo(res.data.token, userInfo);
       dispatch(signupSuccess(Object.assign({}, res.data,
   			{
   			  email: email,
           first_name: first_name
-  			})));
+  			},
+        userInfo
+      )));
     }
     return dispatch(setModalVisibility(WELCOME, true));
   };
@@ -457,15 +457,11 @@ export function loginFailure(error) {
             alert("Good that was right, the cake was a lie though..");
           }
           // console.log("Login gave us the token"+res.data.token);
-          saveSessionTokenAndBasicInfo(res.data.token);
 
-          let userInfo = (await new UserInfoStore().getOrReplaceUserInfo() || {user_id:"", first_name:"", city:""});
-          console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
-          dispatch(loginSuccess({
-            user_id:userInfo.user_id || "",
-            first_name:userInfo.first_name || "",
-            city:userInfo.city || ""
-          }));
+          let userInfo = {user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address};
+          saveSessionTokenAndBasicInfo(res.data.token, userInfo);
+          // console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
+          dispatch(loginSuccess(userInfo));
           return res.data;
         }
       }
@@ -533,17 +529,9 @@ export function loginFacebook(facebookUserId,  facebookAccessToken, dev=null) {
     }else{
       // alert("Good that was right, the cake was a lie though..");
       // console.log(res.data.token);
-      saveSessionTokenAndBasicInfo(res.data.token);
-
-
-
-      let userInfo = await new UserInfoStore().getOrReplaceUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.address});
-      console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
-      dispatch(facebookLoginSuccess({
-        user_id:userInfo.user_id,
-        first_name:userInfo.first_name,
-        city:userInfo.city
-      }));
+      let userInfo = {user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address};
+      saveSessionTokenAndBasicInfo(res.data.token, userInfo);
+      dispatch(facebookLoginSuccess(userInfo));
       return res.data;
     }
 }
@@ -688,23 +676,21 @@ export function facebookSignupFailure(error) {
          dispatch(facebookSignupFailure(res.error));
        }
      }else{
-       // console.log("Signup success");
+         // console.log("Signup success");
+        let userInfo = {user_id:res.data.user_id, first_name:firstName, city:res.data.city || res.data.address};
+        curUser = Object.assign({}, res.data,
+        {
+            email: email,
+            first_name: firstName
+        },
+        userInfo);
+        console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
 
-      curUser = Object.assign({}, res.data,
- 			{
- 			    email: email,
-          first_name: firstName
- 			});
-      console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
-      saveSessionTokenAndBasicInfo(res.data.token, {
-        user_id: res.data.user_id,
-        city: res.data.city || "",
-        first_name: firstName
-      })
-       dispatch(facebookSignupSuccess(curUser));
-     }
-     dispatch(setModalVisibility(WELCOME, true));
-     return curUser;
+        saveSessionTokenAndBasicInfo(res.data.token, userInfo);
+        dispatch(facebookSignupSuccess(curUser));
+       }
+       dispatch(setModalVisibility(WELCOME, true));
+       return curUser;
    };
  }
 
