@@ -227,7 +227,7 @@ export function validateToken(sessionToken=null, dev = null) {
     }else{
       dispatch(validateTokenSuccess(res.data));
       let userInfo = (await new UserInfoStore().getOrReplaceUserInfo() || {user_id:"", first_name:"", city:""});
-      console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
+      // console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
       dispatch(loginSuccess({
         user_id:userInfo.user_id || "",
         first_name:userInfo.first_name || "",
@@ -513,7 +513,7 @@ export function loginFacebook(facebookUserId,  facebookAccessToken, dev=null) {
       fbAccessToken: facebookAccessToken
     });
     // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       if(res.multipleErrors){
         // console.log("authActions.login :: Error msg: "+res.error[0].email)
@@ -663,7 +663,7 @@ export function facebookSignupFailure(error) {
          "topics": topics,
          "gender": gender
        });
-     console.log("RES: "+JSON.stringify(res));
+    //  console.log("RES: "+JSON.stringify(res));
      let curUser = null;
      if(!!res.error){
        if(res.multipleErrors){
@@ -684,7 +684,7 @@ export function facebookSignupFailure(error) {
             first_name: firstName
         },
         userInfo);
-        console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
+        // console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
 
         saveSessionTokenAndBasicInfo(res.data.token, userInfo);
         dispatch(facebookSignupSuccess(curUser));

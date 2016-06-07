@@ -368,7 +368,6 @@ class ProfileRender extends React.Component {
           key="profile_user_img"
           defaultSource={defaultUserPhoto}
           source={defaultUserPhoto}
-          platform={this.props.device.platform}
           resizeMode='contain'
         />
       )
@@ -379,7 +378,6 @@ class ProfileRender extends React.Component {
           key="profile_user_img"
           defaultSource={defaultUserPhoto}
           source={{uri: url}}
-          platform={this.props.device.platform}
           resizeMode='contain'
         />
       )

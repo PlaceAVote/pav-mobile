@@ -20,6 +20,11 @@ import * as routingActions from '../reducers/routing/routingActions';
 import {Map} from 'immutable';
 import React from 'react';
 import {ScheneKeys} from '../config/constants';
+
+import SplashScreenRender from '../components/SplashScreen/SplashScreenRender'
+
+
+
 const {
 MAIN,
 ONBOARDING
@@ -59,17 +64,17 @@ function mapDispatchToProps(dispatch) {
 
 class SplashScreen extends React.Component{
 
-  async componentWillMount(){
-    // console.log("Splash screen is dev: "+this.props.global.isDev);
-    let isValid = await this.props.actions.validateToken(null, this.props.global.isDev);
-    if(isValid!=null){
-      console.log("Old token found, and is VALID.");
-      this.navigateToMain();
-    }else{
-      console.log("No valid token was found.");
-      this.navigateToLogin();
-    }
-  }
+  // async componentWillMount(){
+  //   // console.log("Splash screen is dev: "+this.props.global.isDev);
+  //   let isValid = await this.props.actions.validateToken(null, this.props.global.isDev);
+  //   if(isValid!=null){
+  //     console.log("Old token found, and is VALID.");
+  //     this.navigateToMain();
+  //   }else{
+  //     console.log("No valid token was found.");
+  //     this.navigateToLogin();
+  //   }
+  // }
 
 
 
@@ -85,7 +90,7 @@ class SplashScreen extends React.Component{
   render() {
 
     return(
-      <PavSpinner/>
+      <SplashScreenRender orientation={this.props.device.orientation}/>
     );
   }
 };
