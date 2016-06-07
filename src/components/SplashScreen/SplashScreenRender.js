@@ -140,7 +140,6 @@ class SplashScreenRender extends React.Component {
     let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    console.log("pavLogoHq: "+(typeof pavLogoHq) );
     return(
       <LinearGradient
         colors={['#4D6EB2', '#6B55A2']}

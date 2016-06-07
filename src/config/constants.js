@@ -148,9 +148,9 @@ module.exports =  {
       "VETOED:OVERRIDE_FAIL_SECOND:HOUSE":{title:"Override Failed second - House", explanation:"Veto override passed in the Senate but failed in the House.", icons:["introduced", "committee", "bill-senate-pass", "failed-house"]},
       "VETOED:OVERRIDE_FAIL_SECOND:SENATE":{title:"Override Failed second - Senate", explanation:"Veto override passed in the House but failed in the Senate.", icons:["introduced", "committee", "bill-house-pass", "failed-senate"]},
 
-      "ENACTED:VETO_OVERRIDE":{title:"Bill Vetoed but Veto Overriden", explanation:"The bill was vetoed but the veto was overridden in both chambers.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "enacted"]},
-      "ENACTED:TENDAYRULE":{title:"Ten day Rule", explanation:" The bill became law because ten Days passed (Sundays excepted) while the president neither singed nor vetoed the bill. This has happened only six times since the 93rd Congress, none recently.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "enacted"]},
-      "ENACTED:SIGNED":{title:"Singed", explanation:"The President signed the bill and it became a law.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "enacted"]},
+      "ENACTED:VETO_OVERRIDE":{title:"Bill Vetoed but Veto Overriden", explanation:"The bill was vetoed but the veto was overridden in both chambers.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "bill-passed"]},
+      "ENACTED:TENDAYRULE":{title:"Ten day Rule", explanation:" The bill became law because ten Days passed (Sundays excepted) while the president neither singed nor vetoed the bill. This has happened only six times since the 93rd Congress, none recently.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "bill-passed"]},
+      "ENACTED:SIGNED":{title:"Singed", explanation:"The President signed the bill and it became a law.", icons:["introduced", "committee", "bill-senate-pass", "bill-house-pass", "bill-passed"]},
     },
 
 

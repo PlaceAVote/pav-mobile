@@ -57,10 +57,11 @@ export function getProfileRequest() {
     type: GET_PROFILE_REQUEST
   };
 }
-export function getProfileSuccess(json) {
+export function getProfileSuccess(json, shouldUpdateState=true) {
   return {
     type: GET_PROFILE_SUCCESS,
-    payload: json
+    payload: json,
+    shouldUpdateState: shouldUpdateState
   };
 }
 export function getProfileFailure(json) {
@@ -76,7 +77,7 @@ export function getProfileFailure(json) {
  */
 export function getProfile(userId = null, dev = null, sessionToken=null) {
   return async function (dispatch){
-    // dispatch(getProfileRequest());
+    dispatch(getProfileRequest());
     //store or get a sessionToken
     let token = sessionToken;
     try{
@@ -99,8 +100,10 @@ export function getProfile(userId = null, dev = null, sessionToken=null) {
       dispatch(getProfileFailure("Unable to get user profile data with this token."));
       return {data: null, error: res.error.error_message};
     }else{
-      dispatch(getProfileSuccess(res.data));
-      dispatch(setUserData(res.data));
+      dispatch(getProfileSuccess(res.data, (userId == null)));
+      if(userId==null){
+          dispatch(setUserData(res.data));
+      }
       return {data: res.data, error: null};
     }
   };
@@ -134,10 +137,11 @@ export function getTimelineRequest() {
     type: GET_TIMELINE_REQUEST
   };
 }
-export function getTimelineSuccess(json) {
+export function getTimelineSuccess(json, shouldUpdateState=true) {
   return {
     type: GET_TIMELINE_SUCCESS,
-    payload: json
+    payload: json,
+    shouldUpdateState: shouldUpdateState
   };
 }
 export function getTimelineFailure(json) {
@@ -165,6 +169,7 @@ export function getTimeline(userId = null, dev = null, sessionToken=null) {
     }catch(e){
       console.log("Unable to fetch past token in profileActions.getTimeline() with error: "+e.message);
       dispatch(getTimelineFailure(e.message));
+      return e.message;
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.timeline({
       userId: userId
@@ -175,7 +180,7 @@ export function getTimeline(userId = null, dev = null, sessionToken=null) {
       dispatch(getTimelineFailure("Unable to get user profile data with this token."));
       return res.error;
     }else{
-      dispatch(getTimelineSuccess(res.data));
+      dispatch(getTimelineSuccess(res.data, (userId == null)));
       return res.data;
     }
   };

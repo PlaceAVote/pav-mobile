@@ -26,7 +26,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -34,7 +34,7 @@ const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in cu
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
-
+import PavImage from '../../../lib/UI/PavImage'
 import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 
 
@@ -251,6 +251,21 @@ class CommentCard extends React.Component {
     });
   }
 
+
+
+
+
+  onBillClick(){
+    if(this.props.onBillClick && !!this.props.billId){
+      this.props.onBillClick(this.props.billId);
+    }
+  }
+  onUserClick(){
+    if(this.props.onUserClick && !!this.props.userId){
+        this.props.onUserClick(this.props.userId);
+    }
+  }
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -280,24 +295,26 @@ class CommentCard extends React.Component {
           <View style={styles.cardContentContainer}>
 
             <View style={styles.cardContentHeader}>
-              <Image
-                defaultSource={defaultUserPhoto}
-                style={styles.userImage}
-                source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
-                resizeMode='cover'
-              />
+              <TouchableOpacity onPress={this.onUserClick.bind(this)}>
+                <PavImage
+                  defaultSource={defaultUserPhoto}
+                  style={styles.userImage}
+                  source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
+                  resizeMode='cover'
+                />
+              </TouchableOpacity>
               <View style={styles.commentDescriptionContainer}>
-                <View style={styles.commentNameTextContainer}>
+                <TouchableOpacity style={styles.commentNameTextContainer} onPress={this.onUserClick.bind(this)}>
                   <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
-                </View>
-                <View style={styles.commentLocationContainer}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.commentLocationContainer} onPress={this.onBillClick.bind(this)}>
                   <View  style={styles.commentInTextContainer}>
                     <Text style={styles.commentInText}>in</Text>
                   </View>
                   <View  style={styles.commentLocationTextContainer}>
                     <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
                   </View>
-                </View>
+                </TouchableOpacity>
 
               </View>
             </View>
@@ -315,6 +332,26 @@ class CommentCard extends React.Component {
 
 
 
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
+
+
+CommentCard.propTypes= {
+  device: React.PropTypes.object.isRequired,
+  dateTime: React.PropTypes.string.isRequired,
+  commentParentTitle: React.PropTypes.string.isRequired,
+  userFullNameText: React.PropTypes.string.isRequired,
+  commentText: React.PropTypes.string,
+  userPhotoUrl: React.PropTypes.string,
+  commentId: React.PropTypes.string,
+  userId: React.PropTypes.string,
+  billId: React.PropTypes.string,
+  onUserClick: React.PropTypes.func.isRequired,
+  onBillClick: React.PropTypes.func.isRequired,
+
+  // score: React.PropTypes.number.isRequired,
+  // isLiked: React.PropTypes.bool.isRequired,
+  // isDisliked: React.PropTypes.bool.isRequired,
+  // billTitle: React.PropTypes.string,
+  // onLikeDislikeClick: React.PropTypes.func.isRequired,
+  // onReplyClick: React.PropTypes.func.isRequired,
+};
 export default CommentCard;

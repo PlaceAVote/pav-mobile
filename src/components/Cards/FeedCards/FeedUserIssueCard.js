@@ -317,7 +317,7 @@ class FeedUserIssueCard extends React.Component {
         flex:1,
         // width:w*0.917,
         // height:h*0.15,
-        backgroundColor:'blue'
+        // backgroundColor:'blue'
 
       },
       userDetailsTouchableView:{

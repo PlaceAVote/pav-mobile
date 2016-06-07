@@ -106,23 +106,29 @@ export default function profileReducer(state = initialState, action) {
     .setIn(['form','error'],null)
     .setIn(['form', 'profileData', 'currentlyFollowingUser'], true)
   case GET_TIMELINE_SUCCESS:
-    return state.setIn(['form', 'isFetching', 'timelineData'], false)
-    .setIn(['form','error'],null)
-    .setIn(['form', 'timelineData'], Immutable.fromJS(action.payload.results));
+    if(action.shouldUpdateState===true){
+      return state.setIn(['form', 'isFetching', 'timelineData'], false)
+      .setIn(['form','error'],null)
+      .setIn(['form', 'timelineData'], Immutable.fromJS(action.payload.results));
+    }else{
+      return state.setIn(['form', 'isFetching', 'timelineData'], false)
+      .setIn(['form','error'],null)
+    }
+
 
   case GET_PROFILE_SUCCESS:
     // console.log("Profile reducer get profile SUCCESS with payload: "+JSON.stringify(action.payload));
-    return state.setIn(['form', 'isFetching', 'profileData'], false)
-      .setIn(['form','error'],null)
-      .setIn(['form', 'profileData', 'followerCnt'], action.payload.total_followers)
-      .setIn(['form', 'profileData', 'followingCnt'], action.payload.total_following)
-      .setIn(['form', 'profileData', 'lastActivityTimestamp'], action.payload.last_activity)
-      .setIn(['form', 'profileData', 'voteCnt'], action.payload.total_votes);
-
-    // return formValidation(
-    //   fieldValidation( nextProfileState, action)
-    //   , action);
-    //   break;
+    if(action.shouldUpdateState===true){
+      return state.setIn(['form', 'isFetching', 'profileData'], false)
+        .setIn(['form','error'],null)
+        .setIn(['form', 'profileData', 'followerCnt'], action.payload.total_followers)
+        .setIn(['form', 'profileData', 'followingCnt'], action.payload.total_following)
+        .setIn(['form', 'profileData', 'lastActivityTimestamp'], action.payload.last_activity)
+        .setIn(['form', 'profileData', 'voteCnt'], action.payload.total_votes);
+    }else{
+      return state.setIn(['form', 'isFetching', 'profileData'], false)
+        .setIn(['form','error'],null)
+    }
 
     /**
      * User logged out, so reset form fields and original profile.

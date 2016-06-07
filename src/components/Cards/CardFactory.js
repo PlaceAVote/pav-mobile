@@ -55,6 +55,12 @@ class CardFactory extends React.Component {
           commentParentTitle={d.bill_title}
           commentText={d.body}
           userPhotoUrl={d.author_img_url}
+
+          userId={d.author}
+          commentId={d.comment_id}
+          billId={d.bill_id}
+          onUserClick={this.props.onUserClick}
+          onBillClick={this.props.onBillClick}
           />);
         break;
       case "vote":

@@ -385,11 +385,30 @@ class ProfileRender extends React.Component {
 
   }
 
+
+  renderFollowButton(curUserProfileBelongsToTheAppUser, styles){
+    if(curUserProfileBelongsToTheAppUser==true){
+      return <View></View>;
+    }else{
+      return (
+        <Button
+        onPress={this.props.onFollowBtnPress}
+        style={styles.followBtn}
+        textStyle={styles.whiteBtnText}
+        isDisabled={this.props.isFetchingProfile || this.props.isFetchingFollow}
+        isLoading={this.props.isFetchingProfile || this.props.isFetchingFollow}
+        iconProps={this.props.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}>
+          {this.getFollowBtnLabelText(this.props.curUser.firstName, this.props.currentlyFollowingUser)}
+        </Button>
+      );
+    }
+
+  }
+
   renderProfileHeader(styles){
     let firstName = this.props.curUser.firstName|| "-";
     let lastName = this.props.curUser.lastName || "";
     let fullName =  firstName+" "+lastName;
-    console.log("Profile photo: "+this.props.curUser.photoUrl);
 
     return (<LinearGradient
             colors={['#4D6EB2', '#6B55A2']}
@@ -434,15 +453,7 @@ class ProfileRender extends React.Component {
                     <Text style={styles.locationText}>{this.formUserLocationText(this.props.curUser)}</Text>
                   </View>
 
-                  <Button
-                  onPress={this.props.onFollowBtnPress}
-                  style={styles.followBtn}
-                  textStyle={styles.whiteBtnText}
-                  isDisabled={this.props.isFetchingProfile || this.props.isFetchingFollow}
-                  isLoading={this.props.isFetchingProfile || this.props.isFetchingFollow}
-                  iconProps={this.props.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}>
-                    {this.getFollowBtnLabelText(this.props.curUser.firstName, this.props.currentlyFollowingUser)}
-                  </Button>
+                  {this.renderFollowButton((this.props.isTab!==false), styles)}
                 </View>
               </View>
             </LinearGradient>);
@@ -513,6 +524,7 @@ class ProfileRender extends React.Component {
 
 
   shouldComponentUpdate(nextProps, nextState) {
+    // console.log("########### Cur user update: "+(nextProps.curUser !== this.props.curUser));
     return(
       (nextProps.device !== this.props.device)
       ||
@@ -545,7 +557,7 @@ ProfileRender.propTypes= {
   timelineData: React.PropTypes.object,
   curUser: React.PropTypes.object,
   device: React.PropTypes.object.isRequired,
-  isTab: React.PropTypes.bool.isRequired,
+  isTab: React.PropTypes.bool,
   lastActivityTimestamp: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number,
@@ -566,7 +578,16 @@ ProfileRender.propTypes= {
   isFetchingTimeline: React.PropTypes.bool,
   isFetchingProfile: React.PropTypes.bool,
   isFetchingFollow: React.PropTypes.bool,
+
   onFollowBtnPress: React.PropTypes.func.isRequired,
-  onFeedRefresh: React.PropTypes.func.isRequired
+  onFeedRefresh: React.PropTypes.func.isRequired,
+  onUserClick: React.PropTypes.func.isRequired,
+  onBillClick: React.PropTypes.func.isRequired,
+  onLikeDislikeClick: React.PropTypes.func.isRequired,
+  onReplyClick: React.PropTypes.func.isRequired,
+  onReactionClick: React.PropTypes.func.isRequired,
+  onCommentClick: React.PropTypes.func.isRequired,
+  onSocialClick: React.PropTypes.func.isRequired
+
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileRender);
