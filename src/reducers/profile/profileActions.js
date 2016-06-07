@@ -75,7 +75,6 @@ export function getProfileFailure(json) {
  * as in login, register, logout or reset password
  */
 export function getProfile(userId = null, dev = null, sessionToken=null) {
-  console.log("Get profile called");
   return async function (dispatch){
     // dispatch(getProfileRequest());
     //store or get a sessionToken
@@ -88,7 +87,9 @@ export function getProfile(userId = null, dev = null, sessionToken=null) {
     }catch(e){
       console.log("Unable to fetch past token in profileActions.getProfile() with error: "+e.message);
       dispatch(getProfileFailure(e.message));
+      return {data: null, error: e.message};
     }
+    // console.log("Get profile called for userId: "+userId+" dev?: "+dev+" and token: "+(sessionToken!=null)+" oo token: "+token);
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.profile({
       userId: userId
     });
@@ -96,11 +97,11 @@ export function getProfile(userId = null, dev = null, sessionToken=null) {
     if(!!res.error){
       console.log("Error in profile call"+res.error.error_message);
       dispatch(getProfileFailure("Unable to get user profile data with this token."));
-      return res.error;
+      return {data: null, error: res.error.error_message};
     }else{
       dispatch(getProfileSuccess(res.data));
       dispatch(setUserData(res.data));
-      return res.data;
+      return {data: res.data, error: null};
     }
   };
 }

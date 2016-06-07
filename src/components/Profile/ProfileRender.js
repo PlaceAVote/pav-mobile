@@ -44,7 +44,7 @@ import moment from 'moment'
 import {Colors, ScheneKeys} from '../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image, ActivityIndicatorIOS, ListView, Platform} from 'react-native';
+import {StyleSheet, Text, View, Image, ActivityIndicatorIOS, ListView, Platform, RefreshControl} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -132,6 +132,7 @@ class ProfileRender extends React.Component {
         flexDirection: 'column',
         paddingBottom:50, //tab bar height
         paddingTop:Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,  //nav bar height
+        backgroundColor: '#E8E7EE',
         // marginVertical: 10,
         // marginHorizontal:15
       },
@@ -445,43 +446,6 @@ class ProfileRender extends React.Component {
   //   }
   // }
   // this.props.profile.form.profileData.timelineData
-  renderProfileBody(dataReady, styles){
-    if(dataReady==true){
-      return (
-        <ListView
-         enableEmptySections={true}
-         style={styles.itemList}
-         initialListSize={5}
-         dataSource={this.state.dataSource}
-         scrollEnabled={true}
-         renderHeader={()=>(
-           <View  style={styles.recentActivityTextContainer}>
-              <Text style={styles.recentActivityText}>Recent Activity:</Text>
-           </View>
-         )}
-         renderRow={(rowData) =>
-           <CardFactory
-           type="profile"
-           key={rowData.event_id}
-           cardStyle={Platform.OS=="android"?{elevation:5}:{}}
-           itemData={rowData}
-           style={styles.card}
-           device={this.props.device}
-           curUser={this.props.curUser}
-           onUserClick={this.props.onUserClick}
-           onBillClick={this.props.onBillClick}
-           onLikeDislikeClick={this.props.onLikeDislikeClick}
-           onReplyClick={this.props.onReplyClick}
-           onReactionClick={this.props.onReactionClick}
-           onCommentClick={this.props.onCommentClick}
-           onSocialClick={this.props.onSocialClick}
-           />}
-         />);
-    }else{
-      return <PavSpinner/>
-    }
-
-  }
 
 
   /**
@@ -496,7 +460,44 @@ class ProfileRender extends React.Component {
     return(
         <View style={styles.container}>
           {this.renderProfileHeader(styles)}
-          {this.renderProfileBody(!this.props.isFetchingTimeline, styles)}
+          <ListView
+           enableEmptySections={true}
+           style={styles.itemList}
+           initialListSize={5}
+           dataSource={this.state.dataSource}
+           scrollEnabled={true}
+           renderHeader={()=>(
+             <View  style={styles.recentActivityTextContainer}>
+                <Text style={styles.recentActivityText}>Recent Activity:</Text>
+             </View>
+           )}
+           refreshControl={
+             <RefreshControl
+             refreshing={this.props.isFetchingTimeline || this.props.isFetchingProfile}
+             onRefresh={this.props.onFeedRefresh}
+             tintColor={Colors.primaryColor}
+             title="Loading..."
+             titleColor={Colors.primaryColor}
+             colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
+           />}
+           renderRow={(rowData) =>
+             <CardFactory
+             type="profile"
+             key={rowData.event_id}
+             cardStyle={Platform.OS=="android"?{elevation:5}:{}}
+             itemData={rowData}
+             style={styles.card}
+             device={this.props.device}
+             curUser={this.props.curUser}
+             onUserClick={this.props.onUserClick}
+             onBillClick={this.props.onBillClick}
+             onLikeDislikeClick={this.props.onLikeDislikeClick}
+             onReplyClick={this.props.onReplyClick}
+             onReactionClick={this.props.onReactionClick}
+             onCommentClick={this.props.onCommentClick}
+             onSocialClick={this.props.onSocialClick}
+             />}
+           />
         </View>
     );
   }

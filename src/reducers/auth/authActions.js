@@ -453,17 +453,18 @@ export function loginFailure(error) {
             return null;
           }
         }else{
-          if(dev){
+          if(dev===true){
             alert("Good that was right, the cake was a lie though..");
           }
           // console.log("Login gave us the token"+res.data.token);
-
-          let userInfo = await new UserInfoStore().getOrReplaceUserInfo();
           saveSessionTokenAndBasicInfo(res.data.token);
+
+          let userInfo = (await new UserInfoStore().getOrReplaceUserInfo() || {user_id:"", first_name:"", city:""});
+          console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
           dispatch(loginSuccess({
-            user_id:userInfo.user_id,
-            first_name:userInfo.first_name,
-            city:userInfo.city
+            user_id:userInfo.user_id || "",
+            first_name:userInfo.first_name || "",
+            city:userInfo.city || ""
           }));
           return res.data;
         }
@@ -530,10 +531,14 @@ export function loginFacebook(facebookUserId,  facebookAccessToken, dev=null) {
         return null;
       }
     }else{
-      alert("Good that was right, the cake was a lie though..");
+      // alert("Good that was right, the cake was a lie though..");
       // console.log(res.data.token);
       saveSessionTokenAndBasicInfo(res.data.token);
-      let userInfo = await new UserInfoStore().getOrReplaceUserInfo();
+
+
+
+      let userInfo = await new UserInfoStore().getOrReplaceUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.address});
+      console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
       dispatch(facebookLoginSuccess({
         user_id:userInfo.user_id,
         first_name:userInfo.first_name,

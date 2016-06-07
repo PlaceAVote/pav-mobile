@@ -110,7 +110,10 @@ class Profile extends React.Component {
   }
 
   async getProfileData(){
-    this.props.actions.getProfile(null, this.props.global.isDev, this.TOKEN)
+    let profileRes = await this.props.actions.getProfile(null, this.props.global.isDev, this.TOKEN)
+    if(profileRes!=null && profileRes.error!=null){
+      alert("Error: "+profileRes.error);
+    }
     this.props.actions.getTimeline(null, this.props.global.isDev, this.TOKEN)
   }
 
@@ -134,7 +137,10 @@ class Profile extends React.Component {
     }else{
       this.props.actions.followUser(this.props.auth.user.id, this.props.global.isDev, this.TOKEN)
     }
+  }
 
+  onFeedRefresh(e){
+    this.props.actions.getTimeline(null, this.props.global.isDev, this.TOKEN);
   }
 
   render() {
@@ -151,7 +157,8 @@ class Profile extends React.Component {
           profileData={this.props.profile.form.profileData}
           timelineData={this.props.profile.form.timelineData}
           curUser={this.props.auth.user}
-          onFollowBtnPress= {this.onFollowBtnPress.bind(this)}
+          onFollowBtnPress={this.onFollowBtnPress.bind(this)}
+          onFeedRefresh={this.onFeedRefresh.bind(this)}
       />
 
     );
