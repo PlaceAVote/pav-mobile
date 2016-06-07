@@ -235,6 +235,7 @@ CommentsRender.propTypes = {
   commentsBeingFetched: React.PropTypes.bool.isRequired,
   commentBeingAltered: React.PropTypes.bool.isRequired,
   parentVisible: React.PropTypes.bool.isRequired,
+
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,

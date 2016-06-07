@@ -234,6 +234,7 @@ class Comments extends React.Component {
           commentsBeingFetched={this.props.bill.isFetching.billComments}
           replies={this.state.curCommentScopeData}
           commentLvl={this.state.commentLvl}
+
           onCommentsRefresh={this.onCommentsRefresh.bind(this)}
           onUserClick={this.onCommentUserClick.bind(this)}
           onCommentPost={this.onCommentPostClick.bind(this)}

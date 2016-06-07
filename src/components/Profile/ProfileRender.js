@@ -397,26 +397,26 @@ class ProfileRender extends React.Component {
             style={styles.headerView}>
               <View style={styles.userDetailsHeaderView}>
                 <View style={styles.statisticsBigContainer}>
-                  <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.profile.form.profileData.lastActivityTimestamp)}</Text>
+                  <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.lastActivityTimestamp)}</Text>
 
                   <View style={styles.statisticsTitleTextContainer}>
                     <Text style={styles.statisticsTitleText}>Last Activity</Text>
                   </View>
                 </View>
                 <View style={styles.statisticsSmallContainer}>
-                  <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.voteCnt}</Text>
+                  <Text style={styles.statisticsContentText}>{this.props.voteCnt}</Text>
                   <View style={styles.statisticsTitleTextContainer}>
                     <Text style={styles.statisticsTitleText}>Votes</Text>
                   </View>
                 </View>
                 <View style={styles.statisticsSmallContainer}>
-                  <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followerCnt}</Text>
+                  <Text style={styles.statisticsContentText}>{this.props.followerCnt}</Text>
                   <View style={styles.statisticsTitleTextContainer}>
                     <Text style={styles.statisticsTitleText}>Followers</Text>
                   </View>
                 </View>
                 <View style={styles.statisticsSmallContainer}>
-                  <Text style={styles.statisticsContentText}>{this.props.profile.form.profileData.followingCnt}</Text>
+                  <Text style={styles.statisticsContentText}>{this.props.followingCnt}</Text>
                   <View style={styles.statisticsTitleTextContainer}>
                     <Text style={styles.statisticsTitleText}>Following</Text>
                   </View>
@@ -440,8 +440,8 @@ class ProfileRender extends React.Component {
                   textStyle={styles.whiteBtnText}
                   isDisabled={this.props.isFetchingProfile || this.props.isFetchingFollow}
                   isLoading={this.props.isFetchingProfile || this.props.isFetchingFollow}
-                  iconProps={this.props.profile.form.profileData.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}>
-                    {this.getFollowBtnLabelText(this.props.curUser.firstName, this.props.profile.form.profileData.currentlyFollowingUser)}
+                  iconProps={this.props.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}>
+                    {this.getFollowBtnLabelText(this.props.curUser.firstName, this.props.currentlyFollowingUser)}
                   </Button>
                 </View>
               </View>
@@ -456,7 +456,7 @@ class ProfileRender extends React.Component {
    */
   render() {
 
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
@@ -511,9 +511,10 @@ class ProfileRender extends React.Component {
     }
   }
 
+
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.device !== this.props.device)
+      (nextProps.orientation !== this.props.orientation)
       ||
       (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
       ||
@@ -521,14 +522,47 @@ class ProfileRender extends React.Component {
       ||
       (nextProps.isFetchingFollow !== this.props.isFetchingFollow)
       ||
-      (nextProps.profileData !== this.props.profileData)
-      ||
       (nextProps.curUser !== this.props.curUser)
       ||
       (nextState.dataSource !== this.state.dataSource)
+      ||
+      (nextProps.lastActivityTimestamp !== this.props.lastActivityTimestamp)
+      ||
+      (nextProps.voteCnt !== this.props.voteCnt)
+      ||
+      (nextProps.followerCnt !== this.props.followerCnt)
+      ||
+      (nextProps.followingCnt !== this.props.followingCnt)
+      ||
+      (nextProps.currentlyFollowingUser !== this.props.currentlyFollowingUser)
     );
   }
 }
 
 
+
+ProfileRender.propTypes= {
+  timelineData: React.PropTypes.object,
+  curUser: React.PropTypes.object,
+  orientation: React.PropTypes.string.isRequired,
+  lastActivityTimestamp: React.PropTypes.string,
+  voteCnt: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+  ]),
+  followerCnt: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+  ]),
+  followingCnt: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+  ]),
+  currentlyFollowingUser: React.PropTypes.bool,
+  isFetchingTimeline: React.PropTypes.bool,
+  isFetchingProfile: React.PropTypes.bool,
+  isFetchingFollow: React.PropTypes.bool,
+  onFollowBtnPress: React.PropTypes.func.isRequired,
+  onFeedRefresh: React.PropTypes.func.isRequired
+};
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileRender);

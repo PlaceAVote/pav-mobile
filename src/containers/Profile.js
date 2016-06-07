@@ -106,15 +106,15 @@ class Profile extends React.Component {
   }
 
   componentWillMount(){
-    this.getProfileData()
+    this.getProfileData(this.props.userId)
   }
 
-  async getProfileData(){
-    let profileRes = await this.props.actions.getProfile(null, this.props.global.isDev, this.TOKEN)
+  async getProfileData(userId = null){
+    let profileRes = await this.props.actions.getProfile(userId, this.props.global.isDev, this.TOKEN)
     if(profileRes!=null && profileRes.error!=null){
       alert("Error: "+profileRes.error);
     }
-    this.props.actions.getTimeline(null, this.props.global.isDev, this.TOKEN)
+    this.props.actions.getTimeline(userId, this.props.global.isDev, this.TOKEN)
   }
 
   orientationDidChange(orientation) {
@@ -140,21 +140,21 @@ class Profile extends React.Component {
   }
 
   onFeedRefresh(e){
-    this.props.actions.getTimeline(null, this.props.global.isDev, this.TOKEN);
+    this.props.actions.getTimeline(this.props.userId, this.props.global.isDev, this.TOKEN);
   }
 
   render() {
     return(
       <ProfileRender
-          auth={ this.props.auth }
-          global={ this.props.global }
-          device={ this.props.device }
-          profile={ this.props.profile }
+          orientation={ this.props.device.orientation }
+          lastActivityTimestamp={this.props.profile.form.profileData.lastActivityTimestamp}
+          voteCnt={this.props.profile.form.profileData.voteCnt}
+          followerCnt={this.props.profile.form.profileData.followerCnt}
+          followingCnt={this.props.profile.form.profileData.followingCnt}
+          currentlyFollowingUser={this.props.profile.form.profileData.currentlyFollowingUser}
           isFetchingTimeline={this.props.profile.form.isFetching.timelineData}
           isFetchingProfile={this.props.profile.form.isFetching.profileData}
           isFetchingFollow={this.props.profile.form.isFetching.followUser}
-
-          profileData={this.props.profile.form.profileData}
           timelineData={this.props.profile.form.timelineData}
           curUser={this.props.auth.user}
           onFollowBtnPress={this.onFollowBtnPress.bind(this)}
@@ -167,5 +167,8 @@ class Profile extends React.Component {
 
 
 
+Profile.propTypes= {
+  userId: React.PropTypes.string,
 
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

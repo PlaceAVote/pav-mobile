@@ -66,7 +66,8 @@ const {
 const {
   MAIN,
   BILL,
-  COMMENTS
+  COMMENTS,
+  PROFILE
 } = ScheneKeys;
 
 
@@ -179,6 +180,7 @@ class NewsFeed extends React.Component {
 
   onUserClickedUser(userId){
     alert("Tapped user with id: "+userId);
+    this.props.actions.navigateTo(PROFILE, {userId:userId});
   }
 
   onUserClickedBill(billId){
@@ -222,7 +224,7 @@ class NewsFeed extends React.Component {
 
   async onUserClickedReply(commentId, billData){
     let {bill_id} = billData;
-    // this.props.actions.navigateTo(COMMENTS, {billId: bill_id, commentId:commentId });
+    this.props.actions.navigateTo(COMMENTS, {billId: bill_id, commentId:commentId });
   }
 
   async onUserClickedReaction(issueId, newReaction, oldReaction){
