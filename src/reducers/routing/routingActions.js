@@ -119,17 +119,33 @@ Action creators
 
 */
 
+export function refreshCurrentShene(newProps) {
+  return (dispatch, getState) => {
+    // const state = getState()
+    try{
+      Actions.refresh(newProps);
+    }catch(e){
+      throw new Error("Schene: "+schene+ "nav error on refreshCurrentShene - : "+e);
+    }
+  }
+}
+
 export function navigateTo(schene, dataToTransferToNewShene, ableToNavigateToSelf = false) {
   return (dispatch, getState) => {
     const state = getState()
-    if((ableToNavigateToSelf==false && state.router.currentSchene!=schene) || ableToNavigateToSelf==true){
+
+    if((ableToNavigateToSelf===false && state.router.currentSchene!=schene) || ableToNavigateToSelf===true){
       try{
         Actions[schene](dataToTransferToNewShene);
+        return true;
       }catch(e){
+        console.log("navigateTo error: "+JSON.stringify(e));
         throw new Error("Schene: "+schene+ "nav error: "+e);
+        return false;
       }
     }else{
       throw new Error("We\'re already within "+schene);
+      return false;
     }
 
   }

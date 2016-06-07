@@ -239,7 +239,12 @@ class Profile extends React.Component {
 
 
   onUserClickedUser(userId){
-    this.props.actions.navigateTo(PROFILE, {userId:userId, isTab:false}, true);
+    // this.props.actions.refreshCurrentShene({userId:userId, isTab:false});
+    if(userId===this.props.userId){
+      alert("You are already within that users profile page.")
+    }else{
+      this.props.actions.navigateTo(PROFILE, {userId:userId, isTab:false}, true);
+    }
   }
 
   onUserClickedBill(billId){

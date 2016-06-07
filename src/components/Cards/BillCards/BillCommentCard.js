@@ -37,7 +37,7 @@ import CommentReplyCard from './CommentReplyCard';
 
 import _ from 'underscore';
 
-const SUBCOMMENT_COUNT = 3;
+const SUBCOMMENT_COUNT = 2;
 
 class BillCommentCard extends React.Component {
   constructor(props) {
