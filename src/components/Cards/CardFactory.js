@@ -65,16 +65,21 @@ class CardFactory extends React.Component {
           />);
         break;
       case "vote":
+        // console.log("Real VoteCard is: "+JSON.stringify(d));
         return (<VoteCard
           {...this.props}
           dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
           userFullNameText={u.firstName+" "+u.lastName}
           voteParentTitle={d.bill_title}
+          userId={d.user_id}
+          billId={d.bill_id}
+          onUserClick={this.props.onUserClick}
+          onBillClick={this.props.onBillClick}
           />);
         break;
       case "followinguser":
         //Discovered a react native bug here, if I don't add the " " empty space character in the end of followedFullNameText the last name of the person might be invisible
-        console.log("Real FollowCard is: "+JSON.stringify(d));
+        // console.log("Real FollowCard is: "+JSON.stringify(d));
         return (<FollowCard
         {...this.props}
         dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
@@ -87,16 +92,22 @@ class CardFactory extends React.Component {
         break;
       case "dislikecomment":
       case "likecomment":
-        // console.log("Like comment is: "+JSON.stringify(d));
+        // console.log("Real LikeCard is: "+JSON.stringify(d));
+        let commentAuthorName = (d.author_last_name!=null)?d.author_first_name+" "+d.author_last_name:"";
         return (<LikeCard
           {...this.props}
           dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
-          authorFullNameText={u.firstName+" "+u.lastName}
-          userFullNameText={d.author_first_name+" "+d.author_last_name}
+          userFullNameText={u.firstName+" "+u.lastName}
+          authorFullNameText={commentAuthorName}
           commentParentTitle={d.bill_title}
           commentText={d.body}
           userPhotoUrl={d.author_img_url}
           isLike={d.liked}
+          authorId={d.author}
+          userId={u.id}
+          billId={d.bill_id}
+          onUserClick={this.props.onUserClick}
+          onBillClick={this.props.onBillClick}
           />);
         break;
 

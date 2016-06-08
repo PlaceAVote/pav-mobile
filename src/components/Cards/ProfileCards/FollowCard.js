@@ -158,11 +158,13 @@ class FollowCard extends React.Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       followBetweenTextContainer:{
-        paddingHorizontal: w*0.005,
+        paddingHorizontal: w*0.003,
+      },
+      followedNameTextContainer:{
+        // paddingHorizontal: w*0.001,
       },
       followBetweenText:{
         color: Colors.thirdTextColor,
-        paddingHorizontal: w*0.005,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
@@ -254,7 +256,7 @@ class FollowCard extends React.Component {
               <View style={styles.followBetweenTextContainer}>
                 <Text style={styles.followBetweenText}>followed </Text>
               </View>
-              <TouchableOpacity style={styles.nameTextContainer} onPress={()=>this.onUserClick(this.props.followedUserId)}>
+              <TouchableOpacity style={styles.followedNameTextContainer} onPress={()=>this.onUserClick(this.props.followedUserId)}>
                 <Text style={styles.nameText}>{this.props.followedFullNameText}</Text>
               </TouchableOpacity>
             </View>
@@ -267,11 +269,6 @@ class FollowCard extends React.Component {
 
 
 
-
-
-
-
-//TODO: make the, LIKE, and VOTE card taps work!!!!!!!!!!!!
 
 
 

@@ -26,7 +26,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -255,6 +255,20 @@ class LikeCard extends React.Component {
     });
   }
 
+
+  onUserClick(userId){
+    if(!!this.props.onUserClick && userId!=null){
+      this.props.onUserClick(userId);
+    }
+  }
+
+  onBillClick(billId){
+    if(!!this.props.onBillClick && billId!=null){
+      this.props.onBillClick(billId);
+    }
+  }
+
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -288,30 +302,33 @@ class LikeCard extends React.Component {
           <View style={styles.cardContentContainer}>
 
             <View style={styles.cardContentHeader}>
-              <Image
-                style={styles.userImage}
-                source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
-                defaultSource={defaultUserPhoto}
-                resizeMode='cover'
-              />
-
+              <TouchableOpacity onPress={()=>this.onUserClick(this.props.userId)}>
+                <Image
+                  style={styles.userImage}
+                  source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
+                  defaultSource={defaultUserPhoto}
+                  resizeMode='cover'
+                />
+              </TouchableOpacity>
               <View style={styles.commentDescriptionContainer}>
                 <View style={styles.commentLocationContainer}>
-                  <View style={styles.commentNameTextContainer}>
+                  <TouchableOpacity style={styles.commentNameTextContainer} onPress={()=>this.onUserClick(this.props.userId)}>
                     <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
-                  </View>
+                  </TouchableOpacity>
                   <View  style={styles.commentInTextContainer}>
                     <Text style={styles.commentInText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
                   </View>
                 </View>
-                <Text style={styles.commentNameText}>{this.props.authorFullNameText}</Text>
+                <TouchableOpacity style={styles.commentNameTextContainer} onPress={()=>this.onUserClick(this.props.authorId)}>
+                  <Text style={styles.commentNameText}>{this.props.authorFullNameText}</Text>
+                </TouchableOpacity>
                 <View style={styles.commentLocationContainer}>
                   <View  style={styles.commentInTextContainer}>
                     <Text style={styles.commentInText}>in</Text>
                   </View>
-                  <View  style={styles.commentLocationTextContainer}>
+                  <TouchableOpacity style={styles.commentLocationTextContainer} onPress={()=>this.onBillClick(this.props.billId)}>
                     <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
 
               </View>
@@ -330,6 +347,23 @@ class LikeCard extends React.Component {
 
 
 
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
+
+
+
+
+LikeCard.propTypes= {
+  device: React.PropTypes.object.isRequired,
+  dateTime: React.PropTypes.string.isRequired,
+  userFullNameText: React.PropTypes.string.isRequired,
+  authorFullNameText: React.PropTypes.string,
+  commentParentTitle: React.PropTypes.string.isRequired,
+  commentText: React.PropTypes.string.isRequired,
+  userPhotoUrl: React.PropTypes.string,
+  authorId: React.PropTypes.string,
+  userId: React.PropTypes.string.isRequired,
+  billId: React.PropTypes.string.isRequired,
+  isLike: React.PropTypes.bool.isRequired,
+  onUserClick: React.PropTypes.func.isRequired,
+  onBillClick: React.PropTypes.func.isRequired
+};
 export default LikeCard;

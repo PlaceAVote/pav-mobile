@@ -26,7 +26,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -239,6 +239,23 @@ class VoteCard extends React.Component {
     });
   }
 
+
+
+
+    onUserClick(userId){
+      if(!!this.props.onUserClick && userId!=null){
+        this.props.onUserClick(userId);
+      }
+    }
+
+    onBillClick(billId){
+      if(!!this.props.onBillClick && billId!=null){
+        this.props.onBillClick(billId);
+      }
+    }
+
+
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -269,16 +286,17 @@ class VoteCard extends React.Component {
             <View style={styles.cardContentHeader}>
               <View style={styles.voteDescriptionContainer}>
                 <View style={styles.voteRowContainer}>
-                  <View style={styles.voteNameTextContainer}>
+                  <TouchableOpacity style={styles.voteNameTextContainer} onPress={()=>this.onUserClick(this.props.userId)}>
                     <Text style={styles.voteNameText}>{this.props.userFullNameText}</Text>
-                  </View>
+                  </TouchableOpacity>
                   <View style={styles.voteInTextContainer}>
                     <Text style={styles.voteInText}>voted on the bill: </Text>
                   </View>
                 </View>
-                <View style={styles.voteLocationTextContainer}>
+
+                <TouchableOpacity style={styles.voteLocationTextContainer} onPress={()=>this.onBillClick(this.props.billId)}>
                   <Text style={styles.voteLocationText}>{this.props.voteParentTitle}</Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -290,6 +308,18 @@ class VoteCard extends React.Component {
 
 
 
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
+
+
+
+
+VoteCard.propTypes= {
+  device: React.PropTypes.object.isRequired,
+  dateTime: React.PropTypes.string.isRequired,
+  userFullNameText: React.PropTypes.string.isRequired,
+  voteParentTitle: React.PropTypes.string,
+  userId: React.PropTypes.string,
+  billId: React.PropTypes.string,
+  onUserClick: React.PropTypes.func.isRequired,
+  onBillClick: React.PropTypes.func.isRequired,
+};
 export default VoteCard;
