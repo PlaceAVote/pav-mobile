@@ -72,7 +72,9 @@ class SplashScreen extends React.Component{
       this.navigateToMain();
     }else{
       console.log("No valid token was found.");
-      this.navigateToLogin();
+      setTimeout(()=>{
+        this.navigateToLogin();
+      },1000)
     }
   }
 

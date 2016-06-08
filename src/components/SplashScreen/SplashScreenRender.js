@@ -140,7 +140,7 @@ class SplashScreenRender extends React.Component {
         style={styles.container}
       >
         <View style={styles.pavLogoContainer}>
-          <AnimatedPavLogo style={styles.logoAnimation}/>
+          <AnimatedPavLogo style={styles.logoAnimation} ref='pavAnimatedLogo'/>
         </View>
         <View style={styles.titleTextContainer}>
           <Text style={styles.titleText}>placeavote</Text>
@@ -148,6 +148,13 @@ class SplashScreenRender extends React.Component {
 
       </LinearGradient>
     );
+  }
+
+  componentDidMount(){
+    this.refs.pavAnimatedLogo.startAnimating();
+  }
+  componentWillUnmount(){
+    this.refs.pavAnimatedLogo.stopAnimating();
   }
 
 }

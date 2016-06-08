@@ -87,8 +87,8 @@ export default class Routes extends React.Component{
     let RouterWithRedux = this.props.router;
     return (<RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} >
         <Scene key="root" hideNavBar={true} >
-          <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} direction="vertical" component={SplashScreen} type="replace" hideNavBar={true} initial={this.props.tokenExistsInDisk===true}/>
-          <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} direction="vertical" component={Onboarding} type="replace" hideNavBar={true} initial={this.props.tokenExistsInDisk===false}/>
+          <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={this.props.tokenExistsInDisk===true}/>
+          <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true} initial={this.props.tokenExistsInDisk===false}/>
           <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" renderRightButton={()=><RightPavLogo/>}/>
           <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} component={EmailSignUpStep1} hideNavBar={true} />
           <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} component={EmailSignUpStep2} hideNavBar={true} />
