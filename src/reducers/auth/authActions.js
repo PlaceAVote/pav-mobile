@@ -198,7 +198,7 @@ export function validateToken(sessionToken=null, dev = null) {
           tok = tk.sessionToken;
         }
     }catch(e){
-      console.log("Unable to fetch past token in authActions.validateToken() with error: "+e.message);
+      // console.log("Unable to fetch past token in authActions.validateToken() with error: "+e.message);
       dispatch(validateTokenFailure("No past token exists."));
       return null;
     }
@@ -211,7 +211,7 @@ export function validateToken(sessionToken=null, dev = null) {
     if(!!res.error){
 
       try{  //delete expire token
-        console.log("Now deleting expired token.");
+        // console.log("Now deleting expired token.");
         new AppAuthTokenStore().deleteSessionToken();
       }catch(e){console.log("Unable to delete expired token: "+e.message);}
 
@@ -684,7 +684,7 @@ export function facebookSignupFailure(error) {
             first_name: firstName
         },
         userInfo);
-        // console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
+        console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
 
         saveSessionTokenAndBasicInfo(res.data.token, userInfo);
         dispatch(facebookSignupSuccess(curUser));
@@ -1003,7 +1003,7 @@ function parseFbBirthdayToUnixTimestamp(birthdayString){
 export function saveSessionTokenAndBasicInfo(token, basicInfo=null) {
 
   if(basicInfo!=null){
-    console.log("NOW saving session token with basic info: "+JSON.stringify(basicInfo))
+    // console.log("NOW saving session token with basic info: "+JSON.stringify(basicInfo))
     new UserInfoStore().storeUserInfo(basicInfo);
   }
   return new AppAuthTokenStore().storeSessionToken(token);
