@@ -135,7 +135,7 @@ class SplashScreenRender extends React.Component {
 
     return(
       <LinearGradient
-        colors={[ '#6B55A2',  '#445A94']}
+        colors={[ '#4F518E',  '#445A94']}
         start={[0.5, 0.0]} end={[0.5, 1.0]}
         style={styles.container}
       >

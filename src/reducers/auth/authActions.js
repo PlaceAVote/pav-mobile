@@ -530,6 +530,7 @@ export function loginFacebook(facebookUserId,  facebookAccessToken, dev=null) {
       // alert("Good that was right, the cake was a lie though..");
       // console.log(res.data.token);
       let userInfo = {user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address};
+      console.log("@@@ FB "+res.data.user_id);
       saveSessionTokenAndBasicInfo(res.data.token, userInfo);
       dispatch(facebookLoginSuccess(userInfo));
       return res.data;
@@ -684,7 +685,7 @@ export function facebookSignupFailure(error) {
             first_name: firstName
         },
         userInfo);
-        console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
+        // console.log("@@@@@@@ facebook signup success: "+JSON.stringify(curUser))
 
         saveSessionTokenAndBasicInfo(res.data.token, userInfo);
         dispatch(facebookSignupSuccess(curUser));
