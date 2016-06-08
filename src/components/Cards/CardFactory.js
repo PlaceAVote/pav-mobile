@@ -80,6 +80,9 @@ class CardFactory extends React.Component {
         dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
         followerFullNameText={u.firstName+" "+u.lastName}
         followedFullNameText={d.first_name+" "+d.last_name+" "}
+        userId={d.user_id}
+        followedUserId={d.following_id}
+        onUserClick={this.props.onUserClick}
         />);
         break;
       case "dislikecomment":

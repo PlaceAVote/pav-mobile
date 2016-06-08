@@ -26,7 +26,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -211,6 +211,16 @@ class FollowCard extends React.Component {
     });
   }
 
+
+
+
+
+  onUserClick(userId){
+    if(!!this.props.onUserClick && userId!=null){
+      this.props.onUserClick(userId);
+    }
+  }
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -238,15 +248,15 @@ class FollowCard extends React.Component {
           </View>
           <View style={styles.cardContentContainer}>
             <View style={styles.cardContentHeader}>
-              <View style={styles.nameTextContainer}>
+              <TouchableOpacity style={styles.nameTextContainer} onPress={()=>this.onUserClick(this.props.userId)}>
                 <Text style={styles.nameText}>{this.props.followerFullNameText}</Text>
-              </View>
+              </TouchableOpacity>
               <View style={styles.followBetweenTextContainer}>
-                <Text style={styles.followBetweenText}>followed</Text>
+                <Text style={styles.followBetweenText}>followed </Text>
               </View>
-              <View style={styles.nameTextContainer}>
+              <TouchableOpacity style={styles.nameTextContainer} onPress={()=>this.onUserClick(this.props.followedUserId)}>
                 <Text style={styles.nameText}>{this.props.followedFullNameText}</Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -257,6 +267,22 @@ class FollowCard extends React.Component {
 
 
 
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
+
+
+
+
+//TODO: make the, LIKE, and VOTE card taps work!!!!!!!!!!!!
+
+
+
+
+FollowCard.propTypes= {
+  device: React.PropTypes.object.isRequired,
+  dateTime: React.PropTypes.string.isRequired,
+  followerFullNameText: React.PropTypes.string.isRequired,
+  followedFullNameText: React.PropTypes.string.isRequired,
+  userId: React.PropTypes.string.isRequired,
+  followedUserId: React.PropTypes.string.isRequired,
+  onUserClick: React.PropTypes.func.isRequired,
+};
 export default FollowCard;

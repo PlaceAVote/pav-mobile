@@ -255,8 +255,11 @@ class Profile extends React.Component {
 
   onUserClickedUser(userId){
     // this.props.actions.refreshCurrentShene({userId:userId, isTab:false});
-    if(userId===this.props.userId){
+    // console.log("User id: "+(!!this.state.curUser && (this.state.curUser.id==userId))+"this.props.curUser.id: "+this.state.curUser.id+" when user id: "+userId);
+    if(userId===this.props.userId ){
       alert("You are already within that users profile page.")
+    }else if(!!this.state.curUser && (this.state.curUser.id==userId)){
+      alert("You are already within your profile page.")
     }else{
       this.props.actions.navigateTo(PROFILE, {userId:userId, isTab:false}, true);
     }
