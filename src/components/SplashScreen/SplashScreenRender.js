@@ -58,29 +58,20 @@ class SplashScreenRender extends React.Component {
         // backgroundColor: 'orange',
         flex:1,
         flexDirection:'column',
-        justifyContent:'center',
+        justifyContent:'space-around',
         // backgroundColor: '#E8E7EE',
         // marginVertical: 10,
         // marginHorizontal:15
       },
       pavLogoContainer:{
-        flex:1,
+        // flex:1,
         // paddingVertical:h*0.08,
-        justifyContent:'space-between',
+        justifyContent:'flex-start',
         // backgroundColor: "pink",
-      },
-      loadingTextContainer:{
-        backgroundColor:Colors.transparentColor,
-        paddingVertical:h*0.02,
-      },
-      loadingText:{
-        fontSize: getCorrectFontSizeForScreen(w,h,15),
-        color: Colors.mainTextColor,
-        fontFamily: 'Whitney-Book',
-        textAlign: 'center',
       },
       logoAnimation:{
-        // backgroundColor: "pink",
+        // backgroundColor: "purple",
+        paddingVertical:h*0.08,
       },
 
 
@@ -92,7 +83,7 @@ class SplashScreenRender extends React.Component {
       },
       titleText: {
         // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,49),
+        fontSize: getCorrectFontSizeForScreen(w,h,31),
         color: Colors.mainTextColor,
         fontFamily: 'Whitney-Bold',
         textAlign: 'center',
@@ -140,20 +131,19 @@ class SplashScreenRender extends React.Component {
     let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // '#4D6EB2',
+
     return(
       <LinearGradient
-        colors={['#4D6EB2', '#6B55A2']}
-        start={[0.0, 0.0]} end={[0.6, 0.5]}
+        colors={[ '#6B55A2',  '#445A94']}
+        start={[0.5, 0.0]} end={[0.5, 1.0]}
         style={styles.container}
       >
-        <View style={styles.titleTextContainer}>
-          <Text style={styles.titleText}>placeavote</Text>
-        </View>
         <View style={styles.pavLogoContainer}>
           <AnimatedPavLogo style={styles.logoAnimation}/>
-          <View style={styles.loadingTextContainer}>
-            <Text style={styles.loadingText}>Now Loading...</Text>
-          </View>
+        </View>
+        <View style={styles.titleTextContainer}>
+          <Text style={styles.titleText}>placeavote</Text>
         </View>
 
       </LinearGradient>

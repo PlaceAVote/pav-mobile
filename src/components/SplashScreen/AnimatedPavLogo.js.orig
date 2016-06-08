@@ -59,10 +59,17 @@ class AnimatedPavLogo extends React.Component {
       Animated.timing(       // Uses easing functions
         this.state.animation, // The value to drive
         {
+<<<<<<< HEAD
+          toValue: 1,        // Target
+          duration: 1300,    // Configuration
+          delay:100,
+          easing: Easing.inOut(Easing.ease)
+=======
           toValue: this.state.animationPart/ANIMATION_PARTS,        // Target
           duration: ANIMATION_DURATION,    // Configuration
           delay:PAUSE_DURATION,
           easing: Easing.ease
+>>>>>>> anim2
         },
       ).start(
         ()=>{
