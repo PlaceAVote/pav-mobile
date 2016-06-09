@@ -314,7 +314,7 @@ const HEADER_HEIGHT = h*0.045
         <View style={styles.statusPageContainer}>
           <ScrollView ref="stat_scrollview"
           style={styles.scrollViewContainer}
-          scrollEventThrottle={25}
+          scrollEventThrottle={300}
           onScroll={(e)=>{
               let {contentOffset, contentSize, layoutMeasurement} = e.nativeEvent;
               if(contentSize.height>this.totalContentHeight){
@@ -322,7 +322,7 @@ const HEADER_HEIGHT = h*0.045
               }
               this.usefulHeight = this.totalContentHeight-layoutMeasurement.height  //useful height is the TOTAL content height MINUS the element (scrollview) height (which is constantly the same)
               // console.log("New useful height: "+this.usefulHeight+ " cur scr");
-              console.log("ON SCROLL: "+contentOffset.y+" percent: "+(contentOffset.y/this.usefulHeight));
+              // console.log("ON SCROLL: "+contentOffset.y+" percent: "+(contentOffset.y/this.usefulHeight));
           }}
           onContentSizeChange={
             (cw, contentHeight)=>{
