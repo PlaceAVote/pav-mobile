@@ -104,11 +104,14 @@ class LikeCard extends React.Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       cardDateTextContainer:{
-        paddingHorizontal: w*0.02,
+        // paddingHorizontal: w*0.02,
+        // backgroundColor:'pink'
       },
       cardDateText:{
-        // backgroundColor: 'red',
+        // backgroundColor:'red',
         // color: Colors.thirdTextColor,
+        textAlign:'center',
+        width: w*0.29,
         color: 'rgba(0, 0, 0, 0.60)',
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
@@ -185,10 +188,26 @@ class LikeCard extends React.Component {
         paddingHorizontal:w*0.005,
       },
       commentInText:{
+        // backgroundColor:'red',
+        // width:w*0.36,
+        textAlign:'center',
         color: Colors.thirdTextColor,
         fontFamily: 'Whitney',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
+      commentFollowingTextContainer:{
+        paddingHorizontal:w*0.012,
+        // backgroundColor:'pink',
+      },
+      commentFollowingText:{
+        // backgroundColor:'red',
+        width:w*0.37,
+        // textAlign:'center',
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+      },
+
       commentLocationTextContainer:{
         paddingHorizontal:w*0.005,
       },
@@ -315,8 +334,8 @@ class LikeCard extends React.Component {
                   <TouchableOpacity style={styles.commentNameTextContainer} onPress={()=>this.onUserClick(this.props.userId)}>
                     <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
                   </TouchableOpacity>
-                  <View  style={styles.commentInTextContainer}>
-                    <Text style={styles.commentInText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
+                  <View  style={styles.commentFollowingTextContainer}>
+                    <Text style={styles.commentFollowingText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
                   </View>
                 </View>
                 <TouchableOpacity style={styles.commentNameTextContainer} onPress={()=>this.onUserClick(this.props.authorId)}>

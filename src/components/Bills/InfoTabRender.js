@@ -66,9 +66,6 @@ class InfoTabRender extends React.Component {
   constructor(props) {
     super(props);
 
-    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        // dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-
   }
 
 
@@ -267,9 +264,11 @@ class InfoTabRender extends React.Component {
   }
 
   handleScroll(e){
-    let percentageShow = e.nativeEvent.contentOffset.y/h;
-    // console.log(percentageShow);
-    this.refs.animatedLine.animate(percentageShow>0.62)
+    let {contentOffset, contentSize,layoutMeasurement } = e.nativeEvent;
+
+    let percentageShow = contentOffset.y/(contentSize.height-layoutMeasurement.height); //scroll percentage = total list height (header+body+footer) - list content (only body) height
+    console.log(percentageShow);
+    this.refs.animatedLine.animate(percentageShow>0.915)
   }
 
   /**

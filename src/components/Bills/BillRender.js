@@ -91,7 +91,7 @@ class BillRender extends React.Component {
         backgroundColor: 'white',
         flex:1,
         flexDirection: 'column',
-        paddingTop:Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,  //nav bar height
+        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
 
         // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
 

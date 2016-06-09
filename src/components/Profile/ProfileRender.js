@@ -131,7 +131,7 @@ class ProfileRender extends React.Component {
         flex:1,
         flexDirection: 'column',
         paddingBottom:self.props.isTab===false?0:50, //tab bar height
-        paddingTop:Platform.OS === 'ios' || Platform.Version > 19 ? 64 : 44,  //nav bar height
+        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
         backgroundColor: '#E8E7EE',
         // marginVertical: 10,
         // marginHorizontal:15
