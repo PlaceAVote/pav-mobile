@@ -265,9 +265,8 @@ class InfoTabRender extends React.Component {
 
   handleScroll(e){
     let {contentOffset, contentSize,layoutMeasurement } = e.nativeEvent;
-
     let percentageShow = contentOffset.y/(contentSize.height-layoutMeasurement.height); //scroll percentage = total list height (header+body+footer) - list content (only body) height
-    console.log(percentageShow);
+    // console.log(percentageShow);
     this.refs.animatedLine.animate(percentageShow>0.915)
   }
 

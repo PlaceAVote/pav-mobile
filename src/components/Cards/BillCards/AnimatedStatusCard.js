@@ -11,7 +11,7 @@
 
 import {Colors, ScheneKeys, Other} from '../../../config/constants';
 import React from 'react';
-import {StyleSheet, Text, View, Animated} from 'react-native';
+import {StyleSheet, Text, View, Animated, Easing} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -127,7 +127,8 @@ class AnimatedStatusCard extends React.Component {
         this.state.line_A_Height,                 // Animate `bounceValue`
         {
           toValue: this.props.lineHeight,
-          duration: 400,
+          duration: 300,
+          easing: Easing.inOut(Easing.quad)
           // easing: Easing.elastic(2), // Springy
           // friction: 6,
           // tension:35,
@@ -137,14 +138,15 @@ class AnimatedStatusCard extends React.Component {
         this.state.curOpacity,                 // Animate `bounceValue`
         {
           toValue: 1,                         // Animate to smaller size
-          duration: 400,
+          duration: 200,
         }
       ),
       Animated.timing(                          // Base: spring, decay, timing
         this.state.line_B_Height,                 // Animate `bounceValue`
         {
           toValue: this.props.lineHeight,
-          duration: 400,
+          duration: 300,
+          delay:this.props.finalItem===true?0:600,
           // friction: 6,
           // tension:35,
         }
