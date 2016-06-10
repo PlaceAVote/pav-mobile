@@ -539,7 +539,7 @@ export function voteBill(billId, vote, sessionToken=null, dev = null) {
       dispatch(voteBillFailure("Unable vote for this bill: "+res.error.error_message));
       return null;
     }else{
-      dispatch(voteBillSuccess({billId:billId}));
+      dispatch(voteBillSuccess({billId:billId, vote:vote}));
       return res.data;
     }
   };

@@ -125,7 +125,9 @@ export default function newsfeedReducer(state = initialState, action) {
 
     case VOTE_BILL_SUCCESS:
       return state.setIn([ 'isFetching', 'voteOnBill'], false)
+        .setIn([ 'data', 'user_voted'], action.payload.vote)
         .setIn(['error'],null);
+
     case LIKE_COMMENT_BILL_SUCCESS:
     case DISLIKE_COMMENT_BILL_SUCCESS:
     if(state.comments!=null){

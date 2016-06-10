@@ -482,22 +482,27 @@ class BillRender extends React.Component {
   }
 
 
-  renderFooter(styles){
-    return (
-      <View style={styles.billBtnsContainer}>
-        <TouchableOpacity style={styles.footerBtn} onPress={this.props.onVoteBtnPress}>
-          <PavIcon name="quill-write" size={16} style={styles.footerBtnIcon}/>
-          <View style={styles.footerBtnTextContainer}>
-            <Text style={styles.footerBtnText}>I'M READY TO VOTE</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerBtn} onPress={()=>this.refs.scrollableTabView.goToPage(3)}>
-          <PavIcon name="chat" size={16} style={styles.footerBtnIcon}/>
-          <View style={styles.footerBtnTextContainer}>
-            <Text style={styles.footerBtnText}>COMMENT</Text>
-          </View>
-        </TouchableOpacity>
-      </View>);
+  renderFooter(alreadyVoted, styles){
+    if(alreadyVoted!=null){
+      return (
+        <View style={styles.billBtnsContainer}>
+          <TouchableOpacity style={styles.footerBtn} onPress={alreadyVoted===true?()=>{alert("You have already voted on this bill.")}:this.props.onVoteBtnPress}>
+            <PavIcon name="quill-write" size={16} style={styles.footerBtnIcon}/>
+            <View style={styles.footerBtnTextContainer}>
+              <Text style={styles.footerBtnText}>{alreadyVoted===true?"ALREADY VOTED":"I'M READY TO VOTE"}</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.footerBtn} onPress={()=>this.refs.scrollableTabView.goToPage(3)}>
+            <PavIcon name="chat" size={16} style={styles.footerBtnIcon}/>
+            <View style={styles.footerBtnTextContainer}>
+              <Text style={styles.footerBtnText}>COMMENT</Text>
+            </View>
+          </TouchableOpacity>
+        </View>);
+    }else{
+      return <View></View>;
+    }
+
   }
 
 
@@ -525,7 +530,7 @@ class BillRender extends React.Component {
             isFetchingcommentBeingAltered: this.props.bill.commentBeingAltered,
           }, styles)}
         </View>
-        {this.renderFooter(styles)}
+        {this.renderFooter(this.props.bill.data&&this.props.bill.data.user_voted, styles)}
       </View>
     );
   }

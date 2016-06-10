@@ -31,7 +31,7 @@ const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in cu
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
-
+import PostVoteModalBox from '../Modals/PostVoteModalBox';
 
 
 
@@ -66,9 +66,9 @@ class VoteRender extends React.Component {
   constructor(props) {
     super(props);
 
-    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        // dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-
+    this.state={
+      vote: null    //either null, true (for) or false (against)
+    }
   }
 
 
@@ -201,6 +201,56 @@ class VoteRender extends React.Component {
   }
 
 
+  renderFooter(userHasVoted, styles){
+    userHasVoted=true;
+    if(userHasVoted===true){
+      return (
+        <PostVoteModalBox
+        isOpen={userHasVoted}
+        onModalClosed={this.props.onModalClosed}
+        vote={this.state.vote}
+
+       />
+      )
+    }else{
+      return (
+        <View key="vote_footer" style={styles.voteFooterContainer}>
+          <Button onPress={()=>{
+            if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
+              this.setState({vote:true});
+              this.props.onVoteBtnPressed(this.props.billData.bill_id, true)
+            }
+          }}
+            style={[styles.voteBtn, styles.voteForBtn]}
+            isDisabled={false}
+            isLoading={false}
+            activityIndicatorColor={Colors.mainTextColor}
+            textStyle={styles.btnText}
+            customIcon={()=><PavIcon name="arrow-up" size={16} style={styles.btnIconStyle}/>}
+          >
+            Vote In Favor
+          </Button>
+          <Button onPress={()=>{
+            if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
+              this.setState({vote:false});
+              this.props.onVoteBtnPressed(this.props.billData.bill_id, false)
+            }
+          }}
+            style={[styles.voteBtn, styles.voteAgainstBtn]}
+            isDisabled={false}
+            isLoading={false}
+            activityIndicatorColor={Colors.mainTextColor}
+            textStyle={styles.btnText}
+            customIcon={()=><PavIcon name="arrow-down" size={16} style={styles.btnIconStyle}/>}
+          >
+            Vote Against
+          </Button>
+        </View>
+      )
+    }
+  }
+
+
 
   /**
    * ### render method
@@ -238,46 +288,7 @@ class VoteRender extends React.Component {
               </View>
           </LinearGradient>
         </PavImage>
-
-
-
-
-
-        <View key="vote_footer" style={styles.voteFooterContainer}>
-          <Button onPress={()=>{
-            if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
-              this.props.onVoteBtnPressed(this.props.billData.bill_id, true)
-            }
-          }}
-            style={[styles.voteBtn, styles.voteForBtn]}
-            isDisabled={false}
-            isLoading={false}
-            activityIndicatorColor={Colors.mainTextColor}
-            textStyle={styles.btnText}
-            customIcon={()=><PavIcon name="arrow-up" size={16} style={styles.btnIconStyle}/>}
-          >
-            Vote In Favor
-          </Button>
-          <Button onPress={()=>{
-            if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
-              this.props.onVoteBtnPressed(this.props.billData.bill_id, false)
-            }
-          }}
-            style={[styles.voteBtn, styles.voteAgainstBtn]}
-            isDisabled={false}
-            isLoading={false}
-            activityIndicatorColor={Colors.mainTextColor}
-            textStyle={styles.btnText}
-            customIcon={()=><PavIcon name="arrow-down" size={16} style={styles.btnIconStyle}/>}
-          >
-            Vote Against
-          </Button>
-        </View>
-
-
-
-
-
+        {this.renderFooter(this.props.billData.user_voted, styles)}
       </View>
     );
   }
