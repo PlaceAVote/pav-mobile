@@ -17,9 +17,10 @@ import CONFIG from '../config/config';
 /**
  * The actions we need
  */
-import * as authActions from '../reducers/auth/authActions';
+// import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
-import * as deviceActions from '../reducers/device/deviceActions';
+// import * as deviceActions from '../reducers/device/deviceActions';
+import * as billActions from '../reducers/bill/billActions';
 
 import moment from 'moment';
 /**
@@ -41,6 +42,7 @@ import React from 'react';
 const actions = [
   // authActions,
   routingActions,
+  billActions,
   // deviceActions
 ];
 
@@ -87,14 +89,18 @@ class Vote extends React.Component {
       this.props.actions.navigateToPrevious();
   }
 
+  onVoteBtnTap(billId, vote){
+    this.props.actions.voteBill(billId, vote, this.TOKEN, this.props.global.isDev);
+  }
+
   render() {
     //
     return(
       <VoteRender
-          auth={ this.props.auth }
           device={this.props.device}
-          bill={this.props.bill}
+          billData={this.props.bill.data}
           onCloseBtnTap={this.onCloseBtnTap.bind(this)}
+          onVoteBtnPressed={this.onVoteBtnTap.bind(this)}
       />
     );
   }

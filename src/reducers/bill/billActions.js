@@ -53,6 +53,10 @@ const {
   DISLIKE_COMMENT_BILL_SUCCESS,
   DISLIKE_COMMENT_BILL_FAILURE,
 
+  VOTE_BILL_REQUEST,
+  VOTE_BILL_SUCCESS,
+  VOTE_BILL_FAILURE,
+
 } = ActionNames;
 
 
@@ -479,6 +483,63 @@ export function dislikeCommentBill(commentId, billId, isDisliked, sessionToken=n
       return null;
     }else{
       dispatch(likeCommentBillSuccess({parentCommentId:commentId, newStatus:!isDisliked, isLike:false}));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## Disliking a comment on a bill actions
+ */
+function voteBillRequest() {
+  return {
+    type: VOTE_BILL_REQUEST
+  };
+}
+function voteBillSuccess(json) {
+  return {
+    type: VOTE_BILL_SUCCESS,
+    payload: json
+  };
+}
+function voteBillFailure(json) {
+  return {
+    type: VOTE_BILL_FAILURE,
+    payload: json
+  };
+}
+export function voteBill(billId, vote, sessionToken=null, dev = null) {
+  console.log("voteBill called");
+  return async function (dispatch){
+    dispatch(voteBillRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+      token = tk.sessionToken;
+    }catch(e){
+      console.log("Unable to fetch past token in billActions.voteBill() with error: "+e.message);
+      dispatch(voteBillFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).voteApi.voteOnBill({billId:billId, vote:vote});
+    console.log("voteBill RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in feed call"+res.error.error_message);
+      dispatch(voteBillFailure("Unable vote for this bill: "+res.error.error_message));
+      return null;
+    }else{
+      dispatch(voteBillSuccess({billId:billId}));
       return res.data;
     }
   };

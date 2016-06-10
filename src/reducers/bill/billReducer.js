@@ -48,7 +48,13 @@ const {
   DISLIKE_COMMENT_BILL_SUCCESS,
   DISLIKE_COMMENT_BILL_FAILURE,
 
-  CLEAR_PAST_BILL_DATA
+  CLEAR_PAST_BILL_DATA,
+
+
+    VOTE_BILL_REQUEST,
+    VOTE_BILL_SUCCESS,
+    VOTE_BILL_FAILURE
+
 } = ActionNames
 
 import Immutable from 'immutable';
@@ -71,6 +77,9 @@ export default function newsfeedReducer(state = initialState, action) {
 
   switch (action.type) {
 
+    case VOTE_BILL_REQUEST:
+    return state.setIn([ 'isFetching', 'voteOnBill'], true)
+      .setIn(['error'],null);
     case CLEAR_PAST_BILL_DATA:
       return state
       .setIn(['comments'], null)
@@ -94,6 +103,8 @@ export default function newsfeedReducer(state = initialState, action) {
       return state.setIn([ 'isFetching', 'billTopComments'], true)
         .setIn(['error'],null);
 
+
+
     case POST_COMMENT_ON_BILL_SUCCESS:
       let commentsNewList = state.comments.push(action.payload) //push the new comment to the comments array
       return state.setIn([ 'commentBeingAltered'], false)
@@ -112,6 +123,9 @@ export default function newsfeedReducer(state = initialState, action) {
 
 
 
+    case VOTE_BILL_SUCCESS:
+      return state.setIn([ 'isFetching', 'voteOnBill'], false)
+        .setIn(['error'],null);
     case LIKE_COMMENT_BILL_SUCCESS:
     case DISLIKE_COMMENT_BILL_SUCCESS:
     if(state.comments!=null){
@@ -177,6 +191,10 @@ export default function newsfeedReducer(state = initialState, action) {
       }
       return newState;
 
+
+    case VOTE_BILL_FAILURE:
+      return state.setIn([ 'isFetching', 'voteOnBill'], false)
+        .setIn(['error'],action.payload);
     case LIKE_COMMENT_BILL_FAILURE:
     case DISLIKE_COMMENT_BILL_FAILURE:
     case POST_COMMENT_ON_BILL_FAILURE:

@@ -363,6 +363,11 @@ module.exports =  {
    DISLIKE_COMMENT_BILL_FAILURE: null,
 
 
+   VOTE_BILL_REQUEST: null,
+   VOTE_BILL_SUCCESS: null,
+   VOTE_BILL_FAILURE: null,
+
+
     /* Not yet implemented */
    //  DELETE_TOKEN_REQUEST: null,
    //  DELETE_TOKEN_SUCCESS: null,

@@ -209,8 +209,7 @@ class VoteRender extends React.Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    let bilLData = this.props.bill.data;
-    // console.log("@@@ BILL: "+JSON.stringify(bilLData));
+    // console.log("@@@ BILL: "+JSON.stringify(this.props.billData));
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <View
@@ -219,7 +218,7 @@ class VoteRender extends React.Component {
         key="vote_header"
         platform={this.props.device.platform}
         style={styles.billImage}
-        source={{uri: bilLData.featured_img_link}}
+        source={{uri: this.props.billData.featured_img_link}}
         resizeMode='cover'
         >
           <LinearGradient
@@ -235,7 +234,7 @@ class VoteRender extends React.Component {
                 </View>
               </TouchableOpacity>
               <View style={styles.headerTitleContainer}>
-                <Text style={styles.headerTitle}>{bilLData.featured_bill_title}</Text>
+                <Text style={styles.headerTitle}>{this.props.billData.featured_bill_title}</Text>
               </View>
           </LinearGradient>
         </PavImage>
@@ -245,7 +244,11 @@ class VoteRender extends React.Component {
 
 
         <View key="vote_footer" style={styles.voteFooterContainer}>
-          <Button onPress={this.props.onVoteForBtnPressed}
+          <Button onPress={()=>{
+            if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
+              this.props.onVoteBtnPressed(this.props.billData.bill_id, true)
+            }
+          }}
             style={[styles.voteBtn, styles.voteForBtn]}
             isDisabled={false}
             isLoading={false}
@@ -255,7 +258,11 @@ class VoteRender extends React.Component {
           >
             Vote In Favor
           </Button>
-          <Button onPress={this.props.onVoteAgainstBtnPressed}
+          <Button onPress={()=>{
+            if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
+              this.props.onVoteBtnPressed(this.props.billData.bill_id, false)
+            }
+          }}
             style={[styles.voteBtn, styles.voteAgainstBtn]}
             isDisabled={false}
             isLoading={false}
@@ -277,7 +284,7 @@ class VoteRender extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.bill !== this.props.bill)
+      (nextProps.billData !== this.props.billData)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
     );
@@ -286,4 +293,15 @@ class VoteRender extends React.Component {
 }
 
 
+
+
+VoteRender.propTypes= {
+
+  billData: React.PropTypes.object,
+  device: React.PropTypes.object.isRequired,
+  onCloseBtnTap: React.PropTypes.func.isRequired,
+  onVoteBtnPressed: React.PropTypes.func.isRequired,
+
+
+};
 export default VoteRender;
