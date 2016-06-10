@@ -110,7 +110,7 @@ class Comments extends React.Component {
   }
 
   async componentWillMount(){
-    if(this.props.billId!=null && (this.props.bill.data==null ||  (this.props.bill.data!=null && this.props.bill.data.bill_id!=this.props.billId))){
+    if(this.props.billId!=null && (this.props.bill.data==null ||  (this.props.bill.data!=null && this.props.bill.data.get("bill_id")!=this.props.billId))){
       this.props.actions.clearPastBillData();
       await this.connectAndGetBills(this.props.billId);
     }
@@ -174,7 +174,7 @@ class Comments extends React.Component {
   // }
   //
   async onCommentsRefresh(sortFilter){
-    await this.props.actions.getCommentsComments(this.props.bill.data.bill_id, sortFilter, this.TOKEN, this.props.global.isDev);
+    await this.props.actions.getCommentsComments(this.props.bill.data.get("bill_id"), sortFilter, this.TOKEN, this.props.global.isDev);
   }
   onCommentUserClick(userId, photoUrl){
 
@@ -198,8 +198,8 @@ class Comments extends React.Component {
 
   onShowMoreCommentsClick(commentId, curCommentLvl){
     // let commentPath = findCommentPath(this.props.bill.comments.toJS(), commentId);
-    // this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data.bill_id, commentPath: commentPath, commentLvl: curCommentLvl}, true);
-    this.props.actions.navigateTo(COMMENTS, {billId: this.props.bill.data.bill_id, commentId: commentId, commentLvl: curCommentLvl}, true);
+    // this.props.actions.navigateTo(COMMENTS, {billData: this.props.bill.data.get("bill_id"), commentPath: commentPath, commentLvl: curCommentLvl}, true);
+    this.props.actions.navigateTo(COMMENTS, {billId: this.props.bill.data.get("bill_id"), commentId: commentId, commentLvl: curCommentLvl}, true);
   }
 
 

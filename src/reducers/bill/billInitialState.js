@@ -33,8 +33,8 @@ var InitialState = Record({
 
   data: null,
   comments: null,
-  commentTopForId: null,
-  commentTopAgainstId: null,
+  commentTopFor: null,
+  commentTopAgainst: null,
 });
 
 export default InitialState;

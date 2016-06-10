@@ -5,6 +5,8 @@ import {Image, View} from 'react-native';
 
 import ProgressBar from 'ProgressBarAndroid';
 import {Colors} from '../../config/constants';
+import {isOfObjectType, OBJECT_TYPES} from '../../lib/Utils/genericUtils';
+
 
 class PavImage extends React.Component {
   constructor(props) {
@@ -20,7 +22,13 @@ class PavImage extends React.Component {
   render() {
     let children = this.props.children || <View></View>;
     if((!!this.props.source && this.props.source.uri!=null) || !!this.props.defaultSource){
-      if(this.props.loadingSpinnerEnabled!==false){
+      if(this.props.loadingSpinnerEnabled!==true || (isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && this.props.source.uri==null)){
+        return (
+          <Image {...this.props}>
+          {children}
+          </Image>
+        );
+      }else{
         let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
         let indicator = this.props.indicator || ProgressBar;
         return (
@@ -31,12 +39,6 @@ class PavImage extends React.Component {
           {children}
           </LImage>
         );
-      }else{
-        return (
-          <Image {...this.props}>
-          {children}
-          </Image>
-        );
       }
 
     }else{
@@ -44,6 +46,7 @@ class PavImage extends React.Component {
     }
   }
 }
+PavImage.defaultProps = { loadingSpinnerEnabled: true };
 PavImage.propTypes= {
   children: React.PropTypes.element,
   loadingSpinnerEnabled:React.PropTypes.bool

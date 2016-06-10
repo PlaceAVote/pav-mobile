@@ -517,27 +517,27 @@ class BillRender extends React.Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
 
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-
+    let billData = !!this.props.bill.data && this.props.bill.data.toJS();
     return(
       <View style={styles.container}>
         <View style={styles.billContainer}>
-          {this.renderHeader(this.props.bill.data, this.props.device.platform, styles)}
+          {this.renderHeader(billData, this.props.device.platform, styles)}
           {this.renderBody({
-            billData: this.props.bill.data,
+            billData: billData,
             commentData: this.props.bill.comments,
             isFetchingComments: this.props.bill.isFetching.billComments,
             isFetchingTopComments: this.props.bill.isFetching.billTopComments,
             isFetchingcommentBeingAltered: this.props.bill.commentBeingAltered,
           }, styles)}
         </View>
-        {this.renderFooter(this.props.bill.data&&this.props.bill.data.user_voted, styles)}
+        {this.renderFooter(billData&&billData.user_voted, styles)}
       </View>
     );
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      nextProps.parentVisible==true &&
+      // nextProps.parentVisible==true &&
       ((nextProps.bill !== this.props.bill)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)

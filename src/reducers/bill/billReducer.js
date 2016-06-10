@@ -124,8 +124,10 @@ export default function newsfeedReducer(state = initialState, action) {
 
 
     case VOTE_BILL_SUCCESS:
+      // let billData = state.data;
+      // billData.user_voted = action.payload.vote;
       return state.setIn([ 'isFetching', 'voteOnBill'], false)
-        .setIn([ 'data', 'user_voted'], action.payload.vote)
+        .setIn([ 'data', 'user_voted'],  action.payload.vote)
         .setIn(['error'],null);
 
     case LIKE_COMMENT_BILL_SUCCESS:
@@ -144,6 +146,23 @@ export default function newsfeedReducer(state = initialState, action) {
         l.refToCurObject.liked = newLiked;
         l.refToCurObject.disliked = newDisliked;
         l.refToCurObject.score = newScore;
+
+        //Also check to see if we can update the top comment in favor
+        if(!!state.commentTopFor&&state.commentTopFor.get("comment_id")==action.payload.parentCommentId){
+          // let newTopFor = state.commentTopFor;
+          // newTopFor.liked = newLiked;
+          state = state.setIn([ 'commentTopFor', 'liked'], newLiked)
+          .setIn([ 'commentTopFor', 'disliked'], newDisliked)
+          .setIn([ 'commentTopFor', 'score'], newScore);
+        }
+
+        //Also check to see if we can update the top comment against
+        if(!!state.commentTopAgainst&&state.commentTopAgainst.get("comment_id")==action.payload.parentCommentId){
+          state = state.setIn([ 'commentTopAgainst', 'liked'], newLiked)
+          .setIn([ 'commentTopAgainst', 'disliked'], newDisliked)
+          .setIn([ 'commentTopAgainst', 'score'], newScore);
+        }
+
       return state.setIn([ 'commentBeingAltered'], false)
         .setIn(['error'],null)
         .setIn(['comments'], Immutable.fromJS(l.contentArray));
@@ -154,14 +173,14 @@ export default function newsfeedReducer(state = initialState, action) {
     case GET_BILL_SUCCESS:
       return state.setIn([ 'isFetching', 'billData'], false)
       .setIn(['error'],null)
-      .setIn(['data'], action.payload)
+      .setIn(['data'], Immutable.fromJS(action.payload))
     case GET_BILL_COMMENTS_SUCCESS:
       let newCommentsArray = []
       let comments = action.payload.comments;
       if(!!comments){
         for(let ii=0,ll=comments.length;ii<ll;ii++){
             let curComment = comments[ii];
-            newCommentsArray.push({...curComment, isTopCommentInFavor:(state.commentTopForId==curComment.comment_id), isTopCommentAgainst:(state.commentTopAgainstId==curComment.comment_id) });
+            newCommentsArray.push({...curComment, isTopCommentInFavor:state.commentTopFor!=null?(state.commentTopFor.get("comment_id")==curComment.comment_id):false, isTopCommentAgainst:state.commentTopAgainst!=null?(state.commentTopAgainst.get("comment_id")==curComment.comment_id):false });
         }
       }
       return state.setIn([ 'isFetching', 'billComments'], false)
@@ -174,10 +193,18 @@ export default function newsfeedReducer(state = initialState, action) {
       let forComment = topComments["for-comment"];
       let againstComment = topComments["against-comment"];
       let newState = state.setIn([ 'isFetching', 'billTopComments'], false)
-      .setIn(['error'],null)
-      .setIn(['commentTopForId'],forComment.comment_id)
-      .setIn(['commentTopAgainstId'],againstComment.comment_id);
+      .setIn(['error'],null);
 
+      if((forComment==null || ((Object.prototype.toString.call(forComment) === '[object Array]')&&forComment.length<=0))==false){
+        newState = newState.setIn(['commentTopFor'],Immutable.fromJS(forComment));
+      }else{
+        newState = newState.setIn(['commentTopFor'],null);
+      }
+      if((againstComment==null || ((Object.prototype.toString.call(againstComment) === '[object Array]')&&againstComment.length<=0))==false){
+        newState = newState.setIn(['commentTopAgainst'],Immutable.fromJS(againstComment));
+      }else{
+        newState = newState.setIn(['commentTopAgainst'],null);
+      }
 
       let curStateComments = newState.comments;
       if(!!curStateComments){ //if there are comments

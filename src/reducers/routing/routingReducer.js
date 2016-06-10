@@ -17,7 +17,8 @@ import {ActionNames, Modals} from '../../config/constants';
  * Routing actions to test
  */
  const {
-   SET_MODAL_VISIBILITY
+   SET_MODAL_VISIBILITY,
+   MANUAL_NAVIGATE_TO_PREVIOUS
  } = ActionNames;
 
 
@@ -37,8 +38,10 @@ export default function routingReducer(state = initialRouterState, action) {
   switch (action.type) {
    case "push": //react native router flux action
      return state.set('previousSchene', currentSchene).set('currentSchene', action.key);
+
    case "back"://react native router flux action
    case "BackAction"://react native router flux action
+   case MANUAL_NAVIGATE_TO_PREVIOUS:
      return state.set('previousSchene', currentSchene).set('currentSchene', previousSchene);
    case SET_MODAL_VISIBILITY:
      const {name, visibility} = action.payload;

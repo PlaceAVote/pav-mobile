@@ -278,6 +278,7 @@ module.exports =  {
 
    /* Routing */
    SET_MODAL_VISIBILITY: null,
+   MANUAL_NAVIGATE_TO_PREVIOUS:null,
 
 
    /* Profile*/

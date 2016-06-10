@@ -1009,3 +1009,21 @@ export function saveSessionTokenAndBasicInfo(token, basicInfo=null) {
   }
   return new AppAuthTokenStore().storeSessionToken(token);
 }
+
+
+
+
+
+
+
+
+
+
+
+export function getBasicUserInfo(){
+  return async function (dispatch, getState){
+    let userInfo = ((await new UserInfoStore().getOrReplaceUserInfo()) || {user_id:"", first_name:"", city:""});
+    
+    return userInfo;
+  }
+}

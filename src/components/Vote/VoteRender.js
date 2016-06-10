@@ -32,7 +32,7 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import PostVoteModalBox from '../Modals/PostVoteModalBox';
-
+import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
 
 /**
@@ -202,14 +202,19 @@ class VoteRender extends React.Component {
 
 
   renderFooter(userHasVoted, styles){
-    userHasVoted=true;
     if(userHasVoted===true){
       return (
         <PostVoteModalBox
         isOpen={userHasVoted}
         onModalClosed={this.props.onModalClosed}
         vote={this.state.vote}
-
+        oppositeComment={this.state.vote===true?this.props.topAgainstComment:this.props.topForComment}
+        device={this.props.device}
+        userFirstName={this.props.userFirstName}
+        onUserClick={this.props.onUserClick}
+        onLikeDislikeClick={this.props.onLikeDislikeClick}
+        onCommentPost={this.props.onCommentPost}
+        onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
        />
       )
     }else{
@@ -218,7 +223,7 @@ class VoteRender extends React.Component {
           <Button onPress={()=>{
             if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
               this.setState({vote:true});
-              this.props.onVoteBtnPressed(this.props.billData.bill_id, true)
+              this.props.onVoteBtnPressed(this.props.billData.get("bill_id"), true)
             }
           }}
             style={[styles.voteBtn, styles.voteForBtn]}
@@ -233,7 +238,7 @@ class VoteRender extends React.Component {
           <Button onPress={()=>{
             if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
               this.setState({vote:false});
-              this.props.onVoteBtnPressed(this.props.billData.bill_id, false)
+              this.props.onVoteBtnPressed(this.props.billData.get("bill_id"), false)
             }
           }}
             style={[styles.voteBtn, styles.voteAgainstBtn]}
@@ -259,7 +264,8 @@ class VoteRender extends React.Component {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    // console.log("@@@ BILL: "+JSON.stringify(this.props.billData));
+    let billData = this.props.billData.toJS();
+    // console.log("@@@@@@@@@@@@@@@@@@@ BILL USER VOTED: "+this.props.billData.get("user_voted"));
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <View
@@ -268,12 +274,13 @@ class VoteRender extends React.Component {
         key="vote_header"
         platform={this.props.device.platform}
         style={styles.billImage}
-        source={{uri: this.props.billData.featured_img_link}}
+        defaultSource={congratsScreenPhoto}
+        source={{uri: !!billData&&billData.featured_img_link}}
         resizeMode='cover'
         >
           <LinearGradient
-              colors={['black', 'rgba(0, 0, 0, 0.41)', 'black']}
-              start={[-0.3, 0.0]} end={[1.3, 0.0]}
+              colors={['rgba(0, 0, 0, 0.91)', 'rgba(0, 0, 0, 0.41)', 'rgba(0, 0, 0, 0.91)']}
+              start={[-0.5, 0.0]} end={[1.5, 0.0]}
               style={styles.headerContainer}
               >
               <TouchableOpacity onPress={this.props.onCloseBtnTap}
@@ -284,20 +291,27 @@ class VoteRender extends React.Component {
                 </View>
               </TouchableOpacity>
               <View style={styles.headerTitleContainer}>
-                <Text style={styles.headerTitle}>{this.props.billData.featured_bill_title}</Text>
+                <Text style={styles.headerTitle}>{!!billData&&billData.featured_bill_title}</Text>
               </View>
           </LinearGradient>
         </PavImage>
-        {this.renderFooter(this.props.billData.user_voted, styles)}
+        {this.renderFooter(billData.user_voted, styles)}
       </View>
     );
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+      console.log("Should vote update: "+(nextProps.billData !== this.props.billData)+" since old: "+this.props.billData.get("user_voted")+" and new: "+nextProps.billData.get("user_voted"))
     return(
       (nextProps.billData !== this.props.billData)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
+      ||
+      (nextProps.userFirstName!==this.props.userFirstName)
+      ||
+      (nextProps.topForComment!==this.props.topForComment)
+      ||
+      (nextProps.topAgainstComment!==this.props.topAgainstComment)
     );
   }
 
@@ -309,10 +323,16 @@ class VoteRender extends React.Component {
 VoteRender.propTypes= {
 
   billData: React.PropTypes.object,
+  userFirstName: React.PropTypes.string,
+  topForComment: React.PropTypes.object,
+  topAgainstComment: React.PropTypes.object,
   device: React.PropTypes.object.isRequired,
   onCloseBtnTap: React.PropTypes.func.isRequired,
   onVoteBtnPressed: React.PropTypes.func.isRequired,
 
+  onUserClick: React.PropTypes.func.isRequired,
+  onLikeDislikeClick: React.PropTypes.func.isRequired,
+  onCommentPost: React.PropTypes.func.isRequired
 
 };
 export default VoteRender;

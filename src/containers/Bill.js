@@ -61,7 +61,8 @@ const {
 } = Other;
 const {
   VOTE,
-  COMMENTS
+  COMMENTS,
+  PROFILE
 } = ScheneKeys;
 
 
@@ -107,15 +108,15 @@ class Bill extends React.Component {
     if(CONFIG.MOCK_TOKEN===true){
       this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
     }
-
   }
   componentDidMount(){
 
-    // this.connectAndGetBills("s2517-114");
 
-    if(this.props.billId!=null && (this.props.bill.data==null ||  (this.props.bill.data!=null && this.props.bill.data.bill_id!=this.props.billId))){
+    // this.connectAndGetBills("hr2-114");
+    if(this.props.billId!=null && (this.props.bill.data==null ||  (this.props.bill.data!=null && this.props.bill.data.get("bill_id")!=this.props.billId))){
       this.props.actions.clearPastBillData();
       this.connectAndGetBills(this.props.billId);
+
     }
   }
 
@@ -146,10 +147,10 @@ class Bill extends React.Component {
   }
 
   async onCommentsRefresh(sortFilter){
-    await this.props.actions.getBillComments(this.props.bill.data.bill_id, sortFilter, this.TOKEN, this.props.global.isDev);
+    await this.props.actions.getBillComments(this.props.bill.data.get("bill_id"), sortFilter, this.TOKEN, this.props.global.isDev);
   }
   onCommentUserClick(userId, photoUrl){
-    alert(photoUrl);
+    this.props.actions.navigateTo(PROFILE, {userId:userId, isTab:false});
   }
   async onCommentLikeDislikeClick(reaction, commentId, billId, curLikeDislikeEnabled){
     // alert(" curLikeDislikeEnabled: "+curLikeDislikeEnabled);
@@ -172,7 +173,7 @@ class Bill extends React.Component {
   onShowMoreCommentsClick(commentId, curCommentLvl){
     // console.log("Bill: "+JSON.stringify(this.props.bill));
     // let commentPath = findCommentPath(this.props.bill.comments.toJS(), commentId);
-    this.props.actions.navigateTo(COMMENTS, {billId: this.props.bill.data.bill_id, commentId: commentId, commentLvl: 0}, true);
+    this.props.actions.navigateTo(COMMENTS, {billId: this.props.bill.data.get("bill_id"), commentId: commentId, commentLvl: 0}, true);
   }
 
 

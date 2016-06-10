@@ -571,7 +571,7 @@ class BillCommentCard extends React.Component {
         style={[styles.cardContainer, {paddingLeft: paddingLeftIfCommentLvlAbove0, paddingRight:paddingRightIfCommentLvlAbove0},this.props.style]}
         onLayout={this.props.onLayout}
       >
-        <View style={styles.cardContent}>
+        <View style={[styles.cardContent, this.props.cardContainerStyle]}>
           {this.renderHeader(styles)}
           {this.renderBody(styles)}
           {this.renderFooter(styles)}
@@ -608,7 +608,8 @@ BillCommentCard.propTypes= {
   commentData: React.PropTypes.object.isRequired,
   onLayout: React.PropTypes.func,
   alwaysBreakCommentsToNewScreen: React.PropTypes.bool,
-
+  style: View.propTypes.style,
+  cardContainerStyle: View.propTypes.style,
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onLikeDislikeClick: React.PropTypes.func.isRequired,

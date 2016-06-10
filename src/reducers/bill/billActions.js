@@ -365,10 +365,12 @@ export function commentOnComment(commentText, billId, commentId, commentLvl, ses
       token = tk.sessionToken;
     }catch(e){
       console.log("Unable to fetch past token in billActions.commentOnComment() with error: "+e.message);
-      dispatch(commentOnCommentFailure(e.message));
+      dispatch(commentOnCommentFailure("Unable to fetch past token in billActions.commentOnComment() with error: "+e.message));
     }
+
+    console.log("ABOUT TO COMMENTONCOMMENT with: "+JSON.stringify({body:commentText, billId:billId, commentId:commentId}))
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.commentOnComment({body:commentText, billId:billId, commentId:commentId});
-    // console.log("Comment on comment RES: "+JSON.stringify(res));
+    console.log("Comment on comment RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(commentOnCommentFailure(res.error.error_message));

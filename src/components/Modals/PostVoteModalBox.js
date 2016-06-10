@@ -8,7 +8,7 @@ import {
   View,
   Text,
   StyleSheet,
-  PixelRatio,
+  ScrollView
 } from 'react-native';
 
 
@@ -20,8 +20,9 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 
 import BillCommentCard from '../Cards/BillCards/BillCommentCard';
 
-
-
+import PavImage from '../../lib/UI/PavImage'
+import congratsScreenPhoto from '../../../assets/congratsScreen.png';
+import moment from 'moment';
 
 class PostVoteModalBox extends React.Component {
     constructor(){
@@ -29,29 +30,128 @@ class PostVoteModalBox extends React.Component {
     }
 
 
-    getStyles(){
+    getStyles(topCommentExists){
         return StyleSheet.create({
             modal: {
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: h*0.75,
+                height: topCommentExists===true?h*0.75:h*0.65,
                 width: w*1,
+                backgroundColor: Colors.transparentColor,
             },
-            modalVerticalParent:{
+            scroller:{
               flex:1,
               flexDirection:'column',
-              backgroundColor: 'purple',
-              alignItems: 'center'
+              backgroundColor: topCommentExists===true?'white':Colors.transparentColor,
             },
+
+            billImage:{
+              width:w*1,
+              height:topCommentExists===true?h*0.25:h*0.35
+            },
+
+            congratulationsTextContainer:{
+              flex:1,
+              // backgroundColor:'pink',
+              justifyContent:'center'
+            },
+            congratulationsTextTitle:{
+              backgroundColor:Colors.transparentColor,
+              color: Colors.mainTextColor,
+              textAlign: 'center',
+              fontFamily: 'Whitney',
+              fontSize: getCorrectFontSizeForScreen(w,h,17),
+            },
+            congratulationsTextSubtitle:{
+              backgroundColor:Colors.transparentColor,
+              color: Colors.mainTextColor,
+              textAlign: 'center',
+              fontFamily: 'Whitney',
+              fontSize: getCorrectFontSizeForScreen(w,h,10),
+            },
+
+            disagreesTextTitleContainer:{
+              backgroundColor: Colors.titleBgColor,
+              borderBottomColor: "rgba(0, 0, 0, 0.07)",
+              borderBottomWidth: 1,
+              paddingHorizontal: w*0.015,
+              paddingVertical: h*0.015,
+            },
+            disagreesTextTitle:{
+              color: Colors.primaryColor,
+              fontFamily: 'Whitney-Bold',
+              fontSize: getCorrectFontSizeForScreen(w,h,8),
+            },
+
+            disagreesContainer:{
+              flex:1,
+            },
+            commentCard:{
+              flex:1,
+              padding:0
+            },
+            cardContainerStyle:{
+              flex:1,
+              padding:w*0.05,
+              marginRight:0,
+            }
 
 
 
         });
     }
-    render(){
-      let styles = this.getStyles();
 
-        let rowData = {};
+
+
+    renderDisagreesComment(commentData, styles){
+      if(commentData!=null){
+        let author_first_name = commentData.author_first_name || "Someone";
+        return (
+          <View style={styles.disagreesContainer}>
+            <View style={styles.disagreesTextTitleContainer}>
+              <Text style={styles.disagreesTextTitle}>
+                {author_first_name.toUpperCase()} DISAGREES WITH YOU, HE THINKS:
+              </Text>
+            </View>
+            <BillCommentCard
+              style={styles.commentCard}
+              cardContainerStyle={styles.cardContainerStyle}
+              key="disagreesComment"
+              device={this.props.device}
+              alwaysBreakCommentsToNewScreen={true}
+              commentData={{
+                commentBeingAltered: false,
+                commentLvl:0,
+                baseCommentLvl:0,
+                timeString:moment(commentData.timestamp).fromNow(),
+                userFullNameText:commentData.author_first_name+" "+commentData.author_last_name,
+                commentText:commentData.body,
+                userPhotoUrl:commentData.author_img_url,
+                likeCount:commentData.score,
+                isLiked:commentData.liked,
+                isDisliked:commentData.disliked,
+                userId:commentData.author,
+                commentId:commentData.comment_id,
+                billId:commentData.bill_id,
+                replies:commentData.replies,
+                isTopCommentInFavor:commentData.isTopCommentInFavor,
+                isTopCommentAgainst:commentData.isTopCommentAgainst,
+              }}
+              onUserClick={this.props.onUserClick}
+              onLikeDislikeClick={this.props.onLikeDislikeClick}
+              onCommentPost={this.props.onCommentPost}
+              onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
+            />
+          </View>
+
+        )
+      }else{
+        return <View></View>;
+      }
+    }
+
+    render(){
+      let styles = this.getStyles((this.props.oppositeComment!=null));
         return (
             <Modal
                 backdrop={false}
@@ -59,45 +159,38 @@ class PostVoteModalBox extends React.Component {
                 swipeToClose={true}
                 swipeThreshold={90}
                 style={styles.modal}
+                swipeToClose={false}
                 position="bottom"
                 ref="postVoteModal"
                 isOpen={this.props.isOpen}
-                onClosed={this.props.onModalClosed}>
+              >
 
-              <View style={styles.modalVerticalParent}>
+              <ScrollView
+              style={styles.scroller}
+              bounces={false}
+              >
 
-                <View style={{backgroundColor:'pink', height:h*0.1}}><Text>!</Text></View>
+                <PavImage
+                  key="postVoteHeaderImg"
+                  platform={this.props.device.platform}
+                  style={styles.billImage}
+                  source={congratsScreenPhoto}
+                  defaultSource={congratsScreenPhoto}
+                  resizeMode='cover'
+                >
+                  <View style={styles.congratulationsTextContainer}>
+                    <Text style={styles.congratulationsTextTitle}>
+                      Congratulations {this.props.userFirstName} !
+                    </Text>
+                    <Text style={styles.congratulationsTextSubtitle}>
+                      You have succesfully voted on this bill
+                    </Text>
+                  </View>
+                </PavImage>
+                {this.renderDisagreesComment(this.props.oppositeComment, styles)}
 
-                <BillCommentCard
-                  style={styles.commentCard}
-                  key={rowData.comment_id}
-                  device={this.props.device}
-                  alwaysBreakCommentsToNewScreen={true}
-                  commentData={{
-                    commentBeingAltered: this.props.commentBeingAltered,
-                    commentLvl:0,
-                    baseCommentLvl:0,
-                    timeString:moment(rowData.timestamp).fromNow(),
-                    userFullNameText:rowData.author_first_name+" "+rowData.author_last_name,
-                    commentText:rowData.body,
-                    userPhotoUrl:rowData.author_img_url,
-                    likeCount:rowData.score,
-                    isLiked:rowData.liked,
-                    isDisliked:rowData.disliked,
-                    userId:rowData.author,
-                    commentId:rowData.comment_id,
-                    billId:rowData.bill_id,
-                    replies:rowData.replies,
-                    isTopCommentInFavor:rowData.isTopCommentInFavor,
-                    isTopCommentAgainst:rowData.isTopCommentAgainst,
-                  }}
-                  onShowMoreCommentsClick={this.props.onShowMoreCommentsClick}
-                  onUserClick={this.props.onCommentUserClick}
-                  onLikeDislikeClick={this.props.onCommentLikeDislikeClick}
-                  onCommentPost={this.onCommentPostToComment.bind(this)}
-                  />
 
-              </View>
+              </ScrollView>
 
             </Modal>
         );
@@ -107,6 +200,13 @@ class PostVoteModalBox extends React.Component {
 
 PostVoteModalBox.propTypes= {
   isOpen: React.PropTypes.bool.isRequired,
-  onModalClosed: React.PropTypes.func.isRequired,
+  userFirstName: React.PropTypes.string,
+  device: React.PropTypes.object.isRequired,
+  oppositeComment: React.PropTypes.object,
+
+  onUserClick: React.PropTypes.func.isRequired,
+  onLikeDislikeClick: React.PropTypes.func.isRequired,
+  onCommentPost: React.PropTypes.func.isRequired,
+  onShowMoreCommentsClick: React.PropTypes.func.isRequired,
 };
 module.exports = PostVoteModalBox;

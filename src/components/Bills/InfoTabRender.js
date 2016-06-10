@@ -14,7 +14,7 @@ const {US_STATES, BILL_STATUSES} = Other;
 import React from 'react';
 import {StyleSheet, Text, View, ScrollView, TouchableOpacity} from 'react-native';
 
-import {getNumberWithOrdinalSufix} from '../../lib/Utils/numberText';
+import {getNumberWithOrdinalSufix} from '../../lib/Utils/genericUtils';
 
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'

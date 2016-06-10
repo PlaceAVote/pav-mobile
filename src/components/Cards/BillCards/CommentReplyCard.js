@@ -78,7 +78,7 @@ class CommentReplyCard extends React.Component {
 
 
       commentsPageContainer:{
-        flex:1,
+        // flex:1,
         flexDirection:'column',
         // backgroundColor:'white'
       },
@@ -93,6 +93,9 @@ class CommentReplyCard extends React.Component {
         backgroundColor:Colors.transparentColor
       },
       commentInputContainer:{
+        // flex:1,
+        // height: 70,
+        // backgroundColor:'red',
         flexDirection:'row',
         paddingHorizontal: w*0.026,
         paddingVertical: h*0.015,

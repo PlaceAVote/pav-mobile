@@ -16,7 +16,8 @@ import {ActionNames, ScheneKeys, Modals} from '../../config/constants';
  * The actions supported
  */
 const {
-  SET_MODAL_VISIBILITY
+  SET_MODAL_VISIBILITY,
+  MANUAL_NAVIGATE_TO_PREVIOUS
 } = ActionNames;
 
 const {
@@ -49,12 +50,12 @@ import {Actions} from 'react-native-router-flux';
 //   };
 // }
 //
-// export function navigateToPreviousState() {
-//   return {
-//     type: NAVIGATE_PREVIOUS,
-//     payload: null
-//   };
-// }
+export function manualStateChangeNavigateToPrevious() {
+  return {
+    type: MANUAL_NAVIGATE_TO_PREVIOUS,
+    payload: null
+  };
+}
 
 
 
