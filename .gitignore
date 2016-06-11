@@ -1,3 +1,6 @@
+bin/
+tmp/
+
 # OSX
 #
 .DS_Store

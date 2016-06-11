@@ -1,0 +1,109 @@
+#!/bin/sh
+option="${1}" 
+if [ "${2}" != '' ]; then
+    VERSION="${2}"
+else
+    VERSION="0"
+fi  
+
+PROJECT_DIR=`pwd`
+BIN_DIR="/bin/"  # the dir on which the apk will be stored 
+APK_FILENAME="PlaceAVoteApp_v${VERSION}.apk" #form the apk filename
+IPA_FILENAME="PlaceAVoteApp_v${VERSION}.ipa" #form the apk filename
+APPLE_TEAM_ID="35WUYAWLQM"
+ANDROID=1
+IOS=2
+
+ReleaseAndroid () { 
+   cd ./android
+    ./gradlew assembleRelease
+    if [ $? -eq 0 ]; then
+        cd ..
+        mkdir -p bin #making a bin directory if not exists
+        echo "Apk built. It can be found in <Project>${BIN_DIR}${APK_FILENAME}"
+        cp ./android/app/build/outputs/apk/app-release.apk ${PROJECT_DIR}${BIN_DIR}${APK_FILENAME} #copy the apk to the output dir
+        return 0
+    else
+        echo "Build Failed."
+        return -1
+    fi
+}
+
+
+UploadToBucket(){
+    if [ ${1} -eq ${ANDROID} ]; then
+        apkLoc=${PROJECT_DIR}${BIN_DIR}${APK_FILENAME} #Where the apk can be found
+        echo "Now uploading ${APK_FILENAME} to PAV S3 bucket."
+        aws s3 cp ${apkLoc} s3://variousprojects/Pav-Mobile-Release/Android/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+        echo "Success: The ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}"
+    elif [ ${1} -eq ${IOS} ]; then
+        ipaLoc=${PROJECT_DIR}${BIN_DIR}${IPA_FILENAME} #Where the apk can be found
+        echo "Now uploading ${IPA_FILENAME} to PAV S3 bucket."
+        aws s3 cp ${ipaLoc} s3://variousprojects/Pav-Mobile-Release/iOS/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+        echo "Success: The apk can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME}"
+    else
+        echo "Error: Can't upload to bucket."
+    fi
+    
+}
+
+
+
+
+ReleaseIos(){
+    mkdir -p tmp #making a tmp directory on which we will save the tmp archive if not exists
+    mkdir -p bin #making a bin directory if not exists
+    cd ios
+    echo "<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>teamID</key><string>${APPLE_TEAM_ID}</string><key>method</key><string>ad-hoc</string><key>uploadSymbols</key><true/></dict></plist>" >${PROJECT_DIR}/tmp/tmpPlist.plist 
+
+    ./xcbuild-safe.sh -scheme "Pav Release" archive -archivePath ${PROJECT_DIR}/tmp/pav.xcarchive
+    if [ $? -eq 0 ]; then
+        ./xcbuild-safe.sh -exportArchive -archivePath ${PROJECT_DIR}/tmp/pav.xcarchive -exportOptionsPlist ${PROJECT_DIR}/tmp/tmpPlist.plist -exportPath ${PROJECT_DIR}${BIN_DIR}
+        mv ${PROJECT_DIR}${BIN_DIR}"Pav Release.ipa" ${PROJECT_DIR}${BIN_DIR}${IPA_FILENAME}
+        cd ..
+        rm -rf tmp
+        return 0
+    else
+        echo "Build Failed."
+        return -1
+    fi
+}
+
+
+
+
+
+
+case ${option} in
+    -a) 
+        echo "Now building for Android"
+        ReleaseAndroid
+    ;;
+    -[ra][ra])
+        echo "Now building and releasing for android"
+        ReleaseAndroid
+        if [ $? -eq 0 ]; then
+            UploadToBucket ${ANDROID}
+        else
+            echo "Build Failed, we got no apk to upload. Process terminating."  
+        fi
+        
+    ;;
+    -i)
+        echo "Now building for iOS"
+        ReleaseIos
+    ;;
+    -[ri][ri])
+        echo "Now building and releasing for iOS"
+        ReleaseIos
+        if [ $? -eq 0 ]; then
+            UploadToBucket ${IOS}
+        else
+            echo "Build Failed, we got no apk to upload. Process terminating."  
+        fi
+    ;;
+    *)  
+        echo "\n`basename ${0}`:\n  usage: pavBuild -<flags> <-versionString> \n     FLAGS: \n         Android: [-a] to build for Android \n         iOS: [-i] to build for iOS. \n\n     If you also want to upload to the PlaceAVote variousprojects S3 bucket add [r] to the flags. \n\n     Example: pavBuild -ir 0.8.1 \n\n        The command above would build an iOS version in the bin/PlaceAVoteApp_v0.8.1 dir and then upload it to Amazon S3.\n" 
+          exit 1 # Command to come out of the program with status 1
+    ;; 
+esac
