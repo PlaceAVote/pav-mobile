@@ -25,6 +25,8 @@ import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as profileActions from '../reducers/profile/profileActions'
+import * as notificationActions from '../reducers/notifications/notificationActions'
+
 import CONFIG from '../config/config';
 import Orientation from 'react-native-orientation';
 /**
@@ -56,10 +58,11 @@ MAIN
  * ## Redux boilerplate
  */
 const actions = [
-  authActions,
-  routingActions,
+  // authActions,
+  // routingActions,
   deviceActions,
-  profileActions
+  // profileActions,
+  notificationActions
 ];
 
 function mapStateToProps(state) {
@@ -104,37 +107,42 @@ class Notifications extends React.Component {
 
 
   componentWillMount(){
-    if(this.props.newsfeed.newsFeedData.items==null){
+    if(this.props.notifications.items==null){
       this.getNotifications();
     }
   }
 
   async getNotifications(){
     // console.log("@@@ NEWS FEED - is dev: "+this.props.global.isDev);
-    return await this.props.actions.getNotifications(this.TOKEN, this.props.global.isDev);
+    return await this.props.actions.getNotificationItems(this.TOKEN, this.props.global.isDev);
   }
 
-  
-  // orientationDidChange(orientation) {
-  //   // console.log("Orientation: "+orientation);
-  //   this.props.actions.setOrientation(orientation);
-  // }
-  //
-  // componentDidMount() {
-  //   Orientation.addOrientationListener(this.orientationDidChange.bind(this));
-  //   this.props.actions.unlockOrientation();
-  // }
-  //
-  // componentWillUnmount() {
-  //   Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
-  // }
+
+  orientationDidChange(orientation) {
+    // console.log("Orientation: "+orientation);
+    this.props.actions.setOrientation(orientation);
+  }
+
+  componentDidMount() {
+    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
+    this.props.actions.unlockOrientation();
+  }
+
+  componentWillUnmount() {
+    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
+  }
 
   render() {
     return(
       <NotificationsRender
-          auth={ this.props.auth }
-          global={ this.props.global }
+
           device={ this.props.device}
+          notifications={this.props.notifications.items}
+          isFetchingNotifications={this.props.notifications.get("isFetching").get("notificationData")}
+          onFeedRefresh={()=>{}}
+          onUserClick={()=>{}}
+          onBillClick={()=>{}}
+          onCommentClick={()=>{}}
       />
 
     );

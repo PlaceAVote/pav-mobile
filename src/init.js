@@ -56,6 +56,8 @@ import globalInitialState from './reducers/global/globalInitialState';
 import profileInitialState from './reducers/profile/profileInitialState';
 import routerInitialState from './reducers/routing/routingInitialState';
 import newsfeedInitialState from './reducers/newsfeed/newsfeedInitialState';
+import notificationInitialState from './reducers/notifications/notificationInitialState';
+
 
 
 
@@ -81,6 +83,7 @@ function getInitialState() {
     profile: new profileInitialState,
     router: new routerInitialState,
     newsfeed: new newsfeedInitialState,
+    notifications: new notificationInitialState,
   };
   return _initState;
 }

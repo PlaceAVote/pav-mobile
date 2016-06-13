@@ -45,11 +45,12 @@ export default function notificationReducer(state = initialState, action) {
 
     case GET_NOTIFICATIONS_SUCCESS:
       return state.setIn([ 'isFetching', 'notificationData'], false)
+      .setIn(['items'],Immutable.fromJS(action.payload))
       .setIn(['error'],null);
 
     case GET_NOTIFICATIONS_FAILURE:
       return state.setIn([ 'isFetching', 'notificationData'], false)
-      .setIn(['error'],actions.payload);
+      .setIn(['error'],action.payload);
 
     }//switch
     /**

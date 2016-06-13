@@ -16,6 +16,8 @@ import FeedBillCard from './FeedCards/FeedBillCard';
 import FeedUserIssueCard from './FeedCards/FeedUserIssueCard';
 import FeedVoteCard from './FeedCards/FeedVoteCard';
 
+import NotifVoteCard from './NotificationCards/NotifVoteCard'
+
 
 /**
  * Immutable
@@ -119,6 +121,24 @@ class CardFactory extends React.Component {
   }
 
 
+  renderNotificationCards(){
+    let n = this.props.itemData;
+    let u = this.props.curUser;
+    switch(n.type){
+      case "vote":
+        return (
+          <NotifVoteCard
+            {...this.props}
+            billTitle={n.bill_title}
+            billId={n.bill_id}
+            onBillClick={this.props.onBillClick}
+          />
+        )
+
+    }
+  }
+
+
   renderNewsFeedCards(){
 
     let n = this.props.itemData;
@@ -214,12 +234,14 @@ class CardFactory extends React.Component {
    * Setup some default presentations and render
    */
   render() {
-    if(this.props.type=="profile"){
-      return this.renderProfileCards();
-    }else if(this.props.type=="newsfeed"){
-      return this.renderNewsFeedCards();
+    switch (this.props.type){
+      case "profile":
+        return this.renderProfileCards();
+      case "newsfeed":
+        return this.renderNewsFeedCards();
+      case "notifications":
+        return this.renderNotificationCards();
     }
-
   }
 }
 

@@ -57,7 +57,7 @@ export function getNotificationFailure(json) {
  * as in login, register, logout or reset password
  */
 export function getNotificationItems(sessionToken=null, dev = null) {
-  console.log("Get feed called");
+  console.log("getNotificationItems called");
   return async function (dispatch){
     dispatch(getNotificationRequest());
     //store or get a sessionToken
@@ -74,11 +74,11 @@ export function getNotificationItems(sessionToken=null, dev = null) {
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getNotifications();
     console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
-      console.log("Error in feed call"+res.error.error_message);
+      console.log("Error in getNotificationItems call"+res.error.error_message);
       dispatch(getNotificationFailure("Unable to get user notification data with this token."));
       return res.error;
     }else{
-      dispatch(getNotificationSuccess(res.data));
+      dispatch(getNotificationSuccess(res.data.results));
       return res.data;
     }
   };
