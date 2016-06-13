@@ -369,6 +369,12 @@ module.exports =  {
    VOTE_BILL_FAILURE: null,
 
 
+   /*  Notifications */
+
+   GET_NOTIFICATIONS_REQUEST: null,
+   GET_NOTIFICATIONS_SUCCESS: null,
+   GET_NOTIFICATIONS_FAILURE: null,
+
     /* Not yet implemented */
    //  DELETE_TOKEN_REQUEST: null,
    //  DELETE_TOKEN_SUCCESS: null,

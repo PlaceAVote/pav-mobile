@@ -25,7 +25,7 @@ import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as profileActions from '../reducers/profile/profileActions'
-
+import CONFIG from '../config/config';
 import Orientation from 'react-native-orientation';
 /**
  * Router actions
@@ -97,15 +97,24 @@ class Notifications extends React.Component {
 
   constructor(props) {
     super(props);
-    // console.log("Now calling the get profile data action"+JSON.stringify(this.props));
-    // this.loginAndGetNotifications();
+    if(CONFIG.MOCK_TOKEN===true){
+      this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    }
   }
 
 
-  // async loginAndGetNotifications(){
-  //   await this.props.actions.login("whatevah@placeavote.com", "Asdasd1");
-  //   await this.props.actions.getNotifications();
-  // }
+  componentWillMount(){
+    if(this.props.newsfeed.newsFeedData.items==null){
+      this.getNotifications();
+    }
+  }
+
+  async getNotifications(){
+    // console.log("@@@ NEWS FEED - is dev: "+this.props.global.isDev);
+    return await this.props.actions.getNotifications(this.TOKEN, this.props.global.isDev);
+  }
+
+  
   // orientationDidChange(orientation) {
   //   // console.log("Orientation: "+orientation);
   //   this.props.actions.setOrientation(orientation);
