@@ -139,10 +139,10 @@ class NotificationsRender extends React.Component {
       },
 
       oddCardContainer:{
-        backgroundColor: Colors.mainTextColor
+        backgroundColor: "#F1F0F7"//Colors.oddRowBgColor
       },
       evenCardContainer:{
-        backgroundColor: Colors.titleBgColorDark
+        backgroundColor: Colors.evenRowBgColor
       }
 
 

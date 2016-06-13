@@ -18,6 +18,7 @@ import FeedVoteCard from './FeedCards/FeedVoteCard';
 
 import NotifVoteCard from './NotificationCards/NotifVoteCard'
 import NotifCommentReplyCard from './NotificationCards/NotifCommentReplyCard'
+import NotifIssueResponseCard from './NotificationCards/NotifIssueResponseCard'
 
 
 /**
@@ -136,8 +137,6 @@ class CardFactory extends React.Component {
           />
         )
       case "commentreply":
-        // console.log("@@@@@@@@ comment : "+JSON.stringify(n))
-        console.log("@@@@@@@@ AUTHOR of the comment is : "+n.author)
         return (<NotifCommentReplyCard
           {...this.props}
           billTitle={n.bill_title}
@@ -148,8 +147,16 @@ class CardFactory extends React.Component {
           onBillClick={this.props.onBillClick}
           onUserClick={this.props.onUserClick}
         />)
-
-
+      case "issueresponse":
+        return (
+          <NotifIssueResponseCard
+            {...this.props}
+            userId={n.user_id}
+            userFullName={n.first_name+" "+n.last_name}
+            emotion={n.emotional_response}
+            onUserClick={this.props.onBillClick}
+          />
+        )
       default:
         console.log("Data: "+JSON.stringify(n))
         return <View></View>

@@ -23,6 +23,11 @@ module.exports =  {
     titleBgColor: "#F6F5FF",   //greysh blue very light
     titleBgColorDark: "#E8E7EE", //grey very very light
 
+    evenRowBgColor: "#FFFFFF",
+    oddRowBgColor: "#F1F0F7",
+    evenRowBgHighlightColor: "#FFF2F2",
+    oddRowBgHighlightColor: "#F2EBEE"
+
   },
 
 

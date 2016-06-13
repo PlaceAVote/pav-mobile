@@ -156,7 +156,6 @@ class PostVoteModalBox extends React.Component {
             <Modal
                 backdrop={false}
                 animationDuration={200}
-                swipeToClose={true}
                 swipeThreshold={90}
                 style={styles.modal}
                 swipeToClose={false}

@@ -79,13 +79,13 @@ class NotifCommentReplyCard extends React.Component {
         borderRadius: 2,
         // borderColor: '#ffffff',
         // borderWidth: 1,
-        shadowColor: 'rgba(0, 0, 0, 0.12)',
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 2,
-        },
+        // shadowColor: 'rgba(0, 0, 0, 0.12)',
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        // shadowOffset: {
+        //   height: 1,
+        //   width: 2,
+        // },
         paddingVertical: w*0.013,
       },
       cardIconContainer:{
@@ -202,15 +202,16 @@ class NotifCommentReplyCard extends React.Component {
 
 
 
-    onUserClick(userId){
-      if(!!this.props.onUserClick && userId!=null){
-        this.props.onUserClick(userId);
+    onUserClick(){
+      if(!!this.props.onUserClick && !!this.props.authorId){
+        this.props.onUserClick(this.props.authorId)
       }
     }
 
-    onBillClick(billId){
-      if(!!this.props.onBillClick && billId!=null){
-        this.props.onBillClick(billId);
+
+    onBillClick(){
+      if(!!this.props.onBillClick && !!this.props.billId){
+        this.props.onBillClick(this.props.billId)
       }
     }
 
@@ -230,12 +231,7 @@ class NotifCommentReplyCard extends React.Component {
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
           <View style={styles.cardIconContainer}>
-            <TouchableOpacity style={styles.userImageContainer} onPress={()=>{
-              if(!!this.props.onUserClick && !!this.props.authorId){
-                  this.props.onUserClick(this.props.authorId)
-                }
-              }}
-            >
+            <TouchableOpacity style={styles.userImageContainer}  onPress={this.onUserClick.bind(this)}>
               <PavImage
                 defaultSource={defaultUserPhoto}
                 style={styles.userImage}
@@ -246,23 +242,14 @@ class NotifCommentReplyCard extends React.Component {
           </View>
           <View style={styles.cardDescriptionContainer}>
             <View style={styles.cardExplanationContainer}>
-              <TouchableOpacity style={styles.authorFullnameTextContainer} onPress={()=>{
-                if(!!this.props.onUserClick && !!this.props.authorId){
-                    this.props.onUserClick(this.props.authorId)
-                  }
-                }}
-              >
+              <TouchableOpacity style={styles.authorFullnameTextContainer} onPress={this.onUserClick.bind(this)}>
                 <Text style={styles.authorFullnameText}>{this.props.authorFullName} </Text>
               </TouchableOpacity>
               <View style={styles.cardExplanTextContainer}>
                 <Text style={styles.cardExplanText}> replied to your comment on:</Text>
               </View>
             </View>
-            <TouchableOpacity style={styles.cardBillTextContainer} onPress={()=>{
-                if(!!this.props.onBillClick && !!this.props.billId){
-                  this.props.onBillClick(this.props.billId)
-                }
-              }}>
+            <TouchableOpacity style={styles.cardBillTextContainer} onPress={this.onBillClick.bind(this)}>
               <Text style={styles.cardBillText}>{this.props.billTitle} </Text>
             </TouchableOpacity>
 

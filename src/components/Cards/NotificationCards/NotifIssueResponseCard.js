@@ -1,5 +1,5 @@
 /**
- * # VoteCard.js
+ * # NotifIssueResponseCard.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -23,7 +23,7 @@ import Button from 'sp-react-native-iconbutton'
 
 
 
-import {Colors, ScheneKeys} from '../../../config/constants';
+import {Colors, ScheneKeys, Other} from '../../../config/constants';
 
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
@@ -36,14 +36,16 @@ import icomoonConfig from '../../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
+const EMOTIONS = {
+  positive:{iconName: "happy", color:Colors.accentColor },
+  neutral:{iconName: "neutral", color:"#FABC25" },
+  negative:{iconName: "sad", color:Colors.negativeAccentColor },
+};
 
 
 
 
-
-
-
-class VoteCard extends React.Component {
+class NotifIssueResponseCard extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -93,19 +95,20 @@ class VoteCard extends React.Component {
         // backgroundColor:'red'
       },
 
-      voteIconContainer:{
+      emotionIconContainer:{
           justifyContent:'center',
           alignItems:'center',
+          backgroundColor:Colors.titleBgColor,
           width: w*0.09,
           height: w*0.09,
-          backgroundColor: "#8B2392",
           paddingHorizontal:w*0.005,
           borderRadius: 3,
           borderColor: '#ffffff',
           borderWidth: 1,
       },
 
-      voteIcon:{
+
+      emotionIcon:{
         color: Colors.mainTextColor,
       },
 
@@ -128,10 +131,10 @@ class VoteCard extends React.Component {
         width: w*0.74,
         // backgroundColor:'red'
       },
-      cardBillTextContainer:{
+      userFullNameTextContainer:{
 
       },
-      cardBillText:{
+      userFullNameText:{
         color: Colors.primaryColor,
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
@@ -184,11 +187,12 @@ class VoteCard extends React.Component {
 
 
 
-  onBillClick(){
-    if(!!this.props.onBillClick && !!this.props.billId){
-      this.props.onBillClick(this.props.billId)
+
+    onUserClick(){
+      if(!!this.props.onUserClick && !!this.props.userId){
+        this.props.onUserClick(this.props.userId)
+      }
     }
-  }
 
 
 
@@ -206,19 +210,16 @@ class VoteCard extends React.Component {
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
           <View style={styles.cardIconContainer}>
-              <View style={styles.voteIconContainer}>
-                <PavIcon name="logo" size={getCorrectFontSizeForScreen(w,h,21)} style={styles.voteIcon}/>
+              <View style={styles.emotionIconContainer}>
+                <PavIcon name={EMOTIONS[this.props.emotion].iconName} size={getCorrectFontSizeForScreen(w,h,21)} style={[styles.emotionIcon, {color:EMOTIONS[this.props.emotion].color}]}/>
               </View>
           </View>
           <View style={styles.cardDescriptionContainer}>
-            <View style={styles.cardExplanTextContainer}>
-              <Text style={styles.cardExplanText}>Nice! You just voted on: </Text>
-            </View>
-            <TouchableOpacity style={styles.cardBillTextContainer} onPress={this.onBillClick.bind(this)}>
-              <Text style={styles.cardBillText}>{this.props.billTitle} </Text>
+            <TouchableOpacity style={styles.userFullNameTextContainer} onPress={this.onUserClick.bind(this)}>
+              <Text style={styles.userFullNameText}>{this.props.userFullName} </Text>
             </TouchableOpacity>
             <View style={styles.cardExplanTextContainer}>
-              <Text style={styles.cardExplanText}>Keep voting!</Text>
+              <Text style={styles.cardExplanText}>added a reaction to your issue. </Text>
             </View>
 
           </View>
@@ -235,10 +236,12 @@ class VoteCard extends React.Component {
 
 
 
-VoteCard.propTypes= {
+NotifIssueResponseCard.propTypes= {
   device: React.PropTypes.object.isRequired,
-  billTitle: React.PropTypes.string.isRequired,
-  billId: React.PropTypes.string.isRequired,
-  onBillClick: React.PropTypes.func.isRequired,
+  userId: React.PropTypes.string.isRequired,
+  userFullName: React.PropTypes.string.isRequired,
+  emotion: React.PropTypes.string.isRequired,
+  onUserClick: React.PropTypes.func.isRequired,
+
 };
-export default VoteCard;
+export default NotifIssueResponseCard;
