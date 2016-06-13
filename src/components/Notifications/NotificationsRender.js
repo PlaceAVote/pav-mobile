@@ -108,6 +108,76 @@ class NotificationsRender extends React.Component {
   }
 
 
+
+
+  /**
+   * ## Styles for PORTRAIT
+   */
+  getPortraitStyles(){
+    return StyleSheet.create({
+
+
+      container: {
+        // backgroundColor: 'orange',
+        // flex:1,
+        flex:1,
+        flexDirection: 'column',
+        paddingBottom:50, //tab bar height
+        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+        backgroundColor: '#E8E7EE',
+        // marginVertical: 10,
+        // marginHorizontal:15
+      },
+      itemList:{
+        flex:1,
+        backgroundColor: '#E8E7EE',
+      },
+
+      card:{
+        paddingHorizontal:0,//w*0.001,
+        paddingVertical:w*0.002,
+      },
+
+      oddCardContainer:{
+        backgroundColor: Colors.mainTextColor
+      },
+      evenCardContainer:{
+        backgroundColor: Colors.titleBgColorDark
+      }
+
+
+    });
+  }
+
+
+
+
+
+  /**
+   * ## Styles for LANDSCAPE
+   */
+   getLandscapeStyles(){
+     return StyleSheet.create({
+
+       container: {
+         // backgroundColor: 'orange',
+         flex:1,
+         flexDirection: 'column',
+         marginVertical: 10,
+         marginHorizontal:10
+       },
+
+       titleText: {
+         // backgroundColor: 'black',
+         fontSize: getCorrectFontSizeForScreen(w,h,27),
+         color: Colors.mainTextColor,
+         textAlign: 'center',
+       }
+
+     });
+   }
+
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -116,7 +186,7 @@ class NotificationsRender extends React.Component {
 
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?portraitStyles:landscapeStyles;
+    let styles= isPortrait?this.getPortraitStyles():this.getLandscapeStyles();
 
     // <ListView
     //   dataSource={this.state.dataSource}
@@ -138,11 +208,11 @@ class NotificationsRender extends React.Component {
            tintColor={Colors.primaryColor}
            colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
          />}
-         renderRow={(rowData) =>
+         renderRow={(rowData, s, rowIt) =>
            <CardFactory
            type="notifications"
            key={rowData.event_id}
-           cardStyle={Platform.OS=="android"?{elevation:5}:{}}
+           cardStyle={[Platform.OS=="android"?{elevation:5}:{}, (rowIt%2==0)?styles.oddCardContainer:styles.evenCardContainer ]}
            itemData={rowData}
            style={styles.card}
            device={this.props.device}
@@ -185,63 +255,6 @@ class NotificationsRender extends React.Component {
 }
 
 
-
-
-
-/**
- * ## Styles for PORTRAIT
- */
-var portraitStyles = StyleSheet.create({
-
-
-  container: {
-    // backgroundColor: 'orange',
-    // flex:1,
-    flex:1,
-    flexDirection: 'column',
-    paddingBottom:50, //tab bar height
-    paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
-    backgroundColor: '#E8E7EE',
-    // marginVertical: 10,
-    // marginHorizontal:15
-  },
-  itemList:{
-    flex:1,
-    backgroundColor: '#E8E7EE',
-  },
-
-  card:{
-    paddingHorizontal:0,//w*0.001,
-    paddingVertical:w*0.002,
-  }
-
-});
-
-
-
-
-
-/**
- * ## Styles for LANDSCAPE
- */
-var landscapeStyles = StyleSheet.create({
-
-  container: {
-    // backgroundColor: 'orange',
-    flex:1,
-    flexDirection: 'column',
-    marginVertical: 10,
-    marginHorizontal:10
-  },
-
-  titleText: {
-    // backgroundColor: 'black',
-    fontSize: getCorrectFontSizeForScreen(w,h,27),
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-  }
-
-});
 
 
 
