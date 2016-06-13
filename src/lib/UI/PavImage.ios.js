@@ -49,6 +49,9 @@ class PavImage extends React.Component {
           onLayout={(e)=>{
 
             let indicSize = ((e.nativeEvent.layout.height+e.nativeEvent.layout.width)*0.5)*0.8;
+            if(indicSize>70){
+              indicSize = 70;
+            }
             // console.log("@@@@@@@@@ NATIVE event: "+indicSize)
             this.setState({
               indicatorSize:indicSize
