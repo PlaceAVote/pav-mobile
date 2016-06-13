@@ -137,13 +137,7 @@ class NotificationsRender extends React.Component {
         paddingHorizontal:0,//w*0.001,
         paddingVertical:w*0.002,
       },
-
-      oddCardContainer:{
-        backgroundColor: "#F1F0F7"//Colors.oddRowBgColor
-      },
-      evenCardContainer:{
-        backgroundColor: Colors.evenRowBgColor
-      }
+      
 
 
     });
@@ -212,7 +206,7 @@ class NotificationsRender extends React.Component {
            <CardFactory
            type="notifications"
            key={rowData.event_id}
-           cardStyle={[Platform.OS=="android"?{elevation:5}:{}, (rowIt%2==0)?styles.oddCardContainer:styles.evenCardContainer ]}
+           cardStyle={[Platform.OS=="android"?{elevation:5}:{}, (rowIt%2==0)?{ backgroundColor: rowData.isNew===true?Colors.oddRowBgHighlightColor:Colors.oddRowBgColor}:{backgroundColor: rowData.isNew===true?Colors.evenRowBgHighlightColor:Colors.evenRowBgColor} ]}
            itemData={rowData}
            style={styles.card}
            device={this.props.device}
