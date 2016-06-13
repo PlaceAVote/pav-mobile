@@ -338,7 +338,7 @@ class FeedCommentCard extends React.Component {
             platform={this.props.device.platform}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
-            source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
+            source={{uri: this.props.userPhotoUrl}}
             resizeMode='cover'
           />
         </TouchableOpacity>

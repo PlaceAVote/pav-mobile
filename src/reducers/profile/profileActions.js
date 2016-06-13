@@ -17,6 +17,7 @@ import {ActionNames, ScheneKeys} from '../../config/constants';
 import AppAuthTokenStore from '../../lib/Storage/AppAuthTokenStore';
 import PavClientSdk from 'pavclient';
 import {setUserData} from '../auth/authActions'
+import UserInfoStore from '../../lib/Storage/UserInfoStore';
 
 
 
@@ -102,7 +103,8 @@ export function getProfile(userId = null, dev = null, sessionToken=null) {
     }else{
       dispatch(getProfileSuccess(res.data, (userId == null)));
       if(userId==null){
-          dispatch(setUserData(res.data));
+        saveBasicUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address})
+        dispatch(setUserData(res.data));    
       }
       return {data: res.data, error: null};
     }
@@ -318,4 +320,17 @@ export function unfollowUser(userId = null, dev = null, sessionToken=null) {
       return true;
     }
   };
+}
+
+
+
+/**
+ * ## saveBasicUserInfo
+ * @param {Object} basicInfo - An object that contains basic user info such as user_id, city, first_name
+ */
+function saveBasicUserInfo(basicInfo=null) {
+  if(basicInfo!=null){
+    // console.log("NOW saving session token with basic info: "+JSON.stringify(basicInfo))
+    return new UserInfoStore().storeUserInfo(basicInfo);
+  }
 }

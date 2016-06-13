@@ -204,7 +204,7 @@ class NotificationsRender extends React.Component {
          refreshControl={
            <RefreshControl
            refreshing={this.props.isFetchingNotifications}
-           onRefresh={this.props.onFeedRefresh}
+           onRefresh={this.props.onItemsRefresh}
            tintColor={Colors.primaryColor}
            colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
          />}
@@ -219,11 +219,7 @@ class NotificationsRender extends React.Component {
            curUser={this.props.curUser}
            onUserClick={this.props.onUserClick}
            onBillClick={this.props.onBillClick}
-           onLikeDislikeClick={this.props.onLikeDislikeClick}
-           onReplyClick={this.props.onReplyClick}
-           onReactionClick={this.props.onReactionClick}
            onCommentClick={this.props.onCommentClick}
-           onSocialClick={this.props.onSocialClick}
            />}
          />
 
@@ -265,7 +261,7 @@ NotificationsRender.propTypes= {
   device: React.PropTypes.object.isRequired,
   isFetchingNotifications: React.PropTypes.bool.isRequired,
 
-  onFeedRefresh: React.PropTypes.func.isRequired,
+  onItemsRefresh: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,

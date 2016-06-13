@@ -227,7 +227,7 @@ export function validateToken(sessionToken=null, dev = null) {
     }else{
       dispatch(validateTokenSuccess(res.data));
       let userInfo = (await new UserInfoStore().getOrReplaceUserInfo() || {user_id:"", first_name:"", city:""});
-      // console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
+      console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
       dispatch(loginSuccess({
         user_id:userInfo.user_id || "",
         first_name:userInfo.first_name || "",
@@ -1019,11 +1019,10 @@ export function saveSessionTokenAndBasicInfo(token, basicInfo=null) {
 
 
 
-
 export function getBasicUserInfo(){
   return async function (dispatch, getState){
     let userInfo = ((await new UserInfoStore().getOrReplaceUserInfo()) || {user_id:"", first_name:"", city:""});
-    
+
     return userInfo;
   }
 }

@@ -17,6 +17,7 @@ import FeedUserIssueCard from './FeedCards/FeedUserIssueCard';
 import FeedVoteCard from './FeedCards/FeedVoteCard';
 
 import NotifVoteCard from './NotificationCards/NotifVoteCard'
+import NotifCommentReplyCard from './NotificationCards/NotifCommentReplyCard'
 
 
 /**
@@ -134,6 +135,24 @@ class CardFactory extends React.Component {
             onBillClick={this.props.onBillClick}
           />
         )
+      case "commentreply":
+        // console.log("@@@@@@@@ comment : "+JSON.stringify(n))
+        console.log("@@@@@@@@ AUTHOR of the comment is : "+n.author)
+        return (<NotifCommentReplyCard
+          {...this.props}
+          billTitle={n.bill_title}
+          billId={n.bill_id}
+          authorFullName={n.author_first_name+" "+n.author_last_name}
+          authorId={n.author}
+          userPhotoUrl={n.author_img_url}
+          onBillClick={this.props.onBillClick}
+          onUserClick={this.props.onUserClick}
+        />)
+
+
+      default:
+        console.log("Data: "+JSON.stringify(n))
+        return <View></View>
 
     }
   }

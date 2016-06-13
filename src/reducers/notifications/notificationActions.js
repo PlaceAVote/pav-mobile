@@ -72,7 +72,7 @@ export function getNotificationItems(sessionToken=null, dev = null) {
       dispatch(getNotificationFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getNotifications();
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in getNotificationItems call"+res.error.error_message);
       dispatch(getNotificationFailure("Unable to get user notification data with this token."));

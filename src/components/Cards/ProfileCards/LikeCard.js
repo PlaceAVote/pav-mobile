@@ -324,7 +324,7 @@ class LikeCard extends React.Component {
               <TouchableOpacity onPress={()=>this.onUserClick(this.props.userId)}>
                 <Image
                   style={styles.userImage}
-                  source={!!this.props.userPhotoUrl?{uri: this.props.userPhotoUrl}:defaultUserPhoto}
+                  source={{uri: this.props.userPhotoUrl}}
                   defaultSource={defaultUserPhoto}
                   resizeMode='cover'
                 />
