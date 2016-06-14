@@ -136,6 +136,12 @@ class NotifCommentReplyCard extends React.Component {
         width: w*0.36,
         // backgroundColor:'red'
       },
+      cardExplanTextUnread:{
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        width: w*0.36,
+      },
       authorFullnameTextContainer:{
         // backgroundColor:'yellow'
       },
@@ -144,6 +150,11 @@ class NotifCommentReplyCard extends React.Component {
         fontFamily: 'Whitney Semibold',
         fontSize: getCorrectFontSizeForScreen(w,h,8),
         // backgroundColor:'red'
+      },
+      authorFullnameTextUnread:{
+        color: Colors.negativeAccentColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
       },
       cardBillTextContainer:{
 
@@ -154,6 +165,12 @@ class NotifCommentReplyCard extends React.Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
         width: w*0.80,
         // backgroundColor:'green'
+      },
+      cardBillTextUnread:{
+        color: Colors.primaryColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        width: w*0.80,
       }
 
 
@@ -243,14 +260,14 @@ class NotifCommentReplyCard extends React.Component {
           <View style={styles.cardDescriptionContainer}>
             <View style={styles.cardExplanationContainer}>
               <TouchableOpacity style={styles.authorFullnameTextContainer} onPress={this.onUserClick.bind(this)}>
-                <Text style={styles.authorFullnameText}>{this.props.authorFullName} </Text>
+                <Text style={this.props.isRead===true?styles.authorFullnameText:styles.authorFullnameTextUnread}>{this.props.authorFullName} </Text>
               </TouchableOpacity>
               <View style={styles.cardExplanTextContainer}>
-                <Text style={styles.cardExplanText}> replied to your comment on:</Text>
+                <Text style={this.props.isRead===true?styles.cardExplanText:styles.cardExplanTextUnread}> replied to your comment on:</Text>
               </View>
             </View>
             <TouchableOpacity style={styles.cardBillTextContainer} onPress={this.onBillClick.bind(this)}>
-              <Text style={styles.cardBillText}>{this.props.billTitle} </Text>
+              <Text style={this.props.isRead===true?styles.cardBillText:styles.cardBillTextUnread}>{this.props.billTitle} </Text>
             </TouchableOpacity>
 
           </View>
@@ -269,6 +286,7 @@ class NotifCommentReplyCard extends React.Component {
 
 NotifCommentReplyCard.propTypes= {
   device: React.PropTypes.object.isRequired,
+  isRead: React.PropTypes.bool.isRequired,
   authorFullName: React.PropTypes.string,
   billId: React.PropTypes.string.isRequired,
   authorId: React.PropTypes.string,

@@ -89,6 +89,14 @@ class ActivityFeedRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    let refreshProps = this.props.device.platform=="ios"?{
+      // tintColor:Colors.primaryColor,
+      // title:"Loading...",
+      // titleColor:Colors.primaryColor
+    }:
+    {
+      colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]
+    };
     return(
         <ListView
          enableEmptySections={true}
@@ -99,10 +107,7 @@ class ActivityFeedRender extends React.Component {
            <RefreshControl
            refreshing={this.props.beingRefreshed}
            onRefresh={this.props.onRefresh}
-           tintColor={Colors.primaryColor}
-           title="Loading..."
-           titleColor={Colors.primaryColor}
-           colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
+           {...refreshProps}
          />}
          renderRow={(rowData) =>
            <CardFactory

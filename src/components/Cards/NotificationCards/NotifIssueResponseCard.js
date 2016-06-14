@@ -131,6 +131,12 @@ class NotifIssueResponseCard extends React.Component {
         width: w*0.74,
         // backgroundColor:'red'
       },
+      cardExplanTextUnread:{
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        width: w*0.74,
+      },
       userFullNameTextContainer:{
 
       },
@@ -140,6 +146,12 @@ class NotifIssueResponseCard extends React.Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
         width: w*0.74,
         // backgroundColor:'green'
+      },
+      userFullNameTextUnread:{
+        color: Colors.primaryColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        width: w*0.74,
       }
 
 
@@ -216,10 +228,10 @@ class NotifIssueResponseCard extends React.Component {
           </View>
           <View style={styles.cardDescriptionContainer}>
             <TouchableOpacity style={styles.userFullNameTextContainer} onPress={this.onUserClick.bind(this)}>
-              <Text style={styles.userFullNameText}>{this.props.userFullName} </Text>
+              <Text style={this.props.isRead===false?styles.userFullNameText:styles.userFullNameTextUnread}>{this.props.userFullName} </Text>
             </TouchableOpacity>
             <View style={styles.cardExplanTextContainer}>
-              <Text style={styles.cardExplanText}>added a reaction to your issue. </Text>
+              <Text style={this.props.isRead===false?styles.cardExplanText:styles.cardExplanTextUnread}>added a reaction to your issue. </Text>
             </View>
 
           </View>
@@ -238,6 +250,7 @@ class NotifIssueResponseCard extends React.Component {
 
 NotifIssueResponseCard.propTypes= {
   device: React.PropTypes.object.isRequired,
+  isRead: React.PropTypes.bool.isRequired,
   userId: React.PropTypes.string.isRequired,
   userFullName: React.PropTypes.string.isRequired,
   emotion: React.PropTypes.string.isRequired,

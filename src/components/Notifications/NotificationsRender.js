@@ -137,7 +137,7 @@ class NotificationsRender extends React.Component {
         paddingHorizontal:0,//w*0.001,
         paddingVertical:w*0.002,
       },
-      
+
 
 
     });
@@ -206,8 +206,9 @@ class NotificationsRender extends React.Component {
            <CardFactory
            type="notifications"
            key={rowData.event_id}
-           cardStyle={[Platform.OS=="android"?{elevation:5}:{}, (rowIt%2==0)?{ backgroundColor: rowData.isNew===true?Colors.oddRowBgHighlightColor:Colors.oddRowBgColor}:{backgroundColor: rowData.isNew===true?Colors.evenRowBgHighlightColor:Colors.evenRowBgColor} ]}
+           cardStyle={[Platform.OS=="android"?{elevation:5}:{}, (rowIt%2==0)?{ backgroundColor: rowData.read===false?Colors.oddRowBgHighlightColor:Colors.oddRowBgColor}:{backgroundColor: rowData.read===false?Colors.evenRowBgHighlightColor:Colors.evenRowBgColor} ]}
            itemData={rowData}
+           isRead={rowData.read}
            style={styles.card}
            device={this.props.device}
            curUser={this.props.curUser}

@@ -128,6 +128,12 @@ class VoteCard extends React.Component {
         width: w*0.74,
         // backgroundColor:'red'
       },
+      cardExplanTextUnread:{
+        color: Colors.thirdTextColor,
+        fontFamily: 'Whitney Semibold',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        width: w*0.74,
+      },
       cardBillTextContainer:{
 
       },
@@ -137,6 +143,12 @@ class VoteCard extends React.Component {
         fontSize: getCorrectFontSizeForScreen(w,h,8),
         width: w*0.74,
         // backgroundColor:'green'
+      },
+      cardBillTextUnread:{
+        color: Colors.primaryColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        width: w*0.74,
       }
 
 
@@ -212,13 +224,13 @@ class VoteCard extends React.Component {
           </View>
           <View style={styles.cardDescriptionContainer}>
             <View style={styles.cardExplanTextContainer}>
-              <Text style={styles.cardExplanText}>Nice! You just voted on: </Text>
+              <Text style={this.props.isRead===true?styles.cardExplanText:styles.cardExplanTextUnread}>Nice! You just voted on: </Text>
             </View>
             <TouchableOpacity style={styles.cardBillTextContainer} onPress={this.onBillClick.bind(this)}>
-              <Text style={styles.cardBillText}>{this.props.billTitle} </Text>
+              <Text style={this.props.isRead===true?styles.cardBillText:styles.cardBillTextUnread}>{this.props.billTitle} </Text>
             </TouchableOpacity>
             <View style={styles.cardExplanTextContainer}>
-              <Text style={styles.cardExplanText}>Keep voting!</Text>
+              <Text style={this.props.isRead===true?styles.cardExplanText:styles.cardExplanTextUnread}>Keep voting!</Text>
             </View>
 
           </View>
@@ -239,6 +251,7 @@ VoteCard.propTypes= {
   device: React.PropTypes.object.isRequired,
   billTitle: React.PropTypes.string.isRequired,
   billId: React.PropTypes.string.isRequired,
+  isRead: React.PropTypes.bool.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
 };
 export default VoteCard;

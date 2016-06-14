@@ -25,8 +25,8 @@ module.exports =  {
 
     evenRowBgColor: "#FFFFFF",
     oddRowBgColor: "#F1F0F7",
-    evenRowBgHighlightColor: "#FFF2F2",
-    oddRowBgHighlightColor: "#F2EBEE"
+    evenRowBgHighlightColor: "#F2D8DC",
+    oddRowBgHighlightColor: "#F2D8DC"
 
   },
 
