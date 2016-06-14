@@ -41,7 +41,7 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import PavSpinner from '../../lib/UI/PavSpinner'
-
+import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
 
 /**
@@ -331,12 +331,13 @@ class BillRender extends React.Component {
     // console.log("bill: "+JSON.stringify(billData))
     if(!!billData){
 
-
+      let billTitle = billData.featured_bill_title || billData.short_title;
       return (
         <PavImage
         key="bill_header"
         platform={platform}
         style={[styles.billImage, {height:(this.state.curImgHeight<=0?null:this.state.curImgHeight)}]}
+        defaultSource={congratsScreenPhoto}
         source={{uri: billData.featured_img_link}}
         resizeMode='cover'
         onLayout={(e)=>{
@@ -354,7 +355,7 @@ class BillRender extends React.Component {
               style={styles.headerContainer}
               >
               <View style={styles.headerTitleContainer}>
-                <Text style={styles.headerTitle}>{billData.featured_bill_title}</Text>
+                <Text style={styles.headerTitle}>{billTitle}</Text>
               </View>
               <View style={styles.headerBtnsContainer}>
 

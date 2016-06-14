@@ -259,7 +259,18 @@ const styles = StyleSheet.create({
     // borderLeftWidth: 0,
     // borderRightWidth: 0,
     // borderColor: '#ccc',
+    paddingBottom:1,
+    borderBottomWidth:1,
+    borderBottomColor:'rgba(0, 0, 0, 0.07)',
     paddingHorizontal:2,
+    // marginBottom:3,
+    shadowColor: 'rgba(0, 0, 0, 0.22)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2,
+    },
   },
   tab: {
     flex:1,

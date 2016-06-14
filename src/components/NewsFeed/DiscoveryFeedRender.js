@@ -161,6 +161,8 @@ class DiscoveryFeedRender extends React.Component {
         device={device}
         curUser={curUser}
         type="discovery"
+        beingRefreshed={this.props.beingRefreshed}
+        onRefresh={this.props.onRefresh}
         onUserClick={this.props.onUserClick}
         onBillClick={this.props.onBillClick}
         onLikeDislikeClick={this.props.onLikeDislikeClick}
@@ -220,4 +222,21 @@ class DiscoveryFeedRender extends React.Component {
     );
   }
 }
+
+DiscoveryFeedRender.propTypes= {
+  discoveryData: React.PropTypes.object.isRequired,
+  device: React.PropTypes.object.isRequired,
+  curUser: React.PropTypes.object.isRequired,
+  beingRefreshed: React.PropTypes.bool.isRequired,
+
+  onRefresh: React.PropTypes.func.isRequired,
+  onTopicSelected: React.PropTypes.func.isRequired,
+  onUserClick: React.PropTypes.func.isRequired,
+  onBillClick: React.PropTypes.func.isRequired,
+  onLikeDislikeClick: React.PropTypes.func.isRequired,
+  onReplyClick: React.PropTypes.func.isRequired,
+  onReactionClick: React.PropTypes.func.isRequired,
+  onCommentClick: React.PropTypes.func.isRequired,
+  onSocialClick: React.PropTypes.func.isRequired,
+};
 export default DiscoveryFeedRender;

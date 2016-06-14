@@ -37,7 +37,7 @@ import icomoonConfig from '../../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import PavImage from '../../../lib/UI/PavImage'
-
+import congratsScreenPhoto from '../../../../assets/congratsScreen.png';
 import LinearGradient from 'react-native-linear-gradient';
 
 
@@ -319,7 +319,9 @@ class FeedBillCard extends React.Component {
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
           <TouchableOpacity  onPress={this.onBillClicked.bind(this)}>
-            <PavImage platform={this.props.device.platform}
+            <PavImage
+            platform={this.props.device.platform}
+            defaultSource={congratsScreenPhoto}
             style={styles.billImage}
             source={{uri: this.props.billImgUrl}}
             resizeMode='cover'

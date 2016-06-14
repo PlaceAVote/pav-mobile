@@ -265,9 +265,10 @@ class InfoTabRender extends React.Component {
 
   handleScroll(e){
     let {contentOffset, contentSize,layoutMeasurement } = e.nativeEvent;
-    let percentageShow = contentOffset.y/(contentSize.height-layoutMeasurement.height); //scroll percentage = total list height (header+body+footer) - list content (only body) height
-    // console.log(percentageShow);
-    this.refs.animatedLine.animate(percentageShow>0.915)
+    let animateAfterThisY = contentSize.height-layoutMeasurement.height-this.officialTitleHeight; //scroll percentage = total list height (header+body+footer) - list content (only body) height
+    // console.log(" @ "+contentOffset.y);
+    // console.log(" @@ "+animateAfterThisY);
+    this.refs.animatedLine.animate(contentOffset.y>animateAfterThisY)
   }
 
   /**
@@ -379,7 +380,10 @@ class InfoTabRender extends React.Component {
             </Text>*/}
             </View>
 
-            <View style={styles.titleContainer}>
+            <View style={styles.titleContainer} onLayout={(e)=>{
+              // console.log("@@@@@@@@@@@@@@@@@@@@@@@@: "+JSON.stringify(e.nativeEvent));
+              this.officialTitleHeight = e.nativeEvent.layout.height;
+            }}>
               <Text style={styles.headerText}>
                 OFFICIAL TITLE
               </Text>

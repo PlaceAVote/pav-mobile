@@ -24,7 +24,7 @@ ReleaseAndroid () {
         ./gradlew assembleRelease &&
         cd ${PROJECT_DIR} &&
         mkdir -p bin  && #making a bin directory if not exists
-        printf "\nApk built. It can be found in <Project>${BIN_DIR}${APK_FILENAME}" &&
+        printf "\nApk built. It can be found in <Project>${BIN_DIR}${APK_FILENAME} \n" &&
         cp ./android/app/build/outputs/apk/app-release.apk ${PROJECT_DIR}${BIN_DIR}${APK_FILENAME} && #copy the apk to the output dir
         return 0
     } || { # your 'catch' block
@@ -91,7 +91,6 @@ UploadToBucket(){
 
 
 
-
 case ${option} in
     -b)
 
@@ -127,10 +126,19 @@ case ${option} in
         ReleaseAndroid
         exit 0
     ;;
+    -[ua][ua])
+    printf "\nNow uploading and releasing for android"
+        { # my 'try' block
+            UploadToBucket ${ANDROID} && printf "\nSuccess: The apk can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}  \n" && exit 0
+        } || { # your 'catch' block 
+            printf "\nUpload Failed. Process terminating.\n"
+        }
+    ;;
+
     -[ra][ra])
         printf "\nNow building and releasing for android"
         { # my 'try' block
-            ReleaseAndroid && UploadToBucket ${ANDROID} && printf "\nSuccess: The apk can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}" && exit 0
+            ReleaseAndroid && UploadToBucket ${ANDROID} && printf "\nSuccess: The apk can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}  \n" && exit 0
         } || { # your 'catch' block 
             printf "\nBuild Failed, we got no apk to upload. Process terminating.\n"
         }
@@ -138,6 +146,14 @@ case ${option} in
     -i)
         printf "\nNow building for iOS"
         ReleaseIos
+    ;;
+    -[ui][ui])
+        printf "\nNow uploading for iOS"
+        { # my 'try' block
+            UploadToBucket ${IOS} && printf "\nSuccess: The (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME} \n" && exit 0
+        } || { # your 'catch' block 
+            printf "\nUpload Failed. Process terminating.\n"
+        }
     ;;
     -[ri][ri])
         printf "\nNow building and releasing for iOS"
@@ -148,7 +164,7 @@ case ${option} in
         }
     ;;
     *)  
-        echo "\n`basename ${0}`:\n  usage: pavBuild -<flags> <versionString> \n     FLAGS: \n         Android: [-a] to build for Android \n         iOS: [-i] to build for iOS.\n         Both: [-b] to build for both iOS and Android. \n\n     If you also want to upload to the PlaceAVote variousprojects S3 bucket add [r] to the flags. \n\n     VERSION: \n         (Optional) Default: latest. That would be a string of the new version (i.e: 0.8.1). \n     EXAMPLE: \n         pavBuild -ir 0.8.1 \n\n         The command above would build an iOS version in the bin/PlaceAVoteApp_v0.8.1 dir and then upload it to Amazon S3.\n"  
+        printf "\n`basename ${0}`:\n  usage: pavBuild -<flags> <versionString> \n     FLAGS: \n         Android: [-a] to build for Android \n         iOS: [-i] to build for iOS.\n         Both: [-b] to build for both iOS and Android. \n\n     If you also want to upload to the PlaceAVote variousprojects S3 bucket add [r] to the flags. \n\n     VERSION: \n         (Optional) Default: latest. That would be a string of the new version (i.e: 0.8.1). \n     EXAMPLE: \n         pavBuild -ir 0.8.1 \n\n         The command above would build an iOS version in the bin/PlaceAVoteApp_v0.8.1 dir and then upload it to Amazon S3.\n"  
         exit 1 # Command to come out of the program with status 1
     ;; 
 esac

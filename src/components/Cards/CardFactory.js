@@ -242,7 +242,7 @@ class CardFactory extends React.Component {
           return (<FeedBillCard
           {...this.props}
           subjectTitle={n.subject}
-          billTitle={n.featured_bill_title}
+          billTitle={n.featured_bill_title || n.short_title}
           billImgUrl={n.featured_img_link}
           commentCnt={n.comment_count}
           favorPercentage={favorPercent}

@@ -6,7 +6,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, View, ListView, Platform} from 'react-native';
+import {StyleSheet, View, ListView, Platform, RefreshControl} from 'react-native';
 // import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
 // import Dimensions from 'Dimensions';
@@ -21,7 +21,7 @@ import {StyleSheet, View, ListView, Platform} from 'react-native';
 * Cards
 */
 import CardFactory from '../Cards/CardFactory';
-
+import {Colors} from '../../config/constants';
 
 
 
@@ -95,7 +95,15 @@ class ActivityFeedRender extends React.Component {
          style={[styles.itemList, this.props.style]}
          initialListSize={5}
          dataSource={this.state.dataSource}
-         scrollEnabled={this.props.type=="discovery"?false:true}
+         refreshControl={
+           <RefreshControl
+           refreshing={this.props.beingRefreshed}
+           onRefresh={this.props.onRefresh}
+           tintColor={Colors.primaryColor}
+           title="Loading..."
+           titleColor={Colors.primaryColor}
+           colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
+         />}
          renderRow={(rowData) =>
            <CardFactory
            type="newsfeed"
@@ -139,4 +147,18 @@ class ActivityFeedRender extends React.Component {
 
 
 
+ActivityFeedRender.propTypes= {
+  beingRefreshed: React.PropTypes.bool.isRequired,
+  device: React.PropTypes.object.isRequired,
+  curUser: React.PropTypes.object.isRequired,
+
+  onRefresh: React.PropTypes.func.isRequired,
+  onUserClick: React.PropTypes.func.isRequired,
+  onBillClick: React.PropTypes.func.isRequired,
+  onLikeDislikeClick: React.PropTypes.func.isRequired,
+  onReplyClick: React.PropTypes.func.isRequired,
+  onReactionClick: React.PropTypes.func.isRequired,
+  onCommentClick: React.PropTypes.func.isRequired,
+  onSocialClick: React.PropTypes.func.isRequired,
+};
 export default ActivityFeedRender;

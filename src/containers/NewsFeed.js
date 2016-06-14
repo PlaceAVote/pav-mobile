@@ -173,6 +173,11 @@ class NewsFeed extends React.Component {
       // console.log("Do something on feed refresh")
   }
 
+  onDiscoveryRefresh(){
+        // this.connectAndGetFeed();
+      // console.log("Do something on feed refresh")
+  }
+
 
 
 
@@ -272,7 +277,7 @@ class NewsFeed extends React.Component {
           onFilterBtnClick={this.onFilterBtnClick.bind(this)}
           onTopicSelect={this.onTopicSelect.bind(this)}
           onFeedRefresh={this.onFeedRefresh.bind(this)}
-
+          onDiscoveryRefresh={this.onDiscoveryRefresh.bind(this)}
           onUserClick={this.onUserClickedUser.bind(this)}
           onBillClick={this.onUserClickedBill.bind(this)}
           onLikeDislikeClick={this.onUserClickedLikeDislike.bind(this)}

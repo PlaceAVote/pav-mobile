@@ -150,10 +150,6 @@ class NewsFeedRender extends React.Component {
         alignItems:'center',
         // backgroundColor:'red'
       },
-      bodyContainerView:{
-        flex:1,
-        backgroundColor:'red'
-      }
 
 
     });
@@ -196,7 +192,8 @@ class NewsFeedRender extends React.Component {
         case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
         case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
         case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
-          dataReady= (!isFetchingFeed && feedData!=null)
+          // console.log("Data ready? :"+(isFetchingFeed===false)+(feedData!=null))
+          dataReady= (isFetchingFeed===false && feedData!=null)
           if(dataReady==true){
             return(
               <ActivityFeedRender
@@ -205,6 +202,9 @@ class NewsFeedRender extends React.Component {
               device={this.props.device}
               curUser={this.props.auth.user}
               type="feed"
+              
+              beingRefreshed={!dataReady}
+              onRefresh={this.props.onFeedRefresh}
               onUserClick={this.props.onUserClick}
               onBillClick={this.props.onBillClick}
               onLikeDislikeClick={this.props.onLikeDislikeClick}
@@ -217,7 +217,7 @@ class NewsFeedRender extends React.Component {
             return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
           }
         case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
-          dataReady = (!isFetchingDiscovery && discoveryData!=null)
+          dataReady = (isFetchingDiscovery===false && discoveryData!=null)
           return(
             <DiscoveryFeedRender
               key="bodyContainerView"
@@ -226,6 +226,9 @@ class NewsFeedRender extends React.Component {
               discoveryData={discoveryData}
               device={this.props.device}
               curUser={this.props.auth.user}
+
+              beingRefreshed={!dataReady}
+              onRefresh={this.props.onDiscoveryRefresh}
               onUserClick={this.props.onUserClick}
               onBillClick={this.props.onBillClick}
               onLikeDislikeClick={this.props.onLikeDislikeClick}
@@ -256,17 +259,9 @@ class NewsFeedRender extends React.Component {
     // console.log("@ LOADING"+(this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData));
     return(
         <View style={styles.container}>
-          <ScrollView
+          <View
           style={styles.scrollView}
-          refreshControl={
-            <RefreshControl
-            refreshing={this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData}
-            onRefresh={this.props.onFeedRefresh}
-            tintColor={Colors.primaryColor}
-            title="Loading..."
-            titleColor={Colors.primaryColor}
-            colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
-          />}>
+          >
             <FiltersRender
               topicList={this.props.auth.form.fields.topicsList.toJS()}
               curSelectedTopic={this.props.newsfeed.newsFeedData.curSelectedTopic}
@@ -287,7 +282,7 @@ class NewsFeedRender extends React.Component {
                 discoveryData: this.props.newsfeed.newsFeedData.discoveryItems
               },
               styles)}
-          </ScrollView>
+          </View>
         </View>
     );
   }
