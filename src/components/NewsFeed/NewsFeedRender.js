@@ -61,6 +61,8 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import ActivityFeedRender from './ActivityFeedRender';
 import DiscoveryFeedRender from './DiscoveryFeedRender';
+import SearchFeedRender from './SearchFeedRender';
+
 import FiltersRender from './FiltersRender';
 
 
@@ -202,7 +204,7 @@ class NewsFeedRender extends React.Component {
               device={this.props.device}
               curUser={this.props.auth.user}
               type="feed"
-              
+
               beingRefreshed={!dataReady}
               onRefresh={this.props.onFeedRefresh}
               onUserClick={this.props.onUserClick}
@@ -238,6 +240,15 @@ class NewsFeedRender extends React.Component {
               onSocialClick={this.props.onSocialClick}
               />
             );
+        case NEWS_FEED_FILTERS.SEARCH_BILL_FILTER:
+        return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>This view has dreams of becoming a search tab.</Text></View>);
+          // return (
+          //   <SearchFeedRender
+          //     key="bodyContainerView"
+          //     device={this.props.device}
+          //     beingRefreshed={!dataReady}
+          //     onBillClick={this.props.onBillClick}
+          //   />);
         case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
           return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>Statistics page not ready yet</Text></View>);
       }

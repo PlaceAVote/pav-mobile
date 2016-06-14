@@ -53,7 +53,8 @@ module.exports =  {
     BILL: null,
     COMMENTS: null,
     VOTE: null,
-    PROFILE:null
+    PROFILE:null,
+    NEWISSUE: null
 
   }),
   BillPageTabs: {
@@ -77,6 +78,7 @@ module.exports =  {
       BILL_ACTIVITY_FILTER:'Bill Activity ',
       DISCOVER_ACTIVITY_FILTER:'Discover ',
       STATISTICS_ACTIVITY_FILTER:'Statistics ',
+      SEARCH_BILL_FILTER:'Search ',
     },
     TOPICS:{
       CRIME:'crime',

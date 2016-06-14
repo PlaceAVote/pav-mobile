@@ -27,7 +27,7 @@ var InitialState = Record({
   isFetching: new (Record({
     notificationData: false,
   })),
-
+  lastNotificationTimestamp: null,
   items: null
 });
 

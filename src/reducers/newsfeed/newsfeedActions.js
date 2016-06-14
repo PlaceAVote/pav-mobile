@@ -163,7 +163,7 @@ export function getFeedItems(sessionToken=null, dev = null) {
       dispatch(getFeedFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.feed();
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(getFeedFailure("Unable to get user newsfeed data with this token."));
@@ -310,7 +310,7 @@ export function reactToIssueItem(issueId, reaction, sessionToken=null, dev = nul
 
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.newIssueResponse({issueId:issueId, response:reaction });
 
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in reactToIssueItem: "+res.error);
       dispatch(reactToIssueFailure(res.error));

@@ -199,7 +199,6 @@ class NotificationsRender extends React.Component {
            <RefreshControl
            refreshing={this.props.isFetchingNotifications}
            onRefresh={this.props.onItemsRefresh}
-           tintColor={Colors.primaryColor}
            colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
          />}
          renderRow={(rowData, s, rowIt) =>

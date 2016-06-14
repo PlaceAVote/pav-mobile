@@ -158,7 +158,7 @@ class CardFactory extends React.Component {
           />
         )
       default:
-        console.log("Data: "+JSON.stringify(n))
+        console.error("ERROR: Unrecognized notification data: "+JSON.stringify(n))
         return <View></View>
 
     }

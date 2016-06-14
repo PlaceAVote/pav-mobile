@@ -28,6 +28,7 @@ import Notifications from '../containers/Notifications';
 import Vote from '../containers/Vote';
 import Onboarding from '../containers/Onboarding';
 import SplashScreen from '../containers/SplashScreen';
+import NewIssue from '../containers/NewIssue';
 
 /**
 * ## Nav bar icons
@@ -102,6 +103,7 @@ export default class Routes extends React.Component{
               <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} userId={null} isTab={true} />
           </Scene>
           <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true} />
+          <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} component={NewIssue} title="Vote" direction="vertical" hideNavBar={true} />
           <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false} />
           <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" />
         </Scene>

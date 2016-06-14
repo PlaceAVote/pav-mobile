@@ -48,17 +48,23 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
-// const {} = ScheneKeys
+
+import {
+ScheneKeys,
+} from '../../config/constants';
+const {
+  NEWISSUE
+} = ScheneKeys
 
 
 /**
  * ## Redux boilerplate
  */
 const actions = [
-  authActions,
+  // authActions,
   routingActions,
-  deviceActions,
-  profileActions
+  // deviceActions,
+  // profileActions
 ];
 
 function mapStateToProps(state) {
@@ -99,11 +105,13 @@ class NewsFeedButtons extends React.Component {
       return (
           <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'flex-end', paddingVertical:Platform.OS === 'ios' || Platform.Version > 19 ? h*0.013 : h*0.007}}>
             <TouchableOpacity style={{paddingHorizontal:w*0.020}}>
-              <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.7)'}}/>
+              <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.1)'}}/>
             </TouchableOpacity>
             <View style={{ flexDirection:'row', justifyContent:'flex-end'}}>
-              <TouchableOpacity style={{paddingHorizontal:w*0.020}}>
-                <PavIcon name='ios-search-strong' size={35} style={{color:'white'}}/>
+              <TouchableOpacity style={{paddingHorizontal:w*0.020}} onPress={
+                ()=>{this.props.actions.navigateTo(NEWISSUE)}
+              }>
+                <PavIcon name='issues' size={24} style={{color:'white'}}/>
               </TouchableOpacity>
             </View>
           </View>

@@ -58,7 +58,7 @@ export function getNotificationFailure(json) {
  */
 export function getNotificationItems(sessionToken=null, dev = null) {
   console.log("getNotificationItems called");
-  return async function (dispatch){
+  return async function (dispatch, getState){
     dispatch(getNotificationRequest());
     //store or get a sessionToken
     let token = sessionToken;
@@ -71,14 +71,23 @@ export function getNotificationItems(sessionToken=null, dev = null) {
       console.log("Unable to fetch past token in notificationActions.getNotificationItems() with error: "+e.message);
       dispatch(getNotificationFailure(e.message));
     }
-    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getNotifications();
-    // console.log("RES: "+JSON.stringify(res));
+
+    let lastNotifTimestamp = null;  //getState().notifications.lastNotificationTimestamp, res;  //TODO: This doesn't work on the backend yet.
+
+
+    if(lastNotifTimestamp!=null){
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getNotifications({lastKnownTimestamp:lastNotifTimestamp});
+    }else{
+        res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getNotifications();
+    }
+
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in getNotificationItems call"+res.error.error_message);
       dispatch(getNotificationFailure("Unable to get user notification data with this token."));
       return res.error;
     }else{
-      dispatch(getNotificationSuccess(res.data.results));
+      dispatch(getNotificationSuccess({data:res.data, incrementalUpdate:(lastNotifTimestamp!=null)}));
       return res.data;
     }
   };
