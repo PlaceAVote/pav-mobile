@@ -376,6 +376,13 @@ class NewIssueRender extends React.Component {
     alert("attach bill")
   }
 
+  onRelatedArticleCloseClicked(){
+    this.setState({relatedArticle:null})
+  }
+  onRelatedBillClicked(){
+    this.setState({relatedBill:null})
+  }
+
 
   renderRelatedUrl(styles){
     if(!!this.state.relatedArticle){
@@ -395,7 +402,7 @@ class NewIssueRender extends React.Component {
               <TouchableOpacity  style={styles.relatedArticleTitleTextContainer}  onPress={this.props.onRelatedArticleClicked}>
                 <Text style={styles.relatedArticleTitleText}>{!!this.state.relatedArticle&&this.state.relatedArticle.title}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.relatedArticleUrlIconContainer}  onPress={this.props.onRelatedArticleCloseClicked}>
+              <TouchableOpacity style={styles.relatedArticleUrlIconContainer}  onPress={this.onRelatedArticleCloseClicked.bind(this)}>
                 <PavIcon name="close" size={15} style={styles.relatedArticleUrlCloseIcon}/>
               </TouchableOpacity>
 
@@ -416,7 +423,7 @@ class NewIssueRender extends React.Component {
             <TouchableOpacity style={styles.relatedBillTitleTextContainer} onPress={this.props.onRelatedBillClicked}>
               <Text style={styles.relatedBillTitleText}>{this.state.relatedBill.title}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.relatedBillIconContainer}  onPress={this.props.onRelatedArticleCloseClicked}>
+            <TouchableOpacity style={styles.relatedBillIconContainer}  onPress={this.onRelatedBillClicked.bind(this)}>
               <PavIcon name="close" size={15} style={styles.relatedBillIcon}/>
             </TouchableOpacity>
           </View>);
@@ -436,7 +443,7 @@ class NewIssueRender extends React.Component {
     // let billData = this.props.billData.toJS();
     // console.log("@@@@@@@@@@@@@@@@@@@ BILL USER VOTED: "+this.props.billData.get("user_voted"));
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    
+
     // source={{uri: this.props.userPhotoUrl}} //TODO: Add this back to the PAVImage if we manage to fetch an image for the url.
     return(
       <View
@@ -562,7 +569,6 @@ NewIssueRender.propTypes= {
   issueBeingPosted: React.PropTypes.bool.isRequired,
   onIssuePost: React.PropTypes.func.isRequired,
   onRelatedArticleClicked: React.PropTypes.func.isRequired,
-  onRelatedArticleCloseClicked: React.PropTypes.func.isRequired,
   onRelatedBillClicked: React.PropTypes.func.isRequired,
 
   // topForComment: React.PropTypes.object,
