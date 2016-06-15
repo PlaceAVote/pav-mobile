@@ -186,7 +186,7 @@ class FeedUserIssueCard extends React.Component {
 
       relatedBillTitleText:{
         width:w*0.81,
-        fontFamily: 'Whitney',
+        fontFamily: 'Whitney-MediumItalic',
         fontSize: getCorrectFontSizeForScreen(w,h,10),
         color: Colors.primaryColor
       },

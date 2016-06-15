@@ -58,6 +58,10 @@ class NewIssueRender extends React.Component {
       relatedArticle:{
         url:"www",
         title: "No Child Left Behind's One Big Achievement Because No Woman No Cry My Broda?"
+      },
+      relatedBill:{
+        id: "whatevah",
+        title: "Every Child Achieves Act of 2015"
       }
     }
   }
@@ -164,6 +168,9 @@ class NewIssueRender extends React.Component {
         color: Colors.thirdTextColor,
       },
 
+
+
+
             //Article
       relatedArticleContainer:{
           paddingVertical: h*0.014,
@@ -193,13 +200,61 @@ class NewIssueRender extends React.Component {
         color:Colors.mainTextColor,
         // textAlign:'center'
       },
-      relatedArticleUrlIcon:{
-        textAlign:'right',
+      relatedArticleUrlIconContainer:{
         paddingHorizontal: w*0.04,
         paddingVertical: h*0.020,
-        color:Colors.mainTextColor,
-        alignSelf:'center',
+        // backgroundColor:'pink',
+        justifyContent:'center',
       },
+      relatedArticleUrlCloseIcon:{
+        top:1,
+        right:1,
+        padding: w*0.011,
+        position:"absolute",
+        // backgroundColor:'green',
+        color:Colors.mainTextColor,
+      },
+
+
+            //Bill
+
+      relatedBillContainer:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        backgroundColor:Colors.titleBgColor,
+        borderRadius: 2,
+        borderWidth: 1,
+        borderColor: '#E7E6ED',
+        // paddingHorizontal: w*0.025,
+      },
+      relatedBillTitleTextContainer:{
+        // backgroundColor:'pink',
+        paddingVertical: h*0.008,
+        paddingHorizontal: w*0.025,
+      },
+
+      relatedBillTitleText:{
+        width:w*0.8,
+        fontFamily: 'Whitney-MediumItalic',
+        fontSize: getCorrectFontSizeForScreen(w,h,10),
+        color: Colors.primaryColor
+      },
+
+      relatedBillIconContainer:{
+        top:1,
+        right:1,
+        position:"absolute",
+        // backgroundColor:'green'
+      },
+      relatedBillIcon:{
+
+        padding: w*0.011,
+        // backgroundColor:'red',
+        // alignSelf:'flex-end',
+        color:Colors.fourthTextColor,
+      },
+
 
 
 
@@ -324,7 +379,7 @@ class NewIssueRender extends React.Component {
   renderRelatedUrl(styles){
     if(!!this.state.relatedArticle){
       return (
-      <TouchableOpacity style={styles.relatedArticleContainer} onPress={this.props.onRelatedArticleClicked}>
+      <View style={styles.relatedArticleContainer}>
         <PavImage platform={this.props.device.platform}
           style={styles.articleImage}
           defaultSource={congratsScreenPhoto}
@@ -336,18 +391,39 @@ class NewIssueRender extends React.Component {
             colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
             start={[-0.3, 0.0]} end={[1.3, 0.0]}
             style={styles.relatedArticleTitleContainer}>
-              <View  style={styles.relatedArticleTitleTextContainer}>
+              <TouchableOpacity  style={styles.relatedArticleTitleTextContainer}  onPress={this.props.onRelatedArticleClicked}>
                 <Text style={styles.relatedArticleTitleText}>{!!this.state.relatedArticle&&this.state.relatedArticle.title}</Text>
-              </View>
-              <PavIcon name="links" size={19} style={styles.relatedArticleUrlIcon}/>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.relatedArticleUrlIconContainer}  onPress={this.props.onRelatedArticleCloseClicked}>
+                <PavIcon name="close" size={15} style={styles.relatedArticleUrlCloseIcon}/>
+              </TouchableOpacity>
+
           </LinearGradient>
         </PavImage>
-      </TouchableOpacity>);
+      </View>);
     }else{
       return <View></View>;
     }
 
   }
+
+
+    renderRelatedBillLink(styles){
+      if(!!this.state.relatedBill){
+        return (
+          <View style={styles.relatedBillContainer} >
+            <TouchableOpacity style={styles.relatedBillTitleTextContainer} onPress={this.props.onRelatedBillClicked}>
+              <Text style={styles.relatedBillTitleText}>{this.state.relatedBill.title}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.relatedBillIconContainer}  onPress={this.props.onRelatedArticleCloseClicked}>
+              <PavIcon name="close" size={15} style={styles.relatedBillIcon}/>
+            </TouchableOpacity>
+          </View>);
+      }else{
+        return <View></View>;
+      }
+
+    }
 
   /**
    * ### render method
@@ -395,7 +471,9 @@ class NewIssueRender extends React.Component {
               placeholder="Tell us what this issue is all about."
               selectionColor={Colors.primaryColor}
           />
+          {this.renderRelatedBillLink(styles)}
           {this.renderRelatedUrl(styles)}
+
         </View>
       </View>
 
@@ -465,6 +543,9 @@ NewIssueRender.propTypes= {
   issueBeingPosted: React.PropTypes.bool.isRequired,
   onIssuePost: React.PropTypes.func.isRequired,
   onRelatedArticleClicked: React.PropTypes.func.isRequired,
+  onRelatedArticleCloseClicked: React.PropTypes.func.isRequired,
+  onRelatedBillClicked: React.PropTypes.func.isRequired,
+
   // topForComment: React.PropTypes.object,
   // topAgainstComment: React.PropTypes.object,
 
