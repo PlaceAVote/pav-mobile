@@ -30,6 +30,7 @@ import PavImage from '../../lib/UI/PavImage'
 import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
+import InputUrlModalBox from '../Modals/InputUrlModalBox';
 /**
  * The states were interested in
  */
@@ -440,6 +441,7 @@ class NewIssueRender extends React.Component {
       style={styles.container}>
 
 
+
       <View style={[styles.headerTextContainer,( Platform.OS === 'ios')?styles.headerTextContainerShadowiOS:styles.headerTextContainerShadowAndroid]}>
         <View style={styles.createAnIssueTextContainer}>
           <Text style={styles.createAnIssueText}>CREATE AN ISSUE </Text>
@@ -510,7 +512,7 @@ class NewIssueRender extends React.Component {
       </View>
       {/* The view that will animate to match the keyboards height */}
       <KeyboardSpacer/>
-
+      <InputUrlModalBox isOpen={true} device={this.props.device}/>
       </View>
     );
   }
