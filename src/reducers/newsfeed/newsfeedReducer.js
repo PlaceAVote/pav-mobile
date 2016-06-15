@@ -46,6 +46,10 @@ const {
   DEL_REACTION_FROM_ISSUE_SUCCESS,
   DEL_REACTION_FROM_ISSUE_FAILURE,
 
+  NEW_ISSUE_REQUEST,
+  NEW_ISSUE_SUCCESS,
+  NEW_ISSUE_FAILURE,
+
 } = ActionNames
 
 
@@ -65,6 +69,12 @@ export default function newsfeedReducer(state = initialState, action) {
   switch (action.type) {
 
 
+
+    case NEW_ISSUE_REQUEST:
+      return state.setIn([ 'isFetching', 'postingNewIssue'], true)
+      .setIn(['error'],null);
+
+
     case LIKE_COMMENT_FEED_REQUEST:
     case DISLIKE_COMMENT_FEED_REQUEST:
     case REACT_TO_ISSUE_REQUEST:
@@ -73,6 +83,11 @@ export default function newsfeedReducer(state = initialState, action) {
     .setIn(['error'],null);
 
 
+
+    case NEW_ISSUE_FAILURE:
+      return state.setIn([ 'isFetching', 'postingNewIssue'], false)
+      .setIn(['error'],action.payload);
+
     case LIKE_COMMENT_FEED_FAILURE:
     case DISLIKE_COMMENT_FEED_FAILURE:
     case REACT_TO_ISSUE_FAILURE:
@@ -80,6 +95,12 @@ export default function newsfeedReducer(state = initialState, action) {
     return state.setIn([ 'newsFeedDataBeingAltered'], false)
     .setIn(['error'],action.payload);
 
+
+
+    case NEW_ISSUE_SUCCESS:
+      return state.setIn([ 'isFetching', 'postingNewIssue'], false)
+      
+      .setIn(['error'],null);
 
     case DEL_REACTION_FROM_ISSUE_SUCCESS:
     case REACT_TO_ISSUE_SUCCESS:

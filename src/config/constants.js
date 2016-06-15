@@ -338,6 +338,10 @@ module.exports =  {
    DISLIKE_COMMENT_FEED_SUCCESS: null,
    DISLIKE_COMMENT_FEED_FAILURE: null,
 
+   NEW_ISSUE_REQUEST: null,
+   NEW_ISSUE_SUCCESS: null,
+   NEW_ISSUE_FAILURE: null,
+
    /*  Bill */
 
    CLEAR_PAST_BILL_DATA: null,

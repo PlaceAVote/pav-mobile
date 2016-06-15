@@ -240,8 +240,7 @@ class NewsFeedRender extends React.Component {
               onSocialClick={this.props.onSocialClick}
               />
             );
-        case NEWS_FEED_FILTERS.SEARCH_BILL_FILTER:
-        return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>This view has dreams of becoming a search tab.</Text></View>);
+        
           // return (
           //   <SearchFeedRender
           //     key="bodyContainerView"

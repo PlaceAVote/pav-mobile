@@ -26,7 +26,8 @@ var InitialState = Record({
   // isValid: false,
   isFetching: new (Record({
     newsFeedData: false,
-    discoveryData: false
+    discoveryData: false,
+    postingNewIssue: false
   })),
   newsFeedDataBeingAltered: false,
 

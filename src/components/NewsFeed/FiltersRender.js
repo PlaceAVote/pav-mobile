@@ -231,8 +231,6 @@ class FiltersRender extends React.Component {
         return "Here are some bills you might be interested in: ";
       case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
         return "Here are a few statistics you might be interested in: ";
-      case NEWS_FEED_FILTERS.SEARCH_BILL_FILTER:
-        return "Here you can search for a bill: ";
     }
   }
 
@@ -315,9 +313,8 @@ renderRecentActivityText(shouldRender, text, styles){
           {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==this.props.curSelectedFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER,  styles)}
           {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==this.props.curSelectedFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER,  styles)}
           {/*{this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==this.props.curSelectedFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER,  styles)}*/}
-          {this.renderFilterButton((NEWS_FEED_FILTERS.SEARCH_BILL_FILTER==this.props.curSelectedFilter), "ios-search-strong", NEWS_FEED_FILTERS.SEARCH_BILL_FILTER,  styles)}
         </View>
-        {this.renderRecentActivityText((this.props.curSelectedFilter!=NEWS_FEED_FILTERS.SEARCH_BILL_FILTER),this.getHeaderTextBasedOnFilter(this.props.curSelectedFilter, this.props.user.firstName), styles)}
+        {this.renderRecentActivityText((this.props.curSelectedFilter!=null),this.getHeaderTextBasedOnFilter(this.props.curSelectedFilter, this.props.user.firstName), styles)}
 
 
       </View>

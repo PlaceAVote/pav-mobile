@@ -50,6 +50,10 @@ const {
   DISLIKE_COMMENT_FEED_SUCCESS,
   DISLIKE_COMMENT_FEED_FAILURE,
 
+  NEW_ISSUE_REQUEST,
+  NEW_ISSUE_SUCCESS,
+  NEW_ISSUE_FAILURE,
+
 } = ActionNames;
 const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
@@ -494,6 +498,67 @@ export function dislikeCommentFeed(commentId, billId, isDisliked, sessionToken=n
     }else{
       dispatch(likeCommentFeedSuccess({parentCommentId:commentId, newStatus:!isDisliked, isLike:false}));
       dispatch(filterFeedItems(state.newsfeed.newsFeedData.curSelectedFilter));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## Posting a new issue
+ */
+function createNewIssueRequest() {
+  return {
+    type: NEW_ISSUE_REQUEST
+  };
+}
+function createNewIssueSuccess(json) {
+  return {
+    type: NEW_ISSUE_SUCCESS,
+    payload: json
+  };
+}
+function createNewIssueFailure(json) {
+  return {
+    type: NEW_ISSUE_FAILURE,
+    payload: json
+  };
+}
+export function createNewIssue(comment, billId = null, articleUrl = null, sessionToken=null, dev = null) {
+  console.log("createNewIssue called");
+  return async function (dispatch, getState){
+    let state = getState();
+    dispatch(createNewIssueRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+      let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+      token = tk.sessionToken;
+    }catch(e){
+      console.log("Unable to fetch past token in newsfeedActions.createNewIssue() with error: "+e.message);
+      dispatch(createNewIssueFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.createNewIssue({comment:comment, billId:billId, articleUrl:articleUrl});
+    console.log("createNewIssue RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in feed call"+res.error.error_message);
+      dispatch(createNewIssueFailure("Unable create this issue."));
+      return null;
+    }else{
+      dispatch(createNewIssueSuccess({parentCommentId:commentId, newStatus:!isDisliked, isLike:false}));
+      dispatch(getFeedItems(sessionToken, dev));
       return res.data;
     }
   };

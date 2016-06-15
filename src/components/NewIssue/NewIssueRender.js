@@ -7,41 +7,28 @@
  */
 'use strict';
 
+import React from 'react';
+import {StyleSheet, Text, View, TouchableOpacity, Platform, TextInput} from 'react-native';
 
-
-import LinearGradient from 'react-native-linear-gradient';
-
-import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
-
-/*A react native button*/
 import Button from 'sp-react-native-iconbutton'
-
-
-// import ScrollableTabView from 'react-native-scrollable-tab-view';
-// import TopicSelectTabBar from '../NewsFeed/TopicSelectTabBar'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import LinearGradient from 'react-native-linear-gradient';
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {SOCIAL_TYPES} = Other;
-import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
-import PostVoteModalBox from '../Modals/PostVoteModalBox';
-import congratsScreenPhoto from '../../../assets/congratsScreen.png';
-
-
-/**
-* Icons library
-*/
 
 import PavImage from '../../lib/UI/PavImage'
-
-
+import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
+import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
 /**
  * The states were interested in
@@ -66,9 +53,13 @@ class NewIssueRender extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.state={
-    //   vote: null    //either null, true (for) or false (against)
-    // }
+    this.state={
+      text: "",    //the text that will be used as the new issue body (we get that from the input textfield)
+      relatedArticle:{
+        url:"www",
+        title: "No Child Left Behind's One Big Achievement Because No Woman No Cry My Broda?"
+      }
+    }
   }
 
 
@@ -83,10 +74,219 @@ class NewIssueRender extends React.Component {
 
       container: {
         flex:1,
-        // flexDirection: 'column',
+        flexDirection: 'column',
+        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+        // backgroundColor: 'orange',
         // marginVertical: 10,
         // marginHorizontal:15
       },
+
+
+      //Header text
+
+      headerTextContainer:{
+          // backgroundColor:'pink',
+          flexDirection:'row',
+          alignItems:'center',
+          justifyContent:'space-between',
+          paddingHorizontal:w*0.02,
+          paddingVertical:w*0.026,
+
+          borderRadius:2,
+      },
+      headerTextContainerShadowAndroid:{
+        borderBottomWidth:1,
+        borderBottomColor:'rgba(0, 0, 0, 0.12)',
+      },
+      headerTextContainerShadowiOS:{
+        shadowColor: 'rgba(0, 0, 0, 0.12)',
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 1,
+          width: 2,
+        },
+      },
+
+
+      createAnIssueTextContainer:{
+
+
+      },
+      createAnIssueText:{
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        color: Colors.primaryColor,
+        // textAlign: 'center',
+      },
+
+          //right btns
+
+      rightBtnContainer:{
+        // backgroundColor:'purple',
+        flexDirection:'row',
+      },
+
+      userImage:{
+        width:w*0.055,
+        height:w*0.055,
+        // marginHorizontal: 10,
+      },
+      xIconContainer:{
+        paddingLeft:w*0.028,
+      },
+      xIcon:{
+        color:Colors.negativeAccentColor
+      },
+
+
+
+
+
+
+
+      //BODY
+      bodyContainer:{
+          flex:1,
+          // backgroundColor:'purple',
+      },
+      inputTextContainer:{
+        flex:1,
+        paddingHorizontal:w*0.03,
+        paddingVertical:w*0.026,
+        // backgroundColor:'red',
+      },
+      inputText:{
+        flex:1,
+        // backgroundColor:'pink',
+        fontFamily: 'Whitney Book',
+        fontSize: getCorrectFontSizeForScreen(w,h,10),
+        color: Colors.thirdTextColor,
+      },
+
+            //Article
+      relatedArticleContainer:{
+          paddingVertical: h*0.014,
+      },
+      articleImage:{
+        height:w*0.20,
+      },
+      relatedArticleTitleContainer:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        backgroundColor:Colors.transparentColor,
+        // backgroundColor:"red"
+      },
+      relatedArticleTitleTextContainer:{
+        flex:1,
+        paddingVertical: h*0.015,
+        paddingHorizontal: w*0.04,
+
+      },
+      relatedArticleTitleText:{
+        // backgroundColor:"red",
+        // width: w*0.73,
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,11),
+        // backgroundColor:'red',
+        color:Colors.mainTextColor,
+        // textAlign:'center'
+      },
+      relatedArticleUrlIcon:{
+        textAlign:'right',
+        paddingHorizontal: w*0.04,
+        paddingVertical: h*0.020,
+        color:Colors.mainTextColor,
+        alignSelf:'center',
+      },
+
+
+
+
+
+
+
+
+
+      //FOOTER
+
+      footerContainer:{
+
+        flexDirection:'row',
+        bottom:0,
+      },
+      attachmentBtnsContainer:{
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
+
+
+        height:34,
+        backgroundColor:Colors.titleBgColor,
+        borderTopWidth:1,
+        borderTopColor:'rgba(0, 0, 0, 0.12)',
+        borderRightWidth:1,
+        borderRightColor:'rgba(0, 0, 0, 0.12)',
+      },
+      attachmentAddTextContainer:{
+        paddingHorizontal:w*0.03,
+      },
+      attachmentAddText:{
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,10),
+        color: Colors.fourthTextColor,
+      },
+
+      attachmentIcon:{
+        color:Colors.fourthTextColor
+      },
+      attachmentIconsContainer:{
+        flexDirection:'row',
+        // paddingVertical:w*0.04,
+        // borderTopWidth:1,
+        // borderTopColor:'rgba(0, 0, 0, 0.12)',
+      },
+      leftIconContainer:{
+        justifyContent:'center',
+        paddingHorizontal:w*0.03,
+        borderRightWidth:1,
+        borderRightColor:'rgba(0, 0, 0, 0.12)',
+        borderLeftWidth:1,
+        borderLeftColor:'rgba(0, 0, 0, 0.12)',
+        height:34,
+
+
+      },
+      rightIconContainer:{
+        justifyContent:'center',
+        paddingHorizontal:w*0.03,
+
+        height:34,
+
+      },
+
+      postBtnContainer:{
+        // backgroundColor:Colors.accentColor,
+        padding:2,
+      },
+      postBtn:{
+        height:30,
+        width: w*0.3,
+        borderRadius: 1,
+        borderWidth: 1,
+        borderColor: Colors.transparentColor,
+        backgroundColor: Colors.accentColor,
+      },
+
+      whiteBtnText:{
+        color: Colors.mainTextColor,
+        textAlign: 'center',
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,11),
+      },
+
 
 
 
@@ -108,6 +308,46 @@ class NewIssueRender extends React.Component {
 
 
 
+  close(){
+    alert("closing")
+  }
+
+  onAttachUrlBtnTap(){
+    alert("attach url")
+  }
+
+  onAttachBillBtnTap(){
+    alert("attach bill")
+  }
+
+
+  renderRelatedUrl(styles){
+    if(!!this.state.relatedArticle){
+      return (
+      <TouchableOpacity style={styles.relatedArticleContainer} onPress={this.props.onRelatedArticleClicked}>
+        <PavImage platform={this.props.device.platform}
+          style={styles.articleImage}
+          defaultSource={congratsScreenPhoto}
+          source={{uri: !!this.state.relatedArticle&&this.state.relatedArticle.url}}
+          resizeMode='cover'
+          indicatorProps={{color:Colors.mainTextColor}}
+        >
+          <LinearGradient
+            colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
+            start={[-0.3, 0.0]} end={[1.3, 0.0]}
+            style={styles.relatedArticleTitleContainer}>
+              <View  style={styles.relatedArticleTitleTextContainer}>
+                <Text style={styles.relatedArticleTitleText}>{!!this.state.relatedArticle&&this.state.relatedArticle.title}</Text>
+              </View>
+              <PavIcon name="links" size={19} style={styles.relatedArticleUrlIcon}/>
+          </LinearGradient>
+        </PavImage>
+      </TouchableOpacity>);
+    }else{
+      return <View></View>;
+    }
+
+  }
 
   /**
    * ### render method
@@ -123,24 +363,92 @@ class NewIssueRender extends React.Component {
       <View
       style={styles.container}>
 
-        <Text> New Issue
-        </Text>
+
+      <View style={[styles.headerTextContainer,( Platform.OS === 'ios')?styles.headerTextContainerShadowiOS:styles.headerTextContainerShadowAndroid]}>
+        <View style={styles.createAnIssueTextContainer}>
+          <Text style={styles.createAnIssueText}>CREATE AN ISSUE </Text>
+        </View>
+        <View style={styles.rightBtnContainer}>
+          <PavImage
+            platform={this.props.device.platform}
+            defaultSource={defaultUserPhoto}
+            style={styles.userImage}
+            source={{uri: this.props.userPhotoUrl}}
+            resizeMode='cover'
+          />
+          <TouchableOpacity style={styles.xIconContainer} onPress={this.close.bind(this)}>
+            <PavIcon name="close" size={19} style={styles.xIcon}/>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+
+
+      <View style={styles.bodyContainer}>
+        <View style={styles.inputTextContainer}>
+          <TextInput
+              style={styles.inputText}
+              onChangeText={(text) => this.setState({text})}
+              value={this.state.text}
+              autoFocus={true}
+              multiline={true}
+              placeholder="Tell us what this issue is all about."
+              selectionColor={Colors.primaryColor}
+          />
+          {this.renderRelatedUrl(styles)}
+        </View>
+      </View>
+
+
+      <View style={styles.footerContainer}>
+        <View style={styles.attachmentBtnsContainer}>
+          <View style={styles.attachmentAddTextContainer}>
+            <Text style={styles.attachmentAddText}>Add Attachment: </Text>
+          </View>
+          <View style={styles.attachmentIconsContainer}>
+            <View style={styles.leftIconContainer} >
+              <TouchableOpacity onPress={this.onAttachUrlBtnTap.bind(this)}>
+                <PavIcon name="links" size={17} style={styles.attachmentIcon}/>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.rightIconContainer} >
+              <TouchableOpacity onPress={this.onAttachBillBtnTap.bind(this)}>
+                <PavIcon name="bills" size={17} style={styles.attachmentIcon}/>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <View style={styles.postBtnContainer}>
+          <Button
+          onPress={this.props.onIssuePost}
+          isDisabled={this.props.issueBeingPosted}
+          style={styles.postBtn}
+          textStyle={styles.whiteBtnText}>
+          POST
+          </Button>
+        </View>
+
+
+      </View>
+      {/* The view that will animate to match the keyboards height */}
+      <KeyboardSpacer/>
+
       </View>
     );
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-      console.log("Should vote update: "+(nextProps.billData !== this.props.billData)+" since old: "+this.props.billData.get("user_voted")+" and new: "+nextProps.billData.get("user_voted"))
-    return(
-      (nextProps.billData !== this.props.billData)
-      ||
-      (nextProps.device.orientation !== this.props.device.orientation)
-      ||
-      (nextProps.userFirstName!==this.props.userFirstName)
-      ||
-      (nextProps.topForComment!==this.props.topForComment)
-      ||
-      (nextProps.topAgainstComment!==this.props.topAgainstComment)
+      // console.log("Should vote update: "+(nextProps.billData !== this.props.billData)+" since old: "+this.props.billData.get("user_voted")+" and new: "+nextProps.billData.get("user_voted"))
+    return( true
+      // (nextProps.billData !== this.props.billData)
+      // ||
+      // (nextProps.device.orientation !== this.props.device.orientation)
+      // ||
+      // (nextProps.userFirstName!==this.props.userFirstName)
+      // ||
+      // (nextProps.topForComment!==this.props.topForComment)
+      // ||
+      // (nextProps.topAgainstComment!==this.props.topAgainstComment)
     );
   }
 
@@ -151,12 +459,16 @@ class NewIssueRender extends React.Component {
 
 NewIssueRender.propTypes= {
 
-  // billData: React.PropTypes.object,
-  // userFirstName: React.PropTypes.string,
+  device: React.PropTypes.object.isRequired,
+  userPhotoUrl: React.PropTypes.string,
+
+  issueBeingPosted: React.PropTypes.bool.isRequired,
+  onIssuePost: React.PropTypes.func.isRequired,
+  onRelatedArticleClicked: React.PropTypes.func.isRequired,
   // topForComment: React.PropTypes.object,
   // topAgainstComment: React.PropTypes.object,
-  // device: React.PropTypes.object.isRequired,
-  // onCloseBtnTap: React.PropTypes.func.isRequired,
+
+
   // onVoteBtnPressed: React.PropTypes.func.isRequired,
   //
   // onUserClick: React.PropTypes.func.isRequired,

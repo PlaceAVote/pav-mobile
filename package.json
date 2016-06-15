@@ -76,6 +76,7 @@
     "react-native-collapsible": "^0.6.0",
     "react-native-fbsdk": "^0.2.0",
     "tcomb-form-native": "0.5.1",
+    "react-native-keyboard-spacer": "SudoPlz/react-native-keyboard-spacer",
     "react-native-image-progress": "SudoPlz/react-native-image-progress",
     "key-mirror": "SudoPlz/key-mirror",
     "react-native-linear-gradient": "^1.5.7",

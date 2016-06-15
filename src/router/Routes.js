@@ -103,7 +103,7 @@ export default class Routes extends React.Component{
               <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} userId={null} isTab={true} />
           </Scene>
           <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true} />
-          <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} component={NewIssue} title="Vote" direction="vertical" hideNavBar={true} />
+          <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} component={NewIssue} title="New Issue" direction="vertical" hideNavBar={false} />
           <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false} />
           <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" />
         </Scene>
