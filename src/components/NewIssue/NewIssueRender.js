@@ -21,7 +21,6 @@ import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
-import {stripBrsFromText} from '../../lib/Utils/htmlTextStripper';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
@@ -31,6 +30,8 @@ import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
 import InputUrlModalBox from '../Modals/InputUrlModalBox';
+
+import {extractDomain} from '../../lib/Utils/genericUtils';
 /**
  * The states were interested in
  */
@@ -56,14 +57,13 @@ class NewIssueRender extends React.Component {
 
     this.state={
       text: "",    //the text that will be used as the new issue body (we get that from the input textfield)
-      relatedArticle:{
-        url:"www",
-        title: "No Child Left Behind's One Big Achievement Because No Woman No Cry My Broda?"
-      },
+      relatedArticle:null,
       relatedBill:{
         id: "whatevah",
         title: "Every Child Achieves Act of 2015"
-      }
+      },
+      urlModalVisible: false,
+      keyboardHeight: 0
     }
   }
 
@@ -369,7 +369,7 @@ class NewIssueRender extends React.Component {
   }
 
   onAttachUrlBtnTap(){
-    alert("attach url")
+    this.setState({urlModalVisible:true});
   }
 
   onAttachBillBtnTap(){
@@ -436,6 +436,8 @@ class NewIssueRender extends React.Component {
     // let billData = this.props.billData.toJS();
     // console.log("@@@@@@@@@@@@@@@@@@@ BILL USER VOTED: "+this.props.billData.get("user_voted"));
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    
+    // source={{uri: this.props.userPhotoUrl}} //TODO: Add this back to the PAVImage if we manage to fetch an image for the url.
     return(
       <View
       style={styles.container}>
@@ -451,7 +453,7 @@ class NewIssueRender extends React.Component {
             platform={this.props.device.platform}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
-            source={{uri: this.props.userPhotoUrl}}
+
             resizeMode='cover'
           />
           <TouchableOpacity style={styles.xIconContainer} onPress={this.close.bind(this)}>
@@ -511,8 +513,23 @@ class NewIssueRender extends React.Component {
 
       </View>
       {/* The view that will animate to match the keyboards height */}
-      <KeyboardSpacer/>
-      <InputUrlModalBox isOpen={true} device={this.props.device}/>
+      <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+        if(keyboardState==true){
+          this.setState({
+            keyboardHeight: keyboardHeight
+          });
+        }else{
+          this.setState({
+            keyboardHeight: 0
+          });
+        }
+      }}/>
+      <InputUrlModalBox
+      isOpen={this.state.urlModalVisible}
+      onClose={()=>this.setState({urlModalVisible:false})}
+      onUrlAttached={(attachedUrl)=>this.setState({urlModalVisible:false, relatedArticle:{url:attachedUrl, title:extractDomain(attachedUrl)}})}
+      extraBottomSpace={this.state.keyboardHeight}
+      />
       </View>
     );
   }

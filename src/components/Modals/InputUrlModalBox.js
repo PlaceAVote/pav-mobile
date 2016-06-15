@@ -36,14 +36,14 @@ class InputUrlModalBox extends React.Component {
     }
 
 
-    getStyles(){
+    getStyles(extraBottomSpace){
         return StyleSheet.create({
             modal: {
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: h*0.23,
+                height: (h*0.33+extraBottomSpace),
                 width: w*1,
-                paddingBottom:h*0.08,
+                paddingBottom:(h*0.08)+extraBottomSpace,
                 // backgroundColor: '#00000088'
                 backgroundColor: Colors.transparentColor,
 
@@ -187,7 +187,7 @@ class InputUrlModalBox extends React.Component {
 
 
     render(){
-      let styles = this.getStyles();
+      let styles = this.getStyles(this.props.extraBottomSpace);
         return (
             <Modal
                 backdrop={true}
@@ -224,25 +224,28 @@ class InputUrlModalBox extends React.Component {
                     autoFocus={true}
                     multiline={false}
                     placeholder="http://www.domain.com"
+                    keyboardType="url"
+                    autoCorrect={false}
                     selectionColor={Colors.primaryColor}
                     onSubmitEditing={this.onDone.bind(this)}
+                    returnKeyType="done"
+                    autoCapitalize="none"
                 />
               </View>
               <PavIcon name="activeIndicatorShrinkedBot" size={9} style={styles.arrowBtnIcon}/>
-              <KeyboardSpacer/>
-
             </Modal>
         );
     }
 }
 
 
+InputUrlModalBox.defaultProps={
+    extraBottomSpace:0
+}
 InputUrlModalBox.propTypes= {
   isOpen: React.PropTypes.bool.isRequired,
-  // userFirstName: React.PropTypes.string,
   onClose: React.PropTypes.func.isRequired,
   onUrlAttached: React.PropTypes.func.isRequired,
-
-  // onUserClick: React.PropTypes.func.isRequired,
+  extraBottomSpace: React.PropTypes.number
 };
 module.exports = InputUrlModalBox;
