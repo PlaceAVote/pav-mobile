@@ -222,6 +222,9 @@ var SignInForm = React.createClass({
           blurOnSubmit : true,
           underlineColorAndroid: Colors.accentColor,
           autoCorrect: false,
+          autoCapitalize:'none',
+          autoFocus: true,
+          placeholderTextColor: Colors.secondaryTextColor,
           keyboardType: "email-address"
           // autoFocus: true,
         },
@@ -234,7 +237,9 @@ var SignInForm = React.createClass({
           error: this.props.form.error,
           placeholder: '************',
           autoCorrect: false,
+          autoCapitalize:'none',
           onSubmitEditing:this.onPasswordFinishedEditing,
+          placeholderTextColor: Colors.secondaryTextColor,
           underlineColorAndroid: Colors.accentColor
 
         }

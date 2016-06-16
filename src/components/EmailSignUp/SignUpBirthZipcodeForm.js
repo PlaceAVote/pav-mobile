@@ -236,7 +236,9 @@ var SignUpBirthZipcodeForm = React.createClass({
           onSubmitEditing: this.onZipCodeFinishedEditing,
           underlineColorAndroid: Colors.accentColor,
           autoCorrect: false,
-          keyboardType: "numeric"
+          keyboardType: "numeric",
+          autoCapitalize:'none',
+          placeholderTextColor: Colors.secondaryTextColor,
         }
 
       }

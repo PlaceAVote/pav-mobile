@@ -217,6 +217,7 @@ var SignUpNameSurnameForm = React.createClass({
           onSubmitEditing: this.onNameFinishedEditing,
           underlineColorAndroid: Colors.accentColor,
           autoCorrect: false,
+          placeholderTextColor: Colors.secondaryTextColor
           // autoFocus: true
 
         },
@@ -231,6 +232,7 @@ var SignUpNameSurnameForm = React.createClass({
           blurOnSubmit : true,
           onSubmitEditing:this.onSurnameFinishedEditing,
           underlineColorAndroid: Colors.accentColor,
+          placeholderTextColor: Colors.secondaryTextColor,
           autoCorrect: false,
 
         }

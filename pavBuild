@@ -56,7 +56,6 @@ ReleaseIos(){
 
 UploadToBucket(){
     if [ ${1} -eq ${ANDROID} ]; then
-
         { # my 'try' block
             apkLoc=${PROJECT_DIR}${BIN_DIR}${APK_FILENAME} && #Where the apk can be found
             printf "\nNow uploading ${APK_FILENAME} to PAV S3 bucket.\n" &&
@@ -71,7 +70,6 @@ UploadToBucket(){
             ipaLoc=${PROJECT_DIR}${BIN_DIR}${IPA_FILENAME} && #Where the apk can be found
             printf "\nNow uploading ${IPA_FILENAME} to PAV S3 bucket.\n" &&
             aws s3 cp ${ipaLoc} s3://variousprojects/Pav-Mobile-Release/iOS/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers &&
-            
             return 0
         } || { # your 'catch' block
             printf "\nError: We had trouble uploading the apk to our pav bucket." &&
@@ -81,7 +79,7 @@ UploadToBucket(){
         printf "\nError: Could not upload to our pav bucket."
         return -1
     fi
-    
+    return 0
 }
 
 

@@ -47,7 +47,7 @@ import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRati
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
-
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 /**
  * The states were interested in
  */
@@ -201,6 +201,7 @@ class EmailSignUpStep2Render extends React.Component {
     super(props);
     this.errorAlert = new ErrorAlert();
     this.state ={
+      keyboardOpen: false,
       value: {
       	email: this.props.auth.form.fields.email
       }
@@ -241,12 +242,26 @@ class EmailSignUpStep2Render extends React.Component {
 
 
   renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError ){
+    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError  || this.state.keyboardOpen===true){
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
         <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic2}></Image>
       </View>);
+    }
+  }
+
+
+  renderText(styles){
+    if(this.state.keyboardOpen===true){
+      return <View></View>;
+    }else{
+      return (
+        <View style={styles.descriptionTextContainer} >
+          <Text style={styles.descriptionText} >
+          Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
+          </Text>
+        </View>);
     }
   }
 
@@ -265,11 +280,7 @@ class EmailSignUpStep2Render extends React.Component {
               <View style={styles.explanImgContainer}>
                 <Image style={styles.explanImg} resizeMode= 'contain' source={signupExpl2}></Image>
               </View>
-              <View style={styles.descriptionTextContainer} >
-                <Text style={styles.descriptionText} >
-                Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
-                </Text>
-              </View>
+              {this.renderText(styles)}
               <Button onPress={this.props.onBack}
                 style={styles.backBtn}
                 isDisabled={false}
@@ -300,7 +311,11 @@ class EmailSignUpStep2Render extends React.Component {
                 </Button>
               </View>
             </View>
-
+            <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+              this.setState({
+                keyboardOpen: keyboardState
+              });
+            }}/>
 
         </View>
       </View>

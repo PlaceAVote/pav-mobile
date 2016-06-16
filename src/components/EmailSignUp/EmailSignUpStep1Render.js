@@ -42,6 +42,8 @@ import SignUpNameSurnameForm from './SignUpNameSurnameForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+
 /**
  * The states were interested in
  */
@@ -199,6 +201,7 @@ class EmailSignUpStep1Render extends React.Component {
     super(props);
     this.errorAlert = new ErrorAlert();
     this.state ={
+      keyboardOpen: false,
       value: {
         name: this.props.auth.form.fields.name,
       	surname: this.props.auth.form.fields.surname
@@ -245,11 +248,25 @@ class EmailSignUpStep1Render extends React.Component {
 
 
   renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError ){
+    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError || this.state.keyboardOpen===true){
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
         <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic1Img}></Image>
+      </View>);
+    }
+  }
+
+
+  renderText(styles){
+    if(this.state.keyboardOpen===true){
+      return <View></View>;
+    }else{
+      return (
+      <View style={styles.descriptionTextContainer}>
+        <Text style={styles.descriptionText} >
+        In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
+        </Text>
       </View>);
     }
   }
@@ -271,11 +288,8 @@ class EmailSignUpStep1Render extends React.Component {
               <View style={styles.explanImgContainer}>
                 <Image style={styles.explanImg} resizeMode= 'cover' source={signupExpl1}></Image>
               </View>
-              <View style={styles.descriptionTextContainer}>
-                <Text style={styles.descriptionText} >
-                In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
-                </Text>
-              </View>
+
+              {this.renderText(styles)}
               <Button onPress={this.props.onBack}
                 style={styles.backBtn}
                 isDisabled={false}
@@ -303,7 +317,11 @@ class EmailSignUpStep1Render extends React.Component {
               </View>
             </View>
 
-
+            <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+              this.setState({
+                keyboardOpen: keyboardState
+              });
+            }}/>
         </View>
       </View>
     );

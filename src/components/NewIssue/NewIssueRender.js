@@ -363,7 +363,6 @@ class NewIssueRender extends React.Component {
   }
 
 
-
   close(){
     alert("closing")
   }
@@ -510,7 +509,7 @@ class NewIssueRender extends React.Component {
         <View style={styles.postBtnContainer}>
           <Button
           onPress={this.props.onIssuePost}
-          isDisabled={this.props.issueBeingPosted}
+          isDisabled={this.props.issueBeingPosted || this.props.attachUrlBeingFetched}
           style={styles.postBtn}
           textStyle={styles.whiteBtnText}>
           POST
@@ -534,11 +533,23 @@ class NewIssueRender extends React.Component {
       <InputUrlModalBox
       isOpen={this.state.urlModalVisible}
       onClose={()=>this.setState({urlModalVisible:false})}
-      onUrlAttached={(attachedUrl)=>this.setState({urlModalVisible:false, relatedArticle:{url:attachedUrl, title:extractDomain(attachedUrl)}})}
+      onUrlAttached={(attachedUrl)=>{
+        this.props.onUrlAttached(attachedUrl);
+        this.setState({urlModalVisible:false});
+      }}
       extraBottomSpace={this.state.keyboardHeight}
       />
       </View>
     );
+  }
+
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.relatedArticle!=null &&  nextProps.relatedArticle!== this.props.relatedArticle) {
+      this.setState({
+        relatedArticle: nextProps.relatedArticle
+      })
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -560,26 +571,21 @@ class NewIssueRender extends React.Component {
 
 
 
-
+NewIssueRender.defaultProps={
+  issueBeingPosted:false,
+  attachUrlBeingFetched:false,
+}
 NewIssueRender.propTypes= {
-
   device: React.PropTypes.object.isRequired,
   userPhotoUrl: React.PropTypes.string,
+  relatedArticle: React.PropTypes.object,
 
   issueBeingPosted: React.PropTypes.bool.isRequired,
+  attachUrlBeingFetched: React.PropTypes.bool.isRequired,
+
+  onUrlAttached: React.PropTypes.func.isRequired,
   onIssuePost: React.PropTypes.func.isRequired,
   onRelatedArticleClicked: React.PropTypes.func.isRequired,
   onRelatedBillClicked: React.PropTypes.func.isRequired,
-
-  // topForComment: React.PropTypes.object,
-  // topAgainstComment: React.PropTypes.object,
-
-
-  // onVoteBtnPressed: React.PropTypes.func.isRequired,
-  //
-  // onUserClick: React.PropTypes.func.isRequired,
-  // onLikeDislikeClick: React.PropTypes.func.isRequired,
-  // onCommentPost: React.PropTypes.func.isRequired
-
 };
 export default NewIssueRender;

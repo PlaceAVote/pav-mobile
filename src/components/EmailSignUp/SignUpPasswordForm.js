@@ -215,6 +215,8 @@ var SignUpPasswordForm = React.createClass({
           blurOnSubmit : true,
           underlineColorAndroid: Colors.accentColor,
           autoCorrect: false,
+          autoCapitalize:'none',
+          placeholderTextColor: Colors.secondaryTextColor
           // autoFocus: true,
         },
         passwordAgain : {
@@ -228,6 +230,8 @@ var SignUpPasswordForm = React.createClass({
           autoCorrect: false,
           returnKeyType: 'next',
           onSubmitEditing:this.onPasswordAgainFinishedEditing,
+          autoCapitalize:'none',
+          placeholderTextColor: Colors.secondaryTextColor,
           underlineColorAndroid: Colors.accentColor
         }
 
