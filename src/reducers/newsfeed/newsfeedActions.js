@@ -623,13 +623,14 @@ export function scrapeUrlItems(urlToBeScraped, sessionToken=null, dev = null) {
     }catch(e){
       console.log("Unable to fetch past token in newsfeedActions.scrapeUrl() with error: "+e.message);
       dispatch(scrapeUrlFailure(e.message));
+      return null;
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).utilsApi.scrapeUrl({url:urlToBeScraped});
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in scrapeUrlItems call"+res.error.error_message);
       dispatch(scrapeUrlFailure("Unable to scrape a url with this token."));
-      return res.error;
+      return null;
     }else{
       dispatch(scrapeUrlSuccess(res.data));
       return res.data;

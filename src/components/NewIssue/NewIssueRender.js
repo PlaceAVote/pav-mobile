@@ -32,7 +32,7 @@ import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 import InputUrlModalBox from '../Modals/InputUrlModalBox';
 import SearchModalBox from '../Modals/SearchModalBox';
 
-import {extractDomain} from '../../lib/Utils/genericUtils';
+
 /**
  * The states were interested in
  */
@@ -392,7 +392,7 @@ class NewIssueRender extends React.Component {
         <PavImage platform={this.props.device.platform}
           style={styles.articleImage}
           defaultSource={congratsScreenPhoto}
-          source={{uri: !!this.props.relatedArticle&&this.props.relatedArticle.url}}
+          source={{uri: this.props.relatedArticle.img}}
           resizeMode='cover'
           indicatorProps={{color:Colors.mainTextColor}}
         >

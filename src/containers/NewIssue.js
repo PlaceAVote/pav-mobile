@@ -35,6 +35,10 @@ import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
 // import * as deviceActions from '../reducers/device/deviceActions';
 import * as billActions from '../reducers/bill/billActions';
+import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
+
+
+import {extractDomain} from '../lib/Utils/genericUtils';
 
 import moment from 'moment';
 /**
@@ -57,6 +61,7 @@ const actions = [
   authActions,
   routingActions,
   billActions,
+  newsfeedActions
   // deviceActions
 ];
 
@@ -104,17 +109,16 @@ class NewIssue extends React.Component {
   }
 
 
-  onUrlAttached(url){
+  async onUrlAttached(url){
     //get url image and then setState
-    if(!!url){
-      this.setState({relatedArticle:{
-        url: url,
-        title:"Bla bla",
-        img: "www.google.com/img"
-      }})
-    }else{
-      this.setState({relatedArticle:null})
-    }
+    console.log("token: "+this.TOKEN+" dev: "+this.props.global.isDev)
+    let res = await this.props.actions.scrapeUrlItems(url, this.TOKEN, this.props.global.isDev);
+    console.log("RESULT: "+JSON.stringify(res))
+    this.setState({relatedArticle:{
+      url: res.article_link || extractDomain(res.article_link),
+      title:res.article_title || extractDomain(res.article_link),
+      img: res.article_img
+    }})
 
   }
   // componentWillUnmount(){
@@ -197,7 +201,7 @@ class NewIssue extends React.Component {
   }
 
   render() {
-    console.log("Searching: "+this.props.bill.isFetching.searchBillData)
+    // console.log("Searching: "+this.props.bill.isFetching.searchBillData)
     return(
       <NewIssueRender
           device={this.props.device}

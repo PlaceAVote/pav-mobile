@@ -342,11 +342,9 @@ module.exports =  {
    NEW_ISSUE_SUCCESS: null,
    NEW_ISSUE_FAILURE: null,
 
-   SEARCH_BILL_BY_TERM_REQUEST: null,
-   SEARCH_BILL_BY_TERM_SUCCESS: null,
-   SEARCH_BILL_BY_TERM_FAILURE: null,
-
-   
+   SCRAPE_URL_REQUEST: null,
+   SCRAPE_URL_SUCCESS: null,
+   SCRAPE_URL_FAILURE: null,
 
    /*  Bill */
 
@@ -384,6 +382,11 @@ module.exports =  {
    VOTE_BILL_REQUEST: null,
    VOTE_BILL_SUCCESS: null,
    VOTE_BILL_FAILURE: null,
+
+   SEARCH_BILL_BY_TERM_REQUEST: null,
+   SEARCH_BILL_BY_TERM_SUCCESS: null,
+   SEARCH_BILL_BY_TERM_FAILURE: null,
+
 
 
    /*  Notifications */
