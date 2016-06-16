@@ -179,8 +179,9 @@ class NewIssue extends React.Component {
     }
   }
 
-  onIssuePost(){
-
+  async onIssuePost(issueBody, attachedBillId, attachedUrl){
+    let res = await this.props.actions.createNewIssue(issueBody, attachedBillId, attachedUrl, this.TOKEN, this.props.global.isDev);
+    this.props.actions.navigateToPrevious();
   }
 
   onRelatedArticleClicked(articleUrl){

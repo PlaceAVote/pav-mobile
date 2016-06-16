@@ -562,7 +562,7 @@ export function createNewIssue(comment, billId = null, articleUrl = null, sessio
       dispatch(createNewIssueFailure("Unable create this issue."));
       return null;
     }else{
-      dispatch(createNewIssueSuccess({parentCommentId:commentId, newStatus:!isDisliked, isLike:false}));
+      dispatch(createNewIssueSuccess(res.data));
       dispatch(getFeedItems(sessionToken, dev));
       return res.data;
     }

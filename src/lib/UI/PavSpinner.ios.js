@@ -27,12 +27,16 @@ class PavSpinner extends React.Component {
       }, this.props.style]}>
         <ActivityIndicatorIOS
           animating={this.props.animating}
-          size="large"
+          size={this.props.size}
         />
       </View>);
   }
 }
+PavSpinner.defaultProps = {
+  size:"large"
+}
 PavSpinner.propTypes= {
   animating: React.PropTypes.bool,
+  size: React.PropTypes.string,
 };
 export default PavSpinner;

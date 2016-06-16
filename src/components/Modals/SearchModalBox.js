@@ -52,7 +52,7 @@ class SearchModalBox extends React.Component {
     }
 
 
-    getStyles(extraBottomSpace, resultsExist){
+    getStyles(extraBottomSpace, resultsExist, currentlySearching){
         return StyleSheet.create({
             modal: {
                 justifyContent: 'center',
@@ -186,7 +186,7 @@ class SearchModalBox extends React.Component {
             inputText:{
               // flex:1,
               height:h*0.06,
-              width:w*0.6,
+              width:currentlySearching?w*0.5:w*0.6,
               backgroundColor:'white',
               borderRadius: 2,
               borderWidth: 1,
@@ -197,7 +197,9 @@ class SearchModalBox extends React.Component {
               fontSize: getCorrectFontSizeForScreen(w,h,10),
               color: Colors.thirdTextColor,
             },
-
+            spinner:{
+              // backgroundColor:'red'
+            },
 
 
             //body
@@ -244,32 +246,18 @@ class SearchModalBox extends React.Component {
       }
     }
 
-    renderList(styles){
+    renderSpinner(styles){
+
       if(this.props.currentlySearching===true){
-        return <PavSpinner/>
+        return <PavSpinner style={styles.spinner} size="small"/>
       }else{
-        return (  <ListView
-           enableEmptySections={true}
-           style={styles.itemList}
-           initialListSize={5}
-           dataSource={this.state.dataSource}
-           renderRow={(rowData, s , rowId) =>(
-             <CardFactory
-               type="search"
-               restrictSearchTo="bill"
-               key={"search"+rowId}
-               cardStyle={Platform.OS=="android"?{elevation:5}:{}}
-               itemData={rowData}
-               device={this.props.device}
-               onBillClick={this.props.onBillAttached}
-             />)
-           }
-         />);
+        return <View></View>;
       }
+
     }
 
     render(){
-      let styles = this.getStyles(this.props.extraBottomSpace, (!!this.props.searchBillData && this.props.searchBillData.length>0));
+      let styles = this.getStyles(this.props.extraBottomSpace, (!!this.props.searchBillData && this.props.searchBillData.length>0), (this.props.currentlySearching===true));
       let refreshProps = Platform.OS=="ios"?{
         // tintColor:Colors.primaryColor,
         // title:"Loading...",
@@ -315,12 +303,29 @@ class SearchModalBox extends React.Component {
                       autoCorrect={false}
                       selectionColor={Colors.primaryColor}
                       onSubmitEditing={this.onDone.bind(this)}
-                      returnKeyType="done"
+                      returnKeyType="search"
                       autoCapitalize="none"
                   />
+                  {this.renderSpinner(styles)}
                 </View>
                 <View style={styles.body}>
-                  {this.renderList(styles)}
+                  <ListView
+                     enableEmptySections={true}
+                     style={styles.itemList}
+                     initialListSize={5}
+                     dataSource={this.state.dataSource}
+                     renderRow={(rowData, s , rowId) =>(
+                       <CardFactory
+                         type="search"
+                         restrictSearchTo="bill"
+                         key={"search"+rowId}
+                         cardStyle={Platform.OS=="android"?{elevation:5}:{}}
+                         itemData={rowData}
+                         device={this.props.device}
+                         onBillClick={this.props.onBillAttached}
+                       />)
+                     }
+                   />
                 </View>
               </View>
               <PavIcon name="activeIndicatorShrinkedBot" size={9} style={styles.arrowBtnIcon}/>

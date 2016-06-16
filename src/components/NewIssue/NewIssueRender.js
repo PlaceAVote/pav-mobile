@@ -510,7 +510,14 @@ class NewIssueRender extends React.Component {
         </View>
         <View style={styles.postBtnContainer}>
           <Button
-          onPress={this.props.onIssuePost}
+          onPress={()=>{
+            if(this.props.onIssuePost){
+              let relArticUrl = (!!this.props.relatedArticle && !!this.props.relatedArticle.url)?this.props.relatedArticle.url:null;
+              let relBillId = (!!this.props.relatedBill && !!this.props.relatedBill.billId)?this.props.relatedBill.billId:null;
+              this.props.onIssuePost(this.state.text, relBillId, relArticUrl);
+            }
+          }}
+          isLoading={this.props.issueBeingPosted || this.props.scrapedUrlBeingFetched}
           isDisabled={this.props.issueBeingPosted || this.props.scrapedUrlBeingFetched}
           style={styles.postBtn}
           textStyle={styles.whiteBtnText}>
