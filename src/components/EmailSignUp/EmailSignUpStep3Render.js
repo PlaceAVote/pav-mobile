@@ -42,6 +42,8 @@ import SignUpPasswordForm from './SignUpPasswordForm';
 
 import {Colors, ScheneKeys} from '../../config/constants';
 
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+
 /**
  * The states were interested in
  */
@@ -204,6 +206,7 @@ class EmailSignUpStep3Render extends React.Component {
     super(props);
     this.errorAlert = new ErrorAlert();
     this.state ={
+      keyboardOpen: false,
       value: {
         password: this.props.auth.form.fields.password,
       	passwordAgain: this.props.auth.form.fields.passwordAgain
@@ -250,7 +253,7 @@ class EmailSignUpStep3Render extends React.Component {
 
 
   renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.passwordHasError || this.props.auth.form.fields.passwordAgainHasError ){
+    if(this.props.auth.form.fields.passwordHasError || this.props.auth.form.fields.passwordAgainHasError  || this.state.keyboardOpen===true){
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
@@ -258,6 +261,21 @@ class EmailSignUpStep3Render extends React.Component {
       </View>);
     }
   }
+
+
+  renderText(styles){
+    if(this.state.keyboardOpen===true){
+      return <View></View>;
+    }else{
+      return (
+        <View style={styles.descriptionTextContainer} >
+          <Text style={styles.descriptionText} >
+          Help change Congress in making your voice louder than lobbyists by supporting and electing representatives who promise to utilize PlaceAVote in seeing how their districts are voting on each legislative issue and bill, and having their vote be a true reflection of the majority of their constituents.
+          </Text>
+        </View>);
+    }
+  }
+
 
   /**
    * ### render
@@ -278,12 +296,8 @@ class EmailSignUpStep3Render extends React.Component {
                 <Image style={styles.explanImg} resizeMode= 'contain' source={signupExpl3}></Image>
               </View>
 
+              {this.renderText(styles)}
 
-              <View style={styles.descriptionTextContainer} >
-                <Text style={styles.descriptionText} >
-                Help change Congress in making your voice louder than lobbyists by supporting and electing representatives who promise to utilize PlaceAVote in seeing how their districts are voting on each legislative issue and bill, and having their vote be a true reflection of the majority of their constituents.
-                </Text>
-              </View>
 
               <Button onPress={this.props.onBack}
                 style={styles.backBtn}
@@ -313,7 +327,11 @@ class EmailSignUpStep3Render extends React.Component {
                 </Button>
               </View>
             </View>
-
+            <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+              this.setState({
+                keyboardOpen: keyboardState
+              });
+            }}/>
 
         </View>
       </View>

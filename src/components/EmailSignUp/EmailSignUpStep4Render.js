@@ -30,10 +30,8 @@ import {Map} from 'immutable';
 import Button from 'sp-react-native-iconbutton'
 
 
-/**
- * The ErrorAlert displays an alert for both ios & android
- */
-import ErrorAlert from '../../components/ErrorAlert';
+
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 /**
  *  The SignUpBirthZipcodeForm does the heavy lifting of displaying the fields for
@@ -203,13 +201,13 @@ function mapDispatchToProps(dispatch) {
 class EmailSignUpStep4Render extends React.Component {
   constructor(props) {
     super(props);
-    this.errorAlert = new ErrorAlert();
     // console.log("@@@ INITIAL birthdate: "+this.props.auth.form.fields.dateOfBirth);
     let dob = this.props.auth.form.fields.dateOfBirth;
     if(dob.isMoment==null){
       dob = moment(dob, "x")
     }
     this.state ={
+      keyboardOpen: false,
       value: {
         dateOfBirth: moment(dob).toDate(),
       	zipCode: this.props.auth.form.fields.zipCode
@@ -266,8 +264,11 @@ class EmailSignUpStep4Render extends React.Component {
   }
 
 
+
+
+
   renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked || this.props.auth.form.fields.zipCodeHasError ){
+    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked || this.props.auth.form.fields.zipCodeHasError  || this.state.keyboardOpen===true){
       return (<View></View>)
     }else{
       return (<View style={styles.pIndicContainer}>
@@ -277,7 +278,7 @@ class EmailSignUpStep4Render extends React.Component {
   }
 
   renderDescriptionText(){
-    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked){
+    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked || this.state.keyboardOpen===true){
       return (<View></View>)
     }else{
       return (
@@ -316,7 +317,7 @@ class EmailSignUpStep4Render extends React.Component {
                 iconContainerStyle={styles.backBtnIconContainer}
                 customIcon={()=><PavIcon name="arrow-left" size={25} style={styles.backBtnIcon}/>}
               />
-              {this.renderDescriptionText()}
+              {this.renderDescriptionText(styles)}
               {this.renderPageIndicatorIcon()}
             </View>
 
@@ -343,7 +344,11 @@ class EmailSignUpStep4Render extends React.Component {
                 </Button>
               </View>
             </View>
-
+            <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+              this.setState({
+                keyboardOpen: keyboardState
+              });
+            }}/>
 
         </View>
       </View>
@@ -356,8 +361,8 @@ class EmailSignUpStep4Render extends React.Component {
       (nextState.value.dateOfBirth != this.state.value.dateOfBirth)
       ||
       (nextState.value.zipCode != this.state.value.zipCode)
-      // ||
-      // (nextProps.auth.form != this.props.auth.form)
+      ||
+      (nextState.keyboardOpen != this.state.keyboardOpen)
       ||
       (nextProps.auth.form.fields.dateOfBirthIsCurBeingPicked != this.props.auth.form.fields.dateOfBirthIsCurBeingPicked)
       ||
