@@ -30,6 +30,7 @@ import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
 import InputUrlModalBox from '../Modals/InputUrlModalBox';
+import SearchModalBox from '../Modals/SearchModalBox';
 
 import {extractDomain} from '../../lib/Utils/genericUtils';
 /**
@@ -57,12 +58,8 @@ class NewIssueRender extends React.Component {
 
     this.state={
       text: "",    //the text that will be used as the new issue body (we get that from the input textfield)
-      relatedArticle:null,
-      relatedBill:{
-        id: "whatevah",
-        title: "Every Child Achieves Act of 2015"
-      },
       urlModalVisible: false,
+      searchModalVisible: false,
       keyboardHeight: 0
     }
   }
@@ -372,25 +369,30 @@ class NewIssueRender extends React.Component {
   }
 
   onAttachBillBtnTap(){
-    alert("attach bill")
+    // alert("attach bill")
+    this.setState({searchModalVisible:true});
   }
 
   onRelatedArticleCloseClicked(){
-    this.setState({relatedArticle:null})
+    // this.props.onUrlAttached(null);
+    this.props.removeAttachedArticle();
   }
   onRelatedBillClicked(){
-    this.setState({relatedBill:null})
+    // this.setState({relatedBill:null})
+  }
+  onRelatedBillCloseClicked(){
+    this.props.removeAttachedBill();
   }
 
 
   renderRelatedUrl(styles){
-    if(!!this.state.relatedArticle){
+    if(!!this.props.relatedArticle){
       return (
       <View style={styles.relatedArticleContainer}>
         <PavImage platform={this.props.device.platform}
           style={styles.articleImage}
           defaultSource={congratsScreenPhoto}
-          source={{uri: !!this.state.relatedArticle&&this.state.relatedArticle.url}}
+          source={{uri: !!this.props.relatedArticle&&this.props.relatedArticle.url}}
           resizeMode='cover'
           indicatorProps={{color:Colors.mainTextColor}}
         >
@@ -399,7 +401,7 @@ class NewIssueRender extends React.Component {
             start={[-0.3, 0.0]} end={[1.3, 0.0]}
             style={styles.relatedArticleTitleContainer}>
               <TouchableOpacity  style={styles.relatedArticleTitleTextContainer}  onPress={this.props.onRelatedArticleClicked}>
-                <Text style={styles.relatedArticleTitleText}>{!!this.state.relatedArticle&&this.state.relatedArticle.title}</Text>
+                <Text style={styles.relatedArticleTitleText}>{!!this.props.relatedArticle&&this.props.relatedArticle.title}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.relatedArticleUrlIconContainer}  onPress={this.onRelatedArticleCloseClicked.bind(this)}>
                 <PavIcon name="close" size={15} style={styles.relatedArticleUrlCloseIcon}/>
@@ -416,13 +418,13 @@ class NewIssueRender extends React.Component {
 
 
     renderRelatedBillLink(styles){
-      if(!!this.state.relatedBill){
+      if(!!this.props.relatedBill){
         return (
           <View style={styles.relatedBillContainer} >
             <TouchableOpacity style={styles.relatedBillTitleTextContainer} onPress={this.props.onRelatedBillClicked}>
-              <Text style={styles.relatedBillTitleText}>{this.state.relatedBill.title}</Text>
+              <Text style={styles.relatedBillTitleText}>{this.props.relatedBill.billTitle}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.relatedBillIconContainer}  onPress={this.onRelatedBillClicked.bind(this)}>
+            <TouchableOpacity style={styles.relatedBillIconContainer}  onPress={this.onRelatedBillCloseClicked.bind(this)}>
               <PavIcon name="close" size={15} style={styles.relatedBillIcon}/>
             </TouchableOpacity>
           </View>);
@@ -509,7 +511,7 @@ class NewIssueRender extends React.Component {
         <View style={styles.postBtnContainer}>
           <Button
           onPress={this.props.onIssuePost}
-          isDisabled={this.props.issueBeingPosted || this.props.attachUrlBeingFetched}
+          isDisabled={this.props.issueBeingPosted || this.props.scrapedUrlBeingFetched}
           style={styles.postBtn}
           textStyle={styles.whiteBtnText}>
           POST
@@ -539,18 +541,33 @@ class NewIssueRender extends React.Component {
       }}
       extraBottomSpace={this.state.keyboardHeight}
       />
+      <SearchModalBox
+      isOpen={this.state.searchModalVisible}
+      onClose={()=>this.setState({searchModalVisible:false})}
+      extraBottomSpace={this.state.keyboardHeight}
+      onSearchTermChanged={this.props.onSearchTermChanged}
+      searchBillData={this.props.searchBillData}
+      currentlySearching={this.props.currentlySearching}
+      device={this.props.device}
+      onBillAttached={(bId, bTitle)=>{
+        if(!!this.props.onBillAttached){
+          this.props.onBillAttached(bId, bTitle);
+          this.setState({searchModalVisible:false});
+        }
+      }}
+      />
       </View>
     );
   }
 
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.relatedArticle!=null &&  nextProps.relatedArticle!== this.props.relatedArticle) {
-      this.setState({
-        relatedArticle: nextProps.relatedArticle
-      })
-    }
-  }
+  // componentWillReceiveProps (nextProps) {
+  //   if (nextProps.relatedArticle!=null &&  nextProps.relatedArticle!== this.props.relatedArticle) {
+  //     this.setState({
+  //       relatedArticle: nextProps.relatedArticle
+  //     })
+  //   }
+  // }
 
   shouldComponentUpdate(nextProps, nextState) {
       // console.log("Should vote update: "+(nextProps.billData !== this.props.billData)+" since old: "+this.props.billData.get("user_voted")+" and new: "+nextProps.billData.get("user_voted"))
@@ -573,17 +590,27 @@ class NewIssueRender extends React.Component {
 
 NewIssueRender.defaultProps={
   issueBeingPosted:false,
-  attachUrlBeingFetched:false,
+  scrapedUrlBeingFetched:false,
 }
 NewIssueRender.propTypes= {
   device: React.PropTypes.object.isRequired,
   userPhotoUrl: React.PropTypes.string,
   relatedArticle: React.PropTypes.object,
+  relatedBill: React.PropTypes.object,
 
   issueBeingPosted: React.PropTypes.bool.isRequired,
-  attachUrlBeingFetched: React.PropTypes.bool.isRequired,
+  scrapedUrlBeingFetched: React.PropTypes.bool.isRequired,
+
+
+  onSearchTermChanged: React.PropTypes.func.isRequired,
+  searchBillData: React.PropTypes.array,
+  currentlySearching: React.PropTypes.bool,
+
+  removeAttachedArticle: React.PropTypes.func.isRequired,
+  removeAttachedBill: React.PropTypes.func.isRequired,
 
   onUrlAttached: React.PropTypes.func.isRequired,
+  onBillAttached: React.PropTypes.func.isRequired,
   onIssuePost: React.PropTypes.func.isRequired,
   onRelatedArticleClicked: React.PropTypes.func.isRequired,
   onRelatedBillClicked: React.PropTypes.func.isRequired,

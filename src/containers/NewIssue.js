@@ -1,8 +1,8 @@
 /* @flow*/
 /**
- * # Vote.js
+ * # NewIssue.js
  *
- *  The container to display the Vote form
+ *  The container to display the NewIssue form
  *
  */
 'use strict';
@@ -43,7 +43,7 @@ import moment from 'moment';
 import {Map} from 'immutable';
 
 /**
- *   VoteRender
+ *   NewIssueRender
  */
 import NewIssueRender from '../components/NewIssue/NewIssueRender';
 
@@ -89,19 +89,34 @@ function mapDispatchToProps(dispatch) {
 //
 // }
 
-class Vote extends React.Component {
+class NewIssue extends React.Component {
 
   constructor(props) {
     super(props);
     if(CONFIG.MOCK_TOKEN===true){
       this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
     }
-    // this.state={
-    //   userFirstName:""
-    // }
+    this.state={
+      relatedArticle:null,
+      relatedBill:null,
+      searchBillData:null
+    }
   }
 
 
+  onUrlAttached(url){
+    //get url image and then setState
+    if(!!url){
+      this.setState({relatedArticle:{
+        url: url,
+        title:"Bla bla",
+        img: "www.google.com/img"
+      }})
+    }else{
+      this.setState({relatedArticle:null})
+    }
+
+  }
   // componentWillUnmount(){
   //   //HACK ish way to dispatch a BackAction because RNRF does not dispatch it itself.
   //   if(this.props.router.currentSchene==VOTE){
@@ -144,17 +159,68 @@ class Vote extends React.Component {
   //     this.props.actions.navigateToPrevious();
   // }
   //
-  // onVoteBtnTap(billId, vote){
+  // onNewIssueBtnTap(billId, vote){
   //   this.props.actions.voteBill(billId, vote, this.TOKEN, this.props.global.isDev);
   // }
 
 
+  async onBillSearchTermChanged(value){
+
+    let res = await this.props.actions.searchBillByTermItems(value, this.TOKEN, this.props.global.isDev)
+    // console.log("search term: "+value+" results: "+JSON.stringify(res));
+    if(!!res){
+      this.setState({searchBillData:res})
+    }else{
+      this.setState({searchBillData:null})
+    }
+  }
+
+  onIssuePost(){
+
+  }
+
+  onRelatedArticleClicked(articleUrl){
+
+  }
+
+  onRelatedBillClicked(billId){
+
+  }
+  onBillAttached(billId, billTitle){
+    this.setState({relatedBill:{billId:billId, billTitle:billTitle}})
+  }
+  removeAttachedArticle(){
+    this.setState({relatedArticle:null})
+  }
+  removeAttachedBill(){
+    this.setState({relatedBill:null})
+  }
 
   render() {
-    //
+    console.log("Searching: "+this.props.bill.isFetching.searchBillData)
     return(
       <NewIssueRender
           device={this.props.device}
+          userPhotoUrl={this.props.auth.user.photoUrl}
+          relatedArticle={this.state.relatedArticle}
+          relatedBill={this.state.relatedBill}
+          issueBeingPosted={this.props.newsfeed.isFetching.postingNewIssue}
+          scrapedUrlBeingFetched={this.props.newsfeed.isFetching.scrapeUrlData}
+
+
+          removeAttachedBill={this.removeAttachedBill.bind(this)}
+          removeAttachedArticle={this.removeAttachedArticle.bind(this)}
+
+          onSearchTermChanged={this.onBillSearchTermChanged.bind(this)}
+          searchBillData={this.state.searchBillData}
+          currentlySearching={this.props.bill.isFetching.searchBillData}
+          onBillAttached={this.onBillAttached.bind(this)}
+
+          onIssuePost={this.onIssuePost.bind(this)}
+          onRelatedArticleClicked={this.onRelatedArticleClicked.bind(this)}
+          onRelatedBillClicked={this.onRelatedBillClicked.bind(this)}
+
+          onUrlAttached={this.onUrlAttached.bind(this)}
       />
     );
   }
@@ -162,4 +228,4 @@ class Vote extends React.Component {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Vote);
+export default connect(mapStateToProps, mapDispatchToProps)(NewIssue);

@@ -342,6 +342,12 @@ module.exports =  {
    NEW_ISSUE_SUCCESS: null,
    NEW_ISSUE_FAILURE: null,
 
+   SEARCH_BILL_BY_TERM_REQUEST: null,
+   SEARCH_BILL_BY_TERM_SUCCESS: null,
+   SEARCH_BILL_BY_TERM_FAILURE: null,
+
+   
+
    /*  Bill */
 
    CLEAR_PAST_BILL_DATA: null,

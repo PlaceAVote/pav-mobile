@@ -50,6 +50,10 @@ const {
   NEW_ISSUE_SUCCESS,
   NEW_ISSUE_FAILURE,
 
+  SCRAPE_URL_REQUEST,
+  SCRAPE_URL_SUCCESS,
+  SCRAPE_URL_FAILURE,
+
 } = ActionNames
 
 
@@ -69,6 +73,10 @@ export default function newsfeedReducer(state = initialState, action) {
   switch (action.type) {
 
 
+    case SCRAPE_URL_REQUEST:
+      return state.setIn([ 'isFetching', 'scrapeUrlData'], true)
+      .setIn(['error'],null);
+
 
     case NEW_ISSUE_REQUEST:
       return state.setIn([ 'isFetching', 'postingNewIssue'], true)
@@ -84,6 +92,12 @@ export default function newsfeedReducer(state = initialState, action) {
 
 
 
+
+    case SCRAPE_URL_FAILURE:
+      return state.setIn([ 'isFetching', 'scrapeUrlData'], false)
+      .setIn(['error'],action.payload);
+
+
     case NEW_ISSUE_FAILURE:
       return state.setIn([ 'isFetching', 'postingNewIssue'], false)
       .setIn(['error'],action.payload);
@@ -95,11 +109,14 @@ export default function newsfeedReducer(state = initialState, action) {
     return state.setIn([ 'newsFeedDataBeingAltered'], false)
     .setIn(['error'],action.payload);
 
-
+    case SCRAPE_URL_SUCCESS:
+      return state.setIn([ 'isFetching', 'scrapeUrlData'], false)
+      .setIn(['error'],null);
+  
 
     case NEW_ISSUE_SUCCESS:
       return state.setIn([ 'isFetching', 'postingNewIssue'], false)
-      
+
       .setIn(['error'],null);
 
     case DEL_REACTION_FROM_ISSUE_SUCCESS:

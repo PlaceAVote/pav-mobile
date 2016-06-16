@@ -51,9 +51,15 @@ const {
   CLEAR_PAST_BILL_DATA,
 
 
-    VOTE_BILL_REQUEST,
-    VOTE_BILL_SUCCESS,
-    VOTE_BILL_FAILURE
+  VOTE_BILL_REQUEST,
+  VOTE_BILL_SUCCESS,
+  VOTE_BILL_FAILURE,
+
+  SEARCH_BILL_BY_TERM_REQUEST,
+  SEARCH_BILL_BY_TERM_SUCCESS,
+  SEARCH_BILL_BY_TERM_FAILURE,
+
+
 
 } = ActionNames
 
@@ -76,6 +82,11 @@ export default function newsfeedReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.mergeDeep(state);
 
   switch (action.type) {
+
+    case SEARCH_BILL_BY_TERM_REQUEST:
+      return state.setIn([ 'isFetching', 'searchBillData'], true)
+      .setIn(['error'],null);
+
 
     case VOTE_BILL_REQUEST:
     return state.setIn([ 'isFetching', 'voteOnBill'], true)
@@ -104,7 +115,9 @@ export default function newsfeedReducer(state = initialState, action) {
         .setIn(['error'],null);
 
 
-
+    case SEARCH_BILL_BY_TERM_SUCCESS:
+      return state.setIn([ 'isFetching', 'searchBillData'], false)
+      .setIn(['error'],null);
     case POST_COMMENT_ON_BILL_SUCCESS:
       let commentsNewList = state.comments.push(action.payload) //push the new comment to the comments array
       return state.setIn([ 'commentBeingAltered'], false)
@@ -220,6 +233,10 @@ export default function newsfeedReducer(state = initialState, action) {
       }
       return newState;
 
+
+    case SEARCH_BILL_BY_TERM_FAILURE:
+      return state.setIn([ 'isFetching', 'searchBillData'], false)
+      .setIn(['error'],action.payload);
 
     case VOTE_BILL_FAILURE:
       return state.setIn([ 'isFetching', 'voteOnBill'], false)

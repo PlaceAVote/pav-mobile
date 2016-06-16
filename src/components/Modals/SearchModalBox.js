@@ -9,7 +9,10 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ListView,
+  RefreshControl,
+  Platform
 } from 'react-native';
 
 
@@ -19,29 +22,42 @@ import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-import BillCommentCard from '../Cards/BillCards/BillCommentCard';
+import CardFactory from '../Cards/CardFactory';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 import moment from 'moment';
+import PavSpinner from '../../lib/UI/PavSpinner';
 
-class InputUrlModalBox extends React.Component {
-    constructor(){
-        super();
-        this.state={
-          url:""
+class SearchModalBox extends React.Component {
+    constructor(props){
+        super(props);
+        let data = [];
+        if(!!props.searchBillData){
+          data = props.searchBillData;
         }
+        // console.log("Data within getFeedDataSource is :"+data);
+        let ds = null;
+        if(this.props.type=="feed"){
+          ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
+        }else{
+          ds = new ListView.DataSource({rowHasChanged: (r1, r2) =>  (r1 !== r2) || (r1['bill_id'] !== r2['bill_id']) });
+        }
+        // ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.state = {
+          dataSource: ds.cloneWithRows(data),
+        };
     }
 
 
-    getStyles(extraBottomSpace){
+    getStyles(extraBottomSpace, resultsExist){
         return StyleSheet.create({
             modal: {
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: (h*0.33+extraBottomSpace),
+                height: resultsExist===true?h*0.87:null,
                 width: w*1,
                 paddingBottom:(h*0.08)+extraBottomSpace,
                 // backgroundColor: '#00000088'
@@ -49,12 +65,20 @@ class InputUrlModalBox extends React.Component {
 
             },
 
+            container:{
+              flex:1,
+              width: w*0.95,
+              borderRadius:3,
+              backgroundColor: Colors.titleBgColor,
+            },
+
+            //BUTTONS
 
             btnContainer:{
               // flex:1,
-              width: w*0.9,
+              width: w*0.95,
               flexDirection:'row',
-              justifyContent:'space-between',
+              justifyContent:'flex-end',
               // backgroundColor:'red'
             },
             closeBtnContainer:{
@@ -114,27 +138,44 @@ class InputUrlModalBox extends React.Component {
 
 
 
-            content:{
-              flex:1,
+
+
+
+
+
+
+
+            //header
+
+            header:{
+              // flex:1,
               flexDirection:'row',
-              backgroundColor: Colors.titleBgColor,
               justifyContent:'center',
               paddingHorizontal:w*0.01,
               paddingVertical:w*0.018,
-              borderRadius:2,
+            },
+            headerIOS:{
+              // backgroundColor:'red',
+              shadowColor: 'rgba(0, 0, 0, 0.32)',
+              shadowOpacity: resultsExist===true?0.8:0,
+              shadowRadius: 2,
+              shadowOffset: {
+                height: 1,
+                width: 2,
+              },
+            },
+            headerAndroid:{
+              borderBottomWidth:1,
+              borderBottomColor:'rgba(0, 0, 0, 0.12)',
             },
 
 
-
-
-
-            //content
-            pasteLinkTextContainer:{
+            searchBillTextContainer:{
               justifyContent:'center',
               paddingHorizontal: w*0.025,
             },
 
-            pasteLinkText:{
+            searchBillText:{
               fontFamily: 'Whitney',
               fontSize: getCorrectFontSizeForScreen(w,h,9),
               // backgroundColor:'red',
@@ -142,21 +183,42 @@ class InputUrlModalBox extends React.Component {
               // textAlign:'center'
             },
 
-
-
             inputText:{
               // flex:1,
-              width:w*0.7,
+              height:h*0.06,
+              width:w*0.6,
               backgroundColor:'white',
               borderRadius: 2,
               borderWidth: 1,
               borderColor: '#E7E6ED',
               paddingHorizontal:w*0.01,
-              textAlignVertical: "center",
+              textAlignVertical: "top",
               fontFamily: 'Whitney Book',
               fontSize: getCorrectFontSizeForScreen(w,h,10),
               color: Colors.thirdTextColor,
             },
+
+
+
+            //body
+
+            body:{
+              flex:1,
+              flexDirection:'column',
+              justifyContent:'center',
+              paddingHorizontal:w*0.01,
+              paddingVertical:w*0.018,
+            },
+            itemList:{
+              flex:1,
+            },
+
+
+
+
+
+
+
 
             arrowBtnIcon:{
               // borderTopWidth: 15,
@@ -173,9 +235,7 @@ class InputUrlModalBox extends React.Component {
 
 
     onDone(){
-      if(!!this.props.onUrlAttached){
-        this.props.onUrlAttached(this.state.url);
-      }
+
     }
 
     onClose(){
@@ -184,10 +244,40 @@ class InputUrlModalBox extends React.Component {
       }
     }
 
-
+    renderList(styles){
+      if(this.props.currentlySearching===true){
+        return <PavSpinner/>
+      }else{
+        return (  <ListView
+           enableEmptySections={true}
+           style={styles.itemList}
+           initialListSize={5}
+           dataSource={this.state.dataSource}
+           renderRow={(rowData, s , rowId) =>(
+             <CardFactory
+               type="search"
+               restrictSearchTo="bill"
+               key={"search"+rowId}
+               cardStyle={Platform.OS=="android"?{elevation:5}:{}}
+               itemData={rowData}
+               device={this.props.device}
+               onBillClick={this.props.onBillAttached}
+             />)
+           }
+         />);
+      }
+    }
 
     render(){
-      let styles = this.getStyles(this.props.extraBottomSpace);
+      let styles = this.getStyles(this.props.extraBottomSpace, (!!this.props.searchBillData && this.props.searchBillData.length>0));
+      let refreshProps = Platform.OS=="ios"?{
+        // tintColor:Colors.primaryColor,
+        // title:"Loading...",
+        // titleColor:Colors.primaryColor
+      }:
+      {
+        colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]
+      };
         return (
             <Modal
                 backdrop={true}
@@ -199,6 +289,7 @@ class InputUrlModalBox extends React.Component {
                 isOpen={this.props.isOpen}
                 onClosed={this.onClose.bind(this)}
               >
+
               <View style={styles.btnContainer}>
                 <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
                     <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
@@ -206,46 +297,72 @@ class InputUrlModalBox extends React.Component {
                       <Text style={styles.closeBtnText}>CLOSE</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.onDone.bind(this)} style={styles.doneBtnContainer}>
-                    <PavIcon name="add" size={17} style={styles.doneBtnIcon}/>
-                    <View style={styles.doneBtnTextContainer}>
-                      <Text style={styles.doneBtnText}>ATTACH</Text>
-                    </View>
-                </TouchableOpacity>
               </View>
-              <View style={styles.content}>
-                <View style={styles.pasteLinkTextContainer}>
-                  <Text  style={styles.pasteLinkText}>Paste Link: </Text>
+              <View style={styles.container}>
+
+                <View style={[styles.header, (Platform.OS==="ios")?styles.headerIOS:styles.headerAndroid]}>
+                  <View style={styles.searchBillTextContainer}>
+                    <Text  style={styles.searchBillText}>Search for a bill: </Text>
+                  </View>
+                  <TextInput
+                      style={styles.inputText}
+                      onChangeText={(text) => {if(!!this.props.onSearchTermChanged){this.props.onSearchTermChanged(text)}}}
+                      value={this.state.url}
+                      autoFocus={true}
+                      multiline={false}
+                      placeholder="Anything text related to the bill."
+                      keyboardType="url"
+                      autoCorrect={false}
+                      selectionColor={Colors.primaryColor}
+                      onSubmitEditing={this.onDone.bind(this)}
+                      returnKeyType="done"
+                      autoCapitalize="none"
+                  />
                 </View>
-                <TextInput
-                    style={styles.inputText}
-                    onChangeText={(text) => this.setState({url:text})}
-                    value={this.state.url}
-                    autoFocus={true}
-                    multiline={false}
-                    placeholder="http://www.domain.com"
-                    keyboardType="url"
-                    autoCorrect={false}
-                    selectionColor={Colors.primaryColor}
-                    onSubmitEditing={this.onDone.bind(this)}
-                    returnKeyType="done"
-                    autoCapitalize="none"
-                />
+                <View style={styles.body}>
+                  {this.renderList(styles)}
+                </View>
               </View>
               <PavIcon name="activeIndicatorShrinkedBot" size={9} style={styles.arrowBtnIcon}/>
+
             </Modal>
         );
     }
+
+    componentWillReceiveProps (nextProps) {
+      if (nextProps.searchBillData!=null &&  nextProps.searchBillData!== this.props.searchBillData) {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(nextProps.searchBillData)
+        })
+      }
+    }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //   return(
+    //     (nextProps.device !== this.props.device)
+    //     ||
+    //     (nextProps.style !== this.props.style)
+    //     ||
+    //     (nextProps.curUser !== this.props.curUser)
+    //     ||
+    //     (nextState.dataSource !== this.state.dataSource)
+    //   );
+    // }
 }
 
 
-InputUrlModalBox.defaultProps={
-    extraBottomSpace:0
+SearchModalBox.defaultProps={
+    extraBottomSpace:0,
+    currentlySearching:false
 }
-InputUrlModalBox.propTypes= {
+SearchModalBox.propTypes= {
   isOpen: React.PropTypes.bool.isRequired,
+  device: React.PropTypes.object.isRequired,
+  searchBillData: React.PropTypes.array,
+  onSearchTermChanged: React.PropTypes.func.isRequired,
+  currentlySearching: React.PropTypes.bool.isRequired,
   onClose: React.PropTypes.func.isRequired,
-  onUrlAttached: React.PropTypes.func.isRequired,
+  onBillAttached: React.PropTypes.func.isRequired,
   extraBottomSpace: React.PropTypes.number
 };
-module.exports = InputUrlModalBox;
+module.exports = SearchModalBox;

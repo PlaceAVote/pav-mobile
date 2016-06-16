@@ -27,7 +27,8 @@ var InitialState = Record({
     billData: false,
     billComments: false,
     billTopComments: false,
-    voteOnBill:false
+    voteOnBill:false,
+    searchBillData: false,
   })),
   commentBeingAltered: false,
 

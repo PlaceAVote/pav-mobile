@@ -28,7 +28,7 @@ class PavImage extends React.Component {
     let children = this.props.children || <View></View>;
 
 
-    if((!!this.props.source && this.props.source.uri!=null) || !!this.props.defaultSource){
+    if(!!this.props.source || !!this.props.defaultSource){
       if(this.props.loadingSpinnerEnabled!==true || (isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && this.props.source.uri==null)){
         // console.log("CHECK TYPE IMAGE : "+(isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && this.props.source.uri==null));
         return (

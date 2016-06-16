@@ -54,6 +54,11 @@ const {
   NEW_ISSUE_SUCCESS,
   NEW_ISSUE_FAILURE,
 
+
+  SCRAPE_URL_REQUEST,
+  SCRAPE_URL_SUCCESS,
+  SCRAPE_URL_FAILURE,
+
 } = ActionNames;
 const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
@@ -236,7 +241,7 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
     if(topicsString==TOPICS.TRENDING){
       res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getTrendingBills();
     }else{
-      res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBills({searchTag:topicsString});
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBillsByTag({tag:topicsString});
     }
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
@@ -559,6 +564,74 @@ export function createNewIssue(comment, billId = null, articleUrl = null, sessio
     }else{
       dispatch(createNewIssueSuccess({parentCommentId:commentId, newStatus:!isDisliked, isLike:false}));
       dispatch(getFeedItems(sessionToken, dev));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## Searches for a bill or bills using a search term
+ */
+export function scrapeUrlRequest() {
+  return {
+    type: SCRAPE_URL_REQUEST
+  };
+}
+export function scrapeUrlSuccess(json) {
+  return {
+    type: SCRAPE_URL_SUCCESS,
+    payload: json
+  };
+}
+export function scrapeUrlFailure(json) {
+  return {
+    type: SCRAPE_URL_FAILURE,
+    payload: json
+  };
+}
+
+export function scrapeUrlItems(urlToBeScraped, sessionToken=null, dev = null) {
+  console.log("scrapeUrlItems called");
+  return async function (dispatch){
+    dispatch(scrapeUrlRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in newsfeedActions.scrapeUrl() with error: "+e.message);
+      dispatch(scrapeUrlFailure(e.message));
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).utilsApi.scrapeUrl({url:urlToBeScraped});
+    console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in scrapeUrlItems call"+res.error.error_message);
+      dispatch(scrapeUrlFailure("Unable to scrape a url with this token."));
+      return res.error;
+    }else{
+      dispatch(scrapeUrlSuccess(res.data));
       return res.data;
     }
   };

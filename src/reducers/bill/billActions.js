@@ -57,6 +57,10 @@ const {
   VOTE_BILL_SUCCESS,
   VOTE_BILL_FAILURE,
 
+  SEARCH_BILL_BY_TERM_REQUEST,
+  SEARCH_BILL_BY_TERM_SUCCESS,
+  SEARCH_BILL_BY_TERM_FAILURE,
+
 } = ActionNames;
 
 
@@ -542,6 +546,67 @@ export function voteBill(billId, vote, sessionToken=null, dev = null) {
       return null;
     }else{
       dispatch(voteBillSuccess({billId:billId, vote:vote}));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## Searches for a bill or bills using a search term
+ */
+export function searchBillByTermRequest() {
+  return {
+    type: SEARCH_BILL_BY_TERM_REQUEST
+  };
+}
+export function searchBillByTermSuccess(json) {
+  return {
+    type: SEARCH_BILL_BY_TERM_SUCCESS,
+    payload: json
+  };
+}
+export function searchBillByTermFailure(json) {
+  return {
+    type: SEARCH_BILL_BY_TERM_FAILURE,
+    payload: json
+  };
+}
+
+export function searchBillByTermItems(searchString, sessionToken=null, dev = null) {
+  console.log("searchBillByTermItems called");
+  return async function (dispatch){
+    dispatch(searchBillByTermRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in newsfeedActions.searchBillByTerm() with error: "+e.message);
+      dispatch(searchBillByTermFailure(e.message));
+      return null;
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBillsByTerm({term:searchString});
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in searchBillByTermItems call"+res.error.error_message);
+      dispatch(searchBillByTermFailure("Unable to search for a Bill By a Term this token."));
+      return null;
+    }else{
+      dispatch(searchBillByTermSuccess({data:res.data, term:searchString}));
       return res.data;
     }
   };

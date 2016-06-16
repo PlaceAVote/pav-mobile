@@ -20,6 +20,8 @@ import NotifVoteCard from './NotificationCards/NotifVoteCard'
 import NotifCommentReplyCard from './NotificationCards/NotifCommentReplyCard'
 import NotifIssueResponseCard from './NotificationCards/NotifIssueResponseCard'
 
+import SearchBillCard from './SearchCards/SearchBillCard'
+import SearchUserCard from './SearchCards/SearchUserCard'
 
 /**
  * Immutable
@@ -29,7 +31,7 @@ import moment from 'moment';
 import {Colors, ScheneKeys} from '../../config/constants';
 
 import React from 'react';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 
 
 
@@ -164,6 +166,35 @@ class CardFactory extends React.Component {
     }
   }
 
+  renderSearchCards(){
+    let n = this.props.itemData;
+    if(!!this.props.restrictSearchTo){
+      if(n.type!=this.props.restrictSearchTo){
+        n.type="";
+      }
+    }
+    switch(n.type){
+      case "bill":
+        return (<SearchBillCard
+        {...this.props}
+        subjectTitle={n.subject || "Other"}
+        billTitle={n.short_title || n.official_title}
+        billId={n.bill_id}
+        onBillClick={this.props.onBillClick}
+        />);
+      case "users":
+        return (<SearchUserCard
+          {...this.props}
+          fullName={n.first_name+" "+n.last_name}
+          userId={n.user_id}
+          onUserClick={this.props.onUserClick}
+          />);
+      default:
+        return <View></View>;
+    }
+
+  }
+
 
   renderNewsFeedCards(){
 
@@ -267,6 +298,8 @@ class CardFactory extends React.Component {
         return this.renderNewsFeedCards();
       case "notifications":
         return this.renderNotificationCards();
+      case "search":
+        return this.renderSearchCards();
     }
   }
 }
