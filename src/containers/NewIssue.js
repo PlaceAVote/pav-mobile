@@ -184,6 +184,9 @@ class NewIssue extends React.Component {
     this.props.actions.navigateToPrevious();
   }
 
+  onClose(){
+    this.props.actions.navigateToPrevious();
+  }
   onRelatedArticleClicked(articleUrl){
 
   }
@@ -224,7 +227,7 @@ class NewIssue extends React.Component {
           onIssuePost={this.onIssuePost.bind(this)}
           onRelatedArticleClicked={this.onRelatedArticleClicked.bind(this)}
           onRelatedBillClicked={this.onRelatedBillClicked.bind(this)}
-
+          onClose={this.onClose.bind(this)}
           onUrlAttached={this.onUrlAttached.bind(this)}
       />
     );

@@ -28,7 +28,7 @@ class PavSpinner extends React.Component {
       }, this.props.style]}>
         <ProgressBar
           animating={this.props.animating}
-          size={this.props.size}
+          styleAttr={this.props.size}
           colors={[Colors.primaryColor, Colors.accentColor, Colors.secondaryColor]}
           color={Colors.primaryColor}
         />
@@ -36,7 +36,7 @@ class PavSpinner extends React.Component {
   }
 }
 PavSpinner.defaultProps = {
-size:"large"
+size:"Normal"
 }
 PavSpinner.propTypes= {
   size: React.PropTypes.string,

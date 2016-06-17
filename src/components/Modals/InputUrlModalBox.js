@@ -228,6 +228,7 @@ class InputUrlModalBox extends React.Component {
                     autoCorrect={false}
                     selectionColor={Colors.primaryColor}
                     onSubmitEditing={this.onDone.bind(this)}
+                    placeholderTextColor={Colors.secondaryTextColor}
                     returnKeyType="done"
                     autoCapitalize="none"
                 />

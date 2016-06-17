@@ -57,7 +57,7 @@ class SearchModalBox extends React.Component {
             modal: {
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: resultsExist===true?h*0.87:null,
+                height: resultsExist===true?h-((Platform.OS === 'ios' || (Platform.Version > 19) )? 84 : 44):null,
                 width: w*1,
                 paddingBottom:(h*0.08)+extraBottomSpace,
                 // backgroundColor: '#00000088'
@@ -151,22 +151,24 @@ class SearchModalBox extends React.Component {
               // flex:1,
               flexDirection:'row',
               justifyContent:'center',
+              alignItems:'center',
               paddingHorizontal:w*0.01,
               paddingVertical:w*0.018,
-            },
-            headerIOS:{
-              // backgroundColor:'red',
-              shadowColor: 'rgba(0, 0, 0, 0.32)',
-              shadowOpacity: resultsExist===true?0.8:0,
-              shadowRadius: 2,
-              shadowOffset: {
-                height: 1,
-                width: 2,
-              },
-            },
-            headerAndroid:{
-              borderBottomWidth:1,
-              borderBottomColor:'rgba(0, 0, 0, 0.12)',
+              ...Platform.select({
+                ios: {
+                  shadowColor: 'rgba(0, 0, 0, 0.32)',
+                  shadowOpacity: resultsExist===true?0.8:0,
+                  shadowRadius: 2,
+                  shadowOffset: {
+                    height: 1,
+                    width: 2,
+                  },
+                },
+                android: {
+                  borderBottomWidth:1,
+                  borderBottomColor:'rgba(0, 0, 0, 0.12)',
+                },
+              }),
             },
 
 
@@ -249,7 +251,7 @@ class SearchModalBox extends React.Component {
     renderSpinner(styles){
 
       if(this.props.currentlySearching===true){
-        return <PavSpinner style={styles.spinner} size="small"/>
+        return <PavSpinner style={styles.spinner} size={Platform.OS==="ios"?"small":"Small"}/>
       }else{
         return <View></View>;
       }
@@ -288,7 +290,7 @@ class SearchModalBox extends React.Component {
               </View>
               <View style={styles.container}>
 
-                <View style={[styles.header, (Platform.OS==="ios")?styles.headerIOS:styles.headerAndroid]}>
+                <View style={styles.header}>
                   <View style={styles.searchBillTextContainer}>
                     <Text  style={styles.searchBillText}>Search for a bill: </Text>
                   </View>
@@ -298,10 +300,11 @@ class SearchModalBox extends React.Component {
                       value={this.state.url}
                       autoFocus={true}
                       multiline={false}
-                      placeholder="Anything text related to the bill."
+                      placeholder="Any text related to the bill."
                       keyboardType="url"
                       autoCorrect={false}
                       selectionColor={Colors.primaryColor}
+                      placeholderTextColor={Colors.secondaryTextColor}
                       onSubmitEditing={this.onDone.bind(this)}
                       returnKeyType="search"
                       autoCapitalize="none"

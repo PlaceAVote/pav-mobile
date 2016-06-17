@@ -175,6 +175,7 @@ class NewIssueRender extends React.Component {
       },
       articleImage:{
         height:w*0.20,
+        width:null
       },
       relatedArticleTitleContainer:{
         flex:1,
@@ -276,7 +277,7 @@ class NewIssueRender extends React.Component {
         justifyContent:'space-between',
 
 
-        height:34,
+        height:44,
         backgroundColor:Colors.titleBgColor,
         borderTopWidth:1,
         borderTopColor:'rgba(0, 0, 0, 0.12)',
@@ -308,7 +309,7 @@ class NewIssueRender extends React.Component {
         borderRightColor:'rgba(0, 0, 0, 0.12)',
         borderLeftWidth:1,
         borderLeftColor:'rgba(0, 0, 0, 0.12)',
-        height:34,
+        height:44,
 
 
       },
@@ -316,16 +317,17 @@ class NewIssueRender extends React.Component {
         justifyContent:'center',
         paddingHorizontal:w*0.03,
 
-        height:34,
+        height:44,
 
       },
 
       postBtnContainer:{
         // backgroundColor:Colors.accentColor,
+        justifyContent:'center',
         padding:2,
       },
       postBtn:{
-        height:30,
+        height:40,
         width: w*0.3,
         borderRadius: 1,
         borderWidth: 1,
@@ -361,7 +363,9 @@ class NewIssueRender extends React.Component {
 
 
   close(){
-    alert("closing")
+    if(this.props.onClose){
+        this.props.onClose()
+    }
   }
 
   onAttachUrlBtnTap(){
@@ -433,6 +437,11 @@ class NewIssueRender extends React.Component {
       }
 
     }
+
+
+
+
+
 
   /**
    * ### render method
@@ -529,16 +538,18 @@ class NewIssueRender extends React.Component {
       </View>
       {/* The view that will animate to match the keyboards height */}
       <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
-        if(keyboardState==true){
-          this.setState({
-            keyboardHeight: keyboardHeight
-          });
-        }else{
-          this.setState({
-            keyboardHeight: 0
-          });
-        }
-      }}/>
+          if(keyboardState==true){
+            this.setState({
+              keyboardHeight: keyboardHeight
+            });
+          }else{
+            this.setState({
+              keyboardHeight: 0
+            });
+          }
+        }}/>
+
+
       <InputUrlModalBox
       isOpen={this.state.urlModalVisible}
       onClose={()=>this.setState({urlModalVisible:false})}
