@@ -174,7 +174,7 @@ export function getFeedItems(getOlderItems=false, sessionToken=null, dev = null)
         }
     }catch(e){
       console.log("Unable to fetch past token in newsfeedActions.getFeed() with error: "+e.message);
-      dispatch(getFeedFailure({error:e.message, isFetchingOldData:fetchOlderItems}));
+      dispatch(getFeedFailure({error:e.message, isFetchingOldData:getOlderItems}));
     }
 // .lastFeedItemTimeStamp
 
@@ -182,10 +182,10 @@ export function getFeedItems(getOlderItems=false, sessionToken=null, dev = null)
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
-      dispatch(getFeedFailure({error:"Unable to get user newsfeed data with this token.", isFetchingOldData:fetchOlderItems}));
+      dispatch(getFeedFailure({error:"Unable to get user newsfeed data with this token.", isFetchingOldData:getOlderItems}));
       return res.error;
     }else{
-      dispatch(getFeedSuccess({data: res.data, isFetchingOldData:fetchOlderItems}));
+      dispatch(getFeedSuccess({data: res.data, isFetchingOldData:getOlderItems}));
       return res.data;
     }
   };

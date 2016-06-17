@@ -47,6 +47,7 @@ import NotificationsRender from '../components/Notifications/NotificationsRender
 
 import React from 'react';
 
+// import _ from 'underscore';
 
 import {ScheneKeys} from '../config/constants';
 const {
@@ -110,13 +111,13 @@ class Notifications extends React.Component {
 
   componentWillMount(){
     if(this.props.notifications.items==null){
-      this.getNotifications();
+      this.getNotifications(false);
     }
   }
 
-  async getNotifications(){
+  async getNotifications(getOlder){
     // console.log("@@@ NEWS FEED - is dev: "+this.props.global.isDev);
-    return await this.props.actions.getNotificationItems(this.TOKEN, this.props.global.isDev);
+    return await this.props.actions.getNotificationItems(getOlder, this.TOKEN, this.props.global.isDev);
   }
 
 
@@ -135,9 +136,18 @@ class Notifications extends React.Component {
   }
 
   onItemsRefresh(e){
-    this.props.actions.getNotificationItems(this.TOKEN, this.props.global.isDev);
+
+    if(this.props.notifications.get("isFetching").get("olderNotificationData")===false && this.props.notifications.get("isFetching").get("notificationData")===false){
+      this.getNotifications(false);
+    }
+
   }
 
+  onFetchOlderNotifications(){
+    if(this.props.notifications.items!=null && this.props.notifications.get("isFetching").get("olderNotificationData")===false &&  this.props.notifications.get("isFetching").get("notificationData")===false){
+      this.getNotifications(true);
+    }
+  }
 
 
   onUserClickedUser(userId){
@@ -162,7 +172,9 @@ class Notifications extends React.Component {
           device={ this.props.device}
           notifications={this.props.notifications.items}
           isFetchingNotifications={this.props.notifications.get("isFetching").get("notificationData")}
+          isFetchingOlderNotifications={this.props.notifications.get("isFetching").get("olderNotificationData")}
           curUser={this.props.auth.user}
+          onFetchOlderNotifications={this.onFetchOlderNotifications.bind(this)}
           onItemsRefresh={this.onItemsRefresh.bind(this)}
           onUserClick={this.onUserClickedUser.bind(this)}
           onBillClick={this.onUserClickedBill.bind(this)}

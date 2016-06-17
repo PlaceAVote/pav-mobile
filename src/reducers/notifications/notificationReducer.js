@@ -40,27 +40,43 @@ export default function notificationReducer(state = initialState, action) {
 
 
     case GET_NOTIFICATIONS_REQUEST:
-      return state.setIn([ 'isFetching', 'notificationData'], true)
-      .setIn(['error'],null);
+      if(action.payload.isFetchingOldData===false){
+        return state.setIn([ 'isFetching', 'notificationData'], true)
+        .setIn(['error'],null);
+      }else{
+        return state.setIn([ 'isFetching', 'notificationData'], true)
+        .setIn([ 'isFetching', 'olderNotificationData'], true)
+        .setIn(['error'],null);
+      }
 
     case GET_NOTIFICATIONS_SUCCESS:
       let newItems = Immutable.fromJS(action.payload.data.results);
-      // console.log("@@@@@@@@ OLD ITEMZ? "+(!!state.items&&state.items.size) )
-      // console.log("@@@@@@@@ NEW ITEMZ? "+(!!state.items && state.items.concat(newItems, state.items)).size)
-      if(action.payload.incrementalUpdate===true){
-        return state.setIn([ 'isFetching', 'notificationData'], false)
-        .setIn(['lastNotificationTimestamp'], action.payload.data.last_timestamp)
-        .setIn(['items'], state.items.concat(newItems, state.items))
-        .setIn(['error'],null);
-      }else{
+      if(action.payload.isFetchingOldData===false){
         return state.setIn([ 'isFetching', 'notificationData'], false)
         .setIn(['lastNotificationTimestamp'], action.payload.data.last_timestamp)
         .setIn(['items'], newItems)
         .setIn(['error'],null);
+      }else{
+        let oldItems = state.items;
+        newItems = oldItems.concat(newItems);
+        return state.setIn([ 'isFetching', 'notificationData'], false)
+        .setIn([ 'isFetching', 'olderNotificationData'], false)
+        .setIn(['lastNotificationTimestamp'], action.payload.data.last_timestamp)
+        .setIn(['items'], newItems)
+        .setIn(['error'],null);
       }
+
     case GET_NOTIFICATIONS_FAILURE:
-      return state.setIn([ 'isFetching', 'notificationData'], false)
-      .setIn(['error'],action.payload);
+      if(action.payload.isFetchingOldData===false){
+        return state.setIn([ 'isFetching', 'notificationData'], false)
+        .setIn(['error'],action.payload);
+      }else{
+        return state.setIn([ 'isFetching', 'notificationData'], false)
+        .setIn([ 'isFetching', 'olderNotificationData'], false)
+        .setIn(['error'],action.payload);
+      }
+
+
 
     }//switch
     /**

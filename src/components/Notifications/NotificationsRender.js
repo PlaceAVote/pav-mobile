@@ -52,6 +52,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import NotifVoteCard from '../Cards/NotificationCards/NotifVoteCard'
 import CardFactory from '../Cards/CardFactory';
 
+import PavSpinner from '../../lib/UI/PavSpinner'
 /**
  * The states were interested in
  */
@@ -186,7 +187,6 @@ class NotificationsRender extends React.Component {
     //   dataSource={this.state.dataSource}
     //   renderRow={(rowData) => <Text>{rowData}</Text>}
     // />
-
     return(
         <View style={styles.container}>
         <ListView
@@ -194,10 +194,23 @@ class NotificationsRender extends React.Component {
          style={styles.itemList}
          initialListSize={5}
          dataSource={this.state.dataSource}
-         scrollEnabled={true}
+         scrollEnabled={(this.props.isFetchingOlderNotifications===false)}
+         onEndReached={()=>{
+           if(this.props.onFetchOlderNotifications){
+             this.props.onFetchOlderNotifications()
+           }
+         }}
+         onEndReachedThreshold={20}
+         renderFooter={()=>{
+           if(this.props.isFetchingOlderNotifications===true){
+             return <View style={{paddingVertical:h*0.05}}><PavSpinner/></View>
+           }else{
+             return <View></View>;
+           }
+         }}
          refreshControl={
            <RefreshControl
-           refreshing={this.props.isFetchingNotifications}
+           refreshing={this.props.isFetchingNotifications===true}
            onRefresh={this.props.onItemsRefresh}
            colors={[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]}
          />}
@@ -239,6 +252,8 @@ class NotificationsRender extends React.Component {
         ||
         (nextProps.isFetchingNotifications !== this.props.isFetchingNotifications)
         ||
+        (nextProps.isFetchingOlderNotifications !== this.props.isFetchingOlderNotifications)
+        ||
         (nextState.dataSource !== this.state.dataSource)
       );
     }
@@ -254,8 +269,9 @@ NotificationsRender.propTypes= {
   notifications: React.PropTypes.object,
   device: React.PropTypes.object.isRequired,
   isFetchingNotifications: React.PropTypes.bool.isRequired,
-
+  isFetchingOlderNotifications: React.PropTypes.bool.isRequired,
   onItemsRefresh: React.PropTypes.func.isRequired,
+  onFetchOlderNotifications: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,

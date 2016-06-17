@@ -34,9 +34,10 @@ const {
 /**
  * ## retreiving notifications actions
  */
-export function getNotificationRequest() {
+export function getNotificationRequest(isFetchingOldData) {
   return {
-    type: GET_NOTIFICATIONS_REQUEST
+    type: GET_NOTIFICATIONS_REQUEST,
+    payload: {isFetchingOldData:isFetchingOldData}
   };
 }
 export function getNotificationSuccess(json) {
@@ -56,10 +57,12 @@ export function getNotificationFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getNotificationItems(sessionToken=null, dev = null) {
-  console.log("getNotificationItems called");
+export function getNotificationItems(getOlderItems, sessionToken=null, dev = null) {
+  console.log("getNotificationItems called with getOlderItems: "+getOlderItems);
   return async function (dispatch, getState){
-    dispatch(getNotificationRequest());
+    let lastTimestamp = getState().notifications.lastNotificationTimestamp
+    let willFetchOlderItems = (getOlderItems===true && lastTimestamp!=null);
+    dispatch(getNotificationRequest(getOlderItems));
     //store or get a sessionToken
     let token = sessionToken;
     try{
@@ -69,25 +72,26 @@ export function getNotificationItems(sessionToken=null, dev = null) {
         }
     }catch(e){
       console.log("Unable to fetch past token in notificationActions.getNotificationItems() with error: "+e.message);
-      dispatch(getNotificationFailure(e.message));
+      dispatch(getNotificationFailure({error:e.message, isFetchingOldData:getOlderItems}));
+      return null;
     }
-
-    let lastNotifTimestamp = null;  //getState().notifications.lastNotificationTimestamp, res;  //TODO: This doesn't work on the backend yet.
-
-
-    if(lastNotifTimestamp!=null){
-      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getNotifications({lastKnownTimestamp:lastNotifTimestamp});
+    let res;
+    if(getOlderItems==true && willFetchOlderItems===false){
+      console.log("Unable to fetch older notifications, we don't seem to have a valid last_timestamp. "+lastTimestamp);
+      dispatch(getNotificationFailure({error:"Unable to fetch older notifications, we don't seem to have a valid last_timestamp.", isFetchingOldData:getOlderItems}));
+      return null;
     }else{
-        res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getNotifications();
+       res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getNotifications(willFetchOlderItems?{lastKnownTimestamp:lastTimestamp}:null);
     }
 
-    console.log("RES: "+JSON.stringify(res));
+
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in getNotificationItems call"+res.error.error_message);
-      dispatch(getNotificationFailure("Unable to get user notification data with this token."));
-      return res.error;
+      dispatch(getNotificationFailure({error:"Unable to get user notification data with this token.", isFetchingOldData:getOlderItems}));
+      return null;
     }else{
-      dispatch(getNotificationSuccess({data:res.data, incrementalUpdate:(lastNotifTimestamp!=null)}));
+      dispatch(getNotificationSuccess({data:res.data, isFetchingOldData:getOlderItems}));
       return res.data;
     }
   };
