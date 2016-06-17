@@ -99,12 +99,12 @@ export default class PlaceAVote extends React.Component {
 
     constructor(props){
       super(props)
-      this.state={tokenExists:false};
     }
     componentWillMount(){
-      //TODO: Find if token exists in disk programmatically
-      this.setState({tokenExists:true});
     }
+
+
+
 
     render() {
       const store = configureStore(getInitialState());
@@ -118,10 +118,9 @@ export default class PlaceAVote extends React.Component {
       store.dispatch(setVersion(VERSION));
       store.dispatch(setStore(store));
       store.dispatch(setEnvironmentIsDev(CONFIG.ENVIRONMENT_IS_DEV));
-
       return (
         <Provider store={store}>
-          <Routes tokenExistsInDisk={this.state.tokenExists} router={RouterWithRedux}/>
+          <Routes router={RouterWithRedux}/>
         </Provider>
       );
     }

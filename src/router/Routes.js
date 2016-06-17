@@ -2,10 +2,18 @@
 
 
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, BackAndroid} from 'react-native';
 
 import {Colors, ScheneKeys} from '../config/constants';
 
+/**
+* ### Redux
+*/
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {Map} from 'immutable';
+
+import * as routingActions from '../reducers/routing/routingActions';
 
 /*
 *
@@ -29,6 +37,7 @@ import Vote from '../containers/Vote';
 import Onboarding from '../containers/Onboarding';
 import SplashScreen from '../containers/SplashScreen';
 import NewIssue from '../containers/NewIssue';
+
 
 /**
 * ## Nav bar icons
@@ -82,14 +91,64 @@ const defaultProps = {
    leftButtonIconStyle:styles.leftIcon
 };
 
-export default class Routes extends React.Component{
+
+/**
+ * ## Redux boilerplate
+ */
+const actions = [
+  routingActions
+];
+
+function routerStateToProps(state){
+  return {
+      curScene: state.router.currentSchene
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  const creators = Map()
+          .merge(...actions)
+          .filter(value => typeof value === 'function')
+          .toObject();
+
+  return {
+    actions: bindActionCreators(creators, dispatch),
+    dispatch
+  };
+}
+
+
+class Routes extends React.Component{
+
+  constructor(props){
+    super(props);
+  }
+
+  componentWillMount(){
+    let self = this;
+    BackAndroid.addEventListener('hardwareBackPress', function() {
+      switch(self.props.curScene){
+        case ScheneKeys.SPLASH_SCREEN:
+        case ScheneKeys.ONBOARDING:
+        case ScheneKeys.MAIN:
+          return false;
+        default:
+          self.props.actions.navigateToPrevious();
+          return true;
+      }
+    });
+  }
+
+
+
+
 
   render(){
     let RouterWithRedux = this.props.router;
     return (<RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} >
         <Scene key="root" hideNavBar={true} >
-          <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={this.props.tokenExistsInDisk===true}/>
-          <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true} initial={this.props.tokenExistsInDisk===false}/>
+          <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={true}/>
+          <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
           <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" renderRightButton={()=><RightPavLogo/>}/>
           <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} component={EmailSignUpStep1} hideNavBar={true} />
           <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} component={EmailSignUpStep2} hideNavBar={true} />
@@ -110,3 +169,4 @@ export default class Routes extends React.Component{
     </RouterWithRedux>);
   }
 }
+export default connect(routerStateToProps, mapDispatchToProps)(Routes);
