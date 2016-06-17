@@ -49,7 +49,7 @@ const {
 } = ScheneKeys;
 
 import React from 'react';
-import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
+import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio, Platform} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -293,6 +293,17 @@ class EmailSignUpStep4Render extends React.Component {
       );
     }
   }
+  renderKeyboardSpacer(){
+    if(Platform.OS==="ios"){
+      return (<KeyboardSpacer android={false} onToggle={(keyboardState, keyboardHeight)=>{
+        this.setState({
+          keyboardOpen: keyboardState
+        });
+      }}/>)
+    }else{
+      return <View></View>;
+    }
+  }
 
   /**
    * ### render
@@ -344,11 +355,7 @@ class EmailSignUpStep4Render extends React.Component {
                 </Button>
               </View>
             </View>
-            <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
-              this.setState({
-                keyboardOpen: keyboardState
-              });
-            }}/>
+            {this.renderKeyboardSpacer()}
 
         </View>
       </View>

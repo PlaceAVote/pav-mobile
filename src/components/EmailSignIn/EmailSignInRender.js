@@ -28,7 +28,7 @@ import {Map} from 'immutable';
 /*A react native button*/
 // import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+// import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 
 
@@ -256,7 +256,6 @@ class EmailSignInRender extends React.Component {
               Forgot Password
             </Button>
           </View>
-          <KeyboardSpacer/>
         </View>
 
         <ForgotPasswordModalBox
