@@ -82,7 +82,7 @@ class FeedVoteCard extends React.Component {
         },
       },
       cardTitleContainer:{
-        flex: 1,
+
         flexDirection:'row',
         paddingHorizontal: w*0.02,
         paddingVertical: w*0.02,
@@ -109,7 +109,9 @@ class FeedVoteCard extends React.Component {
       },
 
       cardContentContainer:{
+        flex:1,
         // backgroundColor:'red',
+        justifyContent:'center',
         paddingHorizontal: w*0.02,
         paddingBottom: h*0.012,
         borderStyle: 'solid',

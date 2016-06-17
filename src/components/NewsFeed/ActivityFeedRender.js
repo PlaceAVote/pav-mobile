@@ -9,8 +9,8 @@ import React from 'react';
 import {StyleSheet, View, ListView, Platform, RefreshControl} from 'react-native';
 // import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
-// import Dimensions from 'Dimensions';
-// const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
+import Dimensions from 'Dimensions';
+const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 // import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 // import icomoonConfig from '../../../assets/fonts/icomoon.json';
@@ -58,7 +58,18 @@ class ActivityFeedRender extends React.Component {
     return StyleSheet.create({
       itemList:{
         flex:1,
-      }
+      },
+      cardStyle:{
+        ...Platform.select({
+           ios: {
+            //  height:h*0.2,
+           },
+           android: {
+             elevation:5,
+            //  backgroundColor:'red'
+           },
+         }),
+      },
 
     });
   }
@@ -113,7 +124,9 @@ class ActivityFeedRender extends React.Component {
            <CardFactory
            type="newsfeed"
            key={rowData.event_id}
-           cardStyle={Platform.OS=="android"?{elevation:5}:{}}
+           style={styles.cardContainer}
+           cardStyle={styles.cardStyle}
+           cardHeight={(this.props.type==="discovery")?h*0.25:null}
            itemData={rowData}
            device={this.props.device}
            curUser={this.props.curUser}

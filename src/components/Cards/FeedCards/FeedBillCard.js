@@ -81,7 +81,7 @@ class FeedBillCard extends React.Component {
         },
       },
       cardTitleContainer:{
-        flex: 1,
+        // flex: 1,
         flexDirection:'row',
         paddingHorizontal: w*0.02,
         paddingVertical: w*0.02,
@@ -99,9 +99,10 @@ class FeedBillCard extends React.Component {
 
       cardContentContainer:{
         // backgroundColor:'red',
+        flex:1,
         paddingHorizontal: w*0.02,
         paddingBottom: h*0.012,
-
+        justifyContent:'center',
         flexDirection:'column'
       },
 
@@ -110,7 +111,7 @@ class FeedBillCard extends React.Component {
 
 
       billImage:{
-        height:null,
+        height:self.props.cardHeight,
         width:null
       },
 
@@ -130,7 +131,7 @@ class FeedBillCard extends React.Component {
 
 
       cardFooterContainer:{
-        flex:1,
+        // flex:1,
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
@@ -319,7 +320,7 @@ class FeedBillCard extends React.Component {
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
-          <TouchableOpacity  onPress={this.onBillClicked.bind(this)}>
+          <TouchableOpacity style={{flex:1}} onPress={this.onBillClicked.bind(this)}>
             <PavImage
             platform={this.props.device.platform}
             defaultSource={congratsScreenPhoto}
@@ -328,7 +329,7 @@ class FeedBillCard extends React.Component {
             resizeMode='cover'
             >
               <LinearGradient
-                  style={{}}
+                  style={{flex:1}}
                   colors={['black', 'rgba(0, 0, 0, 0.24)', 'black']}
                   start={[-0.3, 0.0]} end={[1.3, 0.0]}>
                   {this.renderHeader(styles)}

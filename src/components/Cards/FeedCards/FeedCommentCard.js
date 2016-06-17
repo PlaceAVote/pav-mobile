@@ -28,7 +28,7 @@ import {Colors, ScheneKeys, Other} from '../../../config/constants';
 const {REACTIONS, SOCIAL_TYPES} = Other;
 
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -84,7 +84,7 @@ class FeedCommentCard extends React.Component {
         },
       },
       cardTitleContainer:{
-        flex: 1,
+
         flexDirection:'row',
         paddingHorizontal: w*0.02,
         paddingVertical: w*0.02,
@@ -112,6 +112,8 @@ class FeedCommentCard extends React.Component {
 
       cardContentContainer:{
         // backgroundColor:'red',
+        flex:1,
+        justifyContent:'center',
         paddingHorizontal: w*0.02,
         paddingBottom: h*0.012,
         borderStyle: 'solid',
@@ -180,22 +182,23 @@ class FeedCommentCard extends React.Component {
       },
 
 
-      footerContainer:this.props.device.platform=="android"?{
-        flex:1,
+      footerContainer:{
+        
         flexDirection:'row',
         backgroundColor: '#EDECF1',
         borderWidth: 1,
         borderColor: 'rgba(216, 214, 226, 1)',
-      }:{
-        flex:1,
-        flexDirection:'row',
-        backgroundColor: '#EDECF1',
-        borderColor: 'rgba(216, 214, 226, 1)',
-        borderTopColor: 'rgba(216, 214, 226, 0)',
-        borderLeftColor: 'rgba(216, 214, 226, 0)',
-        borderRightColor: 'rgba(216, 214, 226, 0.9)',
-        borderBottomColor: 'rgba(216, 214, 226, 1)',
-        borderWidth: 1,
+        ...Platform.select({
+           ios: {
+             borderTopColor: 'rgba(216, 214, 226, 0)',
+             borderLeftColor: 'rgba(216, 214, 226, 0)',
+             borderRightColor: 'rgba(216, 214, 226, 0.9)',
+             borderBottomColor: 'rgba(216, 214, 226, 1)',
+             borderWidth: 1,
+           },
+           android: {
+           },
+         }),
       },
       likeDislikeButtonContainer:{
         flex:1,
