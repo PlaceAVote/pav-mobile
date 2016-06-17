@@ -98,7 +98,7 @@ case ${option} in
 
     printf "\nNow building and releasing for android"
     { # my 'try' block
-        ReleaseAndroid && UploadToBucket ${ANDROID} && success_droid=0 && exit 0
+        ReleaseAndroid && UploadToBucket ${ANDROID} && success_droid=0
     } || { # your 'catch' block
         printf "\nBuild on Android Failed. Moving on to iOS.\n"  
     }
@@ -115,6 +115,7 @@ case ${option} in
         printf "\nSuccess in building both iOS and Android executables."
         printf "\n \t -The (iOS) ipa (ad-hoc) be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME}"
         printf "\n \t -The (Android) apk can be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME} \n"
+        printf "A new mobile app version has been built and released: \n- A new iOS version (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME}   (This will work only with those with registered development devices) \n- A new Android version of placeavote can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}\n" | slackcat -s -t -p -c mobile-dev
         exit 0
     fi
 
@@ -136,7 +137,9 @@ case ${option} in
     -[ra][ra])
         printf "\nNow building and releasing for android"
         { # my 'try' block
-            ReleaseAndroid && UploadToBucket ${ANDROID} && printf "\nSuccess: The apk can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}  \n" && exit 0
+            ReleaseAndroid && UploadToBucket ${ANDROID} && printf "\nSuccess: The apk can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}  \n" &&
+            printf "New mobile app build: \nA new Android version of placeavote can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}\n" | slackcat -s -t -p -c mobile-dev && 
+            exit 0
         } || { # your 'catch' block 
             printf "\nBuild Failed, we got no apk to upload. Process terminating.\n"
         }
@@ -156,7 +159,9 @@ case ${option} in
     -[ri][ri])
         printf "\nNow building and releasing for iOS"
         { # my 'try' block
-            ReleaseIos && UploadToBucket ${IOS} && printf "\nSuccess: The (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME} \n" && exit 0
+            ReleaseIos && UploadToBucket ${IOS} && printf "\nSuccess: The (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME} \n" &&
+            printf "New mobile app build: \nA new iOS version (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME} (This will work only with those with registered development devices) \n" | slackcat -s -t -p -c mobile-dev && 
+            exit 0
         } || { # your 'catch' block 
             printf "\nBuild Failed, we got no ipa to upload. Process terminating.\n"
         }
