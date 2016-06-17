@@ -104,7 +104,7 @@ export function getProfile(userId = null, dev = null, sessionToken=null) {
       dispatch(getProfileSuccess(res.data, (userId == null)));
       if(userId==null){
         saveBasicUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address})
-        dispatch(setUserData(res.data));    
+        dispatch(setUserData(res.data));
       }
       return {data: res.data, error: null};
     }
@@ -134,16 +134,16 @@ export function getProfile(userId = null, dev = null, sessionToken=null) {
 /**
  * ## retreiving profile actions
  */
-export function getTimelineRequest() {
+export function getTimelineRequest(isFetchingOldData) {
   return {
-    type: GET_TIMELINE_REQUEST
+    type: GET_TIMELINE_REQUEST,
+    payload: {isFetchingOldData}
   };
 }
-export function getTimelineSuccess(json, shouldUpdateState=true) {
+export function getTimelineSuccess(json) {
   return {
     type: GET_TIMELINE_SUCCESS,
     payload: json,
-    shouldUpdateState: shouldUpdateState
   };
 }
 export function getTimelineFailure(json) {
@@ -157,10 +157,12 @@ export function getTimelineFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getTimeline(userId = null, dev = null, sessionToken=null) {
+export function getTimeline(userId = null, getOlderItems=false, dev = null, sessionToken=null) {
   console.log("Get timeline called");
-  return async function (dispatch){
-    dispatch(getTimelineRequest());
+  return async function (dispatch, getState){
+    let lastTimestamp = getState().profile.form.lastKnownItemTimestamp;//isFetching.olderTimelineData;
+    let willFetchOlderItems = (getOlderItems===true && lastTimestamp!=null);
+    dispatch(getTimelineRequest(getOlderItems));
     //store or get a sessionToken
     let token = sessionToken;
     try{
@@ -170,19 +172,28 @@ export function getTimeline(userId = null, dev = null, sessionToken=null) {
         }
     }catch(e){
       console.log("Unable to fetch past token in profileActions.getTimeline() with error: "+e.message);
-      dispatch(getTimelineFailure(e.message));
+      dispatch(getTimelineFailure({error:e.message, isFetchingOldData:getOlderItems}));
       return e.message;
     }
-    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.timeline({
-      userId: userId
-    });
+    let res;
+    if(getOlderItems==true && willFetchOlderItems===false){
+      console.log("Unable to fetch older timeline data, we don't seem to have a valid lastKnownItemTimestamp."+lastTimestamp);
+      dispatch(getTimelineFailure({error:"Unable to fetch older timeline data, we don't seem to have a valid lastKnownItemTimestamp.", isFetchingOldData:getOlderItems}));
+      return null;
+    }else{
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.timeline({
+        userId: userId,
+        from:willFetchOlderItems?lastTimestamp:null
+      });
+    }
+
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in timeline call"+res.error.error_message);
-      dispatch(getTimelineFailure("Unable to get user profile data with this token."));
+      dispatch(getTimelineFailure({error:"Unable to get user profile data with this token.", isFetchingOldData:getOlderItems}));
       return res.error;
     }else{
-      dispatch(getTimelineSuccess(res.data, (userId == null)));
+      dispatch(getTimelineSuccess({data:res.data, shouldUpdateState:(userId == null), isFetchingOldData:getOlderItems }));
       return res.data;
     }
   };

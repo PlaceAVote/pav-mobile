@@ -74,9 +74,15 @@ export default function profileReducer(state = initialState, action) {
     .setIn(['form','error'],null);
     break;
   case GET_TIMELINE_REQUEST:
-    return state.setIn(['form', 'isFetching', 'timelineData'], true)
+
+    if(action.payload.isFetchingOldData===false){
+      return state.setIn(['form', 'isFetching', 'timelineData'], true)
+        .setIn(['form','error'],null);
+    }else{
+      return state.setIn(['form', 'isFetching', 'timelineData'], true)
+      .setIn(['form', 'isFetching', 'olderTimelineData'], true)
       .setIn(['form','error'],null);
-    break;
+    }
   case GET_PROFILE_REQUEST:
   // case PROFILE_UPDATE_REQUEST:
     return state.setIn(['form', 'isFetching', 'profileData'], true)
@@ -106,19 +112,44 @@ export default function profileReducer(state = initialState, action) {
     .setIn(['form','error'],null)
     .setIn(['form', 'profileData', 'currentlyFollowingUser'], true)
   case GET_TIMELINE_SUCCESS:
-    if(action.shouldUpdateState===true){
+
+
+  let newItems = Immutable.fromJS(action.payload.data.results);
+  if(action.payload.isFetchingOldData===false){
+    if(action.payload.shouldUpdateState===true){
       return state.setIn(['form', 'isFetching', 'timelineData'], false)
       .setIn(['form','error'],null)
-      .setIn(['form', 'timelineData'], Immutable.fromJS(action.payload.results));
+      .setIn(['form', 'lastKnownItemTimestamp'], action.payload.data.last_timestamp)
+      .setIn(['form', 'timelineData'], newItems);
     }else{
       return state.setIn(['form', 'isFetching', 'timelineData'], false)
       .setIn(['form','error'],null)
     }
+  }else{
+    if(action.payload.shouldUpdateState===true){
+      let oldItems = state.get("form").get("timelineData");
+      newItems = oldItems.concat(newItems);
+
+      return state.setIn(['form', 'isFetching', 'timelineData'], false)
+      .setIn(['form','error'],null)
+      .setIn(['form', 'isFetching', 'olderTimelineData'], false)
+      .setIn(['form', 'lastKnownItemTimestamp'], action.payload.data.last_timestamp)
+      .setIn(['form', 'timelineData'], newItems);
+    }else{
+      return state.setIn(['form', 'isFetching', 'timelineData'], false)
+      .setIn([ 'form', 'isFetching', 'olderTimelineData'], false)
+      .setIn(['form','error'],null)
+    }
+  }
+
+
+
+
 
 
   case GET_PROFILE_SUCCESS:
     // console.log("Profile reducer get profile SUCCESS with payload: "+JSON.stringify(action.payload));
-    if(action.shouldUpdateState===true){
+    if(action.payload.shouldUpdateState===true){
       return state.setIn(['form', 'isFetching', 'profileData'], false)
         .setIn(['form','error'],null)
         .setIn(['form', 'profileData', 'followerCnt'], action.payload.total_followers)
@@ -153,9 +184,14 @@ export default function profileReducer(state = initialState, action) {
     return state.setIn(['form', 'isFetching', 'followUser'], false)
      .setIn(['form','error'],action.payload);
   case GET_TIMELINE_FAILURE:
-    return state.setIn(['form', 'isFetching', 'timelineData'], false)
+    if(action.payload.isFetchingOldData===false){
+      return state.setIn(['form', 'isFetching', 'timelineData'], false)
+        .setIn(['form','error'], action.payload);
+    }else{
+      return state.setIn(['form', 'isFetching', 'timelineData'], false)
+      .setIn(['form', 'isFetching', 'olderTimelineData'], false)
       .setIn(['form','error'], action.payload);
-    break;
+    }
   case GET_PROFILE_FAILURE:
   // case PROFILE_UPDATE_FAILURE:
     return state.setIn(['form', 'isFetching', 'profileData'], false)

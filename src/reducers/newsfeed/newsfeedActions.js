@@ -176,9 +176,17 @@ export function getFeedItems(getOlderItems=false, sessionToken=null, dev = null)
       console.log("Unable to fetch past token in newsfeedActions.getFeed() with error: "+e.message);
       dispatch(getFeedFailure({error:e.message, isFetchingOldData:getOlderItems}));
     }
-// .lastFeedItemTimeStamp
 
-    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.feed(fetchOlderItems?lastTimestamp:null);
+    let res;
+    if(getOlderItems==true && willFetchOlderItems===false){
+      console.log("Unable to fetch older feed data, we don't seem to have a valid lastFeedItemTimeStamp."+lastTimestamp);
+      dispatch(getTimelineFailure({error:"Unable to fetch older feed data, we don't seem to have a valid lastFeedItemTimeStamp.", isFetchingOldData:getOlderItems}));
+      return null;
+    }else{
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.feed(fetchOlderItems?lastTimestamp:null);
+    }
+
+
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);

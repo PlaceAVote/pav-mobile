@@ -483,6 +483,20 @@ class ProfileRender extends React.Component {
            initialListSize={5}
            dataSource={this.state.dataSource}
            scrollEnabled={true}
+           onEndReached={()=>{
+             if(this.props.onFetchOlderTimelineData){
+               this.props.onFetchOlderTimelineData()
+             }
+           }}
+           onEndReachedThreshold={20}
+           renderFooter={()=>{
+             if(this.props.isFetchingOldTimelineData===true){
+               return <View style={{paddingVertical:h*0.05}}><PavSpinner/></View>
+             }else{
+               return <View></View>;
+             }
+           }}
+
            renderHeader={()=>(
              <View  style={styles.recentActivityTextContainer}>
                 <Text style={styles.recentActivityText}>Recent Activity:</Text>
@@ -534,6 +548,8 @@ class ProfileRender extends React.Component {
       ||
       (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
       ||
+      (nextProps.isFetchingOldTimelineData !== this.props.isFetchingOldTimelineData)
+      ||
       (nextProps.isFetchingProfile !== this.props.isFetchingProfile)
       ||
       (nextProps.isFetchingFollow !== this.props.isFetchingFollow)
@@ -580,6 +596,7 @@ ProfileRender.propTypes= {
   ]),
   currentlyFollowingUser: React.PropTypes.bool,
   isFetchingTimeline: React.PropTypes.bool,
+  isFetchingOldTimelineData: React.PropTypes.bool,
   isFetchingProfile: React.PropTypes.bool,
   isFetchingFollow: React.PropTypes.bool,
 
@@ -591,7 +608,8 @@ ProfileRender.propTypes= {
   onReplyClick: React.PropTypes.func.isRequired,
   onReactionClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,
-  onSocialClick: React.PropTypes.func.isRequired
+  onSocialClick: React.PropTypes.func.isRequired,
+  onFetchOlderTimelineData:React.PropTypes.func.isRequired,
 
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileRender);

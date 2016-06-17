@@ -192,9 +192,9 @@ class NotificationsRender extends React.Component {
         <ListView
          enableEmptySections={true}
          style={styles.itemList}
-         initialListSize={5}
+         initialListSize={7}
          dataSource={this.state.dataSource}
-         scrollEnabled={(this.props.isFetchingOlderNotifications===false)}
+         scrollEnabled={true}
          onEndReached={()=>{
            if(this.props.onFetchOlderNotifications){
              this.props.onFetchOlderNotifications()

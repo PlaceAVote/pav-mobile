@@ -37,7 +37,7 @@ const {
 export function getNotificationRequest(isFetchingOldData) {
   return {
     type: GET_NOTIFICATIONS_REQUEST,
-    payload: {isFetchingOldData:isFetchingOldData}
+    payload: {isFetchingOldData}
   };
 }
 export function getNotificationSuccess(json) {

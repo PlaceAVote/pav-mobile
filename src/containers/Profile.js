@@ -148,12 +148,12 @@ class Profile extends React.Component {
 
   componentWillMount(){
     this.getProfileData(this.props.userId);
-    this.getTimelineData(this.props.userId);
+    this.getTimelineData(this.props.userId, false);
   }
 
-  async getTimelineData(userId = null){
+  async getTimelineData(userId = null, getOldData){
     if(userId!=null){  //if this is a different user than our current logged in user
-      let timelineRes = await this.props.actions.getTimeline(userId, this.props.global.isDev, this.TOKEN);
+      let timelineRes = await this.props.actions.getTimeline(userId, getOldData, this.props.global.isDev, this.TOKEN);
       if(timelineRes!=null && timelineRes.results!=null){
         // console.log("@@@@@@@@@ timelineRES"+JSON.stringify(timelineRes.results));
         this.setState({
@@ -161,7 +161,7 @@ class Profile extends React.Component {
         })
       }
     }else{//if this is our current logged in user
-      this.props.actions.getTimeline(null, this.props.global.isDev, this.TOKEN);
+      this.props.actions.getTimeline(null, getOldData, this.props.global.isDev, this.TOKEN);
     }
   }
 
@@ -241,7 +241,14 @@ class Profile extends React.Component {
   }
 
   onFeedRefresh(e){
-    this.props.actions.getTimeline(this.props.userId, this.props.global.isDev, this.TOKEN);
+    this.getTimelineData(this.props.userId, false)
+    // this.props.actions.getTimeline(this.props.userId, false, this.props.global.isDev, this.TOKEN);
+  }
+
+  onFetchOlderTimelineData(){
+    if(this.state.timelineItems!=null && this.props.profile.form.isFetching.olderTimelineData===false &&  this.props.profile.form.isFetching.timelineData===false){
+      this.getTimelineData(this.props.userId, true)
+    }
   }
 
 
@@ -410,12 +417,14 @@ class Profile extends React.Component {
           currentlyFollowingUser={this.state.currentlyFollowingUser}
 
           isFetchingTimeline={this.props.profile.form.isFetching.timelineData}
+          isFetchingOldTimelineData={this.props.profile.form.isFetching.olderTimelineData}
           isFetchingProfile={this.props.profile.form.isFetching.profileData}
           isFetchingFollow={this.props.profile.form.isFetching.followUser}
           timelineData={this.state.timelineItems}
           curUser={this.state.curUser}
           isTab={this.props.isTab}
 
+          onFetchOlderTimelineData={this.onFetchOlderTimelineData.bind(this)}
           onFollowBtnPress={this.onFollowBtnPress.bind(this)}
           onFeedRefresh={this.onFeedRefresh.bind(this)}
           onUserClick={this.onUserClickedUser.bind(this)}
