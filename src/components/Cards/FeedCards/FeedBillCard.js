@@ -110,7 +110,8 @@ class FeedBillCard extends React.Component {
 
 
       billImage:{
-
+        height:null,
+        width:null
       },
 
 
