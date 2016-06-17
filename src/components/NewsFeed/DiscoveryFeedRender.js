@@ -161,7 +161,10 @@ class DiscoveryFeedRender extends React.Component {
         device={device}
         curUser={curUser}
         type="discovery"
+        curFilter={this.props.curFilter}
+        curTopic={this.props.curTopic}
         beingRefreshed={this.props.beingRefreshed}
+        oldDataBeingFetched={this.props.oldDataBeingFetched}
         onRefresh={this.props.onRefresh}
         onUserClick={this.props.onUserClick}
         onBillClick={this.props.onBillClick}
@@ -170,6 +173,7 @@ class DiscoveryFeedRender extends React.Component {
         onReactionClick={this.props.onReactionClick}
         onCommentClick={this.props.onCommentClick}
         onSocialClick={this.props.onSocialClick}
+        onFetchMoreItems={this.props.onFetchMoreItems}
         />);
   }
 
@@ -227,8 +231,10 @@ DiscoveryFeedRender.propTypes= {
   discoveryData: React.PropTypes.object.isRequired,
   device: React.PropTypes.object.isRequired,
   curUser: React.PropTypes.object.isRequired,
+  curFilter:React.PropTypes.string.isRequired,
+  curTopic:React.PropTypes.string.isRequired,
   beingRefreshed: React.PropTypes.bool.isRequired,
-
+  oldDataBeingFetched: React.PropTypes.bool.isRequired,
   onRefresh: React.PropTypes.func.isRequired,
   onTopicSelected: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
@@ -238,5 +244,6 @@ DiscoveryFeedRender.propTypes= {
   onReactionClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,
   onSocialClick: React.PropTypes.func.isRequired,
+  onFetchMoreItems: React.PropTypes.func.isRequired,
 };
 export default DiscoveryFeedRender;

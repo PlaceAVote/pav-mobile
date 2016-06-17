@@ -16,13 +16,14 @@ const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in cu
 // import icomoonConfig from '../../../assets/fonts/icomoon.json';
 // const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
+import PavSpinner from '../../lib/UI/PavSpinner'
 
 /**
 * Cards
 */
 import CardFactory from '../Cards/CardFactory';
-import {Colors} from '../../config/constants';
-
+import {Colors, Other} from '../../config/constants';
+const {NEWS_FEED_FILTERS} = Other;
 
 
 
@@ -114,12 +115,27 @@ class ActivityFeedRender extends React.Component {
          style={[styles.itemList, this.props.style]}
          initialListSize={5}
          dataSource={this.state.dataSource}
+         onEndReached={()=>{
+           if(this.props.onFetchMoreItems){
+             if(this.props.type!=="discovery"){ //if we are in discovery mode
+               this.props.onFetchMoreItems(this.props.curFilter, this.props.curTopic)
+             }
+           }
+         }}
+         onEndReachedThreshold={200}
          refreshControl={
            <RefreshControl
            refreshing={this.props.beingRefreshed}
            onRefresh={this.props.onRefresh}
            {...refreshProps}
          />}
+         renderFooter={()=>{
+           if(this.props.oldDataBeingFetched===true){
+             return <PavSpinner/>
+           }else{
+             return <View></View>;
+           }
+         }}
          renderRow={(rowData) =>
            <CardFactory
            type="newsfeed"
@@ -167,9 +183,11 @@ class ActivityFeedRender extends React.Component {
 
 ActivityFeedRender.propTypes= {
   beingRefreshed: React.PropTypes.bool.isRequired,
+  oldDataBeingFetched: React.PropTypes.bool.isRequired,
   device: React.PropTypes.object.isRequired,
   curUser: React.PropTypes.object.isRequired,
-
+  curFilter:React.PropTypes.string.isRequired,
+  curTopic:React.PropTypes.string.isRequired,
   onRefresh: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
@@ -178,5 +196,6 @@ ActivityFeedRender.propTypes= {
   onReactionClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,
   onSocialClick: React.PropTypes.func.isRequired,
+  onFetchMoreItems: React.PropTypes.func.isRequired,
 };
 export default ActivityFeedRender;

@@ -120,13 +120,13 @@ class NewsFeed extends React.Component {
 
   componentWillMount(){
     if(this.props.newsfeed.newsFeedData.items==null){
-      this.connectAndGetFeed();
+      this.connectAndGetFeed(false);
     }
   }
 
-  async connectAndGetFeed(){
+  async connectAndGetFeed(fetchOld){
     // console.log("@@@ NEWS FEED - is dev: "+this.props.global.isDev);
-    return await this.props.actions.getFeedItems(this.TOKEN, this.props.global.isDev);
+    return await this.props.actions.getFeedItems(fetchOld, this.TOKEN, this.props.global.isDev);
   }
   async getDiscoveryItemsForTopic(topicString){
     return await this.props.actions.getDiscoveryItems(topicString, this.TOKEN, this.props.global.isDev);
@@ -154,7 +154,7 @@ class NewsFeed extends React.Component {
     }
     else if(filterName==NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER){
       this.props.actions.setActivityFilter(filterName);
-      this.getDiscoveryItemsForTopic(Other.TOPICS.TRENDING);
+      this.getDiscoveryItemsForTopic(Other.TOPICS.TRENDING, false);
     }else{
       this.props.actions.filterFeedItems(filterName, topicType);
     }
@@ -162,7 +162,7 @@ class NewsFeed extends React.Component {
 
   onTopicSelect(topicName){
     if(this.props.newsfeed.newsFeedData.discoveryItems.get(topicName)==null){
-        this.getDiscoveryItemsForTopic(topicName);
+        this.getDiscoveryItemsForTopic(topicName, false);
     }
   }
 
@@ -264,7 +264,23 @@ class NewsFeed extends React.Component {
   }
 
 
+  onFetchMoreFeedItems(filterType, topicName){
+    // console.log("On fetch more for filter: "+filterType+" with topic: "+topicName);
 
+    switch(filterType){
+      case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
+      case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
+      case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
+        if(this.props.newsfeed.newsFeedData.itemsAfterFiltration!=null && this.props.newsfeed.isFetching.olderNewsFeedData===false){
+          this.connectAndGetFeed(true);
+        }
+        break;
+      case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
+      default:
+        break;
+    }
+
+  }
 
 
   render() {
@@ -285,6 +301,7 @@ class NewsFeed extends React.Component {
           onReactionClick={this.onUserClickedReaction.bind(this)}
           onCommentClick={this.onUserClickedComments.bind(this)}
           onSocialClick={this.onUserClickedSocial.bind(this)}
+          onFetchMoreItems={this.onFetchMoreFeedItems.bind(this)}
       />
 
     );

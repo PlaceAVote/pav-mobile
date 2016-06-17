@@ -134,9 +134,10 @@ export function setActivityFilter(filterName) {
 /**
  * ## retreiving newsfeed actions
  */
-export function getFeedRequest() {
+export function getFeedRequest(isFetchingOldData) {
   return {
-    type: GET_FEED_REQUEST
+    type: GET_FEED_REQUEST,
+    payload: {isFetchingOldData}
   };
 }
 export function getFeedSuccess(json) {
@@ -151,15 +152,19 @@ export function getFeedFailure(json) {
     payload: json
   };
 }
+
+
 /**
  * ## State actions
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getFeedItems(sessionToken=null, dev = null) {
+export function getFeedItems(getOlderItems=false, sessionToken=null, dev = null) {
   console.log("Get feed called");
-  return async function (dispatch){
-    dispatch(getFeedRequest());
+  return async function (dispatch, getState){
+    let lastTimestamp = getState().newsfeed.newsFeedData.lastFeedItemTimeStamp;
+    let fetchOlderItems = (getOlderItems===true && lastTimestamp!=null);
+    dispatch(getFeedRequest(fetchOlderItems));
     //store or get a sessionToken
     let token = sessionToken;
     try{
@@ -169,16 +174,18 @@ export function getFeedItems(sessionToken=null, dev = null) {
         }
     }catch(e){
       console.log("Unable to fetch past token in newsfeedActions.getFeed() with error: "+e.message);
-      dispatch(getFeedFailure(e.message));
+      dispatch(getFeedFailure({error:e.message, isFetchingOldData:fetchOlderItems}));
     }
-    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.feed();
+// .lastFeedItemTimeStamp
+
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.feed(fetchOlderItems?lastTimestamp:null);
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
-      dispatch(getFeedFailure("Unable to get user newsfeed data with this token."));
+      dispatch(getFeedFailure({error:"Unable to get user newsfeed data with this token.", isFetchingOldData:fetchOlderItems}));
       return res.error;
     }else{
-      dispatch(getFeedSuccess(res.data));
+      dispatch(getFeedSuccess({data: res.data, isFetchingOldData:fetchOlderItems}));
       return res.data;
     }
   };

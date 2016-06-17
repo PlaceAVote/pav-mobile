@@ -78,7 +78,6 @@ module.exports =  {
       BILL_ACTIVITY_FILTER:'Bill Activity ',
       DISCOVER_ACTIVITY_FILTER:'Discover ',
       STATISTICS_ACTIVITY_FILTER:'Statistics ',
-      SEARCH_BILL_FILTER:'Search ',
     },
     TOPICS:{
       CRIME:'crime',

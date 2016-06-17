@@ -182,7 +182,9 @@ class NewsFeedRender extends React.Component {
 
     let {
       filterName,
+      topicName,
       isFetchingFeed,
+      isFetchingOlderFeedData,
       feedData,
       isFetchingDiscovery,
       discoveryData
@@ -196,7 +198,7 @@ class NewsFeedRender extends React.Component {
         case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
           // console.log("Data ready? :"+(isFetchingFeed===false)+(feedData!=null))
           dataReady= (isFetchingFeed===false && feedData!=null)
-          if(dataReady==true){
+          // if(dataReady==true){
             return(
               <ActivityFeedRender
               key="bodyContainerView"
@@ -204,7 +206,9 @@ class NewsFeedRender extends React.Component {
               device={this.props.device}
               curUser={this.props.auth.user}
               type="feed"
-
+              curFilter={filterName}
+              curTopic={topicName}
+              oldDataBeingFetched={isFetchingOlderFeedData}
               beingRefreshed={!dataReady}
               onRefresh={this.props.onFeedRefresh}
               onUserClick={this.props.onUserClick}
@@ -214,10 +218,11 @@ class NewsFeedRender extends React.Component {
               onReactionClick={this.props.onReactionClick}
               onCommentClick={this.props.onCommentClick}
               onSocialClick={this.props.onSocialClick}
+              onFetchMoreItems={this.props.onFetchMoreItems}
              />);
-          }else{
-            return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
-          }
+          // }else{
+          //   return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
+          // }
         case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
           dataReady = (isFetchingDiscovery===false && discoveryData!=null)
           return(
@@ -228,7 +233,9 @@ class NewsFeedRender extends React.Component {
               discoveryData={discoveryData}
               device={this.props.device}
               curUser={this.props.auth.user}
-
+              curFilter={filterName}
+              curTopic={topicName}
+              oldDataBeingFetched={false}
               beingRefreshed={!dataReady}
               onRefresh={this.props.onDiscoveryRefresh}
               onUserClick={this.props.onUserClick}
@@ -238,9 +245,10 @@ class NewsFeedRender extends React.Component {
               onReactionClick={this.props.onReactionClick}
               onCommentClick={this.props.onCommentClick}
               onSocialClick={this.props.onSocialClick}
+              onFetchMoreItems={this.props.onFetchMoreItems}
               />
             );
-        
+
           // return (
           //   <SearchFeedRender
           //     key="bodyContainerView"
@@ -286,7 +294,9 @@ class NewsFeedRender extends React.Component {
             {this.renderNewsFeedBody(
               {
                 filterName: this.props.newsfeed.newsFeedData.curSelectedFilter,
+                topicName:this.props.newsfeed.newsFeedData.curSelectedTopic,
                 isFetchingFeed: this.props.newsfeed.isFetching.newsFeedData,
+                isFetchingOlderFeedData: this.props.newsfeed.isFetching.olderNewsFeedData,
                 feedData: this.props.newsfeed.newsFeedData.itemsAfterFiltration,
                 isFetchingDiscovery: this.props.newsfeed.isFetching.discoveryData,
                 discoveryData: this.props.newsfeed.newsFeedData.discoveryItems

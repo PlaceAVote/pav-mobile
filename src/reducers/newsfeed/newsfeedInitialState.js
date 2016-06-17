@@ -26,6 +26,7 @@ var InitialState = Record({
   // isValid: false,
   isFetching: new (Record({
     newsFeedData: false,
+    olderNewsFeedData: false,
     discoveryData: false,
     postingNewIssue: false,
     scrapeUrlData: false
@@ -37,6 +38,7 @@ var InitialState = Record({
     curSelectedTopic : TOPICS.TRENDING,
     items: null,
     itemsAfterFiltration: null,
+    lastFeedItemTimeStamp: null,
 
 
     discoveryItems: new Map([

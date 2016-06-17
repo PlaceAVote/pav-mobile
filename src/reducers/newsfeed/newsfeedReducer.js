@@ -112,7 +112,7 @@ export default function newsfeedReducer(state = initialState, action) {
     case SCRAPE_URL_SUCCESS:
       return state.setIn([ 'isFetching', 'scrapeUrlData'], false)
       .setIn(['error'],null);
-  
+
 
     case NEW_ISSUE_SUCCESS:
       return state.setIn([ 'isFetching', 'postingNewIssue'], false)
@@ -181,18 +181,46 @@ export default function newsfeedReducer(state = initialState, action) {
 
 
     case GET_FEED_REQUEST:
-      return state.setIn([ 'isFetching', 'newsFeedData'], true)
-      .setIn(['error'],null);
+      if(action.payload.isFetchingOldData===false){
+        return state.setIn([ 'isFetching', 'newsFeedData'], true)
+        .setIn(['error'],null);
+      }else{
+        return state.setIn([ 'isFetching', 'newsFeedData'], true)
+        .setIn([ 'isFetching', 'olderNewsFeedData'], true)
+        .setIn(['error'],null);
+      }
+
 
     case GET_FEED_SUCCESS:
+
+    // console.log("is older: "+action.payload.isFetchingOldData)
+    if(action.payload.isFetchingOldData===false){
       return state.setIn([ 'isFetching', 'newsFeedData'], false)
       .setIn(['error'],null)
-      .setIn([ 'newsFeedData', 'items'], Immutable.fromJS(action.payload.results))
-      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], Immutable.fromJS(action.payload.results));
+      .setIn([ 'newsFeedData', 'lastFeedItemTimeStamp'], action.payload.data.last_timestamp)
+      .setIn([ 'newsFeedData', 'items'], Immutable.fromJS(action.payload.data.results))
+      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], Immutable.fromJS(action.payload.data.results));
+    }else{
+      let oldItems = state.newsFeedData.items;
+      let newItems = oldItems.concat(Immutable.fromJS(action.payload.data.results));
+      return state.setIn([ 'isFetching', 'newsFeedData'], false)
+      .setIn(['error'],null)
+      .setIn([ 'isFetching', 'olderNewsFeedData'], false)
+      .setIn([ 'newsFeedData', 'lastFeedItemTimeStamp'], action.payload.data.last_timestamp)
+      .setIn([ 'newsFeedData', 'items'], newItems)
+      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], newItems);
+    }
 
     case GET_FEED_FAILURE:
+    if(action.payload.isFetchingOldData===false){
       return state.setIn([ 'isFetching', 'newsFeedData'], false)
-      .setIn(['error'], action.payload);
+      .setIn(['error'], action.payload.error);
+    }else{
+      return state.setIn([ 'isFetching', 'newsFeedData'], false)
+      .setIn([ 'isFetching', 'olderNewsFeedData'], false)
+      .setIn(['error'], action.payload.error);
+    }
+
 
 
 

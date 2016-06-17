@@ -454,7 +454,6 @@ class NewIssueRender extends React.Component {
     // console.log("@@@@@@@@@@@@@@@@@@@ BILL USER VOTED: "+this.props.billData.get("user_voted"));
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
-    // source={{uri: this.props.userPhotoUrl}} //TODO: Add this back to the PAVImage if we manage to fetch an image for the url.
     return(
       <View
       style={styles.container}>
@@ -470,7 +469,7 @@ class NewIssueRender extends React.Component {
             platform={this.props.device.platform}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
-
+            source={{uri: this.props.userPhotoUrl}}
             resizeMode='cover'
           />
           <TouchableOpacity style={styles.xIconContainer} onPress={this.close.bind(this)}>
