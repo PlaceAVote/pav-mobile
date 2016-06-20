@@ -51,12 +51,12 @@ module.exports =  {
     TAB_NEWS: null,
     TAB_NOTIFS: null,
     TAB_PROFILE: null,
-    ACCOUNT_SETTINGS: null,
     BILL: null,
     COMMENTS: null,
     VOTE: null,
     PROFILE:null,
-    NEWISSUE: null
+    NEWISSUE: null,
+    SETTINGS: null,
 
   }),
   BillPageTabs: {

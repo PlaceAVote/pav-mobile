@@ -15,8 +15,7 @@
 import {ScheneKeys, Modals} from '../../config/constants';
 import {Record, Map} from 'immutable';
 const {
-  SPLASH_SCREEN,
-  ACCOUNT_SETTINGS
+  SPLASH_SCREEN
 } = ScheneKeys;
 const {
   WELCOME,

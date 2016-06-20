@@ -355,6 +355,8 @@ class NewsFeedRender extends React.Component {
       (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextProps.searchData !== this.props.searchData)
+      ||
+      (nextProps.currentlySearching !== this.props.currentlySearching)
     );
   }
 }

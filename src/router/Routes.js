@@ -37,12 +37,13 @@ import Vote from '../containers/Vote';
 import Onboarding from '../containers/Onboarding';
 import SplashScreen from '../containers/SplashScreen';
 import NewIssue from '../containers/NewIssue';
-
+import Settings from '../containers/Settings';
 
 /**
 * ## Nav bar icons
 */
 import ProfileButtons from '../containers/NavIcons/ProfileButtons';
+import SettingsButtons from '../containers/NavIcons/SettingsButtons';
 import NewsFeedButtons from '../containers/NavIcons/NewsFeedButtons';
 import {RightPavLogo} from '../containers/NavIcons/LoginButtons';
 import TabIconFactory from '../containers/NavIcons/TabIconFactory';
@@ -165,6 +166,7 @@ class Routes extends React.Component{
           <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} panHandlers={null} component={NewIssue} title="New Issue" direction="vertical" hideNavBar={false} />
           <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false} />
           <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" />
+          <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} title="Settings" renderRightButton={()=><SettingsButtons/>} initial={true}/>
         </Scene>
     </RouterWithRedux>);
   }

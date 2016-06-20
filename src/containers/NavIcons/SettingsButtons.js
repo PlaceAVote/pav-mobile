@@ -48,14 +48,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
-import {
-ScheneKeys
-} from '../../config/constants';
-const {
-  SETTINGS
-} = ScheneKeys
-
-
+// const {} = ScheneKeys
 
 
 /**
@@ -63,7 +56,7 @@ const {
  */
 const actions = [
   // authActions,
-  routingActions,
+  // routingActions,
   // deviceActions,
   // profileActions
 ];
@@ -98,7 +91,7 @@ function mapDispatchToProps(dispatch) {
 class ProfileButtons extends React.Component {
 
   onSettingsBarBtnClicked(){
-    this.props.actions.navigateTo(SETTINGS);
+    console.log("Settings in profile page pressed.")
   }
 
   render(){
