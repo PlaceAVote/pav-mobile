@@ -51,10 +51,14 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 
 import {
 ScheneKeys,
+Modals
 } from '../../config/constants';
 const {
   NEWISSUE
 } = ScheneKeys
+const {
+  SEARCH_BILL
+} = Modals;
 
 
 /**
@@ -97,15 +101,19 @@ function mapDispatchToProps(dispatch) {
 
 
 
-
+{/*<TouchableOpacity style={{paddingHorizontal:w*0.020}}>
+  <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.1)'}}/>
+</TouchableOpacity>*/}
 class NewsFeedButtons extends React.Component {
 
 
   render(){
       return (
           <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'flex-end', paddingVertical:Platform.OS === 'ios' || Platform.Version > 19 ? h*0.013 : h*0.007}}>
-            <TouchableOpacity style={{paddingHorizontal:w*0.020}}>
-              <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.1)'}}/>
+            <TouchableOpacity style={{paddingHorizontal:w*0.020}} onPress={
+              ()=>{this.props.actions.setModalVisibility(SEARCH_BILL, !this.props.router.modalIsOpen.get(SEARCH_BILL))}
+            }>
+              <PavIcon name='ios-search-strong' size={28} style={{color:'white'}}/>
             </TouchableOpacity>
             <View style={{ flexDirection:'row', justifyContent:'flex-end'}}>
               <TouchableOpacity style={{paddingHorizontal:w*0.020}} onPress={

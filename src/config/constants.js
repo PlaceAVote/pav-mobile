@@ -33,7 +33,9 @@ module.exports =  {
 
   Modals: keyMirror({
     WELCOME: null,
-    FORGOT_PASSWORD: null
+    FORGOT_PASSWORD: null,
+    SEARCH_BILL: null,
+    ATTACH_URL: null,
   }),
 
   ScheneKeys: keyMirror({

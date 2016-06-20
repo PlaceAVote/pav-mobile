@@ -54,10 +54,13 @@ import CONFIG from '../config/config';
 
 import {
 ScheneKeys,
-NewsFeedUpdateTypes,
 Other,
-BillPageTabs
+BillPageTabs,
+Modals
 } from '../config/constants';
+const {
+  SEARCH_BILL
+} = Modals;
 const {
   NEWS_FEED_FILTERS,
   REACTIONS,
@@ -115,6 +118,9 @@ class NewsFeed extends React.Component {
     super(props);
     if(CONFIG.MOCK_TOKEN===true){
       this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    }
+    this.state={
+      searchData:null
     }
   }
 
@@ -263,6 +269,16 @@ class NewsFeed extends React.Component {
     }
   }
 
+  async onBillSearchTermChanged(value){
+    // alert("Searching "+value)
+    let res = await this.props.actions.searchBillByTermItems(value, this.TOKEN, this.props.global.isDev)
+    console.log("search term: "+value+" results: "+JSON.stringify(res));
+    if(!!res){
+      this.setState({searchData:res})
+    }else{
+      this.setState({searchData:null})
+    }
+  }
 
   onFetchMoreFeedItems(filterType, topicName){
     // console.log("On fetch more for filter: "+filterType+" with topic: "+topicName);
@@ -290,6 +306,14 @@ class NewsFeed extends React.Component {
           global={ this.props.global }
           device={ this.props.device}
           newsfeed={this.props.newsfeed}
+
+          searchModalVisible={this.props.router.modalIsOpen.get(SEARCH_BILL)}
+          showBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, true)}
+          hideBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, false)}
+          currentlySearching={this.props.bill.isFetching.searchBillData}
+          onSearchTermChanged={this.onBillSearchTermChanged.bind(this)}
+          searchData={this.state.searchData}
+
           onFilterBtnClick={this.onFilterBtnClick.bind(this)}
           onTopicSelect={this.onTopicSelect.bind(this)}
           onFeedRefresh={this.onFeedRefresh.bind(this)}

@@ -20,7 +20,9 @@ const {
 } = ScheneKeys;
 const {
   WELCOME,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  SEARCH_BILL,
+  ATTACH_URL
 } = Modals;
 
 
@@ -34,6 +36,8 @@ const Router = new Record({
   modalIsOpen: new Map([
     [FORGOT_PASSWORD, false],
     [WELCOME, false],
+    [SEARCH_BILL, false],
+    [ATTACH_URL, false],
   ])
 });
 

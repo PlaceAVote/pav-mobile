@@ -58,8 +58,8 @@ class NewIssueRender extends React.Component {
 
     this.state={
       text: "",    //the text that will be used as the new issue body (we get that from the input textfield)
-      urlModalVisible: false,
-      searchModalVisible: false,
+      // urlModalVisible: false,
+      // searchModalVisible: false,
       keyboardHeight: 0
     }
   }
@@ -369,12 +369,14 @@ class NewIssueRender extends React.Component {
   }
 
   onAttachUrlBtnTap(){
-    this.setState({urlModalVisible:true});
+    // this.setState({urlModalVisible:true});
+    this.props.showUrlAttachModal();
   }
 
   onAttachBillBtnTap(){
     // alert("attach bill")
-    this.setState({searchModalVisible:true});
+    // this.setState({searchModalVisible:true});
+    this.props.showBillSearchModal();
   }
 
   onRelatedArticleCloseClicked(){
@@ -550,29 +552,32 @@ class NewIssueRender extends React.Component {
 
 
       <InputUrlModalBox
-      isOpen={this.state.urlModalVisible}
-      onClose={()=>this.setState({urlModalVisible:false})}
+      isOpen={this.props.urlModalVisible}
+      onClose={()=>this.props.hideUrlAttachModal()}
       onUrlAttached={(attachedUrl)=>{
         this.props.onUrlAttached(attachedUrl);
-        this.setState({urlModalVisible:false});
+        this.props.hideUrlAttachModal();
       }}
       extraBottomSpace={this.state.keyboardHeight}
       />
       <SearchModalBox
-      isOpen={this.state.searchModalVisible}
-      onClose={()=>this.setState({searchModalVisible:false})}
+      isOpen={this.props.searchModalVisible}
+      onClose={()=>this.props.hideBillSearchModal()}
+      restrictSearchTo="bill"
+      arrowLocation="bot-center"
       extraBottomSpace={this.state.keyboardHeight}
       onSearchTermChanged={this.props.onSearchTermChanged}
-      searchBillData={this.props.searchBillData}
+      searchData={this.props.searchBillData}
       currentlySearching={this.props.currentlySearching}
       device={this.props.device}
-      onBillAttached={(bId, bTitle)=>{
+      onBillTap={(bId, bTitle)=>{
         if(!!this.props.onBillAttached){
           this.props.onBillAttached(bId, bTitle);
-          this.setState({searchModalVisible:false});
+          this.props.hideBillSearchModal();
         }
       }}
       />
+
       </View>
     );
   }
@@ -612,19 +617,23 @@ NewIssueRender.defaultProps={
 NewIssueRender.propTypes= {
   device: React.PropTypes.object.isRequired,
   userPhotoUrl: React.PropTypes.string,
+
   relatedArticle: React.PropTypes.object,
   relatedBill: React.PropTypes.object,
-
   issueBeingPosted: React.PropTypes.bool.isRequired,
   scrapedUrlBeingFetched: React.PropTypes.bool.isRequired,
-
-
   onSearchTermChanged: React.PropTypes.func.isRequired,
   searchBillData: React.PropTypes.array,
   currentlySearching: React.PropTypes.bool,
-
   removeAttachedArticle: React.PropTypes.func.isRequired,
   removeAttachedBill: React.PropTypes.func.isRequired,
+
+  searchModalVisible: React.PropTypes.bool.isRequired,
+  urlModalVisible: React.PropTypes.bool.isRequired,
+  showUrlAttachModal: React.PropTypes.func.isRequired,
+  hideUrlAttachModal: React.PropTypes.func.isRequired,
+  showBillSearchModal: React.PropTypes.func.isRequired,
+  hideBillSearchModal: React.PropTypes.func.isRequired,
 
   onUrlAttached: React.PropTypes.func.isRequired,
   onBillAttached: React.PropTypes.func.isRequired,

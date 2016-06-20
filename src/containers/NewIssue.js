@@ -24,6 +24,10 @@ const {
   REACTIONS
 } = Other;
 const {
+  SEARCH_BILL,
+  ATTACH_URL
+} = Modals;
+const {
   VOTE,
   PROFILE,
   COMMENTS
@@ -204,6 +208,8 @@ class NewIssue extends React.Component {
     this.setState({relatedBill:null})
   }
 
+
+
   render() {
     // console.log("Searching: "+this.props.bill.isFetching.searchBillData)
     return(
@@ -214,7 +220,12 @@ class NewIssue extends React.Component {
           relatedBill={this.state.relatedBill}
           issueBeingPosted={this.props.newsfeed.isFetching.postingNewIssue}
           scrapedUrlBeingFetched={this.props.newsfeed.isFetching.scrapeUrlData}
-
+          searchModalVisible={this.props.router.modalIsOpen.get(SEARCH_BILL)}
+          urlModalVisible={this.props.router.modalIsOpen.get(ATTACH_URL)}
+          showUrlAttachModal={()=>this.props.actions.setModalVisibility(ATTACH_URL, true)}
+          hideUrlAttachModal={()=>this.props.actions.setModalVisibility(ATTACH_URL, false)}
+          showBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, true)}
+          hideBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, false)}
 
           removeAttachedBill={this.removeAttachedBill.bind(this)}
           removeAttachedArticle={this.removeAttachedArticle.bind(this)}

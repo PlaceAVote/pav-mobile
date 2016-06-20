@@ -49,7 +49,7 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
-
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 
 
@@ -62,9 +62,8 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import ActivityFeedRender from './ActivityFeedRender';
 import DiscoveryFeedRender from './DiscoveryFeedRender';
 import SearchFeedRender from './SearchFeedRender';
-
 import FiltersRender from './FiltersRender';
-
+import SearchModalBox from '../Modals/SearchModalBox';
 
 
 /**
@@ -114,6 +113,7 @@ function mapDispatchToProps(dispatch) {
 class NewsFeedRender extends React.Component {
   constructor(props) {
     super(props);
+    this.state={keyboardHeight: 0}
   }
 
 
@@ -303,6 +303,41 @@ class NewsFeedRender extends React.Component {
               },
               styles)}
           </View>
+
+          <SearchModalBox
+          isOpen={this.props.searchModalVisible}
+          onClose={()=>this.props.hideBillSearchModal()}
+          extraBottomSpace={this.state.keyboardHeight}
+          onSearchTermChanged={this.props.onSearchTermChanged}
+          searchData={this.props.searchData}
+          currentlySearching={this.props.currentlySearching}
+          device={this.props.device}
+          arrowLocation="top-left"
+          onBillTap={(bId, bTitle)=>{
+            if(!!this.props.onBillClick){
+              this.props.onBillClick(bId);
+              this.props.hideBillSearchModal();
+            }
+          }}
+          onUserTap={(userId)=>{
+            if(!!this.props.onUserClick){
+              this.props.onUserClick(userId);
+              this.props.hideBillSearchModal();
+            }
+          }}
+
+          />
+          <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+              if(keyboardState==true){
+                this.setState({
+                  keyboardHeight: keyboardHeight
+                });
+              }else{
+                this.setState({
+                  keyboardHeight: 0
+                });
+              }
+            }}/>
         </View>
     );
   }
@@ -313,12 +348,26 @@ class NewsFeedRender extends React.Component {
       ||
       (nextProps.auth.user !== this.props.auth.user)
       ||
+      (nextProps.searchModalVisible !== this.props.searchModalVisible)
+      ||
       (nextProps.auth.form.fields.topicsList !== this.props.auth.form.fields.topicsList)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
+      ||
+      (nextProps.searchData !== this.props.searchData)
     );
   }
 }
+NewsFeedRender.propTypes= {
+  //TODO: Fill this
 
+  searchData: React.PropTypes.array,
+  currentlySearching: React.PropTypes.bool.isRequired,
+  searchModalVisible: React.PropTypes.bool.isRequired,
+  showBillSearchModal: React.PropTypes.func.isRequired,
+  hideBillSearchModal: React.PropTypes.func.isRequired,
+  onBillClick: React.PropTypes.func.isRequired,
+
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewsFeedRender);

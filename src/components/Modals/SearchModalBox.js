@@ -35,8 +35,8 @@ class SearchModalBox extends React.Component {
     constructor(props){
         super(props);
         let data = [];
-        if(!!props.searchBillData){
-          data = props.searchBillData;
+        if(!!props.searchData){
+          data = props.searchData;
         }
         // console.log("Data within getFeedDataSource is :"+data);
         let ds = null;
@@ -54,15 +54,25 @@ class SearchModalBox extends React.Component {
 
     getStyles(extraBottomSpace, resultsExist, currentlySearching){
         return StyleSheet.create({
-            modal: {
+            modalPointingTop: {
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: resultsExist===true?h-((Platform.OS === 'ios' || (Platform.Version > 19) )? 84 : 44):null,
                 width: w*1,
+                paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar heights
                 paddingBottom:(h*0.08)+extraBottomSpace,
                 // backgroundColor: '#00000088'
                 backgroundColor: Colors.transparentColor,
 
+            },
+            modalPointingBot:{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: resultsExist===true?h-((Platform.OS === 'ios' || (Platform.Version > 19) )? 84 : 44):null,
+              width: w*1,
+              paddingBottom:(h*0.08)+extraBottomSpace,
+              // backgroundColor: '#00000088'
+              backgroundColor: Colors.transparentColor,
             },
 
             container:{
@@ -223,7 +233,18 @@ class SearchModalBox extends React.Component {
 
 
 
-
+            topArrowBtnIconContainer:{
+              // backgroundColor:'yellow',
+              width: w*0.95,
+              paddingHorizontal:w*0.005,
+              justifyContent:'flex-end',
+              alignItems:'flex-start'
+            },
+            botArrowBtnIconContainer:{
+              width: w*0.95,
+              justifyContent:'flex-end',
+              alignItems:'center'
+            },
             arrowBtnIcon:{
               // borderTopWidth: 15,
               // borderTopColor: 'red',
@@ -258,8 +279,51 @@ class SearchModalBox extends React.Component {
 
     }
 
+
+
+
+
+    renderUtilUiTop(arrowLocation, styles){
+      if(arrowLocation=="top-left"){
+        return (<View style={styles.topArrowBtnIconContainer}>
+            <PavIcon name="activeIndicatorShrinked" size={9} style={styles.arrowBtnIcon}/>
+          </View>);
+      }else if(arrowLocation=="bot-center"){
+        return (<View style={styles.btnContainer}>
+          <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
+              <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
+              <View style={styles.closeBtnTextContainer}>
+                <Text style={styles.closeBtnText}>CLOSE</Text>
+              </View>
+          </TouchableOpacity>
+        </View>)
+      }else{
+        return <View></View>;
+      }
+    }
+
+    renderUtilUiBot(arrowLocation, styles){
+      if(arrowLocation=="bot-center"){
+        return (<View style={styles.botArrowBtnIconContainer}>
+          <PavIcon name="activeIndicatorShrinkedBot" size={9} style={styles.arrowBtnIcon}/>
+        </View>);
+      }else if(arrowLocation=="top-left"){
+        return (<View style={styles.btnContainer}>
+          <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
+              <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
+              <View style={styles.closeBtnTextContainer}>
+                <Text style={styles.closeBtnText}>CLOSE</Text>
+              </View>
+          </TouchableOpacity>
+        </View>)
+      }else{
+        return <View></View>;
+      }
+    }
+
+
     render(){
-      let styles = this.getStyles(this.props.extraBottomSpace, (!!this.props.searchBillData && this.props.searchBillData.length>0), (this.props.currentlySearching===true));
+      let styles = this.getStyles(this.props.extraBottomSpace, (!!this.props.searchData && this.props.searchData.length>0), (this.props.currentlySearching===true));
       let refreshProps = Platform.OS=="ios"?{
         // tintColor:Colors.primaryColor,
         // title:"Loading...",
@@ -273,21 +337,16 @@ class SearchModalBox extends React.Component {
                 backdrop={true}
                 animationDuration={200}
                 swipeThreshold={90}
-                style={styles.modal}
-                position="bottom"
+                style={(this.props.arrowLocation=="bot-center")?styles.modalPointingBot:styles.modalPointingTop}
+                position={(this.props.arrowLocation=="bot-center")?"bottom":"top"}
                 swipeToClose={true}
                 isOpen={this.props.isOpen}
                 onClosed={this.onClose.bind(this)}
               >
 
-              <View style={styles.btnContainer}>
-                <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
-                    <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
-                    <View style={styles.closeBtnTextContainer}>
-                      <Text style={styles.closeBtnText}>CLOSE</Text>
-                    </View>
-                </TouchableOpacity>
-              </View>
+
+
+              {this.renderUtilUiTop(this.props.arrowLocation, styles)}
               <View style={styles.container}>
 
                 <View style={styles.header}>
@@ -320,27 +379,29 @@ class SearchModalBox extends React.Component {
                      renderRow={(rowData, s , rowId) =>(
                        <CardFactory
                          type="search"
-                         restrictSearchTo="bill"
+                         restrictSearchTo={this.props.restrictSearchTo}
                          key={"search"+rowId}
                          cardStyle={Platform.OS=="android"?{elevation:5}:{}}
                          itemData={rowData}
                          device={this.props.device}
-                         onBillClick={this.props.onBillAttached}
+                         onBillClick={this.props.onBillTap}
+                         onUserClick={this.props.onUserTap}
                        />)
                      }
                    />
                 </View>
               </View>
-              <PavIcon name="activeIndicatorShrinkedBot" size={9} style={styles.arrowBtnIcon}/>
+              {this.renderUtilUiBot(this.props.arrowLocation, styles)}
+
 
             </Modal>
         );
     }
 
     componentWillReceiveProps (nextProps) {
-      if (nextProps.searchBillData!=null &&  nextProps.searchBillData!== this.props.searchBillData) {
+      if (nextProps.searchData!=null &&  nextProps.searchData!== this.props.searchData) {
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(nextProps.searchBillData)
+          dataSource: this.state.dataSource.cloneWithRows(nextProps.searchData)
         })
       }
     }
@@ -361,16 +422,20 @@ class SearchModalBox extends React.Component {
 
 SearchModalBox.defaultProps={
     extraBottomSpace:0,
-    currentlySearching:false
+    currentlySearching:false,
+    arrowLocation:"bot-center"
 }
 SearchModalBox.propTypes= {
   isOpen: React.PropTypes.bool.isRequired,
+  restrictSearchTo: React.PropTypes.string,
   device: React.PropTypes.object.isRequired,
-  searchBillData: React.PropTypes.array,
+  searchData: React.PropTypes.array,
+  arrowLocation: React.PropTypes.oneOf(['bot-center', 'top-left']),
   onSearchTermChanged: React.PropTypes.func.isRequired,
   currentlySearching: React.PropTypes.bool.isRequired,
   onClose: React.PropTypes.func.isRequired,
-  onBillAttached: React.PropTypes.func.isRequired,
+  onBillTap: React.PropTypes.func,
+  onUserTap: React.PropTypes.func,
   extraBottomSpace: React.PropTypes.number
 };
 module.exports = SearchModalBox;
