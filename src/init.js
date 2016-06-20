@@ -57,14 +57,14 @@ import profileInitialState from './reducers/profile/profileInitialState';
 import routerInitialState from './reducers/routing/routingInitialState';
 import newsfeedInitialState from './reducers/newsfeed/newsfeedInitialState';
 import notificationInitialState from './reducers/notifications/notificationInitialState';
-
+import settingsInitialState from './reducers/settings/settingsInitialState';
 
 
 
 /**
 *  The version of the app but not  displayed yet
 */
-var VERSION='0.0.13';
+var VERSION='0.8.3';
 
 
 /**
@@ -82,6 +82,7 @@ function getInitialState() {
     router: new routerInitialState,
     newsfeed: new newsfeedInitialState,
     notifications: new notificationInitialState,
+    settings: new settingsInitialState
   };
   return _initState;
 }
@@ -98,7 +99,7 @@ export default class PlaceAVote extends React.Component {
     constructor(props){
       super(props)
     }
-    
+
 
 
     render() {

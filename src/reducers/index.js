@@ -18,6 +18,7 @@ import router from './routing/routingReducer';
 import newsfeed from './newsfeed/newsfeedReducer';
 import bill from './bill/billReducer';
 import notifications from './notifications/notificationReducer';
+import settings from './settings/settingsReducer';
 
 import { combineReducers } from 'redux';
 
@@ -35,7 +36,8 @@ const rootReducer = combineReducers({
   router,
   newsfeed,
   bill,
-  notifications
+  notifications,
+  settings
 });
 
 export default rootReducer;

@@ -44,7 +44,7 @@ import moment from 'moment'
 import {Colors, ScheneKeys} from '../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image, ActivityIndicatorIOS, ListView, Platform, RefreshControl} from 'react-native';
+import {StyleSheet, Text, View, Image, ActivityIndicatorIOS, Platform, Picker} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -108,59 +108,18 @@ function mapDispatchToProps(dispatch) {
 class SettingsRender extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      gender:null,
+      dob:null,
+      residence:null,
+      email:null,
+      isPrivate:null,
 
+
+    }
   }
 
 
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      container: {
-        flex:1,
-        flexDirection: 'column',
-        paddingBottom:self.props.isTab===false?0:50, //tab bar height
-        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
-        backgroundColor: '#E8E7EE',
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-
-      // accountSettingsText:{
-      //   color: Colors.primaryColor,
-      //   textAlign: 'left',
-      //   fontFamily: 'Whitney',
-      //   fontSize: getCorrectFontSizeForScreen(w,h,10),
-      // },
-      // accountSettingsIcon:{
-      //   color: Colors.primaryColor,
-      // },
-      // profileImgContainerView:{
-      //   flex:0.4,
-      //   // backgroundColor: "yellow"
-      //
-      // },
-      // userDataContainerView:{
-      //   flex:0.6,
-      //   flexDirection: 'column',
-      //   paddingHorizontal: w*0.04,
-      //   // backgroundColor: "green",
-      //   alignItems:'flex-start',
-      //   justifyContent:'space-around'
-      // },
-      // userImg:{
-      //   flex:1,
-      //   width:null,
-      //   height:h*0.23,
-      //   // backgroundColor: "white"
-      // },
-
-    });
-  }
 
 
 
@@ -220,31 +179,6 @@ class SettingsRender extends React.Component {
   }
 
 
-  renderProfilePhoto(url, styles){
-    if(url==null && this.props.isFetchingProfile===false){
-      return (
-        <PavImage
-          style={styles.userImg}
-          key="profile_user_img"
-          defaultSource={defaultUserPhoto}
-          source={defaultUserPhoto}
-          resizeMode='contain'
-        />
-      )
-    }else{
-      return (
-        <PavImage
-          style={styles.userImg}
-          key="profile_user_img"
-          defaultSource={defaultUserPhoto}
-          source={{uri: url}}
-          resizeMode='contain'
-        />
-      )
-    }
-
-  }
-
 
 
 
@@ -260,8 +194,38 @@ class SettingsRender extends React.Component {
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
         <View style={styles.container}>
-          <Text>Settings
-          </Text>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>
+              ACCOUNT SETTINGS
+            </Text>
+          </View>
+          <View style={styles.accountSettingsContainer}>
+            <View style={styles.imgDobPronounContainer}>
+              <PavImage
+                style={styles.userImg}
+                key="settings_user_img"
+                defaultSource={defaultUserPhoto}
+                source={{uri: this.props.curUser}}
+                resizeMode='contain'
+              ></PavImage>
+              <View style={styles.dobPronounContainer}>
+                <View style={styles.dobContainer}>
+                  <Text>Birthday will go here</Text>
+                </View>
+                <View style={styles.pronounContainer}>
+                  <Text>Preferred Pronoun</Text>
+                  <Picker
+                    selectedValue={this.state.language}
+                    onValueChange={(gender) => this.setState({gender: gender})}>
+                    <Picker.Item label="His" value="male" />
+                    <Picker.Item label="Her" value="female" />
+                    <Picker.Item label="They" value="gay" />
+                  </Picker>
+                </View>
+              </View>
+            </View>
+          </View>
 
         </View>
     );
@@ -269,6 +233,69 @@ class SettingsRender extends React.Component {
 
 
 
+
+    /**
+     * ## Styles for PORTRAIT
+     */
+    getPortraitStyles(self){
+      return StyleSheet.create({
+
+
+        container: {
+          flex:1,
+          flexDirection: 'column',
+          // paddingBottom:self.props.isTab===false?0:50, //tab bar height
+          paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+          backgroundColor: 'white',
+          // marginVertical: 10,
+          // marginHorizontal:15
+        },
+
+
+        accountSettingsContainer:{
+          // flex:1,
+          flexDirection:"column",
+          paddingHorizontal: w*0.022,
+          backgroundColor:'pink'
+        },
+
+        titleContainer:{
+          backgroundColor: Colors.titleBgColorDark,
+          borderBottomColor: "rgba(0, 0, 0, 0.07)",
+          borderBottomWidth: 1,
+          paddingHorizontal: w*0.015,
+          paddingVertical: h*0.015,
+        },
+
+        titleText:{
+          color: Colors.primaryColor,
+          fontFamily: 'Whitney-Bold',
+          fontSize: getCorrectFontSizeForScreen(w,h,7),
+        },
+
+        imgDobPronounContainer:{
+          flexDirection:'row',
+          backgroundColor:'orange'
+        },
+        userImg:{
+          width:h*0.21,
+          height:h*0.21,
+        },
+        dobPronounContainer:{
+          flex:1,
+          flexDirection:'column',
+          backgroundColor:'pink',
+          paddingLeft: w*0.015,
+          // justifyContent:''
+        },
+        dobContainer:{
+          flexDirection:'column',
+          backgroundColor:'purple'
+        }
+
+
+      });
+    }
 
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -305,7 +332,7 @@ class SettingsRender extends React.Component {
 
 SettingsRender.propTypes= {
   // timelineData: React.PropTypes.object,
-  // curUser: React.PropTypes.object,
+  curUser: React.PropTypes.object,
   // device: React.PropTypes.object.isRequired,
   // isTab: React.PropTypes.bool,
   // lastActivityTimestamp: React.PropTypes.oneOfType([
