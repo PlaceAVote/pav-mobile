@@ -20,6 +20,7 @@ const {
   REGISTER_STEP_3,
   REGISTER_STEP_4,
   LOGIN,
+  SETTINGS
 } = ScheneKeys;
 const {
   FORGOT_PASSWORD
@@ -51,6 +52,7 @@ function isFormValid(scheneName, fields){
     case REGISTER_STEP_3:
       isValid = (fields.password != '' && !fields.passwordHasError && fields.passwordAgain != '' && !fields.passwordAgainHasError);
       break;
+    case SETTINGS:
     case REGISTER_STEP_4:
       isValid = (fields.dateOfBirth!='' && !fields.dateOfBirthIsCurBeingPicked && fields.zipCode!='' && !fields.zipCodeHasError);
       break;

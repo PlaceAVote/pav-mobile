@@ -6,28 +6,8 @@
  *
  */
 'use strict';
-/**
- * ## Imports
- *
- * Redux
- */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-/**
- * The actions we need
- */
-import * as authActions from '../../reducers/auth/authActions';
-import * as globalActions from '../../reducers/global/globalActions';
 
 
-
-import LinearGradient from 'react-native-linear-gradient';
-
-/**
- * Immutable
- */
-import {Map} from 'immutable';
 
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
@@ -44,7 +24,14 @@ import moment from 'moment'
 import {Colors, ScheneKeys} from '../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image, ActivityIndicatorIOS, Platform, Picker} from 'react-native';
+import {StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Platform,
+  Picker,
+  TouchableOpacity
+} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -57,46 +44,21 @@ import CardFactory from '../Cards/CardFactory';
 
 import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
 import PavImage from '../../lib/UI/PavImage'
+import AccordionPicker from '../EmailSignUp/AccordionPicker';
+/**
+ *  The fantastic little form library
+ */
+import t from 'tcomb-form-native';
+let Form = t.form.Form;
+import Collapsible from 'react-native-collapsible'
+import TouchableInput from './TouchableInput';
 
 /**
  * The states were interested in
  */
-// const {
-//   SET_ORIENTATION
-// } = ScheneKeys;
-
-
-
-/**
- * ## Redux boilerplate
- */
-const actions = [
-  authActions
-  // globalActions
-];
-
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject();
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  };
-}
-
-
-
-
-
-
+const {
+  SETTINGS
+} = ScheneKeys;
 
 
 
@@ -114,7 +76,7 @@ class SettingsRender extends React.Component {
       residence:null,
       email:null,
       isPrivate:null,
-
+      pronounPickerCollapsed: true,
 
     }
   }
@@ -165,16 +127,10 @@ class SettingsRender extends React.Component {
 
 
 
+  componentDidMount(){
 
 
 
-
-  getLastActivityDayDiff(lastTimestamp){
-    if(!!lastTimestamp){
-        return moment(lastTimestamp, 'x').fromNow();
-    }else{
-      return "-"
-    }
 
   }
 
@@ -182,6 +138,12 @@ class SettingsRender extends React.Component {
 
 
 
+  onPronounClick(){
+    alert("On pronoun")
+  }
+  onDateClick(){
+    alert("On date")
+  }
 
   /**
    * ### render
@@ -189,48 +151,69 @@ class SettingsRender extends React.Component {
    */
   render() {
 
+
+
+
+
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
         <View style={styles.container}>
-
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>
-              ACCOUNT SETTINGS
-            </Text>
-          </View>
-          <View style={styles.accountSettingsContainer}>
-            <View style={styles.imgDobPronounContainer}>
-              <PavImage
-                style={styles.userImg}
-                key="settings_user_img"
-                defaultSource={defaultUserPhoto}
-                source={{uri: this.props.curUser}}
-                resizeMode='contain'
-              ></PavImage>
-              <View style={styles.dobPronounContainer}>
-                <View style={styles.dobContainer}>
-                  <Text>Birthday will go here</Text>
-                </View>
-                <View style={styles.pronounContainer}>
-                  <Text>Preferred Pronoun</Text>
-                  <Picker
-                    selectedValue={this.state.language}
-                    onValueChange={(gender) => this.setState({gender: gender})}>
-                    <Picker.Item label="His" value="male" />
-                    <Picker.Item label="Her" value="female" />
-                    <Picker.Item label="They" value="gay" />
-                  </Picker>
-                </View>
-              </View>
+          <ScrollView
+          style={styles.scroller}
+          bounces={false}
+          >
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>
+                ACCOUNT SETTINGS
+              </Text>
             </View>
-          </View>
 
+            <View style={styles.accountSettingsContainer}>
+              <View style={styles.imgDobPronounContainer}>
+                <PavImage
+                  style={styles.userImg}
+                  key="settings_user_img"
+                  defaultSource={defaultUserPhoto}
+                  source={{uri: this.props.curUser}}
+                  resizeMode='contain'
+                ></PavImage>
+
+                <View style={styles.dobPronounContainer}>
+
+                  <TouchableInput title="Preferred Pronoun " value="His " onTap={this.onPronounClick.bind(this)}/>
+                  <TouchableInput title="Date of Birth " value="28/08/1990 " onTap={this.onDateClick.bind(this)}/>
+
+                </View>
+
+              </View>
+
+            </View>
+
+
+
+          </ScrollView>
         </View>
     );
   }
-
+  // <Collapsible
+  // collapsed={this.state.pronounPickerCollapsed}
+  // style={{backgroundColor:'blue'}}
+  // align="center"
+  // onChange={
+  //   (collapsed)=>{this.setState({pronounPickerCollapsed:collapsed})}
+  // }
+  // >
+  //   <Picker
+  //     style={styles.pronounPicker}
+  //     selectedValue={this.state.gender}
+  //     onValueChange={(gender) => this.setState({gender: gender})}>
+  //     <Picker.Item label="His" value="male" />
+  //     <Picker.Item label="Her" value="female" />
+  //     <Picker.Item label="They" value="gay" />
+  //   </Picker>
+  // </Collapsible>
 
 
 
@@ -250,82 +233,85 @@ class SettingsRender extends React.Component {
           // marginVertical: 10,
           // marginHorizontal:15
         },
+        scroller:{
+          flex:1,
+        },
 
 
         accountSettingsContainer:{
           // flex:1,
           flexDirection:"column",
           paddingHorizontal: w*0.022,
-          backgroundColor:'pink'
+          // backgroundColor:'pink'
         },
 
         titleContainer:{
           backgroundColor: Colors.titleBgColorDark,
           borderBottomColor: "rgba(0, 0, 0, 0.07)",
           borderBottomWidth: 1,
-          paddingHorizontal: w*0.015,
+          paddingHorizontal: w*0.020,
           paddingVertical: h*0.015,
         },
 
         titleText:{
           color: Colors.primaryColor,
           fontFamily: 'Whitney-Bold',
-          fontSize: getCorrectFontSizeForScreen(w,h,7),
+          fontSize: getCorrectFontSizeForScreen(w,h,9),
         },
 
         imgDobPronounContainer:{
           flexDirection:'row',
-          backgroundColor:'orange'
+          paddingVertical:h*0.015,
+          alignItems:'center',
+          // backgroundColor:'orange'
         },
         userImg:{
           width:h*0.21,
           height:h*0.21,
         },
+
         dobPronounContainer:{
           flex:1,
           flexDirection:'column',
-          backgroundColor:'pink',
+          // backgroundColor:'pink',
           paddingLeft: w*0.015,
-          // justifyContent:''
+          justifyContent:'center'
         },
-        dobContainer:{
-          flexDirection:'column',
-          backgroundColor:'purple'
-        }
+
 
 
       });
     }
 
 
-  shouldComponentUpdate(nextProps, nextState) {
-    // console.log("########### Cur user update: "+(nextProps.curUser !== this.props.curUser));
-    return(
-      (nextProps.device !== this.props.device)
-      // ||
-      // (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
-      // ||
-      // (nextProps.isFetchingOldTimelineData !== this.props.isFetchingOldTimelineData)
-      // ||
-      // (nextProps.isFetchingProfile !== this.props.isFetchingProfile)
-      // ||
-      // (nextProps.isFetchingFollow !== this.props.isFetchingFollow)
-      // ||
-      // (nextProps.curUser !== this.props.curUser)
-      // ||
-      // (nextState.dataSource !== this.state.dataSource)
-      // ||
-      // (nextProps.lastActivityTimestamp !== this.props.lastActivityTimestamp)
-      // ||
-      // (nextProps.voteCnt !== this.props.voteCnt)
-      // ||
-      // (nextProps.followerCnt !== this.props.followerCnt)
-      // ||
-      // (nextProps.followingCnt !== this.props.followingCnt)
-      // ||
-      // (nextProps.currentlyFollowingUser !== this.props.currentlyFollowingUser)
-    );
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   // console.log("########### Cur user update: "+(nextProps.curUser !== this.props.curUser));
+  //   return(
+  //     (nextProps.device !== this.props.device)
+  //     // ||
+  //     // (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
+  //     // ||
+  //     // (nextProps.isFetchingOldTimelineData !== this.props.isFetchingOldTimelineData)
+  //     // ||
+  //     // (nextProps.isFetchingProfile !== this.props.isFetchingProfile)
+  //     // ||
+  //     // (nextProps.isFetchingFollow !== this.props.isFetchingFollow)
+  //     // ||
+  //     // (nextProps.curUser !== this.props.curUser)
+  //     // ||
+  //     // (nextState.dataSource !== this.state.dataSource)
+  //     // ||
+  //     // (nextProps.lastActivityTimestamp !== this.props.lastActivityTimestamp)
+  //     // ||
+  //     // (nextProps.voteCnt !== this.props.voteCnt)
+  //     // ||
+  //     // (nextProps.followerCnt !== this.props.followerCnt)
+  //     // ||
+  //     // (nextProps.followingCnt !== this.props.followingCnt)
+  //     // ||
+  //     // (nextProps.currentlyFollowingUser !== this.props.currentlyFollowingUser)
+  //   );
+  // }
 }
 
 
@@ -335,38 +321,11 @@ SettingsRender.propTypes= {
   curUser: React.PropTypes.object,
   // device: React.PropTypes.object.isRequired,
   // isTab: React.PropTypes.bool,
-  // lastActivityTimestamp: React.PropTypes.oneOfType([
-  //   React.PropTypes.string,
-  //   React.PropTypes.number,
-  // ]),
-  // voteCnt: React.PropTypes.oneOfType([
-  //   React.PropTypes.string,
-  //   React.PropTypes.number,
-  // ]),
-  // followerCnt: React.PropTypes.oneOfType([
-  //   React.PropTypes.string,
-  //   React.PropTypes.number,
-  // ]),
   // followingCnt: React.PropTypes.oneOfType([
   //   React.PropTypes.string,
   //   React.PropTypes.number,
   // ]),
-  // currentlyFollowingUser: React.PropTypes.bool,
-  // isFetchingTimeline: React.PropTypes.bool,
-  // isFetchingOldTimelineData: React.PropTypes.bool,
-  // isFetchingProfile: React.PropTypes.bool,
-  // isFetchingFollow: React.PropTypes.bool,
-  //
-  // onFollowBtnPress: React.PropTypes.func.isRequired,
-  // onFeedRefresh: React.PropTypes.func.isRequired,
-  // onUserClick: React.PropTypes.func.isRequired,
-  // onBillClick: React.PropTypes.func.isRequired,
-  // onLikeDislikeClick: React.PropTypes.func.isRequired,
-  // onReplyClick: React.PropTypes.func.isRequired,
-  // onReactionClick: React.PropTypes.func.isRequired,
-  // onCommentClick: React.PropTypes.func.isRequired,
-  // onSocialClick: React.PropTypes.func.isRequired,
   // onFetchOlderTimelineData:React.PropTypes.func.isRequired,
 
 };
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsRender);
+export default SettingsRender;

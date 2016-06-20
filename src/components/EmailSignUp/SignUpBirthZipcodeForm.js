@@ -69,130 +69,130 @@ var SignUpBirthZipcodeForm = React.createClass({
   render() {
 
 
-    var INPUT_COLOR = Colors.thirdTextColor;
-    var DISABLED_COLOR = '#777777';
-    var DISABLED_BACKGROUND_COLOR = '#eeeeee';
-    var FONT_SIZE = getCorrectFontSizeForScreen(w,h,11);
-    var FONT_WEIGHT = '500';
+    // var INPUT_COLOR = Colors.thirdTextColor;
+    // var DISABLED_COLOR = '#777777';
+    // var DISABLED_BACKGROUND_COLOR = '#eeeeee';
+    // var FONT_SIZE = getCorrectFontSizeForScreen(w,h,11);
+    // var FONT_WEIGHT = '500';
 
-    var stylesheet = Object.freeze({
-      fieldset: {
-        flexDirection: 'row'
-      },
-
-      // the style applied to the container of all inputs
-      formGroup: {
-        normal: {
-          flex:1,
-          marginBottom: 10
-        },
-        error: {
-          flex:1,
-          marginBottom: 10
-        }
-      },
-      controlLabel: {
-        normal: {
-          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          color: Colors.secondaryTextColor,
-          fontSize: getCorrectFontSizeForScreen(w,h,13),
-          marginBottom: 7,
-          fontWeight: FONT_WEIGHT
-        },
-        // the style applied when a validation error occours
-        error: {
-          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          color: Colors.errorTextColor,
-          fontSize: FONT_SIZE,
-          marginBottom: 7,
-          fontWeight: FONT_WEIGHT
-        }
-      },
-      helpBlock: {
-        normal: {
-          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          color: Colors.helpTextColor,
-          fontSize: FONT_SIZE,
-          marginBottom: 2
-        },
-        // the style applied when a validation error occours
-        error: {
-          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          color: Colors.helpTextColor,
-          fontSize: FONT_SIZE,
-          marginBottom: 2
-        }
-      },
-      errorBlock: {
-        fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-        flexWrap: 'wrap',
-        // position: 'absolute',
-        // backgroundColor: 'red',
-        fontSize: getCorrectFontSizeForScreen(w,h,13),
-        justifyContent: 'center',
-        textAlign: 'center',
-        color: Colors.errorTextColor
-
-      },
-      textbox: {
-        normal: {
-          fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          color: INPUT_COLOR,
-          fontSize: FONT_SIZE,
-          height: 45,
-          padding: 7,
-          borderRadius: 4,
-          borderColor: Colors.mainBorderColor,
-          borderWidth: 1,
-          marginBottom: 5
-        },
-        // the style applied when a validation error occours
-        error: {
-          fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          color: INPUT_COLOR,
-          fontSize: FONT_SIZE,
-          height: 45,
-          padding: 7,
-          borderRadius: 4,
-          borderColor: Colors.errorTextColor,
-          borderWidth: 1,
-          marginBottom: 5
-        },
-        // the style applied when the textbox is not editable
-        notEditable: {
-          fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          fontSize: FONT_SIZE,
-          height: 45,
-          padding: 7,
-          borderRadius: 4,
-          borderColor: Colors.mainBorderColor,
-          borderWidth: 1,
-          marginBottom: 5,
-          color: DISABLED_COLOR,
-          backgroundColor: DISABLED_BACKGROUND_COLOR
-        }
-      },
-      select: {
-        normal: {
-          backgroundColor: 'red',
-          marginBottom: 4
-        },
-        // the style applied when a validation error occours
-        error: {
-          marginBottom: 4
-        }
-      },
-      datepicker: {
-        normal: {
-          backgroundColor: 'red',
-          marginBottom: 4
-        },
-        // the style applied when a validation error occours
-        error: {
-          marginBottom: 4
-        }
-      }
-    });
+    // var stylesheet = Object.freeze({
+    //   fieldset: {
+    //     flexDirection: 'row'
+    //   },
+    //
+    //   // the style applied to the container of all inputs
+    //   formGroup: {
+    //     normal: {
+    //       flex:1,
+    //       marginBottom: 10
+    //     },
+    //     error: {
+    //       flex:1,
+    //       marginBottom: 10
+    //     }
+    //   },
+    //   controlLabel: {
+    //     normal: {
+    //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       color: Colors.secondaryTextColor,
+    //       fontSize: getCorrectFontSizeForScreen(w,h,13),
+    //       marginBottom: 7,
+    //       fontWeight: FONT_WEIGHT
+    //     },
+    //     // the style applied when a validation error occours
+    //     error: {
+    //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       color: Colors.errorTextColor,
+    //       fontSize: FONT_SIZE,
+    //       marginBottom: 7,
+    //       fontWeight: FONT_WEIGHT
+    //     }
+    //   },
+    //   helpBlock: {
+    //     normal: {
+    //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       color: Colors.helpTextColor,
+    //       fontSize: FONT_SIZE,
+    //       marginBottom: 2
+    //     },
+    //     // the style applied when a validation error occours
+    //     error: {
+    //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       color: Colors.helpTextColor,
+    //       fontSize: FONT_SIZE,
+    //       marginBottom: 2
+    //     }
+    //   },
+    //   errorBlock: {
+    //     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //     flexWrap: 'wrap',
+    //     // position: 'absolute',
+    //     // backgroundColor: 'red',
+    //     fontSize: getCorrectFontSizeForScreen(w,h,13),
+    //     justifyContent: 'center',
+    //     textAlign: 'center',
+    //     color: Colors.errorTextColor
+    //
+    //   },
+    //   textbox: {
+    //     normal: {
+    //       fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       color: INPUT_COLOR,
+    //       fontSize: FONT_SIZE,
+    //       height: 45,
+    //       padding: 7,
+    //       borderRadius: 4,
+    //       borderColor: Colors.mainBorderColor,
+    //       borderWidth: 1,
+    //       marginBottom: 5
+    //     },
+    //     // the style applied when a validation error occours
+    //     error: {
+    //       fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       color: INPUT_COLOR,
+    //       fontSize: FONT_SIZE,
+    //       height: 45,
+    //       padding: 7,
+    //       borderRadius: 4,
+    //       borderColor: Colors.errorTextColor,
+    //       borderWidth: 1,
+    //       marginBottom: 5
+    //     },
+    //     // the style applied when the textbox is not editable
+    //     notEditable: {
+    //       fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       fontSize: FONT_SIZE,
+    //       height: 45,
+    //       padding: 7,
+    //       borderRadius: 4,
+    //       borderColor: Colors.mainBorderColor,
+    //       borderWidth: 1,
+    //       marginBottom: 5,
+    //       color: DISABLED_COLOR,
+    //       backgroundColor: DISABLED_BACKGROUND_COLOR
+    //     }
+    //   },
+    //   select: {
+    //     normal: {
+    //       backgroundColor: 'red',
+    //       marginBottom: 4
+    //     },
+    //     // the style applied when a validation error occours
+    //     error: {
+    //       marginBottom: 4
+    //     }
+    //   },
+    //   datepicker: {
+    //     normal: {
+    //       backgroundColor: 'red',
+    //       marginBottom: 4
+    //     },
+    //     // the style applied when a validation error occours
+    //     error: {
+    //       marginBottom: 4
+    //     }
+    //   }
+    // });
 
 
 

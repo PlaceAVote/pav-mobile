@@ -93,7 +93,7 @@ function mapDispatchToProps(dispatch) {
 class ProfileButtons extends React.Component {
 
   onSaveClicked(){
-    console.log("Settings in profile page pressed.")
+    alert("save clicked");
   }
 
   render(){
@@ -108,7 +108,7 @@ class ProfileButtons extends React.Component {
                 backgroundColor: Colors.accentColor,
                 borderColor: Colors.mainBorderColor,
                 height:36,
-                paddingHorizontal: w*0.078,
+                paddingHorizontal: w*0.076,
                 borderRadius: 2,
               }}
               textStyle={{
