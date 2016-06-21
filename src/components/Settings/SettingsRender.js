@@ -30,7 +30,8 @@ import {StyleSheet,
   ScrollView,
   Platform,
   Picker,
-  TouchableOpacity
+  TouchableOpacity,
+  Switch
 } from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -64,6 +65,117 @@ const {
 
 
 
+// here we are: define your domain model
+const ResidenceEmailFields = t.struct({
+  residence: t.maybe(t.String),  // an optional string
+  email: t.maybe(t.String)  // an optional string
+});
+
+
+const FORM_INPUT_COLOR = Colors.thirdTextColor;
+const FORM_DISABLED_COLOR = '#777777';
+const FORM_DISABLED_BACKGROUND_COLOR = '#eeeeee';
+const FORM_FONT_SIZE = getCorrectFontSizeForScreen(w,h,10);
+const FORM_FONT_WEIGHT = '500';
+
+const formStyles = Object.freeze({
+  fieldset: {
+    flexDirection: 'column'
+  },
+
+  // the style applied to the container of all inputs
+  formGroup: {
+    normal: {
+      flex:1,
+      paddingVertical: h*0.008,
+      // marginBottom: 10
+    },
+    error: {
+      flex:1,
+      paddingVertical: h*0.008,
+      // marginBottom: 10
+    }
+  },
+  controlLabel: {
+    normal: {
+      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      // color: Colors.secondaryTextColor,
+      color: Colors.fourthTextColor,
+      fontSize: getCorrectFontSizeForScreen(w,h,10),
+      marginBottom: 7,
+      fontWeight: FORM_FONT_WEIGHT
+    },
+    // the style applied when a validation error occours
+    error: {
+      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      color: Colors.errorTextColor,
+      fontSize: FORM_FONT_SIZE,
+      marginBottom: 7,
+      fontWeight: FORM_FONT_WEIGHT
+    }
+  },
+  helpBlock: {
+    normal: {
+      color: Colors.helpTextColor,
+      fontSize: FORM_FONT_SIZE,
+      marginBottom: 2
+    },
+    // the style applied when a validation error occours
+    error: {
+      color: Colors.helpTextColor,
+      fontSize: FORM_FONT_SIZE,
+      marginBottom: 2
+    }
+  },
+  errorBlock: {
+    fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    flexWrap: 'wrap',
+    // position: 'absolute',
+    // backgroundColor: 'red',
+    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    justifyContent: 'center',
+    textAlign: 'center',
+    color: Colors.errorTextColor
+    // color:'green',
+
+  },
+  textbox: {
+    normal: {
+      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      color: FORM_INPUT_COLOR,
+      // backgroundColor:'red',
+      fontSize: FORM_FONT_SIZE,
+      // height: 45,
+      paddingVertical: h*0.022,
+      paddingHorizontal: w*0.018,
+      borderRadius: 1,
+      borderColor: Colors.mainBorderColor,
+      borderWidth: 1,
+    },
+    // the style applied when a validation error occours
+    error: {
+      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      color: FORM_INPUT_COLOR,
+      fontSize: FORM_FONT_SIZE,
+      height: 45,
+      borderRadius: 1,
+      borderColor: Colors.errorTextColor,
+      borderWidth: 1,
+
+    },
+    // the style applied when the textbox is not editable
+    notEditable: {
+      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontSize: FORM_FONT_SIZE,
+      height: 36,
+      borderRadius: 1,
+      borderColor: Colors.mainBorderColor,
+      borderWidth: 1,
+      color: FORM_DISABLED_COLOR,
+      backgroundColor: FORM_DISABLED_BACKGROUND_COLOR
+    }
+  }
+});
 
 
 
@@ -145,6 +257,12 @@ class SettingsRender extends React.Component {
     alert("On date")
   }
 
+  onResidenceFinishedEditing(){
+    if(this.props.form.isValid.get(SETTINGS) && !this.props.form.isFetching){
+        this.refs.settingsForm.getComponent('email').refs.input.focus();
+    }
+  }
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -157,6 +275,48 @@ class SettingsRender extends React.Component {
 
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
+    // form_styles
+    let formOptions = {
+      stylesheet: formStyles,
+      auto: 'placeholders',
+      fields: {
+        residence:{
+          label: 'Residence',
+          maxLength: 50,
+          editable: !this.props.form.isFetching,
+          hasError: this.props.form.fields.emailHasError || this.props.form.error,
+          error: this.props.form.error || 'Please give us a valid email address.',
+          placeholder: 'Los Angeles',
+          returnKeyType: 'next',
+          blurOnSubmit : true,
+          onSubmitEditing: this.onResidenceFinishedEditing,
+          underlineColorAndroid: Colors.accentColor,
+          autoCorrect: false,
+          autoCapitalize:'none',
+          placeholderTextColor: Colors.secondaryTextColor,
+          // autoFocus: true,
+          // keyboardType: "email-address"
+        },
+        email: {
+          label: 'Email',
+          maxLength: 50,
+          editable: !this.props.form.isFetching,
+          hasError: this.props.form.fields.emailHasError || this.props.form.error,
+          error: this.props.form.error || 'Please give us a valid email address.',
+          placeholder: 'mail@example.com',
+          returnKeyType: 'done',
+          blurOnSubmit : true,
+          // onSubmitEditing: this.onEmailFinishedEditing,
+          underlineColorAndroid: Colors.accentColor,
+          autoCorrect: false,
+          autoCapitalize:'words',
+          placeholderTextColor: Colors.secondaryTextColor,
+          // autoFocus: true,
+          keyboardType: "email-address"
+
+        }
+      }
+    };
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
         <View style={styles.container}>
@@ -181,17 +341,49 @@ class SettingsRender extends React.Component {
                 ></PavImage>
 
                 <View style={styles.dobPronounContainer}>
-
                   <TouchableInput title="Preferred Pronoun " value="His " onTap={this.onPronounClick.bind(this)}/>
                   <TouchableInput title="Date of Birth " value="28/08/1990 " onTap={this.onDateClick.bind(this)}/>
-
                 </View>
+              </View>
 
+              <Form
+                ref="settingsForm"
+                type={ResidenceEmailFields}
+                options={formOptions}
+              />
+            </View>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>
+                PASSWORD & PRIVACY SETTINGS
+              </Text>
+            </View>
+            <View style={styles.passwordPrivacyContainer}>
+              <View style={styles.isPrivateTitleContainer}>
+                <Text style={styles.isPrivateTitle}>
+                  Make my profile page private so no one can view it
+                </Text>
+              </View>
+
+              <View style={styles.isPrivateValueContainer}>
+                <View style={styles.isPrivateValueTextContainer}>
+                  <Text style={styles.isPrivateTitle}>
+                    Private:
+                  </Text>
+                  <Text style={styles.isPrivateValueText}>
+                    (Currently set to <Text style={styles.isPrivateValueCurSetText}>{this.state.isPrivate===false?"public":"private"})</Text>
+                  </Text>
+                </View>
+                <View style={styles.switchContainer}>
+                  <Switch
+                    onValueChange={(value) => this.setState({isPrivate:value})}
+                    onTintColor={Colors.accentColor}
+                    thumbTintColor={Colors.primaryColor}
+
+                    value={this.state.isPrivate} />
+                </View>
               </View>
 
             </View>
-
-
 
           </ScrollView>
         </View>
@@ -242,6 +434,7 @@ class SettingsRender extends React.Component {
           // flex:1,
           flexDirection:"column",
           paddingHorizontal: w*0.022,
+          paddingBottom:h*0.008,
           // backgroundColor:'pink'
         },
 
@@ -256,7 +449,7 @@ class SettingsRender extends React.Component {
         titleText:{
           color: Colors.primaryColor,
           fontFamily: 'Whitney-Bold',
-          fontSize: getCorrectFontSizeForScreen(w,h,9),
+          fontSize: getCorrectFontSizeForScreen(w,h,8),
         },
 
         imgDobPronounContainer:{
@@ -277,6 +470,50 @@ class SettingsRender extends React.Component {
           paddingLeft: w*0.015,
           justifyContent:'center'
         },
+
+
+
+
+        passwordPrivacyContainer:{
+          flexDirection:"column",
+          paddingHorizontal: w*0.022,
+          paddingBottom:h*0.008,
+        },
+        isPrivateTitleContainer:{
+          paddingVertical:h*0.015,
+        },
+        isPrivateTitle:{
+          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+          fontSize: getCorrectFontSizeForScreen(w,h,10),
+          color: Colors.fourthTextColor,
+        },
+        isPrivateValueContainer:{
+          paddingVertical:h*0.015,
+          flexDirection:'row',
+        },
+        isPrivateValueTextContainer:{
+          flex:1,
+          flexDirection:'row',
+          justifyContent:'space-between',
+          alignItems:'center',
+          paddingRight: w*0.025,
+          // backgroundColor:'pink'
+        },
+        switchContainer:{
+          // backgroundColor:'purple',
+          alignItems:'center'
+        },
+        isPrivateValueText:{
+          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+          fontSize: getCorrectFontSizeForScreen(w,h,9),
+          color: Colors.secondaryTextColor,
+        },
+        isPrivateValueCurSetText:{
+          fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+          fontSize: getCorrectFontSizeForScreen(w,h,9),
+          color: Colors.secondaryTextColor,
+        },
+
 
 
 

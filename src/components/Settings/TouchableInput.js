@@ -38,6 +38,7 @@ const styles=StyleSheet.create({
     paddingHorizontal: w*0.018,
     paddingVertical: h*0.008,
     borderWidth:1,
+    borderRadius:1,
     borderColor: Colors.mainBorderColor
   },
   inputLabelContainer:{
@@ -46,7 +47,7 @@ const styles=StyleSheet.create({
     justifyContent:'space-between',
   },
   inputDropdownIcon:{
-    color: Colors.sixthTextColor,
+    color: Colors.secondaryTextColor,
   },
   inputTitleTextContainer:{
     paddingVertical: h*0.004,
@@ -59,7 +60,7 @@ const styles=StyleSheet.create({
   inputValueText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     fontSize: getCorrectFontSizeForScreen(w,h,9),
-    color: Colors.sixthTextColor,
+    color: Colors.secondaryTextColor,
   }
 
 

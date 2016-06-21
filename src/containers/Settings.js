@@ -299,11 +299,8 @@ class Settings extends React.Component {
   render() {
     return(
       <SettingsRender
-          auth={ this.props.auth }
-          global={ this.props.global }
           device={ this.props.device}
-          newsfeed={this.props.newsfeed}
-
+          form={this.props.auth.form}
       />
 
     );
