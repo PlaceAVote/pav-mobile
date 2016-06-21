@@ -258,14 +258,8 @@ class SettingsRender extends React.Component {
    * *Note* that the fields will be validated by the settingsReducer
    */
   onFormFieldChange(value) {
-    this.setState({formValue:value})
     // console.log("Initial change: "+JSON.stringify(value));
-    // if (value.residence != null) {
-    //   this.props.onFieldChange('city',value.residence);
-    // }
-    // if (value.email != null) {
-    //   this.props.onFieldChange('email',value.email);
-    // }
+    this.setState({formValue:value})
   }
 
 
@@ -297,6 +291,10 @@ class SettingsRender extends React.Component {
 
   onTermsOfServiceClick(){
     alert("on terms of service")
+  }
+
+  onIsPrivateChange(isPrivate){
+    this.props.onFieldChange('isPrivate', isPrivate);
   }
 
 
@@ -417,16 +415,16 @@ class SettingsRender extends React.Component {
                     Private:
                   </Text>
                   <Text style={styles.isPrivateValueText}>
-                    (Currently set to <Text style={styles.isPrivateValueCurSetText}>{this.state.isPrivate===true?"private":"public"})</Text>
+                    (Currently set to <Text style={styles.isPrivateValueCurSetText}>{this.props.fields.isPrivate===true?"private":"public"})</Text>
                   </Text>
                 </View>
                 <View style={styles.switchContainer}>
                   <Switch
-                    onValueChange={(value) => this.setState({isPrivate:value})}
+                    onValueChange={this.onIsPrivateChange.bind(this)}
                     onTintColor={Colors.accentColor}
                     thumbTintColor={Colors.primaryColor}
-                    disabled={(this.props.isFetching===false)}
-                    value={(this.props.fields.public===false)} />
+                    disabled={(this.props.isFetching===true)}
+                    value={(this.props.fields.isPrivate===true)} />
                 </View>
 
               </View>
