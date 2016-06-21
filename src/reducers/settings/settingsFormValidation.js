@@ -1,5 +1,5 @@
 /**
- * # authFormValidation.js
+ * # settingsFormValidation.js
  *
  * This class determines only if the form is valid
  * so that the form button can be enabled.
@@ -14,22 +14,34 @@
  *
  * As there are only two fields, the form is valid if they are
  */
-export default function formValidation (state) {
-    if (state.form.fields.username != ''
+export function formValidation (state) {
+  let fields = state.get("form").get("fields");
+    if (
+        (fields.get("email")!=null && fields.get("emailHasError")!=null)
         &&
-        state.form.fields.email !== ''
+        (fields.get("firstNameHasError")!=null && fields.get("firstNameHasError")!=null)
         &&
-        !state.form.fields.usernameHasError
+        (fields.get("lastNameHasError")!=null && fields.get("lastNameHasError")!=null)
         &&
-        !state.form.fields.emailHasError
+        (fields.get("genderHasError")!=null && fields.get("genderHasError")!=null)
         &&
-        (state.form.fields.username != state.form.originalProfile.username
-        ||
-         state.form.fields.email != state.form.originalProfile.email)
+        (fields.get("dobHasError")!=null && fields.get("dobHasError")!=null)
+        &&
+        (fields.get("isPrivate")!=null && fields.get("isPrivate")!=null)
+        &&
+        (fields.get("stateHasError")!=null && fields.get("stateHasError")!=null)
+        &&
+        (fields.get("districtHasError")!=null && fields.get("districtHasError")!=null)
+        &&
+        (fields.get("zipCodeHasError")!=null && fields.get("zipCodeHasError")!=null)
+        &&
+        (fields.get("cityHasError")!=null && fields.get("cityHasError")!=null)
+        &&
+        (fields.get("imgUrlHasError")!=null && fields.get("imgUrlHasError")!=null)
        ) {
-      return state.setIn(['form','isValid', state.form.state],true);
+      return state.setIn(['form','isValid'],true);
     } else {
-      return state.setIn(['form','isValid', state.form.state],false);
+      return state.setIn(['form','isValid'],false);
     }
 
   return state;

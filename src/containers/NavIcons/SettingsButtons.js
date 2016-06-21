@@ -1,5 +1,5 @@
 /**
- * ProfileButtons.js
+ * SettingsButtons.js
  *
  * Our nav bar icons in the profile page
  */
@@ -90,14 +90,14 @@ function mapDispatchToProps(dispatch) {
 
 
 
-class ProfileButtons extends React.Component {
+class SettingsButtons extends React.Component {
 
   onSaveClicked(){
     alert("save clicked");
   }
 
   render(){
-    let isFetchingSettings = (this.props.settings.get("isFetching").get("settings")===true);
+    let isFetchingSettings = (this.props.settings.get("form").get("isFetching").get("settings")===true);
     return (
         <View style={{ flex:1, flexDirection:'row', justifyContent:'flex-end', alignItems:'flex-end', paddingBottom:h*0.008}}>
           <View style={{ flexDirection:'row', justifyContent:'flex-end', alignItems:'center', paddingHorizontal: w*0.012, }}>
@@ -129,4 +129,4 @@ class ProfileButtons extends React.Component {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileButtons);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsButtons);

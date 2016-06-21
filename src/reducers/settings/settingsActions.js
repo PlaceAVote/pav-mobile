@@ -30,10 +30,21 @@ const {
   GET_SETTINGS_REQUEST,
   GET_SETTINGS_SUCCESS,
   GET_SETTINGS_FAILURE,
+
+  ON_SETTINGS_FORM_FIELD_CHANGE
 } = ActionNames
 
 
-
+/**
+ * ## onSettingsFormFieldChange
+ * Set the payload so the reducer can work on it
+ */
+export function onSettingsFormFieldChange(field, value) {
+  return {
+    type: ON_SETTINGS_FORM_FIELD_CHANGE,
+    payload: {field: field, value: value}
+  };
+}
 
 
 /**

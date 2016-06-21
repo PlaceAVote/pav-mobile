@@ -14,45 +14,50 @@ import  {Record, List, Map} from 'immutable';
 import {Other} from '../../config/constants';
 // const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
+import moment from 'moment';
 /**
  * ##
  * This Record contains the state of the news feed and the
  * fields it contains.
  *
  */
-var InitialState = Record({
-  disabled: false,
-  error: null,
-  // isValid: false,
-  isFetching: new (Record({
-    settings: false,
-  })),
-  form: new (Record({
-    email: null,
-    firstName:null,
-    lastName:null,
-    gender:null,
-    dob:null,
-    isPrivate: null,
-    state:null,
-    district:null,
-    zipCode:null,
-    city: null,
-    imgUrl: null,
+const Form = Record({
 
-    emailHasError: false,
-    firstNameHasError: false,
-    lastNameHasError: false,
-    genderHasError: false,
-    dobHasError: false,
-    isPrivate: false,
-    stateHasError: false,
-    districtHasError: false,
-    zipCodeHasError: false,
-    cityHasError: false,
-    imgUrlHasError: false
 
-  })),
+    disabled: false,
+    error: null,
+    isValid: false,
+    isFetching: new (Record({
+      settings: false,
+    })),
+
+    fields: new (Record({
+      name: null,
+      nameHasError:false,
+      surname: null,
+      surnameHasError:false,
+
+      email: null,
+      emailHasError: false,
+      dateOfBirth: moment().format('x'),
+      dateOfBirthIsCurBeingPicked: false,
+      zipCode: null,
+      zipCodeHasError: false,
+      gender:null,
+      genderIsCurBeingPicked: false,
+      isPrivate: null,
+
+      city: null,
+      cityHasError: null,
+
+      imgUrl: null,
+      imgHasError: null
+
+
+    }))
 });
 
+var InitialState = Record({
+  form: new Form,
+});
 export default InitialState;

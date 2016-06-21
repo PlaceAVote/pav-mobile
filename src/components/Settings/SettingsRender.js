@@ -13,6 +13,8 @@
 import Button from 'sp-react-native-iconbutton'
 
 import PavSpinner from '../../lib/UI/PavSpinner'
+import {toTitleCase} from '../../lib/Utils/genericUtils'
+
 
 import moment from 'moment'
 /**
@@ -157,7 +159,8 @@ const formStyles = Object.freeze({
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
       color: FORM_INPUT_COLOR,
       fontSize: FORM_FONT_SIZE,
-      height: 45,
+      height: h*0.052,
+      paddingHorizontal: w*0.018,
       borderRadius: 1,
       borderColor: Colors.errorTextColor,
       borderWidth: 1,
@@ -167,7 +170,8 @@ const formStyles = Object.freeze({
     notEditable: {
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
       fontSize: FORM_FONT_SIZE,
-      height: 36,
+      height: h*0.052,
+      paddingHorizontal: w*0.018,
       borderRadius: 1,
       borderColor: Colors.mainBorderColor,
       borderWidth: 1,
@@ -185,6 +189,7 @@ class SettingsRender extends React.Component {
     this.state={
       enabled: false,
       genderPickerCollapsed: true,
+      formValue: {}
 
     }
   }
@@ -243,6 +248,26 @@ class SettingsRender extends React.Component {
   }
 
 
+  /**
+   * ### onFormFieldChange
+   *
+   * As the user enters keys, this is called for each key stroke.
+   * Rather then publish the rules for each of the fields, I find it
+   * better to display the rules required as long as the field doesn't
+   * meet the requirements.
+   * *Note* that the fields will be validated by the settingsReducer
+   */
+  onFormFieldChange(value) {
+    this.setState({formValue:value})
+    // console.log("Initial change: "+JSON.stringify(value));
+    // if (value.residence != null) {
+    //   this.props.onFieldChange('city',value.residence);
+    // }
+    // if (value.email != null) {
+    //   this.props.onFieldChange('email',value.email);
+    // }
+  }
+
 
   onImageEditClick(){
     if(this.props.isFetching===false){
@@ -262,7 +287,7 @@ class SettingsRender extends React.Component {
   }
 
   onResidenceFinishedEditing(){
-    if(this.props.form.isValid.get(SETTINGS) && (this.props.isFetching===false)){
+    if(this.props.fields.isValid.get(SETTINGS) && (this.props.isFetching===false)){
         this.refs.settingsForm.getComponent('email').refs.input.focus();
     }
   }
@@ -295,9 +320,9 @@ class SettingsRender extends React.Component {
           label: 'Residence',
           maxLength: 50,
           editable: (this.props.isFetching===false),
-          hasError: this.props.form.cityHasError || this.props.form.error,
-          error: this.props.form.error || 'Please give us a valid email address.',
-          placeholder: this.props.form.city || 'Los Angeles',
+          hasError: this.props.fields.cityHasError || this.props.fields.error,
+          error: this.props.fields.error || 'Please give us a valid email address.',
+          placeholder: this.props.fields.city || 'Los Angeles',
           returnKeyType: 'next',
           blurOnSubmit : true,
           onSubmitEditing: this.onResidenceFinishedEditing,
@@ -311,9 +336,9 @@ class SettingsRender extends React.Component {
         email: {
           label: 'Email',
           maxLength: 50,
-          hasError: this.props.form.emailHasError || this.props.form.error,
-          error: this.props.form.error || 'Please give us a valid email address.',
-          placeholder: this.props.form.email || 'mail@example.com',
+          hasError: this.props.fields.emailHasError || this.props.fields.error,
+          error: this.props.fields.error || 'Please give us a valid email address.',
+          placeholder: this.props.fields.email || 'mail@example.com',
           returnKeyType: 'done',
           blurOnSubmit : true,
           // onSubmitEditing: this.onEmailFinishedEditing,
@@ -346,13 +371,13 @@ class SettingsRender extends React.Component {
                   style={styles.userImg}
                   key="settings_user_img"
                   defaultSource={defaultUserPhoto}
-                  source={{uri: this.props.form.imgUrl}}
+                  source={{uri: this.props.fields.imgUrl}}
                   resizeMode='contain'
                 >
                   <View style={styles.imgEditBtnContainer}>
                     <Button
                     onPress={this.onImageEditClick.bind(this)}
-                    isDisabled={(this.props.form.imgUrl==null)}
+                    isDisabled={(this.props.fields.imgUrl==null)}
                     style={styles.imgEditBtn}
                     textStyle={styles.imgEditBtnText}>
                     EDIT
@@ -360,9 +385,9 @@ class SettingsRender extends React.Component {
                   </View>
                 </PavImage>
 
-                <View style={styles.dobGenderContainer}>
-                  <TouchableInput title="Gender " value={this.props.form.gender} onTap={this.onGenderClick.bind(this)}/>
-                  <TouchableInput title="Date of Birth " value={this.props.form.dob} onTap={this.onDateClick.bind(this)}/>
+                <View style={styles.dateOfBirthGenderContainer}>
+                  <TouchableInput title="Gender " value={toTitleCase(this.props.fields.gender)} onTap={this.onGenderClick.bind(this)}/>
+                  <TouchableInput title="Date of Birth " value={moment(this.props.fields.dateOfBirth, 'x').format('MM/DD/YYYY')} onTap={this.onDateClick.bind(this)}/>
                 </View>
               </View>
 
@@ -370,6 +395,8 @@ class SettingsRender extends React.Component {
                 ref="settingsForm"
                 type={ResidenceEmailFields}
                 options={formOptions}
+                value={this.state.formValue}
+                onChange={this.onFormFieldChange.bind(this)}
               />
             </View>
             <View style={styles.titleContainer}>
@@ -399,7 +426,7 @@ class SettingsRender extends React.Component {
                     onTintColor={Colors.accentColor}
                     thumbTintColor={Colors.primaryColor}
                     disabled={(this.props.isFetching===false)}
-                    value={(this.props.form.public===false)} />
+                    value={(this.props.fields.public===false)} />
                 </View>
 
               </View>
@@ -523,7 +550,7 @@ class SettingsRender extends React.Component {
           fontSize: getCorrectFontSizeForScreen(w,h,7)
         },
 
-        dobGenderContainer:{
+        dateOfBirthGenderContainer:{
           flex:1,
           flexDirection:'column',
           // backgroundColor:'pink',
@@ -597,7 +624,26 @@ class SettingsRender extends React.Component {
       });
     }
 
+    componentWillUpdate(nextProps, nextState){
+      // console.log("New state: "+JSON.stringify(nextState));
+      // if(nextState.formValue){
+      //   console.log("First check: "+(nextState.formValue!=null));
+      //   console.log("Second check: "+(nextState.formValue.residence!=null));
+      //   console.log("Third check: "+(nextState.formValue.residence!==this.state.formValue.residence));
+      // }
+      if(nextState.formValue!=null){
+        if(nextState.formValue.residence!=null && (this.state.formValue.residence==null || (nextState.formValue.residence!==this.state.formValue.residence))){
+          this.props.onFieldChange('city', nextState.formValue.residence);
+        }
+        if(nextState.formValue.email!=null && (this.state.formValue.email==null || (nextState.formValue.email!==this.state.formValue.email))){
+          this.props.onFieldChange('email', nextState.formValue.email);
+        }
+      }
 
+
+
+
+    }
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   // console.log("########### Cur user update: "+(nextProps.curUser !== this.props.curUser));
@@ -614,7 +660,7 @@ SettingsRender.defaultProps= {
   // firstName:null,
   // lastName:null,
   // gender:null,
-  // dob:null,
+  // dateOfBirth:null,
   // state:null,
   // district:null,
   // zipCode:null,
@@ -630,7 +676,7 @@ SettingsRender.propTypes= {
   //   React.PropTypes.string,
   //   React.PropTypes.number,
   // ]),
-  // onFetchOlderTimelineData:React.PropTypes.func.isRequired,
+  onFieldChange:React.PropTypes.func.isRequired,
 
 };
 export default SettingsRender;

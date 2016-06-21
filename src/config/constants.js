@@ -398,6 +398,11 @@ module.exports =  {
 
 
    /*  Settings  */
+
+
+   ON_SETTINGS_FORM_FIELD_CHANGE:null,
+
+
    SET_SETTINGS_REQUEST: null,
    SET_SETTINGS_SUCCESS: null,
    SET_SETTINGS_FAILURE: null,

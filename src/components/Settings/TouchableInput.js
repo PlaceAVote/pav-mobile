@@ -107,7 +107,7 @@ class TouchableInput extends React.Component {
 
 TouchableInput.propTypes= {
   title:React.PropTypes.string.isRequired,
-  value:React.PropTypes.string.isRequired,
+  value:React.PropTypes.string,
   onTap: React.PropTypes.func.isRequired,
 };
 export default TouchableInput;

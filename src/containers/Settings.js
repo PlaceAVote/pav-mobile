@@ -296,12 +296,19 @@ class Settings extends React.Component {
   // }
 
 
+  onFieldChange(field, value) {
+    this.props.actions.onSettingsFormFieldChange(field, value);
+  }
+
   render() {
+    let form = this.props.settings.form;
+    // console.log("FORM@ "+form);
     return(
       <SettingsRender
           device={ this.props.device}
-          form={this.props.settings.form}
-          isFetching={this.props.settings.get("isFetching").get("settings")}
+          fields={form.get("fields").toJS()}
+          isFetching={form.get("isFetching").get("settings")}
+          onFieldChange={this.onFieldChange.bind(this)}
       />
 
     );
