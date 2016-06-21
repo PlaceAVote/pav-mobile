@@ -97,31 +97,32 @@ class ProfileButtons extends React.Component {
   }
 
   render(){
-      return (
-          <View style={{ flex:1, flexDirection:'row', justifyContent:'flex-end', alignItems:'flex-end', paddingBottom:h*0.008}}>
-            <View style={{ flexDirection:'row', justifyContent:'flex-end', alignItems:'center', paddingHorizontal: w*0.012, }}>
-              <Button
-              onPress={this.onSaveClicked.bind(this)}
-              isDisabled={this.props.settings.isFetching.updateSettings===true}
-              loading={this.props.settings.isFetching.updateSettings===true}
-              style={{
-                backgroundColor: Colors.accentColor,
-                borderColor: Colors.mainBorderColor,
-                height:36,
-                paddingHorizontal: w*0.076,
-                borderRadius: 2,
-              }}
-              textStyle={{
-                color: Colors.mainTextColor,
-                textAlign: 'center',
-                fontFamily: 'Whitney',
-                fontSize: getCorrectFontSizeForScreen(w,h,13)
-              }}>
-              Save
-              </Button>
-            </View>
+    let isFetchingSettings = (this.props.settings.get("isFetching").get("settings")===true);
+    return (
+        <View style={{ flex:1, flexDirection:'row', justifyContent:'flex-end', alignItems:'flex-end', paddingBottom:h*0.008}}>
+          <View style={{ flexDirection:'row', justifyContent:'flex-end', alignItems:'center', paddingHorizontal: w*0.012, }}>
+            <Button
+            onPress={this.onSaveClicked.bind(this)}
+            isDisabled={isFetchingSettings}
+            isLoading={isFetchingSettings}
+            style={{
+              backgroundColor: Colors.accentColor,
+              borderColor: Colors.mainBorderColor,
+              height:36,
+              paddingHorizontal: w*0.076,
+              borderRadius: 2,
+            }}
+            textStyle={{
+              color: Colors.mainTextColor,
+              textAlign: 'center',
+              fontFamily: 'Whitney',
+              fontSize: getCorrectFontSizeForScreen(w,h,13)
+            }}>
+            Save
+            </Button>
           </View>
-      );
+        </View>
+    );
   }
 }
 

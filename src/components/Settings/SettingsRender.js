@@ -146,7 +146,7 @@ const formStyles = Object.freeze({
       // backgroundColor:'red',
       fontSize: FORM_FONT_SIZE,
       // height: 45,
-      paddingVertical: h*0.022,
+      height: h*0.052,
       paddingHorizontal: w*0.018,
       borderRadius: 1,
       borderColor: Colors.mainBorderColor,
@@ -183,12 +183,8 @@ class SettingsRender extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      gender:null,
-      dob:null,
-      residence:null,
-      email:null,
-      isPrivate:null,
-      pronounPickerCollapsed: true,
+      enabled: false,
+      genderPickerCollapsed: true,
 
     }
   }
@@ -250,28 +246,39 @@ class SettingsRender extends React.Component {
 
 
 
-  onPronounClick(){
-    alert("On pronoun")
+  onGenderClick(){
+    if(this.props.isFetching===false){
+        alert("On gender"+(this.props.isFetching===false))
+    }
   }
   onDateClick(){
-    alert("On date")
+    if(this.props.isFetching===false){
+      alert("On date"+(this.props.isFetching===false))
+    }
   }
 
   onResidenceFinishedEditing(){
-    if(this.props.form.isValid.get(SETTINGS) && !this.props.form.isFetching){
+    if(this.props.form.isValid.get(SETTINGS) && (this.props.isFetching===false)){
         this.refs.settingsForm.getComponent('email').refs.input.focus();
     }
   }
+  onPrivacyPolicyClick(){
+    alert("On privacy policy")
+  }
+
+  onTermsOfServiceClick(){
+    alert("on terms of service")
+  }
+
+
+
+
 
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
-
-
-
-
 
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
@@ -283,10 +290,10 @@ class SettingsRender extends React.Component {
         residence:{
           label: 'Residence',
           maxLength: 50,
-          editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.emailHasError || this.props.form.error,
+          editable: (this.props.isFetching===false),
+          hasError: this.props.form.cityHasError || this.props.form.error,
           error: this.props.form.error || 'Please give us a valid email address.',
-          placeholder: 'Los Angeles',
+          placeholder: this.props.form.city || 'Los Angeles',
           returnKeyType: 'next',
           blurOnSubmit : true,
           onSubmitEditing: this.onResidenceFinishedEditing,
@@ -300,10 +307,9 @@ class SettingsRender extends React.Component {
         email: {
           label: 'Email',
           maxLength: 50,
-          editable: !this.props.form.isFetching,
-          hasError: this.props.form.fields.emailHasError || this.props.form.error,
+          hasError: this.props.form.emailHasError || this.props.form.error,
           error: this.props.form.error || 'Please give us a valid email address.',
-          placeholder: 'mail@example.com',
+          placeholder: this.props.form.email || 'mail@example.com',
           returnKeyType: 'done',
           blurOnSubmit : true,
           // onSubmitEditing: this.onEmailFinishedEditing,
@@ -311,8 +317,8 @@ class SettingsRender extends React.Component {
           autoCorrect: false,
           autoCapitalize:'words',
           placeholderTextColor: Colors.secondaryTextColor,
-          // autoFocus: true,
-          keyboardType: "email-address"
+          editable: (this.props.isFetching===false),
+          keyboardType: "email-address",
 
         }
       }
@@ -331,7 +337,7 @@ class SettingsRender extends React.Component {
             </View>
 
             <View style={styles.accountSettingsContainer}>
-              <View style={styles.imgDobPronounContainer}>
+              <View style={styles.imgDobGenderContainer}>
                 <PavImage
                   style={styles.userImg}
                   key="settings_user_img"
@@ -340,9 +346,9 @@ class SettingsRender extends React.Component {
                   resizeMode='contain'
                 ></PavImage>
 
-                <View style={styles.dobPronounContainer}>
-                  <TouchableInput title="Preferred Pronoun " value="His " onTap={this.onPronounClick.bind(this)}/>
-                  <TouchableInput title="Date of Birth " value="28/08/1990 " onTap={this.onDateClick.bind(this)}/>
+                <View style={styles.dobGenderContainer}>
+                  <TouchableInput title="Gender " value={this.props.form.gender} onTap={this.onGenderClick.bind(this)}/>
+                  <TouchableInput title="Date of Birth " value={this.props.form.dob} onTap={this.onDateClick.bind(this)}/>
                 </View>
               </View>
 
@@ -370,7 +376,7 @@ class SettingsRender extends React.Component {
                     Private:
                   </Text>
                   <Text style={styles.isPrivateValueText}>
-                    (Currently set to <Text style={styles.isPrivateValueCurSetText}>{this.state.isPrivate===false?"public":"private"})</Text>
+                    (Currently set to <Text style={styles.isPrivateValueCurSetText}>{this.state.isPrivate===true?"private":"public"})</Text>
                   </Text>
                 </View>
                 <View style={styles.switchContainer}>
@@ -378,10 +384,30 @@ class SettingsRender extends React.Component {
                     onValueChange={(value) => this.setState({isPrivate:value})}
                     onTintColor={Colors.accentColor}
                     thumbTintColor={Colors.primaryColor}
-
-                    value={this.state.isPrivate} />
+                    disabled={(this.props.isFetching===false)}
+                    value={(this.props.form.public===false)} />
                 </View>
+
               </View>
+
+              <View style={styles.privacyPolicyBtnContainer}>
+                <Button
+                onPress={this.onPrivacyPolicyClick.bind(this)}
+                style={styles.privacyPolicyBtn}
+                textStyle={styles.privacyPolicyBtnText}>
+                Read our privacy policy
+                </Button>
+              </View>
+
+              <View style={styles.privacyPolicyBtnContainer}>
+                <Button
+                onPress={this.onTermsOfServiceClick.bind(this)}
+                style={styles.privacyPolicyBtn}
+                textStyle={styles.privacyPolicyBtnText}>
+                Read our terms of service
+                </Button>
+              </View>
+
 
             </View>
 
@@ -390,15 +416,15 @@ class SettingsRender extends React.Component {
     );
   }
   // <Collapsible
-  // collapsed={this.state.pronounPickerCollapsed}
+  // collapsed={this.state.genderPickerCollapsed}
   // style={{backgroundColor:'blue'}}
   // align="center"
   // onChange={
-  //   (collapsed)=>{this.setState({pronounPickerCollapsed:collapsed})}
+  //   (collapsed)=>{this.setState({genderPickerCollapsed:collapsed})}
   // }
   // >
   //   <Picker
-  //     style={styles.pronounPicker}
+  //     style={styles.genderPicker}
   //     selectedValue={this.state.gender}
   //     onValueChange={(gender) => this.setState({gender: gender})}>
   //     <Picker.Item label="His" value="male" />
@@ -452,7 +478,7 @@ class SettingsRender extends React.Component {
           fontSize: getCorrectFontSizeForScreen(w,h,8),
         },
 
-        imgDobPronounContainer:{
+        imgDobGenderContainer:{
           flexDirection:'row',
           paddingVertical:h*0.015,
           alignItems:'center',
@@ -463,7 +489,7 @@ class SettingsRender extends React.Component {
           height:h*0.21,
         },
 
-        dobPronounContainer:{
+        dobGenderContainer:{
           flex:1,
           flexDirection:'column',
           // backgroundColor:'pink',
@@ -513,6 +539,23 @@ class SettingsRender extends React.Component {
           fontSize: getCorrectFontSizeForScreen(w,h,9),
           color: Colors.secondaryTextColor,
         },
+        privacyPolicyBtnContainer:{
+          paddingVertical: h*0.015,
+        },
+        privacyPolicyBtn:{
+          backgroundColor: "#E1E1E1",
+          borderColor: Colors.mainBorderColor,
+          paddingVertical: h*0.013,
+          paddingHorizontal: w*0.076,
+          borderRadius: 1,
+        },
+        privacyPolicyBtnText:{
+          color: Colors.fourthTextColor,
+          textAlign: 'center',
+          fontFamily: 'Whitney',
+          fontSize: getCorrectFontSizeForScreen(w,h,9)
+        }
+
 
 
 
@@ -521,43 +564,34 @@ class SettingsRender extends React.Component {
     }
 
 
+
   // shouldComponentUpdate(nextProps, nextState) {
   //   // console.log("########### Cur user update: "+(nextProps.curUser !== this.props.curUser));
   //   return(
-  //     (nextProps.device !== this.props.device)
-  //     // ||
-  //     // (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
-  //     // ||
-  //     // (nextProps.isFetchingOldTimelineData !== this.props.isFetchingOldTimelineData)
-  //     // ||
-  //     // (nextProps.isFetchingProfile !== this.props.isFetchingProfile)
-  //     // ||
-  //     // (nextProps.isFetchingFollow !== this.props.isFetchingFollow)
-  //     // ||
-  //     // (nextProps.curUser !== this.props.curUser)
-  //     // ||
-  //     // (nextState.dataSource !== this.state.dataSource)
-  //     // ||
-  //     // (nextProps.lastActivityTimestamp !== this.props.lastActivityTimestamp)
-  //     // ||
-  //     // (nextProps.voteCnt !== this.props.voteCnt)
-  //     // ||
-  //     // (nextProps.followerCnt !== this.props.followerCnt)
-  //     // ||
-  //     // (nextProps.followingCnt !== this.props.followingCnt)
-  //     // ||
-  //     // (nextProps.currentlyFollowingUser !== this.props.currentlyFollowingUser)
+  //     (nextProps.form !== this.props.form)
   //   );
   // }
 }
 
 
-
+SettingsRender.defaultProps= {
+  isPrivate: false,
+  // email: null,
+  // firstName:null,
+  // lastName:null,
+  // gender:null,
+  // dob:null,
+  // state:null,
+  // district:null,
+  // zipCode:null,
+  // city: null,
+  // imgUrl: null
+}
 SettingsRender.propTypes= {
   // timelineData: React.PropTypes.object,
-  curUser: React.PropTypes.object,
+  form: React.PropTypes.object,
   // device: React.PropTypes.object.isRequired,
-  // isTab: React.PropTypes.bool,
+  isFetching: React.PropTypes.bool,
   // followingCnt: React.PropTypes.oneOfType([
   //   React.PropTypes.string,
   //   React.PropTypes.number,

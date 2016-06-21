@@ -1,7 +1,7 @@
 /**
- * # profileActions.js
+ * # settingsActions.js
  *
- * The actions to support the users profile
+ * The actions to support the users settings
  */
 'use strict';
 /**
@@ -23,75 +23,137 @@ import UserInfoStore from '../../lib/Storage/UserInfoStore';
 
 
 const {
+  SET_SETTINGS_REQUEST,
+  SET_SETTINGS_SUCCESS,
+  SET_SETTINGS_FAILURE,
 
-
+  GET_SETTINGS_REQUEST,
+  GET_SETTINGS_SUCCESS,
+  GET_SETTINGS_FAILURE,
 } = ActionNames
 
 
 
 
 
-//
-// /**
-//  * ## retreiving profile actions
-//  */
-// export function getProfileRequest() {
-//   return {
-//     type: GET_PROFILE_REQUEST
-//   };
-// }
-// export function getProfileSuccess(json, shouldUpdateState=true) {
-//   return {
-//     type: GET_PROFILE_SUCCESS,
-//     payload: json,
-//     shouldUpdateState: shouldUpdateState
-//   };
-// }
-// export function getProfileFailure(json) {
-//   return {
-//     type: GET_PROFILE_FAILURE,
-//     payload: json
-//   };
-// }
-// /**
-//  * ## State actions
-//  * controls which form is displayed to the user
-//  * as in login, register, logout or reset password
-//  */
-// export function getProfile(userId = null, dev = null, sessionToken=null) {
-//   return async function (dispatch){
-//     dispatch(getProfileRequest());
-//     //store or get a sessionToken
-//     let token = sessionToken;
-//     try{
-//       if(!sessionToken){
-//         let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
-//         token = tk.sessionToken;
-//       }
-//     }catch(e){
-//       console.log("Unable to fetch past token in profileActions.getProfile() with error: "+e.message);
-//       dispatch(getProfileFailure(e.message));
-//       return {data: null, error: e.message};
-//     }
-//     // console.log("Get profile called for userId: "+userId+" dev?: "+dev+" and token: "+(sessionToken!=null)+" oo token: "+token);
-//     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.profile({
-//       userId: userId
-//     });
-//     // console.log("RES: "+JSON.stringify(res));
-//     if(!!res.error){
-//       console.log("Error in profile call"+res.error.error_message);
-//       dispatch(getProfileFailure("Unable to get user profile data with this token."));
-//       return {data: null, error: res.error.error_message};
-//     }else{
-//       dispatch(getProfileSuccess(res.data, (userId == null)));
-//       if(userId==null){
-//         saveBasicUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address})
-//         dispatch(setUserData(res.data));
-//       }
-//       return {data: res.data, error: null};
-//     }
-//   };
-// }
-//
-//
-//
+/**
+ * ## retreiving user account settings
+ */
+export function getSettingsRequest() {
+  return {
+    type: GET_SETTINGS_REQUEST
+  };
+}
+export function getSettingsSuccess(json) {
+  return {
+    type: GET_SETTINGS_SUCCESS,
+    payload: json
+  };
+}
+export function getSettingsFailure(json) {
+  return {
+    type: GET_SETTINGS_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function getSettings(sessionToken=null, dev = null) {
+  return async function (dispatch){
+    dispatch(getSettingsRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+      if(!sessionToken){
+        let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+        token = tk.sessionToken;
+      }
+    }catch(e){
+      console.log("Unable to fetch past token in settingsActions.getSettings() with error: "+e.message);
+      dispatch(getSettingsFailure(e.message));
+      return {data: null, error: e.message};
+    }
+    // console.log("TOK: "+token+ " isDev: "+dev);
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.getSettings();
+    // console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in settings call"+res.error);
+      dispatch(getSettingsFailure("Unable to set user settings data with this token."));
+      return {data: null, error: res.error};
+    }else{
+      dispatch(getSettingsSuccess(res.data));
+      // if(userId==null){
+        // saveBasicUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address})
+      //   dispatch(setUserData(res.data));
+      // }
+      return {data: res.data, error: null};
+    }
+  };
+}
+
+
+
+
+
+
+
+
+/**
+ * ## setting user account settings
+ */
+export function setSettingsRequest() {
+  return {
+    type: SET_SETTINGS_REQUEST
+  };
+}
+export function setSettingsSuccess(json) {
+  return {
+    type: SET_SETTINGS_SUCCESS,
+    payload: json
+  };
+}
+export function setSettingsFailure(json) {
+  return {
+    type: SET_SETTINGS_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function setSettings(data, sessionToken=null, dev = null) {
+  return async function (dispatch){
+    dispatch(setSettingsRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+      if(!sessionToken){
+        let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+        token = tk.sessionToken;
+      }
+    }catch(e){
+      console.log("Unable to fetch past token in settingsActions.setSettings() with error: "+e.message);
+      dispatch(setSettingsFailure(e.message));
+      return {data: null, error: e.message};
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.setSettings(data);
+    console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in settings call"+res.error.error_message);
+      dispatch(setSettingsFailure("Unable to set user settings data with this token."));
+      return {data: null, error: res.error.error_message};
+    }else{
+      dispatch(setSettingsSuccess(res.data));
+      // if(userId==null){
+        // saveBasicUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address})
+      //   dispatch(setUserData(res.data));
+      // }
+      return {data: res.data, error: null};
+    }
+  };
+}

@@ -396,6 +396,16 @@ module.exports =  {
    GET_NOTIFICATIONS_SUCCESS: null,
    GET_NOTIFICATIONS_FAILURE: null,
 
+
+   /*  Settings  */
+   SET_SETTINGS_REQUEST: null,
+   SET_SETTINGS_SUCCESS: null,
+   SET_SETTINGS_FAILURE: null,
+
+   GET_SETTINGS_REQUEST: null,
+   GET_SETTINGS_SUCCESS: null,
+   GET_SETTINGS_FAILURE: null,
+
     /* Not yet implemented */
    //  DELETE_TOKEN_REQUEST: null,
    //  DELETE_TOKEN_SUCCESS: null,

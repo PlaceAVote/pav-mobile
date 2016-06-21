@@ -25,7 +25,33 @@ var InitialState = Record({
   error: null,
   // isValid: false,
   isFetching: new (Record({
-    updateSettings: false,
+    settings: false,
+  })),
+  form: new (Record({
+    email: null,
+    firstName:null,
+    lastName:null,
+    gender:null,
+    dob:null,
+    isPrivate: null,
+    state:null,
+    district:null,
+    zipCode:null,
+    city: null,
+    imgUrl: null,
+
+    emailHasError: false,
+    firstNameHasError: false,
+    lastNameHasError: false,
+    genderHasError: false,
+    dobHasError: false,
+    isPrivate: false,
+    stateHasError: false,
+    districtHasError: false,
+    zipCodeHasError: false,
+    cityHasError: false,
+    imgUrlHasError: false
+
   })),
 });
 

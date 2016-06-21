@@ -22,11 +22,12 @@ import { connect } from 'react-redux';
  * The actions we need
  */
 // import * as authActions from '../reducers/auth/authActions';
-import * as routingActions from '../reducers/routing/routingActions';
-import * as deviceActions from '../reducers/device/deviceActions';
-import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
-import * as billActions from '../reducers/bill/billActions';
+// import * as routingActions from '../reducers/routing/routingActions';
+// import * as deviceActions from '../reducers/device/deviceActions';
+// import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 // import * as billActions from '../reducers/bill/billActions';
+import * as settingsActions from '../reducers/settings/settingsActions';
+
 
 
 
@@ -84,6 +85,7 @@ const actions = [
   // deviceActions,
   // newsfeedActions,
   // billActions
+  settingsActions
 ];
 
 function mapStateToProps(state) {
@@ -122,15 +124,13 @@ class Settings extends React.Component {
   }
 
   componentWillMount(){
-    if(this.props.newsfeed.newsFeedData.items==null){
-      // this.connectAndGetFeed(false);
-    }
+    this.connectAndGetSettings();
   }
 
-  // async connectAndGetFeed(fetchOld){
-  //   // console.log("@@@ NEWS FEED - is dev: "+this.props.global.isDev);
-  //   return await this.props.actions.getFeedItems(fetchOld, this.TOKEN, this.props.global.isDev);
-  // }
+  async connectAndGetSettings(fetchOld){
+    // console.log("@@@ SETTINGS - is dev: "+this.props.global.isDev+" token: "+this.TOKEN);
+    return await this.props.actions.getSettings(this.TOKEN, this.props.global.isDev);
+  }
   // async getDiscoveryItemsForTopic(topicString){
   //   return await this.props.actions.getDiscoveryItems(topicString, this.TOKEN, this.props.global.isDev);
   // }
@@ -300,7 +300,8 @@ class Settings extends React.Component {
     return(
       <SettingsRender
           device={ this.props.device}
-          form={this.props.auth.form}
+          form={this.props.settings.form}
+          isFetching={this.props.settings.get("isFetching").get("settings")}
       />
 
     );
