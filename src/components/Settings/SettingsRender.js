@@ -244,7 +244,11 @@ class SettingsRender extends React.Component {
 
 
 
-
+  onImageEditClick(){
+    if(this.props.isFetching===false){
+        alert("On img edit")
+    }
+  }
 
   onGenderClick(){
     if(this.props.isFetching===false){
@@ -342,9 +346,19 @@ class SettingsRender extends React.Component {
                   style={styles.userImg}
                   key="settings_user_img"
                   defaultSource={defaultUserPhoto}
-                  source={{uri: this.props.curUser}}
+                  source={{uri: this.props.form.imgUrl}}
                   resizeMode='contain'
-                ></PavImage>
+                >
+                  <View style={styles.imgEditBtnContainer}>
+                    <Button
+                    onPress={this.onImageEditClick.bind(this)}
+                    isDisabled={(this.props.form.imgUrl==null)}
+                    style={styles.imgEditBtn}
+                    textStyle={styles.imgEditBtnText}>
+                    EDIT
+                    </Button>
+                  </View>
+                </PavImage>
 
                 <View style={styles.dobGenderContainer}>
                   <TouchableInput title="Gender " value={this.props.form.gender} onTap={this.onGenderClick.bind(this)}/>
@@ -487,6 +501,26 @@ class SettingsRender extends React.Component {
         userImg:{
           width:h*0.21,
           height:h*0.21,
+        },
+        imgEditBtnContainer:{
+          flex:1,
+          justifyContent:'flex-end',
+          padding:w*0.015
+        },
+        imgEditBtn:{
+          alignSelf:'flex-end',
+          backgroundColor: 'white',
+          borderColor: Colors.mainBorderColor,
+          height:24,
+          width: w*0.075,
+          paddingHorizontal: w*0.085,
+          borderRadius: 2,
+        },
+        imgEditBtnText:{
+          color: Colors.primaryColor,
+          textAlign: 'center',
+          fontFamily: 'Whitney-Bold',
+          fontSize: getCorrectFontSizeForScreen(w,h,7)
         },
 
         dobGenderContainer:{
