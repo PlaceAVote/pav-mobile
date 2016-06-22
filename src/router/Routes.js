@@ -125,7 +125,7 @@ class Routes extends React.Component{
   constructor(props){
     super(props);
   }
-
+  
   componentWillMount(){
     let self = this;
     BackAndroid.addEventListener('hardwareBackPress', function() {
@@ -133,6 +133,9 @@ class Routes extends React.Component{
         case ScheneKeys.SPLASH_SCREEN:
         case ScheneKeys.ONBOARDING:
         case ScheneKeys.MAIN:
+        case ScheneKeys.TAB_NEWS:
+        case ScheneKeys.TAB_NOTIFS:
+        case ScheneKeys.TAB_PROFILE:
           return false;
         default:
           self.props.actions.navigateToPrevious();
