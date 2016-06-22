@@ -1,14 +1,14 @@
 
             #!/bin/sh
-option="${1}" 
+option="${1}"
 if [ "${2}" != '' ]; then
     VERSION="v${2}"
 else
     VERSION="latest"
-fi  
+fi
 
 PROJECT_DIR=`pwd`
-BIN_DIR="/bin/"  # the dir on which the apk will be stored 
+BIN_DIR="/bin/"  # the dir on which the apk will be stored
 APK_FILENAME="PlaceAVoteApp_${VERSION}.apk" #form the apk filename
 IPA_FILENAME="PlaceAVoteApp_${VERSION}.ipa" #form the apk filename
 APPLE_TEAM_ID="35WUYAWLQM"
@@ -18,7 +18,7 @@ IOS=2
 
 
 
-ReleaseAndroid () { 
+ReleaseAndroid () {
     cd ${PROJECT_DIR}/android
     { # my 'try' block
         ./gradlew assembleRelease &&
@@ -100,15 +100,15 @@ case ${option} in
     { # my 'try' block
         ReleaseAndroid && UploadToBucket ${ANDROID} && success_droid=0
     } || { # your 'catch' block
-        printf "\nBuild on Android Failed. Moving on to iOS.\n"  
+        printf "\nBuild on Android Failed. Moving on to iOS.\n"
     }
-    
+
 
     printf "\nNow building and releasing for iOS"
     { # my 'try' block
         ReleaseIos && UploadToBucket ${IOS} && success_ios=0
-    } || { # your 'catch' block 
-        printf "\nBuild on iOS Failed. Process terminating.\n"  
+    } || { # your 'catch' block
+        printf "\nBuild on iOS Failed. Process terminating.\n"
     }
 
     if [ $success_droid -eq 0 -a $success_ios -eq 0 ] ; then
@@ -120,16 +120,16 @@ case ${option} in
     fi
 
     ;;
-    -a) 
-        printf "\nNow building for Android."  
+    -a)
+        printf "\nNow building for Android."
         ReleaseAndroid
         exit 0
     ;;
     -[ua][ua])
-    printf "\nNow uploading and releasing for android"
+    printf "\nNow uploading the existing android version"
         { # my 'try' block
             UploadToBucket ${ANDROID} && printf "\nSuccess: The apk can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}  \n" && exit 0
-        } || { # your 'catch' block 
+        } || { # your 'catch' block
             printf "\nUpload Failed. Process terminating.\n"
         }
     ;;
@@ -138,9 +138,9 @@ case ${option} in
         printf "\nNow building and releasing for android"
         { # my 'try' block
             ReleaseAndroid && UploadToBucket ${ANDROID} && printf "\nSuccess: The apk can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}  \n" &&
-            printf "New mobile app build: \nA new Android version of placeavote can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}\n" | slackcat -s -t -p -c mobile-dev && 
+            printf "New mobile app build: \nA new Android version of placeavote can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/Android/${APK_FILENAME}\n" | slackcat -s -t -p -c mobile-dev &&
             exit 0
-        } || { # your 'catch' block 
+        } || { # your 'catch' block
             printf "\nBuild Failed, we got no apk to upload. Process terminating.\n"
         }
     ;;
@@ -149,10 +149,10 @@ case ${option} in
         ReleaseIos
     ;;
     -[ui][ui])
-        printf "\nNow uploading for iOS"
+        printf "\nNow uploading the existing iOS version."
         { # my 'try' block
             UploadToBucket ${IOS} && printf "\nSuccess: The (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME} \n" && exit 0
-        } || { # your 'catch' block 
+        } || { # your 'catch' block
             printf "\nUpload Failed. Process terminating.\n"
         }
     ;;
@@ -160,15 +160,14 @@ case ${option} in
         printf "\nNow building and releasing for iOS"
         { # my 'try' block
             ReleaseIos && UploadToBucket ${IOS} && printf "\nSuccess: The (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME} \n" &&
-            printf "New mobile app build: \nA new iOS version (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME} (This will work only with those with registered development devices) \n" | slackcat -s -t -p -c mobile-dev && 
+            printf "New mobile app build: \nA new iOS version (ad-hoc) ipa can now be found on https://s3-us-west-2.amazonaws.com/variousprojects/Pav-Mobile-Release/iOS/${IPA_FILENAME} (This will work only with those with registered development devices) \n" | slackcat -s -t -p -c mobile-dev &&
             exit 0
-        } || { # your 'catch' block 
+        } || { # your 'catch' block
             printf "\nBuild Failed, we got no ipa to upload. Process terminating.\n"
         }
     ;;
-    *)  
-        printf "\n`basename ${0}`:\n  usage: pavBuild -<flags> <versionString> \n     FLAGS: \n         Android: [-a] to build for Android \n         iOS: [-i] to build for iOS.\n         Both: [-b] to build for both iOS and Android. \n\n     If you also want to upload to the PlaceAVote variousprojects S3 bucket add [r] to the flags. \n\n     VERSION: \n         (Optional) Default: latest. That would be a string of the new version (i.e: 0.8.1). \n     EXAMPLE: \n         pavBuild -ir 0.8.1 \n\n         The command above would build an iOS version in the bin/PlaceAVoteApp_v0.8.1 dir and then upload it to Amazon S3.\n"  
+    *)
+        printf "\n`basename ${0}`:\n  usage: pavBuild -<flags> <versionString> \n     FLAGS: \n         Android: [-a] to build for Android \n         iOS: [-i] to build for iOS.\n         Both: [-b] to build for both iOS and Android. \n\n         Release flag: [-r] Add the `r` flag either on -a (android) or on -i (iOS) to also upload the version after a successful build. \n\n         Upload only flag: [-u] Add the `u` flag either on -a (android) or on -i (iOS) to ONLY upload the existing version if it exists. \n\n     If you also want to upload to the PlaceAVote variousprojects S3 bucket add [r] to the flags. \n\n     VERSION: \n         (Optional) Default: latest. That would be a string of the new version (i.e: 0.8.1). \n     EXAMPLE: \n         pavBuild -ir 0.8.1 \n\n         The command above would build an iOS version in the bin/PlaceAVoteApp_v0.8.1 dir and then upload it to Amazon S3.\n"  
         exit 1 # Command to come out of the program with status 1
-    ;; 
+    ;;
 esac
-

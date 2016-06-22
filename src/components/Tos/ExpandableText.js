@@ -69,7 +69,7 @@ const styles=StyleSheet.create({
     color: Colors.fifthTextColor,
     fontFamily: 'Whitney',
     fontSize: getCorrectFontSizeForScreen(w,h,8),
-    lineHeight: h*0.025,
+    lineHeight: (h*0.025) | 0,
   }
 
 
