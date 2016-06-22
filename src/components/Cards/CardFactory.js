@@ -128,11 +128,14 @@ class CardFactory extends React.Component {
   renderNotificationCards(){
     let n = this.props.itemData;
     let u = this.props.curUser;
+    // console.log("!!!: "+n.read)
+    let isRead = n.read || false;
     switch(n.type){
       case "vote":
         return (
           <NotifVoteCard
             {...this.props}
+            isRead={isRead}
             billTitle={n.bill_title}
             billId={n.bill_id}
             onBillClick={this.props.onBillClick}
@@ -141,6 +144,7 @@ class CardFactory extends React.Component {
       case "commentreply":
         return (<NotifCommentReplyCard
           {...this.props}
+          isRead={isRead}
           billTitle={n.bill_title}
           billId={n.bill_id}
           authorFullName={n.author_first_name+" "+n.author_last_name}
@@ -153,6 +157,7 @@ class CardFactory extends React.Component {
         return (
           <NotifIssueResponseCard
             {...this.props}
+            isRead={isRead}
             userId={n.user_id}
             userFullName={n.first_name+" "+n.last_name}
             emotion={n.emotional_response}
