@@ -168,7 +168,7 @@ class Routes extends React.Component{
           <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false} />
           <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" />
           <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} renderRightButton={()=><SettingsButtons/>} />
-          <Scene key={ScheneKeys.TOS} {...defaultProps} component={Tos} title="Terms of service" initial={true} />
+          <Scene key={ScheneKeys.TOS} {...defaultProps} component={Tos} title="Terms of service"/>
         </Scene>
     </RouterWithRedux>);
   }

@@ -42,7 +42,11 @@ import {Map} from 'immutable';
 import Button from 'sp-react-native-iconbutton'
 
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Platform
+} from 'react-native';
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
@@ -89,8 +93,8 @@ function mapDispatchToProps(dispatch) {
 
 
 
-
-
+const BTN_HEIGHT = 36;
+const NAV_BAR_HEIGHT = (Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44;   //nav bar height
 
 
 
@@ -109,30 +113,32 @@ class SettingsButtons extends React.Component {
 
   render(){
     let isFetchingSettings = (this.props.settings.get("form").get("isFetching").get("settings")===true);
+
     return (
-        <View style={{ flex:1, flexDirection:'row', justifyContent:'flex-end', alignItems:'flex-end', paddingBottom:h*0.008}}>
-          <View style={{ flexDirection:'row', justifyContent:'flex-end', alignItems:'center', paddingHorizontal: w*0.012, }}>
-            <Button
-            onPress={this.onSaveClicked.bind(this)}
-            isDisabled={isFetchingSettings}
-            isLoading={isFetchingSettings}
-            style={{
-              backgroundColor: Colors.accentColor,
-              borderColor: Colors.mainBorderColor,
-              height:36,
-              paddingHorizontal: w*0.076,
-              borderRadius: 2,
-            }}
-            textStyle={{
-              color: Colors.mainTextColor,
-              textAlign: 'center',
-              fontFamily: 'Whitney',
-              fontSize: getCorrectFontSizeForScreen(w,h,13)
-            }}>
-            Save
-            </Button>
-          </View>
-        </View>
+      <Button
+      onPress={this.onSaveClicked.bind(this)}
+      isDisabled={isFetchingSettings}
+      isLoading={isFetchingSettings}
+      style={{
+        backgroundColor: Colors.accentColor,
+        alignSelf:'flex-end',
+        borderColor: Colors.mainBorderColor,
+        height:BTN_HEIGHT,
+        width: w*0.25,
+        // paddingHorizontal: w*0.076,
+        marginTop: NAV_BAR_HEIGHT-BTN_HEIGHT-8,
+        marginRight: 10,
+        borderRadius: 2,
+      }}
+      textStyle={{
+
+        color: Colors.mainTextColor,
+        textAlign: 'center',
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,13)
+      }}>
+      Save
+      </Button>
     );
   }
 }
