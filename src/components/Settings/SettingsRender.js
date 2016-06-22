@@ -526,7 +526,7 @@ class SettingsRender extends React.Component {
                 </PavImage>
 
                 <View style={styles.dateOfBirthGenderContainer}>
-                  <TouchableInput title="Gender " value={toTitleCase(this.props.fields.gender)} onTap={this.onGenderClick.bind(this)}/>
+                  <TouchableInput title="Gender " value={toTitleCase(this.props.fields.gender) || "Tap to pick a gender"} onTap={this.onGenderClick.bind(this)}/>
                   <TouchableInput title="Date of Birth " value={moment(this.props.fields.dateOfBirth, 'x').format('MM/DD/YYYY')} onTap={this.onDateClick.bind(this)}/>
                 </View>
               </View>
