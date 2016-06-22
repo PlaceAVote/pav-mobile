@@ -105,7 +105,7 @@ class ProfileButtons extends React.Component {
       return (
           <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'flex-end', paddingVertical:h*0.013}}>
             <TouchableOpacity style={{paddingHorizontal:w*0.020}}>
-              <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.7)'}}/>
+              <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.1)'}}/>
             </TouchableOpacity>
             <View style={{ flexDirection:'row', justifyContent:'flex-end', alignItems:'center'}}>
               <TouchableOpacity style={{paddingHorizontal:w*0.020}} onPress={this.onSettingsBarBtnClicked.bind(this)}>

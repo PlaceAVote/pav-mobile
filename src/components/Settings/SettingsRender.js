@@ -172,8 +172,10 @@ const formStyles = Object.freeze({
     // the style applied when the textbox is not editable
     notEditable: {
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      // backgroundColor:'red',
       fontSize: FORM_FONT_SIZE,
-      height: h*0.052,
+      // height: 45,
+      height: Platform.OS=="ios"?h*0.052:h*0.072,
       paddingHorizontal: w*0.018,
       borderRadius: 1,
       borderColor: Colors.mainBorderColor,
@@ -246,8 +248,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: Colors.mainBorderColor,
     height:24,
-    width: w*0.075,
-    paddingHorizontal: w*0.085,
+    width: w*0.205,
+
     borderRadius: 2,
   },
   imgEditBtnText:{
