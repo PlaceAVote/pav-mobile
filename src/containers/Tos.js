@@ -14,18 +14,12 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CONFIG from '../config/config';
-import {
-ScheneKeys,
-Other,
-Modals,
-BillPageTabs
-} from '../config/constants';
-const {
+// import {
+// ScheneKeys,
+//
+// BillPageTabs
+// } from '../config/constants';
 
-} = Other;
-const {
-
-} = ScheneKeys;
 /**
  * The actions we need
  */

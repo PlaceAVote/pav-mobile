@@ -18,18 +18,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.BV.LinearGradient.LinearGradientPackage;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.facebook.react.ReactActivity;
-import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.github.yamill.orientation.OrientationPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 
-import java.util.Arrays;
-import java.util.List;
 
 
 public class MainActivity extends ReactActivity {
