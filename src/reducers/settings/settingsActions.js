@@ -168,7 +168,7 @@ export function setSettings(sessionToken=null, dev = null) {
       "city": fields.city,
       "zipcode": fields.zipCode
     });
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in settings call"+res.error.error_message);
       dispatch(setSettingsFailure("Unable to set user settings data with this token."));
@@ -234,13 +234,13 @@ export function updateProfilePhoto(base64ImageObject, sessionToken=null, dev = n
       return {data: null, error: e.message};
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.updateProfilePhoto({imgData:base64ImageObject});
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in settings call"+res.error);
       dispatch(updateProfilePhotoFailure("Unable to update the user photo with this token."));
       return {data: null, error: res.error};
     }else{
-      dispatch(updateProfilePhotoSuccess(res.data));
+      dispatch(updateProfilePhotoSuccess(res.data.img_url));
       return {data: res.data, error: null};
     }
   };

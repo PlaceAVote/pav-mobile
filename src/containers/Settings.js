@@ -79,24 +79,15 @@ import CONFIG from '../config/config';
 
 import {
 ScheneKeys,
-Other,
-BillPageTabs,
 Modals
 } from '../config/constants';
 const {
   GENDER_PICK,
   DATE_PICK
 } = Modals;
+
 const {
-  NEWS_FEED_FILTERS,
-  REACTIONS,
-  SOCIAL_TYPES
-} = Other;
-const {
-  MAIN,
-  BILL,
-  COMMENTS,
-  PROFILE
+  TOS
 } = ScheneKeys;
 
 
@@ -323,7 +314,8 @@ class Settings extends React.Component {
 
 
   onTermsOfServiceClick(){
-    alert("On terms of service click")
+    // alert("On terms of service click")
+    this.props.actions.navigateTo(TOS)
   }
 
   onImageEditClick(){

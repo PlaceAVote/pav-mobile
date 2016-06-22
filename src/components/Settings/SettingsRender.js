@@ -53,7 +53,7 @@ import AccordionPicker from '../EmailSignUp/AccordionPicker';
  */
 import t from 'tcomb-form-native';
 let Form = t.form.Form;
-import Collapsible from 'react-native-collapsible'
+
 import TouchableInput from './TouchableInput';
 
 import InputGenderModalBox from '../Modals/InputGenderModalBox';
@@ -598,15 +598,7 @@ class SettingsRender extends React.Component {
         </View>
     );
   }
-  // <Collapsible
-  // collapsed={this.state.genderPickerCollapsed}
-  // style={{backgroundColor:'blue'}}
-  // align="center"
-  // onChange={
-  //   (collapsed)=>{this.setState({genderPickerCollapsed:collapsed})}
-  // }
-  // >
-  // </Collapsible>
+
 
     componentWillUpdate(nextProps, nextState){
       // console.log("New state: "+JSON.stringify(nextState));

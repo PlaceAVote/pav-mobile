@@ -74,14 +74,16 @@ export default function settingsReducer(state = initialState, action) {
 
     case UPDATE_PHOTO_SUCCESS:
 
-      if(!!action.payload && isOfObjectType(action.payload, OBJECT_TYPES.STRING)){
-        return state.setIn([ 'form', 'isFetching', 'photoUpdate'], false)
-        .setIn(['form', 'fields', 'imgUrl'], action.payload)
-        .setIn(['form', 'error'], null);
-      }else{
-        return state.setIn([ 'form', 'isFetching', 'photoUpdate'], false)
-        .setIn(['form', 'error'], null);
-      }
+      // if(!!action.payload && isOfObjectType(action.payload, OBJECT_TYPES.STRING)){
+      //   return state.setIn([ 'form', 'isFetching', 'photoUpdate'], false)
+      //   .setIn(['form', 'fields', 'imgUrl'], action.payload)
+      //   .setIn(['form', 'error'], null);
+      // }else{
+      //
+      // }
+      return state.setIn([ 'form', 'isFetching', 'photoUpdate'], false)
+      .setIn(['form', 'fields', 'imgUrl'], action.payload)
+      .setIn(['form', 'error'], null);
 
 
     case GET_SETTINGS_SUCCESS:

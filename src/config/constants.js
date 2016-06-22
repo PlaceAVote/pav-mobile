@@ -59,7 +59,7 @@ module.exports =  {
     PROFILE:null,
     NEWISSUE: null,
     SETTINGS: null,
-
+    TOS: null,
   }),
   BillPageTabs: {
     SUMMARY: 0,
