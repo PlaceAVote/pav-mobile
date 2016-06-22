@@ -151,7 +151,7 @@ const formStyles = Object.freeze({
       // backgroundColor:'red',
       fontSize: FORM_FONT_SIZE,
       // height: 45,
-      height: h*0.052,
+      height: Platform.OS=="ios"?h*0.052:h*0.072,
       paddingHorizontal: w*0.018,
       borderRadius: 1,
       borderColor: Colors.mainBorderColor,
@@ -162,7 +162,7 @@ const formStyles = Object.freeze({
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
       color: FORM_INPUT_COLOR,
       fontSize: FORM_FONT_SIZE,
-      height: h*0.052,
+      height: Platform.OS=="ios"?h*0.052:h*0.072,
       paddingHorizontal: w*0.018,
       borderRadius: 1,
       borderColor: Colors.errorTextColor,
@@ -187,7 +187,148 @@ const formStyles = Object.freeze({
 
 
 
+const styles = StyleSheet.create({
 
+
+  container: {
+    flex:1,
+    flexDirection: 'column',
+    // paddingBottom:self.props.isTab===false?0:50, //tab bar height
+    paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+    backgroundColor: 'white',
+    // marginVertical: 10,
+    // marginHorizontal:15
+  },
+  scroller:{
+    flex:1,
+  },
+
+
+  accountSettingsContainer:{
+    // flex:1,
+    flexDirection:"column",
+    paddingHorizontal: w*0.022,
+    paddingBottom:h*0.008,
+    // backgroundColor:'pink'
+  },
+
+  titleContainer:{
+    backgroundColor: Colors.titleBgColorDark,
+    borderBottomColor: "rgba(0, 0, 0, 0.07)",
+    borderBottomWidth: 1,
+    paddingHorizontal: w*0.020,
+    paddingVertical: h*0.015,
+  },
+
+  titleText:{
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+
+  imgDobGenderContainer:{
+    flexDirection:'row',
+    paddingVertical:h*0.015,
+    alignItems:'center',
+    // backgroundColor:'orange'
+  },
+  userImg:{
+    width:h*0.21,
+    height:h*0.21,
+  },
+  imgEditBtnContainer:{
+    flex:1,
+    justifyContent:'flex-end',
+    padding:w*0.015
+  },
+  imgEditBtn:{
+    alignSelf:'flex-end',
+    backgroundColor: 'white',
+    borderColor: Colors.mainBorderColor,
+    height:24,
+    width: w*0.075,
+    paddingHorizontal: w*0.085,
+    borderRadius: 2,
+  },
+  imgEditBtnText:{
+    color: Colors.primaryColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,7)
+  },
+
+  dateOfBirthGenderContainer:{
+    flex:1,
+    flexDirection:'column',
+    // backgroundColor:'pink',
+    paddingLeft: w*0.015,
+    justifyContent:'center'
+  },
+
+
+
+
+  passwordPrivacyContainer:{
+    flexDirection:"column",
+    paddingHorizontal: w*0.022,
+    paddingBottom:h*0.008,
+  },
+  isPrivateTitleContainer:{
+    paddingVertical:h*0.015,
+  },
+  isPrivateTitle:{
+    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    color: Colors.fourthTextColor,
+  },
+  isPrivateValueContainer:{
+    paddingVertical:h*0.015,
+    flexDirection:'row',
+  },
+  isPrivateValueTextContainer:{
+    flex:1,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    paddingRight: w*0.025,
+    // backgroundColor:'pink'
+  },
+  switchContainer:{
+    // backgroundColor:'purple',
+    alignItems:'center'
+  },
+  isPrivateValueText:{
+    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    color: Colors.secondaryTextColor,
+  },
+  isPrivateValueCurSetText:{
+    fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    color: Colors.secondaryTextColor,
+  },
+  privacyPolicyBtnContainer:{
+    paddingVertical: h*0.015,
+  },
+  privacyPolicyBtn:{
+    backgroundColor: "#E1E1E1",
+    borderColor: Colors.mainBorderColor,
+    paddingVertical: h*0.013,
+    paddingHorizontal: w*0.076,
+    borderRadius: 1,
+  },
+  privacyPolicyBtnText:{
+    color: Colors.fourthTextColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,9)
+  }
+
+
+
+
+
+});
 
 
 
@@ -223,184 +364,6 @@ class SettingsRender extends React.Component {
   }
 
 
-
-
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      container: {
-        flex:1,
-        flexDirection: 'column',
-        // paddingBottom:self.props.isTab===false?0:50, //tab bar height
-        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
-        backgroundColor: 'white',
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-      scroller:{
-        flex:1,
-      },
-
-
-      accountSettingsContainer:{
-        // flex:1,
-        flexDirection:"column",
-        paddingHorizontal: w*0.022,
-        paddingBottom:h*0.008,
-        // backgroundColor:'pink'
-      },
-
-      titleContainer:{
-        backgroundColor: Colors.titleBgColorDark,
-        borderBottomColor: "rgba(0, 0, 0, 0.07)",
-        borderBottomWidth: 1,
-        paddingHorizontal: w*0.020,
-        paddingVertical: h*0.015,
-      },
-
-      titleText:{
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-
-      imgDobGenderContainer:{
-        flexDirection:'row',
-        paddingVertical:h*0.015,
-        alignItems:'center',
-        // backgroundColor:'orange'
-      },
-      userImg:{
-        width:h*0.21,
-        height:h*0.21,
-      },
-      imgEditBtnContainer:{
-        flex:1,
-        justifyContent:'flex-end',
-        padding:w*0.015
-      },
-      imgEditBtn:{
-        alignSelf:'flex-end',
-        backgroundColor: 'white',
-        borderColor: Colors.mainBorderColor,
-        height:24,
-        width: w*0.075,
-        paddingHorizontal: w*0.085,
-        borderRadius: 2,
-      },
-      imgEditBtnText:{
-        color: Colors.primaryColor,
-        textAlign: 'center',
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,7)
-      },
-
-      dateOfBirthGenderContainer:{
-        flex:1,
-        flexDirection:'column',
-        // backgroundColor:'pink',
-        paddingLeft: w*0.015,
-        justifyContent:'center'
-      },
-
-
-
-
-      passwordPrivacyContainer:{
-        flexDirection:"column",
-        paddingHorizontal: w*0.022,
-        paddingBottom:h*0.008,
-      },
-      isPrivateTitleContainer:{
-        paddingVertical:h*0.015,
-      },
-      isPrivateTitle:{
-        fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-        fontSize: getCorrectFontSizeForScreen(w,h,10),
-        color: Colors.fourthTextColor,
-      },
-      isPrivateValueContainer:{
-        paddingVertical:h*0.015,
-        flexDirection:'row',
-      },
-      isPrivateValueTextContainer:{
-        flex:1,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-        paddingRight: w*0.025,
-        // backgroundColor:'pink'
-      },
-      switchContainer:{
-        // backgroundColor:'purple',
-        alignItems:'center'
-      },
-      isPrivateValueText:{
-        fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-        color: Colors.secondaryTextColor,
-      },
-      isPrivateValueCurSetText:{
-        fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-        color: Colors.secondaryTextColor,
-      },
-      privacyPolicyBtnContainer:{
-        paddingVertical: h*0.015,
-      },
-      privacyPolicyBtn:{
-        backgroundColor: "#E1E1E1",
-        borderColor: Colors.mainBorderColor,
-        paddingVertical: h*0.013,
-        paddingHorizontal: w*0.076,
-        borderRadius: 1,
-      },
-      privacyPolicyBtnText:{
-        color: Colors.fourthTextColor,
-        textAlign: 'center',
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,9)
-      }
-
-
-
-
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-      container: {
-        // backgroundColor: 'orange',
-        flex:1,
-        flexDirection: 'column',
-        marginVertical: 10,
-        marginHorizontal:10
-      },
-
-      titleText: {
-        // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,27),
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-      }
-
-    });
-  }
 
 
   formUserLocationText(user){
@@ -487,7 +450,6 @@ class SettingsRender extends React.Component {
    */
   render() {
 
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // form_styles
     let formOptions = {
@@ -530,7 +492,7 @@ class SettingsRender extends React.Component {
         }
       }
     };
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+
     return(
         <View style={styles.container}>
           <ScrollView

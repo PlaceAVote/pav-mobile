@@ -10,7 +10,8 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Picker
+  TouchableNativeFeedback,
+  DatePickerAndroid
 } from 'react-native';
 
 
@@ -28,11 +29,12 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 import moment from 'moment';
 
-class InputGenderModalBox extends React.Component {
+class InputBirthdayModalBox extends React.Component {
     constructor(){
         super();
+        this.datePickerIsOpen=false;
         this.state={
-          gender:"male"
+          date: new Date(),
         }
     }
 
@@ -42,10 +44,10 @@ class InputGenderModalBox extends React.Component {
             modal: {
                 // justifyContent: 'center',
                 // alignItems: 'center',
-                height: (h*0.40),
+                height: (h*0.45),
                 // width: w*1,
                 // paddingBottom:(h*0.08)+extraBottomSpace,
-                backgroundColor: '#00000088'
+                // backgroundColor: 'red'
                 // backgroundColor: Colors.transparentColor,
 
             },
@@ -120,22 +122,23 @@ class InputGenderModalBox extends React.Component {
               flex:1,
               // width: w*1,
               // flexDirection:'row',
-              backgroundColor: Colors.titleBgColor,
+              // backgroundColor: Colors.titleBgColor,
+              backgroundColor:'white',
               justifyContent:'center',
               // paddingHorizontal:w*0.01,
               // paddingVertical:w*0.018,
               borderRadius:2,
             },
 
-            genderPickerContainer:{
+            datePickerContainer:{
               flex:1,
-              // backgroundColor:'green',
-              // justifyContent:'center',
-            },
-            genderPicker:{
-              // flex:1,
+              justifyContent:'center',
               // backgroundColor:'red',
-              // width: w*1,
+            },
+            datePicker:{
+              // flex:1,
+              // backgroundColor:'green',
+              alignSelf:'center',
             },
 
 
@@ -184,9 +187,10 @@ class InputGenderModalBox extends React.Component {
     }
 
 
+
     onDone(){
-      if(!!this.props.onGenderProvided){
-        this.props.onGenderProvided(this.state.gender);
+      if(!!this.props.onDateProvided){
+        this.props.onDateProvided(moment(this.state.date).format('x'));
       }
     }
 
@@ -196,63 +200,60 @@ class InputGenderModalBox extends React.Component {
       }
     }
 
+    onDateChange(date){
+      this.setState({date:date});
+    }
 
+
+
+
+    async openDatepicker(){
+      console.log("Datepicker is open: "+this.datePickerIsOpen);
+      if(this.props.isOpen===true && this.datePickerIsOpen===false){
+        this.datePickerIsOpen = true;
+        try {
+           const {action, year, month, day} = await DatePickerAndroid.open({date: new Date()})
+           console.log("Date action: "+action);
+           if (action === DatePickerAndroid.dismissedAction) {
+             this.props.onClose();
+             this.datePickerIsOpen = false;
+           } else {
+             var newDate = new Date(year, month, day);
+             this.props.onDateProvided(moment(newDate).format('x'));
+             this.datePickerIsOpen = false;
+           }
+          //  this.setState(newState);
+         } catch ({code, message}) {
+           console.log("DatePickerAndroid failed: "+message);
+           this.props.onClose();
+         }
+       }
+
+    }
 
     render(){
-      let styles = this.getStyles(this.props.extraBottomSpace);
-        return (
-            <Modal
-                backdrop={true}
-                animationDuration={200}
-                swipeThreshold={90}
-                style={styles.modal}
-                position="bottom"
-                swipeToClose={false}
-                isOpen={this.props.isOpen}
-                onClosed={this.onClose.bind(this)}
-              >
-
-              <View style={styles.content}>
-                <View style={styles.btnContainer}>
-                  <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
-                      <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
-                      <View style={styles.closeBtnTextContainer}>
-                        <Text style={styles.closeBtnText}>CLOSE</Text>
-                      </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={this.onDone.bind(this)} style={styles.doneBtnContainer}>
-                      <View style={styles.doneBtnTextContainer}>
-                        <Text style={styles.doneBtnText}>DONE</Text>
-                      </View>
-                      <PavIcon name="add" size={17} style={styles.doneBtnIcon}/>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.genderPickerContainer}>
-                  <Picker
-                    style={styles.genderPicker}
-                    selectedValue={this.state.gender}
-                    onValueChange={(gender) => this.setState({gender: gender})}>
-                    <Picker.Item label="Male" value="male" />
-                    <Picker.Item label="Female" value="female" />
-                    <Picker.Item label="Non-binary" value="non-binary" />
-                  </Picker>
-                </View>
 
 
-              </View>
-            </Modal>
-        );
+
+      this.openDatepicker();
+
+
+
+      return (
+          <View></View>
+      );
     }
+
 }
 
 
-InputGenderModalBox.defaultProps={
+InputBirthdayModalBox.defaultProps={
     extraBottomSpace:0
 }
-InputGenderModalBox.propTypes= {
+InputBirthdayModalBox.propTypes= {
   isOpen: React.PropTypes.bool.isRequired,
   onClose: React.PropTypes.func.isRequired,
-  onGenderProvided: React.PropTypes.func.isRequired,
+  onDateProvided: React.PropTypes.func.isRequired,
   extraBottomSpace: React.PropTypes.number
 };
-module.exports = InputGenderModalBox;
+module.exports = InputBirthdayModalBox;
