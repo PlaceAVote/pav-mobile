@@ -9,7 +9,8 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  DatePickerIOS
 } from 'react-native';
 
 
@@ -27,11 +28,11 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 import moment from 'moment';
 
-class InputGenderModalBox extends React.Component {
+class InputBirthdayModalBox extends React.Component {
     constructor(){
         super();
         this.state={
-          gender:""
+          date: new Date()
         }
     }
 
@@ -39,23 +40,23 @@ class InputGenderModalBox extends React.Component {
     getStyles(extraBottomSpace){
         return StyleSheet.create({
             modal: {
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: (h*0.33+extraBottomSpace),
-                width: w*1,
-                paddingBottom:(h*0.08)+extraBottomSpace,
-                // backgroundColor: '#00000088'
-                backgroundColor: Colors.transparentColor,
+                // justifyContent: 'center',
+                // alignItems: 'center',
+                height: (h*0.45),
+                // width: w*1,
+                // paddingBottom:(h*0.08)+extraBottomSpace,
+                // backgroundColor: 'red'
+                // backgroundColor: Colors.transparentColor,
 
             },
 
 
+
             btnContainer:{
               // flex:1,
-              width: w*0.9,
               flexDirection:'row',
               justifyContent:'space-between',
-              // backgroundColor:'red'
+              backgroundColor:Colors.primaryColor
             },
             closeBtnContainer:{
               // paddingVertical: h*0.015,
@@ -100,13 +101,14 @@ class InputGenderModalBox extends React.Component {
             },
             doneBtnText:{
               backgroundColor: Colors.transparentColor,
-              color: Colors.mainTextColor,
+              // color: Colors.mainTextColor,
+              color: Colors.accentColor,
               fontFamily: 'Whitney-Bold',
               fontSize: getCorrectFontSizeForScreen(w,h,7),
               textAlign:'center'
             },
             doneBtnIcon:{
-              color: Colors.mainTextColor,
+              color: Colors.accentColor,
               backgroundColor: Colors.transparentColor,
             },
 
@@ -116,15 +118,26 @@ class InputGenderModalBox extends React.Component {
 
             content:{
               flex:1,
-              flexDirection:'row',
-              backgroundColor: Colors.titleBgColor,
+              // width: w*1,
+              // flexDirection:'row',
+              // backgroundColor: Colors.titleBgColor,
+              backgroundColor:'white',
               justifyContent:'center',
-              paddingHorizontal:w*0.01,
-              paddingVertical:w*0.018,
+              // paddingHorizontal:w*0.01,
+              // paddingVertical:w*0.018,
               borderRadius:2,
             },
 
-
+            datePickerContainer:{
+              flex:1,
+              justifyContent:'center',
+              // backgroundColor:'red',
+            },
+            datePicker:{
+              // flex:1,
+              // backgroundColor:'green',
+              alignSelf:'center',
+            },
 
 
 
@@ -172,9 +185,10 @@ class InputGenderModalBox extends React.Component {
     }
 
 
+
     onDone(){
-      if(!!this.props.onGenderProvided){
-        this.props.onGenderProvided(this.state.gender);
+      if(!!this.props.onDateProvided){
+        this.props.onDateProvided(moment(this.state.date).format('x'));
       }
     }
 
@@ -184,7 +198,9 @@ class InputGenderModalBox extends React.Component {
       }
     }
 
-
+    onDateChange(date){
+      this.setState({date:date});
+    }
 
     render(){
       let styles = this.getStyles(this.props.extraBottomSpace);
@@ -195,58 +211,52 @@ class InputGenderModalBox extends React.Component {
                 swipeThreshold={90}
                 style={styles.modal}
                 position="bottom"
-                swipeToClose={true}
+                swipeToClose={false}
                 isOpen={this.props.isOpen}
                 onClosed={this.onClose.bind(this)}
               >
-              <View style={styles.btnContainer}>
-                <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
-                    <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
-                    <View style={styles.closeBtnTextContainer}>
-                      <Text style={styles.closeBtnText}>CLOSE</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.onDone.bind(this)} style={styles.doneBtnContainer}>
-                    <PavIcon name="add" size={17} style={styles.doneBtnIcon}/>
-                    <View style={styles.doneBtnTextContainer}>
-                      <Text style={styles.doneBtnText}>Done</Text>
-                    </View>
-                </TouchableOpacity>
-              </View>
+
               <View style={styles.content}>
-                <View style={styles.pasteLinkTextContainer}>
-                  <Text  style={styles.pasteLinkText}>Paste Link: </Text>
+                <View style={styles.btnContainer}>
+                  <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
+                      <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
+                      <View style={styles.closeBtnTextContainer}>
+                        <Text style={styles.closeBtnText}>CLOSE</Text>
+                      </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={this.onDone.bind(this)} style={styles.doneBtnContainer}>
+                      <View style={styles.doneBtnTextContainer}>
+                        <Text style={styles.doneBtnText}>DONE</Text>
+                      </View>
+                      <PavIcon name="add" size={17} style={styles.doneBtnIcon}/>
+                  </TouchableOpacity>
                 </View>
-                <TextInput
-                    style={styles.inputText}
-                    onChangeText={(text) => this.setState({gender:text})}
-                    value={this.state.gender}
-                    autoFocus={true}
-                    multiline={false}
-                    placeholder="http://www.domain.com"
-                    keyboardType="url"
-                    autoCorrect={false}
-                    selectionColor={Colors.primaryColor}
-                    onSubmitEditing={this.onDone.bind(this)}
-                    placeholderTextColor={Colors.secondaryTextColor}
-                    returnKeyType="done"
-                    autoCapitalize="none"
-                />
+                <View style={styles.datePickerContainer}>
+                  <DatePickerIOS
+                    style={styles.datePicker}
+                    date={this.state.date}
+                    maximumDate={new Date()}
+                    minimumDate={new Date("January 1, 1910 00:00:00")}
+                    mode="date"
+                    onDateChange={this.onDateChange.bind(this)}
+                 />
+                </View>
+
               </View>
-              <PavIcon name="activeIndicatorShrinkedBot" size={9} style={styles.arrowBtnIcon}/>
             </Modal>
         );
     }
+
 }
 
 
-InputGenderModalBox.defaultProps={
+InputBirthdayModalBox.defaultProps={
     extraBottomSpace:0
 }
-InputGenderModalBox.propTypes= {
+InputBirthdayModalBox.propTypes= {
   isOpen: React.PropTypes.bool.isRequired,
   onClose: React.PropTypes.func.isRequired,
-  onGenderProvided: React.PropTypes.func.isRequired,
+  onDateProvided: React.PropTypes.func.isRequired,
   extraBottomSpace: React.PropTypes.number
 };
-module.exports = InputGenderModalBox;
+module.exports = InputBirthdayModalBox;

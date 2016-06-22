@@ -21,7 +21,9 @@ const {
   WELCOME,
   FORGOT_PASSWORD,
   SEARCH_BILL,
-  ATTACH_URL
+  ATTACH_URL,
+  GENDER_PICK,
+  DATE_PICK
 } = Modals;
 
 
@@ -37,6 +39,8 @@ const Router = new Record({
     [WELCOME, false],
     [SEARCH_BILL, false],
     [ATTACH_URL, false],
+    [GENDER_PICK, false],
+    [DATE_PICK, false],
   ])
 });
 

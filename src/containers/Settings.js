@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
  * The actions we need
  */
 // import * as authActions from '../reducers/auth/authActions';
-// import * as routingActions from '../reducers/routing/routingActions';
+import * as routingActions from '../reducers/routing/routingActions';
 // import * as deviceActions from '../reducers/device/deviceActions';
 // import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 // import * as billActions from '../reducers/bill/billActions';
@@ -60,7 +60,8 @@ BillPageTabs,
 Modals
 } from '../config/constants';
 const {
-  SEARCH_BILL
+  GENDER_PICK,
+  DATE_PICK
 } = Modals;
 const {
   NEWS_FEED_FILTERS,
@@ -81,7 +82,7 @@ const {
  */
 const actions = [
   // authActions,
-  // routingActions,
+  routingActions,
   // deviceActions,
   // newsfeedActions,
   // billActions
@@ -306,6 +307,13 @@ class Settings extends React.Component {
     return(
       <SettingsRender
           device={ this.props.device}
+          genderPickIsOpen={this.props.router.modalIsOpen.get(GENDER_PICK)}
+          hideGenderPickModal={()=>this.props.actions.setModalVisibility(GENDER_PICK, false)}
+          showGenderPickModal={()=>this.props.actions.setModalVisibility(GENDER_PICK, true)}
+          datePickIsOpen={this.props.router.modalIsOpen.get(DATE_PICK)}
+          hideDatePickModal={()=>this.props.actions.setModalVisibility(DATE_PICK, false)}
+          showDatePickModal={()=>this.props.actions.setModalVisibility(DATE_PICK, true)}
+
           fields={form.get("fields").toJS()}
           isFetching={form.get("isFetching").get("settings")}
           onFieldChange={this.onFieldChange.bind(this)}

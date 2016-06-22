@@ -36,6 +36,8 @@ module.exports =  {
     FORGOT_PASSWORD: null,
     SEARCH_BILL: null,
     ATTACH_URL: null,
+    GENDER_PICK: null,
+    DATE_PICK: null,
   }),
 
   ScheneKeys: keyMirror({

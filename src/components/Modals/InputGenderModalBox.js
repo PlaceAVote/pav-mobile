@@ -9,7 +9,8 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Picker
 } from 'react-native';
 
 
@@ -31,7 +32,7 @@ class InputGenderModalBox extends React.Component {
     constructor(){
         super();
         this.state={
-          gender:""
+          gender:"male"
         }
     }
 
@@ -39,23 +40,23 @@ class InputGenderModalBox extends React.Component {
     getStyles(extraBottomSpace){
         return StyleSheet.create({
             modal: {
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: (h*0.33+extraBottomSpace),
-                width: w*1,
-                paddingBottom:(h*0.08)+extraBottomSpace,
-                // backgroundColor: '#00000088'
-                backgroundColor: Colors.transparentColor,
+                // justifyContent: 'center',
+                // alignItems: 'center',
+                height: (h*0.40),
+                // width: w*1,
+                // paddingBottom:(h*0.08)+extraBottomSpace,
+                backgroundColor: '#00000088'
+                // backgroundColor: Colors.transparentColor,
 
             },
 
 
+
             btnContainer:{
               // flex:1,
-              width: w*0.9,
               flexDirection:'row',
               justifyContent:'space-between',
-              // backgroundColor:'red'
+              backgroundColor:Colors.primaryColor
             },
             closeBtnContainer:{
               // paddingVertical: h*0.015,
@@ -100,13 +101,14 @@ class InputGenderModalBox extends React.Component {
             },
             doneBtnText:{
               backgroundColor: Colors.transparentColor,
-              color: Colors.mainTextColor,
+              // color: Colors.mainTextColor,
+              color: Colors.accentColor,
               fontFamily: 'Whitney-Bold',
               fontSize: getCorrectFontSizeForScreen(w,h,7),
               textAlign:'center'
             },
             doneBtnIcon:{
-              color: Colors.mainTextColor,
+              color: Colors.accentColor,
               backgroundColor: Colors.transparentColor,
             },
 
@@ -116,15 +118,25 @@ class InputGenderModalBox extends React.Component {
 
             content:{
               flex:1,
-              flexDirection:'row',
+              // width: w*1,
+              // flexDirection:'row',
               backgroundColor: Colors.titleBgColor,
               justifyContent:'center',
-              paddingHorizontal:w*0.01,
-              paddingVertical:w*0.018,
+              // paddingHorizontal:w*0.01,
+              // paddingVertical:w*0.018,
               borderRadius:2,
             },
 
-
+            genderPickerContainer:{
+              flex:1,
+              // backgroundColor:'green',
+              // justifyContent:'center',
+            },
+            genderPicker:{
+              // flex:1,
+              // backgroundColor:'red',
+              // width: w*1,
+            },
 
 
 
@@ -195,45 +207,39 @@ class InputGenderModalBox extends React.Component {
                 swipeThreshold={90}
                 style={styles.modal}
                 position="bottom"
-                swipeToClose={true}
+                swipeToClose={false}
                 isOpen={this.props.isOpen}
                 onClosed={this.onClose.bind(this)}
               >
-              <View style={styles.btnContainer}>
-                <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
-                    <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
-                    <View style={styles.closeBtnTextContainer}>
-                      <Text style={styles.closeBtnText}>CLOSE</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.onDone.bind(this)} style={styles.doneBtnContainer}>
-                    <PavIcon name="add" size={17} style={styles.doneBtnIcon}/>
-                    <View style={styles.doneBtnTextContainer}>
-                      <Text style={styles.doneBtnText}>Done</Text>
-                    </View>
-                </TouchableOpacity>
-              </View>
+
               <View style={styles.content}>
-                <View style={styles.pasteLinkTextContainer}>
-                  <Text  style={styles.pasteLinkText}>Paste Link: </Text>
+                <View style={styles.btnContainer}>
+                  <TouchableOpacity onPress={this.onClose.bind(this)} style={styles.closeBtnContainer}>
+                      <PavIcon name="close-badge" size={17} style={styles.closeBtnIcon}/>
+                      <View style={styles.closeBtnTextContainer}>
+                        <Text style={styles.closeBtnText}>CLOSE</Text>
+                      </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={this.onDone.bind(this)} style={styles.doneBtnContainer}>
+                      <View style={styles.doneBtnTextContainer}>
+                        <Text style={styles.doneBtnText}>DONE</Text>
+                      </View>
+                      <PavIcon name="add" size={17} style={styles.doneBtnIcon}/>
+                  </TouchableOpacity>
                 </View>
-                <TextInput
-                    style={styles.inputText}
-                    onChangeText={(text) => this.setState({gender:text})}
-                    value={this.state.gender}
-                    autoFocus={true}
-                    multiline={false}
-                    placeholder="http://www.domain.com"
-                    keyboardType="url"
-                    autoCorrect={false}
-                    selectionColor={Colors.primaryColor}
-                    onSubmitEditing={this.onDone.bind(this)}
-                    placeholderTextColor={Colors.secondaryTextColor}
-                    returnKeyType="done"
-                    autoCapitalize="none"
-                />
+                <View style={styles.genderPickerContainer}>
+                  <Picker
+                    style={styles.genderPicker}
+                    selectedValue={this.state.gender}
+                    onValueChange={(gender) => this.setState({gender: gender})}>
+                    <Picker.Item label="Male" value="male" />
+                    <Picker.Item label="Female" value="female" />
+                    <Picker.Item label="Non-binary" value="non-binary" />
+                  </Picker>
+                </View>
+
+
               </View>
-              <PavIcon name="activeIndicatorShrinkedBot" size={9} style={styles.arrowBtnIcon}/>
             </Modal>
         );
     }

@@ -56,6 +56,9 @@ let Form = t.form.Form;
 import Collapsible from 'react-native-collapsible'
 import TouchableInput from './TouchableInput';
 
+import InputGenderModalBox from '../Modals/InputGenderModalBox';
+import InputBirthdayModalBox from '../Modals/InputBirthdayModalBox';
+
 /**
  * The states were interested in
  */
@@ -183,6 +186,31 @@ const formStyles = Object.freeze({
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class SettingsRender extends React.Component {
   constructor(props) {
     super(props);
@@ -195,6 +223,156 @@ class SettingsRender extends React.Component {
   }
 
 
+
+
+
+  /**
+   * ## Styles for PORTRAIT
+   */
+  getPortraitStyles(self){
+    return StyleSheet.create({
+
+
+      container: {
+        flex:1,
+        flexDirection: 'column',
+        // paddingBottom:self.props.isTab===false?0:50, //tab bar height
+        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+        backgroundColor: 'white',
+        // marginVertical: 10,
+        // marginHorizontal:15
+      },
+      scroller:{
+        flex:1,
+      },
+
+
+      accountSettingsContainer:{
+        // flex:1,
+        flexDirection:"column",
+        paddingHorizontal: w*0.022,
+        paddingBottom:h*0.008,
+        // backgroundColor:'pink'
+      },
+
+      titleContainer:{
+        backgroundColor: Colors.titleBgColorDark,
+        borderBottomColor: "rgba(0, 0, 0, 0.07)",
+        borderBottomWidth: 1,
+        paddingHorizontal: w*0.020,
+        paddingVertical: h*0.015,
+      },
+
+      titleText:{
+        color: Colors.primaryColor,
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,8),
+      },
+
+      imgDobGenderContainer:{
+        flexDirection:'row',
+        paddingVertical:h*0.015,
+        alignItems:'center',
+        // backgroundColor:'orange'
+      },
+      userImg:{
+        width:h*0.21,
+        height:h*0.21,
+      },
+      imgEditBtnContainer:{
+        flex:1,
+        justifyContent:'flex-end',
+        padding:w*0.015
+      },
+      imgEditBtn:{
+        alignSelf:'flex-end',
+        backgroundColor: 'white',
+        borderColor: Colors.mainBorderColor,
+        height:24,
+        width: w*0.075,
+        paddingHorizontal: w*0.085,
+        borderRadius: 2,
+      },
+      imgEditBtnText:{
+        color: Colors.primaryColor,
+        textAlign: 'center',
+        fontFamily: 'Whitney-Bold',
+        fontSize: getCorrectFontSizeForScreen(w,h,7)
+      },
+
+      dateOfBirthGenderContainer:{
+        flex:1,
+        flexDirection:'column',
+        // backgroundColor:'pink',
+        paddingLeft: w*0.015,
+        justifyContent:'center'
+      },
+
+
+
+
+      passwordPrivacyContainer:{
+        flexDirection:"column",
+        paddingHorizontal: w*0.022,
+        paddingBottom:h*0.008,
+      },
+      isPrivateTitleContainer:{
+        paddingVertical:h*0.015,
+      },
+      isPrivateTitle:{
+        fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+        fontSize: getCorrectFontSizeForScreen(w,h,10),
+        color: Colors.fourthTextColor,
+      },
+      isPrivateValueContainer:{
+        paddingVertical:h*0.015,
+        flexDirection:'row',
+      },
+      isPrivateValueTextContainer:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        paddingRight: w*0.025,
+        // backgroundColor:'pink'
+      },
+      switchContainer:{
+        // backgroundColor:'purple',
+        alignItems:'center'
+      },
+      isPrivateValueText:{
+        fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        color: Colors.secondaryTextColor,
+      },
+      isPrivateValueCurSetText:{
+        fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        color: Colors.secondaryTextColor,
+      },
+      privacyPolicyBtnContainer:{
+        paddingVertical: h*0.015,
+      },
+      privacyPolicyBtn:{
+        backgroundColor: "#E1E1E1",
+        borderColor: Colors.mainBorderColor,
+        paddingVertical: h*0.013,
+        paddingHorizontal: w*0.076,
+        borderRadius: 1,
+      },
+      privacyPolicyBtnText:{
+        color: Colors.fourthTextColor,
+        textAlign: 'center',
+        fontFamily: 'Whitney',
+        fontSize: getCorrectFontSizeForScreen(w,h,9)
+      }
+
+
+
+
+
+    });
+  }
 
 
 
@@ -271,12 +449,14 @@ class SettingsRender extends React.Component {
 
   onGenderClick(){
     if(this.props.isFetching===false){
-        alert("On gender"+(this.props.isFetching===false))
+      this.props.showGenderPickModal();
+        // alert("On gender"+(this.props.isFetching===false))
     }
   }
   onDateClick(){
     if(this.props.isFetching===false){
-      alert("On date"+(this.props.isFetching===false))
+      this.props.showDatePickModal();
+      // alert("On date"+(this.props.isFetching===false))
     }
   }
 
@@ -451,6 +631,20 @@ class SettingsRender extends React.Component {
             </View>
 
           </ScrollView>
+          <InputGenderModalBox
+          isOpen={this.props.genderPickIsOpen}
+          onClose={()=>this.props.hideGenderPickModal()}
+          onGenderProvided={(gender)=>{
+            this.props.onFieldChange('gender', gender);
+            this.props.hideGenderPickModal();
+          }}/>
+          <InputBirthdayModalBox
+          isOpen={this.props.datePickIsOpen}
+          onClose={()=>this.props.hideDatePickModal()}
+          onDateProvided={(dob)=>{
+            this.props.onFieldChange('dateOfBirth', dob);
+            this.props.hideDatePickModal();
+          }}/>
         </View>
     );
   }
@@ -462,173 +656,11 @@ class SettingsRender extends React.Component {
   //   (collapsed)=>{this.setState({genderPickerCollapsed:collapsed})}
   // }
   // >
-  //   <Picker
-  //     style={styles.genderPicker}
-  //     selectedValue={this.state.gender}
-  //     onValueChange={(gender) => this.setState({gender: gender})}>
-  //     <Picker.Item label="His" value="male" />
-  //     <Picker.Item label="Her" value="female" />
-  //     <Picker.Item label="They" value="gay" />
-  //   </Picker>
   // </Collapsible>
-
-
-
-    /**
-     * ## Styles for PORTRAIT
-     */
-    getPortraitStyles(self){
-      return StyleSheet.create({
-
-
-        container: {
-          flex:1,
-          flexDirection: 'column',
-          // paddingBottom:self.props.isTab===false?0:50, //tab bar height
-          paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
-          backgroundColor: 'white',
-          // marginVertical: 10,
-          // marginHorizontal:15
-        },
-        scroller:{
-          flex:1,
-        },
-
-
-        accountSettingsContainer:{
-          // flex:1,
-          flexDirection:"column",
-          paddingHorizontal: w*0.022,
-          paddingBottom:h*0.008,
-          // backgroundColor:'pink'
-        },
-
-        titleContainer:{
-          backgroundColor: Colors.titleBgColorDark,
-          borderBottomColor: "rgba(0, 0, 0, 0.07)",
-          borderBottomWidth: 1,
-          paddingHorizontal: w*0.020,
-          paddingVertical: h*0.015,
-        },
-
-        titleText:{
-          color: Colors.primaryColor,
-          fontFamily: 'Whitney-Bold',
-          fontSize: getCorrectFontSizeForScreen(w,h,8),
-        },
-
-        imgDobGenderContainer:{
-          flexDirection:'row',
-          paddingVertical:h*0.015,
-          alignItems:'center',
-          // backgroundColor:'orange'
-        },
-        userImg:{
-          width:h*0.21,
-          height:h*0.21,
-        },
-        imgEditBtnContainer:{
-          flex:1,
-          justifyContent:'flex-end',
-          padding:w*0.015
-        },
-        imgEditBtn:{
-          alignSelf:'flex-end',
-          backgroundColor: 'white',
-          borderColor: Colors.mainBorderColor,
-          height:24,
-          width: w*0.075,
-          paddingHorizontal: w*0.085,
-          borderRadius: 2,
-        },
-        imgEditBtnText:{
-          color: Colors.primaryColor,
-          textAlign: 'center',
-          fontFamily: 'Whitney-Bold',
-          fontSize: getCorrectFontSizeForScreen(w,h,7)
-        },
-
-        dateOfBirthGenderContainer:{
-          flex:1,
-          flexDirection:'column',
-          // backgroundColor:'pink',
-          paddingLeft: w*0.015,
-          justifyContent:'center'
-        },
-
-
-
-
-        passwordPrivacyContainer:{
-          flexDirection:"column",
-          paddingHorizontal: w*0.022,
-          paddingBottom:h*0.008,
-        },
-        isPrivateTitleContainer:{
-          paddingVertical:h*0.015,
-        },
-        isPrivateTitle:{
-          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          fontSize: getCorrectFontSizeForScreen(w,h,10),
-          color: Colors.fourthTextColor,
-        },
-        isPrivateValueContainer:{
-          paddingVertical:h*0.015,
-          flexDirection:'row',
-        },
-        isPrivateValueTextContainer:{
-          flex:1,
-          flexDirection:'row',
-          justifyContent:'space-between',
-          alignItems:'center',
-          paddingRight: w*0.025,
-          // backgroundColor:'pink'
-        },
-        switchContainer:{
-          // backgroundColor:'purple',
-          alignItems:'center'
-        },
-        isPrivateValueText:{
-          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          fontSize: getCorrectFontSizeForScreen(w,h,9),
-          color: Colors.secondaryTextColor,
-        },
-        isPrivateValueCurSetText:{
-          fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          fontSize: getCorrectFontSizeForScreen(w,h,9),
-          color: Colors.secondaryTextColor,
-        },
-        privacyPolicyBtnContainer:{
-          paddingVertical: h*0.015,
-        },
-        privacyPolicyBtn:{
-          backgroundColor: "#E1E1E1",
-          borderColor: Colors.mainBorderColor,
-          paddingVertical: h*0.013,
-          paddingHorizontal: w*0.076,
-          borderRadius: 1,
-        },
-        privacyPolicyBtnText:{
-          color: Colors.fourthTextColor,
-          textAlign: 'center',
-          fontFamily: 'Whitney',
-          fontSize: getCorrectFontSizeForScreen(w,h,9)
-        }
-
-
-
-
-
-      });
-    }
 
     componentWillUpdate(nextProps, nextState){
       // console.log("New state: "+JSON.stringify(nextState));
-      // if(nextState.formValue){
-      //   console.log("First check: "+(nextState.formValue!=null));
-      //   console.log("Second check: "+(nextState.formValue.residence!=null));
-      //   console.log("Third check: "+(nextState.formValue.residence!==this.state.formValue.residence));
-      // }
+
       if(nextState.formValue!=null){
         if(nextState.formValue.residence!=null && (this.state.formValue.residence==null || (nextState.formValue.residence!==this.state.formValue.residence))){
           this.props.onFieldChange('city', nextState.formValue.residence);
@@ -654,16 +686,7 @@ class SettingsRender extends React.Component {
 
 SettingsRender.defaultProps= {
   isPrivate: false,
-  // email: null,
-  // firstName:null,
-  // lastName:null,
-  // gender:null,
-  // dateOfBirth:null,
-  // state:null,
-  // district:null,
-  // zipCode:null,
-  // city: null,
-  // imgUrl: null
+
 }
 SettingsRender.propTypes= {
   // timelineData: React.PropTypes.object,
@@ -675,6 +698,12 @@ SettingsRender.propTypes= {
   //   React.PropTypes.number,
   // ]),
   onFieldChange:React.PropTypes.func.isRequired,
+  genderPickIsOpen:React.PropTypes.bool.isRequired,
+  datePickIsOpen:React.PropTypes.bool.isRequired,
+  hideGenderPickModal:React.PropTypes.func.isRequired,
+  showGenderPickModal:React.PropTypes.func.isRequired,
+  hideDatePickModal:React.PropTypes.func.isRequired,
+  showDatePickModal:React.PropTypes.func.isRequired,
 
 };
 export default SettingsRender;
