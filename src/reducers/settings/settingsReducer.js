@@ -13,6 +13,7 @@
  */
 import {formValidation} from './settingsFormValidation';
 import fieldValidation from '../../lib/Utils/fieldValidation';
+import {isOfObjectType, OBJECT_TYPES} from '../../lib/Utils/genericUtils';
 import Immutable from 'immutable';
 
 
@@ -29,6 +30,10 @@ const {
   GET_SETTINGS_REQUEST,
   GET_SETTINGS_SUCCESS,
   GET_SETTINGS_FAILURE,
+
+  UPDATE_PHOTO_REQUEST,
+  UPDATE_PHOTO_SUCCESS,
+  UPDATE_PHOTO_FAILURE,
 
   ON_SETTINGS_FORM_FIELD_CHANGE
 } = ActionNames;
@@ -50,6 +55,11 @@ export default function settingsReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.mergeDeep(state);
 
   switch (action.type) {
+
+    case UPDATE_PHOTO_REQUEST:
+      return state.setIn([ 'form', 'isFetching', 'photoUpdate'], true)
+      .setIn(['form', 'error'], null);
+
     case ON_SETTINGS_FORM_FIELD_CHANGE:
       const {field, value} = action.payload;
       let nextState =  state.setIn(['form', 'fields', field], value)
@@ -61,6 +71,18 @@ export default function settingsReducer(state = initialState, action) {
       return state.setIn([ 'form', 'isFetching', 'settings'], true)
       .setIn(['form', 'error'], null);
       break;
+
+    case UPDATE_PHOTO_SUCCESS:
+
+      if(!!action.payload && isOfObjectType(action.payload, OBJECT_TYPES.STRING)){
+        return state.setIn([ 'form', 'isFetching', 'photoUpdate'], false)
+        .setIn(['form', 'fields', 'imgUrl'], action.payload)
+        .setIn(['form', 'error'], null);
+      }else{
+        return state.setIn([ 'form', 'isFetching', 'photoUpdate'], false)
+        .setIn(['form', 'error'], null);
+      }
+
 
     case GET_SETTINGS_SUCCESS:
       return state.setIn([ 'form', 'isFetching', 'settings'], false)
@@ -78,6 +100,9 @@ export default function settingsReducer(state = initialState, action) {
       // .setIn(['form', 'fields', 'state'], action.payload.state)
 
       break;
+    case UPDATE_PHOTO_FAILURE:
+      return state.setIn([ 'form', 'isFetching', 'photoUpdate'], false)
+      .setIn(['form', 'error'], action.payload);
     case SET_SETTINGS_SUCCESS:
       return state.setIn([ 'form', 'isFetching', 'settings'], false)
       .setIn(['form', 'error'], null);

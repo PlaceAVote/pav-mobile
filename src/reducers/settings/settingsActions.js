@@ -31,6 +31,10 @@ const {
   GET_SETTINGS_SUCCESS,
   GET_SETTINGS_FAILURE,
 
+  UPDATE_PHOTO_REQUEST,
+  UPDATE_PHOTO_SUCCESS,
+  UPDATE_PHOTO_FAILURE,
+
   ON_SETTINGS_FORM_FIELD_CHANGE
 } = ActionNames
 
@@ -164,6 +168,68 @@ export function setSettings(data, sessionToken=null, dev = null) {
         // saveBasicUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address})
       //   dispatch(setUserData(res.data));
       // }
+      return {data: res.data, error: null};
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+/**
+ * ## Update the profile photo of the user
+ */
+export function updateProfilePhotoRequest() {
+  return {
+    type: UPDATE_PHOTO_REQUEST
+  };
+}
+export function updateProfilePhotoSuccess(json) {
+  return {
+    type: UPDATE_PHOTO_SUCCESS,
+    payload: json
+  };
+}
+export function updateProfilePhotoFailure(json) {
+  return {
+    type: UPDATE_PHOTO_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function updateProfilePhoto(base64ImageObject, sessionToken=null, dev = null) {
+  return async function (dispatch){
+    dispatch(updateProfilePhotoRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+      if(!sessionToken){
+        let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+        token = tk.sessionToken;
+      }
+    }catch(e){
+      console.log("Unable to fetch past token in settingsActions.updateProfilePhoto() with error: "+e.message);
+      dispatch(updateProfilePhotoFailure(e.message));
+      return {data: null, error: e.message};
+    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.updateProfilePhoto({imgData:base64ImageObject});
+    console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in settings call"+res.error);
+      dispatch(updateProfilePhotoFailure("Unable to update the user photo with this token."));
+      return {data: null, error: res.error};
+    }else{
+      dispatch(updateProfilePhotoSuccess(res.data));
       return {data: res.data, error: null};
     }
   };

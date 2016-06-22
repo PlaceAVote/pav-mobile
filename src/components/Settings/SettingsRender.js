@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     // flex:1,
     flexDirection:"column",
     paddingHorizontal: w*0.022,
-    paddingBottom:h*0.008,
+    paddingVertical:h*0.008,
     // backgroundColor:'pink'
   },
 
@@ -406,7 +406,7 @@ class SettingsRender extends React.Component {
 
   onImageEditClick(){
     if(this.props.isFetching===false){
-        alert("On img edit")
+        this.props.onImageEditClick();
     }
   }
 
@@ -428,9 +428,7 @@ class SettingsRender extends React.Component {
         this.refs.settingsForm.getComponent('email').refs.input.focus();
     }
   }
-  onPrivacyPolicyClick(){
-    alert("On privacy policy")
-  }
+
 
   onTermsOfServiceClick(){
     alert("on terms of service")
@@ -571,14 +569,6 @@ class SettingsRender extends React.Component {
 
               </View>
 
-              <View style={styles.privacyPolicyBtnContainer}>
-                <Button
-                onPress={this.onPrivacyPolicyClick.bind(this)}
-                style={styles.privacyPolicyBtn}
-                textStyle={styles.privacyPolicyBtnText}>
-                Read our privacy policy
-                </Button>
-              </View>
 
               <View style={styles.privacyPolicyBtnContainer}>
                 <Button
@@ -666,6 +656,7 @@ SettingsRender.propTypes= {
   showGenderPickModal:React.PropTypes.func.isRequired,
   hideDatePickModal:React.PropTypes.func.isRequired,
   showDatePickModal:React.PropTypes.func.isRequired,
+  onImageEditClick:React.PropTypes.func.isRequired,
 
 };
 export default SettingsRender;

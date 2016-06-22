@@ -27,7 +27,8 @@ export function isOfObjectType(obj, type){
 export const OBJECT_TYPES={
   ARRAY: '[object Array]',
   NUMBER: '[object Number]',
-  OBJECT: '[object Object]'
+  OBJECT: '[object Object]',
+  STRING: '[object String]',
 }
 
 

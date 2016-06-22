@@ -413,6 +413,11 @@ module.exports =  {
    GET_SETTINGS_SUCCESS: null,
    GET_SETTINGS_FAILURE: null,
 
+
+   UPDATE_PHOTO_REQUEST: null,
+   UPDATE_PHOTO_SUCCESS: null,
+   UPDATE_PHOTO_FAILURE: null,
+
     /* Not yet implemented */
    //  DELETE_TOKEN_REQUEST: null,
    //  DELETE_TOKEN_SUCCESS: null,

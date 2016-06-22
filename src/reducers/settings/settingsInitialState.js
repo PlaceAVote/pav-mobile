@@ -29,6 +29,7 @@ const Form = Record({
     isValid: false,
     isFetching: new (Record({
       settings: false,
+      photoUpdate: false
     })),
 
     fields: new (Record({
