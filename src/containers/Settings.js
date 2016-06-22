@@ -319,6 +319,13 @@ class Settings extends React.Component {
   //   }
   //
   // }
+
+
+
+  onTermsOfServiceClick(){
+    alert("On terms of service click")
+  }
+
   onImageEditClick(){
     /**
      * The first arg will be the options object for customization, the second is
@@ -374,6 +381,7 @@ class Settings extends React.Component {
           fields={form.get("fields").toJS()}
           isFetching={form.get("isFetching").get("settings")}
           onFieldChange={this.onFieldChange.bind(this)}
+          onTermsOfServiceClick={this.onTermsOfServiceClick.bind(this)}
       />
 
     );

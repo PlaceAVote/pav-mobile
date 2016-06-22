@@ -430,9 +430,7 @@ class SettingsRender extends React.Component {
   }
 
 
-  onTermsOfServiceClick(){
-    alert("on terms of service")
-  }
+
 
   onIsPrivateChange(isPrivate){
     this.props.onFieldChange('isPrivate', isPrivate);
@@ -572,7 +570,7 @@ class SettingsRender extends React.Component {
 
               <View style={styles.privacyPolicyBtnContainer}>
                 <Button
-                onPress={this.onTermsOfServiceClick.bind(this)}
+                onPress={this.props.onTermsOfServiceClick}
                 style={styles.privacyPolicyBtn}
                 textStyle={styles.privacyPolicyBtnText}>
                 Read our terms of service
@@ -657,6 +655,6 @@ SettingsRender.propTypes= {
   hideDatePickModal:React.PropTypes.func.isRequired,
   showDatePickModal:React.PropTypes.func.isRequired,
   onImageEditClick:React.PropTypes.func.isRequired,
-
+  onTermsOfServiceClick:React.PropTypes.func.isRequired,
 };
 export default SettingsRender;

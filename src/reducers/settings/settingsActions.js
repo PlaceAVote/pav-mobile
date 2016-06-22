@@ -141,8 +141,9 @@ export function setSettingsFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function setSettings(data, sessionToken=null, dev = null) {
-  return async function (dispatch){
+export function setSettings(sessionToken=null, dev = null) {
+  return async function (dispatch, getState){
+    let fields = getState().settings.form.fields;
     dispatch(setSettingsRequest());
     //store or get a sessionToken
     let token = sessionToken;
@@ -156,7 +157,17 @@ export function setSettings(data, sessionToken=null, dev = null) {
       dispatch(setSettingsFailure(e.message));
       return {data: null, error: e.message};
     }
-    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.setSettings(data);
+
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.setSettings({
+      "email": fields.email,
+      "first_name": fields.name,
+      "last_name": fields.surname,
+      "gender": fields.gender,
+      "dob": fields.dateOfBirth,
+      "public": !fields.isPrivate,
+      "city": fields.city,
+      "zipcode": fields.zipCode
+    });
     console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in settings call"+res.error.error_message);

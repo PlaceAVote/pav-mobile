@@ -25,6 +25,8 @@ import * as authActions from '../../reducers/auth/authActions';
 import * as routingActions from '../../reducers/routing/routingActions';
 import * as deviceActions from '../../reducers/device/deviceActions';
 import * as profileActions from '../../reducers/profile/profileActions'
+import * as settingsActions from '../../reducers/settings/settingsActions'
+
 
 import Orientation from 'react-native-orientation';
 /**
@@ -52,6 +54,7 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 import {
 Colors
 } from '../../config/constants';
+import CONFIG from '../../config/config';
 
 /**
  * ## Redux boilerplate
@@ -61,6 +64,7 @@ const actions = [
   // routingActions,
   // deviceActions,
   // profileActions
+  settingsActions
 ];
 
 function mapStateToProps(state) {
@@ -92,8 +96,15 @@ function mapDispatchToProps(dispatch) {
 
 class SettingsButtons extends React.Component {
 
+  constructor(props) {
+    super(props);
+    if(CONFIG.MOCK_TOKEN===true){
+      this.TOKEN = props.global.isDev==true?CONFIG.DEV_TOKEN:CONFIG.PROD_TOKEN;
+    }
+  }
+
   onSaveClicked(){
-    alert("save clicked");
+    this.props.actions.setSettings(this.TOKEN, this.props.global.isDev);
   }
 
   render(){
