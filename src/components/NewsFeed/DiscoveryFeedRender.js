@@ -188,7 +188,7 @@ class DiscoveryFeedRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     // alert(Platform.Version);
-    if(this.props.device.platform=="android" && Platform.Version<=21){
+    if(Platform.OS=="android" && Platform.Version<=21){
       return (
         <Text>
         The Discovery page will be supported in old Android devices when react native version 27 comes out. (In the next few days)
@@ -220,7 +220,7 @@ class DiscoveryFeedRender extends React.Component {
     return(
       (nextProps.discoveryData !== this.props.discoveryData)
       ||
-      (nextProps.device !== this.props.device)
+      (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextProps.curUser !== this.props.curUser)
     );

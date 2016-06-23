@@ -114,7 +114,9 @@ const styles = StyleSheet.create({
 
 
   commentDescriptionContainer:{
+    flex:1,
     flexDirection:'column',
+    justifyContent:'center',
     // backgroundColor:'red',
     padding: 5
   },
@@ -126,11 +128,7 @@ const styles = StyleSheet.create({
     height:w*0.09,
     // marginHorizontal: 10,
   },
-  commentLocationContainer:{
-    flexDirection:'row',
-    alignItems:'center',
-    // backgroundColor:'red',
-  },
+
   commentNameText:{
     // backgroundColor:'blue',
     color:"#e64a33",
@@ -138,19 +136,23 @@ const styles = StyleSheet.create({
     fontFamily: 'Whitney Semibold',
     fontSize: getCorrectFontSizeForScreen(w,h,8),
   },
+  
   commentInText:{
     color: Colors.thirdTextColor,
-    paddingHorizontal: 5,
     fontFamily: 'Whitney',
     fontSize: getCorrectFontSizeForScreen(w,h,8),
   },
+  commentLocationTextContainer:{
+    paddingHorizontal: w*0.02,
+    // flexDirection:'column',
+    // flexWrap: 'wrap',
+    paddingVertical:h*0.001,
+  },
   commentLocationText:{
-    backgroundColor:'yellow',
+    // backgroundColor:'yellow',
     color: Colors.primaryColor,
-    paddingHorizontal: 1,
     fontFamily: 'Whitney Semibold',
     fontSize: getCorrectFontSizeForScreen(w,h,8),
-    width: w*0.7,
   },
   cardContentBody:{
     // backgroundColor:'green'
@@ -298,7 +300,6 @@ class FeedCommentCard extends React.Component {
       <View style={styles.cardContentHeader}>
         <TouchableOpacity onPress={this.onUserClick.bind(this)}>
           <PavImage
-            platform={this.props.device.platform}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
             source={{uri: this.props.userPhotoUrl}}
@@ -309,12 +310,9 @@ class FeedCommentCard extends React.Component {
           <TouchableOpacity onPress={this.onUserClick.bind(this)}>
             <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
           </TouchableOpacity>
-          <View style={styles.commentLocationContainer}>
-            <Text style={styles.commentInText}>in</Text>
-            <TouchableOpacity onPress={this.onBillClick.bind(this)}>
-              <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.commentLocationTextContainer} onPress={this.onBillClick.bind(this)}>
+            <Text style={styles.commentLocationText}><Text style={styles.commentInText}>in </Text> {this.props.commentParentTitle}</Text>
+          </TouchableOpacity>
 
         </View>
       </View>
@@ -377,7 +375,7 @@ class FeedCommentCard extends React.Component {
 
 
 FeedCommentCard.propTypes= {
-  device: React.PropTypes.object.isRequired,
+
   timeString: React.PropTypes.string.isRequired,
   commentParentTitle: React.PropTypes.string.isRequired,
   userFullNameText: React.PropTypes.string.isRequired,

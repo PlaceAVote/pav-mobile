@@ -430,7 +430,7 @@ class BillRender extends React.Component {
           onSponsorClick={this.props.onSponsorClick}
           orientation={this.props.device.orientation}
           goToReadEntireBillPage={()=>alert("Read entire bill")}
-          platform={this.props.device.platform}
+          platform={Platform.OS}
           parentVisible={this.props.parentVisible}
         />
 
@@ -499,7 +499,7 @@ class BillRender extends React.Component {
     return(
       <View style={styles.container}>
         <View style={styles.billContainer}>
-          {this.renderHeader(billData, this.props.device.platform)}
+          {this.renderHeader(billData, Platform.OS)}
           {this.renderBody({
             billData: billData,
             commentData: this.props.bill.comments,

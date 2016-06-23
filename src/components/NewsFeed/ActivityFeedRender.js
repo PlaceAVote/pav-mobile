@@ -71,9 +71,9 @@ class ActivityFeedRender extends React.Component {
     // console.log("Data within getFeedDataSource is :"+data);
     let ds = null;
     if(this.props.type=="feed"){
-      ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
+      ds = new ListView.DataSource({rowHasChanged: (r1, r2) => (r1 !== r2) || (r1["orientation"] !== r2["orientation"])     }); // || r1["event_id"] !== r2["event_id"]
     }else{
-      ds = new ListView.DataSource({rowHasChanged: (r1, r2) =>  (r1 !== r2) || (r1['bill_id'] !== r2['bill_id']) });
+      ds = new ListView.DataSource({rowHasChanged: (r1, r2) =>  (r1 !== r2) || (r1['bill_id'] !== r2['bill_id']) || (r1["orientation"] !== r2["orientation"]) });
     }
     // ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
@@ -120,7 +120,7 @@ class ActivityFeedRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    let refreshProps = this.props.device.platform=="ios"?{
+    let refreshProps = Platform.OS=="ios"?{
       // tintColor:Colors.primaryColor,
       // title:"Loading...",
       // titleColor:Colors.primaryColor
@@ -128,11 +128,13 @@ class ActivityFeedRender extends React.Component {
     {
       colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]
     };
+
     return(
         <ListView
          enableEmptySections={true}
          style={[styles.itemList, this.props.style]}
          initialListSize={5}
+         pageSize={5}
          dataSource={this.state.dataSource}
          onEndReached={()=>{
            if(this.props.onFetchMoreItems){
@@ -175,7 +177,6 @@ class ActivityFeedRender extends React.Component {
            cardStyle={styles.cardStyle}
            cardHeight={(this.props.type==="discovery")?h*0.25:null}
            itemData={rowData}
-           device={this.props.device}
            curUser={this.props.curUser}
            onUserClick={this.props.onUserClick}
            onBillClick={this.props.onBillClick}
@@ -197,8 +198,15 @@ class ActivityFeedRender extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    // alert("activity feed render "+(nextProps.device.orientation !== this.props.device.orientation)
+    // ||
+    // (nextProps.style !== this.props.style)
+    // ||
+    // (nextProps.curUser !== this.props.curUser)
+    // ||
+    // (nextState.dataSource !== this.state.dataSource))
     return(
-      (nextProps.device !== this.props.device)
+      (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextProps.style !== this.props.style)
       ||

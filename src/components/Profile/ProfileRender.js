@@ -513,7 +513,7 @@ class ProfileRender extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     // console.log("########### Cur user update: "+(nextProps.curUser !== this.props.curUser));
     return(
-      (nextProps.device !== this.props.device)
+      (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
       ||

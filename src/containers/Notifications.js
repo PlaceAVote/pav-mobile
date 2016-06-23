@@ -28,7 +28,7 @@ import * as profileActions from '../reducers/profile/profileActions'
 import * as notificationActions from '../reducers/notifications/notificationActions'
 
 import CONFIG from '../config/config';
-import Orientation from 'react-native-orientation';
+
 /**
  * Router actions
  */
@@ -120,20 +120,6 @@ class Notifications extends React.Component {
     return await this.props.actions.getNotificationItems(getOlder, this.TOKEN, this.props.global.isDev);
   }
 
-
-  orientationDidChange(orientation) {
-    // console.log("Orientation: "+orientation);
-    this.props.actions.setOrientation(orientation);
-  }
-
-  componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
-    this.props.actions.unlockOrientation();
-  }
-
-  componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
-  }
 
   onItemsRefresh(e){
 

@@ -27,7 +27,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -113,8 +113,9 @@ const styles = StyleSheet.create({
 
 
   voteDescriptionContainer:{
+    flex:1,
     flexDirection:'column',
-    // backgroundColor:'blue',
+    justifyContent:'center',
     padding: 5
   },
 
@@ -125,36 +126,38 @@ const styles = StyleSheet.create({
     height:w*0.09,
     // marginHorizontal: 10,
   },
-  voteLocationContainer:{
-    flexDirection:'row',
-    alignItems:"center",
-    // backgroundColor:'red',
+
+  voteNameTextContainer:{
+    paddingHorizontal: w*0.02,
   },
   voteNameText:{
     // backgroundColor:'blue',
     color:"#e64a33",
-    paddingHorizontal: 5,
     fontFamily: 'Whitney Semibold',
     fontSize: getCorrectFontSizeForScreen(w,h,8),
   },
+
   voteInText:{
     color: Colors.thirdTextColor,
-    paddingHorizontal: 5,
     fontFamily: 'Whitney',
     fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  voteLocationTextContainer:{
+    // backgroundColor:'yellow',
+
+    paddingHorizontal: w*0.02,
+    // flexDirection:'column',
+    // flexWrap: 'wrap',
+    paddingVertical:h*0.001,
   },
   voteLocationText:{
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
-    paddingHorizontal: 1,
     fontFamily: 'Whitney Semibold',
     fontSize: getCorrectFontSizeForScreen(w,h,8),
-    width: w*0.56,
+    // width: w*0.56,
   },
-  voteLocationTitleContainer:{
-    // backgroundColor:'green',
-    paddingVertical:h*0.001,
-  }
+
 
 });
 
@@ -191,7 +194,7 @@ class FeedVoteCard extends React.Component {
       <View style={styles.cardContentHeader}>
         <TouchableOpacity style={styles.imageContainer} onPress={this.onUserClick.bind(this)}>
           <PavImage
-            platform={this.props.device.platform}
+            platform={Platform.OS}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
             source={{uri: this.props.userPhotoUrl}}
@@ -199,15 +202,12 @@ class FeedVoteCard extends React.Component {
           />
         </TouchableOpacity>
         <View style={styles.voteDescriptionContainer}>
-          <TouchableOpacity onPress={this.onUserClick.bind(this)}>
+          <TouchableOpacity style={styles.voteNameTextContainer} onPress={this.onUserClick.bind(this)}>
             <Text style={styles.voteNameText}>{this.props.userFullNameText}</Text>
           </TouchableOpacity>
-          <View style={styles.voteLocationContainer}>
-            <Text style={styles.voteInText}>voted on the bill</Text>
-            <TouchableOpacity style={styles.voteLocationTitleContainer} onPress={this.onBillClick.bind(this)}>
-              <Text style={styles.voteLocationText}>{this.props.voteParentTitle}</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.voteLocationTextContainer} onPress={this.onBillClick.bind(this)}>
+            <Text style={styles.voteLocationText} numberOfLines={2}><Text style={styles.voteInText}>voted on the bill  </Text>{this.props.voteParentTitle}</Text>
+          </TouchableOpacity>
         </View>
 
       </View>
@@ -237,7 +237,7 @@ class FeedVoteCard extends React.Component {
 }
 
 FeedVoteCard.propTypes= {
-  device: React.PropTypes.object.isRequired,
+  orientation: React.PropTypes.string.isRequired,
   timeString: React.PropTypes.string.isRequired,
   voteParentTitle: React.PropTypes.string.isRequired,
   userFullNameText: React.PropTypes.string.isRequired,

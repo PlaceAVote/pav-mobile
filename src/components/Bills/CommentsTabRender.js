@@ -361,7 +361,7 @@ class CommentsTabRender extends React.Component {
       ||
       (nextProps.commentBeingAltered !== this.props.commentBeingAltered)
       ||
-      (nextProps.device !== this.props.device)
+      (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextState.curSortFilter !== this.state.curSortFilter)
       ||

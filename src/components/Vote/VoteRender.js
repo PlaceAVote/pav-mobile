@@ -249,7 +249,7 @@ class VoteRender extends React.Component {
       style={styles.container}>
         <PavImage
         key="vote_header"
-        platform={this.props.device.platform}
+        platform={Platform.OS}
         style={styles.billImage}
         defaultSource={congratsScreenPhoto}
         source={{uri: !!billData&&billData.featured_img_link}}

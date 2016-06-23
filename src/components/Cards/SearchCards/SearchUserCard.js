@@ -218,7 +218,7 @@ class SearchUserCard extends React.Component {
         <View style={[styles.card, this.props.cardStyle]}>
           <TouchableOpacity style={styles.userBtn} onPress={this.onUserClicked.bind(this)}>
             <PavImage
-            platform={this.props.device.platform}
+            platform={Platform.OS}
             source={defaultUserPhoto}
             style={styles.userImage}
             resizeMode='cover'

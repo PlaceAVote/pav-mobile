@@ -219,7 +219,7 @@ class SearchBillCard extends React.Component {
         <View style={[styles.card, this.props.cardStyle]}>
           <TouchableOpacity  onPress={this.onBillClicked.bind(this)}>
             <PavImage
-            platform={this.props.device.platform}
+            platform={Platform.OS}
             source={congratsScreenPhoto}
             style={styles.billImage}
             resizeMode='cover'

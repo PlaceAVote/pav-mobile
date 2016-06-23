@@ -408,7 +408,7 @@ class SearchModalBox extends React.Component {
 
     // shouldComponentUpdate(nextProps, nextState) {
     //   return(
-    //     (nextProps.device !== this.props.device)
+    //     (nextProps.device.orientation !== this.props.device.orientation)
     //     ||
     //     (nextProps.style !== this.props.style)
     //     ||

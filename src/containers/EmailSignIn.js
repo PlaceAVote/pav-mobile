@@ -74,9 +74,7 @@ function mapDispatchToProps(dispatch) {
 
 class EmailSignIn extends React.Component {
 
-  componentWillMount() {
-      this.props.actions.lockOrientation("PORTRAIT");
-  }
+  
 
   async onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");

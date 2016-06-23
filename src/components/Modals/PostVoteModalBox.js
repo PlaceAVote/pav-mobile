@@ -164,7 +164,7 @@ class PostVoteModalBox extends React.Component {
 
                 <PavImage
                   key="postVoteHeaderImg"
-                  platform={this.props.device.platform}
+                  platform={Platform.OS}
                   style={[styles.billImage, {height:topCommentExists===true?h*0.25:h*0.35}]}
                   source={congratsScreenPhoto}
                   defaultSource={congratsScreenPhoto}

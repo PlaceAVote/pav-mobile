@@ -27,10 +27,10 @@ import {Colors, ScheneKeys, Other} from '../../../config/constants';
 const {REACTIONS, SOCIAL_TYPES} = Other;
 
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Linking} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Linking, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
-const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
+const {height:h, width:w} = Dimensions.get('window');
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../../assets/fonts/icomoon.json';
@@ -366,7 +366,7 @@ class FeedUserIssueCard extends React.Component {
     return (<View resizeMode="cover" style={styles.cardTitleContainer}>
       <View style={styles.cardTitleTextAndIconContainer}>
         <TouchableOpacity style={styles.userDetailsTouchableView} onPress={this.onUserClick.bind(this)}>
-          <PavImage platform={this.props.device.platform}
+          <PavImage platform={Platform.OS}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
             source={{uri: this.props.userPhotoUrl}}
@@ -461,7 +461,7 @@ class FeedUserIssueCard extends React.Component {
     if(!!this.props.relatedArticleUrl && this.props.relatedArticleUrl.length>0){
       return (
       <TouchableOpacity style={styles.relatedArticleContainer} onPress={this.onRelatedArticleClicked.bind(this)}>
-        <PavImage platform={this.props.device.platform}
+        <PavImage platform={Platform.OS}
           style={styles.articleImage}
           source={{uri: this.props.relatedArticlePhotoUrl}}
           resizeMode='cover'
@@ -491,10 +491,6 @@ class FeedUserIssueCard extends React.Component {
    */
   render() {
 
-    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
@@ -514,7 +510,6 @@ class FeedUserIssueCard extends React.Component {
 
 
 FeedUserIssueCard.propTypes= {
-  device: React.PropTypes.object.isRequired,
   timeString: React.PropTypes.string.isRequired,
   issueId: React.PropTypes.string.isRequired,
   userPhotoUrl: React.PropTypes.string,

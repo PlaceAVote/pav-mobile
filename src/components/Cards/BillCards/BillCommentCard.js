@@ -410,7 +410,7 @@ class BillCommentCard extends React.Component {
     return (<View style={styles.cardContentHeader}>
       <TouchableOpacity onPress={this.onUserClick.bind(this)}>
         <PavImage
-          platform={this.props.device.platform}
+          platform={Platform.OS}
           defaultSource={defaultUserPhoto}
           style={styles.userImage}
           source={{uri: this.props.commentData.userPhotoUrl}}
@@ -590,7 +590,7 @@ class BillCommentCard extends React.Component {
       ||
       (nextProps.commentData.replies !== this.props.commentData.replies)
       ||
-      (nextProps.device !== this.props.device)
+      (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextState.replyBoxVisible !== this.state.curSortFilter)
     );

@@ -30,7 +30,7 @@ import * as billActions from '../reducers/bill/billActions';
 
 
 
-import Orientation from 'react-native-orientation';
+
 /**
  * Router actions
  */
@@ -46,6 +46,7 @@ import {Map} from 'immutable';
  */
 import NewsFeedRender from '../components/NewsFeed/NewsFeedRender'
 import {findCommentPath} from '../lib/Utils/commentCrawler';
+
 
 import React from 'react';
 import {Linking} from 'react-native';
@@ -138,19 +139,6 @@ class NewsFeed extends React.Component {
     return await this.props.actions.getDiscoveryItems(topicString, this.TOKEN, this.props.global.isDev);
   }
 
-  orientationDidChange(orientation) {
-    console.log("Orientation: "+orientation);
-    this.props.actions.setOrientation(orientation);
-  }
-
-  componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
-    this.props.actions.unlockOrientation();
-  }
-
-  componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
-  }
 
 
   onFilterBtnClick(filterName, topicType){
@@ -219,7 +207,7 @@ class NewsFeed extends React.Component {
       oldOpposite,
       oldScore
     } = data;
-    console.log("Reaction: "+reaction+" commentId: "+commentId+" billId: "+billId+" newStatus: "+newStatus+"@@@@ DEV?"+this.props.global.isDev)
+    // console.log("Reaction: "+reaction+" commentId: "+commentId+" billId: "+billId+" newStatus: "+newStatus+"@@@@ DEV?"+this.props.global.isDev)
     let result = false;
     switch(reaction){
       case REACTIONS.HAPPY:
@@ -300,13 +288,15 @@ class NewsFeed extends React.Component {
 
 
   render() {
+
     return(
       <NewsFeedRender
+
+
           auth={ this.props.auth }
           global={ this.props.global }
           device={ this.props.device}
           newsfeed={this.props.newsfeed}
-
           searchModalVisible={this.props.router.modalIsOpen.get(SEARCH_BILL)}
           showBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, true)}
           hideBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, false)}

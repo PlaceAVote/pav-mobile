@@ -27,7 +27,7 @@ import * as deviceActions from '../reducers/device/deviceActions';
 // import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 import * as billActions from '../reducers/bill/billActions';
 import {findCommentPath} from '../lib/Utils/commentCrawler';
-import Orientation from 'react-native-orientation';
+
 /**
  * Router actions
  */

@@ -28,7 +28,7 @@ import * as profileActions from '../../reducers/profile/profileActions'
 import * as settingsActions from '../../reducers/settings/settingsActions'
 
 
-import Orientation from 'react-native-orientation';
+
 /**
  * Router actions
  */

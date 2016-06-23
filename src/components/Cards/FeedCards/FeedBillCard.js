@@ -276,16 +276,12 @@ class FeedBillCard extends React.Component {
    */
   render() {
 
-    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
           <TouchableOpacity style={{flex:1}} onPress={this.onBillClicked.bind(this)}>
             <PavImage
-            platform={this.props.device.platform}
+            platform={Platform.OS}
             defaultSource={congratsScreenPhoto}
             style={[styles.billImage, {height:this.props.cardHeight}]}
             source={{uri: this.props.billImgUrl}}
@@ -309,7 +305,6 @@ class FeedBillCard extends React.Component {
 
 
 FeedBillCard.propTypes= {
-  device: React.PropTypes.object.isRequired,
   subjectTitle: React.PropTypes.string.isRequired,
   billTitle: React.PropTypes.string,
   billImgUrl: React.PropTypes.string,

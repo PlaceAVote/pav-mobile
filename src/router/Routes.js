@@ -12,9 +12,9 @@ import {Colors, ScheneKeys} from '../config/constants';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Map} from 'immutable';
-
+import Orientation from 'react-native-orientation';
 import * as routingActions from '../reducers/routing/routingActions';
-
+import * as deviceActions from '../reducers/device/deviceActions';
 /*
 *
 * ### containers
@@ -98,7 +98,8 @@ const defaultProps = {
  * ## Redux boilerplate
  */
 const actions = [
-  routingActions
+  routingActions,
+  deviceActions,
 ];
 
 function routerStateToProps(state){
@@ -144,6 +145,19 @@ class Routes extends React.Component{
     });
   }
 
+  orientationDidChange(orientation) {
+    // alert("Orientation: "+orientation);
+    this.props.actions.setOrientation(orientation);
+  }
+
+  componentDidMount() {
+    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
+    this.props.actions.unlockOrientation();
+  }
+
+  componentWillUnmount() {
+    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
+  }
 
 
 

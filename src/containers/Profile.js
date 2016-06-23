@@ -27,7 +27,6 @@ import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as profileActions from '../reducers/profile/profileActions'
 
-import Orientation from 'react-native-orientation';
 /**
  * Router actions
  */
@@ -209,19 +208,6 @@ class Profile extends React.Component {
 
   }
 
-  orientationDidChange(orientation) {
-    // console.log("Orientation: "+orientation);
-    this.props.actions.setOrientation(orientation);
-  }
-
-  componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
-    this.props.actions.unlockOrientation();
-  }
-
-  componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
-  }
 
   async onFollowBtnPress(userId, currentlyFollowing){
     let success = false;
@@ -378,7 +364,7 @@ class Profile extends React.Component {
   //   shouldComponentUpdate(nextProps, nextState) {
   //     console.log("########### Cur user update: "+(nextProps.curUser !== this.props.curUser));
   //     return(
-  //       (nextProps.device !== this.props.device)
+  //       (nextProps.device.orientation !== this.props.device.orientation)
   //       ||
   //       (nextProps.isFetchingTimeline !== this.props.isFetchingTimeline)
   //       ||

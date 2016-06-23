@@ -178,7 +178,7 @@ class CommentsRender extends React.Component {
       return(
         <View style={styles.container}>
           <SubcommentContainerListCard
-            header={this.renderHeader.bind(this,this.props.billData, this.props.device.platform, styles)}
+            header={this.renderHeader.bind(this,this.props.billData, Platform.OS, styles)}
             style={styles.commentsPageContainer}
             replies={this.props.replies}
             device={this.props.device}

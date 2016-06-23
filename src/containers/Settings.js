@@ -55,7 +55,7 @@ const imgPickerOptions = {
   // }
 };
 
-import Orientation from 'react-native-orientation';
+
 /**
  * Router actions
  */
@@ -150,21 +150,7 @@ class Settings extends React.Component {
   // async getDiscoveryItemsForTopic(topicString){
   //   return await this.props.actions.getDiscoveryItems(topicString, this.TOKEN, this.props.global.isDev);
   // }
-  //
-  // orientationDidChange(orientation) {
-  //   console.log("Orientation: "+orientation);
-  //   this.props.actions.setOrientation(orientation);
-  // }
-  //
-  // componentDidMount() {
-  //   Orientation.addOrientationListener(this.orientationDidChange.bind(this));
-  //   this.props.actions.unlockOrientation();
-  // }
-  //
-  // componentWillUnmount() {
-  //   Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
-  // }
-  //
+
   //
   // onFilterBtnClick(filterName, topicType){
   //   // alert("Filter clicked: "+filterName);

@@ -49,3 +49,18 @@ import { Platform, PixelRatio } from 'react-native';
     function float2int (value) {
       return value | 0;
     }
+
+
+
+    export function updateScreenSizesByOrientation(sizes){
+
+      let screenSizes = {};
+      if(sizes.h>sizes.w){
+        screenSizes.h = sizes.h;
+        screenSizes.w = sizes.w;
+      }else{
+        screenSizes.h = sizes.w;
+        screenSizes.w = sizes.h;
+      }
+      return screenSizes;
+    }

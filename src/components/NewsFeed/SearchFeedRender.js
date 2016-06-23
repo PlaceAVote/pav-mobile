@@ -89,7 +89,7 @@ class SearchFeedRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    let refreshProps = this.props.device.platform=="ios"?{
+    let refreshProps = Platform.OS=="ios"?{
       // tintColor:Colors.primaryColor,
       // title:"Loading...",
       // titleColor:Colors.primaryColor
@@ -138,7 +138,7 @@ class SearchFeedRender extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.device !== this.props.device)
+      (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextProps.style !== this.props.style)
       ||

@@ -20,7 +20,6 @@ import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 
 
-import Orientation from 'react-native-orientation';
 /**
  * Router actions
  */
@@ -78,19 +77,7 @@ function mapDispatchToProps(dispatch) {
 
 class Onboarding extends React.Component{
 
-  componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
-    this.props.actions.unlockOrientation();
-  }
 
-  orientationDidChange(orientation) {
-    // console.log("Orientation: "+orientation);
-    this.props.actions.setOrientation(orientation);
-  }
-
-  componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
-  }
 
   onSignInBtnPressed(){
     this.props.actions.navigateTo(LOGIN);

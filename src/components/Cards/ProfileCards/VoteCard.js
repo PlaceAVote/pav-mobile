@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
 
 
   voteDescriptionContainer:{
+    flex:1,
     flexDirection:'column',
     // backgroundColor:'red',
   },
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
     fontSize: getCorrectFontSizeForScreen(w,h,9),
-    width: w*0.7,
   },
 
 
@@ -226,11 +226,6 @@ class VoteCard extends React.Component {
    * Setup some default presentations and render
    */
   render() {
-
-    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
@@ -278,7 +273,6 @@ class VoteCard extends React.Component {
 
 
 VoteCard.propTypes= {
-  device: React.PropTypes.object.isRequired,
   dateTime: React.PropTypes.string.isRequired,
   userFullNameText: React.PropTypes.string.isRequired,
   voteParentTitle: React.PropTypes.string,

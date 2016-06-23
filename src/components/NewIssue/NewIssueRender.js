@@ -373,7 +373,7 @@ class NewIssueRender extends React.Component {
     if(!!this.props.relatedArticle){
       return (
       <View style={styles.relatedArticleContainer}>
-        <PavImage platform={this.props.device.platform}
+        <PavImage platform={Platform.OS}
           style={styles.articleImage}
           defaultSource={congratsScreenPhoto}
           source={{uri: this.props.relatedArticle.img}}
@@ -446,7 +446,7 @@ class NewIssueRender extends React.Component {
         </View>
         <View style={styles.rightBtnContainer}>
           <PavImage
-            platform={this.props.device.platform}
+            platform={Platform.OS}
             defaultSource={defaultUserPhoto}
             style={styles.userImage}
             source={{uri: this.props.userPhotoUrl}}

@@ -343,7 +343,7 @@ class EmailSignUpStep4Render extends React.Component {
                     zipCodeHasError={this.props.auth.form.fields.zipCodeHasError}
                     zipCodeIsValid={this.props.auth.form.isValid.get(REGISTER_STEP_4)}
                     value={this.state.value}
-                    currentOs={this.props.device.platform}
+                    currentOs={Platform.OS}
                     onChange={this.onChange.bind(this)}
                     onNext={this.props.onNextStep}
                   />

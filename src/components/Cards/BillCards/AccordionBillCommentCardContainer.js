@@ -66,7 +66,7 @@
             alignItems: 'stretch',
             padding:7,
             // backgroundColor: 'pink',
-            
+
           },
 
 
