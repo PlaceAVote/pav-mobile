@@ -68,226 +68,203 @@ import PavImage from '../../lib/UI/PavImage'
 
 
 
+const styles = StyleSheet.create({
 
+
+  container: {
+    backgroundColor: 'white',
+    flex:1,
+    flexDirection: 'column',
+    paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
+
+    // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
+
+    // marginVertical: 10,
+    // marginHorizontal:15
+  },
+  billContainer:{
+    flex:1,
+    // backgroundColor: 'blue',
+  },
+
+
+  //HEADER
+  billImage:{
+    // flex:1,
+    // height: h*0.26
+  },
+  headerContainer:{
+    flex:1,
+    flexDirection: 'column',
+  },
+  headerTitleContainer:{
+    // backgroundColor:'purple'
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',  //horizontally
+    paddingVertical: h*0.013,
+    paddingHorizontal: w*0.012,
+  },
+  headerTitle:{
+    backgroundColor: Colors.transparentColor,
+    color: Colors.mainTextColor,
+    fontFamily: 'Whitney',
+    textAlign:'center',
+    fontSize: getCorrectFontSizeForScreen(w,h,15),
+  },
+  headerBtnsContainer:{
+    // backgroundColor:'pink',
+    flexDirection:'row',
+    paddingVertical: h*0.020,
+    justifyContent:'space-around',
+    alignItems:'center'
+  },
+  headerSocialShareBtnContainer:{
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    // backgroundColor:'red'
+  },
+  headerSocialShareBtn:{
+    backgroundColor: Colors.transparentColor,
+    color: Colors.secondaryTextColor,
+    paddingHorizontal: w*0.020,
+  },
+  headerTagBtnContainer:{
+    // backgroundColor:'white',
+    flexDirection:'row',
+    justifyContent:'space-around',
+    alignItems:'center'
+  },
+
+  tagsLblTextContainer:{
+    paddingHorizontal: w*0.011,
+  },
+  tagsLblText:{
+    backgroundColor: Colors.transparentColor,
+    color: Colors.secondaryTextColor,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+  },
+
+  tagBtn:{
+    justifyContent:'center',
+    height:23,
+    borderRadius: 3,
+    borderWidth: 1,
+    backgroundColor: Colors.accentColor,
+    borderColor: Colors.accentColor
+  },
+  tagBtnContainer:{
+    paddingHorizontal: w*0.003,
+  },
+  tagTitleTextContainer:{
+    paddingHorizontal: w*0.020,
+  },
+  tagTitleText:{
+    backgroundColor: Colors.transparentColor,
+    color: Colors.mainTextColor,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+  },
+
+
+
+
+
+
+  /* BODY */
+  pagesContainer:{
+    flex:1,
+    // backgroundColor:'blue',
+    // backgroundColor:'red'
+  },
+  spinnerContainer:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    // backgroundColor:'red',
+  },
+  tabText:{
+    paddingHorizontal: w*0.009,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    color: Colors.primaryColor,
+    textAlign:'center',
+  },
+  /* BODY - Pages */
+
+  summaryPageContainer:{
+    backgroundColor:'white'
+  },
+
+
+
+
+
+
+
+
+
+
+  //FOOTER
+  billBtnsContainer:{
+
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    // paddingVertical: h*0.005,
+  },
+  // btnIconStyle:{
+  //   marginHorizontal: 10
+  // },
+  footerBtnTextContainer:{
+    paddingHorizontal: w*0.008,
+    justifyContent:'center'
+  },
+  footerBtnText:{
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    textAlign:'center',
+    // backgroundColor:'blue',
+  },
+
+  footerBtn:{
+    flex:1,
+    flexDirection:'row',
+    justifyContent:'center',
+    width: w*0.45,
+    paddingHorizontal:w*0.010,
+    paddingVertical: h*0.020,
+    backgroundColor: "#F4F4F4",
+    borderWidth:1,
+    borderColor: 'rgba(0, 0, 0, 0.11)',
+    borderTopWidth:2,
+
+    // shadowColor: 'rgba(0, 0, 0, 0.12)',
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // shadowOffset: {
+    //   height: 1,
+    //   width: 2,
+    // },
+  },
+  footerBtnIcon:{
+    // backgroundColor: 'red',
+    color: 'rgba(0, 0, 0, 0.71)',
+    paddingLeft: w*0.020,
+    paddingRight: w*0.002,
+  }
+
+
+
+});
 
 
 class BillRender extends React.Component {
   constructor(props) {
     super(props);
     this.state={curImgHeight:0}
-  }
-
-
-
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      container: {
-        backgroundColor: 'white',
-        flex:1,
-        flexDirection: 'column',
-        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
-
-        // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
-
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-      billContainer:{
-        flex:1,
-        // backgroundColor: 'blue',
-      },
-
-
-      //HEADER
-      billImage:{
-        // flex:1,
-        // height: h*0.26
-      },
-      headerContainer:{
-        flex:1,
-        flexDirection: 'column',
-      },
-      headerTitleContainer:{
-        // backgroundColor:'purple'
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',  //horizontally
-        paddingVertical: h*0.013,
-        paddingHorizontal: w*0.012,
-      },
-      headerTitle:{
-        backgroundColor: Colors.transparentColor,
-        color: Colors.mainTextColor,
-        fontFamily: 'Whitney',
-        textAlign:'center',
-        fontSize: getCorrectFontSizeForScreen(w,h,15),
-      },
-      headerBtnsContainer:{
-        // backgroundColor:'pink',
-        flexDirection:'row',
-        paddingVertical: h*0.020,
-        justifyContent:'space-around',
-        alignItems:'center'
-      },
-      headerSocialShareBtnContainer:{
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
-        // backgroundColor:'red'
-      },
-      headerSocialShareBtn:{
-        backgroundColor: Colors.transparentColor,
-        color: Colors.secondaryTextColor,
-        paddingHorizontal: w*0.020,
-      },
-      headerTagBtnContainer:{
-        // backgroundColor:'white',
-        flexDirection:'row',
-        justifyContent:'space-around',
-        alignItems:'center'
-      },
-
-      tagsLblTextContainer:{
-        paddingHorizontal: w*0.011,
-      },
-      tagsLblText:{
-        backgroundColor: Colors.transparentColor,
-        color: Colors.secondaryTextColor,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-
-      tagBtn:{
-        justifyContent:'center',
-        height:23,
-        borderRadius: 3,
-        borderWidth: 1,
-        backgroundColor: Colors.accentColor,
-        borderColor: Colors.accentColor
-      },
-      tagBtnContainer:{
-        paddingHorizontal: w*0.003,
-      },
-      tagTitleTextContainer:{
-        paddingHorizontal: w*0.020,
-      },
-      tagTitleText:{
-        backgroundColor: Colors.transparentColor,
-        color: Colors.mainTextColor,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-
-
-
-
-
-
-      /* BODY */
-      pagesContainer:{
-        flex:1,
-        // backgroundColor:'blue',
-        // backgroundColor:'red'
-      },
-      spinnerContainer:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        // backgroundColor:'red',
-      },
-      tabText:{
-        paddingHorizontal: w*0.009,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-        color: Colors.primaryColor,
-        textAlign:'center',
-      },
-      /* BODY - Pages */
-
-      summaryPageContainer:{
-        backgroundColor:'white'
-      },
-
-
-
-
-
-
-
-
-
-
-      //FOOTER
-      billBtnsContainer:{
-
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        // paddingVertical: h*0.005,
-      },
-      // btnIconStyle:{
-      //   marginHorizontal: 10
-      // },
-      footerBtnTextContainer:{
-        paddingHorizontal: w*0.008,
-        justifyContent:'center'
-      },
-      footerBtnText:{
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-        textAlign:'center',
-        // backgroundColor:'blue',
-      },
-
-      footerBtn:{
-        flex:1,
-        flexDirection:'row',
-        justifyContent:'center',
-        width: w*0.45,
-        paddingHorizontal:w*0.010,
-        paddingVertical: h*0.020,
-        backgroundColor: "#F4F4F4",
-        borderWidth:1,
-        borderColor: 'rgba(0, 0, 0, 0.11)',
-        borderTopWidth:2,
-
-        // shadowColor: 'rgba(0, 0, 0, 0.12)',
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
-        // shadowOffset: {
-        //   height: 1,
-        //   width: 2,
-        // },
-      },
-      footerBtnIcon:{
-        // backgroundColor: 'red',
-        color: 'rgba(0, 0, 0, 0.71)',
-        paddingLeft: w*0.020,
-        paddingRight: w*0.002,
-      }
-
-
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
   }
 
 
@@ -305,7 +282,7 @@ class BillRender extends React.Component {
   }
 
 
-  renderBillTags(tags, styles){
+  renderBillTags(tags){
     if(tags!=null){
       return (<View style={styles.headerTagBtnContainer}>
         <View style={styles.tagsLblTextContainer}>
@@ -327,7 +304,7 @@ class BillRender extends React.Component {
     }
   }
 
-  renderHeader(billData, platform, styles){
+  renderHeader(billData, platform){
     // console.log("bill: "+JSON.stringify(billData))
     if(!!billData){
 
@@ -368,7 +345,7 @@ class BillRender extends React.Component {
                   </TouchableOpacity>
                 </View>
 
-                {this.renderBillTags(billData.pav_tags, styles)}
+                {this.renderBillTags(billData.pav_tags)}
 
 
               </View>
@@ -379,7 +356,7 @@ class BillRender extends React.Component {
     }
   }
 // onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
-  renderBody(data, styles){
+  renderBody(data){
     let {billData, commentData, isFetchingComments, isFetchingTopComments, isFetchingcommentBeingAltered} = data;
 
     if(!!billData){
@@ -483,7 +460,7 @@ class BillRender extends React.Component {
   }
 
 
-  renderFooter(alreadyVoted, styles){
+  renderFooter(alreadyVoted){
     if(alreadyVoted!=null){
       return (
         <View style={styles.billBtnsContainer}>
@@ -513,25 +490,25 @@ class BillRender extends React.Component {
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
 
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     let billData = !!this.props.bill.data && this.props.bill.data.toJS();
     return(
       <View style={styles.container}>
         <View style={styles.billContainer}>
-          {this.renderHeader(billData, this.props.device.platform, styles)}
+          {this.renderHeader(billData, this.props.device.platform)}
           {this.renderBody({
             billData: billData,
             commentData: this.props.bill.comments,
             isFetchingComments: this.props.bill.isFetching.billComments,
             isFetchingTopComments: this.props.bill.isFetching.billTopComments,
             isFetchingcommentBeingAltered: this.props.bill.commentBeingAltered,
-          }, styles)}
+          })}
         </View>
-        {this.renderFooter(billData&&billData.user_voted, styles)}
+        {this.renderFooter(billData&&billData.user_voted)}
       </View>
     );
   }

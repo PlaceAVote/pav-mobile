@@ -42,7 +42,89 @@ import {List} from 'immutable';
 //   SET_ORIENTATION
 // } = ScheneKeys;
 
+const styles = StyleSheet.create({
 
+
+  commentsPageContainer:{
+    flex:1,
+    backgroundColor: '#E8E7EE',
+  },
+  headerContainer:{
+    paddingBottom: h*0.020,
+  },
+  sortContainer:{
+    backgroundColor: 'white',
+    paddingHorizontal: w*0.027,
+    paddingVertical: h*0.010,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+
+    // borderWidth:1,
+    // borderColor: 'rgba(0, 0, 0, 0.11)',
+    // borderBottomWidth:1,
+
+    shadowColor: 'rgba(0, 0, 0, 0.15)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2,
+    },
+    // backgroundColor:'pink'
+  },
+  sortByTitleTextContainer:{
+    paddingHorizontal: w*0.027,
+    paddingVertical: h*0.011,
+  },
+  sortByTitleText:{
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+  },
+  sortBtnsContainer:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-around',
+    paddingHorizontal: w*0.027,
+    // backgroundColor:'purple'
+  },
+  sortBtn:{
+    justifyContent:'center',
+    // alignItems:'center',
+    // backgroundColor:'pink',
+    paddingHorizontal: w*0.027,
+    paddingVertical: h*0.011,
+  },
+  sortBtnText:{
+    // backgroundColor:'green',
+    color: Colors.primaryColor,
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    // backgroundColor:Colors.transparentColor
+  },
+  sortBtnActiveText:{
+    fontFamily: 'Whitney-Bold',
+  },
+  sortBtnInactiveText:{
+    fontFamily: 'Whitney',
+  },
+  sortBtnActive:{
+    borderBottomColor:Colors.negativeAccentColor,
+    borderBottomWidth:2,
+
+  },
+  sortBtnInactive:{
+    borderBottomWidth:0,
+  },
+
+
+  /* ROWS */
+  commentCard:{
+    paddingVertical: h*0.011,
+  },
+
+
+});
 
 
 
@@ -72,108 +154,6 @@ class CommentsTabRender extends React.Component {
 
 
 
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      commentsPageContainer:{
-        flex:1,
-        backgroundColor: '#E8E7EE',
-      },
-      headerContainer:{
-        paddingBottom: h*0.020,
-      },
-      sortContainer:{
-        backgroundColor: 'white',
-        paddingHorizontal: w*0.027,
-        paddingVertical: h*0.010,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-
-        // borderWidth:1,
-        // borderColor: 'rgba(0, 0, 0, 0.11)',
-        // borderBottomWidth:1,
-
-        shadowColor: 'rgba(0, 0, 0, 0.15)',
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 2,
-        },
-        // backgroundColor:'pink'
-      },
-      sortByTitleTextContainer:{
-        paddingHorizontal: w*0.027,
-        paddingVertical: h*0.011,
-      },
-      sortByTitleText:{
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-      sortBtnsContainer:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'space-around',
-        paddingHorizontal: w*0.027,
-        // backgroundColor:'purple'
-      },
-      sortBtn:{
-        justifyContent:'center',
-        // alignItems:'center',
-        // backgroundColor:'pink',
-        paddingHorizontal: w*0.027,
-        paddingVertical: h*0.011,
-      },
-      sortBtnText:{
-        // backgroundColor:'green',
-        color: Colors.primaryColor,
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-        // backgroundColor:Colors.transparentColor
-      },
-      sortBtnActiveText:{
-        fontFamily: 'Whitney-Bold',
-      },
-      sortBtnInactiveText:{
-        fontFamily: 'Whitney',
-      },
-      sortBtnActive:{
-        borderBottomColor:Colors.negativeAccentColor,
-        borderBottomWidth:2,
-
-      },
-      sortBtnInactive:{
-        borderBottomWidth:0,
-      },
-
-
-      /* ROWS */
-      commentCard:{
-        paddingVertical: h*0.011,
-      },
-
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
-  }
-
   onTabFocus(){
 
   }
@@ -184,7 +164,7 @@ class CommentsTabRender extends React.Component {
 
 
 
-  renderSortHeader(styles){
+  renderSortHeader(){
     return (
       <View style={styles.sortContainer}>
         <View style={styles.sortByTitleTextContainer}>
@@ -242,7 +222,7 @@ class CommentsTabRender extends React.Component {
   }
 
 
-  renderHeader(styles){
+  renderHeader(){
     return (
       <View style={styles.headerContainer}>
         <CommentReplyCard
@@ -252,7 +232,7 @@ class CommentsTabRender extends React.Component {
           postBtnEnabled={(this.props.commentsBeingFetched==false && this.props.commentBeingAltered==false)}
           postBtnLoading={(this.props.commentBeingAltered==true)}
         />
-        {this.renderSortHeader(styles)}
+        {this.renderSortHeader()}
       </View>
     );
   }
@@ -266,10 +246,11 @@ class CommentsTabRender extends React.Component {
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+
 
     // console.log("CommentsTabRender rebder .commentBeingAltered: "+this.props.commentBeingAltered);
     return(

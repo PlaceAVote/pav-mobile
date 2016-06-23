@@ -58,7 +58,173 @@ import AnimatedPavLineChart from './AnimatedPavLineChart'
 
 
 
+const styles = StyleSheet.create({
 
+
+  pageContainer:{
+    flex:1,
+    backgroundColor:'white'
+  },
+  scrollViewContainer:{
+    flex:1,
+  },
+
+  headerText:{
+    flex:1,
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+  },
+  bodyContainer:{
+    paddingVertical: h*0.017,
+    paddingHorizontal: w*0.030,
+    backgroundColor:'white'
+  },
+  titleContainer:{
+    flex:1,
+    backgroundColor: Colors.titleBgColor,
+    borderBottomColor: "rgba(0, 0, 0, 0.07)",
+    borderBottomWidth: 1,
+    paddingHorizontal: w*0.015,
+    paddingVertical: h*0.015,
+  },
+  titleWithMultipleChildren:{
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  bodyText:{
+    paddingVertical: h*0.008,
+    color: Colors.thirdTextColor,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  bodyReadMoreText:{
+    paddingVertical: h*0.008,
+    color: Colors.negativeAccentColor,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+  },
+
+
+  /* Bill Status */
+  statusContainer:{
+    flexDirection:'row',
+  },
+
+  statusIconContainer:{
+    backgroundColor:Colors.titleBgColorDark,
+    justifyContent:'center',
+    alignItems:'center',
+    height: w*0.21,
+    width: w*0.21,
+  },
+  statusIcon:{
+    // paddingHorizontal: w*0.011,
+    color:Colors.fourthTextColor
+  },
+  statusTextContainer:{
+    flexDirection:'column',
+    paddingHorizontal: w*0.015,
+  },
+  statusTitleText:{
+    paddingVertical: h*0.008,
+    color: Colors.thirdTextColor,
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  statusDescriptionText:{
+    width: w*0.73,
+    paddingVertical: h*0.008,
+    color: Colors.thirdTextColor,
+    fontFamily: 'Whitney-Book',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+  },
+  statusDescription2Text:{
+    paddingVertical: h*0.008,
+    color: Colors.thirdTextColor,
+    fontFamily: 'Whitney-MediumItalic',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+
+  /* CONGRESSMEN AND ORGANISATIONS INVOLVED */
+
+  cnoContainer:{
+    flexDirection:'column',
+  },
+  cnoBillSponsorContainer:{
+    flexDirection:'row',
+  },
+  sponsorImage:{
+    height: w*0.21,
+    width: w*0.21,
+  },
+  sponsorTextContainer:{
+    flexDirection:'column',
+    paddingHorizontal: w*0.025,
+  },
+  sponsorTitleText:{
+    paddingVertical: h*0.008,
+    color: Colors.thirdTextColor,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+  },
+  sponsorNameText:{
+    paddingVertical: h*0.008,
+    color: Colors.negativeAccentColor,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+  },
+  sponsorPartyText:{
+    paddingVertical: h*0.008,
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+  },
+  cnoCosponsorContainer:{
+    flexDirection:'column',
+  },
+
+  coponsorTitleText:{
+    paddingVertical: h*0.008,
+    color: Colors.negativeAccentColor,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+  },
+  cosponsorCntText:{
+    paddingVertical: h*0.004,
+    color: Colors.thirdTextColor,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+  },
+  cosponsorVisualGraphContainer:{
+    // flexDirection:'row',
+    justifyContent:'center',
+    paddingVertical: h*0.008,
+  },
+  chartContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'green',
+  },
+  chart:{
+    position: 'absolute',
+    top: 16,
+    left: 4,
+    bottom: 4,
+    right: 16,
+  },
+
+
+
+  /* OFFICIAL TITLE */
+  officialTitleText:{
+    color: Colors.thirdTextColor,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  }
+
+});
 
 
 
@@ -66,182 +232,6 @@ class InfoTabRender extends React.Component {
   constructor(props) {
     super(props);
 
-  }
-
-
-
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      pageContainer:{
-        flex:1,
-        backgroundColor:'white'
-      },
-      scrollViewContainer:{
-        flex:1,
-      },
-
-      headerText:{
-        flex:1,
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-      },
-      bodyContainer:{
-        paddingVertical: h*0.017,
-        paddingHorizontal: w*0.030,
-        backgroundColor:'white'
-      },
-      titleContainer:{
-        flex:1,
-        backgroundColor: Colors.titleBgColor,
-        borderBottomColor: "rgba(0, 0, 0, 0.07)",
-        borderBottomWidth: 1,
-        paddingHorizontal: w*0.015,
-        paddingVertical: h*0.015,
-      },
-      titleWithMultipleChildren:{
-        flexDirection:'row',
-        alignItems:'center'
-      },
-      bodyText:{
-        paddingVertical: h*0.008,
-        color: Colors.thirdTextColor,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      bodyReadMoreText:{
-        paddingVertical: h*0.008,
-        color: Colors.negativeAccentColor,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-      },
-
-
-      /* Bill Status */
-      statusContainer:{
-        flexDirection:'row',
-      },
-
-      statusIconContainer:{
-        backgroundColor:Colors.titleBgColorDark,
-        justifyContent:'center',
-        alignItems:'center',
-        height: w*0.21,
-        width: w*0.21,
-      },
-      statusIcon:{
-        // paddingHorizontal: w*0.011,
-        color:Colors.fourthTextColor
-      },
-      statusTextContainer:{
-        flexDirection:'column',
-        paddingHorizontal: w*0.015,
-      },
-      statusTitleText:{
-        paddingVertical: h*0.008,
-        color: Colors.thirdTextColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      statusDescriptionText:{
-        width: w*0.73,
-        paddingVertical: h*0.008,
-        color: Colors.thirdTextColor,
-        fontFamily: 'Whitney-Book',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-      },
-      statusDescription2Text:{
-        paddingVertical: h*0.008,
-        color: Colors.thirdTextColor,
-        fontFamily: 'Whitney-MediumItalic',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-
-      /* CONGRESSMEN AND ORGANISATIONS INVOLVED */
-
-      cnoContainer:{
-        flexDirection:'column',
-      },
-      cnoBillSponsorContainer:{
-        flexDirection:'row',
-      },
-      sponsorImage:{
-        height: w*0.21,
-        width: w*0.21,
-      },
-      sponsorTextContainer:{
-        flexDirection:'column',
-        paddingHorizontal: w*0.025,
-      },
-      sponsorTitleText:{
-        paddingVertical: h*0.008,
-        color: Colors.thirdTextColor,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-      },
-      sponsorNameText:{
-        paddingVertical: h*0.008,
-        color: Colors.negativeAccentColor,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-      sponsorPartyText:{
-        paddingVertical: h*0.008,
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-      cnoCosponsorContainer:{
-        flexDirection:'column',
-      },
-
-      coponsorTitleText:{
-        paddingVertical: h*0.008,
-        color: Colors.negativeAccentColor,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-      },
-      cosponsorCntText:{
-        paddingVertical: h*0.004,
-        color: Colors.thirdTextColor,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-      },
-      cosponsorVisualGraphContainer:{
-        // flexDirection:'row',
-        justifyContent:'center',
-        paddingVertical: h*0.008,
-      },
-      chartContainer:{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'green',
-      },
-      chart:{
-        position: 'absolute',
-        top: 16,
-        left: 4,
-        bottom: 4,
-        right: 16,
-      },
-
-
-
-      /* OFFICIAL TITLE */
-      officialTitleText:{
-        color: Colors.thirdTextColor,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      }
-
-    });
   }
 
 
@@ -254,14 +244,6 @@ class InfoTabRender extends React.Component {
   }
 
 
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
-  }
 
   handleScroll(e){
     let {contentOffset, contentSize,layoutMeasurement } = e.nativeEvent;
@@ -276,10 +258,10 @@ class InfoTabRender extends React.Component {
    */
   render() {
 
-    let isPortrait = (this.props.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     let sponsor = this.props.billData.sponsor;
     // console.log("BILL DATA: "+JSON.stringify(this.props.billData))
     // console.log("SPONSOR: "+JSON.stringify(sponsor));

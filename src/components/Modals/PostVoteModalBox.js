@@ -24,86 +24,78 @@ import PavImage from '../../lib/UI/PavImage'
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 import moment from 'moment';
 
+
+const styles = StyleSheet.create({
+    modal: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: w*1,
+        backgroundColor: Colors.transparentColor,
+    },
+    scroller:{
+      flex:1,
+      flexDirection:'column',
+    },
+
+    billImage:{
+      width:w*1,
+    },
+
+    congratulationsTextContainer:{
+      flex:1,
+      // backgroundColor:'pink',
+      justifyContent:'center'
+    },
+    congratulationsTextTitle:{
+      backgroundColor:Colors.transparentColor,
+      color: Colors.mainTextColor,
+      textAlign: 'center',
+      fontFamily: 'Whitney',
+      fontSize: getCorrectFontSizeForScreen(w,h,17),
+    },
+    congratulationsTextSubtitle:{
+      backgroundColor:Colors.transparentColor,
+      color: Colors.mainTextColor,
+      textAlign: 'center',
+      fontFamily: 'Whitney',
+      fontSize: getCorrectFontSizeForScreen(w,h,10),
+    },
+
+    disagreesTextTitleContainer:{
+      backgroundColor: Colors.titleBgColor,
+      borderBottomColor: "rgba(0, 0, 0, 0.07)",
+      borderBottomWidth: 1,
+      paddingHorizontal: w*0.015,
+      paddingVertical: h*0.015,
+    },
+    disagreesTextTitle:{
+      color: Colors.primaryColor,
+      fontFamily: 'Whitney-Bold',
+      fontSize: getCorrectFontSizeForScreen(w,h,8),
+    },
+
+    disagreesContainer:{
+      flex:1,
+    },
+    commentCard:{
+      flex:1,
+      padding:0
+    },
+    cardContainerStyle:{
+      flex:1,
+      padding:w*0.05,
+      marginRight:0,
+    }
+  });
+
 class PostVoteModalBox extends React.Component {
     constructor(){
         super();
     }
 
 
-    getStyles(topCommentExists){
-        return StyleSheet.create({
-            modal: {
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: topCommentExists===true?h*0.75:h*0.65,
-                width: w*1,
-                backgroundColor: Colors.transparentColor,
-            },
-            scroller:{
-              flex:1,
-              flexDirection:'column',
-              backgroundColor: topCommentExists===true?'white':Colors.transparentColor,
-            },
 
-            billImage:{
-              width:w*1,
-              height:topCommentExists===true?h*0.25:h*0.35
-            },
-
-            congratulationsTextContainer:{
-              flex:1,
-              // backgroundColor:'pink',
-              justifyContent:'center'
-            },
-            congratulationsTextTitle:{
-              backgroundColor:Colors.transparentColor,
-              color: Colors.mainTextColor,
-              textAlign: 'center',
-              fontFamily: 'Whitney',
-              fontSize: getCorrectFontSizeForScreen(w,h,17),
-            },
-            congratulationsTextSubtitle:{
-              backgroundColor:Colors.transparentColor,
-              color: Colors.mainTextColor,
-              textAlign: 'center',
-              fontFamily: 'Whitney',
-              fontSize: getCorrectFontSizeForScreen(w,h,10),
-            },
-
-            disagreesTextTitleContainer:{
-              backgroundColor: Colors.titleBgColor,
-              borderBottomColor: "rgba(0, 0, 0, 0.07)",
-              borderBottomWidth: 1,
-              paddingHorizontal: w*0.015,
-              paddingVertical: h*0.015,
-            },
-            disagreesTextTitle:{
-              color: Colors.primaryColor,
-              fontFamily: 'Whitney-Bold',
-              fontSize: getCorrectFontSizeForScreen(w,h,8),
-            },
-
-            disagreesContainer:{
-              flex:1,
-            },
-            commentCard:{
-              flex:1,
-              padding:0
-            },
-            cardContainerStyle:{
-              flex:1,
-              padding:w*0.05,
-              marginRight:0,
-            }
-
-
-
-        });
-    }
-
-
-
-    renderDisagreesComment(commentData, styles){
+    renderDisagreesComment(commentData){
       if(commentData!=null){
         let author_first_name = commentData.author_first_name || "Someone";
         return (
@@ -151,13 +143,14 @@ class PostVoteModalBox extends React.Component {
     }
 
     render(){
-      let styles = this.getStyles((this.props.oppositeComment!=null));
+      // let styles = this.getStyles();
+      let topCommentExists = (this.props.oppositeComment!=null);
         return (
             <Modal
                 backdrop={false}
                 animationDuration={200}
                 swipeThreshold={90}
-                style={styles.modal}
+                style={[styles.modal, {height: topCommentExists===true?h*0.75:h*0.65}]}
                 swipeToClose={false}
                 position="bottom"
                 ref="postVoteModal"
@@ -165,14 +158,14 @@ class PostVoteModalBox extends React.Component {
               >
 
               <ScrollView
-              style={styles.scroller}
+              style={[styles.scroller, {backgroundColor: topCommentExists===true?'white':Colors.transparentColor,}]}
               bounces={false}
               >
 
                 <PavImage
                   key="postVoteHeaderImg"
                   platform={this.props.device.platform}
-                  style={styles.billImage}
+                  style={[styles.billImage, {height:topCommentExists===true?h*0.25:h*0.35}]}
                   source={congratsScreenPhoto}
                   defaultSource={congratsScreenPhoto}
                   resizeMode='cover'
@@ -186,7 +179,7 @@ class PostVoteModalBox extends React.Component {
                     </Text>
                   </View>
                 </PavImage>
-                {this.renderDisagreesComment(this.props.oppositeComment, styles)}
+                {this.renderDisagreesComment(this.props.oppositeComment)}
 
 
               </ScrollView>

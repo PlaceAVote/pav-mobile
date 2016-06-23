@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     fontSize: getCorrectFontSizeForScreen(w,h,8),
   },
   commentLocationText:{
-    // backgroundColor:'yellow',
+    backgroundColor:'yellow',
     color: Colors.primaryColor,
     paddingHorizontal: 1,
     fontFamily: 'Whitney Semibold',

@@ -57,7 +57,113 @@ import PavImage from '../../lib/UI/PavImage'
 
 
 
+const styles = StyleSheet.create({
 
+
+  container: {
+    backgroundColor: 'black',
+    flex:1,
+    flexDirection: 'column',
+    // marginVertical: 10,
+    // marginHorizontal:15
+  },
+
+  /* HEADER */
+  billImage:{
+    flex:1,
+    // height: h*0.29
+  },
+  headerContainer:{
+    flex:1,
+    flexDirection: 'column',
+  },
+
+  closeBtnContainer:{
+    paddingVertical: h*0.015,
+    paddingHorizontal: w*0.015,
+    backgroundColor:Colors.transparentColor,
+    flexDirection:'row',
+    justifyContent:'flex-end',
+    alignItems:'center',
+  },
+  closeBtnTextContainer:{
+    paddingVertical: h*0.015,
+    paddingHorizontal: w*0.015,
+  },
+  closeBtnText:{
+    backgroundColor: Colors.transparentColor,
+    color: Colors.mainTextColor,
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    textAlign:'center'
+  },
+  closeBtnIcon:{
+    color: Colors.mainTextColor,
+    backgroundColor: Colors.transparentColor,
+  },
+
+
+
+
+
+  headerTitleContainer:{
+    // backgroundColor:'purple'
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',  //horizontally
+  },
+  headerTitle:{
+    backgroundColor: Colors.transparentColor,
+    paddingVertical: h*0.015,
+    paddingHorizontal: w*0.015,
+    color: Colors.mainTextColor,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,18),
+    textAlign:'center'
+  },
+
+
+
+
+
+  /* FOOTER */
+  voteFooterContainer:{
+    flexDirection: 'row',
+  },
+
+  /* FOOTER - FOR */
+  voteForBtn:{
+    backgroundColor: Colors.accentColor,
+  },
+
+  /* FOOTER - AGAINST */
+  voteAgainstBtn:{
+    backgroundColor: Colors.negativeAccentColor,
+  },
+
+  /* FOOTER - BOTH */
+  voteBtn:{
+    flex:1,
+    borderColor: Colors.mainBorderColor,
+    height:60,
+    borderRadius:0,
+  },
+
+  btnText:{
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,14),
+  },
+  btnIconStyle:{
+    color: Colors.mainTextColor,
+    paddingTop:2,
+    // backgroundColor:'green',
+
+  }
+
+
+});
 
 
 
@@ -72,136 +178,7 @@ class VoteRender extends React.Component {
   }
 
 
-
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      container: {
-        backgroundColor: 'black',
-        flex:1,
-        flexDirection: 'column',
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-
-      /* HEADER */
-      billImage:{
-        flex:1,
-        // height: h*0.29
-      },
-      headerContainer:{
-        flex:1,
-        flexDirection: 'column',
-      },
-
-      closeBtnContainer:{
-        paddingVertical: h*0.015,
-        paddingHorizontal: w*0.015,
-        backgroundColor:Colors.transparentColor,
-        flexDirection:'row',
-        justifyContent:'flex-end',
-        alignItems:'center',
-      },
-      closeBtnTextContainer:{
-        paddingVertical: h*0.015,
-        paddingHorizontal: w*0.015,
-      },
-      closeBtnText:{
-        backgroundColor: Colors.transparentColor,
-        color: Colors.mainTextColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-        textAlign:'center'
-      },
-      closeBtnIcon:{
-        color: Colors.mainTextColor,
-        backgroundColor: Colors.transparentColor,
-      },
-
-
-
-
-
-      headerTitleContainer:{
-        // backgroundColor:'purple'
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',  //horizontally
-      },
-      headerTitle:{
-        backgroundColor: Colors.transparentColor,
-        paddingVertical: h*0.015,
-        paddingHorizontal: w*0.015,
-        color: Colors.mainTextColor,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,18),
-        textAlign:'center'
-      },
-
-
-
-
-
-      /* FOOTER */
-      voteFooterContainer:{
-        flexDirection: 'row',
-      },
-
-      /* FOOTER - FOR */
-      voteForBtn:{
-        backgroundColor: Colors.accentColor,
-      },
-
-      /* FOOTER - AGAINST */
-      voteAgainstBtn:{
-        backgroundColor: Colors.negativeAccentColor,
-      },
-
-      /* FOOTER - BOTH */
-      voteBtn:{
-        flex:1,
-        borderColor: Colors.mainBorderColor,
-        height:60,
-        borderRadius:0,
-      },
-
-      btnText:{
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,14),
-      },
-      btnIconStyle:{
-        color: Colors.mainTextColor,
-        paddingTop:2,
-        // backgroundColor:'green',
-
-      }
-
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
-  }
-
-
-  renderFooter(userHasVoted, styles){
+  renderFooter(userHasVoted){
     if(userHasVoted===true){
       return (
         <PostVoteModalBox
@@ -261,12 +238,12 @@ class VoteRender extends React.Component {
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     let billData = this.props.billData.toJS();
     // console.log("@@@@@@@@@@@@@@@@@@@ BILL USER VOTED: "+this.props.billData.get("user_voted"));
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <View
       style={styles.container}>
@@ -295,7 +272,7 @@ class VoteRender extends React.Component {
               </View>
           </LinearGradient>
         </PavImage>
-        {this.renderFooter(billData.user_voted, styles)}
+        {this.renderFooter(billData.user_voted)}
       </View>
     );
   }
