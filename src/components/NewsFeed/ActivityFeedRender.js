@@ -6,8 +6,8 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, View, ListView, Platform, RefreshControl} from 'react-native';
-// import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {StyleSheet, View, ListView, Platform, RefreshControl, Text} from 'react-native';
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -26,8 +26,40 @@ import {Colors, Other} from '../../config/constants';
 const {NEWS_FEED_FILTERS} = Other;
 
 
+const styles = StyleSheet.create({
+  itemList:{
+    flex:1,
+  },
+  cardStyle:{
+    ...Platform.select({
+       ios: {
+        //  height:h*0.2,
+       },
+       android: {
+         elevation:5,
+        //  backgroundColor:'red'
+       },
+     }),
+  },
+  recentActivityTextContainer:{
+    paddingHorizontal: w*0.009,
+    paddingTop: h*0.02,
+    // top:0,
+    // width:w,
+    // height:h*0.065,
+    // position:'absolute',
+    // backgroundColor: "rgba(0,0,0,0.06)",
+    // backgroundColor:'green',
+  },
+  recentActivityText: {
 
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    color: Colors.fifthTextColor,
+    // textAlign: 'center',
+  },
 
+});
 
 class ActivityFeedRender extends React.Component {
   constructor(props) {
@@ -52,55 +84,42 @@ class ActivityFeedRender extends React.Component {
 
 
 
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-      itemList:{
-        flex:1,
-      },
-      cardStyle:{
-        ...Platform.select({
-           ios: {
-            //  height:h*0.2,
-           },
-           android: {
-             elevation:5,
-            //  backgroundColor:'red'
-           },
-         }),
-      },
+  renderRecentActivityText(shouldRender, text){
 
-    });
+
   }
 
+  /*
+   *
+   *
+   *   FILTERS     FILTERS     FILTERS     FILTERS     FILTERS     FILTERS
+   *
+  */
 
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
-  }
-
-
-
-
+    getHeaderTextBasedOnFilter(curSelectedFilter, userFirstName){
+      switch(curSelectedFilter){
+        case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
+          return "Welcome back"+(userFirstName==null?"":", "+userFirstName)+"! Here's whats new: ";
+        case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
+          return "Here's whats new from the people you follow: ";
+        case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
+          return "Here's whats new from the bills you follow: ";
+        case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
+          return "Here are some bills you might be interested in: ";
+        case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
+          return "Here are a few statistics you might be interested in: ";
+      }
+    }
 
 
   /**
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     let refreshProps = this.props.device.platform=="ios"?{
       // tintColor:Colors.primaryColor,
       // title:"Loading...",
@@ -123,6 +142,18 @@ class ActivityFeedRender extends React.Component {
            }
          }}
          onEndReachedThreshold={200}
+         renderHeader={()=>{
+           if(this.props.curFilter!=null){
+             return (
+               <View style={styles.recentActivityTextContainer}>
+                 <Text style={styles.recentActivityText}>
+                   {this.getHeaderTextBasedOnFilter(this.props.curFilter, this.props.curUser.firstName)}
+                 </Text>
+               </View>);
+           }else{
+             return <View></View>;
+           }
+         }}
          refreshControl={
            <RefreshControl
            refreshing={this.props.beingRefreshed}

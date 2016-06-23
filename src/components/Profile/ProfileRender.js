@@ -98,7 +98,180 @@ function mapDispatchToProps(dispatch) {
 
 
 
+const styles = StyleSheet.create({
 
+
+  container: {
+    // backgroundColor: 'orange',
+    flex:1,
+    flexDirection: 'column',
+    paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+    backgroundColor: '#E8E7EE',
+    // marginVertical: 10,
+    // marginHorizontal:15
+  },
+
+  profileHeaderContainer:{
+
+  },
+  headerView:{
+    flexDirection: 'column',
+  },
+  userDataHeaderView:{
+    flex:1,
+    backgroundColor: Colors.transparentColor,
+    flexDirection: 'row',
+    // backgroundColor:'red',
+    // paddingVertical: h*0.02,
+    paddingHorizontal: w*0.02,
+    alignItems:'center',
+  },
+  userAccSettingsHeaderView:{
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    backgroundColor: Colors.mainTextColor,
+    paddingVertical: h*0.014,
+    paddingHorizontal: w*0.03
+  },
+  accountSettingsText:{
+    color: Colors.primaryColor,
+    textAlign: 'left',
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,10),
+  },
+  accountSettingsIcon:{
+    color: Colors.primaryColor,
+  },
+  profileImgContainerView:{
+    flex:0.4,
+    // backgroundColor: "yellow"
+
+  },
+  userDataContainerView:{
+    flex:0.6,
+    flexDirection: 'column',
+    paddingHorizontal: w*0.04,
+    // backgroundColor: "green",
+    alignItems:'flex-start',
+    justifyContent:'space-around'
+  },
+  userImg:{
+    flex:1,
+    width:null,
+    height:h*0.23,
+    // backgroundColor: "white"
+  },
+  followBtn:{
+    backgroundColor: Colors.accentColor,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: Colors.mainBorderColor,
+    // marginTop: 15,
+    marginTop: h*0.030,
+    height: 36
+  },
+  whiteBtnText:{
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,12),
+  },
+  fullNameText:{
+    color: Colors.mainTextColor,
+    textAlign: 'left',
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,16),
+  },
+  locationContainer:{
+    flexDirection: 'row',
+    alignItems:'center',
+  },
+  locationText:{
+    color: Colors.mainTextColor,
+    textAlign: 'left',
+    fontFamily: 'Whitney Light',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  locationPinIcon:{
+    color: Colors.mainTextColor,
+    paddingHorizontal:3,
+  },
+  userDetailsHeaderView:{
+    // backgroundColor:'pink',
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    backgroundColor: Colors.mainTextColor,
+    paddingVertical: h*0.014,
+    paddingHorizontal: w*0.04
+  },
+
+  statisticsTitleTextContainer:{
+    paddingTop:2,
+  },
+  statisticsTitleText:{
+    color: Colors.fourthTextColor,
+    textAlign: 'left',
+    fontFamily: 'Whitney Light',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+  },
+
+  statisticsContentText:{
+    color: Colors.fourthTextColor,
+    textAlign: 'left',
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,10),
+  },
+
+  statisticsBigContainer:{
+    flex:2,
+    flexDirection:'column',
+    // backgroundColor:'red'
+  },
+  statisticsSmallContainer:{
+    flex:1,
+    flexDirection:'column',
+    // backgroundColor:'green'
+  },
+
+
+  itemList:{
+    flex:1,
+    backgroundColor: '#E8E7EE',
+  },
+  card:{
+    paddingHorizontal: w*0.03,
+    // backgroundColor:'red'
+  },
+
+  scrollSpacerView:{
+      height:h*0.07,
+      backgroundColor:Colors.transparentColor
+  },
+  recentActivityTextContainer:{
+    paddingHorizontal: w*0.05,
+    paddingVertical: h*0.01,
+    backgroundColor:Colors.transparentColor
+  },
+  recentActivityText: {
+    // top:0,
+    // width:w,
+    // height:h*0.065,
+    // position:'absolute',
+    // backgroundColor: "rgba(0,0,0,0.06)",
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,20),
+    color: Colors.fourthTextColor,
+    // textAlign: 'center',
+  },
+
+  bodyLoadingContainer:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
+  }
+});
 
 
 
@@ -117,213 +290,6 @@ class ProfileRender extends React.Component {
     };
   }
 
-
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      container: {
-        // backgroundColor: 'orange',
-        flex:1,
-        flexDirection: 'column',
-        paddingBottom:self.props.isTab===false?0:50, //tab bar height
-        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
-        backgroundColor: '#E8E7EE',
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-
-      headerView:{
-        flexDirection: 'column',
-      },
-      userDataHeaderView:{
-        flex:1,
-        backgroundColor: Colors.transparentColor,
-        flexDirection: 'row',
-        // backgroundColor:'red',
-        // paddingVertical: h*0.02,
-        paddingHorizontal: w*0.02,
-        alignItems:'center',
-      },
-      userAccSettingsHeaderView:{
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-        backgroundColor: Colors.mainTextColor,
-        paddingVertical: h*0.014,
-        paddingHorizontal: w*0.03
-      },
-      accountSettingsText:{
-        color: Colors.primaryColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,10),
-      },
-      accountSettingsIcon:{
-        color: Colors.primaryColor,
-      },
-      profileImgContainerView:{
-        flex:0.4,
-        // backgroundColor: "yellow"
-
-      },
-      userDataContainerView:{
-        flex:0.6,
-        flexDirection: 'column',
-        paddingHorizontal: w*0.04,
-        // backgroundColor: "green",
-        alignItems:'flex-start',
-        justifyContent:'space-around'
-      },
-      userImg:{
-        flex:1,
-        width:null,
-        height:h*0.23,
-        // backgroundColor: "white"
-      },
-      followBtn:{
-        backgroundColor: Colors.accentColor,
-        borderRadius: 2,
-        borderWidth: 1,
-        borderColor: Colors.mainBorderColor,
-        // marginTop: 15,
-        marginTop: h*0.030,
-        height: 36
-      },
-      whiteBtnText:{
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,12),
-      },
-      fullNameText:{
-        color: Colors.mainTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,16),
-      },
-      locationContainer:{
-        flexDirection: 'row',
-        alignItems:'center',
-      },
-      locationText:{
-        color: Colors.mainTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Light',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      locationPinIcon:{
-        color: Colors.mainTextColor,
-        paddingHorizontal:3,
-      },
-      userDetailsHeaderView:{
-        // backgroundColor:'pink',
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-        backgroundColor: Colors.mainTextColor,
-        paddingVertical: h*0.014,
-        paddingHorizontal: w*0.04
-      },
-
-      statisticsTitleTextContainer:{
-        paddingTop:2,
-      },
-      statisticsTitleText:{
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Light',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-
-      statisticsContentText:{
-        color: Colors.fourthTextColor,
-        textAlign: 'left',
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,10),
-      },
-
-      statisticsBigContainer:{
-        flex:2,
-        flexDirection:'column',
-        // backgroundColor:'red'
-      },
-      statisticsSmallContainer:{
-        flex:1,
-        flexDirection:'column',
-        // backgroundColor:'green'
-      },
-
-
-      itemList:{
-        flex:1,
-        backgroundColor: '#E8E7EE',
-      },
-      card:{
-        paddingHorizontal: w*0.03,
-        // backgroundColor:'red'
-      },
-
-      scrollSpacerView:{
-          height:h*0.07,
-          backgroundColor:Colors.transparentColor
-      },
-      recentActivityTextContainer:{
-        paddingHorizontal: w*0.05,
-        paddingVertical: h*0.01,
-        backgroundColor:Colors.transparentColor
-      },
-      recentActivityText: {
-        // top:0,
-        // width:w,
-        // height:h*0.065,
-        // position:'absolute',
-        // backgroundColor: "rgba(0,0,0,0.06)",
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,20),
-        color: Colors.fourthTextColor,
-        // textAlign: 'center',
-      },
-
-      bodyLoadingContainer:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center'
-      }
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-      container: {
-        // backgroundColor: 'orange',
-        flex:1,
-        flexDirection: 'column',
-        marginVertical: 10,
-        marginHorizontal:10
-      },
-
-      titleText: {
-        // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,27),
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-      }
-
-    });
-  }
 
 
   formUserLocationText(user){
@@ -360,7 +326,7 @@ class ProfileRender extends React.Component {
   }
 
 
-  renderProfilePhoto(url, styles){
+  renderProfilePhoto(url){
     if(url==null && this.props.isFetchingProfile===false){
       return (
         <PavImage
@@ -386,7 +352,7 @@ class ProfileRender extends React.Component {
   }
 
 
-  renderFollowButton(curUserProfileBelongsToTheAppUser, styles){
+  renderFollowButton(curUserProfileBelongsToTheAppUser){
     if(curUserProfileBelongsToTheAppUser==true){
       return <View></View>;
     }else{
@@ -409,7 +375,7 @@ class ProfileRender extends React.Component {
 
   }
 
-  renderProfileHeader(styles){
+  renderProfileHeader(){
     let firstName = this.props.curUser.firstName|| "-";
     let lastName = this.props.curUser.lastName || "";
     let fullName =  firstName+" "+lastName;
@@ -447,7 +413,7 @@ class ProfileRender extends React.Component {
               </View>
               <View style={styles.userDataHeaderView}>
                 <View style={styles.profileImgContainerView}>
-                  {this.renderProfilePhoto(this.props.curUser.photoUrl, styles)}
+                  {this.renderProfilePhoto(this.props.curUser.photoUrl)}
                 </View>
                 <View style={styles.userDataContainerView}>
                   <Text style={styles.fullNameText}>{fullName}</Text>
@@ -457,7 +423,7 @@ class ProfileRender extends React.Component {
                     <Text style={styles.locationText}>{this.formUserLocationText(this.props.curUser)}</Text>
                   </View>
 
-                  {this.renderFollowButton((this.props.isTab!==false), styles)}
+                  {this.renderFollowButton((this.props.isTab!==false))}
                 </View>
               </View>
             </LinearGradient>);
@@ -471,12 +437,12 @@ class ProfileRender extends React.Component {
    */
   render() {
 
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
-        <View style={styles.container}>
-          {this.renderProfileHeader(styles)}
+        <View style={[styles.container, {paddingBottom:this.props.isTab===false?0:50}]}>
+
           <ListView
            enableEmptySections={true}
            style={styles.itemList}
@@ -498,8 +464,11 @@ class ProfileRender extends React.Component {
            }}
 
            renderHeader={()=>(
-             <View  style={styles.recentActivityTextContainer}>
-                <Text style={styles.recentActivityText}>Recent Activity:</Text>
+             <View  style={styles.profileHeaderContainer}>
+               {this.renderProfileHeader()}
+               <View  style={styles.recentActivityTextContainer}>
+                  <Text style={styles.recentActivityText}>Recent Activity:</Text>
+               </View>
              </View>
            )}
            refreshControl={

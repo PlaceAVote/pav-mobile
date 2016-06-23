@@ -38,7 +38,135 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 
 
+const styles = StyleSheet.create({
 
+  cardContainer:{
+    flex: 1,
+    alignItems: 'stretch',
+    // backgroundColor: 'blue',
+    paddingHorizontal: 7,
+    paddingVertical: 7,
+
+  },
+
+  card:{
+    flex: 1,
+    backgroundColor: '#ffffff',
+    borderRadius: 2,
+    borderColor: '#ffffff',
+    borderWidth: 1,
+    shadowColor: 'rgba(0, 0, 0, 0.12)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2,
+    },
+  },
+  cardTitleContainer:{
+    flex: 1,
+    flexDirection:'row',
+    paddingHorizontal: w*0.02,
+    paddingVertical: w*0.02,
+    justifyContent:'space-between',
+    alignItems:'center'
+  },
+  cardTitleTextAndIconContainer:{
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  cardTitleTextContainer:{
+    paddingHorizontal: w*0.014,
+  },
+  cardTitleText:{
+    // backgroundColor: 'red',
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  cardDateTextContainer:{
+    // paddingHorizontal: w*0.02,
+    // backgroundColor:'pink'
+  },
+  cardDateText:{
+    // backgroundColor:'red',
+    // color: Colors.thirdTextColor,
+    textAlign:'center',
+    width: w*0.29,
+    color: 'rgba(0, 0, 0, 0.60)',
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+
+  cardContentContainer:{
+    // backgroundColor:'red',
+    paddingHorizontal: w*0.02,
+    paddingBottom: h*0.012,
+    borderStyle: 'solid',
+    borderTopColor: 'rgba(0, 0, 0, 0.1)',
+    borderTopWidth: 1,
+    flexDirection:'column'
+  },
+  cardContentHeader:{
+    flex:1,
+    paddingVertical:h*0.02,
+    flexDirection:'row',
+    // backgroundColor:'red',
+    alignItems:'center'
+  },
+
+  followIconContainer:{
+      justifyContent:'center',
+      alignItems:'center',
+      width: w*0.09,
+      height: w*0.09,
+      backgroundColor: Colors.accentColor,
+      paddingHorizontal: w*0.005,
+      paddingVertical:4,
+      borderRadius: 3,
+      borderColor: '#ffffff',
+      borderWidth: 1,
+  },
+
+  followIcon:{
+    color: Colors.mainTextColor,
+  },
+
+  nameTextContainer:{
+    paddingHorizontal: w*0.005,
+  },
+  nameText:{
+    // backgroundColor:'blue',
+    color:"#e64a33",
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  followBetweenTextContainer:{
+    paddingHorizontal: w*0.003,
+  },
+  followedNameTextContainer:{
+    // paddingHorizontal: w*0.001,
+  },
+  followBetweenText:{
+    color: Colors.thirdTextColor,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+
+
+
+  bodyView:{
+    flex:1.45,
+    backgroundColor: '#E8E7EE',
+  },
+  // titleText: {
+  //   // backgroundColor: 'black',
+  //   fontSize: getCorrectFontSizeForScreen(w,h,27),
+  //   fontFamily: 'Whitney Semibold',
+  //   color: Colors.mainTextColor,
+  //   textAlign: 'center',
+  // },
+});
 
 
 
@@ -50,171 +178,6 @@ class FollowCard extends React.Component {
 
 
 
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-
-
-    return StyleSheet.create({
-
-      cardContainer:{
-        flex: 1,
-        alignItems: 'stretch',
-        // backgroundColor: 'blue',
-        paddingHorizontal: 7,
-        paddingVertical: 7,
-
-      },
-
-      card:{
-        flex: 1,
-        backgroundColor: '#ffffff',
-        borderRadius: 2,
-        borderColor: '#ffffff',
-        borderWidth: 1,
-        shadowColor: 'rgba(0, 0, 0, 0.12)',
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 2,
-        },
-      },
-      cardTitleContainer:{
-        flex: 1,
-        flexDirection:'row',
-        paddingHorizontal: w*0.02,
-        paddingVertical: w*0.02,
-        justifyContent:'space-between',
-        alignItems:'center'
-      },
-      cardTitleTextAndIconContainer:{
-        flexDirection:'row',
-        alignItems:'center'
-      },
-      cardTitleTextContainer:{
-        paddingHorizontal: w*0.014,
-      },
-      cardTitleText:{
-        // backgroundColor: 'red',
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      cardDateTextContainer:{
-        // paddingHorizontal: w*0.02,
-        // backgroundColor:'pink'
-      },
-      cardDateText:{
-        // backgroundColor:'red',
-        // color: Colors.thirdTextColor,
-        textAlign:'center',
-        width: w*0.29,
-        color: 'rgba(0, 0, 0, 0.60)',
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-
-      cardContentContainer:{
-        // backgroundColor:'red',
-        paddingHorizontal: w*0.02,
-        paddingBottom: h*0.012,
-        borderStyle: 'solid',
-        borderTopColor: 'rgba(0, 0, 0, 0.1)',
-        borderTopWidth: 1,
-        flexDirection:'column'
-      },
-      cardContentHeader:{
-        flex:1,
-        paddingVertical:h*0.02,
-        flexDirection:'row',
-        // backgroundColor:'red',
-        alignItems:'center'
-      },
-
-      followIconContainer:{
-          justifyContent:'center',
-          alignItems:'center',
-          width: w*0.09,
-          height: w*0.09,
-          backgroundColor: Colors.accentColor,
-          paddingHorizontal: w*0.005,
-          paddingVertical:4,
-          borderRadius: 3,
-          borderColor: '#ffffff',
-          borderWidth: 1,
-      },
-
-      followIcon:{
-        color: Colors.mainTextColor,
-      },
-
-      nameTextContainer:{
-        paddingHorizontal: w*0.005,
-      },
-      nameText:{
-        // backgroundColor:'blue',
-        color:"#e64a33",
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      followBetweenTextContainer:{
-        paddingHorizontal: w*0.003,
-      },
-      followedNameTextContainer:{
-        // paddingHorizontal: w*0.001,
-      },
-      followBetweenText:{
-        color: Colors.thirdTextColor,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-
-
-
-      bodyView:{
-        flex:1.45,
-        backgroundColor: '#E8E7EE',
-      },
-      // titleText: {
-      //   // backgroundColor: 'black',
-      //   fontSize: getCorrectFontSizeForScreen(w,h,27),
-      //   fontFamily: 'Whitney Semibold',
-      //   color: Colors.mainTextColor,
-      //   textAlign: 'center',
-      // },
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-      container: {
-        // backgroundColor: 'orange',
-        flex:1,
-        flexDirection: 'column',
-        marginVertical: 10,
-        marginHorizontal:10
-      },
-
-      titleText: {
-        // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,27),
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-      }
-
-    });
-  }
 
 
 
@@ -232,8 +195,8 @@ class FollowCard extends React.Component {
    */
   render() {
 
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
     return(
       <View style={[styles.cardContainer, this.props.style]}>

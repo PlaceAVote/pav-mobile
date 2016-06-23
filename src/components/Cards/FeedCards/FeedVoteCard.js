@@ -40,168 +40,129 @@ import PavImage from '../../../lib/UI/PavImage'
 import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 
 
+const styles = StyleSheet.create({
 
+  cardContainer:{
+    flex: 1,
+    alignItems: 'stretch',
+    // backgroundColor: 'blue',
+    paddingHorizontal: 7,
+    paddingVertical: 7,
+
+  },
+
+  card:{
+    flex: 1,
+    backgroundColor: '#ffffff',
+    borderRadius: 2,
+    borderColor: '#ffffff',
+    borderWidth: 0,
+    shadowColor: 'rgba(0, 0, 0, 0.12)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2,
+    },
+  },
+  cardTitleContainer:{
+
+    flexDirection:'row',
+    paddingHorizontal: w*0.02,
+    paddingVertical: w*0.02,
+    justifyContent:'space-between',
+    alignItems:'center'
+  },
+  cardTitleTextAndIconContainer:{
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  cardTitleText:{
+    // backgroundColor: 'red',
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  cardDateText:{
+    // backgroundColor: 'red',
+    paddingHorizontal: 5,
+    // color: Colors.thirdTextColor,
+    color: 'rgba(0, 0, 0, 0.60)',
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+
+  cardContentContainer:{
+    flex:1,
+    // backgroundColor:'red',
+    justifyContent:'center',
+    paddingHorizontal: w*0.02,
+    paddingBottom: h*0.012,
+    borderStyle: 'solid',
+    borderTopColor: 'rgba(0, 0, 0, 0.1)',
+    borderTopWidth: 1,
+  },
+  cardContentHeader:{
+    paddingVertical:h*0.01,
+    flexDirection:'row',
+    // backgroundColor:'red',
+    alignItems:'center'
+  },
+  imageContainer:{
+  },
+
+
+  voteDescriptionContainer:{
+    flexDirection:'column',
+    // backgroundColor:'blue',
+    padding: 5
+  },
+
+
+
+  userImage:{
+    width:w*0.09,
+    height:w*0.09,
+    // marginHorizontal: 10,
+  },
+  voteLocationContainer:{
+    flexDirection:'row',
+    alignItems:"center",
+    // backgroundColor:'red',
+  },
+  voteNameText:{
+    // backgroundColor:'blue',
+    color:"#e64a33",
+    paddingHorizontal: 5,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  voteInText:{
+    color: Colors.thirdTextColor,
+    paddingHorizontal: 5,
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+  },
+  voteLocationText:{
+    // backgroundColor:'yellow',
+    color: Colors.primaryColor,
+    paddingHorizontal: 1,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    width: w*0.56,
+  },
+  voteLocationTitleContainer:{
+    // backgroundColor:'green',
+    paddingVertical:h*0.001,
+  }
+
+});
 
 class FeedVoteCard extends React.Component {
   constructor(props) {
     super(props);
   }
 
-
-
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-
-
-    return StyleSheet.create({
-
-      cardContainer:{
-        flex: 1,
-        alignItems: 'stretch',
-        // backgroundColor: 'blue',
-        paddingHorizontal: 7,
-        paddingVertical: 7,
-
-      },
-
-      card:{
-        flex: 1,
-        backgroundColor: '#ffffff',
-        borderRadius: 2,
-        borderColor: '#ffffff',
-        borderWidth: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.12)',
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 2,
-        },
-      },
-      cardTitleContainer:{
-
-        flexDirection:'row',
-        paddingHorizontal: w*0.02,
-        paddingVertical: w*0.02,
-        justifyContent:'space-between',
-        alignItems:'center'
-      },
-      cardTitleTextAndIconContainer:{
-        flexDirection:'row',
-        alignItems:'center'
-      },
-      cardTitleText:{
-        // backgroundColor: 'red',
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      cardDateText:{
-        // backgroundColor: 'red',
-        paddingHorizontal: 5,
-        // color: Colors.thirdTextColor,
-        color: 'rgba(0, 0, 0, 0.60)',
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-
-      cardContentContainer:{
-        flex:1,
-        // backgroundColor:'red',
-        justifyContent:'center',
-        paddingHorizontal: w*0.02,
-        paddingBottom: h*0.012,
-        borderStyle: 'solid',
-        borderTopColor: 'rgba(0, 0, 0, 0.1)',
-        borderTopWidth: 1,
-      },
-      cardContentHeader:{
-        paddingVertical:h*0.01,
-        flexDirection:'row',
-        // backgroundColor:'red',
-        alignItems:'center'
-      },
-      imageContainer:{
-      },
-
-
-      voteDescriptionContainer:{
-        flexDirection:'column',
-        // backgroundColor:'blue',
-        padding: 5
-      },
-
-
-
-      userImage:{
-        width:w*0.09,
-        height:w*0.09,
-        // marginHorizontal: 10,
-      },
-      voteLocationContainer:{
-        flexDirection:'row',
-        alignItems:"center",
-        // backgroundColor:'red',
-      },
-      voteNameText:{
-        // backgroundColor:'blue',
-        color:"#e64a33",
-        paddingHorizontal: 5,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      voteInText:{
-        color: Colors.thirdTextColor,
-        paddingHorizontal: 5,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      voteLocationText:{
-        // backgroundColor:'yellow',
-        color: Colors.primaryColor,
-        paddingHorizontal: 1,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-        width: w*0.56,
-      },
-      voteLocationTitleContainer:{
-        // backgroundColor:'green',
-        paddingVertical:h*0.001,
-      }
-
-    });
-  }
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-      container: {
-        // backgroundColor: 'orange',
-        flex:1,
-        flexDirection: 'column',
-        marginVertical: 10,
-        marginHorizontal:10
-      },
-
-      titleText: {
-        // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,27),
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-      },
-
-
-    });
-  }
 
   onBillClick(){
     if(this.props.onBillClick && !!this.props.billId){
@@ -215,7 +176,7 @@ class FeedVoteCard extends React.Component {
   }
 
 
-  renderHeader(styles){
+  renderHeader(){
     return (<View resizeMode="cover" style={styles.cardTitleContainer}>
       <View style={styles.cardTitleTextAndIconContainer}>
         <Text style={styles.cardTitleText}>NEW VOTE</Text>
@@ -224,7 +185,7 @@ class FeedVoteCard extends React.Component {
     </View>);
   }
 
-  renderBody(styles){
+  renderBody(){
     return (<View style={styles.cardContentContainer}>
 
       <View style={styles.cardContentHeader}>
@@ -260,15 +221,15 @@ class FeedVoteCard extends React.Component {
    */
   render() {
 
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
-          {this.renderHeader(styles)}
-          {this.renderBody(styles)}
+          {this.renderHeader()}
+          {this.renderBody()}
         </View>
       </View>
     );

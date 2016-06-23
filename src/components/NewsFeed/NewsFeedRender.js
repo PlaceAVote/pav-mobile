@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # Login.js
+ * # NewsFeedRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -106,7 +106,36 @@ function mapDispatchToProps(dispatch) {
 
 
 
+const styles = StyleSheet.create({
 
+
+        container: {
+          flex:1,
+          flexDirection: 'column',
+          paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+          paddingBottom:50, //tab bar height
+          // backgroundColor: 'orange',
+          // marginVertical: 10,
+          // marginHorizontal:15
+        },
+        scrollView:{
+          flex:1,
+          backgroundColor: '#E8E7EE',
+        },
+        headerView:{
+          paddingVertical:h*0.02,
+          paddingHorizontal:w*0.016,
+          // backgroundColor:'red'
+        },
+
+        bodyLoadingContainer:{
+          flex:1,
+          // height:h*0.5,
+          justifyContent:'center',
+          alignItems:'center',
+          // backgroundColor:'red'
+        },
+});
 
 
 
@@ -119,58 +148,6 @@ class NewsFeedRender extends React.Component {
 
 
 
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      container: {
-        flex:1,
-        flexDirection: 'column',
-        paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
-        paddingBottom:50, //tab bar height
-        // backgroundColor: 'orange',
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-      scrollView:{
-        flex:1,
-        backgroundColor: '#E8E7EE',
-      },
-      headerView:{
-        paddingVertical:h*0.02,
-        paddingHorizontal:w*0.016,
-        // backgroundColor:'red'
-      },
-
-      bodyLoadingContainer:{
-        flex:1,
-        // height:h*0.5,
-        justifyContent:'center',
-        alignItems:'center',
-        // backgroundColor:'red'
-      },
-
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
-  }
-
-
 
 
 
@@ -178,7 +155,7 @@ class NewsFeedRender extends React.Component {
   /*
   BODY - FEED
   */
-  renderNewsFeedBody(data, styles){
+  renderNewsFeedBody(data){
 
     let {
       filterName,
@@ -270,10 +247,10 @@ class NewsFeedRender extends React.Component {
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     // console.log("@ LOADING"+(this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData));
     return(
         <View style={styles.container}>
@@ -300,8 +277,7 @@ class NewsFeedRender extends React.Component {
                 feedData: this.props.newsfeed.newsFeedData.itemsAfterFiltration,
                 isFetchingDiscovery: this.props.newsfeed.isFetching.discoveryData,
                 discoveryData: this.props.newsfeed.newsFeedData.discoveryItems
-              },
-              styles)}
+              })}
           </View>
 
           <SearchModalBox
