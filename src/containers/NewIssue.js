@@ -189,6 +189,8 @@ class NewIssue extends React.Component {
   }
 
   onClose(){
+    this.props.actions.setModalVisibility(SEARCH_BILL, false);
+    this.props.actions.setModalVisibility(ATTACH_URL, false);
     this.props.actions.navigateToPrevious();
   }
   onRelatedArticleClicked(articleUrl){
