@@ -113,27 +113,28 @@ export default function profileReducer(state = initialState, action) {
     .setIn(['form', 'profileData', 'currentlyFollowingUser'], true)
   case GET_TIMELINE_SUCCESS:
 
-
-  let newItems = Immutable.fromJS(action.payload.data.results);
-  if(action.payload.isFetchingOldData===false){
-    if(action.payload.shouldUpdateState===true){
+  let timelineResponse = action.payload;
+  let newItems = Immutable.fromJS(timelineResponse.data.results);
+  
+  if(timelineResponse.isFetchingOldData===false){
+    if(timelineResponse.shouldUpdateState===true){
       return state.setIn(['form', 'isFetching', 'timelineData'], false)
       .setIn(['form','error'],null)
-      .setIn(['form', 'lastKnownItemTimestamp'], action.payload.data.last_timestamp)
+      .setIn(['form', 'lastKnownItemTimestamp'], timelineResponse.data.last_timestamp)
       .setIn(['form', 'timelineData'], newItems);
     }else{
       return state.setIn(['form', 'isFetching', 'timelineData'], false)
       .setIn(['form','error'],null)
     }
   }else{
-    if(action.payload.shouldUpdateState===true){
+    if(timelineResponse.shouldUpdateState===true){
       let oldItems = state.get("form").get("timelineData");
       newItems = oldItems.concat(newItems);
 
       return state.setIn(['form', 'isFetching', 'timelineData'], false)
       .setIn(['form','error'],null)
       .setIn(['form', 'isFetching', 'olderTimelineData'], false)
-      .setIn(['form', 'lastKnownItemTimestamp'], action.payload.data.last_timestamp)
+      .setIn(['form', 'lastKnownItemTimestamp'], timelineResponse.data.last_timestamp)
       .setIn(['form', 'timelineData'], newItems);
     }else{
       return state.setIn(['form', 'isFetching', 'timelineData'], false)
@@ -149,13 +150,14 @@ export default function profileReducer(state = initialState, action) {
 
   case GET_PROFILE_SUCCESS:
     // console.log("Profile reducer get profile SUCCESS with payload: "+JSON.stringify(action.payload));
-    if(action.payload.shouldUpdateState===true){
+    let profResponse = action.payload;
+    if(profResponse.shouldUpdateState===true){
       return state.setIn(['form', 'isFetching', 'profileData'], false)
         .setIn(['form','error'],null)
-        .setIn(['form', 'profileData', 'followerCnt'], action.payload.total_followers)
-        .setIn(['form', 'profileData', 'followingCnt'], action.payload.total_following)
-        .setIn(['form', 'profileData', 'lastActivityTimestamp'], action.payload.last_activity)
-        .setIn(['form', 'profileData', 'voteCnt'], action.payload.total_votes);
+        .setIn(['form', 'profileData', 'followerCnt'], profResponse.data.total_followers)
+        .setIn(['form', 'profileData', 'followingCnt'], profResponse.data.total_following)
+        .setIn(['form', 'profileData', 'lastActivityTimestamp'], profResponse.data.last_activity)
+        .setIn(['form', 'profileData', 'voteCnt'], profResponse.data.total_votes);
     }else{
       return state.setIn(['form', 'isFetching', 'profileData'], false)
         .setIn(['form','error'],null)

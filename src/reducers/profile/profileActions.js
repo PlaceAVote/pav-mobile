@@ -58,11 +58,10 @@ export function getProfileRequest() {
     type: GET_PROFILE_REQUEST
   };
 }
-export function getProfileSuccess(json, shouldUpdateState=true) {
+export function getProfileSuccess(json) {
   return {
     type: GET_PROFILE_SUCCESS,
-    payload: json,
-    shouldUpdateState: shouldUpdateState
+    payload: json
   };
 }
 export function getProfileFailure(json) {
@@ -101,7 +100,7 @@ export function getProfile(userId = null, dev = null, sessionToken=null) {
       dispatch(getProfileFailure("Unable to get user profile data with this token."));
       return {data: null, error: res.error.error_message};
     }else{
-      dispatch(getProfileSuccess(res.data, (userId == null)));
+      dispatch(getProfileSuccess({data:res.data, shouldUpdateState:(userId == null)}));
       if(userId==null){
         saveBasicUserInfo({user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address})
         dispatch(setUserData(res.data));

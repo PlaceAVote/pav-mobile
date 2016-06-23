@@ -40,16 +40,22 @@ import {Map} from 'immutable';
 
 
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Platform
+} from 'react-native';
 
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 import {
-ScheneKeys
+  ScheneKeys,
+  Colors
 } from '../../config/constants';
 const {
   SETTINGS
@@ -91,7 +97,8 @@ function mapDispatchToProps(dispatch) {
 
 
 
-
+const BTN_HEIGHT = 36;
+const NAV_BAR_HEIGHT = (Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44;   //nav bar height
 
 
 
@@ -103,16 +110,18 @@ class ProfileButtons extends React.Component {
 
   render(){
       return (
-          <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'flex-end', paddingVertical:h*0.013}}>
-            <TouchableOpacity style={{paddingHorizontal:w*0.020}}>
-              <PavIcon name='logo' size={34} style={{color:'rgba(255,255,255,0.1)'}}/>
-            </TouchableOpacity>
-            <View style={{ flexDirection:'row', justifyContent:'flex-end', alignItems:'center'}}>
-              <TouchableOpacity style={{paddingHorizontal:w*0.020}} onPress={this.onSettingsBarBtnClicked.bind(this)}>
-                <PavIcon name='gear' size={35} style={{color:'white'}}/>
-              </TouchableOpacity>
-            </View>
-          </View>
+        <View style={{flex:1, alignSelf:'flex-end', justifyContent:'flex-end'}}>
+          <TouchableOpacity style={{
+
+            borderColor: Colors.mainBorderColor,
+            // paddingHorizontal: w*0.076,
+            // marginTop: NAV_BAR_HEIGHT-BTN_HEIGHT-8,
+            marginRight: 10,
+            borderRadius: 2,}} onPress={this.onSettingsBarBtnClicked.bind(this)}>
+            <PavIcon name='gear' size={getCorrectFontSizeForScreen(w,h,30)} style={{color:'white'}}/>
+          </TouchableOpacity>
+        </View>
+
       );
   }
 }
