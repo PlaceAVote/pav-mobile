@@ -284,7 +284,7 @@ class CommentCard extends React.Component {
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.commentIconContainer}>
-                <PavIcon name="comment" size={17} style={styles.commentIcon}/>
+                <PavIcon name="comment" size={getCorrectFontSizeForScreen(w,h,15)} style={styles.commentIcon}/>
               </View>
               <View style={styles.cardTitleTextContainer}>
                 <Text style={styles.cardTitleText}>NEW COMMENT</Text>

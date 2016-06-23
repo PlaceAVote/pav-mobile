@@ -274,7 +274,7 @@ class VoteCard extends React.Component {
           <View style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.voteIconContainer}>
-                <PavIcon name="logo" size={26} style={styles.voteIcon}/>
+                <PavIcon name="logo" size={getCorrectFontSizeForScreen(w,h,16)} style={styles.voteIcon}/>
               </View>
               <View style={styles.cardTitleTextContainer}>
                 <Text style={styles.cardTitleText}>NEW VOTE</Text>

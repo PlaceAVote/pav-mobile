@@ -306,7 +306,7 @@ class LikeCard extends React.Component {
               <View style={[styles.commentIconContainer, this.props.isLike?styles.likeIcon:styles.dislikeIcon]}>
                 <PavIcon
                 name={this.props.isLike?"thumbs-up":"thumbs-down"}
-                size={17}
+                size={getCorrectFontSizeForScreen(w,h,15)}
                 style={styles.commentIcon}
                 />
               </View>

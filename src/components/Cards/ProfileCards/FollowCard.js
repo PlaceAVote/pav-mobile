@@ -241,7 +241,7 @@ class FollowCard extends React.Component {
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.followIconContainer}>
-                <PavIcon name="add" size={17} style={styles.followIcon}/>
+                <PavIcon name="add" size={getCorrectFontSizeForScreen(w,h,15)} style={styles.followIcon}/>
               </View>
               <View style={styles.cardTitleTextContainer}>
                 <Text style={styles.cardTitleText}>NEW FOLLOW</Text>

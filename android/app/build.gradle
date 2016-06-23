@@ -81,11 +81,11 @@ android {
     buildToolsVersion '23.0.1'
 
     defaultConfig {
-        applicationId "com.placeavote"
+        applicationId "com.placeavote.androidapp"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "0.8.2"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
