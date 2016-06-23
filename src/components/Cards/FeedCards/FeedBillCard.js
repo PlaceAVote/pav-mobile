@@ -27,7 +27,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Linking} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     paddingVertical: h*0.01,
     borderStyle: 'solid',
-    borderTopColor: 'rgba(255, 255, 255, 0.8)',
+    borderTopColor: Colors.mainTextColor,
     borderTopWidth: 1,
   },
 
