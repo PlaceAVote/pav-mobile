@@ -28,7 +28,7 @@ import {Map} from 'immutable';
 /*A react native button*/
 // import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
-// import KeyboardSpacer from 'react-native-keyboard-spacer';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 
 
@@ -42,7 +42,13 @@ import SignInForm from './SignInForm';
 import {Colors, ScheneKeys} from '../../config/constants';
 
 import React from 'react';
-import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  // Keyboard
+} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -164,9 +170,28 @@ class EmailSignInRender extends React.Component {
       value: {
         email: this.props.auth.form.fields.email,
         password: this.props.auth.form.fields.password
-      }
+      },
+      // androidKeyboardIsVisible: false
     };
+    // this._listeners = null;
   }
+
+
+ //  componentDidMount() {
+ //    if(Platform.OS === 'android'){
+ //      this._listeners = [
+ //        Keyboard.addListener('keyboardDidShow', ()=>this.setState({androidKeyboardIsVisible:true})),
+ //        Keyboard.addListener('keyboardDidHide', ()=>this.setState({androidKeyboardIsVisible:false}))
+ //      ];
+ //    }
+ //
+ //  }
+ //  componentWillUnmount() {
+ //    if(Platform.OS === 'android' && this._listeners!=null){
+ //      this._listeners.forEach(listener => listener.remove());
+ //    }
+ // }
+
 
   /**
    * ### componentWillReceiveProps
@@ -203,6 +228,55 @@ class EmailSignInRender extends React.Component {
     );
   }
 
+
+
+  renderButtons(){
+    // if(Platform.OS === 'ios' || (Platform.OS === 'android' && this.state.androidKeyboardIsVisible===false)){
+      return (<View key="btnContainer" style={styles.btnContainer}>
+        <Button
+            key="loginBtn"
+            textStyle={styles.whiteBtnText}
+            style={styles.signInBtn}
+            isDisabled={this.props.auth.form.isFetching}
+            isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
+            activityIndicatorColor={Colors.mainTextColor}
+            onPress={this.props.onSignInBtnPress}>
+          Sign In
+        </Button>
+        <Text style={styles.orText}>Or</Text>
+        <Button
+        onPress={this.props.onFbBtnPress}
+        style={styles.facebookBtn}
+        textStyle={styles.whiteBtnText}
+        isDisabled={this.props.auth.form.isFetching}
+        isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="facebook")}
+        iconProps={{name: "facebook",size:25, color: "white"}}>
+          Sign In with Facebook
+        </Button>
+        <Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
+          Forgot Password
+        </Button>
+      </View>)
+    // }else{
+    //   return
+    //   (<View  key="btnContainer" style={{
+    //     // justifyContent:'center',
+    //    }}>
+    //       <Button
+    //           key="loginBtn"
+    //           textStyle={styles.whiteBtnText}
+    //           style={styles.signInBtn}
+    //           isDisabled={this.props.auth.form.isFetching}
+    //           isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
+    //           activityIndicatorColor={Colors.mainTextColor}
+    //           onPress={this.props.onSignInBtnPress}>
+    //         Sign In
+    //       </Button>
+    //     </View>);
+    // }
+  }
+
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -232,30 +306,20 @@ class EmailSignInRender extends React.Component {
             />
           </View>
 
-          <View style={styles.btnContainer}>
-            <Button
-                textStyle={styles.whiteBtnText}
-                style={styles.signInBtn}
-                isDisabled={this.props.auth.form.isFetching}
-                isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
-                activityIndicatorColor={Colors.mainTextColor}
-                onPress={this.props.onSignInBtnPress}>
-              Sign In
-            </Button>
-            <Text style={styles.orText}>Or</Text>
-            <Button
-            onPress={this.props.onFbBtnPress}
-            style={styles.facebookBtn}
-            textStyle={styles.whiteBtnText}
-            isDisabled={this.props.auth.form.isFetching}
-            isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="facebook")}
-            iconProps={{name: "facebook",size:25, color: "white"}}>
-              Sign In with Facebook
-            </Button>
-            <Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
-              Forgot Password
-            </Button>
-          </View>
+          {this.renderButtons()}
+          {/*<KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+            if(Platform.OS==="android"){
+              if(keyboardState==true){
+                this.setState({
+                  androidKeyboardIsVisible: true
+                });
+              }else{
+                this.setState({
+                  androidKeyboardIsVisible: false
+                });
+              }
+            }
+            }}/>*/}
         </View>
 
         <ForgotPasswordModalBox

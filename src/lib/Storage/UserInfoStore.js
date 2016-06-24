@@ -43,4 +43,12 @@ export default class UserInfoStore {
     }
     return await store.get(this.USER_INFO_STORAGE_KEY);
   }
+
+  /**
+   * ### deleteUserInfo
+   * Deleted during log out
+   */
+  deleteUserInfo() {
+    store.delete(this.USER_INFO_STORAGE_KEY);
+  }
 }

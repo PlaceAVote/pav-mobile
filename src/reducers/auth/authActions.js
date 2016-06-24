@@ -88,7 +88,7 @@ import _ from 'underscore';
 
 
  const {
-   LOGOUT,
+   ONBOARDING,
    REGISTER_STEP_1,
    REGISTER_STEP_2,
    REGISTER_STEP_3,
@@ -100,6 +100,14 @@ const {
   WELCOME,
   FORGOT_PASSWORD,
 } = Modals
+
+
+
+
+
+
+
+
 // /**
 //  * ## Logout actions
 //  */
@@ -109,58 +117,71 @@ const {
 //   };
 // }
 //
-// export function logoutSuccess() {
-//   return {
-//     type: LOGOUT_SUCCESS
-//   };
-// }
+export function logoutSuccess() {
+  return {
+    type: LOGOUT_SUCCESS
+  };
+}
 // export function logoutFailure(error) {
 //   return {
 //     type: LOGOUT_FAILURE,
 //     payload: error
 //   };
 // }
-// /**
-//  * ## Login
-//  * After dispatching the logoutRequest, get the sessionToken
-//  * and call Parse
-//  *
-//  * When the response from Parse is received and it's valid
-//  * change the state to register and finish the logout
-//  *
-//  * But if the call to Parse fails, like expired token or
-//  * no network connection, just send the failure
-//  *
-//  * And if you fail due to an invalid sessionToken, be sure
-//  * to delete it so the user can log in.
-//  *
-//  * How could there be an invalid sessionToken?  Maybe they
-//  * haven't used the app for a long time.  Or they used another
-//  * device and logged out there.
-//  */
-// export function logout() {
-//   return dispatch => {
-//     dispatch(logoutRequest());
-//     return new AppAuthTokenStore().getOrReplaceSessionToken()
-//
-//       .then((token) => {
-//         return PavClientSdk(token).logout();
-//       })
-//
-//       .then(() => {
-//         // dispatch(loginState()); //TODO
-//         dispatch(logoutSuccess());
-//         dispatch(deleteSessionToken());
-//         Actions.Login();
-//       })
-//
-//       .catch((error) => {
-//         // dispatch(loginState()); //TODO
-//         dispatch(logoutFailure(error));
-//         Actions.Login();
-//       });
-//   };
-// }
+/**
+ * ## Login
+ * After dispatching the logoutRequest, get the sessionToken
+ * and call Parse
+ *
+ * When the response from Parse is received and it's valid
+ * change the state to register and finish the logout
+ *
+ * But if the call to Parse fails, like expired token or
+ * no network connection, just send the failure
+ *
+ * And if you fail due to an invalid sessionToken, be sure
+ * to delete it so the user can log in.
+ *
+ * How could there be an invalid sessionToken?  Maybe they
+ * haven't used the app for a long time.  Or they used another
+ * device and logged out there.
+ */
+export function logout() {
+  return function(dispatch){
+
+    // dispatch(logoutRequest());
+    // var res = await PavClientSdk({isDev:dev}).userApi.logout({
+    //   email: email,
+    //   password: password
+    // });
+    // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
+    // console.log("RES: "+JSON.stringify(res));
+    // if(!!res.error){
+    //   if(dev){
+    //     alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
+    //   }
+    //   if(res.multipleErrors){
+    //     // console.log("authActions.login :: Error msg: "+res.error[0].email)
+    //     dispatch(loginFailure(res.error[0].email));
+    //     return null;
+    //   }else{
+    //     // console.log("authActions.login :: Error msg: "+res.error)
+    //     dispatch(loginFailure(res.error));
+    //     return null;
+    //   }
+    // }else{
+    //   if(dev===true){
+    //     alert("Good that was right, the cake was a lie though..");
+    //   }
+      // console.log("Login gave us the token"+res.data.token);
+
+      deleteSessionTokenAndBasicInfo();
+      dispatch(logoutSuccess());
+      return dispatch(navigateTo(ONBOARDING, {type:'reset'}));
+      // return res.data;
+    // }
+  }
+}
 
 
 
@@ -1011,7 +1032,13 @@ export function saveSessionTokenAndBasicInfo(token, basicInfo=null) {
 }
 
 
-
+/**
+ * ## deleteSessionTokenAndBasicInfo
+ */
+export function deleteSessionTokenAndBasicInfo() {
+  new UserInfoStore().deleteUserInfo();
+  new AppAuthTokenStore().deleteSessionToken();
+}
 
 
 

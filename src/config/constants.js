@@ -418,13 +418,13 @@ module.exports =  {
    UPDATE_PHOTO_SUCCESS: null,
    UPDATE_PHOTO_FAILURE: null,
 
+    LOGOUT_REQUEST: null,
+    LOGOUT_SUCCESS: null,
+    LOGOUT_FAILURE: null,
+
     /* Not yet implemented */
    //  DELETE_TOKEN_REQUEST: null,
    //  DELETE_TOKEN_SUCCESS: null,
-   //  LOGOUT: null,
-   //  LOGOUT_REQUEST: null,
-   //  LOGOUT_SUCCESS: null,
-   //  LOGOUT_FAILURE: null,
    //  LOGGED_IN: null,
    //  LOGGED_OUT: null,
    //  RESET_PASSWORD_REQUEST: null,

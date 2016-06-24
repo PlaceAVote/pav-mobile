@@ -152,17 +152,6 @@ export default function authReducer(state = initialState, action) {
      * The user has successfully access Parse.com
      * Clear the form's error and all the fields
      */
-  case LOGOUT:
-    return formValidation(
-      state
-        // .setIn(['form', 'state'], action.type)
-        .setIn(['form','error'],null)
-        .setIn(['form','fields','name'],'')
-        .setIn(['form','fields','surname'],'')
-        .setIn(['form','fields','email'],'')
-        .setIn(['form','fields','password'],'')
-        .setIn(['form','fields','passwordAgain'],'')
-    );
   case ON_TOPICS_FORM_FIELD_CHANGE:
     let curTopic = action.payload;
     let isSelected = state.form.fields.topicsList.get(curTopic).isSelected;
@@ -204,6 +193,9 @@ export default function authReducer(state = initialState, action) {
   // case SESSION_TOKEN_SUCCESS:
   // case SESSION_TOKEN_FAILURE:
   case LOGOUT_SUCCESS:
+    return initialState;
+  
+    break;
   case RESET_PASSWORD_SUCCESS:
   case FORGOT_PASSWORD_SUCCESS:
     return state.setIn(['form', 'isFetching'], false);

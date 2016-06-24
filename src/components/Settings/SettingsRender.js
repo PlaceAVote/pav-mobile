@@ -324,16 +324,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Whitney',
     fontSize: getCorrectFontSizeForScreen(w,h,9)
+  },
+
+  logoutBtnContainer:{
+    paddingVertical: h*0.015,
+  },
+
+  logoutBtn:{
+    borderWidth: 0,
+    // backgroundColor: Colors.trans,
+  },
+
+  logoutBtnText:{
+    color: Colors.negativeAccentColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,9)
   }
 
 
 
-
-
 });
-
-
-
 
 
 
@@ -580,6 +591,15 @@ class SettingsRender extends React.Component {
                 </Button>
               </View>
 
+              <View style={styles.logoutBtnContainer}>
+                <Button
+                onPress={this.props.onLogoutClick}
+                style={styles.logoutBtn}
+                textStyle={styles.logoutBtnText}>
+                Logout
+                </Button>
+              </View>
+
 
             </View>
 
@@ -652,5 +672,6 @@ SettingsRender.propTypes= {
   showDatePickModal:React.PropTypes.func.isRequired,
   onImageEditClick:React.PropTypes.func.isRequired,
   onTermsOfServiceClick:React.PropTypes.func.isRequired,
+  onLogoutClick:React.PropTypes.func.isRequired,
 };
 export default SettingsRender;
