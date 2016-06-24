@@ -515,7 +515,8 @@ class SettingsRender extends React.Component {
                   <View style={styles.imgEditBtnContainer}>
                     <Button
                     onPress={this.onImageEditClick.bind(this)}
-                    isDisabled={(this.props.fields.imgUrl==null)}
+                    isLoading={(this.props.isUpdatingPhoto===true)}
+                    isDisabled={(this.props.isFetching===true || this.props.isUpdatingPhoto===true)}
                     style={styles.imgEditBtn}
                     textStyle={styles.imgEditBtnText}>
                     EDIT
@@ -637,6 +638,7 @@ SettingsRender.propTypes= {
   form: React.PropTypes.object,
   // device: React.PropTypes.object.isRequired,
   isFetching: React.PropTypes.bool,
+  isUpdatingPhoto: React.PropTypes.bool,
   // followingCnt: React.PropTypes.oneOfType([
   //   React.PropTypes.string,
   //   React.PropTypes.number,

@@ -30,30 +30,30 @@ import * as settingsActions from '../reducers/settings/settingsActions';
 
 
 import ImagePicker from 'react-native-image-picker';
-const imgPickerOptions = {
-  title: 'Select Avatar', // specify null or empty string to remove the title
-  cancelButtonTitle: 'Cancel',
-  takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
-  chooseFromLibraryButtonTitle: 'Choose from Library...', // specify null or empty string to remove this button
-  // customButtons: {
-  //   'Choose Photo from Facebook': 'fb', // [Button Text] : [String returned upon selection]
-  // },
-  cameraType: 'back', // 'front' or 'back'
-  mediaType: 'photo', // 'photo' or 'video'
-  videoQuality: 'high', // 'low', 'medium', or 'high'
-  maxWidth: 50, // photos only
-  maxHeight: 50, // photos only
-  aspectX: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
-  aspectY: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
-  quality: 1, // 0 to 1, photos only
-  angle: 0, // android only, photos only
-  allowsEditing: true, // Built in functionality to resize/reposition the image after selection
-  noData: false, // photos only - disables the base64 `data` field from being generated (greatly improves performance on large photos)
-  // storageOptions: { // if this key is provided, the image will get saved in the documents directory on ios, and the pictures directory on android (rather than a temporary directory)
-  //   skipBackup: true, // ios only - image will NOT be backed up to icloud
-  //   path: 'images' // ios only - will save image at /Documents/images rather than the root
-  // }
-};
+    const imgPickerOptions = {
+      title: 'Select Avatar', // specify null or empty string to remove the title
+      cancelButtonTitle: 'Cancel',
+      takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
+      chooseFromLibraryButtonTitle: 'Choose from Library...', // specify null or empty string to remove this button
+      // customButtons: {
+      //   'Choose Photo from Facebook': 'fb', // [Button Text] : [String returned upon selection]
+      // },
+      // cameraType: 'back', // 'front' or 'back'
+      mediaType: 'photo', // 'photo' or 'video'
+      // videoQuality: 'high', // 'low', 'medium', or 'high'
+      maxWidth: 50, // photos only
+      maxHeight: 50, // photos only
+      aspectX: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
+      aspectY: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
+      quality: 1, // 0 to 1, photos only
+      // angle: 0, // android only, photos only
+      allowsEditing: true, // Built in functionality to resize/reposition the image after selection
+      noData: false, // photos only - disables the base64 `data` field from being generated (greatly improves performance on large photos)
+      // storageOptions: { // if this key is provided, the image will get saved in the documents directory on ios, and the pictures directory on android (rather than a temporary directory)
+      //   skipBackup: true, // ios only - image will NOT be backed up to icloud
+      //   path: 'images' // ios only - will save image at /Documents/images rather than the root
+      // }
+    };
 
 
 /**
@@ -305,15 +305,10 @@ class Settings extends React.Component {
   }
 
   onImageEditClick(){
-    /**
-     * The first arg will be the options object for customization, the second is
-     * your callback which sends object: response.
-     *
-     * See the README for info about the response
-     */
 
-    ImagePicker.showImagePicker(imgPickerOptions, (response) => {
-      console.log('Response = ', response);
+
+      ImagePicker.showImagePicker(imgPickerOptions, (response) => {
+      // alert('Response = ', JSON.stringify(response));
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -322,6 +317,7 @@ class Settings extends React.Component {
       }else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       }else {
+        // console.log("PHOTO: "+JSON.stringify(response));
         // You can display the image using either data:
         const newPhoto = 'data:image/jpeg;base64,'+response.data;
         // console.log(newPhoto);
@@ -358,6 +354,7 @@ class Settings extends React.Component {
           onImageEditClick={this.onImageEditClick.bind(this)}
           fields={form.get("fields").toJS()}
           isFetching={form.get("isFetching").get("settings")}
+          isUpdatingPhoto={form.get("isFetching").get("photoUpdate")}
           onFieldChange={this.onFieldChange.bind(this)}
           onTermsOfServiceClick={this.onTermsOfServiceClick.bind(this)}
       />
