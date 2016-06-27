@@ -56,5 +56,9 @@ export function toTitleCase(str)
     }else{
       return str;
     }
+}
 
+
+export function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

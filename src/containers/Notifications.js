@@ -43,7 +43,7 @@ import {Map} from 'immutable';
  *   NotificationsRender
  */
 import NotificationsRender from '../components/Notifications/NotificationsRender'
-
+import {timeout} from '../lib/Utils/genericUtils'
 
 import React from 'react';
 
@@ -53,7 +53,8 @@ import {ScheneKeys} from '../config/constants';
 const {
 PROFILE,
 BILL,
-TAB_PROFILE
+TAB_PROFILE,
+TAB_NOTIFS
 } = ScheneKeys
 
 
@@ -112,6 +113,18 @@ class Notifications extends React.Component {
   componentWillMount(){
     if(this.props.notifications.items==null){
       this.getNotifications(false);
+    }
+  }
+
+
+  componentDidMount(){
+    this.markAllNotificationsRead();
+  }
+
+  async markAllNotificationsRead(){
+    await timeout(1500);
+    if(this.props.router.currentTab==TAB_NOTIFS){
+      this.props.actions.markNotificationsRead(undefined, this.TOKEN, this.props.global.isDev);
     }
   }
 

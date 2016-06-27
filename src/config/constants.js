@@ -400,6 +400,11 @@ module.exports =  {
    GET_NOTIFICATIONS_FAILURE: null,
 
 
+   MARK_NOTIFICATIONS_READ_REQUEST: null,
+   MARK_NOTIFICATIONS_READ_SUCCESS: null,
+   MARK_NOTIFICATIONS_READ_FAILURE: null,
+
+
    /*  Settings  */
 
 

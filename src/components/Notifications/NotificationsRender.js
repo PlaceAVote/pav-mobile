@@ -4,21 +4,6 @@
  * This class is a little complicated as it handles multiple states.
  *
  */
-'use strict';
-/**
- * ## Imports
- *
- * Redux
- */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-/**
- * The actions we need
- */
-import * as authActions from '../../reducers/auth/authActions';
-import * as globalActions from '../../reducers/global/globalActions';
-
 
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -59,34 +44,6 @@ import PavSpinner from '../../lib/UI/PavSpinner'
 // const {
 //   SET_ORIENTATION
 // } = ScheneKeys;
-
-
-
-/**
- * ## Redux boilerplate
- */
-const actions = [
-  authActions
-  // globalActions
-];
-
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject();
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  };
-}
-
 
 
 
@@ -276,4 +233,4 @@ NotificationsRender.propTypes= {
   onBillClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsRender);
+export default NotificationsRender;

@@ -23,6 +23,10 @@ const {
   GET_NOTIFICATIONS_REQUEST,
   GET_NOTIFICATIONS_SUCCESS,
   GET_NOTIFICATIONS_FAILURE,
+
+  MARK_NOTIFICATIONS_READ_REQUEST,
+  MARK_NOTIFICATIONS_READ_SUCCESS,
+  MARK_NOTIFICATIONS_READ_FAILURE,
 } = ActionNames;
 
 
@@ -92,6 +96,72 @@ export function getNotificationItems(getOlderItems, sessionToken=null, dev = nul
       return null;
     }else{
       dispatch(getNotificationSuccess({data:res.data, isFetchingOldData:getOlderItems}));
+      return res.data;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+/**
+ * ## Mark notifications as read actions
+ */
+export function markNotificationsReadRequest(isFetchingOldData) {
+  return {
+    type: MARK_NOTIFICATIONS_READ_REQUEST,
+    payload: {isFetchingOldData}
+  };
+}
+export function markNotificationsReadSuccess(json) {
+  return {
+    type: MARK_NOTIFICATIONS_READ_SUCCESS,
+    payload: json
+  };
+}
+export function markNotificationsReadFailure(json) {
+  return {
+    type: MARK_NOTIFICATIONS_READ_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function markNotificationsRead(notificationId=null, sessionToken=null, dev = null) {
+  console.log("markNotificationsReadItems called with notificationId: "+notificationId);
+  return async function (dispatch){
+    dispatch(markNotificationsReadRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in notificationActions.markNotificationsReadItems() with error: "+e.message);
+      dispatch(markNotificationsReadFailure(e.message));
+      return null;
+    }
+
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.markNotificationsRead(notificationId);
+
+
+    console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in markNotificationsReadItems call"+res.error.error_message);
+      dispatch(markNotificationsReadFailure(res.error));
+      return null;
+    }else{
+      dispatch(markNotificationsReadSuccess({notificationId}));
       return res.data;
     }
   };

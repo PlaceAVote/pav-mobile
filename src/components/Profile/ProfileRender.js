@@ -6,20 +6,6 @@
  *
  */
 'use strict';
-/**
- * ## Imports
- *
- * Redux
- */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-/**
- * The actions we need
- */
-import * as authActions from '../../reducers/auth/authActions';
-import * as globalActions from '../../reducers/global/globalActions';
-
 
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -64,34 +50,6 @@ import PavImage from '../../lib/UI/PavImage'
 // const {
 //   SET_ORIENTATION
 // } = ScheneKeys;
-
-
-
-/**
- * ## Redux boilerplate
- */
-const actions = [
-  authActions
-  // globalActions
-];
-
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject();
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  };
-}
-
 
 
 
@@ -581,4 +539,4 @@ ProfileRender.propTypes= {
   onFetchOlderTimelineData:React.PropTypes.func.isRequired,
 
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileRender);
+export default ProfileRender;

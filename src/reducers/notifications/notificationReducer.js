@@ -21,6 +21,10 @@ const {
   GET_NOTIFICATIONS_SUCCESS,
   GET_NOTIFICATIONS_FAILURE,
 
+  MARK_NOTIFICATIONS_READ_REQUEST,
+  MARK_NOTIFICATIONS_READ_SUCCESS,
+  MARK_NOTIFICATIONS_READ_FAILURE,
+
 } = ActionNames
 
 
@@ -38,6 +42,8 @@ export default function notificationReducer(state = initialState, action) {
 
   switch (action.type) {
 
+    case MARK_NOTIFICATIONS_READ_REQUEST:
+      return state.setIn([ 'isFetching', 'markNotificationsRead'], true);
 
     case GET_NOTIFICATIONS_REQUEST:
       if(action.payload.isFetchingOldData===false){
@@ -65,6 +71,28 @@ export default function notificationReducer(state = initialState, action) {
         .setIn(['items'], newItems)
         .setIn(['error'],null);
       }
+
+    case MARK_NOTIFICATIONS_READ_SUCCESS:
+
+      let items = state.items.toJS();
+      if(items!=null && action.payload.notificationId==null){  //if we have old Items and we updated ALL the notifications and not just one
+          for (let ii=0, ll=items.length;ii<ll;ii++){
+            items[ii].read = true;
+          }
+          return state.setIn([ 'isFetching', 'markNotificationsRead'], false)
+          .setIn(['items'], Immutable.fromJS(items))
+      }else{
+          return state.setIn([ 'isFetching', 'markNotificationsRead'], false);
+      }
+
+
+
+
+
+
+
+    case MARK_NOTIFICATIONS_READ_FAILURE:
+      return state.setIn([ 'isFetching', 'markNotificationsRead'], false);
 
     case GET_NOTIFICATIONS_FAILURE:
       if(action.payload.isFetchingOldData===false){

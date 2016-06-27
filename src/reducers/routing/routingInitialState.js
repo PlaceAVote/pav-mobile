@@ -15,7 +15,10 @@
 import {ScheneKeys, Modals} from '../../config/constants';
 import {Record, Map} from 'immutable';
 const {
-  SPLASH_SCREEN
+  SPLASH_SCREEN,
+  TAB_NEWS,
+  TAB_NOTIFS,
+  TAB_PROFILE,
 } = ScheneKeys;
 const {
   WELCOME,
@@ -33,6 +36,7 @@ const {
  */
 const Router = new Record({
   currentSchene: SPLASH_SCREEN,
+  currentTab: TAB_NEWS,
   previousSchene: null,
   modalIsOpen: new Map([
     [FORGOT_PASSWORD, false],
