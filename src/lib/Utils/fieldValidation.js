@@ -67,7 +67,7 @@ const nameConstraints = {
 * ## name validation rule
 * read the message.. ;)
 */
-const surnamePattern = /^[a-zA-Z]{4,20}$/;
+const surnamePattern = /^[a-zA-Z'`]{4,20}$/;
 const surnameConstraints = {
   surname: {
     presence: true,
