@@ -185,17 +185,18 @@ export default function authReducer(state = initialState, action) {
       return formValidation(fieldValidation( nextState, action), scheneName);
     }
   }
+
+  case LOGOUT_SUCCESS:
+    return initialState;
+
+    break;
     /**
      * ### Requests end, good or bad
      * Set the fetching flag so the forms will be enabled
      */
+   // case SESSION_TOKEN_SUCCESS:
+   // case SESSION_TOKEN_FAILURE:
   case VALIDATE_SUCCESS:
-  // case SESSION_TOKEN_SUCCESS:
-  // case SESSION_TOKEN_FAILURE:
-  case LOGOUT_SUCCESS:
-    return initialState;
-  
-    break;
   case RESET_PASSWORD_SUCCESS:
   case FORGOT_PASSWORD_SUCCESS:
     return state.setIn(['form', 'isFetching'], false);
