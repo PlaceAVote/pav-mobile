@@ -109,7 +109,10 @@ class DiscoveryFeedRender extends React.Component {
 
 
   componentWillReceiveProps(nexrProps) {
-    console.log("@@@@@@@ New topic: "+nexrProps.curTopic+" OLD topic: "+this.props.curTopic);
+    // console.log("@@@@@@@ New topic: "+nexrProps.curTopic+" OLD topic: "+this.props.curTopic);
+    console.log("@@@@@@@ componentWillReceiveProps @@@@@@@@");
+    console.log("@@@@@@@@@@@@@@@@ SHOULD THE COMPONENT UPDATE (curTopic):: "+this.props.curTopic);
+    console.log("@@@@@@@ componentWillReceiveProps @@@@@@@@");
     if(nexrProps.curTopic !== this.props.curTopic){ //if we have a new current topic
 
       if(nexrProps.curTopic == this.state.pagesToRender[this.state.curPage].key){  //if the current topic is the one our page is already showing
@@ -127,6 +130,12 @@ class DiscoveryFeedRender extends React.Component {
    * ### render method
    */
   render() {
+
+
+    console.log("@@@@@@@ RENDER @@@@@@@@");
+    console.log("SHOULD THE COMPONENT UPDATE (curTopic):: "+this.props.curTopic);
+    console.log("@@@@@@@ RENDER @@@@@@@@");
+
     if(Platform.OS=="android" && Platform.Version<=21){
       return (
         <Text>
@@ -158,9 +167,14 @@ class DiscoveryFeedRender extends React.Component {
 
       );
     }
-  }
+  }//render
+
+
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log("@@@@@@@ shouldComponentUpdate @@@@@@@@");
+    console.log("SHOULD THE COMPONENT UPDATE (curTopic):: "+this.props.curTopic);
+    console.log("@@@@@@@ shouldComponentUpdate @@@@@@@@");
     return(
       (nextProps.discoveryData !== this.props.discoveryData)
       ||
@@ -173,7 +187,10 @@ class DiscoveryFeedRender extends React.Component {
       (nextState.curPage !== this.state.curPage)
     );
   }
-}
+
+
+
+}//DiscoveryFeedRender
 
 
 

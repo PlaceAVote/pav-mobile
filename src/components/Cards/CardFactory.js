@@ -182,7 +182,7 @@ class CardFactory extends React.Component {
       case "bill":
         return (<SearchBillCard
         {...this.props}
-        subjectTitle={n.subject || "Other"}
+        subjectTitle={n.subject  || n.pav_topic || "Various"}
         billTitle={n.short_title || n.official_title}
         billId={n.bill_id}
         onBillClick={this.props.onBillClick}
@@ -270,6 +270,7 @@ class CardFactory extends React.Component {
 
         case "bill":
         default:
+        console.log("COMENT CARD: "+JSON.stringify(n))
           let yesCount = n["yes-count"], noCount = n["no-count"];
           let favorPercent = -1;
           if((yesCount+noCount)!=0){
@@ -277,7 +278,7 @@ class CardFactory extends React.Component {
           }
           return (<FeedBillCard
           {...this.props}
-          subjectTitle={n.subject}
+          subjectTitle={n.subject || n.pav_topic || "Various"}
           billTitle={n.featured_bill_title || n.short_title}
           billImgUrl={n.featured_img_link}
           commentCnt={n.comment_count}

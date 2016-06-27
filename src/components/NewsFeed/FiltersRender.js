@@ -213,8 +213,6 @@ class FiltersRender extends React.Component {
     return(
       (nextProps.curSelectedFilter !== this.props.curSelectedFilter)
       ||
-      (nextProps.orientation !== this.props.orientation)
-      ||
       (nextProps.user.firstName !== this.props.user.firstName)
       ||
       (nextProps.style !== this.props.style)
@@ -224,10 +222,6 @@ class FiltersRender extends React.Component {
    * ### render method
    */
   render() {
-    // let isPortrait = (this.props.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
 
     return (
       <View key="feedHeaderContainer" style={this.props.style}>

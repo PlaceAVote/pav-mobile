@@ -131,6 +131,7 @@ class NewsFeedRender extends React.Component {
     // console.log("RenderNewsFeedBody Ran with filterName: "+filterName+" while data "+(dataReady==true?"WAS ready.":"was NOT ready."))
 
       let dataReady=false;
+
       switch(filterName){
         case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
         case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
@@ -209,11 +210,6 @@ class NewsFeedRender extends React.Component {
    * ### render method
    */
   render() {
-    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    // console.log("@@@@ IS LOADING : "+this.props.isFetchingNewsFeedData);
-    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    // console.log("@ LOADING"+(this.props.isFetchingNewsFeedData || this.props.isFetchingDiscoveryData));
     return(
         <View style={styles.container}>
           <View
@@ -226,7 +222,6 @@ class NewsFeedRender extends React.Component {
               onFilterBtnClick={this.props.onFilterBtnClick}
               onTopicBtnClick={this.props.onTopicBtnClick}
               user={this.props.curUser.firstName}
-              orientation={this.props.device.orientation}
               style={styles.headerView}
             />
 
@@ -281,6 +276,10 @@ class NewsFeedRender extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    // console.log("@@@@@@@@@@@@@@@@@@@@");
+    // console.log("SHOULD THE COMPONENT UPDATE (curTopic):: "+(nextProps.newsFeedData.curSelectedTopic !== this.props.newsFeedData.curSelectedTopic));
+    // console.log("SHOULD THE COMPONENT UPDATE (newsFeedData):: "+(nextProps.newsFeedData !== this.props.newsFeedData));
+    // console.log("@@@@@@@@@@@@@@@@@@@@");
     return(
       (nextProps.curUser !== this.props.curUser)
       ||
@@ -295,8 +294,6 @@ class NewsFeedRender extends React.Component {
       (nextProps.searchModalVisible !== this.props.searchModalVisible)
       ||
       (nextProps.topicList !== this.props.topicList)
-      ||
-      (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextProps.searchData !== this.props.searchData)
       ||
