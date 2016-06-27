@@ -24,7 +24,7 @@ import { connect } from 'react-redux';
 // import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
-// import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
+import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 import * as billActions from '../reducers/bill/billActions';
 import {findCommentPath} from '../lib/Utils/commentCrawler';
 
@@ -57,7 +57,8 @@ BillPageTabs
 } from '../config/constants';
 const {
   REACTIONS,
-  SOCIAL_TYPES
+  SOCIAL_TYPES,
+  NEWS_FEED_FILTERS
 } = Other;
 const {
   VOTE,
@@ -73,7 +74,7 @@ const actions = [
   // authActions,
   routingActions,
   deviceActions,
-  // newsfeedActions,
+  newsfeedActions,
   billActions
 ];
 
@@ -142,6 +143,7 @@ class Bill extends React.Component {
 
   onDownloadBillAsPDF(pdfUrl){
     if(!!pdfUrl){
+      // alert(pdfUrl+" EXISTS")
       Linking.openURL(pdfUrl).catch(err => console.error('An error occurred while trying to open url: '+pdfUrl, err));
     }
   }
@@ -186,8 +188,15 @@ class Bill extends React.Component {
     }
   }
 
-  onTagPress(){
-
+  onTagPress(tag){
+    if(tag!=null && tag.length>0){
+      let topicName = tag.toLowerCase();
+      // alert("tag: "+topicName)
+      this.props.actions.setActivityFilter(NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER);
+      this.props.actions.setTopicName(topicName);
+      // this.props.actions.getDiscoveryItems(topicName, this.TOKEN, this.props.global.isDev)
+      this.props.actions.navigateToPrevious();
+    }
   }
 
   render() {

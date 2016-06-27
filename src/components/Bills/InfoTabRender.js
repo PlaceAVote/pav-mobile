@@ -253,6 +253,23 @@ class InfoTabRender extends React.Component {
     this.refs.animatedLine.animate(contentOffset.y>animateAfterThisY)
   }
 
+
+
+  renderDownloadBillButton(){
+    if(!!this.props.billData.pdfUrl){
+      return (
+        <TouchableOpacity onPress={()=>this.props.onDownloadBillAsPDF(this.props.billData.pdfUrl)}>
+          <Text style={styles.bodyReadMoreText}>
+            Download Full Bill as PDF
+          </Text>
+        </TouchableOpacity>);
+    }else{
+      return <View></View>;
+    }
+
+  }
+
+
   /**
    * ### render method
    */
@@ -263,6 +280,7 @@ class InfoTabRender extends React.Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     let sponsor = this.props.billData.sponsor;
+    let coSponsor = this.props.billData.coSponsorsCount;
     // console.log("BILL DATA: "+JSON.stringify(this.props.billData))
     // console.log("SPONSOR: "+JSON.stringify(sponsor));
     // console.log("@@@@ BILL PDF URL: "+this.props.billData.pdfUrl)
@@ -282,11 +300,7 @@ class InfoTabRender extends React.Component {
             <Text style={styles.bodyText}>
               {this.props.billData.officialSummary}
             </Text>
-            <TouchableOpacity onPress={()=>this.props.onDownloadBillAsPDF(this.props.billData.pdfUrl)}>
-              <Text style={styles.bodyReadMoreText}>
-                Download Full Bill as PDF
-              </Text>
-            </TouchableOpacity>
+            {this.renderDownloadBillButton()}
           </View>
 
           <View style={[styles.titleContainer, styles.titleWithMultipleChildren]}>
@@ -317,7 +331,6 @@ class InfoTabRender extends React.Component {
             <TouchableOpacity onPress={()=>{this.props.onSponsorClick(sponsor)}}
             style={styles.cnoBillSponsorContainer}>
               <PavImage
-                platform={this.props.platform}
                 style={styles.sponsorImage}
                 source={{uri: sponsor.photo}}
                 resizeMode='cover'
@@ -331,14 +344,14 @@ class InfoTabRender extends React.Component {
             <Text style={styles.bodyText}>{sponsor.lastName} a {sponsor.party}, has been the representative for {US_STATES[sponsor.state]}'s {getNumberWithOrdinalSufix(sponsor.district)} congressional district since {moment(sponsor.termStart, 'YYYY-MM-DD').format('MMM D, YYYY')} (next election in November {moment(sponsor.termEnd, 'YYYY-MM-DD').format('YYYY')-1}).</Text>
             <View style={styles.cnoCosponsorContainer}>
               <Text style={styles.coponsorTitleText}>BILL CO SPONSORS</Text>
-              <Text style={styles.cosponsorCntText}>130 Total</Text>
+              <Text style={styles.cosponsorCntText}>{coSponsor.total} Total</Text>
               <View style={styles.cosponsorVisualGraphContainer}>
                 <AnimatedPavLineChart
-                finalLinePercentage={0.8}
+                finalLinePercentage={coSponsor.democrat/(coSponsor.democrat+coSponsor.republican)}
                 finalLineWidth={w*0.9}
                 ref="animatedLine"
-                leftText="113 D"
-                rightText="17 R"
+                leftText={coSponsor.democrat+" D"}
+                rightText={coSponsor.republican+" R"}
                 />
               </View>
             </View>

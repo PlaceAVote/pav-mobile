@@ -23,6 +23,7 @@ import {iterateThroughItemsAndPickTheOnesWithType, findFeedItem} from '../../lib
 import {ActionNames, ScheneKeys, NewsFeedUpdateTypes, Other} from '../../config/constants';
 const {
   SET_ACTIVITY_FILTER,
+  SET_TOPIC_NAME,
 
   GET_DISCOVERY_REQUEST,
   GET_DISCOVERY_SUCCESS,
@@ -125,6 +126,12 @@ export function setActivityFilter(filterName) {
   };
 }
 
+export function setTopicName(topicName) {
+  return {
+    type: SET_TOPIC_NAME,
+    payload: topicName
+  };
+}
 
 
 

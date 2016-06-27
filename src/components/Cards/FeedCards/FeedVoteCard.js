@@ -221,10 +221,6 @@ class FeedVoteCard extends React.Component {
    */
   render() {
 
-    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-
     return(
       <View style={[styles.cardContainer, this.props.style]}>
         <View style={[styles.card, this.props.cardStyle]}>
@@ -237,7 +233,6 @@ class FeedVoteCard extends React.Component {
 }
 
 FeedVoteCard.propTypes= {
-  orientation: React.PropTypes.string.isRequired,
   timeString: React.PropTypes.string.isRequired,
   voteParentTitle: React.PropTypes.string.isRequired,
   userFullNameText: React.PropTypes.string.isRequired,

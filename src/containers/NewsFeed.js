@@ -148,7 +148,7 @@ class NewsFeed extends React.Component {
     }
     else if(filterName==NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER){
       this.props.actions.setActivityFilter(filterName);
-      this.getDiscoveryItemsForTopic(Other.TOPICS.TRENDING, false);
+      this.getDiscoveryItemsForTopic(Other.TOPICS.TRENDING);
     }else{
       this.props.actions.filterFeedItems(filterName, topicType);
     }
@@ -156,7 +156,8 @@ class NewsFeed extends React.Component {
 
   onTopicSelect(topicName){
     if(this.props.newsfeed.newsFeedData.discoveryItems.get(topicName)==null){
-        this.getDiscoveryItemsForTopic(topicName, false);
+      this.props.actions.setTopicName(topicName);
+      this.getDiscoveryItemsForTopic(topicName);
     }
   }
 
@@ -292,11 +293,16 @@ class NewsFeed extends React.Component {
     return(
       <NewsFeedRender
 
-
-          auth={ this.props.auth }
-          global={ this.props.global }
           device={ this.props.device}
-          newsfeed={this.props.newsfeed}
+
+
+          curUser={this.props.auth.user}
+          topicList={this.props.auth.form.fields.topicsList}
+          newsFeedData={this.props.newsfeed.newsFeedData}
+          isFetchingNewsFeedData={this.props.newsfeed.isFetching.newsFeedData}
+          isFetchingOlderNewsFeedData={this.props.newsfeed.isFetching.olderNewsFeedData}
+          isFetchingDiscoveryData={this.props.newsfeed.isFetching.discoveryData}
+
           searchModalVisible={this.props.router.modalIsOpen.get(SEARCH_BILL)}
           showBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, true)}
           hideBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, false)}

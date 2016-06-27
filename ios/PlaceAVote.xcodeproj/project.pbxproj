@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -33,6 +34,7 @@
 		68236BC6B1CD409A863BBEC6 /* Whitney-MediumItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA9F8D95A3FD43D8B1457530 /* Whitney-MediumItal.ttf */; };
 		6BC574F299E14B07A29A84B7 /* Whitney-BoldItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72B18C67355C4387801FC71C /* Whitney-BoldItal.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8B17BF4259D5406A95F8F3C8 /* icomoon.json in Resources */ = {isa = PBXBuildFile; fileRef = D912141BFF24407ABD582230 /* icomoon.json */; };
 		911DC4EB7C844AF191508596 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB942BA86B9415FB3D6DDB5 /* libRCTFBSDK.a */; };
 		B3E105F2A0974DF0937D8623 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B394743AF94F128F91FCDA /* libRNImagePicker.a */; };
 		B88EFFF3D1444FA5B0DE0217 /* Whitney-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B94A016FEC641D194BDCB6B /* Whitney-Medium.ttf */; };
@@ -51,7 +53,6 @@
 		ECF40F9BC45A45FC96C54C3C /* Whitney-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2E5011F7B04ADA83899812 /* Whitney-Book.ttf */; };
 		F15F64D53F6C4C9D88F0917E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAD64F5A2CE14B1A9C271C63 /* Zocial.ttf */; };
 		FB1E06F82B854653A6875B2F /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB065D3AD0F44726944274AB /* Foundation.ttf */; };
-		8B17BF4259D5406A95F8F3C8 /* icomoon.json in Resources */ = {isa = PBXBuildFile; fileRef = D912141BFF24407ABD582230 /* icomoon.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,10 +232,10 @@
 		D3F6AB951D06021800318198 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		D3F6ABBB1D0861F700318198 /* pavText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pavText.png; path = PlaceAVote/OtherAssets/pavText.png; sourceTree = "<group>"; };
 		D3F6ABBD1D08631800318198 /* pavLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pavLogo.png; path = PlaceAVote/OtherAssets/pavLogo.png; sourceTree = "<group>"; };
+		D912141BFF24407ABD582230 /* icomoon.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.json; path = ../assets/fonts/icomoon.json; sourceTree = "<group>"; };
 		E9A8750C88BA4B8988FCB20C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = ../assets/fonts/MaterialIcons.ttf; sourceTree = "<group>"; };
 		F711A73E4EEB4CA392937F0C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = ../assets/fonts/FontAwesome.ttf; sourceTree = "<group>"; };
 		FEB942BA86B9415FB3D6DDB5 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
-		D912141BFF24407ABD582230 /* icomoon.json */ = {isa = PBXFileReference; name = "icomoon.json"; path = "../assets/fonts/icomoon.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

@@ -6,20 +6,6 @@
  *
  */
 'use strict';
-/**
- * ## Imports
- *
- * Redux
- */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-/**
- * The actions we need
- */
-import * as authActions from '../../reducers/auth/authActions';
-import * as globalActions from '../../reducers/global/globalActions';
-
 
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -75,30 +61,6 @@ import SearchModalBox from '../Modals/SearchModalBox';
 
 
 
-/**
- * ## Redux boilerplate
- */
-const actions = [
-  authActions
-  // globalActions
-];
-
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject();
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  };
-}
 
 
 
@@ -181,7 +143,7 @@ class NewsFeedRender extends React.Component {
               key="bodyContainerView"
               feedData={feedData}
               device={this.props.device}
-              curUser={this.props.auth.user}
+              curUser={this.props.curUser}
               type="feed"
               curFilter={filterName}
               curTopic={topicName}
@@ -205,11 +167,11 @@ class NewsFeedRender extends React.Component {
           return(
             <DiscoveryFeedRender
               key="bodyContainerView"
-              topicList={this.props.auth.form.fields.topicsList.toJS()}
+              topicList={this.props.topicList.toJS()}
               onTopicSelected={this.props.onTopicSelect}
               discoveryData={discoveryData}
               device={this.props.device}
-              curUser={this.props.auth.user}
+              curUser={this.props.curUser}
               curFilter={filterName}
               curTopic={topicName}
               oldDataBeingFetched={false}
@@ -249,34 +211,34 @@ class NewsFeedRender extends React.Component {
   render() {
     // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
+    // console.log("@@@@ IS LOADING : "+this.props.isFetchingNewsFeedData);
     // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    // console.log("@ LOADING"+(this.props.newsfeed.isFetching.newsFeedData || this.props.newsfeed.isFetching.discoveryData));
+    // console.log("@ LOADING"+(this.props.isFetchingNewsFeedData || this.props.isFetchingDiscoveryData));
     return(
         <View style={styles.container}>
           <View
           style={styles.scrollView}
           >
             <FiltersRender
-              topicList={this.props.auth.form.fields.topicsList.toJS()}
-              curSelectedTopic={this.props.newsfeed.newsFeedData.curSelectedTopic}
-              curSelectedFilter={this.props.newsfeed.newsFeedData.curSelectedFilter}
+              topicList={this.props.topicList.toJS()}
+              curSelectedTopic={this.props.newsFeedData.curSelectedTopic}
+              curSelectedFilter={this.props.newsFeedData.curSelectedFilter}
               onFilterBtnClick={this.props.onFilterBtnClick}
               onTopicBtnClick={this.props.onTopicBtnClick}
-              user={this.props.auth.user.firstName}
+              user={this.props.curUser.firstName}
               orientation={this.props.device.orientation}
               style={styles.headerView}
             />
 
             {this.renderNewsFeedBody(
               {
-                filterName: this.props.newsfeed.newsFeedData.curSelectedFilter,
-                topicName:this.props.newsfeed.newsFeedData.curSelectedTopic,
-                isFetchingFeed: this.props.newsfeed.isFetching.newsFeedData,
-                isFetchingOlderFeedData: this.props.newsfeed.isFetching.olderNewsFeedData,
-                feedData: this.props.newsfeed.newsFeedData.itemsAfterFiltration,
-                isFetchingDiscovery: this.props.newsfeed.isFetching.discoveryData,
-                discoveryData: this.props.newsfeed.newsFeedData.discoveryItems
+                filterName: this.props.newsFeedData.curSelectedFilter,
+                topicName:this.props.newsFeedData.curSelectedTopic,
+                isFetchingFeed: this.props.isFetchingNewsFeedData,
+                isFetchingOlderFeedData: this.props.isFetchingOlderNewsFeedData,
+                feedData: this.props.newsFeedData.itemsAfterFiltration,
+                isFetchingDiscovery: this.props.isFetchingDiscoveryData,
+                discoveryData: this.props.newsFeedData.discoveryItems
               })}
           </View>
 
@@ -320,13 +282,19 @@ class NewsFeedRender extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return(
-      (nextProps.newsfeed !== this.props.newsfeed)
+      (nextProps.curUser !== this.props.curUser)
       ||
-      (nextProps.auth.user !== this.props.auth.user)
+      (nextProps.isFetchingNewsFeedData !== this.props.isFetchingNewsFeedData)
+      ||
+      (nextProps.isFetchingOlderNewsFeedData !== this.props.isFetchingOlderNewsFeedData)
+      ||
+      (nextProps.isFetchingDiscoveryData !== this.props.isFetchingDiscoveryData)
+      ||
+      (nextProps.newsFeedData !== this.props.newsFeedData)
       ||
       (nextProps.searchModalVisible !== this.props.searchModalVisible)
       ||
-      (nextProps.auth.form.fields.topicsList !== this.props.auth.form.fields.topicsList)
+      (nextProps.topicList !== this.props.topicList)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
       ||
@@ -339,6 +307,13 @@ class NewsFeedRender extends React.Component {
 NewsFeedRender.propTypes= {
   //TODO: Fill this
 
+  newsFeedData: React.PropTypes.object.isRequired,
+  curUser: React.PropTypes.object.isRequired,
+  topicList: React.PropTypes.object.isRequired,
+  isFetchingNewsFeedData: React.PropTypes.bool.isRequired,
+  isFetchingOlderNewsFeedData: React.PropTypes.bool.isRequired,
+  isFetchingDiscoveryData: React.PropTypes.bool.isRequired,
+
   searchData: React.PropTypes.array,
   currentlySearching: React.PropTypes.bool.isRequired,
   searchModalVisible: React.PropTypes.bool.isRequired,
@@ -348,4 +323,4 @@ NewsFeedRender.propTypes= {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsFeedRender);
+export default NewsFeedRender;

@@ -312,6 +312,7 @@ module.exports =  {
 
    /* News Feed */
    SET_ACTIVITY_FILTER: null,
+   SET_TOPIC_NAME: null,
 
    GET_FEED_REQUEST: null,
    GET_FEED_SUCCESS: null,

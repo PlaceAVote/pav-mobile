@@ -19,6 +19,7 @@ import {getCorrectLikeDislikeAndScore} from '../../lib/Utils/likeUpdater';
 import {ActionNames, ScheneKeys, NewsFeedUpdateTypes} from '../../config/constants';
 const {
   SET_ACTIVITY_FILTER,
+  SET_TOPIC_NAME,
 
   GET_FEED_REQUEST,
   GET_FEED_SUCCESS,
@@ -225,7 +226,8 @@ export default function newsfeedReducer(state = initialState, action) {
 
 
 
-
+    case SET_TOPIC_NAME:
+      return state.setIn(['newsFeedData', 'curSelectedTopic'], action.payload)
     case SET_ACTIVITY_FILTER:
       return state.setIn(['newsFeedData', 'curSelectedFilter'], action.payload)
 

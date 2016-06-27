@@ -28,7 +28,13 @@ const {TOPICS}=Other;
 
 
 
+const styles = StyleSheet.create({
+  pagesContainer:{
+    flex:1,
+    // backgroundColor:'blue',
+  }
 
+});
 
 
 class DiscoveryFeedRender extends React.Component {
@@ -49,7 +55,8 @@ class DiscoveryFeedRender extends React.Component {
         {key:TOPICS.CRIME, title:this.props.topicList[TOPICS.CRIME].title},
         {key:TOPICS.GUN_RIGHTS, title:this.props.topicList[TOPICS.GUN_RIGHTS].title},
         {key:TOPICS.ECONOMICS, title:this.props.topicList[TOPICS.ECONOMICS].title},
-      ]
+      ],
+      curPage: null
     }
   }
 
@@ -57,94 +64,16 @@ class DiscoveryFeedRender extends React.Component {
 
 
 
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-      pagesContainer:{
-        flex:1,
-        // backgroundColor:'blue',
-        // backgroundColor:'red'
+  findPageNumberByTopicStr(topicStr){
+    let arr = this.state.pagesToRender;
+    let arrLen = arr.length;
+    alert("DiscoveryFeedRender :: Trying to find: "+topicStr+" in pagesToRender.")
+    for (let ii=0;ii<arrLen;ii++){
+      if(arr[ii].key==topicStr){
+        return ii;
       }
-
-    });
+    }
   }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-  //   viewPagerAnimation(animatedValue, toValue, gestureState){
-  //     // Use the horizontal velocity of the swipe gesture
-  //     // to affect the length of the transition so the faster you swipe
-  //     // the faster the pages will transition
-  //     var velocity = Math.abs(gestureState.vx);
-  //     var baseDuration = 300;
-  //     var duration = (velocity > 1) ? 1/velocity * baseDuration : baseDuration;
-  //
-  //     return Animated.timing(animatedValue,
-  //     {
-  //       toValue: toValue,
-  //       duration: duration,
-  //       easing: Easing.out(Easing.exp)
-  //     });
-  //   }
-  //
-  //
-  //
-  //
-  //   getDiscoveryDataSource(data){
-  //     var dataSource = new ViewPager.DataSource({
-  //      pageHasChanged: (p1, p2) => p1 !== p2,
-  //    });
-  //    return dataSource.cloneWithPages(data);
-  //   }
-  //
-  //
-  //
-  //
-  //
-  //
-  // getFeedDataSource(data){
-  //   let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.event_id !== r2.event_id});
-  //   return ds.cloneWithRows(data);
-  // }
-
-  // <ViewPager
-  //     dataSource={this.getDiscoveryDataSource(this.props.discoveryData)}
-  //     renderPage={this.renderDiscoverPage.bind(this)}
-  //     animation = {this.viewPagerAnimation.bind(this)}
-  //     style={[styles.pagesContainer, this.props.style]}
-  // />
-
-
-
-
-
-
-
 
 
 
@@ -179,15 +108,25 @@ class DiscoveryFeedRender extends React.Component {
 
 
 
+  componentWillReceiveProps(nexrProps) {
+    console.log("@@@@@@@ New topic: "+nexrProps.curTopic+" OLD topic: "+this.props.curTopic);
+    if(nexrProps.curTopic !== this.props.curTopic){ //if we have a new current topic
+
+      if(nexrProps.curTopic == this.state.pagesToRender[this.state.curPage].key){  //if the current topic is the one our page is already showing
+        return;//do nothing
+      }else{  //else if we're showing a different topic than the current topic
+        let newPage = this.findPageNumberByTopicStr(nexrProps.curTopic);
+        this.setState({curPage: newPage});
+      }
+    }
+  }
+
+
 
   /**
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    // alert(Platform.Version);
     if(Platform.OS=="android" && Platform.Version<=21){
       return (
         <Text>
@@ -197,7 +136,11 @@ class DiscoveryFeedRender extends React.Component {
     }else{
       return(
         <ScrollableTabView
-          onChangeTab={(data)=>{this.props.onTopicSelected(this.state.pagesToRender[data.i].key)}}
+          onChangeTab={(data)=>{
+            this.props.onTopicSelected(this.state.pagesToRender[data.i].key);
+            this.setState({curPage: data.i});
+
+          }}
           renderTabBar={() =>
             <TopicSelectTabBar
               indicatorPosition="top"
@@ -206,7 +149,8 @@ class DiscoveryFeedRender extends React.Component {
               activeTextColor={Colors.primaryColor}
               inactiveTextColor={Colors.primaryColor}
             />}
-          initialPage={0}
+          initialPage={this.props.initialDiscoveryPage}
+          curPage={this.state.curPage}
           style={styles.pagesContainer}
         >
           {this.state.pagesToRender.map((page, i) => this.renderDiscoverPage(page.title, this.props.discoveryData.get(this.state.pagesToRender[i].key), this.props.device, this.props.curUser))}
@@ -223,12 +167,22 @@ class DiscoveryFeedRender extends React.Component {
       (nextProps.device.orientation !== this.props.device.orientation)
       ||
       (nextProps.curUser !== this.props.curUser)
+      ||
+      (nextProps.curTopic !== this.props.curTopic)
+      ||
+      (nextState.curPage !== this.state.curPage)
     );
   }
 }
 
+
+
+DiscoveryFeedRender.defaultProps={
+  initialDiscoveryPage: 0
+}
 DiscoveryFeedRender.propTypes= {
   discoveryData: React.PropTypes.object.isRequired,
+  initialDiscoveryPage: React.PropTypes.number.isRequired,
   device: React.PropTypes.object.isRequired,
   curUser: React.PropTypes.object.isRequired,
   curFilter:React.PropTypes.string.isRequired,

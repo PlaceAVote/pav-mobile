@@ -291,7 +291,7 @@ class BillRender extends React.Component {
         {tags.map((tag, i) =>
           (<View key={"tag"+i+"container"} style={styles.tagBtnContainer}><TouchableOpacity
             key={"tag"+i+"btn"}
-            onPress={this.props.onTagPress}
+            onPress={()=>this.props.onTagPress(tag)}
             style={styles.tagBtn}>
             <View  key={"tag"+i+"txtContainer"} style={styles.tagTitleTextContainer}>
               <Text key={"tag"+i+"txt"} style={styles.tagTitleText}>{tag}</Text>
@@ -424,13 +424,12 @@ class BillRender extends React.Component {
                 independent: billData.cosponsors_count.independent,
                 republican: billData.cosponsors_count.republican,
                 democrat: billData.cosponsors_count.democrat,
+                total: (billData.cosponsors_count.independent+billData.cosponsors_count.republican+billData.cosponsors_count.democrat)
               }
             }}
           onDownloadBillAsPDF={this.props.onDownloadBillAsPDF}
           onSponsorClick={this.props.onSponsorClick}
           orientation={this.props.device.orientation}
-          goToReadEntireBillPage={()=>alert("Read entire bill")}
-          platform={Platform.OS}
           parentVisible={this.props.parentVisible}
         />
 
