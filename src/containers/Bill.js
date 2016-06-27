@@ -191,11 +191,16 @@ class Bill extends React.Component {
   onTagPress(tag){
     if(tag!=null && tag.length>0){
       let topicName = tag.toLowerCase();
-      // alert("tag: "+topicName)
       this.props.actions.setActivityFilter(NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER);
-      this.props.actions.setTopicName(topicName);
+      setTimeout(()=>{
+        this.props.actions.setTopicName(topicName);
+        setTimeout(()=>{
+          this.props.actions.navigateToPrevious();
+        }, 100)
+      }, 100)
+      // this.props.actions.setTopicName(topicName);
       // this.props.actions.getDiscoveryItems(topicName, this.TOKEN, this.props.global.isDev)
-      this.props.actions.navigateToPrevious();
+
     }
   }
 

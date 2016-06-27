@@ -270,7 +270,7 @@ class CardFactory extends React.Component {
 
         case "bill":
         default:
-        console.log("COMENT CARD: "+JSON.stringify(n))
+        // console.log("COMENT CARD: "+JSON.stringify(n))
           let yesCount = n["yes-count"], noCount = n["no-count"];
           let favorPercent = -1;
           if((yesCount+noCount)!=0){

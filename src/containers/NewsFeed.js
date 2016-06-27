@@ -155,9 +155,13 @@ class NewsFeed extends React.Component {
   }
 
   onTopicSelect(topicName){
-    if(this.props.newsfeed.newsFeedData.discoveryItems.get(topicName)==null){
+    //
+    let oldTopic = this.props.newsfeed.newsFeedData.curSelectedTopic;
+    if(this.props.newsfeed.newsFeedData.discoveryItems.get(topicName)==null || oldTopic!=topicName){
       this.props.actions.setTopicName(topicName);
-      this.getDiscoveryItemsForTopic(topicName);
+      setTimeout(()=>{
+        this.getDiscoveryItemsForTopic(topicName);
+      }, 50);
     }
   }
 
@@ -168,9 +172,10 @@ class NewsFeed extends React.Component {
       // console.log("Do something on feed refresh")
   }
 
-  onDiscoveryRefresh(){
-        // this.connectAndGetFeed();
-      // console.log("Do something on feed refresh")
+  onDiscoveryRefresh(topicName){
+    if(!!topicName){
+        this.getDiscoveryItemsForTopic(topicName);
+    }
   }
 
 

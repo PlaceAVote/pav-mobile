@@ -56,23 +56,23 @@ class DiscoveryFeedRender extends React.Component {
         {key:TOPICS.GUN_RIGHTS, title:this.props.topicList[TOPICS.GUN_RIGHTS].title},
         {key:TOPICS.ECONOMICS, title:this.props.topicList[TOPICS.ECONOMICS].title},
       ],
-      curPage: null
+      curPage: 0
     }
   }
 
 
 
 
-
+  //returns the number of a page depending on the topicStr provided
   findPageNumberByTopicStr(topicStr){
     let arr = this.state.pagesToRender;
     let arrLen = arr.length;
-    alert("DiscoveryFeedRender :: Trying to find: "+topicStr+" in pagesToRender.")
     for (let ii=0;ii<arrLen;ii++){
       if(arr[ii].key==topicStr){
         return ii;
       }
     }
+    return 0;
   }
 
 
@@ -110,9 +110,9 @@ class DiscoveryFeedRender extends React.Component {
 
   componentWillReceiveProps(nexrProps) {
     // console.log("@@@@@@@ New topic: "+nexrProps.curTopic+" OLD topic: "+this.props.curTopic);
-    console.log("@@@@@@@ componentWillReceiveProps @@@@@@@@");
-    console.log("@@@@@@@@@@@@@@@@ SHOULD THE COMPONENT UPDATE (curTopic):: "+this.props.curTopic);
-    console.log("@@@@@@@ componentWillReceiveProps @@@@@@@@");
+    // console.log("@@@@@@@ componentWillReceiveProps @@@@@@@@");
+    // console.log("@@@@@@@@@@@@@@@@ SHOULD THE COMPONENT UPDATE (curTopic):: "+this.props.curTopic);
+    // console.log("@@@@@@@ componentWillReceiveProps @@@@@@@@");
     if(nexrProps.curTopic !== this.props.curTopic){ //if we have a new current topic
 
       if(nexrProps.curTopic == this.state.pagesToRender[this.state.curPage].key){  //if the current topic is the one our page is already showing
@@ -120,6 +120,9 @@ class DiscoveryFeedRender extends React.Component {
       }else{  //else if we're showing a different topic than the current topic
         let newPage = this.findPageNumberByTopicStr(nexrProps.curTopic);
         this.setState({curPage: newPage});
+        setTimeout(()=>{
+          this.props.onRefresh(nexrProps.curTopic);
+        }, 200);
       }
     }
   }
@@ -131,11 +134,6 @@ class DiscoveryFeedRender extends React.Component {
    */
   render() {
 
-
-    console.log("@@@@@@@ RENDER @@@@@@@@");
-    console.log("SHOULD THE COMPONENT UPDATE (curTopic):: "+this.props.curTopic);
-    console.log("@@@@@@@ RENDER @@@@@@@@");
-
     if(Platform.OS=="android" && Platform.Version<=21){
       return (
         <Text>
@@ -146,9 +144,11 @@ class DiscoveryFeedRender extends React.Component {
       return(
         <ScrollableTabView
           onChangeTab={(data)=>{
-            this.props.onTopicSelected(this.state.pagesToRender[data.i].key);
-            this.setState({curPage: data.i});
-
+            // console.log("@@@@@@@@@@@@ Tab changed: "+this.state.pagesToRender[data.i].key);
+            if(this.state.curPage!=data.i){
+              this.props.onTopicSelected(this.state.pagesToRender[data.i].key);
+              this.setState({curPage: data.i});
+            }
           }}
           renderTabBar={() =>
             <TopicSelectTabBar
@@ -159,7 +159,7 @@ class DiscoveryFeedRender extends React.Component {
               inactiveTextColor={Colors.primaryColor}
             />}
           initialPage={this.props.initialDiscoveryPage}
-          curPage={this.state.curPage}
+          page={this.state.curPage}
           style={styles.pagesContainer}
         >
           {this.state.pagesToRender.map((page, i) => this.renderDiscoverPage(page.title, this.props.discoveryData.get(this.state.pagesToRender[i].key), this.props.device, this.props.curUser))}
@@ -170,12 +170,14 @@ class DiscoveryFeedRender extends React.Component {
   }//render
 
 
-
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("@@@@@@@ shouldComponentUpdate @@@@@@@@");
-    console.log("SHOULD THE COMPONENT UPDATE (curTopic):: "+this.props.curTopic);
-    console.log("@@@@@@@ shouldComponentUpdate @@@@@@@@");
+    // console.log("@@@@@@@ shouldComponentUpdate @@@@@@@@");
+    // console.log("SHOULD THE COMPONENT UPDATE (beingRefreshed):: "+(nextProps.beingRefreshed !== this.props.beingRefreshed));
+    // console.log("New curPage :: "+nextState.curPage);
+    // console.log("@@@@@@@ shouldComponentUpdate @@@@@@@@");
     return(
+      (nextProps.beingRefreshed !== this.props.beingRefreshed)
+      ||
       (nextProps.discoveryData !== this.props.discoveryData)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)

@@ -149,7 +149,7 @@ class NewsFeedRender extends React.Component {
               curFilter={filterName}
               curTopic={topicName}
               oldDataBeingFetched={isFetchingOlderFeedData}
-              beingRefreshed={!dataReady}
+              beingRefreshed={(dataReady===false)}
               onRefresh={this.props.onFeedRefresh}
               onUserClick={this.props.onUserClick}
               onBillClick={this.props.onBillClick}
@@ -176,7 +176,7 @@ class NewsFeedRender extends React.Component {
               curFilter={filterName}
               curTopic={topicName}
               oldDataBeingFetched={false}
-              beingRefreshed={!dataReady}
+              beingRefreshed={(dataReady===false)}
               onRefresh={this.props.onDiscoveryRefresh}
               onUserClick={this.props.onUserClick}
               onBillClick={this.props.onBillClick}

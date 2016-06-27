@@ -170,8 +170,8 @@ export function getFeedItems(getOlderItems=false, sessionToken=null, dev = null)
   console.log("Get feed called");
   return async function (dispatch, getState){
     let lastTimestamp = getState().newsfeed.newsFeedData.lastFeedItemTimeStamp;
-    let fetchOlderItems = (getOlderItems===true && lastTimestamp!=null);
-    dispatch(getFeedRequest(fetchOlderItems));
+    let willFetchOlderItems = (getOlderItems===true && lastTimestamp!=null);
+    dispatch(getFeedRequest(willFetchOlderItems));
     //store or get a sessionToken
     let token = sessionToken;
     try{
@@ -190,7 +190,7 @@ export function getFeedItems(getOlderItems=false, sessionToken=null, dev = null)
       dispatch(getTimelineFailure({error:"Unable to fetch older feed data, we don't seem to have a valid lastFeedItemTimeStamp.", isFetchingOldData:getOlderItems}));
       return null;
     }else{
-      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.feed(fetchOlderItems?lastTimestamp:null);
+      res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.feed(willFetchOlderItems?lastTimestamp:null);
     }
 
 
@@ -244,7 +244,7 @@ export function getDiscoveryFailure(json) {
  * as in login, register, logout or reset password
  */
 export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
-  console.log("Get feed called");
+  console.log("Get discovery called");
   return async function (dispatch){
     dispatch(getDiscoveryRequest());
     //store or get a sessionToken

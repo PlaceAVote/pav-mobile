@@ -71,9 +71,9 @@ class ActivityFeedRender extends React.Component {
     // console.log("Data within getFeedDataSource is :"+data);
     let ds = null;
     if(this.props.type=="feed"){
-      ds = new ListView.DataSource({rowHasChanged: (r1, r2) => (r1 !== r2) || (r1["orientation"] !== r2["orientation"])     }); // || r1["event_id"] !== r2["event_id"]
+      ds = new ListView.DataSource({rowHasChanged: (r1, r2) => (r1 !== r2)}); // || r1["event_id"] !== r2["event_id"]
     }else{
-      ds = new ListView.DataSource({rowHasChanged: (r1, r2) =>  (r1 !== r2) || (r1['bill_id'] !== r2['bill_id']) || (r1["orientation"] !== r2["orientation"]) });
+      ds = new ListView.DataSource({rowHasChanged: (r1, r2) =>  (r1 !== r2) || (r1['bill_id'] !== r2['bill_id'])});
     }
     // ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
@@ -206,7 +206,7 @@ class ActivityFeedRender extends React.Component {
     // ||
     // (nextState.dataSource !== this.state.dataSource))
     return(
-      (nextProps.device.orientation !== this.props.device.orientation)
+      (nextProps.beingRefreshed !== this.props.beingRefreshed)
       ||
       (nextProps.style !== this.props.style)
       ||
