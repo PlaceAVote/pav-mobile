@@ -128,15 +128,16 @@ const styles = StyleSheet.create({
     height:w*0.09,
     // marginHorizontal: 10,
   },
-
+  commentNameTextContainer:{
+    paddingHorizontal: w*0.02,
+  },
   commentNameText:{
     // backgroundColor:'blue',
     color:"#e64a33",
-    paddingHorizontal: 5,
     fontFamily: 'Whitney Semibold',
     fontSize: getCorrectFontSizeForScreen(w,h,8),
   },
-  
+
   commentInText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
@@ -307,11 +308,11 @@ class FeedCommentCard extends React.Component {
           />
         </TouchableOpacity>
         <View style={styles.commentDescriptionContainer}>
-          <TouchableOpacity onPress={this.onUserClick.bind(this)}>
-            <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
+          <TouchableOpacity style={styles.commentNameTextContainer} onPress={this.onUserClick.bind(this)}>
+            <Text style={styles.commentNameText}>{this.props.userFullNameText} <Text style={styles.commentInText}>in: </Text> </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.commentLocationTextContainer} onPress={this.onBillClick.bind(this)}>
-            <Text style={styles.commentLocationText}><Text style={styles.commentInText}>in </Text> {this.props.commentParentTitle}</Text>
+            <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
           </TouchableOpacity>
 
         </View>

@@ -203,10 +203,10 @@ class FeedVoteCard extends React.Component {
         </TouchableOpacity>
         <View style={styles.voteDescriptionContainer}>
           <TouchableOpacity style={styles.voteNameTextContainer} onPress={this.onUserClick.bind(this)}>
-            <Text style={styles.voteNameText}>{this.props.userFullNameText}</Text>
+            <Text style={styles.voteNameText}>{this.props.userFullNameText} <Text style={styles.voteInText}>voted on the bill: </Text></Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.voteLocationTextContainer} onPress={this.onBillClick.bind(this)}>
-            <Text style={styles.voteLocationText} numberOfLines={2}><Text style={styles.voteInText}>voted on the bill  </Text>{this.props.voteParentTitle}</Text>
+            <Text style={styles.voteLocationText} numberOfLines={2}>{this.props.voteParentTitle}</Text>
           </TouchableOpacity>
         </View>
 

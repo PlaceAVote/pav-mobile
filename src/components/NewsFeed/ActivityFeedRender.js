@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         //  height:h*0.2,
        },
        android: {
-         elevation:5,
+         elevation:2.5,
         //  backgroundColor:'red'
        },
      }),
