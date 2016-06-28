@@ -2,7 +2,7 @@
 
 
 import React from 'react';
-import {StyleSheet, BackAndroid} from 'react-native';
+import {StyleSheet, BackAndroid, Platform} from 'react-native';
 
 import {Colors, ScheneKeys} from '../config/constants';
 
@@ -161,14 +161,13 @@ class Routes extends React.Component{
 
 
 
-
   render(){
     let RouterWithRedux = this.props.router;
     return (<RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} >
         <Scene key="root" hideNavBar={true} >
           <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={true}/>
           <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
-          <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" renderRightButton={()=><RightPavLogo/>}/>
+          <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" />
           <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} component={EmailSignUpStep1} hideNavBar={true} />
           <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} component={EmailSignUpStep2} hideNavBar={true} />
           <Scene key={ScheneKeys.REGISTER_STEP_3} {...defaultProps} component={EmailSignUpStep3} hideNavBar={true} />

@@ -223,14 +223,14 @@ var SignInForm = React.createClass({
           underlineColorAndroid: Colors.accentColor,
           autoCorrect: false,
           autoCapitalize:'none',
-          autoFocus: true,
+          autoFocus: false,
           placeholderTextColor: Colors.secondaryTextColor,
           keyboardType: "email-address"
           // autoFocus: true,
         },
         password : {
           label: 'Password',
-          maxLength: 20,
+          maxLength: 30,
           secureTextEntry: secureTextEntry,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.error,

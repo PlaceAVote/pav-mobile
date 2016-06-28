@@ -36,7 +36,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../config/constants';
 
 import React from 'react';
-import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio, Platform} from 'react-native';
+import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio, Platform, StatusBar} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -92,12 +92,16 @@ class OnboardingRender extends React.Component {
    * Setup some default presentations and render
    */
   render() {
-
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     let styles= isPortrait?portraitStyles:landscapeStyles;
     return(
         <Image style={styles.backgroundImg} resizeMode= 'cover' source={pavBG}>
+          <StatusBar
+              backgroundColor="#4A5E83"
+              translucent={false}
+              barStyle="light-content"
+           />
           <View style={styles.container}>
 
             <View style={styles.explanContainer}>
@@ -116,13 +120,6 @@ class OnboardingRender extends React.Component {
                 PlaceAVote gives you the opportunity to read, debate, and vote on every bill that is presented before Congress.
                 </Text>
               </View>
-
-              <View style={styles.descriptionContainerVer}>
-                <Text style={styles.descriptionText2} numberOfLines={5} >
-                Place your vote today and let your representatives know how to represent you.
-                </Text>
-              </View>
-
 
             </View>
 
@@ -194,6 +191,7 @@ var portraitStyles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     paddingBottom: w*0.02,
+    paddingVertical: h*0.005,
   },
 
   logoImgContainer:{    //child A1
@@ -252,14 +250,6 @@ var portraitStyles = StyleSheet.create({
     textAlign: 'center',
 
   },
-  descriptionText2: {
-    backgroundColor: Colors.transparentColor,
-    width: w*0.81,
-    fontFamily: 'Whitney-Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,11),
-    color: Colors.mainTextColor,
-    textAlign: 'center'
-  },
 
 
 
@@ -270,7 +260,8 @@ var portraitStyles = StyleSheet.create({
 
   btnContainer:{  //Child B
     // backgroundColor: 'red',
-    paddingVertical: h*0.015,
+    paddingTop: h*0.035,
+    paddingBottom: h*0.060,
     justifyContent: 'flex-end'
   },
 
@@ -387,14 +378,7 @@ var landscapeStyles = StyleSheet.create({
     textAlign: 'center',
 
   },
-  descriptionText2: {
-    width: h*0.90,
-    backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney-Book',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
-    color: Colors.mainTextColor,
-    textAlign: 'center'
-  },
+
 
 
 

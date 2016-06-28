@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
      }),
   },
   recentActivityTextContainer:{
-    paddingHorizontal: w*0.009,
-    paddingTop: h*0.02,
+    paddingHorizontal: w*0.02,
+    paddingVertical: h*0.02,
     // top:0,
     // width:w,
     // height:h*0.065,
