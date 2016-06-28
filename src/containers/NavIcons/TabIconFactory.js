@@ -31,7 +31,7 @@ export default class TabIconFactory extends React.Component {
             break;
         }
         return (
-          <View style={{top:5, flexDirection:'row', justifyContent:'center', alignItems:'center', paddingHorizontal:w*0.05}}>
+          <View style={{flex:1, top:5, flexDirection:'row', justifyContent:'center', alignItems:'center', paddingHorizontal:w*0.05}}>
             <View style={{paddingLeft:w*0.006,paddingRight:w*0.004, paddingVertical:h*0.005}}>
               <PavIcon name={iconName} size={getCorrectFontSizeForScreen(w,h,22)} style={{color: (this.props.selected===true) ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
             </View>

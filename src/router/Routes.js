@@ -67,7 +67,29 @@ const styles = StyleSheet.create({
     borderBottomColor:Colors.transparentColor
   },
   tabBar:{
+    flex:1,
+    borderTopWidth:1,
+    borderTopColor:"#E4E3E9",
     backgroundColor:'white'
+  },
+  iconContainerStyle:{
+    // backgroundColor:'red',
+    borderRightWidth:0.8,
+    borderRightColor: "#E4E3E9",
+
+  },
+  tabBarSelectedItemStyle:{
+    // , borderRightWidth:1
+    backgroundColor:'transparent',
+    borderBottomWidth:2,
+    borderBottomColor:Colors.negativeAccentColor,
+    shadowColor: 'rgba(0, 0, 0, 0.12)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2,
+    },
   },
   tabScene:{
   },
@@ -174,7 +196,7 @@ class Routes extends React.Component{
           <Scene key={ScheneKeys.REGISTER_STEP_4} {...defaultProps} component={EmailSignUpStep4} hideNavBar={true} />
           <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
           <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile}/>
-          <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene}  initial={false}>
+          <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} iconContainerStyle={styles.iconContainerStyle} initial={false}>
               <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} initial={true}/>
               <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} />
               <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} userId={null} isTab={true} />
