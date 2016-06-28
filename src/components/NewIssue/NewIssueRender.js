@@ -482,7 +482,7 @@ class NewIssueRender extends React.Component {
       <View style={styles.footerContainer}>
         <View style={styles.attachmentBtnsContainer}>
           <View style={styles.attachmentAddTextContainer}>
-            <Text style={styles.attachmentAddText}>Add Attachment: </Text>
+            <Text style={styles.attachmentAddText}>Attach Bill: </Text>
           </View>
           <View style={styles.attachmentIconsContainer}>
             <View style={styles.leftIconContainer} >
