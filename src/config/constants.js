@@ -233,6 +233,10 @@ module.exports =  {
    SET_NAVBAR_DIMENSIONS: null,
    SET_STORE: null,
 
+   SOCIAL_SHARE_FACEBOOK_REQUEST: null,
+   SOCIAL_SHARE_FACEBOOK_FAILURE: null,
+   SOCIAL_SHARE_FACEBOOK_SUCCESS: null,
+
    /* device */
    SET_DEV: null,
    SET_PLATFORM: null,

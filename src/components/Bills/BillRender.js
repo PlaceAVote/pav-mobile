@@ -271,15 +271,13 @@ class BillRender extends React.Component {
 
   onTwitterBtnClicked(billData){
     if(this.props.onSocialClick){
-      this.props.onSocialClick(SOCIAL_TYPES.TWITTER, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+      this.props.onSocialClick(SOCIAL_TYPES.TWITTER, billData);
     }
   }
 
   onFacebookBtnClicked(billData){
-    let billTitle = billData.featured_bill_title || billData.short_title;
-    console.log("Bill Data: "+JSON.stringify(billData));
     if(this.props.onSocialClick){
-      this.props.onSocialClick(SOCIAL_TYPES.FACEBOOK, {billTitle:billTitle, });
+      this.props.onSocialClick(SOCIAL_TYPES.FACEBOOK, billData);
     }
   }
 

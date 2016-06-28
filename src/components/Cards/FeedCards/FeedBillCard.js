@@ -24,7 +24,7 @@ import Button from 'sp-react-native-iconbutton'
 
 
 
-import {Colors, ScheneKeys} from '../../../config/constants';
+import {Colors, ScheneKeys, Other} from '../../../config/constants';
 
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
@@ -246,13 +246,13 @@ class FeedBillCard extends React.Component {
 
   onTwitterBtnClicked(){
     if(this.props.onSocialClick){
-      this.props.onSocialClick(SOCIAL_TYPES.TWITTER, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+      this.props.onSocialClick(Other.SOCIAL_TYPES.TWITTER, {billId: this.props.billId, billTitle:this.props.billTitle, favorPercentage:this.props.favorPercentage});
     }
   }
 
   onFacebookBtnClicked(){
     if(this.props.onSocialClick){
-      this.props.onSocialClick(SOCIAL_TYPES.FACEBOOK, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+      this.props.onSocialClick(Other.SOCIAL_TYPES.FACEBOOK, {billId: this.props.billId, billTitle:this.props.billTitle, favorPercentage:this.props.favorPercentage});
     }
   }
 
@@ -305,6 +305,7 @@ class FeedBillCard extends React.Component {
 
 
 FeedBillCard.propTypes= {
+  billId: React.PropTypes.string.isRequired,
   subjectTitle: React.PropTypes.string.isRequired,
   billTitle: React.PropTypes.string,
   billImgUrl: React.PropTypes.string,

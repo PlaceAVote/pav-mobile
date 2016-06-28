@@ -26,6 +26,7 @@ import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 import * as billActions from '../reducers/bill/billActions';
+import * as globalActions from '../reducers/global/globalActions';
 import {findCommentPath} from '../lib/Utils/commentCrawler';
 
 /**
@@ -75,7 +76,8 @@ const actions = [
   routingActions,
   deviceActions,
   newsfeedActions,
-  billActions
+  billActions,
+  globalActions
 ];
 
 function mapStateToProps(state) {
@@ -179,13 +181,14 @@ class Bill extends React.Component {
   }
 
 
-  onSocialClick(type, data){
-    //data = {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
-    // let billLink = https://www.placeavote.com/#!/bill/
-    s2517-114
+  onSocialClick(type, billData){
+    let billTitle = billData.featured_bill_title || billData.short_title;
+    let billId = billData.bill_id;
     switch(type){
       case SOCIAL_TYPES.TWITTER:
+        break;
       case SOCIAL_TYPES.FACEBOOK:
+        this.props.actions.shareFacebook({type:"bill", billId, billTitle}, this.TOKEN, this.props.global.isDev);
         break;
     }
   }

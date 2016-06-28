@@ -185,8 +185,6 @@ export function getFeedItems(getOlderItems=false, sessionToken=null, dev = null)
     }
 
     let res;
-    console.log("willFetchOlderItems: "+willFetchOlderItems+" lastTimestamp: "+lastTimestamp+" getOlderItems: "+getOlderItems)
-    console.log("Token: "+token);
     if(getOlderItems==true && willFetchOlderItems===false){
       console.log("Unable to fetch older feed data, we don't seem to have a valid lastFeedItemTimeStamp."+lastTimestamp);
       dispatch(getTimelineFailure({error:"Unable to fetch older feed data, we don't seem to have a valid lastFeedItemTimeStamp.", isFetchingOldData:getOlderItems}));

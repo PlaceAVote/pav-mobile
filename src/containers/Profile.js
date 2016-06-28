@@ -26,6 +26,7 @@ import * as authActions from '../reducers/auth/authActions';
 import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as profileActions from '../reducers/profile/profileActions'
+// import * as globalActions from '../reducers/global/globalActions';
 
 /**
  * Router actions
@@ -73,7 +74,8 @@ const actions = [
   authActions,
   routingActions,
   deviceActions,
-  profileActions
+  profileActions,
+  // globalActions
 ];
 
 function mapStateToProps(state) {
@@ -308,22 +310,6 @@ class Profile extends React.Component {
   }
 
 
-    onUserClickedSocial(socialType, data){
-      switch(socialType){
-        case SOCIAL_TYPES.SIMPLE_URL:
-          Linking.openURL(data.url).catch(err => console.error('An error occurred while trying to open url: '+data.url, err));
-          break;
-        case SOCIAL_TYPES.FACEBOOK:
-          alert("Facebook button clicked");
-          break;
-        case SOCIAL_TYPES.TWITTER:
-          alert("Twitter button clicked");
-          break;
-        default:
-          break;
-      }
-    }
-
   componentWillReceiveProps(nextProps,nextState){
 
       if(this.props.userId==null){  //if we're currently fetching data for the user of this app - ONLY RUN THE FOLLOWING CODE on that case
@@ -419,7 +405,6 @@ class Profile extends React.Component {
           onReplyClick={this.onUserClickedReply.bind(this)}
           onReactionClick={this.onUserClickedReaction.bind(this)}
           onCommentClick={this.onUserClickedComments.bind(this)}
-          onSocialClick={this.onUserClickedSocial.bind(this)}
       />
 
     );

@@ -24,6 +24,10 @@ const {
   SET_STORE,
   SET_NAVBAR_DIMENSIONS,
 
+  SOCIAL_SHARE_FACEBOOK_REQUEST,
+  SOCIAL_SHARE_FACEBOOK_FAILURE,
+  SOCIAL_SHARE_FACEBOOK_SUCCESS,
+
 } = ActionNames;
 
 import InitialState from './globalInitialState';
@@ -39,6 +43,13 @@ export default function globalReducer(state = initialState, action) {
 
   switch (action.type) {
 
+
+  case SOCIAL_SHARE_FACEBOOK_REQUEST:
+    return state.setIn(['isFetching', 'facebookShare'], true);
+  case SOCIAL_SHARE_FACEBOOK_FAILURE:
+  case SOCIAL_SHARE_FACEBOOK_SUCCESS:
+    return state.setIn(['isFetching', 'facebookShare'], false);
+  
 
   case SET_DEV:
     return state.set('isDev', action.payload);

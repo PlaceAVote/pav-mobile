@@ -26,6 +26,7 @@ import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 import * as billActions from '../reducers/bill/billActions';
+import * as globalActions from '../reducers/global/globalActions';
 // import * as billActions from '../reducers/bill/billActions';
 
 
@@ -81,6 +82,7 @@ const {
  */
 const actions = [
   // authActions,
+  globalActions,
   routingActions,
   deviceActions,
   newsfeedActions,
@@ -253,7 +255,7 @@ class NewsFeed extends React.Component {
         Linking.openURL(data.url).catch(err => console.error('An error occurred while trying to open url: '+data.url, err));
         break;
       case SOCIAL_TYPES.FACEBOOK:
-        alert("Facebook button clicked");
+        this.props.actions.shareFacebook({type:"bill", billId:data.billId, billTitle:data.billTitle}, this.TOKEN, this.props.global.isDev);
         break;
       case SOCIAL_TYPES.TWITTER:
         alert("Twitter button clicked");

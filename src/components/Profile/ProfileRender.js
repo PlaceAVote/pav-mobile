@@ -451,7 +451,6 @@ class ProfileRender extends React.Component {
              onReplyClick={this.props.onReplyClick}
              onReactionClick={this.props.onReactionClick}
              onCommentClick={this.props.onCommentClick}
-             onSocialClick={this.props.onSocialClick}
              />}
            />
         </View>

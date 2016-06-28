@@ -32,6 +32,9 @@ var InitialState = Record({
   // currentState: null,
   store: null,
   isDev: true,
+  isFetching: new (Record({
+    facebookShare: false
+  })),
   navBarDimensions: new (Record({
     width: null,
     height: null
