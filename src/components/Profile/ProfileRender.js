@@ -534,7 +534,6 @@ ProfileRender.propTypes= {
   onReplyClick: React.PropTypes.func.isRequired,
   onReactionClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,
-  onSocialClick: React.PropTypes.func.isRequired,
   onFetchOlderTimelineData:React.PropTypes.func.isRequired,
 
 };
