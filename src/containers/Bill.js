@@ -181,6 +181,8 @@ class Bill extends React.Component {
 
   onSocialClick(type, data){
     //data = {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+    // let billLink = https://www.placeavote.com/#!/bill/
+    s2517-114
     switch(type){
       case SOCIAL_TYPES.TWITTER:
       case SOCIAL_TYPES.FACEBOOK:
@@ -211,9 +213,6 @@ class Bill extends React.Component {
           parentVisible={(this.props.name==this.props.router.currentSchene)}
           device={ this.props.device}
           bill={this.props.bill}
-          billTitle="Whatevah"
-          subjectTitle="Whatevah"
-          favorPercentage={23}
           initTab={this.props.initTab || BillPageTabs.SUMMARY}
           onSocialClick={this.onSocialClick.bind(this)}
           onTagPress={this.onTagPress.bind(this)}

@@ -269,15 +269,17 @@ class BillRender extends React.Component {
 
 
 
-  onTwitterBtnClicked(){
+  onTwitterBtnClicked(billData){
     if(this.props.onSocialClick){
       this.props.onSocialClick(SOCIAL_TYPES.TWITTER, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
     }
   }
 
-  onFacebookBtnClicked(){
+  onFacebookBtnClicked(billData){
+    let billTitle = billData.featured_bill_title || billData.short_title;
+    console.log("Bill Data: "+JSON.stringify(billData));
     if(this.props.onSocialClick){
-      this.props.onSocialClick(SOCIAL_TYPES.FACEBOOK, {billTitle:this.props.billTitle, subjectTitle:this.props.subjectTitle, favorPercentage:this.props.favorPercentage});
+      this.props.onSocialClick(SOCIAL_TYPES.FACEBOOK, {billTitle:billTitle, });
     }
   }
 
@@ -337,10 +339,10 @@ class BillRender extends React.Component {
               <View style={styles.headerBtnsContainer}>
 
                 <View style={styles.headerSocialShareBtnContainer}>
-                  <TouchableOpacity onPress={this.onTwitterBtnClicked.bind(this)}>
+                  <TouchableOpacity onPress={this.onTwitterBtnClicked.bind(this, billData)}>
                     <PavIcon name="social-twitter" size={18} style={styles.headerSocialShareBtn}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={this.onFacebookBtnClicked.bind(this)}>
+                  <TouchableOpacity onPress={this.onFacebookBtnClicked.bind(this, billData)}>
                     <PavIcon name="facebook" size={16} style={styles.headerSocialShareBtn}/>
                   </TouchableOpacity>
                 </View>
@@ -525,13 +527,15 @@ class BillRender extends React.Component {
 
 }
 
+// billTitle="Whatevah"
+// subjectTitle="Whatevah"
+// favorPercentage={23}
+
+
 BillRender.propTypes= {
 
   device: React.PropTypes.object.isRequired,
   bill: React.PropTypes.object.isRequired,
-  billTitle: React.PropTypes.string.isRequired,
-  subjectTitle: React.PropTypes.string.isRequired,
-  favorPercentage: React.PropTypes.any.isRequired,
   initTab: React.PropTypes.number,
   parentVisible: React.PropTypes.bool.isRequired,
   onSocialClick: React.PropTypes.func.isRequired,
