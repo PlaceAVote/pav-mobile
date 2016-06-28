@@ -389,9 +389,9 @@ class NewIssueRender extends React.Component {
               <TouchableOpacity  style={styles.relatedArticleTitleTextContainer}  onPress={this.props.onRelatedArticleClicked}>
                 <Text style={styles.relatedArticleTitleText}>{!!this.props.relatedArticle&&this.props.relatedArticle.title}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.relatedArticleUrlIconContainer}  onPress={this.onRelatedArticleCloseClicked.bind(this)}>
+              {/*<TouchableOpacity style={styles.relatedArticleUrlIconContainer}  onPress={this.onRelatedArticleCloseClicked.bind(this)}>
                 <PavIcon name="close" size={15} style={styles.relatedArticleUrlCloseIcon}/>
-              </TouchableOpacity>
+              </TouchableOpacity>*/}
 
           </LinearGradient>
         </PavImage>

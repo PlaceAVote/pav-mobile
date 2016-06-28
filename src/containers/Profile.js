@@ -335,8 +335,8 @@ class Profile extends React.Component {
                 curUser:nextProps.auth.user,
                 lastActivityTimestamp:nextProps.profile.form.profileData.lastActivityTimestamp,
                 voteCnt:nextProps.profile.form.profileData.voteCnt,
-                followingCnt:nextProps.profile.form.profileData.voteCnt,
-                followerCnt:nextProps.profile.form.profileData.voteCnt,
+                followingCnt:nextProps.profile.form.profileData.followingCnt,
+                followerCnt:nextProps.profile.form.profileData.followerCnt,
                 currentlyFollowingUser:false,
               });
             }
