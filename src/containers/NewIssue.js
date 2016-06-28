@@ -115,14 +115,16 @@ class NewIssue extends React.Component {
 
   async onUrlAttached(url){
     //get url image and then setState
-    console.log("token: "+this.TOKEN+" dev: "+this.props.global.isDev)
+    // console.log("token: "+this.TOKEN+" dev: "+this.props.global.isDev)
     let res = await this.props.actions.scrapeUrlItems(url, this.TOKEN, this.props.global.isDev);
     console.log("RESULT: "+JSON.stringify(res))
-    this.setState({relatedArticle:{
+    let relatedArticle = {
       url: res.article_link || extractDomain(res.article_link),
       title:res.article_title || extractDomain(res.article_link),
       img: res.article_img
-    }})
+    };
+    this.setState({relatedArticle})
+    return relatedArticle;
 
   }
   // componentWillUnmount(){
@@ -184,6 +186,7 @@ class NewIssue extends React.Component {
   }
 
   async onIssuePost(issueBody, attachedBillId, attachedUrl){
+
     let res = await this.props.actions.createNewIssue(issueBody, attachedBillId, attachedUrl, this.TOKEN, this.props.global.isDev);
     this.props.actions.navigateToPrevious();
   }
@@ -214,6 +217,9 @@ class NewIssue extends React.Component {
 
   render() {
     // console.log("Searching: "+this.props.bill.isFetching.searchBillData)
+    /*urlModalVisible={this.props.router.modalIsOpen.get(ATTACH_URL)}
+    showUrlAttachModal={()=>this.props.actions.setModalVisibility(ATTACH_URL, true)}
+    hideUrlAttachModal={()=>this.props.actions.setModalVisibility(ATTACH_URL, false)}*/
     return(
       <NewIssueRender
           device={this.props.device}
@@ -223,9 +229,7 @@ class NewIssue extends React.Component {
           issueBeingPosted={this.props.newsfeed.isFetching.postingNewIssue}
           scrapedUrlBeingFetched={this.props.newsfeed.isFetching.scrapeUrlData}
           searchModalVisible={this.props.router.modalIsOpen.get(SEARCH_BILL)}
-          urlModalVisible={this.props.router.modalIsOpen.get(ATTACH_URL)}
-          showUrlAttachModal={()=>this.props.actions.setModalVisibility(ATTACH_URL, true)}
-          hideUrlAttachModal={()=>this.props.actions.setModalVisibility(ATTACH_URL, false)}
+
           showBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, true)}
           hideBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, false)}
 

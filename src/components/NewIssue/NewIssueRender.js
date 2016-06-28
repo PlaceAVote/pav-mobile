@@ -21,6 +21,8 @@ import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {extractUrlFromTextIfAvailable, timeout} from '../../lib/Utils/genericUtils'
+
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
@@ -222,7 +224,6 @@ const styles = StyleSheet.create({
     // backgroundColor:'green'
   },
   relatedBillIcon:{
-
     padding: w*0.011,
     // backgroundColor:'red',
     // alignSelf:'flex-end',
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
   },
   rightIconContainer:{
     justifyContent:'center',
-    paddingHorizontal:w*0.03,
+    paddingHorizontal:w*0.05,
 
     height:44,
 
@@ -421,6 +422,29 @@ class NewIssueRender extends React.Component {
 
 
 
+    async extractUrlFromText(){
+      let linkData = extractUrlFromTextIfAvailable(this.state.text);
+      if(linkData!=null){
+        this.setState({text:linkData.strippedText});
+        let result = await this.props.onUrlAttached(linkData.url);
+        return result.url;
+      }else{
+        return (!!this.props.relatedArticle && !!this.props.relatedArticle.url)?this.props.relatedArticle.url:null;
+      }
+    }
+
+
+    async onPostClicked(){
+      if(this.props.onIssuePost){
+        let relArticUrl = await this.extractUrlFromText();
+        await timeout(800);
+        // alert("URL: "+relArticUrl);
+        let relBillId = (!!this.props.relatedBill && !!this.props.relatedBill.billId)?this.props.relatedBill.billId:null;
+        this.props.onIssuePost(this.state.text, relBillId, relArticUrl);
+      }
+    }
+
+
 
 
 
@@ -480,32 +504,26 @@ class NewIssueRender extends React.Component {
 
 
       <View style={styles.footerContainer}>
-        <View style={styles.attachmentBtnsContainer}>
+        <TouchableOpacity onPress={this.onAttachBillBtnTap.bind(this)} style={styles.attachmentBtnsContainer}>
           <View style={styles.attachmentAddTextContainer}>
             <Text style={styles.attachmentAddText}>Attach Bill: </Text>
           </View>
           <View style={styles.attachmentIconsContainer}>
-            <View style={styles.leftIconContainer} >
+            {/*<View style={styles.leftIconContainer} >
               <TouchableOpacity onPress={this.onAttachUrlBtnTap.bind(this)}>
                 <PavIcon name="links" size={17} style={styles.attachmentIcon}/>
               </TouchableOpacity>
-            </View>
+            </View>*/}
             <View style={styles.rightIconContainer} >
-              <TouchableOpacity onPress={this.onAttachBillBtnTap.bind(this)}>
+              <View>
                 <PavIcon name="bills" size={17} style={styles.attachmentIcon}/>
-              </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
         <View style={styles.postBtnContainer}>
           <Button
-          onPress={()=>{
-            if(this.props.onIssuePost){
-              let relArticUrl = (!!this.props.relatedArticle && !!this.props.relatedArticle.url)?this.props.relatedArticle.url:null;
-              let relBillId = (!!this.props.relatedBill && !!this.props.relatedBill.billId)?this.props.relatedBill.billId:null;
-              this.props.onIssuePost(this.state.text, relBillId, relArticUrl);
-            }
-          }}
+          onPress={this.onPostClicked.bind(this)}
           isLoading={this.props.issueBeingPosted || this.props.scrapedUrlBeingFetched}
           isDisabled={this.props.issueBeingPosted || this.props.scrapedUrlBeingFetched}
           style={styles.postBtn}
@@ -532,7 +550,7 @@ class NewIssueRender extends React.Component {
         }}/>
 
 
-      <InputUrlModalBox
+      {/*<InputUrlModalBox
       isOpen={this.props.urlModalVisible}
       onClose={()=>this.props.hideUrlAttachModal()}
       onUrlAttached={(attachedUrl)=>{
@@ -540,7 +558,7 @@ class NewIssueRender extends React.Component {
         this.props.hideUrlAttachModal();
       }}
       extraBottomSpace={this.state.keyboardHeight}
-      />
+      />*/}
       <SearchModalBox
       isOpen={this.props.searchModalVisible}
       onClose={()=>this.props.hideBillSearchModal()}
@@ -610,9 +628,9 @@ NewIssueRender.propTypes= {
   removeAttachedBill: React.PropTypes.func.isRequired,
 
   searchModalVisible: React.PropTypes.bool.isRequired,
-  urlModalVisible: React.PropTypes.bool.isRequired,
-  showUrlAttachModal: React.PropTypes.func.isRequired,
-  hideUrlAttachModal: React.PropTypes.func.isRequired,
+  // urlModalVisible: React.PropTypes.bool.isRequired,
+  // showUrlAttachModal: React.PropTypes.func.isRequired,
+  // hideUrlAttachModal: React.PropTypes.func.isRequired,
   showBillSearchModal: React.PropTypes.func.isRequired,
   hideBillSearchModal: React.PropTypes.func.isRequired,
 

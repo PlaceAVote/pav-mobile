@@ -241,9 +241,10 @@ class SearchModalBox extends React.Component {
               alignItems:'flex-start'
             },
             botArrowBtnIconContainer:{
+              paddingLeft:w*0.05,
               width: w*0.95,
               justifyContent:'flex-end',
-              alignItems:'center'
+              alignItems:'flex-start'
             },
             arrowBtnIcon:{
               // borderTopWidth: 15,
