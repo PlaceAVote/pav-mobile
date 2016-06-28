@@ -258,7 +258,8 @@ class NewsFeed extends React.Component {
         this.props.actions.shareFacebook({type:"bill", billId:data.billId, billTitle:data.billTitle}, this.TOKEN, this.props.global.isDev);
         break;
       case SOCIAL_TYPES.TWITTER:
-        alert("Twitter button clicked");
+        let twitterUrl = "https://twitter.com/intent/tweet?text=Check%20out%20this%20bill%20%40placeavote&url=https%3A%2F%2Fwww.placeavote.com%2F%23!%2Fbill%2F"+data.billId;
+        Linking.openURL(twitterUrl).catch(err => console.error('An error occurred while trying to post tweet with url: '+twitterUrl, err));
         break;
       default:
         break;
