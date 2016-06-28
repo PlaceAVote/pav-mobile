@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
   inputText:{
     flex:1,
     // backgroundColor:'pink',
+    textAlignVertical:'bottom',
     fontFamily: 'Whitney Book',
     fontSize: getCorrectFontSizeForScreen(w,h,10),
     color: Colors.thirdTextColor,
