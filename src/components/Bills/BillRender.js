@@ -98,25 +98,42 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   headerTitleContainer:{
-    // backgroundColor:'purple'
+    // backgroundColor:'purple',
     flex:1,
     justifyContent:'center',
-    alignItems:'center',  //horizontally
+    alignItems:'flex-start',  //horizontally
     paddingVertical: h*0.013,
-    paddingHorizontal: w*0.012,
+    paddingHorizontal: w*0.025,
   },
   headerTitle:{
     backgroundColor: Colors.transparentColor,
     color: Colors.mainTextColor,
     fontFamily: 'Whitney',
-    textAlign:'center',
+    // textAlign:'center',
     fontSize: getCorrectFontSizeForScreen(w,h,15),
   },
+  // headerTitleContainer:{
+  //   backgroundColor:'purple',
+  //   flex:1,
+  //   justifyContent:'center',
+  //   alignItems:'center',  //horizontally
+  //   paddingVertical: h*0.013,
+  //   paddingHorizontal: w*0.012,
+  // },
+  // headerTitle:{
+  //   backgroundColor: Colors.transparentColor,
+  //   color: Colors.mainTextColor,
+  //   fontFamily: 'Whitney',
+  //   textAlign:'center',
+  //   fontSize: getCorrectFontSizeForScreen(w,h,15),
+  // },
+
   headerBtnsContainer:{
     // backgroundColor:'pink',
     flexDirection:'row',
     paddingVertical: h*0.020,
-    justifyContent:'space-around',
+    // justifyContent:'space-between', //was 'space-around'
+    paddingHorizontal: w*0.015, //was 0
     alignItems:'center'
   },
   headerSocialShareBtnContainer:{
@@ -164,8 +181,8 @@ const styles = StyleSheet.create({
   tagTitleText:{
     backgroundColor: Colors.transparentColor,
     color: Colors.mainTextColor,
-    fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
   },
 
 
@@ -294,7 +311,7 @@ class BillRender extends React.Component {
             onPress={()=>this.props.onTagPress(tag)}
             style={styles.tagBtn}>
             <View  key={"tag"+i+"txtContainer"} style={styles.tagTitleTextContainer}>
-              <Text key={"tag"+i+"txt"} style={styles.tagTitleText}>{tag}</Text>
+              <Text key={"tag"+i+"txt"} style={styles.tagTitleText}>{tag.toUpperCase()}</Text>
             </View>
           </TouchableOpacity></View>)
         )}

@@ -7,10 +7,53 @@ import {Colors, ScheneKeys} from '../../config/constants';
 const {height:h, width:w} = Dimensions.get('window');
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
-export default class TabIconFactory extends React.Component {
+/**
+ *           Imports
+ *
+ * Redux
+ */
+import { connect } from 'react-redux';
+
+
+function mapStateToProps(state) {
+  return {
+      ...state
+  };
+}
+
+
+class TabIconFactory extends React.Component {
+
+
+
+    renderNotificationCount(){
+      let unreadCount = this.props.notifications.unreadCnt;
+      if(this.props.name===ScheneKeys.TAB_NOTIFS && unreadCount>0){
+        return (
+          <View style={{
+            position:"absolute",
+            top:0,
+            right:0,
+            backgroundColor:Colors.negativeAccentColor,
+            paddingHorizontal:2,
+            borderRadius:2,
+          }}>
+            <Text style={{
+              color:Colors.mainTextColor,
+              // backgroundColor: Colors.transparentColor,
+              fontFamily: 'Whitney',
+              // textAlign:'center',
+              fontSize: getCorrectFontSizeForScreen(w,h,8),
+            }}>{unreadCount}</Text>
+          </View>
+        );
+      }else{
+        return <View></View>;
+      }
+    }
+
+
     render(){
-
-
         let iconName = "", tabText;
         switch(this.props.name){
           case ScheneKeys.TAB_NEWS:
@@ -34,6 +77,7 @@ export default class TabIconFactory extends React.Component {
           <View style={{flex:1, top:5, flexDirection:'row', justifyContent:'center', alignItems:'center', paddingHorizontal:w*0.05}}>
             <View style={{paddingLeft:w*0.006,paddingRight:w*0.004, paddingVertical:h*0.005}}>
               <PavIcon name={iconName} size={getCorrectFontSizeForScreen(w,h,22)} style={{color: (this.props.selected===true) ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
+              {this.renderNotificationCount()}
             </View>
             <View style={{flexDirection: "column", justifyContent: 'center', paddingLeft:w*0.004,paddingRight:w*0.006}}>
               <Text style={{
@@ -47,3 +91,4 @@ export default class TabIconFactory extends React.Component {
         );
     }
 }
+export default connect(mapStateToProps)(TabIconFactory);

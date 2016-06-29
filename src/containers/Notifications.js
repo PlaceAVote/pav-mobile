@@ -110,21 +110,26 @@ class Notifications extends React.Component {
   }
 
 
-  componentWillMount(){
-    if(this.props.notifications.items==null){
-      this.getNotifications(false);
+  async componentWillMount(){
+    if(this.props.notifications.items==null){   //when there are NO notifications
+      await this.getNotifications(false);
+      this.markAllNotificationsRead();
     }
   }
 
 
   componentDidMount(){
-    this.markAllNotificationsRead();
+    if(this.props.notifications.items!=null){ //when there ARE notifications
+      this.markAllNotificationsRead();
+    }
   }
 
   async markAllNotificationsRead(){
     await timeout(1500);
     if(this.props.router.currentTab==TAB_NOTIFS){
-      this.props.actions.markNotificationsRead(undefined, this.TOKEN, this.props.global.isDev);
+
+      let res = await this.props.actions.markNotificationsRead(null, this.TOKEN, this.props.global.isDev);
+      alert("Marking read"+JSON.stringify(res))
     }
   }
 
@@ -166,6 +171,7 @@ class Notifications extends React.Component {
 
 
   render() {
+    console.log("Notifs: "+this.props.notifications.items);
     return(
       <NotificationsRender
           device={ this.props.device}

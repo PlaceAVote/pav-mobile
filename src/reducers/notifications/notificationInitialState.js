@@ -30,7 +30,8 @@ var InitialState = Record({
     markNotificationsRead: false,
   })),
   lastNotificationTimestamp: null,
-  items: null
+  items: null,
+  unreadCnt: 0,
 });
 
 export default InitialState;

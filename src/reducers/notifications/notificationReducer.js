@@ -56,9 +56,17 @@ export default function notificationReducer(state = initialState, action) {
       }
 
     case GET_NOTIFICATIONS_SUCCESS:
-      let newItems = Immutable.fromJS(action.payload.data.results);
+      let arr = action.payload.data.results;
+      let newItems = Immutable.fromJS(arr);
       if(action.payload.isFetchingOldData===false){
+        let unreadCnt = 0;
+        for (let zz=0, llll=arr.length;zz<llll;zz++){
+          if(arr[zz].read===false){
+            unreadCnt++;
+          }
+        }
         return state.setIn([ 'isFetching', 'notificationData'], false)
+        .setIn(['unreadCnt'], unreadCnt)
         .setIn(['lastNotificationTimestamp'], action.payload.data.last_timestamp)
         .setIn(['items'], newItems)
         .setIn(['error'],null);
@@ -80,6 +88,7 @@ export default function notificationReducer(state = initialState, action) {
             items[ii].read = true;
           }
           return state.setIn([ 'isFetching', 'markNotificationsRead'], false)
+          .setIn(['unreadCnt'], 0)
           .setIn(['items'], Immutable.fromJS(items))
       }else{
           return state.setIn([ 'isFetching', 'markNotificationsRead'], false);

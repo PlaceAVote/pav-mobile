@@ -56,7 +56,7 @@ import PavSpinner from '../../lib/UI/PavSpinner'
 class NotificationsRender extends React.Component {
   constructor(props) {
     super(props);
-    let data = [];
+    let data = props.notifications.toJS() || [];
     // console.log("Data within getFeedDataSource is :"+data);
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}); // || r1["event_id"] !== r2["event_id"]
     // ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -93,7 +93,7 @@ class NotificationsRender extends React.Component {
 
       card:{
         paddingHorizontal:0,//w*0.001,
-        paddingVertical:w*0.002,
+        paddingVertical:0.3,
       },
 
 

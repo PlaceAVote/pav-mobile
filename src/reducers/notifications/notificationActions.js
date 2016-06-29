@@ -89,7 +89,7 @@ export function getNotificationItems(getOlderItems, sessionToken=null, dev = nul
     }
 
 
-    // console.log("RES: "+JSON.stringify(res));
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in getNotificationItems call"+res.error.error_message);
       dispatch(getNotificationFailure({error:"Unable to get user notification data with this token.", isFetchingOldData:getOlderItems}));
@@ -112,10 +112,9 @@ export function getNotificationItems(getOlderItems, sessionToken=null, dev = nul
 /**
  * ## Mark notifications as read actions
  */
-export function markNotificationsReadRequest(isFetchingOldData) {
+export function markNotificationsReadRequest() {
   return {
     type: MARK_NOTIFICATIONS_READ_REQUEST,
-    payload: {isFetchingOldData}
   };
 }
 export function markNotificationsReadSuccess(json) {
@@ -152,10 +151,11 @@ export function markNotificationsRead(notificationId=null, sessionToken=null, de
       return null;
     }
 
+    // console.log("Tok: "+token);
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.markNotificationsRead(notificationId);
 
 
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in markNotificationsReadItems call"+res.error.error_message);
       dispatch(markNotificationsReadFailure(res.error));

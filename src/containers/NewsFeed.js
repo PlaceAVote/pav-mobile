@@ -28,7 +28,7 @@ import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 import * as billActions from '../reducers/bill/billActions';
 import * as globalActions from '../reducers/global/globalActions';
 // import * as billActions from '../reducers/bill/billActions';
-
+import * as notificationActions from '../reducers/notifications/notificationActions'
 
 
 
@@ -86,7 +86,8 @@ const actions = [
   routingActions,
   deviceActions,
   newsfeedActions,
-  billActions
+  billActions,
+  notificationActions
 ];
 
 function mapStateToProps(state) {
@@ -135,6 +136,7 @@ class NewsFeed extends React.Component {
 
   async connectAndGetFeed(fetchOld){
     // console.log("@@@ NEWS FEED - is dev: "+this.props.global.isDev);
+    this.props.actions.getNotificationItems(false, this.TOKEN, this.props.global.isDev)
     return await this.props.actions.getFeedItems(fetchOld, this.TOKEN, this.props.global.isDev);
   }
   async getDiscoveryItemsForTopic(topicString){
