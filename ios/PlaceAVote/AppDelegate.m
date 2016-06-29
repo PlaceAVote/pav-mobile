@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "RCTRootView.h"
+#import "RCTLinkingManager.h"
 
 #define Rgb2UIColor(r, g, b)  [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:1.0]
 
@@ -36,7 +37,7 @@
    */
   
   
-//  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  //  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   
   /**
    * OPTION 2
@@ -46,12 +47,12 @@
    * simulator in the "Release" build configuration.
    */
   
-//     jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-  #ifdef DEBUG
-    jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-  #else
-    jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-  #endif
+  //     jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#ifdef DEBUG
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+#else
+  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#endif
   
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"PlaceAVote"
@@ -60,9 +61,9 @@
   
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
-//   Rgb2UIColor(79, 81, 142);
+  //   Rgb2UIColor(79, 81, 142);
   rootView.backgroundColor = Rgb2UIColor(68, 90, 148);
-//  UIColor(hex: "#4F518E");
+  //  UIColor(hex: "#4F518E");
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
@@ -73,13 +74,24 @@
 
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                                openURL:url
-                                                      sourceApplication:sourceApplication
-                                                             annotation:annotation
-                  ];
-  // Add any custom logic here.
-  return handled;
+  
+  //  NSLog(@"The scheme is %@",[url scheme]);
+  return
+  ( [[FBSDKApplicationDelegate sharedInstance]
+     application:application
+     openURL:url
+     sourceApplication:sourceApplication
+     annotation:annotation
+     ]
+   ||
+   
+   [RCTLinkingManager
+    application:application
+    openURL:url
+    sourceApplication:sourceApplication
+    annotation:annotation]
+   );
+  
 }
 
 

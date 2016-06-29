@@ -2,7 +2,7 @@
 
 
 import React from 'react';
-import {StyleSheet, BackAndroid, Platform} from 'react-native';
+import {StyleSheet, BackAndroid, Platform, Linking} from 'react-native';
 
 import {Colors, ScheneKeys} from '../config/constants';
 
@@ -165,6 +165,13 @@ class Routes extends React.Component{
           return true;
       }
     });
+    var url = Linking.getInitialURL().then((url) => {
+       if (url) {
+         console.log('Initial url is: ' + url);
+       }else{
+         console.log('NO initial url');
+       }
+     }).catch(err => console.error('An error occurred', err));
   }
 
   orientationDidChange(orientation) {

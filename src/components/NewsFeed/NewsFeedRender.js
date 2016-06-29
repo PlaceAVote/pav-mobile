@@ -26,8 +26,9 @@ import moment from 'moment'
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {NEWS_FEED_FILTERS} = Other;
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView, ActivityIndicatorIOS, TouchableOpacity, ListView, RefreshControl, Platform} from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView, ActivityIndicatorIOS, TouchableOpacity, ListView, RefreshControl, Platform, PanResponder} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {timeout} from '../../lib/Utils/genericUtils'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
@@ -105,12 +106,49 @@ class NewsFeedRender extends React.Component {
   constructor(props) {
     super(props);
     this.state={keyboardHeight: 0}
+    // this._swipeDetected = false;
   }
 
-
-
-
-
+  // componentWillMount() {
+    // this._panResponder = PanResponder.create({
+    //   // Ask to be the responder:
+    //   onMoveShouldSetPanResponder: (evt, gestureState) => {
+    //     // console.log("DX: "+gestureState.dx)
+    //     if(gestureState.dx>50){
+    //       this.onSwipeRight()
+    //     }else if(gestureState.dx<-50){
+    //       this.onSwipeLeft()
+    //     }
+    //     return false;
+    //   },
+    //   onMoveShouldSetPanResponderCapture:()=>false
+    //
+    // });
+  // }
+  // async pauseSwiping(){
+  //   await timeout(5000);
+  //   this._swipeDetected = false;
+  // }
+  // onSwipeLeft(){
+  //   if(this._swipeDetected === false){
+  //     this._swipeDetected = true;
+  //     console.log("On swipe left" + this.props.newsFeedData.curSelectedFilter);
+  //     if(this.props.newsFeedData.curSelectedFilter==NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER){
+  //         this.props.onFilterBtnClick(NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER)
+  //     }
+  //     this.pauseSwiping();
+  //   }
+  // }
+  // onSwipeRight(){
+  //   if(this._swipeDetected === false){
+  //     this._swipeDetected = true;
+  //     console.log("On swipe right" + this.props.newsFeedData.curSelectedFilter);
+  //     if(this.props.newsFeedData.curSelectedFilter==NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER){
+  //         this.props.onFilterBtnClick(NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER)
+  //     }
+  //     this.pauseSwiping();
+  //   }
+  // }
 
 
 
@@ -206,14 +244,19 @@ class NewsFeedRender extends React.Component {
 
 
 
+
+
   /**
    * ### render method
    */
   render() {
+    // {...this._panResponder.panHandlers}
     return(
         <View style={styles.container}>
           <View
           style={styles.scrollView}
+
+
           >
             <FiltersRender
               topicList={this.props.topicList.toJS()}

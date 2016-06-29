@@ -26,6 +26,16 @@
 				<string>fb949301848442473</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>placeavote</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>placeavote</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>5</string>

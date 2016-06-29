@@ -227,8 +227,8 @@ class FiltersRender extends React.Component {
       <View key="feedHeaderContainer" style={this.props.style}>
         <View key="filtersViewContainer" style={styles.filtersViewContainer}>
           {this.renderFilterButton((NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER==this.props.curSelectedFilter), "globe", NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER)}
-          {this.renderFilterButton((NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER==this.props.curSelectedFilter), "add-lined", NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER)}
-          {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==this.props.curSelectedFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER)}
+          {/*{this.renderFilterButton((NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER==this.props.curSelectedFilter), "add-lined", NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER)}
+          {this.renderFilterButton((NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER==this.props.curSelectedFilter), "bills", NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER)}*/}
           {this.renderFilterButton((NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER==this.props.curSelectedFilter), "binoculars", NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER)}
           {/*{this.renderFilterButton((NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER==this.props.curSelectedFilter), "trending-graph", NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER)}*/}
         </View>
