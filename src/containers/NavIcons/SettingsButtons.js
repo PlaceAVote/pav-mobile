@@ -21,10 +21,10 @@ import { connect } from 'react-redux';
 /**
  * The actions we need
  */
-import * as authActions from '../../reducers/auth/authActions';
+// import * as authActions from '../../reducers/auth/authActions';
 import * as routingActions from '../../reducers/routing/routingActions';
-import * as deviceActions from '../../reducers/device/deviceActions';
-import * as profileActions from '../../reducers/profile/profileActions'
+// import * as deviceActions from '../../reducers/device/deviceActions';
+// import * as profileActions from '../../reducers/profile/profileActions'
 import * as settingsActions from '../../reducers/settings/settingsActions'
 
 
@@ -65,7 +65,7 @@ import CONFIG from '../../config/config';
  */
 const actions = [
   // authActions,
-  // routingActions,
+  routingActions,
   // deviceActions,
   // profileActions
   settingsActions
@@ -107,8 +107,11 @@ class SettingsButtons extends React.Component {
     }
   }
 
-  onSaveClicked(){
-    this.props.actions.setSettings(this.TOKEN, this.props.global.isDev);
+  async onSaveClicked(){
+    let saveRes = await this.props.actions.setSettings(this.TOKEN, this.props.global.isDev);
+    if(saveRes!=null){
+        this.props.actions.navigateToPrevious();
+    }
   }
 
   render(){

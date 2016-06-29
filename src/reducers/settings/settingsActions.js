@@ -155,7 +155,7 @@ export function setSettings(sessionToken=null, dev = null) {
     }catch(e){
       console.log("Unable to fetch past token in settingsActions.setSettings() with error: "+e.message);
       dispatch(setSettingsFailure(e.message));
-      return {data: null, error: e.message};
+      return null;
     }
 
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.setSettings({
@@ -172,7 +172,7 @@ export function setSettings(sessionToken=null, dev = null) {
     if(!!res.error){
       console.log("Error in settings call"+res.error.error_message);
       dispatch(setSettingsFailure("Unable to set user settings data with this token."));
-      return {data: null, error: res.error.error_message};
+      return null;
     }else{
       dispatch(setSettingsSuccess(res.data));
       // if(userId==null){
