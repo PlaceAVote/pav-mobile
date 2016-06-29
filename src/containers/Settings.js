@@ -41,8 +41,8 @@ import ImagePicker from 'react-native-image-picker';
       // cameraType: 'back', // 'front' or 'back'
       mediaType: 'photo', // 'photo' or 'video'
       // videoQuality: 'high', // 'low', 'medium', or 'high'
-      maxWidth: 50, // photos only
-      maxHeight: 50, // photos only
+      maxWidth: 512, // photos only
+      maxHeight: 512, // photos only
       aspectX: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
       aspectY: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
       quality: 1, // 0 to 1, photos only

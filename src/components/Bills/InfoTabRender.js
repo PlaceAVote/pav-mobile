@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flex:1,
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
   },
   bodyContainer:{
     paddingVertical: h*0.017,

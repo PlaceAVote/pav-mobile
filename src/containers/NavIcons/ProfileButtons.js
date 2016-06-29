@@ -110,9 +110,8 @@ class ProfileButtons extends React.Component {
 
   render(){
       return (
-        <View style={{flex:1, alignSelf:'flex-end', justifyContent:'flex-end'}}>
+        <View style={{flex:1, alignSelf:'flex-end', justifyContent:'flex-end', paddingBottom: 8}}>
           <TouchableOpacity style={{
-
             borderColor: Colors.mainBorderColor,
             // paddingHorizontal: w*0.076,
             // marginTop: NAV_BAR_HEIGHT-BTN_HEIGHT-8,
