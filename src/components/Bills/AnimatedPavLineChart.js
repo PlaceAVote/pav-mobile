@@ -11,7 +11,7 @@
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 import React from 'react';
-import {StyleSheet, Text, View, Animated} from 'react-native';
+import {StyleSheet, Text, View, Animated, Easing} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -30,26 +30,22 @@ const styles = StyleSheet.create({
     // backgroundColor:'pink',
     flex:1,
     flexDirection:'row',
-    justifyContent:'center',
+    justifyContent:'flex-start',
   },
   line:{
     height:22,
-    backgroundColor:Colors.primaryColor,
     borderRadius: 1,
     borderWidth: 1,
     borderColor: 'white',
     justifyContent:'center',
     alignItems:'center'
   },
-  line2:{
-    height:22,
-    backgroundColor:Colors.negativeAccentColor,
-    borderRadius: 1,
-    borderWidth: 1,
-    borderColor: 'white',
-    justifyContent:'center',
-    alignItems:'center'
-    // borderColor: Colors.transparentColor
+
+  text:{
+    color: Colors.mainTextColor,
+    fontFamily: 'Whitney Semibold',
+    textAlign:'center',
+    fontSize: getCorrectFontSizeForScreen(w,h,12),
   }
 
 })
@@ -61,9 +57,9 @@ class AnimatedPavLineChart extends React.Component {
     super(props);
     this.state = {
       isVisible: false,
-      HIDDEN_LINE_PROPS : {lineW: this.props.finalLineWidth*0.25, textOpacity:0},
-      curLine1Width:new Animated.Value(this.props.finalLineWidth*0.25),
-      curLine2Width:new Animated.Value(this.props.finalLineWidth*0.25),
+      HIDDEN_LINE_PROPS : {lineW: this.props.finalLineWidth*0.1, textOpacity:0},
+      curLine1Width:new Animated.Value(this.props.finalLineWidth*0.1),
+      curLine2Width:new Animated.Value(this.props.finalLineWidth*0.1),
       curOpacity:new Animated.Value(0),
     }
   }
@@ -72,10 +68,13 @@ class AnimatedPavLineChart extends React.Component {
 
 
   animate(show) {
+
     if(this.state.isVisible==show){
       return;
     }else{
+      let lineAnimations;
       let initialLine1Width, finalLine1Width, initialLine2Width, finalLine2Width,initialOpacity,finalOpacity;
+
 
       if(show==false && this.state.isVisible==true){
         finalLine1Width = this.state.HIDDEN_LINE_PROPS.lineW, initialLine1Width = this.props.finalLinePercentage*this.props.finalLineWidth;
@@ -88,6 +87,29 @@ class AnimatedPavLineChart extends React.Component {
       }else{
         return;
       }
+      let line1Animation = Animated.timing(                          // Base: spring, decay, timing
+        this.state.curLine1Width,                 // Animate `bounceValue`
+        {
+          toValue: finalLine1Width,
+          duration: 200,
+          easing: Easing.linear,
+
+          // friction: 6,
+          // tension:35,
+        }
+      );
+      let line2Animation = Animated.timing(                          // Base: spring, decay, timing
+        this.state.curLine2Width,                 // Animate `bounceValue`
+        {
+          toValue: finalLine2Width,
+          duration: 200,
+          easing: Easing.linear,
+
+          // friction: 6,
+          // tension:35,
+        }
+      );
+      lineAnimations= (this.state.isVisible==true)?[line2Animation, line1Animation]:[line1Animation, line2Animation];
 
       this.state.curLine1Width.setValue(initialLine1Width);     // Start at 0
       this.state.curLine2Width.setValue(initialLine2Width);     // Start at 0
@@ -95,22 +117,7 @@ class AnimatedPavLineChart extends React.Component {
 
 
       Animated.parallel([          // after decay, in parallel:
-        Animated.spring(                          // Base: spring, decay, timing
-          this.state.curLine1Width,                 // Animate `bounceValue`
-          {
-            toValue: finalLine1Width,
-            // friction: 6,
-            // tension:35,
-          }
-        ),
-        Animated.spring(                          // Base: spring, decay, timing
-          this.state.curLine2Width,                 // Animate `bounceValue`
-          {
-            toValue: finalLine2Width,
-            // friction: 6,
-            // tension:35,
-          }
-        ),
+        Animated.sequence(lineAnimations),
         Animated.timing(                          // Base: spring, decay, timing
           this.state.curOpacity,                 // Animate `bounceValue`
           {
@@ -137,14 +144,14 @@ class AnimatedPavLineChart extends React.Component {
     return(
       <View style={styles.lineContainer}>
         <Animated.View style={[
-          styles.line,
+          styles.line, {backgroundColor:Colors.primaryColor},
           {
             width: this.state.curLine1Width,
             // transform: [{scaleX: this.state.curLine1Width}]
           }
         ]}>
           <Animated.Text style={[
-            styles.text1,
+            styles.text,
             {
               opacity: this.state.curOpacity,
               // transform: [{scaleX: this.state.curLine1Width}]
@@ -152,14 +159,14 @@ class AnimatedPavLineChart extends React.Component {
           ]}>{this.props.leftText}</Animated.Text>
         </Animated.View>
         <Animated.View style={[
-          styles.line2,
+          styles.line, {backgroundColor:Colors.negativeAccentColor},
           {
             width: this.state.curLine2Width,
             // transform: [{scaleX: this.state.curLine1Width}]
           }
         ]}>
           <Animated.Text style={[
-            styles.text2,
+            styles.text,
             {
               opacity: this.state.curOpacity,
               // transform: [{scaleX: this.state.curLine1Width}]
