@@ -89,7 +89,7 @@ export function getNotificationItems(getOlderItems, sessionToken=null, dev = nul
     }
 
 
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in getNotificationItems call"+res.error.error_message);
       dispatch(getNotificationFailure({error:"Unable to get user notification data with this token.", isFetchingOldData:getOlderItems}));

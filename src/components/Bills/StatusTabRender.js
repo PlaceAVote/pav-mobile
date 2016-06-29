@@ -43,7 +43,7 @@
 
 
 
-
+const BILL_REPORTED = 1;  //0 is INTRODUCED, 4 IS PASSED but we don't need those (Total of 5)
 const LINE_HEIGHT = h*0.08;
 const ICON_HEIGHT = h*0.148;
 const HEADER_HEIGHT = h*0.045
@@ -118,27 +118,26 @@ class StatusTabRender extends React.Component {
 
 
 
-  createHouseIcon(billHistory){
-    let keyName = "house_status_card";
-    if(!!billHistory.house_passage_result && billHistory.house_passage_result=="pass"){ //a vote took place in the House and the bill passed
-      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName} key={keyName} active={true} iconName="bill-house-pass" title="Passed House" explanation={BILL_STATUSES["PASS_OVER:HOUSE"].explanation} finalItem={false}/>), lastItem:false}
-    }else if(!!billHistory.house_passage_result && billHistory.house_passage_result=="fail"){ //a vote took place in the House and the bill was rejected
-      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT}  ref={keyName} key={keyName} active={true} iconName="bill-house-reject" title={BILL_STATUSES["FAIL:ORIGINATING:HOUSE"].title} explanation={BILL_STATUSES["FAIL:ORIGINATING:HOUSE"].explanation} finalItem={true}/>), lastItem:true} //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
+
+
+
+  createHouseOrSenateIcon(result, iconName, name, passStatusData, failStatusData){
+    let keyName = name.toLowerCase()+"_status_card";
+
+    // console.log("Pass name: "+iconName+"-pass");
+    // console.log("Reject name: "+iconName+"-reject");
+    // console.log("Fail status data: "+failStatusData.explanation);
+    // console.log("Pass status data: "+passStatusData.explanation);
+    if(!!result && result=="pass"){ //a vote took place in the House and the bill passed
+      return {ref: {keyName}, active: true, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName} key={keyName} active={true} iconName={iconName+"-pass"} title={"Passed "+name} explanation={passStatusData.explanation} finalItem={false}/>), lastItem:false}
+    }else if(!!result && result=="fail"){ //a vote took place in the House and the bill was rejected
+      return {ref: {keyName}, active: true, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName}  key={keyName} active={true} iconName={iconName+"-reject"} title={failStatusData.title} explanation={failStatusData.explanation} finalItem={true}/>), lastItem:true} //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
     }else{  //not vote has taken place yet in the house
-      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT}  ref={keyName} key={keyName} active={false} iconName="bill-house" title="No House Vote Yet." explanation="The House hasn't voted for this bill yet." finalItem={false}/>), lastItem:false}
+      return {ref: {keyName}, active: false, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName}  key={keyName} active={false} iconName={iconName} title={"No "+name+" Vote Yet."} explanation={"The "+name+" hasn't voted for this bill yet."} finalItem={false}/>), lastItem:false}
     }
   }
 
-  createSenateIcon(billHistory){
-    let keyName = "senate_status_card";
-    if(!!billHistory.senate_passage_result && billHistory.senate_passage_result=="pass"){ //a vote took place in the House and the bill passed
-      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName} key={keyName} active={true} iconName="bill-senate-pass" title="Passed Senate" explanation={BILL_STATUSES["PASS_OVER:SENATE"].explanation} finalItem={false}/>), lastItem:false}
-    }else if(!!billHistory.senate_passage_result && billHistory.senate_passage_result=="fail"){ //a vote took place in the House and the bill was rejected
-      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName}  key={keyName} active={true} iconName="bill-senate-reject" title={BILL_STATUSES["FAIL:ORIGINATING:SENATE"].title} explanation={BILL_STATUSES["FAIL:ORIGINATING:SENATE"].explanation} finalItem={true}/>), lastItem:true} //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
-    }else{  //not vote has taken place yet in the house
-      return {ref: {keyName}, element: (<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName}  key={keyName} active={false} iconName="bill-senate" title="No Senate Vote Yet." explanation="The Senate hasn't voted for this bill yet." finalItem={false}/>), lastItem:false}
-    }
-  }
+
 
 
   createIconsBasedOnBillStatus(billStatus, billHistory){
@@ -149,37 +148,46 @@ class StatusTabRender extends React.Component {
     // let explanation = BILL_STATUSES[billStatus].explanation;
     iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref="introduced_status_card"  key="introduced_status_card" active={true} iconName="introduced" title={BILL_STATUSES["INTRODUCED"].title} explanation={BILL_STATUSES["INTRODUCED"].explanation} finalItem={false}/>)
     iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref="committee_status_card" key="committee_status_card" active={true} iconName="committee" title={BILL_STATUSES["REPORTED"].title} explanation={BILL_STATUSES["REPORTED"].explanation} finalItem={false}/>)
-
+    let lastActive = BILL_REPORTED;
     let houseFirst = this.houseIconShouldBeRenderedFirst(billHistory);
+
     if(houseFirst==true){
-      let house = this.createHouseIcon(billHistory, styles);
+
+      let house = this.createHouseOrSenateIcon(billHistory.house_passage_result, "bill-house", "House", BILL_STATUSES["PASS_OVER:HOUSE"], BILL_STATUSES["FAIL:ORIGINATING:HOUSE"]);
       iconElements.push(house.element)
       if(house.lastItem==true){
         return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
       }
-      let senate = this.createSenateIcon(billHistory, styles);
+      lastActive = house.active===true?2:lastActive;
+
+      let senate = this.createHouseOrSenateIcon(billHistory.senate_passage_result, "bill-senate", "Senate", BILL_STATUSES["PASS_OVER:SENATE"], BILL_STATUSES["FAIL:ORIGINATING:SENATE"]);
       iconElements.push(senate.element)
       if(senate.lastItem==true){
         return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
       }
+      lastActive = senate.active===true?3:lastActive;
     }else{
-      let senate = this.createSenateIcon(billHistory, styles);
+      let senate = this.createHouseOrSenateIcon(billHistory.senate_passage_result, "bill-senate", "Senate", BILL_STATUSES["PASS_OVER:SENATE"], BILL_STATUSES["FAIL:ORIGINATING:SENATE"]);
       iconElements.push(senate.element)
       if(senate.lastItem==true){
         return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
       }
-      let house = this.createHouseIcon(billHistory, styles);
+      lastActive = senate.active===true?2:lastActive;
+      let house = this.createHouseOrSenateIcon(billHistory.house_passage_result, "bill-house", "House", BILL_STATUSES["PASS_OVER:HOUSE"], BILL_STATUSES["FAIL:ORIGINATING:HOUSE"]);
       iconElements.push(house.element)
       if(house.lastItem==true){
         return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
       }
+      lastActive = house.active===true?3:lastActive;
     }
 
     let keyName="enacted_status_card"
     if(billHistory.enacted==true && billHistory.vetoed==false){
       iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName}  key={keyName} active={true} iconName="bill-passed" title={BILL_STATUSES["PASSED:BILL"].title} explanation={BILL_STATUSES["PASSED:BILL"].explanation} finalItem={true}/>)
+      lastActive = 4;
     }else if(billHistory.enacted==true && billHistory.vetoed==true){
       iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName}  key={keyName} active={true} iconName="bill-passed" title={BILL_STATUSES["PROV_KILL:VETO"].title} explanation={BILL_STATUSES["PROV_KILL:VETO"].explanation} finalItem={true}/>)//TODO: perhaps add more statuses after the veto here in the future
+      lastActive = 4;
     }else{  //NOT enacted and NOT vetoed
       if((!!billHistory.house_passage_result && billHistory.house_passage_result=="pass") && (!!billHistory.senate_passage_result && billHistory.senate_passage_result=="pass")){ //it passed both in the house and the senate
         iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName}  key={keyName} active={false} iconName="bill-passed" title="Awaiting for the president to vote." explanation="The bill has passed from both the House and the Senate and we are now waiting for the president to sign the bill into a law." finalItem={true}/>)
@@ -187,6 +195,7 @@ class StatusTabRender extends React.Component {
         iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref={keyName}  key={keyName} active={false} iconName="bill-passed" title="Awaiting for the houses to aggree." explanation="The bill cannot go to the president before both the House and the Senate vote for it." finalItem={true}/>)
       }
     }
+    this.lastActiveItem = lastActive;
     // totalHeight = HEADER_HEIGHT + ((cardCnt-1) * LINE_HEIGHT)
     this.totalContentHeight = HEADER_HEIGHT + (((iconElements.length*2)-1)*LINE_HEIGHT)+(iconElements.length*ICON_HEIGHT);
     this.usefulHeight = this.totalContentHeight;
@@ -224,8 +233,9 @@ class StatusTabRender extends React.Component {
 
         let scrollOffsetsDependingOnCurCardIt = [0.18, 0.59, 0.88, 1.15, 1.03]  //Those will be the percentages we scroll to based on the iii iteration value. i.e if the first element  of this array is 0.5 that means that on the first animation we will scroll to 50% of the scroll view content height
         /*To find out the values above I used the onScroll method and got the e.nativeLayout.contentOffset.y / e.nativeLayout.contentSize.height, got to where I want to scroll and marked the percentage*/
-        console.log("this.usefulHeight: "+this.usefulHeight)
+        // console.log("this.usefulHeight: "+this.usefulHeight)
 
+        console.log("toAnimateArr.length: "+toAnimateArr.length);
         let iii,lll;
         for(iii=0,lll=toAnimateArr.length;iii<lll;iii++){
           let toBeAnimated = toAnimateArr[iii];
@@ -233,13 +243,14 @@ class StatusTabRender extends React.Component {
 
           let curCard = this.refs[toBeAnimated];
 
+
           if(curCard!=null && this.props.parentVisible===true){
             animatedCnt++;
 
 
             await curCard.animate();
 
-            if(this.isVisible===true){
+            if(this.isVisible===true && iii<this.lastActiveItem){
               scrollResponder.scrollResponderScrollTo({x: 0, y: scrollOffsetsDependingOnCurCardIt[iii]*this.usefulHeight, animated: true});
             }
 
