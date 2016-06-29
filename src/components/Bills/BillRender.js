@@ -229,19 +229,22 @@ const styles = StyleSheet.create({
 
     flexDirection: 'row',
     justifyContent:'space-between',
-    // paddingVertical: h*0.005,
+    paddingVertical: h*0.010,
+    paddingHorizontal: w*0.038,
+    borderTopWidth:1,
+    borderTopColor: '#E4E4E4',
   },
   // btnIconStyle:{
   //   marginHorizontal: 10
   // },
   footerBtnTextContainer:{
-    paddingHorizontal: w*0.008,
-    justifyContent:'center'
+    justifyContent:'center',
+    paddingHorizontal: w*0.028,
   },
   footerBtnText:{
-    color: Colors.primaryColor,
-    fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    color: Colors.mainTextColor,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,10),
     textAlign:'center',
     // backgroundColor:'blue',
   },
@@ -253,10 +256,12 @@ const styles = StyleSheet.create({
     width: w*0.45,
     paddingHorizontal:w*0.010,
     paddingVertical: h*0.020,
-    backgroundColor: "#F4F4F4",
-    borderWidth:1,
-    borderColor: 'rgba(0, 0, 0, 0.11)',
-    borderTopWidth:2,
+    borderRadius:2,
+    backgroundColor: "#ED9518",
+
+    // borderWidth:1,
+    // borderColor: 'rgba(0, 0, 0, 0.11)',
+    // borderTopWidth:2,
 
     // shadowColor: 'rgba(0, 0, 0, 0.12)',
     // shadowOpacity: 0.8,
@@ -268,7 +273,7 @@ const styles = StyleSheet.create({
   },
   footerBtnIcon:{
     // backgroundColor: 'red',
-    color: 'rgba(0, 0, 0, 0.71)',
+    color: Colors.mainTextColor,
     paddingLeft: w*0.020,
     paddingRight: w*0.002,
   }
@@ -481,15 +486,9 @@ class BillRender extends React.Component {
       return (
         <View style={styles.billBtnsContainer}>
           <TouchableOpacity style={styles.footerBtn} onPress={alreadyVoted===true?()=>{alert("You have already voted on this bill.")}:this.props.onVoteBtnPress}>
-            <PavIcon name="quill-write" size={16} style={styles.footerBtnIcon}/>
+            {/*<PavIcon name="quill-write" size={16} style={styles.footerBtnIcon}/>*/}
             <View style={styles.footerBtnTextContainer}>
-              <Text style={styles.footerBtnText}>{alreadyVoted===true?"ALREADY VOTED":"I'M READY TO VOTE"}</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerBtn} onPress={()=>this.refs.scrollableTabView.goToPage(3)}>
-            <PavIcon name="chat" size={16} style={styles.footerBtnIcon}/>
-            <View style={styles.footerBtnTextContainer}>
-              <Text style={styles.footerBtnText}>COMMENT</Text>
+              <Text style={styles.footerBtnText}>{alreadyVoted===true?"Already Voted":"Vote Now"}</Text>
             </View>
           </TouchableOpacity>
         </View>);
