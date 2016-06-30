@@ -250,7 +250,7 @@ class StatusTabRender extends React.Component {
 
             await curCard.animate();
 
-            if(this.isVisible===true && iii<this.lastActiveItem){
+            if(this.isVisible===true && (iii<this.lastActiveItem || this.lastActiveItem==4)){
               scrollResponder.scrollResponderScrollTo({x: 0, y: scrollOffsetsDependingOnCurCardIt[iii]*this.usefulHeight, animated: true});
             }
 
