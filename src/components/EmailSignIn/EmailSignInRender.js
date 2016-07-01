@@ -13,7 +13,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import Modal from 'react-native-modalbox';
-import ForgotPasswordModalBox from '../ForgotPassword/ForgotPasswordModalBox'
+import ForgotPasswordModalBox from '../Modals/ForgotPasswordModalBox'
 /**
  * The actions we need
  */
@@ -328,6 +328,10 @@ class EmailSignInRender extends React.Component {
         auth={this.props.auth}
         isOpen={this.props.forgotPasswordModalOpen}
         onModalClosed={this.props.onForgotPasswordClosed}
+        onForgotPasswordTextChange={this.props.onForgotPasswordTextChange}
+        forgotPasswordTextValue={this.props.forgotPasswordTextValue}
+        forgotPasswordDisabled={this.props.forgotPasswordDisabled}
+        forgotPasswordErrorValue={this.props.forgotPasswordErrorValue}
         />
       </View>
     );

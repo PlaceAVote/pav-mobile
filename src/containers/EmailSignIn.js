@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
 
 class EmailSignIn extends React.Component {
 
-  
+
 
   async onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");
@@ -120,6 +120,10 @@ class EmailSignIn extends React.Component {
     this.props.actions.forgotPassword(forgotEmail);
   }
 
+  onForgotPasswordTextChange(value){
+    this.props.actions.onAuthFormFieldChange('forgotPasswordEmail',value, FORGOT_PASSWORD);
+  }
+
 
   render() {
 
@@ -134,7 +138,11 @@ class EmailSignIn extends React.Component {
           auth={ this.props.auth }
           global={ this.props.global }
           forgotPasswordModalOpen = {this.props.router.modalIsOpen.get(FORGOT_PASSWORD)}
-          onForgotPasswordClosed = {this.onForgotPasswordModalClosed}
+          onForgotPasswordClosed = {this.onForgotPasswordModalClosed.bind(this)}
+          onForgotPasswordTextChange = {this.onForgotPasswordTextChange.bind(this)}
+          forgotPasswordTextValue = {this.props.auth.form.fields.forgotPasswordEmail}
+          forgotPasswordErrorValue = {this.props.auth.form.fields.forgotPasswordEmailHasError}
+          forgotPasswordDisabled = {!this.props.auth.form.isValid.get(FORGOT_PASSWORD) || this.props.auth.form.isFetching}
       />
     );
   }
