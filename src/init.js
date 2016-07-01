@@ -2,6 +2,10 @@
 /* @flow */
 
 
+/**
+*  The version of the app but not  displayed yet
+*/
+var VERSION='0.8.4';
 
 /*
   React and React native imports
@@ -10,6 +14,16 @@ import React from 'react';
 import {Platform} from 'react-native';
 
 
+/*
+
+  Crash reports (Sentry)
+*/
+import Raven from 'raven-js';
+import RNRaveInit from 'raven-js/plugins/react-native';
+RNRaveInit(Raven);
+Raven
+.config('https://aa9e354d3f8347febf7038031c4bf602@app.getsentry.com/85125', { release: VERSION })
+.install();
 
 /*
   Our router imports
@@ -61,10 +75,6 @@ import settingsInitialState from './reducers/settings/settingsInitialState';
 
 
 
-/**
-*  The version of the app but not  displayed yet
-*/
-var VERSION='0.8.3';
 
 
 /**

@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     paddingBottom: h*0.020,
   },
   sortContainer:{
-    backgroundColor: 'white',
+    backgroundColor: Colors.buttonBgColor,
     paddingHorizontal: w*0.027,
     paddingVertical: h*0.010,
     flexDirection:'row',
@@ -82,19 +82,21 @@ const styles = StyleSheet.create({
     fontFamily: 'Whitney',
     fontSize: getCorrectFontSizeForScreen(w,h,9),
   },
-  sortBtnsContainer:{
+  sortItemsContainer:{
     flexDirection:'row',
-    alignItems:'center',
+    // alignItems:'center',
     justifyContent:'space-around',
     paddingHorizontal: w*0.027,
     // backgroundColor:'purple'
   },
-  sortBtn:{
+  sortBtnContainer:{
+    // flex:1,
     justifyContent:'center',
     // alignItems:'center',
     // backgroundColor:'pink',
     paddingHorizontal: w*0.027,
     paddingVertical: h*0.011,
+    borderBottomWidth:2,
   },
   sortBtnText:{
     // backgroundColor:'green',
@@ -110,11 +112,11 @@ const styles = StyleSheet.create({
   },
   sortBtnActive:{
     borderBottomColor:Colors.negativeAccentColor,
-    borderBottomWidth:2,
+
 
   },
   sortBtnInactive:{
-    borderBottomWidth:0,
+    borderBottomColor:Colors.transparentColor,
   },
 
 
@@ -170,11 +172,11 @@ class CommentsTabRender extends React.Component {
         <View style={styles.sortByTitleTextContainer}>
           <Text style={styles.sortByTitleText}>Sort by: </Text>
         </View>
-        <View style={styles.sortBtnsContainer}>
-          <TouchableOpacity style={[styles.sortBtn, (this.state.curSortFilter==SORT_FILTERS.HIGHEST_RATE?styles.sortBtnActive:styles.sortBtnInactive)]} onPress={()=>{this.setState({curSortFilter:SORT_FILTERS.HIGHEST_RATE});this.props.onCommentsRefresh(SORT_FILTERS.HIGHEST_RATE);}}>
+        <View style={styles.sortItemsContainer}>
+          <TouchableOpacity style={[styles.sortBtnContainer, (this.state.curSortFilter==SORT_FILTERS.HIGHEST_RATE?styles.sortBtnActive:styles.sortBtnInactive)]} onPress={()=>{this.setState({curSortFilter:SORT_FILTERS.HIGHEST_RATE});this.props.onCommentsRefresh(SORT_FILTERS.HIGHEST_RATE);}}>
             <Text style={[styles.sortBtnText, styles.sortBtnActiveText]}>Highest Rated </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.sortBtn, (this.state.curSortFilter==SORT_FILTERS.NEWEST?styles.sortBtnActive:styles.sortBtnInactive)]} onPress={()=>{this.setState({curSortFilter:SORT_FILTERS.NEWEST}); ;this.props.onCommentsRefresh(SORT_FILTERS.NEWEST);} }>
+          <TouchableOpacity style={[styles.sortBtnContainer, (this.state.curSortFilter==SORT_FILTERS.NEWEST?styles.sortBtnActive:styles.sortBtnInactive)]} onPress={()=>{this.setState({curSortFilter:SORT_FILTERS.NEWEST}); ;this.props.onCommentsRefresh(SORT_FILTERS.NEWEST);} }>
             <Text style={[styles.sortBtnText, styles.sortBtnInactiveText]}>Newest </Text>
           </TouchableOpacity>
         </View>

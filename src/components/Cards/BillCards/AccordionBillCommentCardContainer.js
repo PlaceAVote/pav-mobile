@@ -39,7 +39,48 @@
 
 
 
+const styles = StyleSheet.create({
 
+  cardContainer:{
+    flex: 1,
+    padding:7,
+    // backgroundColor: 'pink',
+
+  },
+
+
+
+  /* Accordion Header */
+  headerContainer:{
+    // paddingTop: h*0.041,
+    // paddingBottom: h*0.012,
+    paddingVertical: h*0.012,
+    justifyContent:'center',
+    alignItems:'center',
+    flexDirection:'row',
+    // backgroundColor:'blue',
+    // borderWidth: 1,
+    // borderColor: 'rgba(0, 0, 0, 0.06)',
+    // borderTopWidth:0,
+    // borderTopColor: 'rgba(0, 0, 0, 0.06)',
+    // borderTopWidth: 1,
+  },
+  repliesBoxTextContainer:{
+    flex:1,
+    alignItems:'center',
+    // backgroundColor:'red',
+  },
+  repliesBoxText:{
+    flex:1,
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontFamily: 'Whitney-Book',
+    color: Colors.negativeAccentColor,
+  },
+  repliesBoxIcon:{
+      color: Colors.negativeAccentColor,
+  },
+
+});
 
 
 
@@ -55,56 +96,6 @@
 
 
 
-      /**
-       * ## Styles for PORTRAIT
-       */
-      getPortraitStyles(self){
-        return StyleSheet.create({
-
-          cardContainer:{
-            flex: 1,
-            alignItems: 'stretch',
-            padding:7,
-            // backgroundColor: 'pink',
-
-          },
-
-
-
-          /* Accordion Header */
-          headerContainer:{
-            paddingTop: h*0.041,
-            paddingBottom: h*0.012,
-            justifyContent:'center',
-            alignItems:'center',
-            flexDirection:'row',
-            // backgroundColor:'blue',
-            // borderWidth: 1,
-            // borderColor: 'rgba(0, 0, 0, 0.06)',
-            // borderTopWidth:0,
-            // borderTopColor: 'rgba(0, 0, 0, 0.06)',
-            // borderTopWidth: 1,
-          },
-          repliesBoxTextContainer:{
-            flex:1,
-            alignItems:'center',
-            // backgroundColor:'red',
-          },
-          repliesBoxText:{
-            flex:1,
-            fontSize: getCorrectFontSizeForScreen(w,h,9),
-            fontFamily: 'Whitney-Book',
-            color: Colors.negativeAccentColor,
-          },
-          repliesBoxIcon:{
-              color: Colors.negativeAccentColor,
-          },
-
-        });
-      }
-
-
-
 
       expandCard(){
         this.setState({isCollapsed:false});
@@ -114,13 +105,7 @@
         this.setState({isCollapsed:true});
       }
 
-      /**
-       * ## Styles for LANDSCAPE
-       */
-      getLandscapeStyles(self){
-        return StyleSheet.create({
-        });
-      }
+
 
 
       onHeaderClick(){
@@ -149,11 +134,11 @@
       getBgColorBasedOnCommentLvl(commentLvl){
         switch(commentLvl%3){
           case 0:
-            return 'rgba(165, 203, 117, 0.1)';  //greenish
+            return 'rgba(83, 110, 178, 0.06)';  //blueish
           case 1:
-            return 'rgba(83, 110, 178, 0.1)';  //blueish
-          case 2:
             return 'rgba(230, 74, 51, 0.025)';  //redish
+          case 2:
+            return 'rgba(165, 203, 117, 0.08)';  //greenish
         }
         return Colors.transparentColor;
       }
@@ -166,9 +151,9 @@
        */
       render() {
 
-        let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+        // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
         // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-        let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+        // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
         // console.log("this.state.isCollapsed"+this.state.isCollapsed);
         // console.log("This commentLvl: "+this.props.commentLvl+" with a base of: "+this.props.baseCommentLvl)
         return(

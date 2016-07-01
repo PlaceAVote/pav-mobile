@@ -35,9 +35,270 @@ import AccordionBillCommentCardContainer from './AccordionBillCommentCardContain
 import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 import CommentReplyCard from './CommentReplyCard';
 
-import _ from 'underscore';
+// import _ from 'underscore';
 
 const SUBCOMMENT_COUNT = 2;
+const styles = StyleSheet.create({
+
+  cardContainer:{
+    flex: 1,
+    alignItems: 'stretch',
+    padding:7,
+    // backgroundColor: 'blue',
+
+  },
+
+
+
+  cardContent:{
+    flex: 1,
+    padding: w*0.03,
+    backgroundColor: '#ffffff',
+    marginRight:6,
+    // borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    // borderBottomWidth: 1,
+    // borderWidth:1,
+    // borderColor: 'rgba(0, 0, 0, 0.05)',
+    borderRadius:2,
+    shadowColor: 'rgba(0, 0, 0, 0.42)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2,
+    },
+  },
+  cardDateTextContainer:{
+    // paddingHorizontal: w*0.02,
+    // paddingVertical: w*0.02,
+    // paddingHorizontal: 5,
+    alignItems:'center',
+    // backgroundColor:'red',
+  },
+  // cardTitleTextAndIconContainer:{
+  //   flexDirection:'row',
+  //   alignItems:'center'
+  // },
+  // cardTitleText:{
+  //   // backgroundColor: 'red',
+  //   color: Colors.primaryColor,
+  //   fontFamily: 'Whitney-Bold',
+  //   fontSize: getCorrectFontSizeForScreen(w,h,8),
+  // },
+  cardDateText:{
+    // backgroundColor: 'red',
+
+    // color: Colors.thirdTextColor,
+    color: Colors.fourthTextColor,
+    fontFamily: 'Whitney Book',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+  },
+
+  cardContentContainer:{
+    // backgroundColor:'red',
+    // paddingHorizontal: w*0.02,
+    paddingBottom: h*0.012,
+    borderStyle: 'solid',
+    borderTopColor: 'rgba(0, 0, 0, 0.1)',
+    borderTopWidth: 1,
+    flexDirection:'column'
+  },
+  cardContentHeader:{
+    flex:1,
+    paddingVertical:h*0.01,
+    flexDirection:'row',
+    // backgroundColor:'red',
+    alignItems:'center'
+  },
+
+
+  commentHeaderTitlesContainer:{
+    flex:1,
+    flexDirection:'column',
+    alignItems:'flex-start',
+    justifyContent:'flex-end',
+    // backgroundColor:'red',
+    paddingHorizontal: 10
+  },
+
+
+
+  userImage:{
+    width:w*0.09,
+    height:w*0.09,
+    // marginHorizontal: 10,
+  },
+  topCommentContainer:{
+    flexDirection:'row',
+    alignItems:'center',
+    // backgroundColor:'red',
+  },
+  commentNameTextContainer:{
+    // paddingVertical: h*0.005,
+  },
+  commentNameText:{
+    // backgroundColor:'blue',
+    color:"#e64a33",
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+  },
+  topCommentText:{
+    color: Colors.fourthTextColor,
+    // paddingVertical: h*0.001,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,6),
+  },
+  // topCommentInFavorText:{
+  //   color: "#8E9599",
+  //   // paddingVertical: h*0.001,
+  //   fontFamily: 'Whitney Semibold',
+  //   fontSize: getCorrectFontSizeForScreen(w,h,6),
+  // },
+  // topCommentAgainstText:{
+  //   color: "#998E8E",
+  //   // paddingVertical: h*0.001,
+  //   fontFamily: 'Whitney Semibold',
+  //   fontSize: getCorrectFontSizeForScreen(w,h,6),
+  // },
+  commentLocationText:{
+    // backgroundColor:'yellow',
+    color: Colors.primaryColor,
+    paddingHorizontal: 1,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    width: w*0.7,
+  },
+  cardContentTextContainer:{
+    // backgroundColor:'green'
+    // marginTop: h*0.01
+    // padding:2,
+    paddingVertical: h*0.015,
+  },
+  cardContentText:{
+    // backgroundColor:'green',
+    fontFamily: 'Whitney Book',
+    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    color: 'rgba(0, 0, 0, 0.64)',
+  },
+
+
+  footerContainer:{
+    flex:1,
+    flexDirection:'row',
+    // backgroundColor: 'red',
+    // borderStyle: 'solid',
+    // borderTopWidth: 1,
+    // borderTopColor: Platform.OS=="android"?'rgba(216, 214, 226, 1)':'rgba(216, 214, 226, 0.25)',
+    // borderTopColor: 'rgba(216, 214, 226, 0.7)',
+    borderStyle: 'solid',
+    borderTopColor: 'rgba(0, 0, 0, 0.1)',
+    borderTopWidth: 0.7,
+    paddingVertical:h*0.0070,
+    paddingHorizontal: w*0.03,
+    // paddingHorizontal:w*0.002,
+    alignItems:'center',
+    justifyContent:'space-between',
+    // borderLeftColor: 'rgba(216, 214, 226, 0.5)',
+    // borderRightColor: 'rgba(216, 214, 226, 0.5)',
+    // borderBottomColor: 'rgba(216, 214, 226, 0.7)',
+
+    // shadowColor: 'rgba(0, 0, 0, 0.32)',
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // shadowOffset: {
+    //   height: 1,
+    //   width: 2,
+    // },
+  },
+  likeDislikeButtonContainer:{
+    // flex:1,
+    flexDirection:'row',
+    justifyContent:'center',
+    // paddingHorizontal:w*0.015,
+    paddingVertical: h*0.009,
+    // backgroundColor:'red'
+  },
+  replyButtonContainer:{
+    // flex:1,
+    // backgroundColor:'pink',
+    // justifyContent:'flex-end',
+    alignItems:'center',
+    paddingVertical: h*0.009,
+
+    // paddingRight: w*0.04,
+
+    // borderStyle: 'solid',
+    // borderLeftColor: '#D8D6E2',
+    // borderLeftWidth: 1,
+  },
+
+  activeLikeIcon:{
+    color: Colors.accentColor,
+  },
+  activeDislikeIcon:{
+    color: Colors.negativeAccentColor,
+  },
+  inactiveLikeDislikeIcon:{
+    color: "#A4A4A4",
+  },
+
+  replyButtonText:{
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    // backgroundColor:'brown'
+  },
+
+
+  scoreText:{
+    fontFamily: 'Whitney',
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+  },
+  likeCountPositive:{
+    color: Colors.accentColor,
+  },
+  likeCountNegative:{
+    color: Colors.negativeAccentColor,
+  },
+
+  footerItemContainer:{
+    // backgroundColor:Colors.transparentColor,
+    // backgroundColor:'purple',
+    paddingRight:w*0.06,
+    justifyContent:'center',
+  },
+
+
+  /* REPLIES BOX */
+  repliesBoxContainer:{
+    backgroundColor:Colors.buttonBgColor,
+    // paddingTop: h*0.045,
+    marginTop:5,
+    paddingVertical: h*0.012,
+    justifyContent:'center',
+    alignItems:'center',
+    flexDirection:'row',
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.12)',
+    // borderTopWidth:0,
+    // borderTopColor: 'rgba(0, 0, 0, 0.06)',
+    // borderTopWidth: 1,
+
+
+  },
+  repliesBoxText:{
+    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    color: Colors.primaryColor,
+    fontFamily: 'Whitney Semibold',
+  },
+  repliesBoxIcon:{
+    paddingHorizontal: w*0.010,
+    color: Colors.primaryColor,
+  },
+
+
+});
+
 
 class BillCommentCard extends React.Component {
   constructor(props) {
@@ -50,286 +311,6 @@ class BillCommentCard extends React.Component {
 
 
 
-
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-
-
-    return StyleSheet.create({
-
-      cardContainer:{
-        flex: 1,
-        alignItems: 'stretch',
-        padding:7,
-        // backgroundColor: 'blue',
-
-      },
-
-
-
-      cardContent:{
-        flex: 1,
-        padding: w*0.03,
-        backgroundColor: '#ffffff',
-        marginRight:6,
-        // borderBottomColor: 'rgba(0, 0, 0, 0.1)',
-        // borderBottomWidth: 1,
-        // borderWidth:1,
-        // borderColor: 'rgba(0, 0, 0, 0.05)',
-        borderRadius:2,
-        shadowColor: 'rgba(0, 0, 0, 0.42)',
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 2,
-        },
-      },
-      cardTitleContainer:{
-        paddingHorizontal: w*0.02,
-        paddingVertical: w*0.02,
-        alignItems:'center',
-        // backgroundColor:'red',
-      },
-      // cardTitleTextAndIconContainer:{
-      //   flexDirection:'row',
-      //   alignItems:'center'
-      // },
-      // cardTitleText:{
-      //   // backgroundColor: 'red',
-      //   color: Colors.primaryColor,
-      //   fontFamily: 'Whitney-Bold',
-      //   fontSize: getCorrectFontSizeForScreen(w,h,8),
-      // },
-      cardDateText:{
-        // backgroundColor: 'red',
-        paddingHorizontal: 5,
-        // color: Colors.thirdTextColor,
-        color: 'rgba(0, 0, 0, 0.60)',
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-
-      cardContentContainer:{
-        // backgroundColor:'red',
-        paddingHorizontal: w*0.02,
-        paddingBottom: h*0.012,
-        borderStyle: 'solid',
-        borderTopColor: 'rgba(0, 0, 0, 0.1)',
-        borderTopWidth: 1,
-        flexDirection:'column'
-      },
-      cardContentHeader:{
-        flex:1,
-        paddingVertical:h*0.01,
-        flexDirection:'row',
-        // backgroundColor:'red',
-        alignItems:'center'
-      },
-
-
-      commentDescriptionContainer:{
-        flex:1,
-        flexDirection:'column',
-        alignItems:'flex-start',
-        justifyContent:'flex-end',
-        // backgroundColor:'red',
-        paddingHorizontal: 10
-      },
-
-
-
-      userImage:{
-        width:w*0.09,
-        height:w*0.09,
-        // marginHorizontal: 10,
-      },
-      topCommentContainer:{
-        flexDirection:'row',
-        alignItems:'center',
-        // backgroundColor:'red',
-      },
-      commentNameText:{
-        // backgroundColor:'blue',
-        color:"#e64a33",
-        paddingVertical: h*0.008,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-      },
-      topCommentText:{
-        color: Colors.helpTextColor,
-        paddingVertical: h*0.001,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,6),
-      },
-      topCommentInFavorText:{
-        color: "#8E9599",
-        paddingVertical: h*0.001,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,6),
-      },
-      topCommentAgainstText:{
-        color: "#998E8E",
-        paddingVertical: h*0.001,
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,6),
-      },
-      commentLocationText:{
-        // backgroundColor:'yellow',
-        color: Colors.primaryColor,
-        paddingHorizontal: 1,
-        fontFamily: 'Whitney Semibold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
-        width: w*0.7,
-      },
-      cardContentBody:{
-        // backgroundColor:'green'
-        // marginTop: h*0.01
-        padding:2,
-        paddingVertical: h*0.015,
-      },
-      cardContentText:{
-        // backgroundColor:'green',
-        fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
-        color: 'rgba(0, 0, 0, 0.54)',
-      },
-
-
-      footerContainer:{
-        flex:1,
-        flexDirection:'row',
-        backgroundColor: '#EDECF1',
-        borderStyle: 'solid',
-        borderColor: Platform.OS=="android"?'rgba(216, 214, 226, 1)':'rgba(216, 214, 226, 0.25)',
-        // borderTopColor: 'rgba(216, 214, 226, 0.7)',
-        // borderLeftColor: 'rgba(216, 214, 226, 0.5)',
-        // borderRightColor: 'rgba(216, 214, 226, 0.5)',
-        // borderBottomColor: 'rgba(216, 214, 226, 0.7)',
-        borderWidth: 1,
-        shadowColor: 'rgba(0, 0, 0, 0.32)',
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 2,
-        },
-      },
-      likeDislikeButtonContainer:{
-        flex:1,
-        flexDirection:'row',
-        justifyContent:'center',
-        paddingHorizontal:w*0.015,
-        paddingVertical: h*0.009,
-        // backgroundColor:'red'
-      },
-      replyButtonContainer:{
-        flex:1,
-        // backgroundColor:'white',
-        justifyContent:'center',
-        alignItems:'center',
-        paddingVertical: h*0.009,
-        borderStyle: 'solid',
-        borderLeftColor: '#D8D6E2',
-        borderLeftWidth: 1,
-      },
-
-      activeLikeIcon:{
-        color: Colors.accentColor,
-      },
-      activeDislikeIcon:{
-        color: Colors.negativeAccentColor,
-      },
-      inactiveLikeDislikeIcon:{
-        color: Colors.fourthTextColor,
-      },
-
-      replyButtonText:{
-        color: Colors.primaryColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-        // backgroundColor:'brown'
-      },
-
-
-      scoreText:{
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-      },
-      likeCountPositive:{
-        color: Colors.accentColor,
-      },
-      likeCountNegative:{
-        color: Colors.negativeAccentColor,
-      },
-
-      footerItemContainer:{
-        backgroundColor:Colors.transparentColor,
-        paddingHorizontal:w*0.04,
-        justifyContent:'center',
-      },
-
-
-      /* REPLIES BOX */
-      repliesBoxContainer:{
-        // backgroundColor:'red',
-        paddingTop: h*0.045,
-        paddingBottom: h*0.018,
-        justifyContent:'center',
-        alignItems:'center',
-        flexDirection:'row'
-        // borderWidth: 1,
-        // borderColor: 'rgba(0, 0, 0, 0.06)',
-        // borderTopWidth:0,
-        // borderTopColor: 'rgba(0, 0, 0, 0.06)',
-        // borderTopWidth: 1,
-
-
-      },
-      repliesBoxText:{
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
-        color: Colors.negativeAccentColor,
-        fontFamily: 'Whitney-Book',
-      },
-      repliesBoxIcon:{
-        paddingHorizontal: w*0.020,
-        color: Colors.negativeAccentColor,
-      },
-
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-      container: {
-        // backgroundColor: 'orange',
-        flex:1,
-        flexDirection: 'column',
-        marginVertical: 10,
-        marginHorizontal:10
-      },
-
-      titleText: {
-        // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,27),
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-      },
-
-
-    });
-  }
 
   async onLikeClick(){
     if(this.props.onLikeDislikeClick){
@@ -400,13 +381,7 @@ class BillCommentCard extends React.Component {
     }
   }
 
-  renderHeader(styles){
-    // return (<View resizeMode="cover" style={styles.cardTitleContainer}>
-    //   <View style={styles.cardTitleTextAndIconContainer}>
-    //     <Text style={styles.cardTitleText}>NEW COMMENT</Text>
-    //   </View>
-    //   <Text style={styles.cardDateText}>{this.props.commentData.timeString}</Text>
-    // </View>);
+  renderHeader(){
     return (<View style={styles.cardContentHeader}>
       <TouchableOpacity onPress={this.onUserClick.bind(this)}>
         <PavImage
@@ -417,42 +392,43 @@ class BillCommentCard extends React.Component {
           resizeMode='cover'
         />
       </TouchableOpacity>
-      <View style={styles.commentDescriptionContainer}>
-        <TouchableOpacity onPress={this.onUserClick.bind(this)}>
+      <View style={styles.commentHeaderTitlesContainer}>
+        <TouchableOpacity style={styles.commentNameTextContainer} onPress={this.onUserClick.bind(this)}>
           <Text style={styles.commentNameText}>{this.props.commentData.userFullNameText}</Text>
         </TouchableOpacity>
-        {this.renderTopComment(styles)}
-      </View>
+        <View style={styles.cardDateTextContainer}>
+          <Text style={styles.cardDateText}>{this.props.commentData.timeString}</Text>
+        </View>
 
-      <View resizeMode="cover" style={styles.cardTitleContainer}>
-        <Text style={styles.cardDateText}>{this.props.commentData.timeString}</Text>
       </View>
+      {this.renderTopComment()}
+
     </View>);
   }
 
 
-  getTopCommentText(isInFavor, styles){
+  getTopCommentText(isInFavor){
     if(isInFavor==true){
-      return <Text style={styles.topCommentText}>Highest rated <Text style={styles.topCommentInFavorText}>in Favor</Text></Text>
+      return <Text style={styles.topCommentText}>Highest rated in Favor</Text>
     }else{
-      return <Text style={styles.topCommentText}>Highest rated <Text style={styles.topCommentAgainstText}>Against</Text></Text>
+      return <Text style={styles.topCommentText}>Highest rated Against</Text>
     }
   }
 
-  renderTopComment(styles){
+  renderTopComment(){
     if(this.props.commentData.isTopCommentInFavor==true || this.props.commentData.isTopCommentAgainst==true){
       return (
       <View style={styles.topCommentContainer}>
-        {this.getTopCommentText((this.props.commentData.isTopCommentInFavor==true),styles)}
+        {this.getTopCommentText((this.props.commentData.isTopCommentInFavor==true))}
       </View>)
     }else{
       return <View></View>;
     }
   }
 
-  renderBody(styles){
+  renderBody(){
     return (<View style={styles.cardContentContainer}>
-      <View style={styles.cardContentBody}>
+      <View style={styles.cardContentTextContainer}>
         <Text style={styles.cardContentText}>
         {this.props.commentData.commentText}
         </Text>
@@ -460,21 +436,21 @@ class BillCommentCard extends React.Component {
     </View>);
   }
 
-  renderFooter(styles){
+  renderFooter(){
     return (
       <View style={styles.footerContainer}>
         <View style={styles.likeDislikeButtonContainer}>
           <TouchableOpacity style={styles.footerItemContainer} onPress={this.onLikeClick.bind(this)}>
-            <PavIcon name="thumbs-up" size={15} style={this.props.commentData.isLiked?styles.activeLikeIcon:styles.inactiveLikeDislikeIcon}/>
+            <PavIcon name="thumbs-up" size={17} style={this.props.commentData.isLiked?styles.activeLikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.footerItemContainer} onPress={this.onDislikeClick.bind(this)}>
-            <PavIcon name="thumbs-down" size={15} style={this.props.commentData.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
+            <PavIcon name="thumbs-down" size={17} style={this.props.commentData.isDisliked?styles.activeDislikeIcon:styles.inactiveLikeDislikeIcon}/>
           </TouchableOpacity>
           <View style={styles.footerItemContainer}>
             <Text style={[styles.scoreText, this.props.commentData.likeCount>0?styles.likeCountPositive:styles.likeCountNegative]}>{this.props.commentData.likeCount}</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={this.onReplyClick.bind(this)} style={styles.replyButtonContainer}>
+        <TouchableOpacity  style={styles.replyButtonContainer} onPress={this.onReplyClick.bind(this)}>
           <Text style={styles.replyButtonText}>REPLY</Text>
         </TouchableOpacity>
       </View>);
@@ -492,14 +468,14 @@ class BillCommentCard extends React.Component {
     return (this.props.alwaysBreakCommentsToNewScreen===true || (this.props.commentData.commentLvl-this.props.commentData.baseCommentLvl>=SUBCOMMENT_COUNT));
   }
 
-  renderMoreCommentsLbl(replies, styles){
+  renderMoreCommentsLbl(replies){
 
     if(!!replies && replies.length>0){
       if(this.shouldBreakSubcommentToNewScreen()){
         return (
-            <TouchableOpacity onPress={this.onShowMoreCommentsClick.bind(this)} style={styles.repliesBoxContainer}>
-              <Text style={styles.repliesBoxText}>{replies.length>1?replies.length+" Replies ":"1 Reply"}</Text>
-              <PavIcon name="show-more" size={17} style={styles.repliesBoxIcon}/>
+            <TouchableOpacity style={styles.repliesBoxContainer} onPress={this.onShowMoreCommentsClick.bind(this)}>
+              <Text style={styles.repliesBoxText}>View {replies.length>1?replies.length+" Replies ":"1 Reply"}</Text>
+              <PavIcon name="arrow-right" size={12} style={styles.repliesBoxIcon}/>
             </TouchableOpacity>
           );
       }else{//for comment lvl 1 and above
@@ -555,9 +531,9 @@ class BillCommentCard extends React.Component {
    */
   render() {
     // console.log("!!update Reply box loading: "+this.state.commentBeingAltered);
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     // console.log("Comment: "+this.props.commentData.commentText+" of lvl: "+this.props.commentData.commentLvl+" of base lvl: "+this.props.commentData.baseCommentLvl);
     let paddingLeftIfCommentLvlAbove0  = null, paddingRightIfCommentLvlAbove0 = null;
     if(this.props.commentData.commentLvl>0){
@@ -572,11 +548,11 @@ class BillCommentCard extends React.Component {
         onLayout={this.props.onLayout}
       >
         <View style={[styles.cardContent, this.props.cardContainerStyle]}>
-          {this.renderHeader(styles)}
-          {this.renderBody(styles)}
-          {this.renderFooter(styles)}
-          {this.renderReplyBox(styles)}
-          {this.renderMoreCommentsLbl(this.props.commentData.replies, styles)}
+          {this.renderHeader()}
+          {this.renderBody()}
+          {this.renderFooter()}
+          {this.renderReplyBox()}
+          {this.renderMoreCommentsLbl(this.props.commentData.replies)}
         </View>
       </View>
     );
