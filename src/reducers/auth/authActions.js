@@ -365,7 +365,7 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
         "topics": topics,
         "gender": gender
       });
-    // console.log("RES: "+JSON.stringify(res));
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       if(res.multipleErrors){
         let err = res.error[0];

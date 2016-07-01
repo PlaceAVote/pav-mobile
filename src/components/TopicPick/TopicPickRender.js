@@ -347,7 +347,7 @@ class TopicPickRender extends React.Component {
                 <Button textStyle={styles.whiteBtnText}
                   style={styles.nextStepBtn}
                   onPress={this.props.onNextStep}
-                  isDisabled={this.props.auth.form.isFetching || this.props.auth.form.isLoggedIn}
+                  isDisabled={this.props.auth.form.isFetching || this.props.auth.user.isLoggedIn}
                   isLoading={this.props.auth.form.isFetching}
                   activityIndicatorColor={Colors.mainTextColor}
                   >
@@ -362,7 +362,18 @@ class TopicPickRender extends React.Component {
     );
   }
   shouldComponentUpdate(nextProps) {
-    return (nextProps.auth.user.isLoggedIn===false);
+    return (
+      (nextProps.auth.user.isLoggedIn!==this.props.auth.user.isLoggedIn)
+      ||
+      (nextProps.auth.form.isFetching!==this.props.auth.form.isFetching)
+      ||
+      (nextProps.auth.form.fields.topicsList!==this.props.auth.form.fields.topicsList)
+      ||
+      (nextProps.modalPopupEnabled!==this.props.modalPopupEnabled)
+      ||
+      (nextProps.modalPopupErrorMsg!==this.props.modalPopupErrorMsg)
+    )
+
   }
 }
 //isDisabled={this.props.isDisabled}

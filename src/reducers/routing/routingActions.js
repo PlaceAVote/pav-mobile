@@ -144,7 +144,7 @@ export function navigateTo(schene, dataToTransferToNewShene, ableToNavigateToSel
         return false;
       }
     }else{
-      console.error("We\'re already within "+schene);
+      console.log("We\'re already within "+schene);
       return false;
     }
 

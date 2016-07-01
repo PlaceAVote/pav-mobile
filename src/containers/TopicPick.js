@@ -122,6 +122,7 @@ let TopicPick = React.createClass({
       // this.props.actions.resetErrorState();
       this.props.actions.setModalVisibility(WELCOME, false);
     }else{
+      this.props.actions.setModalVisibility(WELCOME, false);
       this.props.actions.navigateUserToTheCorrectNextOnboardingStep(TOPIC_PICK);
     }
   },
