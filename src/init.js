@@ -14,16 +14,7 @@ import React from 'react';
 import {Platform} from 'react-native';
 
 
-/*
 
-  Crash reports (Sentry)
-*/
-import Raven from 'raven-js';
-import RNRaveInit from 'raven-js/plugins/react-native';
-RNRaveInit(Raven);
-Raven
-.config('https://aa9e354d3f8347febf7038031c4bf602@app.getsentry.com/85125', { release: VERSION })
-.install();
 
 /*
   Our router imports
@@ -48,6 +39,9 @@ connect } from 'react-redux';
 *
 */
 import configureStore from './lib/configureStore';
+
+import CrashReporter from './lib/Utils/crashReporter';
+new CrashReporter({version: VERSION});
 
 /**
 * ## Actions
