@@ -80,7 +80,8 @@ class Onboarding extends React.Component{
 
 
   onSignInBtnPressed(){
-    this.props.actions.navigateTo(LOGIN);
+    throw new Error("Placeavote error test android.");
+    // this.props.actions.navigateTo(LOGIN);
   }
   onSignUpBtnPressed(){
     this.props.actions.setAuthMethod('email');

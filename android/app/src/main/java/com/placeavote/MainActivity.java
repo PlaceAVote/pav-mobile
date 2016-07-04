@@ -9,6 +9,7 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.pintersudoplz.rnbugsnag.RNBugsnagPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -59,7 +60,9 @@ public class MainActivity extends ReactActivity {
             new FBSDKPackage(mCallbackManager),
             new LinearGradientPackage(),
             new OrientationPackage(this),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+            new RNBugsnagPackage()  //add this line
+
         );
     }
 
