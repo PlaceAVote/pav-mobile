@@ -5,7 +5,7 @@
 /**
 *  The version of the app but not  displayed yet
 */
-var VERSION='0.8.4';
+
 
 /*
   React and React native imports
@@ -41,7 +41,7 @@ connect } from 'react-redux';
 import configureStore from './lib/configureStore';
 
 import CrashReporter from './lib/Utils/crashReporter';
-new CrashReporter({version: VERSION});
+new CrashReporter({version: CONFIG.VERSION});
 
 /**
 * ## Actions
@@ -115,7 +115,7 @@ export default class PlaceAVote extends React.Component {
       // configureStore will combine reducers from placeAVote and main application
       // it will then create the store based on aggregate state from all reducers
       store.dispatch(setPlatform(Platform.OS));
-      store.dispatch(setVersion(VERSION));
+      store.dispatch(setVersion(CONFIG.VERSION));
       store.dispatch(setStore(store));
       store.dispatch(setEnvironmentIsDev(CONFIG.ENVIRONMENT_IS_DEV));
       return (
