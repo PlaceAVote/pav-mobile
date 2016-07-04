@@ -1,11 +1,7 @@
-
-
-
 /*
-  Crash library imports (Current: Sentry)
+  Crash library imports (Current: Bugsnag)
 */
-import Raven from 'raven-js';
-import RNRaveInit from 'raven-js/plugins/react-native';
+import RNBugsnag from 'react-native-bugsnag';
 
 
 
@@ -30,21 +26,8 @@ export default class CrashReporter {
       instance = this;
     }
 
-
-
-    /*
-      Crash library init (Current: Sentry)
-    */
-
-    RNRaveInit(Raven);
-    Raven
-    .config('https://aa9e354d3f8347febf7038031c4bf602@app.getsentry.com/85125', { release: props.version })
-    .install();
+    RNBugsnag();
     return instance;
   }
-
-
-
-
 
 };
