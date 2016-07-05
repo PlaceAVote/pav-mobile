@@ -177,21 +177,6 @@ class EmailSignInRender extends React.Component {
   }
 
 
- //  componentDidMount() {
- //    if(Platform.OS === 'android'){
- //      this._listeners = [
- //        Keyboard.addListener('keyboardDidShow', ()=>this.setState({androidKeyboardIsVisible:true})),
- //        Keyboard.addListener('keyboardDidHide', ()=>this.setState({androidKeyboardIsVisible:false}))
- //      ];
- //    }
- //
- //  }
- //  componentWillUnmount() {
- //    if(Platform.OS === 'android' && this._listeners!=null){
- //      this._listeners.forEach(listener => listener.remove());
- //    }
- // }
-
 
   /**
    * ### componentWillReceiveProps

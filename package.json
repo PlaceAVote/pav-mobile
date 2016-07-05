@@ -82,7 +82,7 @@
     "react": "15.1.0",
     "react-addons-test-utils": "15.1.0",
     "react-native": "0.27.2",
-    "react-native-bugsnag": "joshuapinter/react-native-bugsnag",
+    "react-native-bugsnag": "0.0.3",
     "react-native-collapsible": "^0.6.0",
     "react-native-fbsdk": "^0.2.0",
     "react-native-google-analytics-bridge": "^2.1.0",

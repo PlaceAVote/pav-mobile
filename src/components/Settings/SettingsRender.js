@@ -342,16 +342,6 @@ const styles = StyleSheet.create({
     fontSize: getCorrectFontSizeForScreen(w,h,9)
   },
 
-  versionTextContainer:{
-    paddingTop: h*0.025,
-  },
-  versionText:{
-    color: "#00000055",
-    // textAlign: 'center',
-    fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,3)
-  },
-
 
 
 });
@@ -617,13 +607,6 @@ class SettingsRender extends React.Component {
                 textStyle={styles.logoutBtnText}>
                 Logout
                 </Button>
-              </View>
-
-
-              <View style={styles.versionTextContainer}>
-                <Text style={styles.versionText}>
-                  Version {this.props.appVersion}
-                </Text>
               </View>
 
 
