@@ -340,7 +340,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Whitney Semibold',
     fontSize: getCorrectFontSizeForScreen(w,h,9)
-  }
+  },
+
+  versionTextContainer:{
+    paddingTop: h*0.025,
+  },
+  versionText:{
+    color: "#00000055",
+    // textAlign: 'center',
+    fontFamily: 'Whitney Semibold',
+    fontSize: getCorrectFontSizeForScreen(w,h,3)
+  },
 
 
 
@@ -371,7 +381,8 @@ class SettingsRender extends React.Component {
     this.state={
       enabled: false,
       genderPickerCollapsed: true,
-      formValue: {}
+      formValue: {},
+      versionClicks:0
 
     }
   }
@@ -508,11 +519,19 @@ class SettingsRender extends React.Component {
           style={styles.scroller}
           bounces={false}
           >
-            <View style={styles.titleContainer}>
+            <TouchableOpacity style={styles.titleContainer} onPress={()=>{
+              if(this.state.versionClicks>7){
+                alert("App Version "+this.props.appVersion);
+                this.setState({versionClicks:0});
+              }else{
+                this.setState({versionClicks:(this.state.versionClicks+1)});
+              }
+
+            }}>
               <Text style={styles.titleText}>
                 ACCOUNT SETTINGS
               </Text>
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.accountSettingsContainer}>
               <View style={styles.imgDobGenderContainer}>
@@ -598,6 +617,13 @@ class SettingsRender extends React.Component {
                 textStyle={styles.logoutBtnText}>
                 Logout
                 </Button>
+              </View>
+
+
+              <View style={styles.versionTextContainer}>
+                <Text style={styles.versionText}>
+                  Version {this.props.appVersion}
+                </Text>
               </View>
 
 
