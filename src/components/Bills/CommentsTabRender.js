@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8E7EE',
   },
   headerContainer:{
-    paddingBottom: h*0.020,
+    // paddingBottom: h*0.020,
   },
   sortContainer:{
     backgroundColor: Colors.buttonBgColor,
@@ -123,7 +123,13 @@ const styles = StyleSheet.create({
   /* ROWS */
   commentCard:{
     paddingVertical: h*0.011,
+    paddingHorizontal:0,
+    // padding: 0,
+
   },
+  cardContent:{
+    marginRight:0,
+  }
 
 
 });
@@ -298,6 +304,7 @@ class CommentsTabRender extends React.Component {
                     }
                 }}
                style={styles.commentCard}
+               cardContainerStyle={styles.cardContent}
                key={rowData.comment_id}
                device={this.props.device}
                alwaysBreakCommentsToNewScreen={true}

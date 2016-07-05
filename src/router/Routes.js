@@ -48,6 +48,10 @@ import SettingsButtons from '../containers/NavIcons/SettingsButtons';
 import NewsFeedButtons from '../containers/NavIcons/NewsFeedButtons';
 import {RightPavLogo} from '../containers/NavIcons/LoginButtons';
 import TabIconFactory from '../containers/NavIcons/TabIconFactory';
+import {Scene, Switch, Actions} from 'react-native-router-flux';
+
+
+
 
 
 /**
@@ -55,7 +59,7 @@ import TabIconFactory from '../containers/NavIcons/TabIconFactory';
 *
 * Necessary components from Router-Flux
 */
-import {Scene, Switch} from 'react-native-router-flux';
+
 
 
 const styles = StyleSheet.create({
@@ -142,6 +146,30 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const pavScenes = (
+  <Scene key="root" hideNavBar={true} >
+    <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={true}/>
+    <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
+    <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" />
+    <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} component={EmailSignUpStep1} hideNavBar={true} />
+    <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} component={EmailSignUpStep2} hideNavBar={true} />
+    <Scene key={ScheneKeys.REGISTER_STEP_3} {...defaultProps} component={EmailSignUpStep3} hideNavBar={true} />
+    <Scene key={ScheneKeys.REGISTER_STEP_4} {...defaultProps} component={EmailSignUpStep4} hideNavBar={true} />
+    <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
+    <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile}/>
+    <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} iconContainerStyle={styles.iconContainerStyle} initial={false}>
+        <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} initial={true}/>
+        <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} />
+        <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} userId={null} isTab={true} />
+    </Scene>
+    <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true} />
+    <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} panHandlers={null} component={NewIssue} title="New Issue" direction="vertical" hideNavBar={false} />
+    <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false} />
+    <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" />
+    <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} renderRightButton={()=><SettingsButtons/>} />
+    <Scene key={ScheneKeys.TOS} {...defaultProps} component={Tos} title="Terms of service"/>
+  </Scene>
+);
 
 class Routes extends React.Component{
 
@@ -192,30 +220,7 @@ class Routes extends React.Component{
 
   render(){
     let RouterWithRedux = this.props.router;
-    return (<RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} >
-        <Scene key="root" hideNavBar={true} >
-          <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={true}/>
-          <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
-          <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" />
-          <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} component={EmailSignUpStep1} hideNavBar={true} />
-          <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} component={EmailSignUpStep2} hideNavBar={true} />
-          <Scene key={ScheneKeys.REGISTER_STEP_3} {...defaultProps} component={EmailSignUpStep3} hideNavBar={true} />
-          <Scene key={ScheneKeys.REGISTER_STEP_4} {...defaultProps} component={EmailSignUpStep4} hideNavBar={true} />
-          <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
-          <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile}/>
-          <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} iconContainerStyle={styles.iconContainerStyle} initial={false}>
-              <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} renderRightButton={()=><NewsFeedButtons/>} initial={true}/>
-              <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} />
-              <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} userId={null} isTab={true} />
-          </Scene>
-          <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true} />
-          <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} panHandlers={null} component={NewIssue} title="New Issue" direction="vertical" hideNavBar={false} />
-          <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false} />
-          <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" />
-          <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} renderRightButton={()=><SettingsButtons/>} />
-          <Scene key={ScheneKeys.TOS} {...defaultProps} component={Tos} title="Terms of service"/>
-        </Scene>
-    </RouterWithRedux>);
+    return <RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} scenes={ Actions.create(pavScenes) }/>;
   }
 }
 export default connect(routerStateToProps, mapDispatchToProps)(Routes);
