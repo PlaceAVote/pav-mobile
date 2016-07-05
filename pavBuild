@@ -41,7 +41,7 @@ ReleaseIos(){
         mkdir -p bin && #making a bin directory if not exists
         cd ${PROJECT_DIR}/ios &&
         echo "<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>teamID</key><string>${APPLE_TEAM_ID}</string><key>method</key><string>ad-hoc</string><key>uploadSymbols</key><true/></dict></plist>" >${PROJECT_DIR}/tmp/tmpPlist.plist  &&
-        ./xcbuild-safe.sh -scheme "Pav Release" archive -archivePath ${PROJECT_DIR}/tmp/pav.xcarchive &&
+        ./xcbuild-safe.sh -scheme "PlaceAVote" archive -archivePath ${PROJECT_DIR}/tmp/pav.xcarchive &&
         ./xcbuild-safe.sh -exportArchive -archivePath ${PROJECT_DIR}/tmp/pav.xcarchive -exportOptionsPlist ${PROJECT_DIR}/tmp/tmpPlist.plist -exportPath ${PROJECT_DIR}${BIN_DIR} &&
         mv ${PROJECT_DIR}${BIN_DIR}"Pav Release.ipa" ${PROJECT_DIR}${BIN_DIR}${IPA_FILENAME} &&
         cd ${PROJECT_DIR} &&
