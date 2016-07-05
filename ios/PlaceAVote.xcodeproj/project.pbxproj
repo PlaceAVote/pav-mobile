@@ -52,6 +52,7 @@
 		D3F6AB9B1D06022100318198 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F6AB9A1D06021900318198 /* libART.a */; };
 		D3F6ABBC1D0861F700318198 /* pavText.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F6ABBB1D0861F700318198 /* pavText.png */; };
 		D3F6ABBE1D08631800318198 /* pavLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F6ABBD1D08631800318198 /* pavLogo.png */; };
+		D3FE4A1B1D2C58430001AF79 /* libKSCrashLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FE4A051D2C582F0001AF79 /* libKSCrashLib.a */; };
 		D605FB1F32F1435B82FF7E05 /* Whitney-BookItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB8FF897AB6A450EB6B169E7 /* Whitney-BookItal.ttf */; };
 		D7F525AE85184170910C7739 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BBB781C4046739EB557E1 /* icomoon.ttf */; };
 		D914BA6CE65D44258C6E3FD9 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0452E133FCFA43798968ADCD /* EvilIcons.ttf */; };
@@ -203,6 +204,34 @@
 			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
 			remoteInfo = ART;
 		};
+		D3FE4A041D2C582F0001AF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3FE49F91D2C582E0001AF79 /* KSCrash-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CB6D132617EB749A00BC2C04;
+			remoteInfo = KSCrashLib;
+		};
+		D3FE4A061D2C582F0001AF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3FE49F91D2C582E0001AF79 /* KSCrash-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CB6D133317EB749A00BC2C04;
+			remoteInfo = KSCrashTests;
+		};
+		D3FE4A081D2C582F0001AF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3FE49F91D2C582E0001AF79 /* KSCrash-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 03DE7B6A1C84DEF700F789BA;
+			remoteInfo = KSCrash;
+		};
+		D3FE4A0A1D2C582F0001AF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3FE49F91D2C582E0001AF79 /* KSCrash-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EDF2BF211CCF15AD004BADF4;
+			remoteInfo = KSCrash_static;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -267,6 +296,7 @@
 		D3F6AB951D06021800318198 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		D3F6ABBB1D0861F700318198 /* pavText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pavText.png; path = PlaceAVote/OtherAssets/pavText.png; sourceTree = "<group>"; };
 		D3F6ABBD1D08631800318198 /* pavLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pavLogo.png; path = PlaceAVote/OtherAssets/pavLogo.png; sourceTree = "<group>"; };
+		D3FE49F91D2C582E0001AF79 /* KSCrash-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "KSCrash-iOS.xcodeproj"; path = "PlaceAVote/3rd Party Libs/KSCrash-master/iOS/KSCrash-iOS.xcodeproj"; sourceTree = "<group>"; };
 		D912141BFF24407ABD582230 /* icomoon.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.json; path = ../assets/fonts/icomoon.json; sourceTree = "<group>"; };
 		E9A8750C88BA4B8988FCB20C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = ../assets/fonts/MaterialIcons.ttf; sourceTree = "<group>"; };
 		F711A73E4EEB4CA392937F0C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = ../assets/fonts/FontAwesome.ttf; sourceTree = "<group>"; };
@@ -285,6 +315,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3FE4A1B1D2C58430001AF79 /* libKSCrashLib.a in Frameworks */,
 				D35B9D7E1D2BF7AD00D26C50 /* libsqlite3.0.tbd in Frameworks */,
 				D35B9D7C1D2BF7A100D26C50 /* libz.tbd in Frameworks */,
 				D35B9D7A1D2BF79700D26C50 /* SystemConfiguration.framework in Frameworks */,
@@ -451,6 +482,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D3FE49F91D2C582E0001AF79 /* KSCrash-iOS.xcodeproj */,
 				D3E20ECD1D2A64E5005F4ABD /* Bugsnag.xcodeproj */,
 				D3E20EB71D2A6275005F4ABD /* RNBugsnag.xcodeproj */,
 				D3F6AB951D06021800318198 /* ART.xcodeproj */,
@@ -602,6 +634,17 @@
 			name = SplashScreen;
 			sourceTree = "<group>";
 		};
+		D3FE49FA1D2C582E0001AF79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3FE4A051D2C582F0001AF79 /* libKSCrashLib.a */,
+				D3FE4A071D2C582F0001AF79 /* KSCrashTests.xctest */,
+				D3FE4A091D2C582F0001AF79 /* KSCrash.framework */,
+				D3FE4A0B1D2C582F0001AF79 /* KSCrash.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -682,6 +725,10 @@
 				{
 					ProductGroup = D38A29711D021128005B42F5 /* Products */;
 					ProjectRef = 31D3213C83F540AEBA7BA36E /* BVLinearGradient.xcodeproj */;
+				},
+				{
+					ProductGroup = D3FE49FA1D2C582E0001AF79 /* Products */;
+					ProjectRef = D3FE49F91D2C582E0001AF79 /* KSCrash-iOS.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -884,6 +931,34 @@
 			fileType = archive.ar;
 			path = libART.a;
 			remoteRef = D3F6AB991D06021900318198 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3FE4A051D2C582F0001AF79 /* libKSCrashLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKSCrashLib.a;
+			remoteRef = D3FE4A041D2C582F0001AF79 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3FE4A071D2C582F0001AF79 /* KSCrashTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KSCrashTests.xctest;
+			remoteRef = D3FE4A061D2C582F0001AF79 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3FE4A091D2C582F0001AF79 /* KSCrash.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KSCrash.framework;
+			remoteRef = D3FE4A081D2C582F0001AF79 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3FE4A0B1D2C582F0001AF79 /* KSCrash.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KSCrash.framework;
+			remoteRef = D3FE4A0A1D2C582F0001AF79 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -14,24 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "PlaceAVote.app"
-               BlueprintName = "PlaceAVote"
-               ReferencedContainer = "container:PlaceAVote.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "PlaceAVoteTests.xctest"
-               BlueprintName = "PlaceAVoteTests"
-               ReferencedContainer = "container:PlaceAVote.xcodeproj">
+               BlueprintIdentifier = "CB8E579E17EBB1AF000C56D3"
+               BuildableName = "Simple-Example.app"
+               BlueprintName = "Simple-Example"
+               ReferencedContainer = "container:Example-Apps-iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,31 +28,21 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "PlaceAVoteTests.xctest"
-               BlueprintName = "PlaceAVoteTests"
-               ReferencedContainer = "container:PlaceAVote.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "PlaceAVote.app"
-            BlueprintName = "PlaceAVote"
-            ReferencedContainer = "container:PlaceAVote.xcodeproj">
+            BlueprintIdentifier = "CB8E579E17EBB1AF000C56D3"
+            BuildableName = "Simple-Example.app"
+            BlueprintName = "Simple-Example"
+            ReferencedContainer = "container:Example-Apps-iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -79,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "PlaceAVote.app"
-            BlueprintName = "PlaceAVote"
-            ReferencedContainer = "container:PlaceAVote.xcodeproj">
+            BlueprintIdentifier = "CB8E579E17EBB1AF000C56D3"
+            BuildableName = "Simple-Example.app"
+            BlueprintName = "Simple-Example"
+            ReferencedContainer = "container:Example-Apps-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -98,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "PlaceAVote.app"
-            BlueprintName = "PlaceAVote"
-            ReferencedContainer = "container:PlaceAVote.xcodeproj">
+            BlueprintIdentifier = "CB8E579E17EBB1AF000C56D3"
+            BuildableName = "Simple-Example.app"
+            BlueprintName = "Simple-Example"
+            ReferencedContainer = "container:Example-Apps-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
