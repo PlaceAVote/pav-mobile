@@ -1,6 +1,7 @@
 module.exports = {
   VERSION: '0.8.4',
   ENVIRONMENT_IS_DEV: false,
+  GOOGLE_ANALYTICS_ID: "UA-48538409-5",
 
 
   MOCK_TOKEN: false,  //set to true to actually mock the token with the ones below, false means we use the retrieved token

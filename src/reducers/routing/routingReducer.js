@@ -3,7 +3,9 @@
  *
  * The reducer for all the actions from the various log states
  */
+
 'use strict';
+import AnalyticsReporter from '../../lib/Utils/analyticsReporter';
 /**
  * ## Imports
  *
@@ -38,16 +40,20 @@ export default function routingReducer(state = initialRouterState, action) {
   switch (action.type) {
 
    case "jump":
+      AnalyticsReporter().trackScreenView(action.key);
       return state.set('currentTab', action.key);
 
    case "push": //react native router flux action
+      AnalyticsReporter().trackScreenView(action.key);
       return state.set('previousSchene', currentSchene).set('currentSchene', action.key);
 
    case "back"://react native router flux action
    case "BackAction"://react native router flux action
    case MANUAL_NAVIGATE_TO_PREVIOUS:
+      AnalyticsReporter().trackScreenView(previousSchene);
       return state.set('previousSchene', currentSchene).set('currentSchene', previousSchene);
    case SET_MODAL_VISIBILITY:
+      AnalyticsReporter().trackScreenView(name);
       const {name, visibility} = action.payload;
       return state.setIn(['modalIsOpen', name], visibility);
    default:

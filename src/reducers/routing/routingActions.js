@@ -136,6 +136,7 @@ export function navigateTo(schene, dataToTransferToNewShene, ableToNavigateToSel
 
     if((ableToNavigateToSelf===false && state.router.currentSchene!=schene) || ableToNavigateToSelf===true){
       try{
+
         Actions[schene](dataToTransferToNewShene);
         return true;
       }catch(e){

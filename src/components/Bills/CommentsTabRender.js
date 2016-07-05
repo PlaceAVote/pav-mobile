@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
 
   /* ROWS */
   commentCard:{
-    paddingVertical: h*0.011,
+    paddingVertical: h*0.007,
     paddingHorizontal:0,
     // padding: 0,
 

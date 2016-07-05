@@ -286,7 +286,7 @@ class NewsFeed extends React.Component {
       case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
       case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
       case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
-        if(this.props.newsfeed.newsFeedData.itemsAfterFiltration!=null && this.props.newsfeed.isFetching.olderNewsFeedData===false){
+        if(this.props.newsfeed.newsFeedData.itemsAfterFiltration!=null && this.props.newsfeed.newsFeedData.lastFeedItemTimeStamp!=null && this.props.newsfeed.isFetching.olderNewsFeedData===false){
           this.connectAndGetFeed(true);
         }
         break;

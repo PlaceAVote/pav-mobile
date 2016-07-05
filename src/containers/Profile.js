@@ -234,7 +234,7 @@ class Profile extends React.Component {
   }
 
   onFetchOlderTimelineData(){
-    if(this.state.timelineItems!=null && this.props.profile.form.isFetching.olderTimelineData===false &&  this.props.profile.form.isFetching.timelineData===false){
+    if(this.state.timelineItems!=null && this.props.profile.form.lastKnownItemTimestamp!=null && this.props.profile.form.isFetching.olderTimelineData===false &&  this.props.profile.form.isFetching.timelineData===false){
       this.getTimelineData(this.props.userId, true)
     }
   }

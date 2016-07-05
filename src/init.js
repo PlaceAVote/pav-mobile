@@ -40,6 +40,8 @@ connect } from 'react-redux';
 */
 import configureStore from './lib/configureStore';
 
+import AnalyticsReporter from './lib/Utils/analyticsReporter';
+AnalyticsReporter().trackEvent('init', 'INIT');;
 import CrashReporter from './lib/Utils/crashReporter';
 new CrashReporter({version: CONFIG.VERSION});
 

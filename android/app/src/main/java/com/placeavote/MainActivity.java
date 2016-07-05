@@ -2,6 +2,7 @@ package com.placeavote;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactActivity;
+import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.github.yamill.orientation.OrientationPackage;
@@ -56,6 +57,7 @@ public class MainActivity extends ReactActivity {
         mCallbackManager = new CallbackManager.Factory().create();
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new GoogleAnalyticsBridgePackage(),
             new ImagePickerPackage(),
             new FBSDKPackage(mCallbackManager),
             new LinearGradientPackage(),

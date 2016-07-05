@@ -279,6 +279,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
     flexDirection:'row',
     borderWidth: 1,
+    borderRadius:3,
     borderColor: 'rgba(0, 0, 0, 0.12)',
     // borderTopWidth:0,
     // borderTopColor: 'rgba(0, 0, 0, 0.06)',

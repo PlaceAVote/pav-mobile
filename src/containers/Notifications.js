@@ -129,7 +129,7 @@ class Notifications extends React.Component {
     if(this.props.router.currentTab==TAB_NOTIFS){
 
       let res = await this.props.actions.markNotificationsRead(null, this.TOKEN, this.props.global.isDev);
-      alert("Marking read"+JSON.stringify(res))
+      // alert("Marking read"+JSON.stringify(res))
     }
   }
 
@@ -148,7 +148,7 @@ class Notifications extends React.Component {
   }
 
   onFetchOlderNotifications(){
-    if(this.props.notifications.items!=null && this.props.notifications.get("isFetching").get("olderNotificationData")===false &&  this.props.notifications.get("isFetching").get("notificationData")===false){
+    if(this.props.notifications.items!=null && this.props.notifications.get("lastNotificationTimestamp")!=null && this.props.notifications.get("isFetching").get("olderNotificationData")===false &&  this.props.notifications.get("isFetching").get("notificationData")===false){
       this.getNotifications(true);
     }
   }
