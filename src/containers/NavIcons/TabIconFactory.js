@@ -43,7 +43,7 @@ class TabIconFactory extends React.Component {
               // backgroundColor: Colors.transparentColor,
               fontFamily: 'Whitney',
               // textAlign:'center',
-              fontSize: getCorrectFontSizeForScreen(w,h,8),
+              fontSize: getCorrectFontSizeForScreen(8),
             }}>{unreadCount}</Text>
           </View>
         );
@@ -76,14 +76,14 @@ class TabIconFactory extends React.Component {
         return (
           <View style={{flex:1, top:5, flexDirection:'row', justifyContent:'center', alignItems:'center', paddingHorizontal:w*0.05}}>
             <View style={{paddingLeft:w*0.006,paddingRight:w*0.004, paddingVertical:h*0.005}}>
-              <PavIcon name={iconName} size={getCorrectFontSizeForScreen(w,h,22)} style={{color: (this.props.selected===true) ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
+              <PavIcon name={iconName} size={getCorrectFontSizeForScreen(22)} style={{color: (this.props.selected===true) ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
               {this.renderNotificationCount()}
             </View>
             <View style={{flexDirection: "column", justifyContent: 'center', paddingLeft:w*0.004,paddingRight:w*0.006}}>
               <Text style={{
                 color: (this.props.selected===true) ? Colors.primaryColor :Colors.secondaryTextColor,
                 fontFamily: 'Whitney',
-                fontSize: getCorrectFontSizeForScreen(w,h,8),
+                fontSize: getCorrectFontSizeForScreen(8),
                 textAlign:'center'
               }}>{tabText}</Text>
             </View>

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flex:1,
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
   bodyContainer:{
     paddingVertical: h*0.017,
@@ -96,13 +96,13 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   bodyReadMoreText:{
     paddingVertical: h*0.008,
     color: Colors.negativeAccentColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
 
 
@@ -130,20 +130,20 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   statusDescriptionText:{
     width: w*0.73,
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Book',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
   statusDescription2Text:{
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-MediumItalic',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   /* CONGRESSMEN AND ORGANISATIONS INVOLVED */
@@ -166,19 +166,19 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
   sponsorNameText:{
     paddingVertical: h*0.008,
     color: Colors.negativeAccentColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
   sponsorPartyText:{
     paddingVertical: h*0.008,
     color: Colors.primaryColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
   cnoCosponsorContainer:{
     flexDirection:'column',
@@ -188,13 +188,13 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.008,
     color: Colors.negativeAccentColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
   cosponsorCntText:{
     paddingVertical: h*0.004,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
   cosponsorVisualGraphContainer:{
     // flexDirection:'row',
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   officialTitleText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   }
 
 });

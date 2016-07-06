@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   //   // backgroundColor: 'red',
   //   color: Colors.primaryColor,
   //   fontFamily: 'Whitney-Bold',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,8),
+  //   fontSize: getCorrectFontSizeForScreen(8),
   // },
   cardDateText:{
     // backgroundColor: 'red',
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     // color: Colors.thirdTextColor,
     color: Colors.fourthTextColor,
     fontFamily: 'Whitney Book',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
 
   cardContentContainer:{
@@ -140,32 +140,32 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue',
     color:"#e64a33",
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
   topCommentText:{
     color: Colors.fourthTextColor,
     // paddingVertical: h*0.001,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,6),
+    fontSize: getCorrectFontSizeForScreen(6),
   },
   // topCommentInFavorText:{
   //   color: "#8E9599",
   //   // paddingVertical: h*0.001,
   //   fontFamily: 'Whitney Semibold',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,6),
+  //   fontSize: getCorrectFontSizeForScreen(6),
   // },
   // topCommentAgainstText:{
   //   color: "#998E8E",
   //   // paddingVertical: h*0.001,
   //   fontFamily: 'Whitney Semibold',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,6),
+  //   fontSize: getCorrectFontSizeForScreen(6),
   // },
   commentLocationText:{
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
     paddingHorizontal: 1,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.7,
   },
   cardContentTextContainer:{
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   cardContentText:{
     // backgroundColor:'green',
     fontFamily: 'Whitney Book',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
     color: 'rgba(0, 0, 0, 0.64)',
   },
 
@@ -245,14 +245,14 @@ const styles = StyleSheet.create({
   replyButtonText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     // backgroundColor:'brown'
   },
 
 
   scoreText:{
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
   likeCountPositive:{
     color: Colors.accentColor,
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
 
   },
   repliesBoxText:{
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
   },

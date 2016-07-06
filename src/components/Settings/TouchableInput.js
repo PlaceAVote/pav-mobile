@@ -54,12 +54,12 @@ const styles=StyleSheet.create({
   },
   inputTitleText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fourthTextColor,
   },
   inputValueText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.secondaryTextColor,
   }
 

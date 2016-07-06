@@ -93,7 +93,7 @@
         label:{
           // flex: 1,
           fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-          fontSize: getCorrectFontSizeForScreen(w,h,14),
+          fontSize: getCorrectFontSizeForScreen(14),
         },
         valueContainer:{
           flex: 1,
@@ -103,7 +103,7 @@
         value: {
           fontFamily: 'Whitney-Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
           // backgroundColor:'red',
-          fontSize: getCorrectFontSizeForScreen(w,h,11),
+          fontSize: getCorrectFontSizeForScreen(11),
         },
         header: {
           flex: 1,

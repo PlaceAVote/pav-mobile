@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateText:{
     // backgroundColor: 'red',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     // color: Colors.thirdTextColor,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentContainer:{
@@ -134,13 +134,13 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue',
     color:"#e64a33",
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   voteInText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   voteLocationTextContainer:{
     // backgroundColor:'yellow',
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     // width: w*0.56,
   },
 

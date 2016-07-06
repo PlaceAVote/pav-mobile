@@ -129,7 +129,7 @@ var styles = StyleSheet.create({
     closeBtnText:{
       color: Colors.mainTextColor,
       fontFamily: 'Whitney-Bold',
-      fontSize: getCorrectFontSizeForScreen(w,h,7),
+      fontSize: getCorrectFontSizeForScreen(7),
       textAlign:'center'
     },
     closeBtnIcon:{
@@ -166,7 +166,7 @@ var styles = StyleSheet.create({
     titleText: {
       // backgroundColor: Colors.transparentColor,
       fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-      fontSize: getCorrectFontSizeForScreen(w,h,16),
+      fontSize: getCorrectFontSizeForScreen(16),
       color: Colors.thirdTextColor,
       textAlign: 'center',
 
@@ -182,7 +182,7 @@ var styles = StyleSheet.create({
     descriptionText: {
       // backgroundColor: Colors.transparentColor,
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-      fontSize: getCorrectFontSizeForScreen(w,h,10),
+      fontSize: getCorrectFontSizeForScreen(10),
       color: Colors.thirdTextColor,
       textAlign: 'center',
 
@@ -197,7 +197,7 @@ var styles = StyleSheet.create({
     errorText: {
       // backgroundColor: Colors.transparentColor,
       fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-      fontSize: getCorrectFontSizeForScreen(w,h,8),
+      fontSize: getCorrectFontSizeForScreen(8),
       color: Colors.negativeAccentColor,
       textAlign: 'center',
 
@@ -219,7 +219,7 @@ var styles = StyleSheet.create({
       paddingHorizontal:w*0.01,
       textAlignVertical: "top",
       fontFamily: 'Whitney Book',
-      fontSize: getCorrectFontSizeForScreen(w,h,10),
+      fontSize: getCorrectFontSizeForScreen(10),
       color: Colors.thirdTextColor,
     },
 
@@ -241,7 +241,7 @@ var styles = StyleSheet.create({
       color: Colors.mainTextColor,
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
       textAlign: 'center',
-      fontSize: getCorrectFontSizeForScreen(w,h,14),
+      fontSize: getCorrectFontSizeForScreen(14),
     },
 
 

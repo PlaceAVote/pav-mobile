@@ -75,7 +75,7 @@ class InputUrlModalBox extends React.Component {
               backgroundColor: Colors.transparentColor,
               color: Colors.mainTextColor,
               fontFamily: 'Whitney-Bold',
-              fontSize: getCorrectFontSizeForScreen(w,h,7),
+              fontSize: getCorrectFontSizeForScreen(7),
               textAlign:'center'
             },
             closeBtnIcon:{
@@ -102,7 +102,7 @@ class InputUrlModalBox extends React.Component {
               backgroundColor: Colors.transparentColor,
               color: Colors.mainTextColor,
               fontFamily: 'Whitney-Bold',
-              fontSize: getCorrectFontSizeForScreen(w,h,7),
+              fontSize: getCorrectFontSizeForScreen(7),
               textAlign:'center'
             },
             doneBtnIcon:{
@@ -136,7 +136,7 @@ class InputUrlModalBox extends React.Component {
 
             pasteLinkText:{
               fontFamily: 'Whitney',
-              fontSize: getCorrectFontSizeForScreen(w,h,9),
+              fontSize: getCorrectFontSizeForScreen(9),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
               // textAlign:'center'
@@ -154,7 +154,7 @@ class InputUrlModalBox extends React.Component {
               paddingHorizontal:w*0.01,
               textAlignVertical: "center",
               fontFamily: 'Whitney Book',
-              fontSize: getCorrectFontSizeForScreen(w,h,10),
+              fontSize: getCorrectFontSizeForScreen(10),
               color: Colors.thirdTextColor,
             },
 

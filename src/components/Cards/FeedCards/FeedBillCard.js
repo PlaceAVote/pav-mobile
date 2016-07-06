@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: Colors.mainTextColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentContainer:{
@@ -138,14 +138,14 @@ const styles = StyleSheet.create({
 
     // backgroundColor:'green',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor
   },
   cardFooterValueText:{
     // backgroundColor:'green',
     // paddingHorizontal: w*0.010,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor
   },
   cardFooterSocialShareIconsContainer:{
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor:Colors.transparentColor,
     paddingVertical:h*0.0065,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.mainTextColor,
   },
 

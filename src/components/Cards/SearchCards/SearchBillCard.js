@@ -94,7 +94,7 @@ class SearchBillCard extends React.Component {
         paddingHorizontal: 10,
         color: Colors.mainTextColor,
         fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        fontSize: getCorrectFontSizeForScreen(8),
       },
 
       cardContentContainer:{
@@ -133,7 +133,7 @@ class SearchBillCard extends React.Component {
         paddingVertical:h*0.0065,
 
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,8),
+        fontSize: getCorrectFontSizeForScreen(8),
         color: Colors.mainTextColor,
       },
 
@@ -161,7 +161,7 @@ class SearchBillCard extends React.Component {
 
       titleText: {
         // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,27),
+        fontSize: getCorrectFontSizeForScreen(27),
         color: Colors.mainTextColor,
         textAlign: 'center',
       }

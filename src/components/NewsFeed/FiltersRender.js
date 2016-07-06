@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   filterText:{
     paddingHorizontal: w*0.009,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.thirdTextColor,
 
   },
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   topicText:{
     paddingHorizontal: w*0.009,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,5),
+    fontSize: getCorrectFontSizeForScreen(5),
     color: Colors.primaryColor,
   },
   topicArrowIcon:{

@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateTextContainer:{
     // paddingHorizontal: w*0.02,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     width: w*0.29,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentContainer:{
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue',
     color:"#e64a33",
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
   voteInTextContainer:{
     paddingHorizontal: w*0.01,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   voteInText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
   voteLocationTextContainer:{
     paddingHorizontal: w*0.005,
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
 
 
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   },
   // titleText: {
   //   // backgroundColor: 'black',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,27),
+  //   fontSize: getCorrectFontSizeForScreen(27),
   //   fontFamily: 'Whitney Semibold',
   //   color: Colors.mainTextColor,
   //   textAlign: 'center',
@@ -232,7 +232,7 @@ class VoteCard extends React.Component {
           <View style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.voteIconContainer}>
-                <PavIcon name="logo" size={getCorrectFontSizeForScreen(w,h,16)} style={styles.voteIcon}/>
+                <PavIcon name="logo" size={getCorrectFontSizeForScreen(16)} style={styles.voteIcon}/>
               </View>
               <View style={styles.cardTitleTextContainer}>
                 <Text style={styles.cardTitleText}>NEW VOTE</Text>

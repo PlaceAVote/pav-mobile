@@ -114,14 +114,14 @@ const styles = StyleSheet.create({
   cardExplanText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Book',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.36,
     // backgroundColor:'red'
   },
   cardExplanTextUnread:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.36,
   },
   authorFullnameTextContainer:{
@@ -130,13 +130,13 @@ const styles = StyleSheet.create({
   authorFullnameText:{
     color: Colors.negativeAccentColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     // backgroundColor:'red'
   },
   authorFullnameTextUnread:{
     color: Colors.negativeAccentColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardBillTextContainer:{
 
@@ -144,14 +144,14 @@ const styles = StyleSheet.create({
   cardBillText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.80,
     // backgroundColor:'green'
   },
   cardBillTextUnread:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.80,
   }
 
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   //   // backgroundColor:'yellow',
   //   color: Colors.primaryColor,
   //   fontFamily: 'Whitney Semibold',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,9),
+  //   fontSize: getCorrectFontSizeForScreen(9),
   //   width: w*0.7,
   // },
 

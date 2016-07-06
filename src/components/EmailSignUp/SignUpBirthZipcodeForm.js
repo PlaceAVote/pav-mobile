@@ -72,7 +72,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     // var INPUT_COLOR = Colors.thirdTextColor;
     // var DISABLED_COLOR = '#777777';
     // var DISABLED_BACKGROUND_COLOR = '#eeeeee';
-    // var FONT_SIZE = getCorrectFontSizeForScreen(w,h,11);
+    // var FONT_SIZE = getCorrectFontSizeForScreen(11);
     // var FONT_WEIGHT = '500';
 
     // var stylesheet = Object.freeze({
@@ -95,7 +95,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     //     normal: {
     //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
     //       color: Colors.secondaryTextColor,
-    //       fontSize: getCorrectFontSizeForScreen(w,h,13),
+    //       fontSize: getCorrectFontSizeForScreen(13),
     //       marginBottom: 7,
     //       fontWeight: FONT_WEIGHT
     //     },
@@ -128,7 +128,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     //     flexWrap: 'wrap',
     //     // position: 'absolute',
     //     // backgroundColor: 'red',
-    //     fontSize: getCorrectFontSizeForScreen(w,h,13),
+    //     fontSize: getCorrectFontSizeForScreen(13),
     //     justifyContent: 'center',
     //     textAlign: 'center',
     //     color: Colors.errorTextColor

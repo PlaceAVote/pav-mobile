@@ -99,7 +99,7 @@ class CommentsRender extends React.Component {
         color: Colors.mainTextColor,
         textAlign:'center',
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,12),
+        fontSize: getCorrectFontSizeForScreen(12),
       },
 
     });

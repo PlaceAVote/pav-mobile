@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   statusHeaderText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
   finalItemPadding:{
     paddingBottom: h*0.015,

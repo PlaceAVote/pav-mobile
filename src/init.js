@@ -40,8 +40,12 @@ connect } from 'react-redux';
 */
 import configureStore from './lib/configureStore';
 
+import {getFontFactor} from './lib/Utils/multiResolution';
+
 import AnalyticsReporter from './lib/Utils/analyticsReporter';
-AnalyticsReporter().trackEvent('init', 'INIT');;
+
+AnalyticsReporter().trackEvent(Platform.OS+"_font_factor", getFontFactor());
+
 import CrashReporter from './lib/Utils/crashReporter';
 new CrashReporter({version: CONFIG.VERSION});
 

@@ -48,7 +48,7 @@ const styles=StyleSheet.create({
     width: w*0.60,
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   titleExplanTextContainer:{
     flexDirection:'row'
@@ -56,7 +56,7 @@ const styles=StyleSheet.create({
   titleExplanText:{
     color: Colors.secondaryTextColor,
     fontFamily: 'Whitney Light',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   titleExplanIcon:{
     paddingHorizontal: w*0.010,
@@ -68,7 +68,7 @@ const styles=StyleSheet.create({
   valueText:{
     color: Colors.fifthTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     lineHeight: (h*0.025) | 0,
   }
 

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.transparentColor,
     color: Colors.mainTextColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
     textAlign:'center'
   },
   closeBtnIcon:{
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: w*0.015,
     color: Colors.mainTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,18),
+    fontSize: getCorrectFontSizeForScreen(18),
     textAlign:'center'
   },
 
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     color: Colors.mainTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,14),
+    fontSize: getCorrectFontSizeForScreen(14),
   },
   btnIconStyle:{
     color: Colors.mainTextColor,

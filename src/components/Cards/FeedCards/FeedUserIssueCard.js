@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateText:{
     // backgroundColor: 'red',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     // color: Colors.thirdTextColor,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentContainer:{
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue',
     color:"#e64a33",
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   userIssueTitleActionStaticTextContainer:{
     paddingHorizontal: w*0.002,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   userIssueTitleActionStaticText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentHeader:{
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   relatedBillTitleText:{
     width:w*0.81,
     fontFamily: 'Whitney-MediumItalic',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.primaryColor
   },
 
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     flex:1,
     // backgroundColor:'green',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     color: 'rgba(0, 0, 0, 0.54)',
   },
   cardFooterIconsContainer:{
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   reactionCountText:{
     textAlign:'center',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
   userVotedText:{
     color:'#C37125'
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
   cardContentText:{
     // backgroundColor:'green',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     color: 'rgba(0, 0, 0, 0.54)',
   },
 
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
   },
   relatedArticleTitleText:{
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,11),
+    fontSize: getCorrectFontSizeForScreen(11),
     // backgroundColor:'red',
     color:Colors.mainTextColor,
     // textAlign:'center'

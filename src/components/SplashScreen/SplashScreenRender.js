@@ -83,7 +83,7 @@ class SplashScreenRender extends React.Component {
       },
       titleText: {
         // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,31),
+        fontSize: getCorrectFontSizeForScreen(31),
         color: Colors.mainTextColor,
         fontFamily: 'Whitney-Bold',
         textAlign: 'center',
@@ -93,7 +93,7 @@ class SplashScreenRender extends React.Component {
       //   color: Colors.primaryColor,
       //   textAlign: 'left',
       //   fontFamily: 'Whitney',
-      //   fontSize: getCorrectFontSizeForScreen(w,h,10),
+      //   fontSize: getCorrectFontSizeForScreen(10),
       // }
 
     });

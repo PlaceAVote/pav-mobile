@@ -72,7 +72,7 @@ class WelcomeModalBox extends React.Component {
             },
             text: {
                 color: "black",
-                fontSize: getCorrectFontSizeForScreen(w,h,22)
+                fontSize: getCorrectFontSizeForScreen(22)
             },
             whiteBtnText:{
               color: Colors.mainTextColor,
@@ -121,7 +121,7 @@ class WelcomeModalBox extends React.Component {
               descriptionText: {
                 backgroundColor: Colors.transparentColor,
                 fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-                fontSize: getCorrectFontSizeForScreen(w,h,21),
+                fontSize: getCorrectFontSizeForScreen(21),
                 color: Colors.thirdTextColor,
                 textAlign: 'center',
                 marginHorizontal: 10,
@@ -130,7 +130,7 @@ class WelcomeModalBox extends React.Component {
               descriptionText2: {
                 backgroundColor: Colors.transparentColor,
                 fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-                fontSize: getCorrectFontSizeForScreen(w,h,17),
+                fontSize: getCorrectFontSizeForScreen(17),
                 color: Colors.thirdTextColor,
                 textAlign: 'center',
                 marginHorizontal: 10,

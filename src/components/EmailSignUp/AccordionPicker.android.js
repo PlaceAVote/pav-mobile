@@ -49,7 +49,7 @@
         tapToChangeText: {
 
           // backgroundColor:'red',
-          fontSize: getCorrectFontSizeForScreen(w,h,9),
+          fontSize: getCorrectFontSizeForScreen(9),
           color: Colors.secondaryTextColor,
         },
       })

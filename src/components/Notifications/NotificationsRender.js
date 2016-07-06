@@ -121,7 +121,7 @@ class NotificationsRender extends React.Component {
 
        titleText: {
          // backgroundColor: 'black',
-         fontSize: getCorrectFontSizeForScreen(w,h,27),
+         fontSize: getCorrectFontSizeForScreen(27),
          color: Colors.mainTextColor,
          textAlign: 'center',
        }

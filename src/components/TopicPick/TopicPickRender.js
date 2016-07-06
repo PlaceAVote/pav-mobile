@@ -158,7 +158,7 @@ class TopicPickRender extends React.Component {
         fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
         backgroundColor: Colors.transparentColor,
         // backgroundColor:'black',
-        fontSize: getCorrectFontSizeForScreen(w,h,13),
+        fontSize: getCorrectFontSizeForScreen(13),
         color: Colors.mainTextColor,
         textAlign: 'center',
         marginHorizontal: w*0.14,
@@ -174,7 +174,7 @@ class TopicPickRender extends React.Component {
         fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
         color: Colors.mainTextColor,
         textAlign: 'center',
-        fontSize: getCorrectFontSizeForScreen(w,h,14)
+        fontSize: getCorrectFontSizeForScreen(14)
       }
 
     });

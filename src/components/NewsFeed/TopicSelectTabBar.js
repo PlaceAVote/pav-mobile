@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
   tabText:{
 
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor,
     textAlign:'center',
   }

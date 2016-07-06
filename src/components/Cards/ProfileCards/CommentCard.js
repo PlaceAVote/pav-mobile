@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateTextContainer:{
     // paddingHorizontal: w*0.02,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     width: w*0.29,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentContainer:{
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue',
     color:"#e64a33",
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   commentInTextContainer:{
     paddingHorizontal:w*0.005,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   commentInText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   commentLocationTextContainer:{
     paddingHorizontal:w*0.005,
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.7,
   },
   cardContentBody:{
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   cardContentText:{
     // backgroundColor:'green',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
     color: 'rgba(0, 0, 0, 0.54)',
   },
 
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   },
   // titleText: {
   //   // backgroundColor: 'black',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,27),
+  //   fontSize: getCorrectFontSizeForScreen(27),
   //   fontFamily: 'Whitney Semibold',
   //   color: Colors.mainTextColor,
   //   textAlign: 'center',
@@ -248,7 +248,7 @@ class CommentCard extends React.Component {
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.commentIconContainer}>
-                <PavIcon name="comment" size={getCorrectFontSizeForScreen(w,h,15)} style={styles.commentIcon}/>
+                <PavIcon name="comment" size={getCorrectFontSizeForScreen(15)} style={styles.commentIcon}/>
               </View>
               <View style={styles.cardTitleTextContainer}>
                 <Text style={styles.cardTitleText}>NEW COMMENT</Text>

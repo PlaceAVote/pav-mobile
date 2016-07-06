@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateText:{
     // backgroundColor: 'red',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     // color: Colors.thirdTextColor,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentContainer:{
@@ -135,13 +135,13 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue',
     color:"#e64a33",
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   commentInText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   commentLocationTextContainer:{
     paddingHorizontal: w*0.02,
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardContentBody:{
     // backgroundColor:'green'
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     padding:2,
     // backgroundColor:'green',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
     color: 'rgba(0, 0, 0, 0.54)',
   },
 
@@ -220,13 +220,13 @@ const styles = StyleSheet.create({
   scoreText:{
     color: Colors.accentColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     // backgroundColor:'brown'
   },
   replyButtonText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     // backgroundColor:'brown'
   },
 

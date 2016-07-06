@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   sortByTitleText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
   sortItemsContainer:{
     flexDirection:'row',
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   sortBtnText:{
     // backgroundColor:'green',
     color: Colors.primaryColor,
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     // backgroundColor:Colors.transparentColor
   },
   sortBtnActiveText:{

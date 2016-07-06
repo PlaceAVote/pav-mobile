@@ -77,7 +77,7 @@ class InputGenderModalBox extends React.Component {
               backgroundColor: Colors.transparentColor,
               color: Colors.mainTextColor,
               fontFamily: 'Whitney-Bold',
-              fontSize: getCorrectFontSizeForScreen(w,h,7),
+              fontSize: getCorrectFontSizeForScreen(7),
               textAlign:'center'
             },
             closeBtnIcon:{
@@ -105,7 +105,7 @@ class InputGenderModalBox extends React.Component {
               // color: Colors.mainTextColor,
               color: Colors.accentColor,
               fontFamily: 'Whitney-Bold',
-              fontSize: getCorrectFontSizeForScreen(w,h,7),
+              fontSize: getCorrectFontSizeForScreen(7),
               textAlign:'center'
             },
             doneBtnIcon:{
@@ -149,7 +149,7 @@ class InputGenderModalBox extends React.Component {
 
             pasteLinkText:{
               fontFamily: 'Whitney',
-              fontSize: getCorrectFontSizeForScreen(w,h,9),
+              fontSize: getCorrectFontSizeForScreen(9),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
               // textAlign:'center'
@@ -162,7 +162,7 @@ class InputGenderModalBox extends React.Component {
             },
             maleText:{
               fontFamily: 'Whitney',
-              fontSize: getCorrectFontSizeForScreen(w,h,15),
+              fontSize: getCorrectFontSizeForScreen(15),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
               textAlign:'center'
@@ -172,7 +172,7 @@ class InputGenderModalBox extends React.Component {
             },
             femaleText:{
               fontFamily: 'Whitney',
-              fontSize: getCorrectFontSizeForScreen(w,h,15),
+              fontSize: getCorrectFontSizeForScreen(15),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
               textAlign:'center'
@@ -182,7 +182,7 @@ class InputGenderModalBox extends React.Component {
             },
             nonbinaryText:{
               fontFamily: 'Whitney',
-              fontSize: getCorrectFontSizeForScreen(w,h,15),
+              fontSize: getCorrectFontSizeForScreen(15),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
               textAlign:'center'

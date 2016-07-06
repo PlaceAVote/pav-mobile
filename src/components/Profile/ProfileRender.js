@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     color: Colors.primaryColor,
     textAlign: 'left',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
   },
   accountSettingsIcon:{
     color: Colors.primaryColor,
@@ -133,13 +133,13 @@ const styles = StyleSheet.create({
     color: Colors.mainTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,12),
+    fontSize: getCorrectFontSizeForScreen(12),
   },
   fullNameText:{
     color: Colors.mainTextColor,
     textAlign: 'left',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,16),
+    fontSize: getCorrectFontSizeForScreen(16),
   },
   locationContainer:{
     flexDirection: 'row',
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     color: Colors.mainTextColor,
     textAlign: 'left',
     fontFamily: 'Whitney Light',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   locationPinIcon:{
     color: Colors.mainTextColor,
@@ -172,14 +172,14 @@ const styles = StyleSheet.create({
     color: Colors.fourthTextColor,
     textAlign: 'left',
     fontFamily: 'Whitney Light',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
 
   statisticsContentText:{
     color: Colors.fourthTextColor,
     textAlign: 'left',
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
   },
 
   statisticsBigContainer:{
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     // position:'absolute',
     // backgroundColor: "rgba(0,0,0,0.06)",
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,20),
+    fontSize: getCorrectFontSizeForScreen(20),
     color: Colors.fourthTextColor,
     // textAlign: 'center',
   },

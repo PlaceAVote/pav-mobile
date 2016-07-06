@@ -117,7 +117,7 @@ class ProfileButtons extends React.Component {
             // marginTop: NAV_BAR_HEIGHT-BTN_HEIGHT-8,
             marginRight: 10,
             borderRadius: 2,}} onPress={this.onSettingsBarBtnClicked.bind(this)}>
-            <PavIcon name='gear' size={getCorrectFontSizeForScreen(w,h,30)} style={{color:'white'}}/>
+            <PavIcon name='gear' size={getCorrectFontSizeForScreen(30)} style={{color:'white'}}/>
           </TouchableOpacity>
         </View>
 

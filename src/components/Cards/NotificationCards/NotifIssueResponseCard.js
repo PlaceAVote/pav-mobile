@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
   cardExplanText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Book',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.74,
     // backgroundColor:'red'
   },
   cardExplanTextUnread:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.74,
   },
   userFullNameTextContainer:{
@@ -126,14 +126,14 @@ const styles = StyleSheet.create({
   userFullNameText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.74,
     // backgroundColor:'green'
   },
   userFullNameTextUnread:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.74,
   }
 
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   //   // backgroundColor:'yellow',
   //   color: Colors.primaryColor,
   //   fontFamily: 'Whitney Semibold',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,9),
+  //   fontSize: getCorrectFontSizeForScreen(9),
   //   width: w*0.7,
   // },
 
@@ -185,7 +185,7 @@ class NotifIssueResponseCard extends React.Component {
         <View style={[styles.card, this.props.cardStyle]}>
           <View style={styles.cardIconContainer}>
               <View style={styles.emotionIconContainer}>
-                <PavIcon name={EMOTIONS[this.props.emotion].iconName} size={getCorrectFontSizeForScreen(w,h,21)} style={[styles.emotionIcon, {color:EMOTIONS[this.props.emotion].color}]}/>
+                <PavIcon name={EMOTIONS[this.props.emotion].iconName} size={getCorrectFontSizeForScreen(21)} style={[styles.emotionIcon, {color:EMOTIONS[this.props.emotion].color}]}/>
               </View>
           </View>
           <View style={styles.cardDescriptionContainer}>

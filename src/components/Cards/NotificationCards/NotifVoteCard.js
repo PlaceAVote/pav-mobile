@@ -106,14 +106,14 @@ const styles = StyleSheet.create({
   cardExplanText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Book',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.74,
     // backgroundColor:'red'
   },
   cardExplanTextUnread:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.74,
   },
   cardBillTextContainer:{
@@ -122,14 +122,14 @@ const styles = StyleSheet.create({
   cardBillText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.74,
     // backgroundColor:'green'
   },
   cardBillTextUnread:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.74,
   }
 
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   //   // backgroundColor:'yellow',
   //   color: Colors.primaryColor,
   //   fontFamily: 'Whitney Semibold',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,9),
+  //   fontSize: getCorrectFontSizeForScreen(9),
   //   width: w*0.7,
   // },
 
@@ -180,7 +180,7 @@ class VoteCard extends React.Component {
         <View style={[styles.card, this.props.cardStyle]}>
           <View style={styles.cardIconContainer}>
               <View style={styles.voteIconContainer}>
-                <PavIcon name="logo" size={getCorrectFontSizeForScreen(w,h,21)} style={styles.voteIcon}/>
+                <PavIcon name="logo" size={getCorrectFontSizeForScreen(21)} style={styles.voteIcon}/>
               </View>
           </View>
           <View style={styles.cardDescriptionContainer}>

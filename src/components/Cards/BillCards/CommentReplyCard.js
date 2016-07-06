@@ -89,7 +89,7 @@ class CommentReplyCard extends React.Component {
       addCommentTitleText:{
         color: Colors.mainTextColor,
         fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        fontSize: getCorrectFontSizeForScreen(9),
         backgroundColor:Colors.transparentColor
       },
       commentInputContainer:{
@@ -109,7 +109,7 @@ class CommentReplyCard extends React.Component {
         borderWidth: 1,
         backgroundColor:'white',
         fontFamily: 'Whitney-Book',
-        fontSize: getCorrectFontSizeForScreen(w,h,7),
+        fontSize: getCorrectFontSizeForScreen(7),
       },
       postBtn:{
         marginLeft: w*0.013,
@@ -124,7 +124,7 @@ class CommentReplyCard extends React.Component {
         color: Colors.mainTextColor,
         textAlign: 'center',
         fontFamily: 'Whitney',
-        fontSize: getCorrectFontSizeForScreen(w,h,9),
+        fontSize: getCorrectFontSizeForScreen(9),
       },
 
     });

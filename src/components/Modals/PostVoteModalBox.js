@@ -51,14 +51,14 @@ const styles = StyleSheet.create({
       color: Colors.mainTextColor,
       textAlign: 'center',
       fontFamily: 'Whitney',
-      fontSize: getCorrectFontSizeForScreen(w,h,17),
+      fontSize: getCorrectFontSizeForScreen(17),
     },
     congratulationsTextSubtitle:{
       backgroundColor:Colors.transparentColor,
       color: Colors.mainTextColor,
       textAlign: 'center',
       fontFamily: 'Whitney',
-      fontSize: getCorrectFontSizeForScreen(w,h,10),
+      fontSize: getCorrectFontSizeForScreen(10),
     },
 
     disagreesTextTitleContainer:{
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     disagreesTextTitle:{
       color: Colors.primaryColor,
       fontFamily: 'Whitney-Bold',
-      fontSize: getCorrectFontSizeForScreen(w,h,8),
+      fontSize: getCorrectFontSizeForScreen(8),
     },
 
     disagreesContainer:{

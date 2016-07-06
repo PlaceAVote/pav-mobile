@@ -80,7 +80,7 @@ const ResidenceEmailFields = t.struct({
 const FORM_INPUT_COLOR = Colors.thirdTextColor;
 const FORM_DISABLED_COLOR = '#777777';
 const FORM_DISABLED_BACKGROUND_COLOR = '#eeeeee';
-const FORM_FONT_SIZE = getCorrectFontSizeForScreen(w,h,10);
+const FORM_FONT_SIZE = getCorrectFontSizeForScreen(10);
 const FORM_FONT_WEIGHT = '500';
 
 const formStyles = Object.freeze({
@@ -106,7 +106,7 @@ const formStyles = Object.freeze({
       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
       // color: Colors.secondaryTextColor,
       color: Colors.fourthTextColor,
-      fontSize: getCorrectFontSizeForScreen(w,h,10),
+      fontSize: getCorrectFontSizeForScreen(10),
       marginBottom: 7,
       fontWeight: FORM_FONT_WEIGHT
     },
@@ -137,7 +137,7 @@ const formStyles = Object.freeze({
     flexWrap: 'wrap',
     // position: 'absolute',
     // backgroundColor: 'red',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     justifyContent: 'center',
     textAlign: 'center',
     color: Colors.errorTextColor
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   titleText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   imgDobGenderContainer:{
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     color: Colors.primaryColor,
     textAlign: 'center',
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,7)
+    fontSize: getCorrectFontSizeForScreen(7)
   },
 
   dateOfBirthGenderContainer:{
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   },
   isPrivateTitle:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fourthTextColor,
   },
   isPrivateValueContainer:{
@@ -301,12 +301,12 @@ const styles = StyleSheet.create({
   },
   isPrivateValueText:{
     fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.secondaryTextColor,
   },
   isPrivateValueCurSetText:{
     fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.secondaryTextColor,
   },
   privacyPolicyBtnContainer:{
@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
     color: Colors.fourthTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,9)
+    fontSize: getCorrectFontSizeForScreen(9)
   },
 
   logoutBtnContainer:{
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     color: Colors.negativeAccentColor,
     textAlign: 'center',
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9)
+    fontSize: getCorrectFontSizeForScreen(9)
   },
 
 

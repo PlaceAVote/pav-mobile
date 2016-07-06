@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateTextContainer:{
     // paddingHorizontal: w*0.02,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     width: w*0.29,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentContainer:{
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue',
     color:"#e64a33",
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   commentInTextContainer:{
     paddingHorizontal:w*0.005,
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   commentFollowingTextContainer:{
     paddingHorizontal:w*0.012,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     // textAlign:'center',
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   commentLocationTextContainer:{
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.7,
   },
   cardContentBody:{
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     padding:2,
     // backgroundColor:'green',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
     color: 'rgba(0, 0, 0, 0.54)',
   },
 
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   },
   // titleText: {
   //   // backgroundColor: 'black',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,27),
+  //   fontSize: getCorrectFontSizeForScreen(27),
   //   fontFamily: 'Whitney Semibold',
   //   color: Colors.mainTextColor,
   //   textAlign: 'center',
@@ -268,7 +268,7 @@ class LikeCard extends React.Component {
               <View style={[styles.commentIconContainer, this.props.isLike?styles.likeIcon:styles.dislikeIcon]}>
                 <PavIcon
                 name={this.props.isLike?"thumbs-up":"thumbs-down"}
-                size={getCorrectFontSizeForScreen(w,h,15)}
+                size={getCorrectFontSizeForScreen(15)}
                 style={styles.commentIcon}
                 />
               </View>

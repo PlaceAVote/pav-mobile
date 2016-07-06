@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateTextContainer:{
     // paddingHorizontal: w*0.02,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     width: w*0.29,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentContainer:{
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue',
     color:"#e64a33",
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   followBetweenTextContainer:{
     paddingHorizontal: w*0.003,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   followBetweenText:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
 
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   // titleText: {
   //   // backgroundColor: 'black',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,27),
+  //   fontSize: getCorrectFontSizeForScreen(27),
   //   fontFamily: 'Whitney Semibold',
   //   color: Colors.mainTextColor,
   //   textAlign: 'center',
@@ -204,7 +204,7 @@ class FollowCard extends React.Component {
           <View resizeMode="cover" style={styles.cardTitleContainer}>
             <View style={styles.cardTitleTextAndIconContainer}>
               <View style={styles.followIconContainer}>
-                <PavIcon name="add" size={getCorrectFontSizeForScreen(w,h,15)} style={styles.followIcon}/>
+                <PavIcon name="add" size={getCorrectFontSizeForScreen(15)} style={styles.followIcon}/>
               </View>
               <View style={styles.cardTitleTextContainer}>
                 <Text style={styles.cardTitleText}>NEW FOLLOW</Text>

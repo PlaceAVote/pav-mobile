@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
           width: w*0.6,
           paddingVertical: h*0.008,
           fontFamily: 'Whitney-Bold',
-          fontSize: getCorrectFontSizeForScreen(w,h,8),
+          fontSize: getCorrectFontSizeForScreen(8),
         },
         inactiveStatusText:{
           color: Colors.helpTextColor,
@@ -98,12 +98,12 @@ const styles = StyleSheet.create({
           width: w*0.6,
           paddingVertical: h*0.008,
           fontFamily: 'Whitney-Book',
-          fontSize: getCorrectFontSizeForScreen(w,h,7),
+          fontSize: getCorrectFontSizeForScreen(7),
         },
         statusDescription2Text:{
           paddingVertical: h*0.008,
           fontFamily: 'Whitney-MediumItalic',
-          fontSize: getCorrectFontSizeForScreen(w,h,8),
+          fontSize: getCorrectFontSizeForScreen(8),
         },
 
 

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   summaryHeaderText:{
     color: Colors.primaryColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
   summaryBodyContainer:{
     paddingVertical: h*0.017,
@@ -87,13 +87,13 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
   summaryBodyReadMoreText:{
     paddingVertical: h*0.008,
     color: Colors.negativeAccentColor,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,7),
+    fontSize: getCorrectFontSizeForScreen(7),
   },
   favorAgainstIconContainer:{
     paddingHorizontal: w*0.011,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-MediumItalic',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   }
 
 

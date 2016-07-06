@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   createAnIssueText:{
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.primaryColor,
     // textAlign: 'center',
   },
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'pink',
     textAlignVertical:'bottom',
     fontFamily: 'Whitney Book',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.thirdTextColor,
   },
 
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     // backgroundColor:"red",
     // width: w*0.73,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,11),
+    fontSize: getCorrectFontSizeForScreen(11),
     // backgroundColor:'red',
     color:Colors.mainTextColor,
     // textAlign:'center'
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   relatedBillTitleText:{
     width:w*0.8,
     fontFamily: 'Whitney-MediumItalic',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.primaryColor
   },
 
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   },
   attachmentAddText:{
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fourthTextColor,
   },
 
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     color: Colors.mainTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,11),
+    fontSize: getCorrectFontSizeForScreen(11),
   },
 
 

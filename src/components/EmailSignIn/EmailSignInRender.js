@@ -109,7 +109,7 @@ var styles = StyleSheet.create({
     color: Colors.mainTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,14),
+    fontSize: getCorrectFontSizeForScreen(14),
   },
   orText:{
     fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
@@ -123,7 +123,7 @@ var styles = StyleSheet.create({
     color: "#E76354",
     alignSelf:"center",
     marginVertical:13,
-    fontSize: getCorrectFontSizeForScreen(w,h,12),
+    fontSize: getCorrectFontSizeForScreen(12),
   },
   btnContainer:{
     // backgroundColor:'blue',

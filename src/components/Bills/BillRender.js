@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     color: Colors.mainTextColor,
     fontFamily: 'Whitney',
     // textAlign:'center',
-    fontSize: getCorrectFontSizeForScreen(w,h,15),
+    fontSize: getCorrectFontSizeForScreen(15),
   },
   // headerTitleContainer:{
   //   backgroundColor:'purple',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   //   color: Colors.mainTextColor,
   //   fontFamily: 'Whitney',
   //   textAlign:'center',
-  //   fontSize: getCorrectFontSizeForScreen(w,h,15),
+  //   fontSize: getCorrectFontSizeForScreen(15),
   // },
 
   headerBtnsContainer:{
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.transparentColor,
     color: Colors.secondaryTextColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,9),
+    fontSize: getCorrectFontSizeForScreen(9),
   },
 
   tagBtn:{
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.transparentColor,
     color: Colors.mainTextColor,
     fontFamily: 'Whitney-Bold',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
   },
 
 
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   tabText:{
     paddingHorizontal: w*0.009,
     fontFamily: 'Whitney',
-    fontSize: getCorrectFontSizeForScreen(w,h,8),
+    fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor,
     textAlign:'center',
   },
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   footerBtnText:{
     color: Colors.mainTextColor,
     fontFamily: 'Whitney Semibold',
-    fontSize: getCorrectFontSizeForScreen(w,h,10),
+    fontSize: getCorrectFontSizeForScreen(10),
     textAlign:'center',
     // backgroundColor:'blue',
   },
