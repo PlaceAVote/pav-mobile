@@ -81,7 +81,7 @@ class EmailSignIn extends React.Component {
     this.props.actions.setAuthMethod('facebook');
     let userFbData = await this.props.actions.facebookDataAcquisition(false);
     if(!!userFbData){
-        // console.log("User data we got: "+JSON.stringify(userFbData));
+        console.log("User data we got: "+JSON.stringify(userFbData));
         let success = await this.props.actions.loginFacebook(userFbData.userID, userFbData.accessToken, this.props.global.isDev);
         if(success){
           this.props.actions.navigateTo(MAIN);

@@ -147,34 +147,13 @@ export function logoutSuccess() {
  * device and logged out there.
  */
 export function logout() {
-  return function(dispatch){
+  return async function(dispatch, getState){
 
-    // dispatch(logoutRequest());
-    // var res = await PavClientSdk({isDev:dev}).userApi.logout({
-    //   email: email,
-    //   password: password
-    // });
-    // console.log("Got res in authActions.login with error: "+res.error+" and data: "+res.data);
-    // console.log("RES: "+JSON.stringify(res));
-    // if(!!res.error){
-    //   if(dev){
-    //     alert("Thats wrong man.. Keep in mind that we are calling the apidev and not the api endpoint.");
-    //   }
-    //   if(res.multipleErrors){
-    //     // console.log("authActions.login :: Error msg: "+res.error[0].email)
-    //     dispatch(loginFailure(res.error[0].email));
-    //     return null;
-    //   }else{
-    //     // console.log("authActions.login :: Error msg: "+res.error)
-    //     dispatch(loginFailure(res.error));
-    //     return null;
-    //   }
-    // }else{
-    //   if(dev===true){
-    //     alert("Good that was right, the cake was a lie though..");
-    //   }
-      // console.log("Login gave us the token"+res.data.token);
-
+      console.log("Logged in using facebook? "+getState().auth.form.authMethod);
+      if(getState().auth.form.authMethod=="facebook"){
+          console.log("Logging out from facebook")
+          await LoginManager.logOut()
+      }
       deleteSessionTokenAndBasicInfo();
       dispatch(logoutSuccess());
       return dispatch(navigateTo(ONBOARDING, {type:'reset'}));
@@ -528,7 +507,6 @@ export function facebookLoginFailure(error) {
 export function loginFacebook(facebookUserId,  facebookAccessToken, dev=null) {
   return async function(dispatch){
     dispatch(facebookLoginRequest());
-
     var res = await PavClientSdk({isDev:dev}).userApi.loginFacebook({
       fbUserId: facebookUserId,
       fbAccessToken: facebookAccessToken
@@ -809,12 +787,14 @@ export function facebookDataAcquisition(fetchAllAvailableUserData = true){
   return async function (dispatch, getState){
     var fbUserData = {};
     dispatch(facebookDataAcqRequest());
+    await LoginManager.logOut(); //log out from facebook in case we were already logged in.
     var {data:permDt, error:permErr} = await getFacebookReadPermissions(['public_profile', 'email', 'user_birthday']); //request those read permissions from fb
     if(!!permErr){ //if there was an error getting the read permissions
       dispatch(facebookDataAcqFailure(permErr));
       return null;
     }else{  //if there was no error getting the read permissions
       // console.log("Success on requesting read permissionss: "+JSON.stringify(permDt))
+      // alert("Cancelled?: "+permDt.isCancelled);
       if(permDt.isCancelled){ //if permissions window was cancelled
         dispatch(facebookDataAcqFailure("User cancelled fb authentication."));
         return null;
