@@ -86,7 +86,7 @@ const Form = Record({
       [TOPICS.DRUGS , new (Record({ title: 'Drugs', icon:  'smoking-area', isSelected: false}))],
       [TOPICS.DEFENSE , new (Record({ title: 'Defense', icon: 'tank', isSelected: false}))],
       [TOPICS.POLITICS , new (Record({ title: 'Politics', icon:  'building', isSelected: false}))],
-      [TOPICS.GUN_RIGHTS , new (Record({ title: 'Rights', icon: 'gun', isSelected: false}))],
+      [TOPICS.GUN_RIGHTS , new (Record({ title: 'Gun Rights', icon: 'gun', isSelected: false}))],
       [TOPICS.TECHNOLOGY , new (Record({ title: 'Technology', icon:  'ipad', isSelected: false}))],
       [TOPICS.ECONOMICS , new (Record({ title: 'Economics', icon:  'money', isSelected: false}))],
       [TOPICS.SOCIAL_INTEREST , new (Record({ title: 'Social Interest', icon:  'police', isSelected: false}))]
