@@ -493,7 +493,7 @@ class NewIssueRender extends React.Component {
               value={this.state.text}
               autoFocus={true}
               multiline={true}
-              placeholder="Tell us what this issue is all about."
+              placeholder="Start typing or paste a link here to create an issue."
               selectionColor={Colors.primaryColor}
           />
           {this.renderRelatedBillLink()}
