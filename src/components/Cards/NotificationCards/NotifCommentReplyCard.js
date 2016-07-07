@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: w*0.02,
   },
   cardExplanationContainer:{
-    flexDirection:'row',
+    flexDirection:'column',
     // backgroundColor:'purple',
-    alignItems:'center'
+    // alignItems:'center'
   },
 
   cardExplanTextContainer:{
@@ -115,14 +115,14 @@ const styles = StyleSheet.create({
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Book',
     fontSize: getCorrectFontSizeForScreen(9),
-    width: w*0.36,
+    // width: w*0.36,
     // backgroundColor:'red'
   },
   cardExplanTextUnread:{
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney Semibold',
     fontSize: getCorrectFontSizeForScreen(9),
-    width: w*0.36,
+    // width: w*0.36,
   },
   authorFullnameTextContainer:{
     // backgroundColor:'yellow'
@@ -223,7 +223,7 @@ class NotifCommentReplyCard extends React.Component {
                 <Text style={this.props.isRead===true?styles.authorFullnameText:styles.authorFullnameTextUnread}>{this.props.authorFullName} </Text>
               </TouchableOpacity>
               <View style={styles.cardExplanTextContainer}>
-                <Text style={this.props.isRead===true?styles.cardExplanText:styles.cardExplanTextUnread}> replied to your comment on:</Text>
+                <Text style={this.props.isRead===true?styles.cardExplanText:styles.cardExplanTextUnread}>replied to your comment on: </Text>
               </View>
             </View>
             <TouchableOpacity style={styles.cardBillTextContainer} onPress={this.onBillClick.bind(this)}>
