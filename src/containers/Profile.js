@@ -315,6 +315,7 @@ class Profile extends React.Component {
       if(this.props.userId==null){  //if we're currently fetching data for the user of this app - ONLY RUN THE FOLLOWING CODE on that case
       // console.log("@@@@@@@@@@@@@@@@@@@@@@@willReceiveProps: this.props.userId: "+(this.props.userId==null));
           if((nextProps.profile.form.timelineData!== this.props.profile.form.timelineData) && (nextProps.auth.user!== this.props.auth.user)){
+            // alert("User :"+nextProps.auth.user);
             // console.log("@@@@@@@@@ BOTH");
             this.setState({
               curUser:nextProps.auth.user,
@@ -322,7 +323,7 @@ class Profile extends React.Component {
             });
 
           }else{
-
+            // alert("Else :"+nextProps.auth.user);
             if(nextProps.profile.form.timelineData!== this.props.profile.form.timelineData){
               // console.log("@@@@@@@@@ timeline only: "+nextProps.profile.form.timelineData);
               this.setState({

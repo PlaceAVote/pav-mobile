@@ -45,7 +45,8 @@ const Router = new Record({
     [ATTACH_URL, false],
     [GENDER_PICK, false],
     [DATE_PICK, false],
-  ])
+  ]),
+  currentModal: null
 });
 
 /**

@@ -251,6 +251,7 @@ class ProfileRender extends React.Component {
 
 
   formUserLocationText(user){
+    // alert(JSON.stringify(user))
     if(!!user.city){
       if(user.stateProvince!=null){
         return user.city+", "+user.stateProvince

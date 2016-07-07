@@ -432,9 +432,9 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D38A29901D021186005B42F5 /* Frameworks */,
 				D3E20EB71D2A6275005F4ABD /* RNBugsnag.xcodeproj */,
 				D3F6AB951D06021800318198 /* ART.xcodeproj */,
-				D38A29901D021186005B42F5 /* Frameworks */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,

@@ -127,12 +127,15 @@ class NewIssue extends React.Component {
     return relatedArticle;
 
   }
-  // componentWillUnmount(){
-  //   //HACK ish way to dispatch a BackAction because RNRF does not dispatch it itself.
-  //   if(this.props.router.currentSchene==VOTE){
-  //     this.props.actions.manualStateChangeNavigateToPrevious();
-  //   }
-  // }
+  componentWillUnmount(){
+    //HACK ish way to dispatch a BackAction because RNRF does not dispatch it itself.
+    // if(this.props.router.currentSchene==VOTE){
+    //   this.props.actions.manualStateChangeNavigateToPrevious();
+    // }
+    this.props.actions.setModalVisibility(SEARCH_BILL, false);
+    this.props.actions.setModalVisibility(ATTACH_URL, false);
+    // alert("Unmount");
+  }
 
 
   // async componentWillMount(){
