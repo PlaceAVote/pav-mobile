@@ -218,6 +218,8 @@ class Bill extends React.Component {
           parentVisible={(this.props.name==this.props.router.currentSchene)}
           device={ this.props.device}
           bill={this.props.bill}
+          billData={this.props.bill.data}
+          isFetchingBillData={this.props.bill.isFetching.billData}
           initTab={this.props.initTab || BillPageTabs.SUMMARY}
           onSocialClick={this.onSocialClick.bind(this)}
           onTagPress={this.onTagPress.bind(this)}

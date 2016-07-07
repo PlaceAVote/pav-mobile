@@ -145,6 +145,7 @@ class Vote extends React.Component {
   }
 
   onVoteBtnTap(billId, vote){
+    // alert("Vote : "+(vote===true?"For":"Against")+vote);
     this.props.actions.voteBill(billId, vote, this.TOKEN, this.props.global.isDev);
   }
 
@@ -154,6 +155,7 @@ class Vote extends React.Component {
       <VoteRender
           device={this.props.device}
           billData={this.props.bill.data}
+          voteChoice={this.props.bill.data.get("user_vote_choise")}
           userFirstName={this.state.userFirstName}
           topForComment={this.props.bill.commentTopFor!=null?this.props.bill.commentTopFor.toJS():null}
           topAgainstComment={this.props.bill.commentTopAgainst!=null?this.props.bill.commentTopAgainst.toJS():null}

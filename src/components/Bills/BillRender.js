@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.020,
     borderRadius:2,
     backgroundColor: "#ED9518",
+    borderWidth:0,
 
     // borderWidth:1,
     // borderColor: 'rgba(0, 0, 0, 0.11)',
@@ -481,16 +482,22 @@ class BillRender extends React.Component {
   }
 
 
-  renderFooter(alreadyVoted){
+  renderFooter(alreadyVoted, voteBtnEnabled){
     if(alreadyVoted!=null){
+      console.log("@@@@@@@@ Vote button enabled: "+voteBtnEnabled);
       return (
         <View style={styles.billBtnsContainer}>
-          <TouchableOpacity style={styles.footerBtn} onPress={alreadyVoted===true?()=>{alert("You have already voted on this bill.")}:this.props.onVoteBtnPress}>
-            {/*<PavIcon name="quill-write" size={16} style={styles.footerBtnIcon}/>*/}
-            <View style={styles.footerBtnTextContainer}>
-              <Text style={styles.footerBtnText}>{alreadyVoted===true?"Already Voted":"Vote Now"}</Text>
-            </View>
-          </TouchableOpacity>
+
+
+            <Button
+            onPress={alreadyVoted===true?()=>{alert("You have already voted on this bill.")}:this.props.onVoteBtnPress}
+            isDisabled={(voteBtnEnabled===false)}
+            isLoading={(voteBtnEnabled===false)}
+            style={styles.footerBtn}
+            textStyle={styles.footerBtnText}>
+            {alreadyVoted===true?"Already Voted":"Vote Now"}
+            </Button>
+
         </View>);
     }else{
       return <View></View>;
@@ -510,7 +517,10 @@ class BillRender extends React.Component {
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
 
     // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    let billData = !!this.props.bill.data && this.props.bill.data.toJS();
+    let billData;
+    if(!!this.props.billData){
+      billData = this.props.billData.toJS()
+    }
     return(
       <View style={styles.container}>
         <View style={styles.billContainer}>
@@ -523,7 +533,7 @@ class BillRender extends React.Component {
             isFetchingcommentBeingAltered: this.props.bill.commentBeingAltered,
           })}
         </View>
-        {this.renderFooter(billData&&billData.user_voted)}
+        {this.renderFooter((billData&&billData.user_voted), (billData!=null))}
       </View>
     );
   }
@@ -531,11 +541,15 @@ class BillRender extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return(
       // nextProps.parentVisible==true &&
-      ((nextProps.bill !== this.props.bill)
+      (nextProps.bill !== this.props.bill)
+      ||
+      (nextProps.billData !== this.props.billData)
+      ||
+      (nextProps.isFetchingBillData !== this.props.isFetchingBillData)
       ||
       (nextProps.device.orientation !== this.props.device.orientation)
       ||
-      (nextState.minimumImgHeight!==this.state.minimumImgHeight))
+      (nextState.minimumImgHeight!==this.state.minimumImgHeight)
     );
   }
 
@@ -550,6 +564,8 @@ BillRender.propTypes= {
 
   device: React.PropTypes.object.isRequired,
   bill: React.PropTypes.object.isRequired,
+  isFetchingBillData: React.PropTypes.bool.isRequired,
+  billData: React.PropTypes.object,
   initTab: React.PropTypes.number,
   parentVisible: React.PropTypes.bool.isRequired,
   onSocialClick: React.PropTypes.func.isRequired,

@@ -591,7 +591,6 @@ class NewIssueRender extends React.Component {
   // }
 
   shouldComponentUpdate(nextProps, nextState) {
-      // console.log("Should vote update: "+(nextProps.billData !== this.props.billData)+" since old: "+this.props.billData.get("user_voted")+" and new: "+nextProps.billData.get("user_voted"))
     return( true
       // (nextProps.billData !== this.props.billData)
       // ||

@@ -23,7 +23,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {SOCIAL_TYPES} = Other;
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -171,10 +171,6 @@ const styles = StyleSheet.create({
 class VoteRender extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state={
-      vote: null    //either null, true (for) or false (against)
-    }
   }
 
 
@@ -184,8 +180,8 @@ class VoteRender extends React.Component {
         <PostVoteModalBox
         isOpen={userHasVoted}
         onModalClosed={this.props.onModalClosed}
-        vote={this.state.vote}
-        oppositeComment={this.state.vote===true?this.props.topAgainstComment:this.props.topForComment}
+        vote={this.props.voteChoice}
+        oppositeComment={this.props.voteChoice===true?this.props.topAgainstComment:this.props.topForComment}
         device={this.props.device}
         userFirstName={this.props.userFirstName}
         onUserClick={this.props.onUserClick}
@@ -199,7 +195,6 @@ class VoteRender extends React.Component {
         <View key="vote_footer" style={styles.voteFooterContainer}>
           <Button onPress={()=>{
             if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
-              this.setState({vote:true});
               this.props.onVoteBtnPressed(this.props.billData.get("bill_id"), true)
             }
           }}
@@ -214,7 +209,6 @@ class VoteRender extends React.Component {
           </Button>
           <Button onPress={()=>{
             if(!!this.props.onVoteBtnPressed && this.props.billData!=null){
-              this.setState({vote:false});
               this.props.onVoteBtnPressed(this.props.billData.get("bill_id"), false)
             }
           }}
@@ -241,8 +235,11 @@ class VoteRender extends React.Component {
     // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    let billData = this.props.billData.toJS();
-    // console.log("@@@@@@@@@@@@@@@@@@@ BILL USER VOTED: "+this.props.billData.get("user_voted"));
+    let billData;
+    if(!!this.props.billData){
+      billData = this.props.billData.toJS();
+    }
+    // console.log("@@@@@@@@@@@@@@@@@@@ BILL USER VOTED: "+this.props.voteChoice);
     // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <View
@@ -278,7 +275,7 @@ class VoteRender extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-      console.log("Should vote update: "+(nextProps.billData !== this.props.billData)+" since old: "+this.props.billData.get("user_voted")+" and new: "+nextProps.billData.get("user_voted"))
+      // console.log("Should vote update: "+(nextProps.billData !== this.props.billData)+" since old: "+this.props.billData.get("user_voted")+" and new: "+nextProps.billData.get("user_voted"))
     return(
       (nextProps.billData !== this.props.billData)
       ||
@@ -289,6 +286,9 @@ class VoteRender extends React.Component {
       (nextProps.topForComment!==this.props.topForComment)
       ||
       (nextProps.topAgainstComment!==this.props.topAgainstComment)
+      ||
+      (nextProps.voteChoice !== this.props.voteChoice)
+
     );
   }
 
@@ -300,6 +300,7 @@ class VoteRender extends React.Component {
 VoteRender.propTypes= {
 
   billData: React.PropTypes.object,
+  voteChoice: React.PropTypes.bool,
   userFirstName: React.PropTypes.string,
   topForComment: React.PropTypes.object,
   topAgainstComment: React.PropTypes.object,

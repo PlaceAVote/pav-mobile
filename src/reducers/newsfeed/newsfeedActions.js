@@ -265,10 +265,10 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
     }else{
       res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBillsByTag({tag:topicsString});
     }
-    // console.log("RES: "+JSON.stringify(res));
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
-      dispatch(getDiscoveryFailure("Unable to get user newsfeed data with this token."));
+      dispatch(getDiscoveryFailure("Unable to get user discovery data with this token."));
       return res.error;
     }else{
       dispatch(getDiscoverySuccess({data:res.data, topic:topicsString}));

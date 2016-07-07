@@ -8,7 +8,8 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Platform
 } from 'react-native';
 
 

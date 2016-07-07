@@ -112,7 +112,7 @@ export function getBill(billId, sessionToken=null, dev = null) {
       dispatch(getBillFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getBillById({billId:billId});
-    // console.log("RES: "+JSON.stringify(res));
+    console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(getBillFailure("Unable to get user bill data with this token."));
@@ -539,7 +539,7 @@ export function voteBill(billId, vote, sessionToken=null, dev = null) {
       dispatch(voteBillFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).voteApi.voteOnBill({billId:billId, vote:vote});
-    console.log("voteBill RES: "+JSON.stringify(res));
+    // console.log("voteBill RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(voteBillFailure("Unable vote for this bill: "+res.error.error_message));
