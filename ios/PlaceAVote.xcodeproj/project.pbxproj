@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -34,7 +35,7 @@
 		B18559C270114DB1B66DE7BB /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0B47E307914465955920FC /* Entypo.ttf */; };
 		B3E105F2A0974DF0937D8623 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B394743AF94F128F91FCDA /* libRNImagePicker.a */; };
 		C46A6F9525FE47D0872B72D4 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18EB06C5A8E4A35B20C9160 /* libBVLinearGradient.a */; };
-		D34EE6351D3038F400851B34 /* Bugsnag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34EE6341D3038F400851B34 /* Bugsnag.framework */; };
+		D34EE66F1D303E1100851B34 /* Bugsnag.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D34EE66A1D303DC200851B34 /* Bugsnag.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D35B9D781D2BF78B00D26C50 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D771D2BF78B00D26C50 /* CoreData.framework */; };
 		D35B9D7A1D2BF79700D26C50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D791D2BF79700D26C50 /* SystemConfiguration.framework */; };
 		D35B9D7C1D2BF7A100D26C50 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D7B1D2BF7A100D26C50 /* libz.tbd */; };
@@ -185,6 +186,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D34EE6701D303E1100851B34 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D34EE66F1D303E1100851B34 /* Bugsnag.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -226,7 +241,8 @@
 		BD9A4E8B46E34FFCBA06B819 /* Whitney-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Light.ttf"; path = "../assets/fonts/Whitney-Light.ttf"; sourceTree = "<group>"; };
 		BDFC9D33D7EB4E94AEA715C7 /* Whitney-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-SemiBold.ttf"; path = "../assets/fonts/Whitney-SemiBold.ttf"; sourceTree = "<group>"; };
 		C18EB06C5A8E4A35B20C9160 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
-		D34EE6341D3038F400851B34 /* Bugsnag.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugsnag.framework; path = Carthage/Build/iOS/Bugsnag.framework; sourceTree = "<group>"; };
+		D34EE66A1D303DC200851B34 /* Bugsnag.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugsnag.framework; path = Carthage/Build/iOS/Bugsnag.framework; sourceTree = "<group>"; };
+		D34EE66C1D303DCE00851B34 /* Bugsnag.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Bugsnag.framework.dSYM; path = Carthage/Build/iOS/Bugsnag.framework.dSYM; sourceTree = "<group>"; };
 		D35244A7D86E47009A998D35 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		D35B9D771D2BF78B00D26C50 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D35B9D791D2BF79700D26C50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -260,7 +276,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D34EE6351D3038F400851B34 /* Bugsnag.framework in Frameworks */,
 				D35B9D7E1D2BF7AD00D26C50 /* libsqlite3.0.tbd in Frameworks */,
 				D35B9D7C1D2BF7A100D26C50 /* libz.tbd in Frameworks */,
 				D35B9D7A1D2BF79700D26C50 /* SystemConfiguration.framework in Frameworks */,
@@ -454,6 +469,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D34EE66C1D303DCE00851B34 /* Bugsnag.framework.dSYM */,
 				13B07FAE1A68108700A75B9A /* PlaceAVote */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PlaceAVoteTests */,
@@ -516,7 +532,7 @@
 		D38A29901D021186005B42F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D34EE6341D3038F400851B34 /* Bugsnag.framework */,
+				D34EE66A1D303DC200851B34 /* Bugsnag.framework */,
 				D35B9D7D1D2BF7AD00D26C50 /* libsqlite3.0.tbd */,
 				D35B9D7B1D2BF7A100D26C50 /* libz.tbd */,
 				D35B9D791D2BF79700D26C50 /* SystemConfiguration.framework */,
@@ -592,6 +608,8 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				D34EE6581D303B5500851B34 /* Carthage script */,
+				D34EE6701D303E1100851B34 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -881,6 +899,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+		};
+		D34EE6581D303B5500851B34 /* Carthage script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Carthage script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"@@@@@@@@@@@@@@@ Now copying carthage libs\"\n/usr/local/bin/carthage copy-frameworks\n$SRCROOT/Carthage/Build/iOS/Bugsnag.framework\n\necho \"@@@@@@@@@@@@@@@ Now copying carthage libs\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

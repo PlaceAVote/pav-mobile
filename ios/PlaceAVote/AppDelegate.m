@@ -73,14 +73,7 @@
 
   [RNBugsnag init];   //initialize it
   
-  for (NSString* family in [UIFont familyNames])
-  {
-    NSLog(@"%@", family);
-    for (NSString* name in [UIFont fontNamesForFamilyName: family])
-    {
-      NSLog(@" %@", name);
-    }
-  }
+  
 return YES;
 }
 
@@ -107,6 +100,34 @@ return YES;
    );
   
 }
+
+
+/*
+ Run getFontNames whenever you want to get all the available font names.
+ 
+ Currently interested in:
+ 
+ // Whitney
+ //  Whitney-Bold
+ //  Whitney-Regular
+ //  Whitney-SemiBoldItalic
+ //  Whitney-Italic
+ //  Whitney-Light
+ //  Whitney-LightItalic
+ //  Whitney-BoldItalic
+ //  Whitney-SemiBold
+ 
+ */
+//-(void) getFontNames{
+//  for (NSString* family in [UIFont familyNames])
+//  {
+//    NSLog(@"%@", family);
+//    for (NSString* name in [UIFont fontNamesForFamilyName: family])
+//    {
+//      NSLog(@" %@", name);
+//    }
+//  }
+//}
 
 
 @end

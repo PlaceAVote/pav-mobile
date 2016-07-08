@@ -8,7 +8,7 @@
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "xcode": "open ios/PlaceAVote.xcodeproj",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "setup": "npm install -g rnpm && npm install && rnpm link && rnpm link assets && brew install carthage && cd ios && carthage build",
+    "setup": "npm install -g rnpm && npm install && rnpm link && rnpm link assets && brew install carthage && cd ios && carthage update --platform iOS",
     "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest  --no-cache",
     "pavclient": "npm i git+https://a7ee7e677992613cade67c796347ad55e3a0ab64:x-oauth-basic@github.com/PlaceAVote/pav-client-sdk.git#master",
     "releaseAndroid": "cd android && ./gradlew assembleRelease",
