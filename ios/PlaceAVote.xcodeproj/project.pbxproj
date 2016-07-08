@@ -43,6 +43,7 @@
 		D38A299B1D0212F3005B42F5 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38A29981D0212F3005B42F5 /* FBSDKLoginKit.framework */; };
 		D38A299C1D0212F3005B42F5 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38A29991D0212F3005B42F5 /* FBSDKShareKit.framework */; };
 		D38A29A61D02165E005B42F5 /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D38A29A51D02165E005B42F5 /* Orientation.m */; };
+		D3DE5D901D30282F006D5887 /* libRNBugsnag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E20ECA1D2A6275005F4ABD /* libRNBugsnag.a */; };
 		D3F6AB9B1D06022100318198 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F6AB9A1D06021900318198 /* libART.a */; };
 		D3F6ABBC1D0861F700318198 /* pavText.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F6ABBB1D0861F700318198 /* pavText.png */; };
 		D3F6ABBE1D08631800318198 /* pavLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F6ABBD1D08631800318198 /* pavLogo.png */; };
@@ -258,6 +259,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3DE5D901D30282F006D5887 /* libRNBugsnag.a in Frameworks */,
 				D35B9D7E1D2BF7AD00D26C50 /* libsqlite3.0.tbd in Frameworks */,
 				D35B9D7C1D2BF7A100D26C50 /* libz.tbd in Frameworks */,
 				D35B9D7A1D2BF79700D26C50 /* SystemConfiguration.framework in Frameworks */,
@@ -989,6 +991,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+					"$(SRCROOT)/../node_modules/react-native-bugsnag/ios/RNBugsnag/**",
 				);
 				INFOPLIST_FILE = PlaceAVote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1022,6 +1025,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+					"$(SRCROOT)/../node_modules/react-native-bugsnag/ios/RNBugsnag/**",
 				);
 				INFOPLIST_FILE = PlaceAVote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1079,6 +1083,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+					"$(SRCROOT)/../node_modules/react-native-bugsnag/ios/RNBugsnag",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1125,6 +1130,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+					"$(SRCROOT)/../node_modules/react-native-bugsnag/ios/RNBugsnag",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

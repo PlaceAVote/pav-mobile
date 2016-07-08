@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "RCTRootView.h"
 #import "RCTLinkingManager.h"
+#import <RNBugsnag/RNBugsnag.h>  // Add this line.
 
 
 
@@ -70,7 +71,16 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-//  [RNBugsnag init];   //initialize it
+  [RNBugsnag init];   //initialize it
+  
+  for (NSString* family in [UIFont familyNames])
+  {
+    NSLog(@"%@", family);
+    for (NSString* name in [UIFont fontNamesForFamilyName: family])
+    {
+      NSLog(@" %@", name);
+    }
+  }
 return YES;
 }
 
