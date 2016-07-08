@@ -63,28 +63,6 @@
     </dict>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string/>
-    <key>UIAppFonts</key>
-    <array>
-      <string>Entypo.ttf</string>
-      <string>EvilIcons.ttf</string>
-      <string>FontAwesome.ttf</string>
-      <string>icomoon.ttf</string>
-      <string>MaterialIcons.ttf</string>
-      <string>Whitney-Bold.ttf</string>
-      <string>Whitney-BoldItal.ttf</string>
-      <string>Whitney-Book.ttf</string>
-      <string>Whitney-BookItal.ttf</string>
-      <string>Whitney-Light.ttf</string>
-      <string>Whitney-LightItal.ttf</string>
-      <string>Whitney-Medium.ttf</string>
-      <string>Whitney-MediumItal.ttf</string>
-      <string>Whitney-Semibold.ttf</string>
-      <string>Whitney-SemiboldItal.ttf</string>
-      <string>Foundation.ttf</string>
-      <string>Ionicons.ttf</string>
-      <string>Octicons.ttf</string>
-      <string>Zocial.ttf</string>
-    </array>
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
@@ -99,5 +77,21 @@
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>UIAppFonts</key>
+    <array>
+      <string>Entypo.ttf</string>
+      <string>EvilIcons.ttf</string>
+      <string>FontAwesome.ttf</string>
+      <string>icomoon.ttf</string>
+      <string>MaterialIcons.ttf</string>
+      <string>Whitney-Bold.ttf</string>
+      <string>Whitney-BoldItalic.ttf</string>
+      <string>Whitney-Italic.ttf</string>
+      <string>Whitney-Light.ttf</string>
+      <string>Whitney-LightItalic.ttf</string>
+      <string>Whitney-Regular.ttf</string>
+      <string>Whitney-SemiBold.ttf</string>
+      <string>Whitney-SemiBoldItalic.ttf</string>
+    </array>
   </dict>
 </plist>

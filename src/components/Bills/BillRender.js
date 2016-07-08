@@ -484,7 +484,7 @@ class BillRender extends React.Component {
 
   renderFooter(alreadyVoted, voteBtnEnabled){
     if(alreadyVoted!=null){
-      console.log("@@@@@@@@ Vote button enabled: "+voteBtnEnabled);
+      // console.log("@@@@@@@@ Vote button enabled: "+voteBtnEnabled);
       return (
         <View style={styles.billBtnsContainer}>
 
