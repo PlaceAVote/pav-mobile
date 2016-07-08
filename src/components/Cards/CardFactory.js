@@ -57,7 +57,7 @@ class CardFactory extends React.Component {
       // console.log("Real comment is: "+JSON.stringify(d.timestamp));
         return (<CommentCard
           {...this.props}
-          dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
+          dateTime={moment(d.timestamp, 'x').format("h:mma,[\n] Do MMMM YYYY")}
           userFullNameText={d.author_first_name+" "+d.author_last_name}
           commentParentTitle={d.bill_title}
           commentText={d.body}
@@ -74,7 +74,7 @@ class CardFactory extends React.Component {
         // console.log("Real VoteCard is: "+JSON.stringify(d));
         return (<VoteCard
           {...this.props}
-          dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
+          dateTime={moment(d.timestamp, 'x').format("h:mma,[\n] Do MMMM YYYY")}
           userFullNameText={u.firstName+" "+u.lastName}
           voteParentTitle={d.bill_title}
           userId={d.user_id}
@@ -88,7 +88,7 @@ class CardFactory extends React.Component {
         // console.log("Real FollowCard is: "+JSON.stringify(d));
         return (<FollowCard
         {...this.props}
-        dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
+        dateTime={moment(d.timestamp, 'x').format("h:mma,[\n] Do MMMM YYYY")}
         followerFullNameText={u.firstName+" "+u.lastName}
         followedFullNameText={d.first_name+" "+d.last_name+" "}
         userId={d.user_id}
@@ -102,7 +102,7 @@ class CardFactory extends React.Component {
         let commentAuthorName = (d.author_last_name!=null)?d.author_first_name+" "+d.author_last_name:"";
         return (<LikeCard
           {...this.props}
-          dateTime={moment(d.timestamp, 'x').format("h:mma, Do MMMM YYYY")}
+          dateTime={moment(d.timestamp, 'x').format("h:mma,[\n] Do MMMM YYYY")}
           userFullNameText={u.firstName+" "+u.lastName}
           authorFullNameText={commentAuthorName}
           commentParentTitle={d.bill_title}
