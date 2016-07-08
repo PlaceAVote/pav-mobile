@@ -173,7 +173,7 @@ class PostVoteModalBox extends React.Component {
                 >
                   <View style={styles.congratulationsTextContainer}>
                     <Text style={styles.congratulationsTextTitle}>
-                      Congratulations {this.props.userFirstName} !
+                      Congratulations {this.props.userFirstName}!
                     </Text>
                     <Text style={styles.congratulationsTextSubtitle}>
                       You have succesfully voted on this bill
