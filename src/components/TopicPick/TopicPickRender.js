@@ -155,7 +155,7 @@ class TopicPickRender extends React.Component {
         justifyContent: 'center'
       },
       descriptionText: {
-        fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+        fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
         backgroundColor: Colors.transparentColor,
         // backgroundColor:'black',
         fontSize: getCorrectFontSizeForScreen(13),
@@ -171,7 +171,7 @@ class TopicPickRender extends React.Component {
         height: 60
       },
       whiteBtnText:{
-        fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+        fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
         color: Colors.mainTextColor,
         textAlign: 'center',
         fontSize: getCorrectFontSizeForScreen(14)

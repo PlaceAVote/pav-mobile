@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   cardFooterTitleText:{
 
     // backgroundColor:'green',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor
   },
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   cardContentText:{
     backgroundColor:Colors.transparentColor,
     paddingVertical:h*0.0065,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.mainTextColor,
   },

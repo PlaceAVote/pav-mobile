@@ -53,12 +53,12 @@ const styles=StyleSheet.create({
     paddingVertical: h*0.004,
   },
   inputTitleText:{
-    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fourthTextColor,
   },
   inputValueText:{
-    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.secondaryTextColor,
   }

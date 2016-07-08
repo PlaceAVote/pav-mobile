@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     flex:1,
     // backgroundColor:'pink',
     textAlignVertical:'bottom',
-    fontFamily: 'Whitney Book',
+    fontFamily: 'Whitney-Light',
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.thirdTextColor,
   },
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   relatedArticleTitleText:{
     // backgroundColor:"red",
     // width: w*0.73,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(11),
     // backgroundColor:'red',
     color:Colors.mainTextColor,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
 
   relatedBillTitleText:{
     width:w*0.8,
-    fontFamily: 'Whitney-MediumItalic',
+    fontFamily: 'Whitney-Italic',
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.primaryColor
   },
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     paddingHorizontal:w*0.03,
   },
   attachmentAddText:{
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fourthTextColor,
   },

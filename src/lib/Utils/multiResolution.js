@@ -53,7 +53,7 @@ const {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Sc
         //   return currentFontSize+float2int(maxFontDifferFactor);
         // }
 
-        return float2int(scale * (currentFontSize+8));
+        return float2int(scale * (currentFontSize+4));
         // return Math.round(scale * currentFontSize);
       }
 

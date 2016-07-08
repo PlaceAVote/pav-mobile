@@ -108,7 +108,7 @@ class CommentReplyCard extends React.Component {
         borderColor: Colors.mainBorderColor,
         borderWidth: 1,
         backgroundColor:'white',
-        fontFamily: 'Whitney-Book',
+        fontFamily: 'Whitney-Light',
         fontSize: getCorrectFontSizeForScreen(7),
       },
       postBtn:{
@@ -123,7 +123,7 @@ class CommentReplyCard extends React.Component {
       whiteBtnText:{
         color: Colors.mainTextColor,
         textAlign: 'center',
-        fontFamily: 'Whitney',
+        fontFamily: 'Whitney-Regular',
         fontSize: getCorrectFontSizeForScreen(9),
       },
 

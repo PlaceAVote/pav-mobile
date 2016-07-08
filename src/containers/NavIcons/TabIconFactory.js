@@ -41,7 +41,7 @@ class TabIconFactory extends React.Component {
             <Text style={{
               color:Colors.mainTextColor,
               // backgroundColor: Colors.transparentColor,
-              fontFamily: 'Whitney',
+              fontFamily: 'Whitney-Regular',
               // textAlign:'center',
               fontSize: getCorrectFontSizeForScreen(8),
             }}>{unreadCount}</Text>
@@ -82,7 +82,7 @@ class TabIconFactory extends React.Component {
             <View style={{flexDirection: "column", justifyContent: 'center', paddingLeft:w*0.004,paddingRight:w*0.006}}>
               <Text style={{
                 color: (this.props.selected===true) ? Colors.primaryColor :Colors.secondaryTextColor,
-                fontFamily: 'Whitney',
+                fontFamily: 'Whitney-Regular',
                 fontSize: getCorrectFontSizeForScreen(8),
                 textAlign:'center'
               }}>{tabText}</Text>

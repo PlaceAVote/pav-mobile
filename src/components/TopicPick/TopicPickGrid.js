@@ -194,7 +194,7 @@ var styles = StyleSheet.create({
   },
   textChecked: {
     fontSize: getCorrectFontSizeForScreen(11),
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     textAlign: 'center',
     alignSelf:'center',
     color: Colors.mainTextColor,
@@ -202,7 +202,7 @@ var styles = StyleSheet.create({
   },
   text: {
     fontSize: getCorrectFontSizeForScreen(10),
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     textAlign: 'center',
     alignSelf:'center',
     color: Colors.thirdTextColor,

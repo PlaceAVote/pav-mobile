@@ -55,7 +55,7 @@ const styles=StyleSheet.create({
   },
   titleExplanText:{
     color: Colors.secondaryTextColor,
-    fontFamily: 'Whitney Light',
+    fontFamily: 'Whitney-Light',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   titleExplanIcon:{
@@ -67,7 +67,7 @@ const styles=StyleSheet.create({
   },
   valueText:{
     color: Colors.fifthTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
     lineHeight: (h*0.025) | 0,
   }

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   sortByTitleText:{
     color: Colors.primaryColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(9),
   },
   sortItemsContainer:{
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Whitney-Bold',
   },
   sortBtnInactiveText:{
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
   },
   sortBtnActive:{
     borderBottomColor:Colors.negativeAccentColor,

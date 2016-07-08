@@ -32,7 +32,7 @@ export class RightPavLogo extends React.Component {
 //     }} onPress={Actions.pop} >
 //         <View style={{flexDirection:'row', alignItems:'center'}}>
 //           <PavIcon name="arrow-left" size={25} style={{marginTop:2,paddingRight:6, color:'#ffffff'}}/>
-//           <Text style={{color: '#FFFFFF21', fontFamily:'Whitney'}}>Back</Text>
+//           <Text style={{color: '#FFFFFF21', fontFamily:'Whitney-Regular'}}>Back</Text>
 //         </View>
 //       </TouchableOpacity>);
 //   }

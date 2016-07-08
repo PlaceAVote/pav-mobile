@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   topicText:{
     paddingHorizontal: w*0.009,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(5),
     color: Colors.primaryColor,
   },

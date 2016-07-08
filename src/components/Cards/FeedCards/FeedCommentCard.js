@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     // color: Colors.thirdTextColor,
     color: 'rgba(0, 0, 0, 0.60)',
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
@@ -134,13 +134,13 @@ const styles = StyleSheet.create({
   commentNameText:{
     // backgroundColor:'blue',
     color:"#e64a33",
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
   commentInText:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   commentLocationTextContainer:{
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   commentLocationText:{
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   cardContentBody:{
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   cardContentText:{
     padding:2,
     // backgroundColor:'green',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(7),
     color: 'rgba(0, 0, 0, 0.54)',
   },

@@ -165,7 +165,7 @@ var styles = StyleSheet.create({
     },
     titleText: {
       // backgroundColor: Colors.transparentColor,
-      fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       fontSize: getCorrectFontSizeForScreen(16),
       color: Colors.thirdTextColor,
       textAlign: 'center',
@@ -181,7 +181,7 @@ var styles = StyleSheet.create({
     },
     descriptionText: {
       // backgroundColor: Colors.transparentColor,
-      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       fontSize: getCorrectFontSizeForScreen(10),
       color: Colors.thirdTextColor,
       textAlign: 'center',
@@ -196,7 +196,7 @@ var styles = StyleSheet.create({
     },
     errorText: {
       // backgroundColor: Colors.transparentColor,
-      fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       fontSize: getCorrectFontSizeForScreen(8),
       color: Colors.negativeAccentColor,
       textAlign: 'center',
@@ -218,7 +218,7 @@ var styles = StyleSheet.create({
       borderColor: '#E7E6ED',
       paddingHorizontal:w*0.01,
       textAlignVertical: "top",
-      fontFamily: 'Whitney Book',
+      fontFamily: 'Whitney-Light',
       fontSize: getCorrectFontSizeForScreen(10),
       color: Colors.thirdTextColor,
     },
@@ -239,7 +239,7 @@ var styles = StyleSheet.create({
 
     whiteBtnText:{
       color: Colors.mainTextColor,
-      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       textAlign: 'center',
       fontSize: getCorrectFontSizeForScreen(14),
     },

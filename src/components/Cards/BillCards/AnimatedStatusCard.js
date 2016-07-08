@@ -97,12 +97,12 @@ const styles = StyleSheet.create({
         statusDescriptionText:{
           width: w*0.6,
           paddingVertical: h*0.008,
-          fontFamily: 'Whitney-Book',
+          fontFamily: 'Whitney-Light',
           fontSize: getCorrectFontSizeForScreen(7),
         },
         statusDescription2Text:{
           paddingVertical: h*0.008,
-          fontFamily: 'Whitney-MediumItalic',
+          fontFamily: 'Whitney-Italic',
           fontSize: getCorrectFontSizeForScreen(8),
         },
 

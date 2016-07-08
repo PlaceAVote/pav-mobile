@@ -103,7 +103,7 @@ const formStyles = Object.freeze({
   },
   controlLabel: {
     normal: {
-      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       // color: Colors.secondaryTextColor,
       color: Colors.fourthTextColor,
       fontSize: getCorrectFontSizeForScreen(10),
@@ -112,7 +112,7 @@ const formStyles = Object.freeze({
     },
     // the style applied when a validation error occours
     error: {
-      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       color: Colors.errorTextColor,
       fontSize: FORM_FONT_SIZE,
       marginBottom: 7,
@@ -133,7 +133,7 @@ const formStyles = Object.freeze({
     }
   },
   errorBlock: {
-    fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     flexWrap: 'wrap',
     // position: 'absolute',
     // backgroundColor: 'red',
@@ -146,7 +146,7 @@ const formStyles = Object.freeze({
   },
   textbox: {
     normal: {
-      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       color: FORM_INPUT_COLOR,
       // backgroundColor:'red',
       fontSize: FORM_FONT_SIZE,
@@ -159,7 +159,7 @@ const formStyles = Object.freeze({
     },
     // the style applied when a validation error occours
     error: {
-      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       color: FORM_INPUT_COLOR,
       fontSize: FORM_FONT_SIZE,
       height: Platform.OS=="ios"?h*0.052:h*0.072,
@@ -171,7 +171,7 @@ const formStyles = Object.freeze({
     },
     // the style applied when the textbox is not editable
     notEditable: {
-      fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+      fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       // backgroundColor:'red',
       fontSize: FORM_FONT_SIZE,
       // height: 45,
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     paddingVertical:h*0.015,
   },
   isPrivateTitle:{
-    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fourthTextColor,
   },
@@ -300,12 +300,12 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   isPrivateValueText:{
-    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.secondaryTextColor,
   },
   isPrivateValueCurSetText:{
-    fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.secondaryTextColor,
   },
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
   privacyPolicyBtnText:{
     color: Colors.fourthTextColor,
     textAlign: 'center',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(9)
   },
 
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
   logoutBtnText:{
     color: Colors.negativeAccentColor,
     textAlign: 'center',
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(9)
   },
 

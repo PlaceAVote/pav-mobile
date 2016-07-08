@@ -108,17 +108,17 @@ var styles = StyleSheet.create({
   whiteBtnText:{
     color: Colors.mainTextColor,
     textAlign: 'center',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(14),
   },
   orText:{
-    fontFamily: 'Whitney Semibold', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     color: Colors.secondaryTextColor,
     alignSelf:"center",
     marginVertical:5
   },
   forgotPasswordText:{
-    fontFamily: 'Whitney Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     // backgroundColor: 'green',
     color: "#E76354",
     alignSelf:"center",

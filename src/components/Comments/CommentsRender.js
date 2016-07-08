@@ -98,7 +98,7 @@ class CommentsRender extends React.Component {
         backgroundColor: Colors.transparentColor,
         color: Colors.mainTextColor,
         textAlign:'center',
-        fontFamily: 'Whitney',
+        fontFamily: 'Whitney-Regular',
         fontSize: getCorrectFontSizeForScreen(12),
       },
 

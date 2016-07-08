@@ -138,7 +138,7 @@ class SettingsButtons extends React.Component {
 
           color: Colors.mainTextColor,
           textAlign: 'center',
-          fontFamily: 'Whitney',
+          fontFamily: 'Whitney-Regular',
           fontSize: getCorrectFontSizeForScreen(13)
         }}>
         Save

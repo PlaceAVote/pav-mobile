@@ -51,14 +51,14 @@ const styles = StyleSheet.create({
       backgroundColor:Colors.transparentColor,
       color: Colors.mainTextColor,
       textAlign: 'center',
-      fontFamily: 'Whitney',
+      fontFamily: 'Whitney-Regular',
       fontSize: getCorrectFontSizeForScreen(17),
     },
     congratulationsTextSubtitle:{
       backgroundColor:Colors.transparentColor,
       color: Colors.mainTextColor,
       textAlign: 'center',
-      fontFamily: 'Whitney',
+      fontFamily: 'Whitney-Regular',
       fontSize: getCorrectFontSizeForScreen(10),
     },
 

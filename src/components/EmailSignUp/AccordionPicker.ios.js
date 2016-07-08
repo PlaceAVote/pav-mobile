@@ -92,7 +92,7 @@
         },
         label:{
           // flex: 1,
-          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+          fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
           fontSize: getCorrectFontSizeForScreen(14),
         },
         valueContainer:{
@@ -101,7 +101,7 @@
           justifyContent: 'space-between'
         },
         value: {
-          fontFamily: 'Whitney-Book', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+          fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
           // backgroundColor:'red',
           fontSize: getCorrectFontSizeForScreen(11),
         },
@@ -110,7 +110,7 @@
           // backgroundColor: '#f9f9f9',
         },
         whiteBtnText:{
-          fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+          fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
           color: Colors.mainTextColor,
           textAlign: 'center'
         },

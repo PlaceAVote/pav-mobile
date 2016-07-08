@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 
   text:{
     color: Colors.mainTextColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     textAlign:'center',
     fontSize: getCorrectFontSizeForScreen(12),
   }

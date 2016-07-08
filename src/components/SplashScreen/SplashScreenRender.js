@@ -92,7 +92,7 @@ class SplashScreenRender extends React.Component {
       // accountSettingsText:{
       //   color: Colors.primaryColor,
       //   textAlign: 'left',
-      //   fontFamily: 'Whitney',
+      //   fontFamily: 'Whitney-Regular',
       //   fontSize: getCorrectFontSizeForScreen(10),
       // }
 

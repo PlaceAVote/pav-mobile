@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
   summaryBodyText:{
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   summaryBodyReadMoreText:{
     paddingVertical: h*0.008,
     color: Colors.negativeAccentColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(7),
   },
   favorAgainstIconContainer:{
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   summaryBodyPointsFavorText:{
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney-MediumItalic',
+    fontFamily: 'Whitney-Italic',
     fontSize: getCorrectFontSizeForScreen(8),
   }
 

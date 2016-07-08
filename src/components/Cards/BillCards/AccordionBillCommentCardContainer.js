@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   repliesBoxText:{
     flex:1,
     fontSize: getCorrectFontSizeForScreen(9),
-    fontFamily: 'Whitney-Book',
+    fontFamily: 'Whitney-Light',
     color: Colors.negativeAccentColor,
   },
   repliesBoxIcon:{

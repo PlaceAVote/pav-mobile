@@ -135,7 +135,7 @@ class InputUrlModalBox extends React.Component {
             },
 
             pasteLinkText:{
-              fontFamily: 'Whitney',
+              fontFamily: 'Whitney-Regular',
               fontSize: getCorrectFontSizeForScreen(9),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
@@ -153,7 +153,7 @@ class InputUrlModalBox extends React.Component {
               borderColor: '#E7E6ED',
               paddingHorizontal:w*0.01,
               textAlignVertical: "center",
-              fontFamily: 'Whitney Book',
+              fontFamily: 'Whitney-Light',
               fontSize: getCorrectFontSizeForScreen(10),
               color: Colors.thirdTextColor,
             },

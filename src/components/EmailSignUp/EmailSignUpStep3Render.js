@@ -124,7 +124,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   descriptionText: {
-    fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     backgroundColor: Colors.transparentColor,
     // backgroundColor:'black',
     fontSize: getCorrectFontSizeForScreen(11),
@@ -163,7 +163,7 @@ var styles = StyleSheet.create({
     height: 60
   },
   whiteBtnText:{
-    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     color: Colors.mainTextColor,
     textAlign: 'center',
     fontSize: getCorrectFontSizeForScreen(14),

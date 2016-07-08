@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     width: w*0.29,
     color: 'rgba(0, 0, 0, 0.60)',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   nameText:{
     // backgroundColor:'blue',
     color:"#e64a33",
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   followBetweenTextContainer:{
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   followBetweenText:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   // titleText: {
   //   // backgroundColor: 'black',
   //   fontSize: getCorrectFontSizeForScreen(27),
-  //   fontFamily: 'Whitney Semibold',
+  //   fontFamily: 'Whitney-SemiBold',
   //   color: Colors.mainTextColor,
   //   textAlign: 'center',
   // },

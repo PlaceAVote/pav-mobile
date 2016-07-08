@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     // color: Colors.thirdTextColor,
     color: 'rgba(0, 0, 0, 0.60)',
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   userIssueFullNameDynamicText:{
     // backgroundColor:'blue',
     color:"#e64a33",
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   userIssueTitleActionStaticTextContainer:{
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   },
   userIssueTitleActionStaticText:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
 
   relatedBillTitleText:{
     width:w*0.81,
-    fontFamily: 'Whitney-MediumItalic',
+    fontFamily: 'Whitney-Italic',
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.primaryColor
   },
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   cardFooterText:{
     flex:1,
     // backgroundColor:'green',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(9),
     color: 'rgba(0, 0, 0, 0.54)',
   },
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   },
   reactionCountText:{
     textAlign:'center',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(7),
   },
   userVotedText:{
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
 
   cardContentText:{
     // backgroundColor:'green',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(10),
     color: 'rgba(0, 0, 0, 0.54)',
   },
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: w*0.04,
   },
   relatedArticleTitleText:{
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(11),
     // backgroundColor:'red',
     color:Colors.mainTextColor,

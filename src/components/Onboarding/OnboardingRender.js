@@ -221,7 +221,7 @@ var portraitStyles = StyleSheet.create({
     width: w*0.86,
     // backgroundColor: 'black',
     fontSize: getCorrectFontSizeForScreen(24),
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     color: Colors.mainTextColor,
     textAlign: 'center',
   },
@@ -242,7 +242,7 @@ var portraitStyles = StyleSheet.create({
   },
   descriptionText: {
     backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    fontFamily: 'Whitney-Regular', //Whitney, Whitney Book, Whitney-Light, Whitney-SemiBold, Whitney
     // fontWeight: 'bold',
     width: w*0.90,
     fontSize: getCorrectFontSizeForScreen(13),
@@ -274,7 +274,7 @@ var portraitStyles = StyleSheet.create({
   whiteBtnText:{
     color: Colors.mainTextColor,
     textAlign: 'center',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(13),
   },
   facebookBtn:{
@@ -372,7 +372,7 @@ var landscapeStyles = StyleSheet.create({
   descriptionText: {
     width: h*0.90,
     backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(14),
     color: Colors.mainTextColor,
     textAlign: 'center',
@@ -401,7 +401,7 @@ var landscapeStyles = StyleSheet.create({
   whiteBtnText:{
     color: Colors.mainTextColor,
     textAlign: 'center',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(12),
   },
   facebookBtn:{

@@ -148,7 +148,7 @@ class InputGenderModalBox extends React.Component {
             },
 
             pasteLinkText:{
-              fontFamily: 'Whitney',
+              fontFamily: 'Whitney-Regular',
               fontSize: getCorrectFontSizeForScreen(9),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
@@ -161,7 +161,7 @@ class InputGenderModalBox extends React.Component {
               paddingVertical: h*0.015,
             },
             maleText:{
-              fontFamily: 'Whitney',
+              fontFamily: 'Whitney-Regular',
               fontSize: getCorrectFontSizeForScreen(15),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
@@ -171,7 +171,7 @@ class InputGenderModalBox extends React.Component {
               paddingVertical: h*0.015,
             },
             femaleText:{
-              fontFamily: 'Whitney',
+              fontFamily: 'Whitney-Regular',
               fontSize: getCorrectFontSizeForScreen(15),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,
@@ -181,7 +181,7 @@ class InputGenderModalBox extends React.Component {
               paddingVertical: h*0.015,
             },
             nonbinaryText:{
-              fontFamily: 'Whitney',
+              fontFamily: 'Whitney-Regular',
               fontSize: getCorrectFontSizeForScreen(15),
               // backgroundColor:'red',
               color:Colors.fourthTextColor,

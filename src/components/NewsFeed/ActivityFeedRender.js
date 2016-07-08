@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   recentActivityText: {
 
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fifthTextColor,
     // textAlign: 'center',

@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     // color: Colors.thirdTextColor,
     color: 'rgba(0, 0, 0, 0.60)',
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
@@ -133,13 +133,13 @@ const styles = StyleSheet.create({
   voteNameText:{
     // backgroundColor:'blue',
     color:"#e64a33",
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
   voteInText:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   voteLocationTextContainer:{
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   voteLocationText:{
     // backgroundColor:'yellow',
     color: Colors.primaryColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
     // width: w*0.56,
   },

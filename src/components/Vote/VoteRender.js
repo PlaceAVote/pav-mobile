@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.015,
     paddingHorizontal: w*0.015,
     color: Colors.mainTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(18),
     textAlign:'center'
   },
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   btnText:{
     color: Colors.mainTextColor,
     textAlign: 'center',
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(14),
   },
   btnIconStyle:{

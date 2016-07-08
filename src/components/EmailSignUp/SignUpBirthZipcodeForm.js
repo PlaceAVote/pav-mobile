@@ -93,7 +93,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     //   },
     //   controlLabel: {
     //     normal: {
-    //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     //       color: Colors.secondaryTextColor,
     //       fontSize: getCorrectFontSizeForScreen(13),
     //       marginBottom: 7,
@@ -101,7 +101,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     //     },
     //     // the style applied when a validation error occours
     //     error: {
-    //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     //       color: Colors.errorTextColor,
     //       fontSize: FONT_SIZE,
     //       marginBottom: 7,
@@ -110,21 +110,21 @@ var SignUpBirthZipcodeForm = React.createClass({
     //   },
     //   helpBlock: {
     //     normal: {
-    //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     //       color: Colors.helpTextColor,
     //       fontSize: FONT_SIZE,
     //       marginBottom: 2
     //     },
     //     // the style applied when a validation error occours
     //     error: {
-    //       fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     //       color: Colors.helpTextColor,
     //       fontSize: FONT_SIZE,
     //       marginBottom: 2
     //     }
     //   },
     //   errorBlock: {
-    //     fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //     fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     //     flexWrap: 'wrap',
     //     // position: 'absolute',
     //     // backgroundColor: 'red',
@@ -136,7 +136,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     //   },
     //   textbox: {
     //     normal: {
-    //       fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     //       color: INPUT_COLOR,
     //       fontSize: FONT_SIZE,
     //       height: 45,
@@ -148,7 +148,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     //     },
     //     // the style applied when a validation error occours
     //     error: {
-    //       fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     //       color: INPUT_COLOR,
     //       fontSize: FONT_SIZE,
     //       height: 45,
@@ -160,7 +160,7 @@ var SignUpBirthZipcodeForm = React.createClass({
     //     },
     //     // the style applied when the textbox is not editable
     //     notEditable: {
-    //       fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+    //       fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
     //       fontSize: FONT_SIZE,
     //       height: 45,
     //       padding: 7,

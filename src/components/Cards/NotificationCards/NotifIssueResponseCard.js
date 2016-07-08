@@ -109,14 +109,14 @@ const styles = StyleSheet.create({
   },
   cardExplanText:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney Book',
+    fontFamily: 'Whitney-Light',
     fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.74,
     // backgroundColor:'red'
   },
   cardExplanTextUnread:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.74,
   },
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   userFullNameText:{
     color: Colors.primaryColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
     width: w*0.74,
     // backgroundColor:'green'
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   // voteLocationText:{
   //   // backgroundColor:'yellow',
   //   color: Colors.primaryColor,
-  //   fontFamily: 'Whitney Semibold',
+  //   fontFamily: 'Whitney-SemiBold',
   //   fontSize: getCorrectFontSizeForScreen(9),
   //   width: w*0.7,
   // },

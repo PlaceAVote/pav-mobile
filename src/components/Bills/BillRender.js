@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   headerTitle:{
     backgroundColor: Colors.transparentColor,
     color: Colors.mainTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     // textAlign:'center',
     fontSize: getCorrectFontSizeForScreen(15),
   },
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   // headerTitle:{
   //   backgroundColor: Colors.transparentColor,
   //   color: Colors.mainTextColor,
-  //   fontFamily: 'Whitney',
+  //   fontFamily: 'Whitney-Regular',
   //   textAlign:'center',
   //   fontSize: getCorrectFontSizeForScreen(15),
   // },
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   tagsLblText:{
     backgroundColor: Colors.transparentColor,
     color: Colors.secondaryTextColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(9),
   },
 
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   tabText:{
     paddingHorizontal: w*0.009,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor,
     textAlign:'center',
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   },
   footerBtnText:{
     color: Colors.mainTextColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(10),
     textAlign:'center',
     // backgroundColor:'blue',

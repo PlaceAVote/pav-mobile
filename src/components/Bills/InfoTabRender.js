@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
   bodyText:{
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   bodyReadMoreText:{
     paddingVertical: h*0.008,
     color: Colors.negativeAccentColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(7),
   },
 
@@ -136,13 +136,13 @@ const styles = StyleSheet.create({
     width: w*0.73,
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney-Book',
+    fontFamily: 'Whitney-Light',
     fontSize: getCorrectFontSizeForScreen(7),
   },
   statusDescription2Text:{
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney-MediumItalic',
+    fontFamily: 'Whitney-Italic',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
@@ -165,19 +165,19 @@ const styles = StyleSheet.create({
   sponsorTitleText:{
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(7),
   },
   sponsorNameText:{
     paddingVertical: h*0.008,
     color: Colors.negativeAccentColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(9),
   },
   sponsorPartyText:{
     paddingVertical: h*0.008,
     color: Colors.primaryColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(9),
   },
   cnoCosponsorContainer:{
@@ -187,13 +187,13 @@ const styles = StyleSheet.create({
   coponsorTitleText:{
     paddingVertical: h*0.008,
     color: Colors.negativeAccentColor,
-    fontFamily: 'Whitney',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(7),
   },
   cosponsorCntText:{
     paddingVertical: h*0.004,
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(7),
   },
   cosponsorVisualGraphContainer:{
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   /* OFFICIAL TITLE */
   officialTitleText:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   }
 

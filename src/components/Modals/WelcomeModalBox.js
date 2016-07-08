@@ -76,7 +76,7 @@ class WelcomeModalBox extends React.Component {
             },
             whiteBtnText:{
               color: Colors.mainTextColor,
-              fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+              fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
               textAlign: 'center'
             },
 
@@ -120,7 +120,7 @@ class WelcomeModalBox extends React.Component {
               },
               descriptionText: {
                 backgroundColor: Colors.transparentColor,
-                fontFamily: 'Whitney', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+                fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
                 fontSize: getCorrectFontSizeForScreen(21),
                 color: Colors.thirdTextColor,
                 textAlign: 'center',
@@ -129,7 +129,7 @@ class WelcomeModalBox extends React.Component {
               },
               descriptionText2: {
                 backgroundColor: Colors.transparentColor,
-                fontFamily: 'Whitney Light', //Whitney, Whitney Book, Whitney Light, Whitney Semibold, Whitney
+                fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
                 fontSize: getCorrectFontSizeForScreen(17),
                 color: Colors.thirdTextColor,
                 textAlign: 'center',
