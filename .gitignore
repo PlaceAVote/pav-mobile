@@ -44,3 +44,4 @@ android/keystores/debug.keystore
 
 # Carthage
 ios/Carthage/
+Cartfile.resolved
