@@ -39,21 +39,35 @@ const {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Sc
         // // console.log("Current font size: "+currentFontSize+" but because this.fontFactor is: "+this.fontFactor+" we make it: "+maxFontDifferFactor+"*0.5="+float2int(maxFontDifferFactor*0.5));
         // // return Math.round((currentFontSize)*scale)//+float2int(maxFontDifferFactor*0.5)
         this.fontFactor = (((screenWidth)/320)*0.65+((screenHeight)/640)*0.35)
+        // alert("@@@ this.fontFactor="+this.fontFactor);
 
         // // console.log("The width is: "+screenWidth+" and the height is "+screenHeight+" with a ratio : "+devRatio+ " and this.fontFactor: "+this.fontFactor);
-        // if(this.fontFactor<=1){
-        //   return currentFontSize-float2int(maxFontDifferFactor*0.3);
-        // }else if((this.fontFactor>=1) && (this.fontFactor<=1.6)){
-        //   return currentFontSize+float2int(maxFontDifferFactor*0.35);
-        // }else if((this.fontFactor>=1.6) && (this.fontFactor<=2)){
-        //   return currentFontSize+float2int(maxFontDifferFactor*0.5);
-        // }else if((this.fontFactor>=2) && (this.fontFactor<=3)){
-        //   return currentFontSize+float2int(maxFontDifferFactor*0.65);
-        // }else if (this.fontFactor>=3){
-        //   return currentFontSize+float2int(maxFontDifferFactor);
-        // }
 
-        return float2int(scale * (currentFontSize+4));
+
+        if(this.fontFactor<=1){   //for 0.8 until 1.0 use 8 (800x600 phone this.fontFactor == 0.961)
+          return float2int(scale * (currentFontSize+8));
+        }else if((this.fontFactor>=1) && (this.fontFactor<=1.6)){ //for 1.0 until 1.5 use 4 (NEXUS 5 this.fontFactor == 1.055)
+          return float2int(scale * (currentFontSize+4));
+        }
+        // else if((this.fontFactor>=1.6) && (this.fontFactor<=2)){
+        //   return float2int(scale * (currentFontSize+2));
+        // }else if((this.fontFactor>=2) && (this.fontFactor<=3)){
+        //   return float2int(scale * (currentFontSize));
+        // }
+        // else if (this.fontFactor>=3){
+        //   return float2int(scale * (currentFontSize));
+        // }
+        else{
+          return float2int(scale * (currentFontSize+2));
+        }
+
+
+
+
+
+
+
+
         // return Math.round(scale * currentFontSize);
       }
 
