@@ -1,5 +1,5 @@
 module.exports = {
-  VERSION: '0.8.6',
+  VERSION: '0.8.7',
   ENVIRONMENT_IS_DEV: false,
   GOOGLE_ANALYTICS_ID: "UA-48538409-5",
 

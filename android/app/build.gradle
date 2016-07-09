@@ -84,8 +84,8 @@ android {
         applicationId "com.placeavote.androidapp"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 5
-        versionName "0.8.6"
+        versionCode 6
+        versionName "0.8.7"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

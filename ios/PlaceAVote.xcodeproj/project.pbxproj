@@ -241,6 +241,7 @@
 		BD9A4E8B46E34FFCBA06B819 /* Whitney-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Light.ttf"; path = "../assets/fonts/Whitney-Light.ttf"; sourceTree = "<group>"; };
 		BDFC9D33D7EB4E94AEA715C7 /* Whitney-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-SemiBold.ttf"; path = "../assets/fonts/Whitney-SemiBold.ttf"; sourceTree = "<group>"; };
 		C18EB06C5A8E4A35B20C9160 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		D3427BF11D315384002015DE /* PlaceAVote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PlaceAVote.entitlements; path = PlaceAVote/PlaceAVote.entitlements; sourceTree = "<group>"; };
 		D34EE66A1D303DC200851B34 /* Bugsnag.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugsnag.framework; path = Carthage/Build/iOS/Bugsnag.framework; sourceTree = "<group>"; };
 		D34EE66C1D303DCE00851B34 /* Bugsnag.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Bugsnag.framework.dSYM; path = Carthage/Build/iOS/Bugsnag.framework.dSYM; sourceTree = "<group>"; };
 		D35244A7D86E47009A998D35 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
@@ -382,6 +383,7 @@
 		13B07FAE1A68108700A75B9A /* PlaceAVote */ = {
 			isa = PBXGroup;
 			children = (
+				D3427BF11D315384002015DE /* PlaceAVote.entitlements */,
 				D38A29A31D02165E005B42F5 /* RCTOrientation */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -635,6 +637,14 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 35WUYAWLQM;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1010,6 +1020,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_ENTITLEMENTS = PlaceAVote/PlaceAVote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1046,6 +1057,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_ENTITLEMENTS = PlaceAVote/PlaceAVote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
