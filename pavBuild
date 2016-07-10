@@ -43,7 +43,7 @@ ReleaseIos(){
         echo "<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>teamID</key><string>${APPLE_TEAM_ID}</string><key>method</key><string>ad-hoc</string><key>uploadSymbols</key><true/></dict></plist>" >${PROJECT_DIR}/tmp/tmpPlist.plist  &&
         ./xcbuild-safe.sh -scheme "PlaceAVote" archive -archivePath ${PROJECT_DIR}/tmp/pav.xcarchive &&
         ./xcbuild-safe.sh -exportArchive -archivePath ${PROJECT_DIR}/tmp/pav.xcarchive -exportOptionsPlist ${PROJECT_DIR}/tmp/tmpPlist.plist -exportPath ${PROJECT_DIR}${BIN_DIR} &&
-        mv ${PROJECT_DIR}${BIN_DIR}"Pav Release.ipa" ${PROJECT_DIR}${BIN_DIR}${IPA_FILENAME} &&
+        mv ${PROJECT_DIR}${BIN_DIR}"PlaceAVote.ipa" ${PROJECT_DIR}${BIN_DIR}${IPA_FILENAME} &&
         cd ${PROJECT_DIR} &&
         rm -rf tmp &&
         return 0
@@ -167,7 +167,7 @@ case ${option} in
         }
     ;;
     *)
-        printf "\n`basename ${0}`:\n  usage: pavBuild -<flags> <versionString> \n     FLAGS: \n         Android: [-a] to build for Android \n         iOS: [-i] to build for iOS.\n         Both: [-b] to build for both iOS and Android. \n\n         Release flag: [-r] Add the `r` flag either on -a (android) or on -i (iOS) to also upload the version after a successful build. \n\n         Upload only flag: [-u] Add the `u` flag either on -a (android) or on -i (iOS) to ONLY upload the existing version if it exists. \n\n     If you also want to upload to the PlaceAVote variousprojects S3 bucket add [r] to the flags. \n\n     VERSION: \n         (Optional) Default: latest. That would be a string of the new version (i.e: 0.8.1). \n     EXAMPLE: \n         pavBuild -ir 0.8.1 \n\n         The command above would build an iOS version in the bin/PlaceAVoteApp_v0.8.1 dir and then upload it to Amazon S3.\n"  
+        printf "\n`basename ${0}`:\n  usage: pavBuild -<flags> <versionString> \n     FLAGS: \n         Android: [-a] to build for Android \n         iOS: [-i] to build for iOS.\n         Both: [-b] to build for both iOS and Android. \n\n         Release flag: [-r] Add the `r` flag either on -a (android) or on -i (iOS) to also upload the version after a successful build. \n\n         Upload only flag: [-u] Add the `u` flag either on -a (android) or on -i (iOS) to ONLY upload the existing version if it exists. \n\n     If you also want to upload to the PlaceAVote variousprojects S3 bucket add [r] to the flags. \n\n     VERSION: \n         (Optional) Default: latest. That would be a string of the new version (i.e: 0.8.1). \n     EXAMPLE: \n         pavBuild -ir 0.8.1 \n\n         The command above would build an iOS version in the bin/PlaceAVoteApp_v0.8.1 dir and then upload it to Amazon S3.\n"
         exit 1 # Command to come out of the program with status 1
     ;;
 esac

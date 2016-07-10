@@ -103,6 +103,7 @@
     "sp-react-native-iconbutton": "^2.4.13",
     "tcomb-form-native": "0.5.1",
     "underscore": "^1.8.3",
-    "validate.js": "^0.9.0"
+    "validate.js": "^0.9.0",
+    "react-native-swiper": "1.4.6"
   }
 }
