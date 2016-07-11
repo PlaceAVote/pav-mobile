@@ -80,15 +80,26 @@ const {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Sc
 
 
 
-    export function updateScreenSizesByOrientation(sizes){
+    export function updateScreenSizesByOrientation(sizes, isPortrait){
 
       let screenSizes = {};
-      if(sizes.h>sizes.w){
-        screenSizes.h = sizes.h;
-        screenSizes.w = sizes.w;
-      }else{
-        screenSizes.h = sizes.w;
-        screenSizes.w = sizes.h;
+      if(isPortrait===true){  //portrait
+        if(sizes.h>sizes.w){
+          screenSizes.h = sizes.h;
+          screenSizes.w = sizes.w;
+        }else{
+          screenSizes.h = sizes.w;
+          screenSizes.w = sizes.h;
+        }
+      }
+      else{ //landscape
+        if(sizes.h>sizes.w){
+          screenSizes.w = sizes.h;
+          screenSizes.h = sizes.w;
+        }else{
+          screenSizes.h = sizes.h;
+          screenSizes.w = sizes.w;
+        }
       }
       return screenSizes;
     }

@@ -31,17 +31,20 @@ import logoWhiteImg from '../../../assets/pavLogoWhiteHQ.png';
 
 const styles = StyleSheet.create({
   container:{
+    flex:1,
     // paddingHorizontal: w*0.07,
-    paddingHorizontal: w*0.10,
     paddingTop: h*0.32,
-    // backgroundColor:'pink'
+    paddingHorizontal: w*0.10,
+    // backgroundColor:'pink',
+    justifyContent:'space-around',
+    marginBottom: 50,
   },
 
 
 
   titleTextContainer:{
     backgroundColor: Colors.transparentColor,
-    paddingVertical:h*0.04,
+    // paddingVertical:h*0.04,
     // justifyContent: 'center'
   },
   titleText: {
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
 
   descriptionTextContainer:{
     backgroundColor: Colors.transparentColor,
-    paddingVertical:h*0.04,
+    // paddingVertical:h*0.04,
     // justifyContent: 'center'
   },
   descriptionText: {
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
 
   description2TextContainer:{
     backgroundColor: Colors.transparentColor,
-    paddingVertical:h*0.04,
+    // paddingVertical:h*0.04,
     // justifyContent: 'center'
   },
   description2Text: {

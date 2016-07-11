@@ -30,34 +30,26 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 import headerInterestsImg from '../../../assets/interests2.png';
 
 
+const IMG_WIDTH_P = w*0.8, IMG_HEIGHT_P = IMG_WIDTH_P/2.2;
+const IMG_WIDTH_L = h*0.8, IMG_HEIGHT_L = IMG_WIDTH_L/2;
+
 const styles = StyleSheet.create({
   container:{
     // paddingHorizontal: w*0.07,
     paddingHorizontal: w*0.10,
     // backgroundColor:'pink'
+    // backgroundColor:'purple',
   },
 
-  pavLogoImgContainer:{
-    alignItems:'center',
-    paddingVertical:h*0.04,
-    // backgroundColor:'pink'
-  },
-  pavLogoImg:{
-    width: w*0.17,
-    height: w*0.16,
-  },
   headerInterestsImgContainer:{
     alignItems:'center',
 
   },
-  headerInterestsImg:{
-    height: h*0.27,
-    width: w*0.8,
-  },
+
 
   titleTextContainer:{
     backgroundColor: Colors.transparentColor,
-    paddingVertical:h*0.02,
+    paddingTop:h*0.04,
     // justifyContent: 'center'
   },
   titleText: {
@@ -111,10 +103,10 @@ class SliderPage3Render extends React.Component {
   render() {
 
     return(
-      <View style={[styles.container, this.props.isPortrait===true?{paddingTop: h*0.2165,}:{paddingTop: h*0.197}]}>
+      <View style={[styles.container, {paddingTop: this.props.lineYOffset-(this.props.isPortrait===true?IMG_HEIGHT_P:IMG_HEIGHT_L)}]}>
 
         <View style={styles.headerInterestsImgContainer}>
-          <Image style={styles.headerInterestsImg} resizeMode= 'contain' source={headerInterestsImg}></Image>
+          <Image style={this.props.isPortrait===true?{width: IMG_WIDTH_P, height: IMG_HEIGHT_P}:{width: IMG_WIDTH_L, height: IMG_HEIGHT_L}} resizeMode= 'contain' source={headerInterestsImg}></Image>
         </View>
 
         <View style={styles.titleTextContainer}>

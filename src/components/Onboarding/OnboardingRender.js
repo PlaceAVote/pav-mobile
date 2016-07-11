@@ -24,7 +24,7 @@ import {Colors, ScheneKeys} from '../../config/constants';
 import React from 'react';
 import {StyleSheet, Text, TouchableHighlight, View, Platform, StatusBar, Animated} from 'react-native';
 
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen, updateScreenSizesByOrientation} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
@@ -113,7 +113,8 @@ class OnboardingRender extends React.Component {
     super(props);
     this.state = {
       scrollAnim:new Animated.Value(0),
-      curIndex:0
+      curIndex:0,
+      lineY:0
     }
 
   }
@@ -147,16 +148,21 @@ class OnboardingRender extends React.Component {
   }
 
 
+  lineDrawn(topOffset){
+    this.setState({lineY:topOffset})
+  }
+
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
     let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@# IS PORTRAIT : "+isPortrait);
+    let screenSz = updateScreenSizesByOrientation({w,h}, isPortrait);
     // let styles= isPortrait?portraitStyles:landscapeStyles;
-
-
+    // if(isPortrait===false){
+    //   alert("H: "+h+"W: "+w)
+    // }
 // {listener:(e)=>{console.log(e.nativeEvent.contentOffset.x)}}
     return(
       <LinearGradient
@@ -170,12 +176,13 @@ class OnboardingRender extends React.Component {
            />
 
            <AnimatedImage scrollAnim={this.state.scrollAnim} isPortrait={isPortrait} position={this.state.curIndex}/>
-           <AnimatedLine scrollAnim={this.state.scrollAnim}  position={this.state.curIndex}/>
+           <AnimatedLine scrollAnim={this.state.scrollAnim}  position={this.state.curIndex} onLineDrawn={this.lineDrawn.bind(this)}/>
 
            <Swiper
            loop={false /*False because otherwise it messes up our animation from 0 to 3 index*/}
            style={styles.swiper}
-           height={h-FOOTER_BTN_CONTAINER_HEIGHT}
+           height={screenSz.h-FOOTER_BTN_CONTAINER_HEIGHT}
+           width={screenSz.w}
            showsButtons={true}
            paginationStyle={isPortrait===true?{bottom:24}:{bottom:0}}
            dot={<View style={[styles.dot, styles.inactiveDot]}/>}
@@ -196,8 +203,8 @@ class OnboardingRender extends React.Component {
            >
 
              <SliderPage1Render isPortrait={isPortrait}/>
-             <SliderPage2Render isPortrait={isPortrait}/>
-             <SliderPage3Render isPortrait={isPortrait}/>
+             <SliderPage2Render isPortrait={isPortrait} lineYOffset={this.state.lineY}/>
+             <SliderPage3Render isPortrait={isPortrait} lineYOffset={this.state.lineY}/>
 
            </Swiper>
            {this.renderFooter()}

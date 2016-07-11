@@ -63,7 +63,7 @@ class AnimatedLine extends React.Component {
     // console.log("@@: "+this.props.scrollAnim.getValue());
     return(
       <View style={styles.lineContainer}>
-       <Animated.View style={[ styles.line, (this.props.position===0)?{
+       <Animated.View onLayout={(e)=>this.props.onLineDrawn(e.nativeEvent.layout.y)} style={[ styles.line, (this.props.position===0)?{
            width: this.props.scrollAnim.interpolate(this._widthInterpolationObj),
            opacity: this.props.scrollAnim
          }:{width:MAX_LINE_WIDTH, opacity:1}]
@@ -84,5 +84,6 @@ class AnimatedLine extends React.Component {
 AnimatedLine.propTypes= {
   scrollAnim: React.PropTypes.any.isRequired,
   position: React.PropTypes.number.isRequired,
+  onLineDrawn : React.PropTypes.func.isRequired,
 };
 export default AnimatedLine;
