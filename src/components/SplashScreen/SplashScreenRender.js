@@ -33,7 +33,52 @@ import AnimatedPavLogo from './AnimatedPavLogo';
 
 
 
+const styles = StyleSheet.create({
 
+
+  container: {
+    // backgroundColor: 'orange',
+    flex:1,
+    flexDirection:'column',
+    justifyContent:'space-around',
+    // backgroundColor: '#E8E7EE',
+    // marginVertical: 10,
+    // marginHorizontal:15
+  },
+  pavLogoContainer:{
+    // flex:1,
+    // paddingVertical:h*0.08,
+    justifyContent:'flex-start',
+    // backgroundColor: "pink",
+  },
+  logoAnimation:{
+    // backgroundColor: "purple",
+    paddingVertical:h*0.08,
+  },
+
+
+  titleTextContainer:{
+    justifyContent:'center',
+    paddingVertical:h*0.14,
+    backgroundColor:Colors.transparentColor
+    // backgroundColor:'red'
+  },
+  titleText: {
+    // backgroundColor: 'black',
+    fontSize: getCorrectFontSizeForScreen(31),
+    color: Colors.mainTextColor,
+    fontFamily: 'Whitney-Bold',
+    textAlign: 'center',
+  },
+
+  // accountSettingsText:{
+  //   color: Colors.primaryColor,
+  //   textAlign: 'left',
+  //   fontFamily: 'Whitney-Regular',
+  //   fontSize: getCorrectFontSizeForScreen(10),
+  // }
+
+});
 
 
 
@@ -48,89 +93,14 @@ class SplashScreenRender extends React.Component {
 
 
   /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
-
-
-      container: {
-        // backgroundColor: 'orange',
-        flex:1,
-        flexDirection:'column',
-        justifyContent:'space-around',
-        // backgroundColor: '#E8E7EE',
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-      pavLogoContainer:{
-        // flex:1,
-        // paddingVertical:h*0.08,
-        justifyContent:'flex-start',
-        // backgroundColor: "pink",
-      },
-      logoAnimation:{
-        // backgroundColor: "purple",
-        paddingVertical:h*0.08,
-      },
-
-
-      titleTextContainer:{
-        justifyContent:'center',
-        paddingVertical:h*0.14,
-        backgroundColor:Colors.transparentColor
-        // backgroundColor:'red'
-      },
-      titleText: {
-        // backgroundColor: 'black',
-        fontSize: getCorrectFontSizeForScreen(31),
-        color: Colors.mainTextColor,
-        fontFamily: 'Whitney-Bold',
-        textAlign: 'center',
-      },
-
-      // accountSettingsText:{
-      //   color: Colors.primaryColor,
-      //   textAlign: 'left',
-      //   fontFamily: 'Whitney-Regular',
-      //   fontSize: getCorrectFontSizeForScreen(10),
-      // }
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-      container: {
-        backgroundColor: 'orange',
-        flex:1,
-        flexDirection: 'column',
-        marginVertical: 10,
-        marginHorizontal:10
-      },
-
-
-
-    });
-  }
-
-  /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
 
-    let isPortrait = (this.props.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     // '#4D6EB2',
 
     return(

@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   container:{
     // paddingHorizontal: w*0.07,
     paddingHorizontal: w*0.10,
-    paddingTop: h*0.22,
     // backgroundColor:'pink'
   },
 
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   },
   pavLogoImg:{
     width: w*0.17,
-    height: w*0.17,
+    height: w*0.16,
   },
   headerInterestsImgContainer:{
     alignItems:'center',
@@ -112,7 +111,7 @@ class SliderPage3Render extends React.Component {
   render() {
 
     return(
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.isPortrait===true?{paddingTop: h*0.2165,}:{paddingTop: h*0.197}]}>
 
         <View style={styles.headerInterestsImgContainer}>
           <Image style={styles.headerInterestsImg} resizeMode= 'contain' source={headerInterestsImg}></Image>
@@ -137,5 +136,7 @@ class SliderPage3Render extends React.Component {
 }
 
 
-
+SliderPage3Render.propTypes= {
+  isPortrait: React.PropTypes.bool.isRequired,
+};
 export default SliderPage3Render;

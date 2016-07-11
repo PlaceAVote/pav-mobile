@@ -11,8 +11,8 @@
   React and React native imports
 */
 import React from 'react';
-import {Platform} from 'react-native';
-
+import {Platform, Text} from 'react-native';
+Text.defaultProps.allowFontScaling=false
 
 
 

@@ -19,7 +19,7 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 
 
 
-const MAX_LINE_WIDTH = w*.76;
+const MAX_LINE_WIDTH = w*.81;
 
 const styles = StyleSheet.create({
 
@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
     alignItems:'center',
     position:'absolute',
     // backgroundColor:'pink',
-    paddingTop: h*0.47,
+    paddingTop: h*0.467,
   },
   line:{
     backgroundColor:Colors.alternativeAccentColor,
-    borderRadius:4,
-    height:7,
+    borderRadius:2.6,
+    height:6,
   }
 
 
@@ -42,24 +42,22 @@ const styles = StyleSheet.create({
 
 
 
-
-
-
 class AnimatedLine extends React.Component {
   constructor(props) {
     super(props);
 
+
+    this._widthInterpolationObj = {
+      inputRange: [0, w*1, w*2], //i.e [375, 750, 1500]
+      outputRange: [0, MAX_LINE_WIDTH, MAX_LINE_WIDTH],
+    };
+
+    this._opacityInterpolationObj = {
+      inputRange: [0, w*1, w*2], //i.e [375, 750, 1500]
+      outputRange: [0, 1, 1],
+    }
   }
 
-
-// onMomentumScrollBegin={this.onMomentumScrollBegin.bind(this)}
-
-  // transform: [{
-  //    translateY: this.state.fadeAnim.interpolate({
-  //      inputRange: [0, 1],
-  //      outputRange: [150, 0]  // 0 : 150, 0.5 : 75, 1 : 0
-  //    }),
-  //  }],
 
   /**
    * ### render
@@ -71,11 +69,8 @@ class AnimatedLine extends React.Component {
       <View style={styles.lineContainer}>
        <Animated.View style={[ styles.line,
          {
-           width: this.props.scrollAnim.interpolate({
-             inputRange: [0, w*1, w*2], //i.e [375, 750, 1500]
-             outputRange: [0, MAX_LINE_WIDTH, MAX_LINE_WIDTH],
-           }),
-
+           width: this.props.scrollAnim.interpolate(this._widthInterpolationObj),
+           opacity: this.props.scrollAnim.interpolate(this._opacityInterpolationObj)
          }]
        }/>
       </View>
@@ -89,6 +84,5 @@ class AnimatedLine extends React.Component {
 
 AnimatedLine.propTypes= {
   scrollAnim: React.PropTypes.any.isRequired,
-
 };
 export default AnimatedLine;

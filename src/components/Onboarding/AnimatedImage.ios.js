@@ -21,12 +21,16 @@ import logoWhiteImg from '../../../assets/pavLogoWhiteHQ.png';
 
 
 
+const IMG_SIZE_BIG_P = w*.37,
+  IMG_SIZE_SMALL_P = w*.15,
+  IMG_SIZE_BIG_L = w*.15,
+  IMG_SIZE_SMALL_L = w*.07;
+
 
 const styles = StyleSheet.create({
 
   pavLogoImgContainer:{
     width:w,
-    alignItems:'center',
     position:'absolute',
     // backgroundColor:'pink',
     paddingTop: h*0.07,
@@ -48,36 +52,32 @@ class AnimatedImage extends React.Component {
 
   }
 
-
-// onMomentumScrollBegin={this.onMomentumScrollBegin.bind(this)}
-
-  // transform: [{
-  //    translateY: this.state.fadeAnim.interpolate({
-  //      inputRange: [0, 1],
-  //      outputRange: [150, 0]  // 0 : 150, 0.5 : 75, 1 : 0
-  //    }),
-  //  }],
-
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
-    // console.log("@@: "+this.props.scrollAnim.getValue());
+    let bigImgSize = this.props.isPortrait===true?IMG_SIZE_BIG_P:IMG_SIZE_BIG_L;
+    let smallImgSize = this.props.isPortrait===true?IMG_SIZE_SMALL_P:IMG_SIZE_SMALL_L;
+    this._sizeInterpolateObj = {
+      inputRange: [0, w*1, w*2], //i.e [375, 750, 1500]
+      outputRange: [bigImgSize, smallImgSize, smallImgSize] //i.e [w*0.37, w*0.15, w*0.15]
+    };
     return(
-      <View style={styles.pavLogoImgContainer}>
+      <View style={[styles.pavLogoImgContainer,
+      this.props.isPortrait===true?{
+          //Portrait style
+          alignItems:'center'
+        }:{
+          //Landscape style
+          alignItems:'flex-start',
+          paddingHorizontal: w*0.10,
+      }
+    ]}>
        <Animated.Image style={
          {
-           width: this.props.scrollAnim.interpolate({
-             inputRange: [0, w*1, w*2], //i.e [375, 750, 1500]
-             outputRange: [w*.37, w*.15, w*.15] //i.e [w*0.37, w*0.15, w*0.15]
-           }),
-           height: this.props.scrollAnim.interpolate({
-             inputRange: [0, w*1, w*2], //i.e [375, 750, 1500]
-             outputRange: [w*.37, w*.15, w*.15] //i.e [w*0.37, w*0.15, w*0.15]
-           }),
-
-           // transform: [{scaleX: this.state.curLine1Width}]
+           width: this.props.scrollAnim.interpolate(this._sizeInterpolateObj),
+           height: this.props.scrollAnim.interpolate(this._sizeInterpolateObj)
          }
        } resizeMode= 'contain' source={logoWhiteImg}/>
       </View>
@@ -85,13 +85,17 @@ class AnimatedImage extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (nextProps.scrollAnim !== this.props.scrollAnim);
+    return (
+      (nextProps.scrollAnim !== this.props.scrollAnim)
+      ||
+      (nextProps.isPortrait !== this.props.isPortrait)
+    );
   }
 }
 
 
 AnimatedImage.propTypes= {
   scrollAnim: React.PropTypes.any.isRequired,
-
+  isPortrait: React.PropTypes.bool.isRequired,
 };
 export default AnimatedImage;

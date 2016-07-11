@@ -200,6 +200,9 @@ class Routes extends React.Component{
          console.log('NO initial url');
        }
      }).catch(err => console.error('An error occurred', err));
+
+     let initialOrientation = Orientation.getInitialOrientation();
+     this.props.actions.setOrientation(initialOrientation);
   }
 
   orientationDidChange(orientation) {

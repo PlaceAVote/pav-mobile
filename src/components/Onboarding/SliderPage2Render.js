@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   container:{
     // paddingHorizontal: w*0.07,
     paddingHorizontal: w*0.10,
-    paddingTop: h*0.22,
     // backgroundColor:'pink'
   },
 
@@ -112,7 +111,7 @@ class SliderPage2Render extends React.Component {
   render() {
 
     return(
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.isPortrait===true?{paddingTop: h*0.22}:{paddingTop: h*0.198}]}>
 
         <View style={styles.headerInterestsImgContainer}>
           <Image style={styles.headerInterestsImg} resizeMode= 'contain' source={headerInterestsImg}></Image>
@@ -137,5 +136,7 @@ class SliderPage2Render extends React.Component {
 }
 
 
-
+SliderPage2Render.propTypes= {
+  isPortrait: React.PropTypes.bool.isRequired,
+};
 export default SliderPage2Render;
