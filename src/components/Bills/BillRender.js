@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.010,
     paddingHorizontal: w*0.038,
     borderTopWidth:1,
-    borderTopColor: '#E4E4E4',
+    borderTopColor: Colors.alernativeAccentColor,
   },
   // btnIconStyle:{
   //   marginHorizontal: 10
