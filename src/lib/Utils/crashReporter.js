@@ -26,7 +26,7 @@ export default class CrashReporter {
       instance = this;
     }
 
-    RNBugsnag();
+    RNBugsnag(props);
     return instance;
   }
 
