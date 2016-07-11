@@ -33,19 +33,11 @@ const styles = StyleSheet.create({
   container:{
     // paddingHorizontal: w*0.07,
     paddingHorizontal: w*0.10,
-    paddingTop:h*0.06,
+    paddingTop: h*0.32,
     // backgroundColor:'pink'
   },
 
-  pavLogoImgContainer:{
-    alignItems:'center',
-    paddingVertical:h*0.04,
-    // backgroundColor:'pink'
-  },
-  pavLogoImg:{
-    width: w*0.37,
-    height: w*0.37,
-  },
+
 
   titleTextContainer:{
     backgroundColor: Colors.transparentColor,
@@ -118,9 +110,7 @@ class SliderPage1Render extends React.Component {
     return(
       <View style={styles.container}>
 
-        <View style={styles.pavLogoImgContainer}>
-          <Image style={styles.pavLogoImg} resizeMode= 'contain' source={logoWhiteImg}></Image>
-        </View>
+
 
         <View style={styles.titleTextContainer}>
           <Text style={styles.titleText} >

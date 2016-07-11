@@ -6,7 +6,7 @@ module.exports =  {
     secondaryColor: "#3D5B96",  //dark blue
     accentColor: "#A5CB75", //green
     negativeAccentColor: "#e64a33", //pinkred
-    alernativeAccentColor: '#ED9518',  //orange
+    alternativeAccentColor: '#ED9518',  //orange
 
     transparentColor: "rgba(0,0,0,0)",  //clear
 

@@ -1,6 +1,6 @@
 //@flow
 /**
- * # SliderPage2Render.js
+ * # SliderPage3Render.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -27,7 +27,7 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 // } = ScheneKeys;
 
 
-import headerInterestsImg from '../../../assets/interests.png';
+import headerInterestsImg from '../../../assets/interests2.png';
 
 
 const styles = StyleSheet.create({
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 
 
 
-class SliderPage2Render extends React.Component {
+class SliderPage3Render extends React.Component {
   constructor(props) {
     super(props);
 
@@ -120,13 +120,13 @@ class SliderPage2Render extends React.Component {
 
         <View style={styles.titleTextContainer}>
           <Text style={styles.titleText} >
-          Discover New Bills
+          Debate on Issues
           </Text>
         </View>
 
         <View style={styles.descriptionTextContainer}>
           <Text style={styles.descriptionText} >
-          We make legislation easy to understand, we break down each issue and remain non-partisan so you only get the facts from us.
+          Talk about why an issue matters to you, and let people know your stance on a subject. Invite your fellow district members to take part, and start improving representation in America.
           </Text>
         </View>
 
@@ -138,4 +138,4 @@ class SliderPage2Render extends React.Component {
 
 
 
-export default SliderPage2Render;
+export default SliderPage3Render;
