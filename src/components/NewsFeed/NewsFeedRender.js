@@ -26,7 +26,7 @@ import moment from 'moment'
 import {Colors, ScheneKeys, Other} from '../../config/constants';
 const {NEWS_FEED_FILTERS} = Other;
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView, ActivityIndicatorIOS, TouchableOpacity, ListView, RefreshControl, Platform, PanResponder} from 'react-native';
+import {StyleSheet, Text, View, Platform, PanResponder} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import {timeout} from '../../lib/Utils/genericUtils'
 import Dimensions from 'Dimensions';

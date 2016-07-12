@@ -55,8 +55,8 @@ const {
   REGISTER_STEP_2
 } = ScheneKeys;
 
-import pIndic2 from '../../../assets/pIndic2.jpg';
-import signupExpl2 from '../../../assets/signupExpl2.gif';
+// import pIndic2 from '../../../assets/pIndic2.jpg';
+// import signupExpl2 from '../../../assets/signupExpl2.gif';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
@@ -241,17 +241,6 @@ class EmailSignUpStep2Render extends React.Component {
   }
 
 
-  renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError  || this.state.keyboardOpen===true){
-      return (<View></View>)
-    }else{
-      return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic2}></Image>
-      </View>);
-    }
-  }
-
-
   renderText(styles){
     if(this.state.keyboardOpen===true){
       return <View></View>;
@@ -290,9 +279,7 @@ class EmailSignUpStep2Render extends React.Component {
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
             <View style={styles.explanationContainer}>
-              <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} resizeMode= 'contain' source={signupExpl2}></Image>
-              </View>
+              
               {this.renderText(styles)}
               <Button onPress={this.props.onBack}
                 style={styles.backBtn}
@@ -301,7 +288,7 @@ class EmailSignUpStep2Render extends React.Component {
                 iconContainerStyle={styles.backBtnIconContainer}
                 customIcon={()=><PavIcon name="arrow-left" size={25} style={styles.backBtnIcon}/>}
               />
-              {this.renderPageIndicatorIcon()}
+
             </View>
             <View style={styles.footerContainer}>
               <View style={styles.inputsContainer}>

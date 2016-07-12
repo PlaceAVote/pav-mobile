@@ -198,7 +198,7 @@ var SignUpEmailForm = React.createClass({
           editable: !this.props.form.isFetching,
           hasError: this.props.form.fields.emailHasError || this.props.form.error,
           error: this.props.form.error || 'Please give us a valid email address.',
-          placeholder: 'mail@example.com',
+          placeholder: 'yourmail@example.com',
           returnKeyType: 'next',
           blurOnSubmit : true,
           onSubmitEditing: this.onEmailFinishedEditing,

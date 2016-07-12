@@ -69,7 +69,7 @@ const Form = Record({
     fbAuthUID: '',
     fbAuthToken: '',
     fbAuthImgUrl: '',
-    gender: 'they',
+    gender: 'male',
     showPassword: false,
     // fbAuthPermissionError: false,
     // userDataRemainsToBeCollected: new Map([

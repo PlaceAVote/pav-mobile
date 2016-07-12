@@ -62,8 +62,8 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
  * The states were interested in
  */
 
-import pIndic3 from '../../../assets/pIndic3.jpg';
-import signupExpl3 from '../../../assets/signupExpl3.jpg';
+// import pIndic3 from '../../../assets/pIndic3.jpg';
+// import signupExpl3 from '../../../assets/signupExpl3.jpg';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
@@ -252,15 +252,8 @@ class EmailSignUpStep3Render extends React.Component {
   }
 
 
-  renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.passwordHasError || this.props.auth.form.fields.passwordAgainHasError  || this.state.keyboardOpen===true){
-      return (<View></View>)
-    }else{
-      return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic3}></Image>
-      </View>);
-    }
-  }
+
+
 
 
   renderText(styles){
@@ -303,9 +296,6 @@ class EmailSignUpStep3Render extends React.Component {
 
             <View style={styles.explanationContainer}>
 
-              <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} resizeMode= 'contain' source={signupExpl3}></Image>
-              </View>
 
               {this.renderText(styles)}
 
@@ -317,7 +307,7 @@ class EmailSignUpStep3Render extends React.Component {
                 iconContainerStyle={styles.backBtnIconContainer}
                 customIcon={()=><PavIcon name="arrow-left" size={25} style={styles.backBtnIcon}/>}
               />
-              {this.renderPageIndicatorIcon()}
+
             </View>
 
 

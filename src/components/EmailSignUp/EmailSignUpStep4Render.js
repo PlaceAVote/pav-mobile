@@ -55,8 +55,8 @@ import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-import pIndic4Img from '../../../assets/pIndic4.jpg';
-import signupExpl4Img from '../../../assets/signupExpl4.jpg';
+// import pIndic4Img from '../../../assets/pIndic4.jpg';
+// import signupExpl4Img from '../../../assets/signupExpl4.jpg';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
@@ -267,15 +267,6 @@ class EmailSignUpStep4Render extends React.Component {
 
 
 
-  renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked || this.props.auth.form.fields.zipCodeHasError  || this.state.keyboardOpen===true){
-      return (<View></View>)
-    }else{
-      return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic4Img}></Image>
-      </View>);
-    }
-  }
 
   renderDescriptionText(){
     if(this.props.auth.form.fields.dateOfBirthIsCurBeingPicked || this.state.keyboardOpen===true){
@@ -318,9 +309,7 @@ class EmailSignUpStep4Render extends React.Component {
 
 
             <View style={styles.explanationContainer}>
-              <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} resizeMode= 'contain' source={signupExpl4Img}></Image>
-              </View>
+              
               <Button onPress={this.props.onBack}
                 style={styles.backBtn}
                 isDisabled={false}
@@ -329,7 +318,7 @@ class EmailSignUpStep4Render extends React.Component {
                 customIcon={()=><PavIcon name="arrow-left" size={25} style={styles.backBtnIcon}/>}
               />
               {this.renderDescriptionText(styles)}
-              {this.renderPageIndicatorIcon()}
+
             </View>
 
 

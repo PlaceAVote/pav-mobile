@@ -1,55 +1,22 @@
 /**
- * # Login.js
+ * # EmailSignUpStep1.js
  *
  * This class is a little complicated as it handles multiple states.
  *
  */
 'use strict';
-/**
- * ## Imports
- *
- * Redux
- */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-/**
- * The actions we need
- */
-import * as authActions from '../../reducers/auth/authActions';
-import * as globalActions from '../../reducers/global/globalActions';
-
-/**
- * Immutable
- */
-import {Map} from 'immutable';
-
 /*A react native button*/
-// import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
 
-
-
-/**
- * The ErrorAlert displays an alert for both ios & android
- */
-import ErrorAlert from '../../components/ErrorAlert';
 /**
  *  The SignUpForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignUpNameSurnameForm from './SignUpNameSurnameForm';
+import SignUp1Form from './SignUp1Form';
 
-import {Colors, ScheneKeys} from '../../config/constants';
+import {Colors} from '../../config/constants';
 
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-
-/**
- * The states were interested in
- */
-const {
-  REGISTER_STEP_1
-} = ScheneKeys;
 
 import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio, Platform} from 'react-native';
@@ -58,8 +25,8 @@ import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-import pIndic1Img from '../../../assets/pIndic1.jpg';
-import signupExpl1 from '../../../assets/signupExpl1.jpg';
+
+
 /**
  * The states were interested in
  */
@@ -76,121 +43,61 @@ var styles = StyleSheet.create({
 
   baseContainer: {
     flex:1,
-    backgroundColor: Colors.primaryColor,
-  },
-  contentContainer: {
-    flex:1,
-    flexDirection: 'column'
+    backgroundColor: 'white',
+    // backgroundColor: 'pink',
+    marginTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
+    paddingHorizontal: w*0.04,
+    paddingVertical: h*0.02,
   },
 
-  backBtn:{
-    alignItems:'flex-start',
-    top:h*0.05,
-    left:w*0.02,
-    width:w*0.15,
-    height:w*0.15,
-    borderWidth: 0,
-    position: 'absolute',
-  },
-  backBtnIconContainer:{
-    paddingVertical:w*0.03,
-    // backgroundColor: 'pink',
-  },
-  backBtnIcon:{
-    // backgroundColor: 'pink',
-    color: '#FFFFFF',
-  },
-  explanationContainer:{
-    flex:1,
-    flexDirection: 'column',
-    backgroundColor: Colors.primaryColor,
-    // backgroundColor: 'red',
-  },
   inputsContainer:{
-    marginTop:15,
-    marginBottom:20,
-    marginHorizontal:15,
-    justifyContent: "flex-end",
-    backgroundColor: 'white'
-
-  },
-  footerContainer:{
-    backgroundColor: 'white'
-  },
-  descriptionTextContainer:{
     flex:1,
-    // backgroundColor: 'yellow',
-    justifyContent:'center',
-    alignItems:'center'
+    // paddingVertical: w*.04,
+    backgroundColor: 'white'
   },
-  descriptionText: {
-    backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
-    fontSize: getCorrectFontSizeForScreen(11),
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-    width: w*0.9,
-  },
-  explanImgContainer:{
-    // backgroundColor: 'red',
-    marginTop:h*0.03,
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  explanImg:{
-    height: h*0.36,
-    width: w*0.60,
-    // backgroundColor: 'red'
-  },
-  pIndicContainer:{
-    backgroundColor: Colors.transparentColor,
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  pIndicImg:{
 
+
+  facebookBtn:{
+    backgroundColor: 'white',
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: Colors.primaryColor,
+    marginTop:h*0.02,
+    height: 45
   },
-  nextStepBtn: {
-    backgroundColor: Colors.accentColor,
-    borderRadius: 2,
-    borderWidth: 1,
-    borderColor: Colors.mainBorderColor,
-    height: 60
-  },
-  whiteBtnText:{
-    color: Colors.mainTextColor,
-    fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
+  facebookBtnText:{
+    color: Colors.primaryColor,
     textAlign: 'center',
-    fontSize: getCorrectFontSizeForScreen(14),
-  }
+    fontFamily: 'Whitney-SemiBold',
+    fontSize: getCorrectFontSizeForScreen(11),
+  },
+
+  orTextContainer:{
+    paddingVertical:w*0.05,
+  },
+  orText:{
+    fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
+    color: "#000000BB",
+    alignSelf:"center",
+  },
+
+  signInBtn:{
+    backgroundColor: 'white',
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: Colors.mainBorderColor,
+    height: 45
+  },
+  signInBtnText:{
+    color: Colors.thirdTextColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney-SemiBold',
+    fontSize: getCorrectFontSizeForScreen(12),
+  },
+
+
 
 });
-/**
- * ## Redux boilerplate
- */
-const actions = [
-  authActions,
-  globalActions
-];
-
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject();
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  };
-}
-
-
 
 
 
@@ -199,12 +106,12 @@ function mapDispatchToProps(dispatch) {
 class EmailSignUpStep1Render extends React.Component {
   constructor(props) {
     super(props);
-    this.errorAlert = new ErrorAlert();
+
     this.state ={
       keyboardOpen: false,
       value: {
-        name: this.props.auth.form.fields.name,
-      	surname: this.props.auth.form.fields.surname
+        name: this.props.authFormFields.name,
+      	surname: this.props.authFormFields.surname
       }
     };
   }
@@ -216,8 +123,8 @@ class EmailSignUpStep1Render extends React.Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	name: nextprops.auth.form.fields.name,
-      	surname: nextprops.auth.form.fields.surname
+      	name: nextprops.authFormFields.name,
+      	surname: nextprops.authFormFields.surname
       }
     });
   }
@@ -234,11 +141,8 @@ class EmailSignUpStep1Render extends React.Component {
   onChange(value) {
 
     // console.log("Changed"+JSON.stringify(value));
-    if (value.name != '') {
-      this.props.actions.onAuthFormFieldChange('name',value.name, REGISTER_STEP_1);
-    }
-    if (value.surname != '') {
-      this.props.actions.onAuthFormFieldChange('surname',value.surname, REGISTER_STEP_1);
+    if (!!this.props.onValueChange) {
+      this.props.onValueChange(value);
     }
 
     this.setState(
@@ -246,16 +150,6 @@ class EmailSignUpStep1Render extends React.Component {
     );
   }
 
-
-  renderPageIndicatorIcon(){
-    if(this.props.auth.form.fields.nameHasError || this.props.auth.form.fields.surnameHasError || this.state.keyboardOpen===true){
-      return (<View></View>)
-    }else{
-      return (<View style={styles.pIndicContainer}>
-        <Image style={styles.pIndicImg} resizeMode= 'contain' source={pIndic1Img}></Image>
-      </View>);
-    }
-  }
 
 
   renderText(styles){
@@ -297,51 +191,65 @@ class EmailSignUpStep1Render extends React.Component {
 
     return(
       <View style={styles.baseContainer}>
-        <View style={styles.contentContainer}>
-            <View style={styles.explanationContainer}>
-              <View style={styles.explanImgContainer}>
-                <Image style={styles.explanImg} resizeMode= 'cover' source={signupExpl1}></Image>
-              </View>
+        <Button
+        onPress={this.props.onFbBtnPress}
+        style={styles.facebookBtn}
+        textStyle={styles.facebookBtnText}
+        isDisabled={this.props.isFetchingAuth}
+        isLoading={this.props.isFetchingAuth && (this.props.authMethod=="facebook")}
+        iconProps={{name: "facebook",size:21, color: Colors.primaryColor}}>
+          Register with Facebook
+        </Button>
 
-              {this.renderText(styles)}
-              <Button onPress={this.props.onBack}
-                style={styles.backBtn}
-                isDisabled={false}
-                isLoading={false}
-                iconContainerStyle={styles.backBtnIconContainer}
-                customIcon={()=><PavIcon name="arrow-left" size={25} style={styles.backBtnIcon}/>}
-              />
-              {this.renderPageIndicatorIcon()}
-            </View>
+        <View style={styles.orTextContainer}>
+          <Text style={styles.orText}>Or</Text>
+        </View>
 
-
-            <View style={styles.footerContainer}>
-              <View style={styles.inputsContainer}>
-                <SignUpNameSurnameForm
-                  form={this.props.auth.form}
-                  value={this.state.value}
-                  onChange={this.onChange.bind(this)}
-                  onNext={this.props.onNextStep}
-                />
-                <Button textStyle={styles.whiteBtnText} style={styles.nextStepBtn}
-                    isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_1) || this.props.auth.form.isFetching}
-                    onPress={this.props.onNextStep}>
-                  Next Step
-                </Button>
-              </View>
-            </View>
-            {this.renderKeyboardSpacer()}
-
+        <View style={styles.inputsContainer}>
+          <SignUp1Form
+            isFetchingAuth={this.props.isFetchingAuth}
+            authFormFields={this.props.authFormFields}
+            value={this.state.value}
+            error={this.props.error}
+            onChange={this.onChange.bind(this)}
+            onNext={this.props.onNextStep}
+            regFormIsValid={this.props.regFormIsValid}
+          />
 
         </View>
+
+
+
+        <Button
+            key="loginBtn"
+            textStyle={styles.signInBtnText}
+            style={styles.signInBtn}
+            isDisabled={this.props.isFetchingAuth}
+            isLoading={this.props.isFetchingAuth && (this.props.authMethod=="email")}
+            activityIndicatorColor={Colors.mainTextColor}
+            onPress={this.props.onSignInBtnPress}>
+          Next >
+        </Button>
+
+        {this.renderKeyboardSpacer()}
+
       </View>
     );
   }
 
   shouldComponentUpdate(nextProps) {
-    return (nextProps.auth.user.isLoggedIn===false);
+    return (nextProps.isUserLoggedIn===false);
   }
 }
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep1Render);
+
+EmailSignUpStep1Render.propTypes= {
+  regFormIsValid: React.PropTypes.bool.isRequired,
+  authFormFields: React.PropTypes.object.isRequired,
+  error: React.PropTypes.object.isRequired,
+  isFetchingAuth: React.PropTypes.bool.isRequired,
+  isUserLoggedIn: React.PropTypes.bool.isRequired,
+  onValueChange: React.PropTypes.func.isRequired,
+  onBack: React.PropTypes.func.isRequired,
+  onNextStep: React.PropTypes.func.isRequired,
+};
+export default EmailSignUpStep1Render;

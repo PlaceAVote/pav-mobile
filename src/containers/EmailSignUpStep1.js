@@ -74,11 +74,39 @@ function mapDispatchToProps(dispatch) {
 //
 // }
 
-let EmailSignUpStep1 = React.createClass({
 
+class EmailSignUpStep1 extends React.Component {
   componentWillMount(){
     // this.props.actions.registerState(1);
-  },
+  }
+
+  /**
+   * ### onChange
+   *
+   * As the user enters keys, this is called for each key stroke.
+   * Rather then publish the rules for each of the fields, I find it
+   * better to display the rules required as long as the field doesn't
+   * meet the requirements.
+   * *Note* that the fields are validated by the authReducer
+   */
+  onChange(value) {
+
+    // console.log("Changed"+JSON.stringify(value));
+    // if (value.name != '') {
+    //   this.props.actions.onAuthFormFieldChange('name',value.name, REGISTER_STEP_1);
+    // }
+    // if (value.surname != '') {
+    //   this.props.actions.onAuthFormFieldChange('surname',value.surname, REGISTER_STEP_1);
+    // }
+    if (value.email != '') {
+      this.props.actions.onAuthFormFieldChange('email',value.email, REGISTER_STEP_1);
+    }
+
+    if (value.password != '') {
+      this.props.actions.onAuthFormFieldChange('password',value.password, REGISTER_STEP_1);
+    }
+
+  }
 
   render() {
     let onButtonPress = ()=>{
@@ -98,12 +126,16 @@ let EmailSignUpStep1 = React.createClass({
       <EmailSignUpStep1Render
           onNextStep={ onButtonPress }
           onBack={onBackBtnPress}
-          auth={ this.props.auth }
-          global={ this.props.global }
-          device={this.props.device}
+          isUserLoggedIn={this.props.auth.user.isLoggedIn}
+          onValueChange={this.onChange.bind(this)}
+          authFormFields={this.props.auth.form.fields}
+          error={this.props.auth.form.error}
+          isFetchingAuth={this.props.auth.form.isFetching}
+          regFormIsValid={this.props.auth.form.isValid.get(REGISTER_STEP_1)}
       />
     );
   }
-});
+
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep1);

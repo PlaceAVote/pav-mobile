@@ -44,17 +44,26 @@ function isFormValid(scheneName, fields){
   switch (scheneName) {
     case REGISTER_STEP_1:
       // console.log("surname: "+fields.surname+"er: "+fields.surnameHasError+ " name: "+fields.name+"er: "+fields.nameHasError);
-      isValid = (!!fields.surname && !!fields.name && !fields.nameHasError && !fields.surnameHasError);
+      isValid = ((fields.email != '' && !fields.emailHasError) && (fields.password != '' && !fields.passwordHasError));
       break;
     case REGISTER_STEP_2:
-      isValid = (fields.email != '' && !fields.emailHasError);
+      isValid = (
+          fields.name!='' &&
+          fields.nameHasError===false &&
+          fields.surname!='' &&
+          fields.surnameHasError===false &&
+          fields.zipCode!='' &&
+          fields.zipCodeHasError===false &&
+          fields.dateOfBirth!='' &&
+          fields.dateOfBirthIsCurBeingPicked===false
+         );
       break;
-    case REGISTER_STEP_3:
-      isValid = (fields.password != '' && !fields.passwordHasError && fields.passwordAgain != '' && !fields.passwordAgainHasError);
-      break;
+    // case REGISTER_STEP_3:
+    //   isValid = ( && fields.passwordAgain != '' && !fields.passwordAgainHasError);
+    //   break;
     case SETTINGS:
-    case REGISTER_STEP_4:
-      isValid = (fields.dateOfBirth!='' && !fields.dateOfBirthIsCurBeingPicked && fields.zipCode!='' && !fields.zipCodeHasError);
+    // case REGISTER_STEP_4:
+      isValid = ( fields.dateOfBirth!='' && fields.dateOfBirthIsCurBeingPicked===false );
       break;
     case LOGIN:
       isValid = (fields.email!='' && fields.password!='' && !fields.emailHasError && !fields.passwordHasError);
