@@ -78,6 +78,7 @@ const stylesheet = Object.freeze({
     },
     // the style applied when a validation error occours
     error: {
+      // backgroundColor:'blue',
       fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
       color: Colors.errorTextColor,
       fontSize: FONT_SIZE,
@@ -157,6 +158,14 @@ const stylesheet = Object.freeze({
     // the style applied when a validation error occours
     error: {
       // marginBottom: 4
+    }
+  },
+  datePickerContainer:{
+    normal:{
+      borderColor: Colors.mainBorderColor,
+    },
+    error:{
+      borderColor: Colors.errorTextColor,
     }
   }
 
@@ -260,7 +269,7 @@ class SignUp2Form extends React.Component {
         // },
         {
           hasError: this.props.authFormFields.dateOfBirthHasError,
-          error: 'Please give us a valid birthdate DD/MM/YYYY',
+          error: 'Please give us your real birthday.',
           factory: AccordionPicker,
           config:{
               format: (value)=>{

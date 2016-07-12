@@ -145,11 +145,9 @@ class EmailSignUpStep2Render extends React.Component {
     if (!!this.props.onValueChange) {
       this.props.onValueChange(value);
     }
-    if(value.dateOfBirthIsCurBeingPicked==undefined){
-      this.setState(
-        {value}
-      );
-    }
+    this.setState(
+      {value}
+    );
   }
 
 

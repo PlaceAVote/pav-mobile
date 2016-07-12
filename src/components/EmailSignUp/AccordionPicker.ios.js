@@ -17,18 +17,15 @@
 
 
 
-        renderHeader (locals) {
+        renderHeader (locals, controlStyles, containerStyles) {
           let curSelectedDate = moment(locals.value).format('Do MMMM YYYY');
           let dateBeingPickedNow = locals.config.dateBeingPickedNow?"Done":"Change";
           return (
             <View style={[styles.header, styles.textContainer]}>
-              <Text style={[locals.stylesheet.controlLabel.normal, styles.label]}>
-                {locals.label}
+              <Text style={controlStyles}>
+                Birthdate
               </Text>
-              <Text style={[styles.valueTitle]}>
-               Birthdate
-             </Text>
-              <TouchableOpacity style={styles.valueContainer} onPress={
+              <TouchableOpacity style={[styles.valueContainer, containerStyles]} onPress={
                 ()=>{
                //  console.log("On button press");
                 locals.config.onCollapsedChange(locals.config.dateBeingPickedNow);
@@ -42,7 +39,7 @@
                  </Text>
                </View>
               </TouchableOpacity>
-              <Text style={[locals.stylesheet.controlLabel.error]}>
+              <Text style={[locals.stylesheet.errorBlock]}>
                 {locals.error}
               </Text>
             </View>
@@ -53,17 +50,20 @@
         getTemplate () {
           var self = this;
 
-          // let onCollapsedChange = (index)=>{
-          //   console.log("On collapse changed: "+index);
-          //
-          // };
           return function (locals) {
             // console.log("NOWWW@@@@@" +locals.config.dateBeingPickedNow);
             // console.log("locals: "+JSON.stringify(locals));
+            var stylesheet = locals.stylesheet;
+            var controlLabelStyle = stylesheet.controlLabel.normal;
+            var datePickerContainerStyle = stylesheet.datePickerContainer.normal;
 
+            if (locals.hasError) {
+              controlLabelStyle = stylesheet.controlLabel.error;
+              datePickerContainerStyle = stylesheet.datePickerContainer.error;
+            }
             return (
               <View>
-                {self.renderHeader(locals)}
+                {self.renderHeader(locals, controlLabelStyle, datePickerContainerStyle)}
                 <Collapsible
                 collapsed={!locals.config.dateBeingPickedNow}
                 align="center"
@@ -102,25 +102,21 @@
           fontSize: getCorrectFontSizeForScreen(14),
         },
         valueContainer:{
-          marginTop:7,
+          marginTop:2,
+          marginBottom:2,
           flex: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems:'center',
           borderRadius: 4,
-          borderColor: Colors.mainBorderColor,
           borderWidth: 1,
           paddingLeft:w*.01,
         },
-        valueTitle: {
-          fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
-          color: Colors.fourthTextColor,
-          // backgroundColor:'red',
-          fontSize: getCorrectFontSizeForScreen(10),
-        },
+
         value: {
           fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
-          color: Colors.fourthTextColor,
+          // color: Colors.fourthTextColor,
+          color: Colors.thirdTextColor,
           // backgroundColor:'red',
           fontSize: getCorrectFontSizeForScreen(10),
         },
@@ -141,7 +137,7 @@
         },
         collapseBtn:{
           // position: 'absolute',
-          height: 40,
+          height: 45,
           // width: w*.22,
           justifyContent:'center',
           borderRadius: 2,
