@@ -61,14 +61,6 @@ const {height:screenHeight, width:screenWidth} = Dimensions.get('window'); // Sc
           return float2int(scale * (currentFontSize+2));
         }
 
-
-
-
-
-
-
-
-        // return Math.round(scale * currentFontSize);
       }
 
 

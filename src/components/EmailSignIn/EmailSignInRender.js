@@ -76,7 +76,7 @@ var styles = StyleSheet.create({
     flex:1,
     // backgroundColor: 'blue',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     marginTop:80,
     marginBottom:20,
     marginHorizontal:w*0.04 //same as 14px
@@ -88,15 +88,15 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
     marginTop: 15,
-    height: 60
+    height: 45
   },
   facebookBtn:{
-    backgroundColor: Colors.secondaryColor,
-    borderRadius: 2,
-    borderWidth: 1,
-    borderColor: Colors.mainBorderColor,
+    backgroundColor: 'white',
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: Colors.primaryColor,
     marginTop: 15,
-    height: 60
+    height: 45
   },
   forgotPasswordBtn:{
     backgroundColor: Colors.transparentColor,
@@ -105,17 +105,25 @@ var styles = StyleSheet.create({
     borderColor: Colors.transparentColor,
     height: 60
   },
+  blueBtnText:{
+    color: Colors.primaryColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney-SemiBold',
+    fontSize: getCorrectFontSizeForScreen(11),
+  },
   whiteBtnText:{
     color: Colors.mainTextColor,
     textAlign: 'center',
-    fontFamily: 'Whitney-Regular',
-    fontSize: getCorrectFontSizeForScreen(14),
+    fontFamily: 'Whitney-SemiBold',
+    fontSize: getCorrectFontSizeForScreen(11),
+  },
+  orTextContainer:{
+    paddingVertical:w*0.05,
   },
   orText:{
     fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
-    color: Colors.secondaryTextColor,
+    color: "#000000BB",
     alignSelf:"center",
-    marginVertical:5
   },
   forgotPasswordText:{
     fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
@@ -125,15 +133,11 @@ var styles = StyleSheet.create({
     marginVertical:13,
     fontSize: getCorrectFontSizeForScreen(12),
   },
-  btnContainer:{
-    // backgroundColor:'blue',
-    justifyContent:'center',
-    flex:0.5
-  },
+
   inputs:{
+    flex:1,
     // backgroundColor:'red',
-    flex:0.5,
-    justifyContent:'space-around'
+    justifyContent:'flex-start'
   }
 
 });
@@ -171,7 +175,7 @@ class EmailSignInRender extends React.Component {
         email: this.props.auth.form.fields.email,
         password: this.props.auth.form.fields.password
       },
-      // androidKeyboardIsVisible: false
+      keyboardIsVisible: false
     };
     // this._listeners = null;
   }
@@ -215,50 +219,14 @@ class EmailSignInRender extends React.Component {
 
 
 
-  renderButtons(){
-    // if(Platform.OS === 'ios' || (Platform.OS === 'android' && this.state.androidKeyboardIsVisible===false)){
-      return (<View key="btnContainer" style={styles.btnContainer}>
-        <Button
-            key="loginBtn"
-            textStyle={styles.whiteBtnText}
-            style={styles.signInBtn}
-            isDisabled={this.props.auth.form.isFetching}
-            isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
-            activityIndicatorColor={Colors.mainTextColor}
-            onPress={this.props.onSignInBtnPress}>
-          Sign In
-        </Button>
-        <Text style={styles.orText}>Or</Text>
-        <Button
-        onPress={this.props.onFbBtnPress}
-        style={styles.facebookBtn}
-        textStyle={styles.whiteBtnText}
-        isDisabled={this.props.auth.form.isFetching}
-        isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="facebook")}
-        iconProps={{name: "facebook",size:25, color: "white"}}>
-          Sign In with Facebook
-        </Button>
-        <Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
-          Forgot Password
-        </Button>
-      </View>)
-    // }else{
-    //   return
-    //   (<View  key="btnContainer" style={{
-    //     // justifyContent:'center',
-    //    }}>
-    //       <Button
-    //           key="loginBtn"
-    //           textStyle={styles.whiteBtnText}
-    //           style={styles.signInBtn}
-    //           isDisabled={this.props.auth.form.isFetching}
-    //           isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
-    //           activityIndicatorColor={Colors.mainTextColor}
-    //           onPress={this.props.onSignInBtnPress}>
-    //         Sign In
-    //       </Button>
-    //     </View>);
-    // }
+  renderForgotPasswordBtn(){
+    if(this.state.keyboardIsVisible===false){
+      return (<Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
+        Forgot Password
+      </Button>);
+    }else{
+      return <View></View>;
+    }
   }
 
 
@@ -282,6 +250,21 @@ class EmailSignInRender extends React.Component {
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
+
+
+          <Button
+          onPress={this.props.onFbBtnPress}
+          style={styles.facebookBtn}
+          textStyle={styles.blueBtnText}
+          isDisabled={this.props.auth.form.isFetching}
+          isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="facebook")}
+          iconProps={{name: "facebook",size:21, color: Colors.primaryColor}}>
+            Sign In with Facebook
+          </Button>
+          <View style={styles.orTextContainer}>
+            <Text style={styles.orText}>Or</Text>
+          </View>
+
           <View style={styles.inputs}>
             <SignInForm
               form={this.props.auth.form}
@@ -289,22 +272,33 @@ class EmailSignInRender extends React.Component {
               onChange={self.onChange.bind(self)}
               onNext={this.props.onSignInBtnPress}
             />
+            {this.renderForgotPasswordBtn()}
           </View>
 
-          {this.renderButtons()}
-          {/*<KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
-            if(Platform.OS==="android"){
+
+
+          <Button
+              key="loginBtn"
+              textStyle={styles.whiteBtnText}
+              style={styles.signInBtn}
+              isDisabled={this.props.auth.form.isFetching}
+              isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
+              activityIndicatorColor={Colors.mainTextColor}
+              onPress={this.props.onSignInBtnPress}>
+            Sign In >
+          </Button>
+
+          <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
               if(keyboardState==true){
                 this.setState({
-                  androidKeyboardIsVisible: true
+                  keyboardIsVisible: true
                 });
               }else{
                 this.setState({
-                  androidKeyboardIsVisible: false
+                  keyboardIsVisible: false
                 });
               }
-            }
-            }}/>*/}
+            }}/>
         </View>
 
         <ForgotPasswordModalBox

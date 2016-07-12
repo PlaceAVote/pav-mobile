@@ -107,7 +107,8 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         height: h*0.55,
         width: w*0.94,
-        backgroundColor:Colors.transparentColor
+        backgroundColor:Colors.transparentColor,
+
     },
 
 
@@ -144,6 +145,7 @@ var styles = StyleSheet.create({
       backgroundColor: 'white',
       flexDirection: 'column',
       justifyContent: 'center',
+      borderRadius:3,
       // alignItems:'center',
       // marginVertical: 10,
       // marginHorizontal:10,

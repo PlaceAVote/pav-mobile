@@ -102,9 +102,10 @@ var SignInForm = React.createClass({
       },
       controlLabel: {
         normal: {
+          // backgroundColor:'red',
           fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
-          color: Colors.secondaryTextColor,
-          fontSize: getCorrectFontSizeForScreen(14),
+          color: Colors.fourthTextColor,
+          fontSize: getCorrectFontSizeForScreen(11),
           marginBottom: 7,
           fontWeight: FONT_WEIGHT
         },
@@ -145,9 +146,9 @@ var SignInForm = React.createClass({
       },
       textbox: {
         normal: {
-          fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
+          fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
           color: INPUT_COLOR,
-          fontSize: FONT_SIZE,
+          fontSize: getCorrectFontSizeForScreen(10),
           height: 45,
           padding: 7,
           borderRadius: 4,
@@ -181,24 +182,7 @@ var SignInForm = React.createClass({
           backgroundColor: DISABLED_BACKGROUND_COLOR
         }
       },
-      select: {
-        normal: {
-          marginBottom: 4
-        },
-        // the style applied when a validation error occours
-        error: {
-          marginBottom: 4
-        }
-      },
-      datepicker: {
-        normal: {
-          marginBottom: 4
-        },
-        // the style applied when a validation error occours
-        error: {
-          marginBottom: 4
-        }
-      }
+    
     });
 
 
@@ -211,7 +195,7 @@ var SignInForm = React.createClass({
       auto: 'placeholders',
       fields: {
         email: {
-          label: 'Email Address',
+          label: 'Enter Email Address',
           maxLength: 30,
           editable: !this.props.form.isFetching,
           hasError: this.props.form.error, //this.props.form.fields.emailHasError,  //I removed the validation from auth reducer as well.
