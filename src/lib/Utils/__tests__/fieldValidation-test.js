@@ -18,7 +18,7 @@
  */
 jest.unmock('../fieldValidation');
 jest.unmock('immutable');
-const fieldValidation = require('../fieldValidation').default;
+const validations = require('../fieldValidation');
 const {Record, Map} = require('immutable');
 
 
@@ -92,7 +92,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'ioannis'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.nameHasError).toEqual(false);
   });
 
@@ -110,7 +110,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'a2'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.nameHasError).toEqual(true);
   });
 
@@ -127,7 +127,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'awfafawfawfawfawfawfawf'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.nameHasError).toEqual(true);
   });
 
@@ -142,7 +142,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: ''
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.nameHasError).toEqual(true);
   });
 
@@ -157,7 +157,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: '@%@'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.nameHasError).toEqual(true);
   });
 
@@ -196,7 +196,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'Ioannis123'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.passwordHasError).toEqual(false);
   });
 
@@ -214,7 +214,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'us'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.passwordHasError).toEqual(true);
   });
 
@@ -231,7 +231,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'awfafawfawfawfawfawfawf'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.passwordHasError).toEqual(true);
   });
 
@@ -246,7 +246,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: ''
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.passwordHasError).toEqual(true);
   });
 
@@ -261,7 +261,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'a\'Password'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.passwordHasError).toEqual(true);
   });
 
@@ -275,7 +275,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'aCorrect@email.com'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.emailHasError).toEqual(false);
   });
 
@@ -290,7 +290,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'aWrongEmail'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.emailHasError).toEqual(true);
   });
 
@@ -301,7 +301,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'aWrongEmail.com'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.emailHasError).toEqual(true);
   });
 
@@ -313,7 +313,7 @@ describe('Tests that the fieldValidation function validates the input correctly.
         value: 'a@WrongEmail'
       }
     };
-    let res = fieldValidation((new InitialState), action);
+    let res = validations.fieldValidation((new InitialState), action);
     expect(res.toObject().form.fields.emailHasError).toEqual(true);
   });
 
