@@ -84,7 +84,8 @@ import _ from 'underscore';
    SET_STATE,
    SET_USER_DATA,
    SET_AUTH_METHOD,
-   SET_PASSWORD_VISIBILITY
+   SET_PASSWORD_VISIBILITY,
+   MANUALLY_INVOKED_FIELD_VALIDATION
 
  } = ActionNames;
 
@@ -164,6 +165,14 @@ export function logout() {
   }
 }
 
+
+
+export function manuallyInvokeFieldValidationForScheme(schemeName){
+  return {
+    type: MANUALLY_INVOKED_FIELD_VALIDATION,
+    payload: schemeName
+  };
+}
 
 
 
@@ -817,7 +826,7 @@ export function facebookDataAcquisition(fetchAllAvailableUserData = true){
         }else{//if the token and uid request was successful
           fbUserData.accessToken = tokenNUsIdData.accessToken;
           fbUserData.userID = tokenNUsIdData.userID;
-          if(fetchAllAvailableUserData===true){   //if we want to fetch all the available user data (name, lastname, email, photo whatever)
+          if(fetchAllAvailableUserData===true){   //if we want to fetch all the available user data (name, lastname, email, photo whatever) - aka on a registration
 
             try{
                 let userData = await getUserFacebookProfileData(fbUserData.token);

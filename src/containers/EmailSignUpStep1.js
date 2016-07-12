@@ -34,7 +34,8 @@ import React from 'react';
 
 import {ScheneKeys} from '../config/constants';
 const {
-REGISTER_STEP_1
+REGISTER_STEP_1,
+REGISTER_STEP_2
 } = ScheneKeys;
 
 /**
@@ -109,28 +110,38 @@ class EmailSignUpStep1 extends React.Component {
   }
 
   togglePasswordHidden(isHidden){
-    console.log("Hidden?: "+isHidden);
     this.props.actions.setPasswordVisibility(!isHidden);
   }
 
-  render() {
-    let onButtonPress = ()=>{
-      this.props.actions.navigateUserToTheCorrectNextOnboardingStep(REGISTER_STEP_1);
-    },
-    onBackBtnPress = ()=>{
-        this.props.actions.navigateToPrevious();
-    }
 
-    // buttonPressHandler.bind(null,
-    //     this.props.actions.login,
-    //     this.props.auth.form.fields.username,
-    //     this.props.auth.form.fields.password
-    // );
+  async onFacebookBtnPressed(){
+    this.props.actions.setAuthMethod('facebook');
+    let userFbData = await this.props.actions.facebookDataAcquisition(true);
+    if(!!userFbData){
+      this.props.actions.navigateUserToTheCorrectNextOnboardingStep();
+    }
+  }
+
+  async onNextBtnPressed(){
+    this.props.actions.manuallyInvokeFieldValidationForScheme(REGISTER_STEP_1);
+    if(this.props.auth.form.isValid.get(REGISTER_STEP_1)===true){
+        this.props.actions.navigateTo(REGISTER_STEP_2);
+    }
+  }
+
+  onBackBtnPress(){
+    this.props.actions.navigateToPrevious();
+  }
+
+
+  render() {
+
+
 
     return(
       <EmailSignUpStep1Render
-          onNextStep={ onButtonPress }
-          onBack={onBackBtnPress}
+          onNextStep={ this.onNextBtnPressed.bind(this) }
+          onBack={this.onBackBtnPress.bind(this)}
           isUserLoggedIn={this.props.auth.user.isLoggedIn}
 
           authFormFields={this.props.auth.form.fields}
@@ -139,6 +150,7 @@ class EmailSignUpStep1 extends React.Component {
           regFormIsValid={this.props.auth.form.isValid.get(REGISTER_STEP_1)}
           onValueChange={this.onChange.bind(this)}
           togglePasswordHidden={this.togglePasswordHidden.bind(this)}
+          onSignUpFacebookBtnPress={ this.onFacebookBtnPressed.bind(this) }
       />
     );
   }

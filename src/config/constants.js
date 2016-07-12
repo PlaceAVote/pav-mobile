@@ -260,6 +260,7 @@ module.exports =  {
    SET_USER_DATA: null,
    SET_PASSWORD_VISIBILITY:null,
    RESET_ERROR_STATE:null,
+   MANUALLY_INVOKED_FIELD_VALIDATION: null,
 
 
    TOKEN_VALIDATE_REQUEST: null,

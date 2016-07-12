@@ -151,13 +151,13 @@ export function validateZipCode(value){
 
 export function validateAllFields(state){
   let validatedState = state
-  .setIn(['form', 'fields', 'nameHasError'], validateName(state.form.fields.name))
-  .setIn(['form', 'fields', 'surnameHasError'], validateSurname(state.form.fields.surname))
-  .setIn(['form', 'fields', 'forgotPasswordEmailHasError'], validateForgotPasswordEmail(state.form.fields.forgotPasswordEmail))
-  .setIn(['form', 'fields', 'emailHasError'], validateEmail(state.form.fields.email))
-  .setIn(['form', 'fields', 'passwordHasError'], validatePassword(state.form.fields.password))
-  .setIn(['form', 'fields', 'passwordAgainHasError'], validatePasswordAgain(state.form.fields.passwordAgain))
-  .setIn(['form', 'fields', 'zipCodeHasError'], validateZipCode(state.form.fields.zipCode));
+  .setIn(['form', 'fields', 'nameHasError'], (validateName(state.form.fields.name) || state.form.fields.name==''))
+  .setIn(['form', 'fields', 'surnameHasError'], (validateSurname(state.form.fields.surname) || state.form.fields.surname==''))
+  .setIn(['form', 'fields', 'forgotPasswordEmailHasError'], (validateForgotPasswordEmail(state.form.fields.forgotPasswordEmail)  || state.form.fields.forgotPasswordEmail==''))
+  .setIn(['form', 'fields', 'emailHasError'], (validateEmail(state.form.fields.email) || state.form.fields.email=='') )
+  .setIn(['form', 'fields', 'passwordHasError'], (validatePassword(state.form.fields.password)  || state.form.fields.password==''))
+  .setIn(['form', 'fields', 'passwordAgainHasError'], (validatePasswordAgain(state.form.fields.passwordAgain) || state.form.fields.passwordAgain==''))
+  .setIn(['form', 'fields', 'zipCodeHasError'], (validateZipCode(state.form.fields.zipCode) || state.form.fields.zipCode==''));
   // console.log("Now validating ALL fields: "+JSON.stringify(validatedState));
   return validatedState;
 }
@@ -166,7 +166,7 @@ export function validateAllFields(state){
  * @param {Object} state Redux state
  * @param {Object} action type & payload
  */
-export default function fieldValidation(state, action ) {
+export function fieldValidation(state, action ) {
   if(!!action){
     const {field, value} = action.payload;
     switch(field) {

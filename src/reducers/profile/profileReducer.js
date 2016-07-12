@@ -11,7 +11,7 @@
  * fieldValidation for validating the fields
  * formValidation for setting the form's valid flag
  */
-import fieldValidation from '../../lib/Utils/fieldValidation';
+import {fieldValidation} from '../../lib/Utils/fieldValidation';
 import Immutable from 'immutable';
 /**
  * ## Actions
@@ -115,7 +115,7 @@ export default function profileReducer(state = initialState, action) {
 
   let timelineResponse = action.payload;
   let newItems = Immutable.fromJS(timelineResponse.data.results);
-  
+
   if(timelineResponse.isFetchingOldData===false){
     if(timelineResponse.shouldUpdateState===true){
       return state.setIn(['form', 'isFetching', 'timelineData'], false)

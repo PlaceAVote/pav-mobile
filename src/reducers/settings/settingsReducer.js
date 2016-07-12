@@ -12,7 +12,7 @@
  * formValidation for setting the form's valid flag
  */
 import {formValidation} from './settingsFormValidation';
-import fieldValidation from '../../lib/Utils/fieldValidation';
+import {fieldValidation} from '../../lib/Utils/fieldValidation';
 import {isOfObjectType, OBJECT_TYPES} from '../../lib/Utils/genericUtils';
 import Immutable from 'immutable';
 

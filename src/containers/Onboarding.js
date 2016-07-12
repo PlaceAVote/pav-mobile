@@ -86,13 +86,7 @@ class Onboarding extends React.Component{
     this.props.actions.setAuthMethod('email');
     this.props.actions.navigateTo(REGISTER_STEP_1);
   }
-  async onFacebookBtnPressed(){
-    this.props.actions.setAuthMethod('facebook');
-    let userFbData = await this.props.actions.facebookDataAcquisition(true);
-    if(!!userFbData){
-      this.props.actions.navigateUserToTheCorrectNextOnboardingStep();
-    }
-  }
+
   render() {
 
     return(
@@ -101,7 +95,6 @@ class Onboarding extends React.Component{
           global={ this.props.global }
           device={ this.props.device}
           onSignUpBtnPress={ this.onSignUpBtnPressed.bind(this) }
-          onSignUpFacebookBtnPress={ this.onFacebookBtnPressed.bind(this) }
           onSignInBtnPress={ this.onSignInBtnPressed.bind(this) }
       />
 

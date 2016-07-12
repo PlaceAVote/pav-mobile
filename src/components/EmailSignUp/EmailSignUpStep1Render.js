@@ -192,7 +192,7 @@ class EmailSignUpStep1Render extends React.Component {
     return(
       <View style={styles.baseContainer}>
         <Button
-        onPress={this.props.onFbBtnPress}
+        onPress={this.props.onSignUpFacebookBtnPress}
         style={styles.facebookBtn}
         textStyle={styles.facebookBtnText}
         isDisabled={this.props.isFetchingAuth}
@@ -225,10 +225,10 @@ class EmailSignUpStep1Render extends React.Component {
             key="loginBtn"
             textStyle={styles.signInBtnText}
             style={styles.signInBtn}
-            isDisabled={this.props.isFetchingAuth}
-            isLoading={this.props.isFetchingAuth && (this.props.authMethod=="email")}
+            isDisabled={(this.props.isFetchingAuth===true)}
+            isLoading={(this.props.isFetchingAuth===true)}
             activityIndicatorColor={Colors.mainTextColor}
-            onPress={this.props.onSignInBtnPress}>
+            onPress={this.props.onNextStep}>
           Next >
         </Button>
 
@@ -237,7 +237,7 @@ class EmailSignUpStep1Render extends React.Component {
       </View>
     );
   }
-
+// this.props.regFormIsValid===false || 
   shouldComponentUpdate(nextProps) {
     return (nextProps.isUserLoggedIn===false);
   }
@@ -246,12 +246,13 @@ class EmailSignUpStep1Render extends React.Component {
 EmailSignUpStep1Render.propTypes= {
   regFormIsValid: React.PropTypes.bool.isRequired,
   authFormFields: React.PropTypes.object.isRequired,
-  error: React.PropTypes.object.isRequired,
+  error: React.PropTypes.object,
   isFetchingAuth: React.PropTypes.bool.isRequired,
   isUserLoggedIn: React.PropTypes.bool.isRequired,
   onValueChange: React.PropTypes.func.isRequired,
   onBack: React.PropTypes.func.isRequired,
   onNextStep: React.PropTypes.func.isRequired,
   togglePasswordHidden: React.PropTypes.func.isRequired,
+  onSignUpFacebookBtnPress: React.PropTypes.func.isRequired,
 };
 export default EmailSignUpStep1Render;
