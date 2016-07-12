@@ -114,6 +114,9 @@ const usZipCodeConstraints = {
   }
 };
 
+function isDateLessThan7YearsOld(dateStr){
+  return (moment().diff(moment(dateStr,'x'), 'years')<7); //noErrors
+}
 
 
 
@@ -148,6 +151,12 @@ export function validatePasswordAgain(password, confirmPassword){
 export function validateZipCode(value){
   return (!_.isUndefined(validate({zipCode: value},usZipCodeConstraints)));
 }
+
+export function validateBirthdate(value){
+  return isDateLessThan7YearsOld(value);
+}
+
+
 
 export function validateAllFields(state){
   let validatedState = state
@@ -191,6 +200,10 @@ export function fieldValidation(state, action ) {
     case('zipCode'):
       return state.setIn(['form', 'fields', 'zipCodeHasError'], validateZipCode(value));
       break;
+    case('dateOfBirth'):
+      return state.setIn(['form', 'fields', 'dateOfBirthHasError'], validateBirthdate(value));
+      break;
+      dateOfBirthHasError
     default:
       break;
     }

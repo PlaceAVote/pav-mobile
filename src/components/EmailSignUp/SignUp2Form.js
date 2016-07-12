@@ -254,11 +254,13 @@ class SignUp2Form extends React.Component {
         //   label: 'Birthdate',
         //   maxLength: 10,
         //   editable: true,
-        //   hasError: this.props.birthdayBeingPicked
-        //   error: 'Please give us a valid birthdate DD/MM/YYYY',
+          // hasError: this.props.birthdayBeingPicked
+          // error: 'Please give us a valid birthdate DD/MM/YYYY',
         //   placeholder: '14/11/1955'
         // },
         {
+          hasError: this.props.authFormFields.dateOfBirthHasError,
+          error: 'Please give us a valid birthdate DD/MM/YYYY',
           factory: AccordionPicker,
           config:{
               format: (value)=>{

@@ -62,6 +62,7 @@ const Form = Record({
     passwordAgainHasError: false,
     dateOfBirth: moment().format('x'),
     dateOfBirthIsCurBeingPicked: false,
+    dateOfBirthHasError: false,
     zipCode: '',
     zipCodeHasError: false,
     forgotPasswordEmail: '',

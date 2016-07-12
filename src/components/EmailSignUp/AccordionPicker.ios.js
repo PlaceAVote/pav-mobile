@@ -25,13 +25,16 @@
               <Text style={[locals.stylesheet.controlLabel.normal, styles.label]}>
                 {locals.label}
               </Text>
+              <Text style={[styles.valueTitle]}>
+               Birthdate
+             </Text>
               <TouchableOpacity style={styles.valueContainer} onPress={
                 ()=>{
                //  console.log("On button press");
                 locals.config.onCollapsedChange(locals.config.dateBeingPickedNow);
               }}>
                 <Text style={[styles.value]}>
-                 {curSelectedDate} <Text style={styles.tapToChangeText}>  (Tap to change)</Text>
+                 {curSelectedDate}
                </Text>
                <View style={styles.collapseBtn}>
                  <Text style={styles.whiteBtnText} >
@@ -39,7 +42,9 @@
                  </Text>
                </View>
               </TouchableOpacity>
-
+              <Text style={[locals.stylesheet.controlLabel.error]}>
+                {locals.error}
+              </Text>
             </View>
           );
         }
@@ -97,13 +102,24 @@
           fontSize: getCorrectFontSizeForScreen(14),
         },
         valueContainer:{
+          marginTop:7,
           flex: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems:'center',
+          borderRadius: 4,
+          borderColor: Colors.mainBorderColor,
+          borderWidth: 1,
+          paddingLeft:w*.01,
+        },
+        valueTitle: {
+          fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
+          color: Colors.fourthTextColor,
+          // backgroundColor:'red',
+          fontSize: getCorrectFontSizeForScreen(10),
         },
         value: {
-          fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
+          fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
           color: Colors.fourthTextColor,
           // backgroundColor:'red',
           fontSize: getCorrectFontSizeForScreen(10),
