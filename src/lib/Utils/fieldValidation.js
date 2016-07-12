@@ -153,6 +153,9 @@ export function validateZipCode(value){
 }
 
 export function validateBirthdate(value){
+  if(value==''){
+    return true;  //error exists
+  }
   return isDateLessThan7YearsOld(value);
 }
 
@@ -166,7 +169,8 @@ export function validateAllFields(state){
   .setIn(['form', 'fields', 'emailHasError'], (validateEmail(state.form.fields.email) || state.form.fields.email=='') )
   .setIn(['form', 'fields', 'passwordHasError'], (validatePassword(state.form.fields.password)  || state.form.fields.password==''))
   .setIn(['form', 'fields', 'passwordAgainHasError'], (validatePasswordAgain(state.form.fields.passwordAgain) || state.form.fields.passwordAgain==''))
-  .setIn(['form', 'fields', 'zipCodeHasError'], (validateZipCode(state.form.fields.zipCode) || state.form.fields.zipCode==''));
+  .setIn(['form', 'fields', 'zipCodeHasError'], (validateZipCode(state.form.fields.zipCode) || state.form.fields.zipCode==''))
+  .setIn(['form', 'fields', 'dateOfBirthHasError'], validateBirthdate(state.form.fields.zipCode));
   // console.log("Now validating ALL fields: "+JSON.stringify(validatedState));
   return validatedState;
 }
