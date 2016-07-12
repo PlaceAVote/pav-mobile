@@ -19,7 +19,7 @@ import {Colors} from '../../config/constants';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import moment from 'moment';
 import React from 'react';
-import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio, Platform} from 'react-native';
+import {StyleSheet, ScrollView, Text, View, Platform} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -192,7 +192,10 @@ class EmailSignUpStep2Render extends React.Component {
     return(
       <View style={styles.baseContainer}>
 
-        <View style={styles.inputsContainer}>
+        <ScrollView
+        style={styles.inputsContainer}
+        bounces={false}
+        >
           <SignUp2Form
             isFetchingAuth={this.props.isFetchingAuth}
             authFormFields={this.props.authFormFields}
@@ -209,7 +212,7 @@ class EmailSignUpStep2Render extends React.Component {
             birthdayBeingPicked={this.props.birthdayBeingPicked}
           />
 
-        </View>
+        </ScrollView>
 
 
 
