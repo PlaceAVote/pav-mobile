@@ -76,6 +76,24 @@ class EmailSignIn extends React.Component {
 
 
 
+  /**
+   * ### onChange
+   *
+   * As the user enters keys, this is called for each key stroke.
+   * Rather then publish the rules for each of the fields, I find it
+   * better to display the rules required as long as the field doesn't
+   * meet the requirements.
+   * *Note* that the fields are validated by the authReducer
+   */
+  onChange(value) {
+    if (value.email != '') {
+      this.props.actions.onAuthFormFieldChange('email',value.email, LOGIN);
+    }
+    if (value.password != '') {
+      this.props.actions.onAuthFormFieldChange('password',value.password, LOGIN);
+    }
+  }
+
   async onFacebookBtnPress(){
     console.log("Facebook btn pressed : EmailSignIn");
     this.props.actions.setAuthMethod('facebook');
@@ -130,19 +148,24 @@ class EmailSignIn extends React.Component {
     // console.log("OK: "+JSON.stringify(this.props.navigationState));
     return(
       <EmailSignInRender
+          authForm={this.props.auth.form}
+          email={this.props.auth.form.fields.email}
+          password={this.props.auth.form.fields.password}
+          authMethod={this.props.auth.form.authMethod}
+          isFetchingAuth={this.props.auth.form.isFetching}
+          forgotPasswordModalOpen = {this.props.router.modalIsOpen.get(FORGOT_PASSWORD)}
+          forgotPasswordTextValue = {this.props.auth.form.fields.forgotPasswordEmail}
+          forgotPasswordErrorValue = {this.props.auth.form.fields.forgotPasswordEmailHasError}
+          forgotPasswordDisabled = {!this.props.auth.form.isValid.get(FORGOT_PASSWORD) || this.props.auth.form.isFetching}
+
+          onValueChange={this.onChange.bind(this)}
+          onForgotPasswordClosed = {this.onForgotPasswordModalClosed.bind(this)}
+          onForgotPasswordTextChange = {this.onForgotPasswordTextChange.bind(this)}
           onForgotPasswordCloseBtnClicked={this.onForgotPasswordCloseBtnClicked.bind(this)}
           onForgotPasswordNextBtnClicked={this.onForgotPasswordNextBtnClicked.bind(this)}
           onSignInBtnPress = {this.onSignInBtnPress.bind(this)}
           onForgotBtnPress = {this.onForgotPasswordBtnPress.bind(this)}
           onFbBtnPress = {this.onFacebookBtnPress.bind(this)}
-          auth={ this.props.auth }
-          global={ this.props.global }
-          forgotPasswordModalOpen = {this.props.router.modalIsOpen.get(FORGOT_PASSWORD)}
-          onForgotPasswordClosed = {this.onForgotPasswordModalClosed.bind(this)}
-          onForgotPasswordTextChange = {this.onForgotPasswordTextChange.bind(this)}
-          forgotPasswordTextValue = {this.props.auth.form.fields.forgotPasswordEmail}
-          forgotPasswordErrorValue = {this.props.auth.form.fields.forgotPasswordEmailHasError}
-          forgotPasswordDisabled = {!this.props.auth.form.isValid.get(FORGOT_PASSWORD) || this.props.auth.form.isFetching}
       />
     );
   }

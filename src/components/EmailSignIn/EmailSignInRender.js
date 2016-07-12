@@ -1,34 +1,11 @@
 /**
- * # Login.js
+ * # EmailSignInRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
  */
 'use strict';
-/**
- * ## Imports
- *
- * Redux
- */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-// import Modal from 'react-native-modalbox';
-import ForgotPasswordModalBox from '../Modals/ForgotPasswordModalBox'
-/**
- * The actions we need
- */
-import * as authActions from '../../reducers/auth/authActions';
-import * as globalActions from '../../reducers/global/globalActions';
 
-/**
- * Immutable
- */
-import {Map} from 'immutable';
-
-/*A react native button*/
-// import Button from 'sp-react-native-iconbutton';
-import Button from 'sp-react-native-iconbutton'
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 
 
@@ -39,7 +16,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
  */
 import SignInForm from './SignInForm';
 
-import {Colors, ScheneKeys} from '../../config/constants';
+import {Colors} from '../../config/constants';
 
 import React from 'react';
 import {
@@ -50,16 +27,16 @@ import {
   // Keyboard
 } from 'react-native';
 
+import ForgotPasswordModalBox from '../Modals/ForgotPasswordModalBox'
+
+/*A react native button*/
+import Button from 'sp-react-native-iconbutton'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-/**
- * The states were interested in
- */
-const {
-  LOGIN,
-} = ScheneKeys;
 
 
 
@@ -141,30 +118,7 @@ var styles = StyleSheet.create({
   }
 
 });
-/**
- * ## Redux boilerplate
- */
-const actions = [
-  authActions,
-  globalActions
-];
 
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject();
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  };
-}
 
 
 class EmailSignInRender extends React.Component {
@@ -172,8 +126,8 @@ class EmailSignInRender extends React.Component {
     super(props);
     this.state ={
       value: {
-        email: this.props.auth.form.fields.email,
-        password: this.props.auth.form.fields.password
+        email: this.props.email,
+        password: this.props.password
       },
       keyboardIsVisible: false
     };
@@ -189,8 +143,8 @@ class EmailSignInRender extends React.Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	email: nextprops.auth.form.fields.email,
-      	password: nextprops.auth.form.fields.password
+      	email: nextprops.email,
+      	password: nextprops.password
       }
     });
   }
@@ -206,11 +160,9 @@ class EmailSignInRender extends React.Component {
    * *Note* that the fields are validated by the authReducer
    */
   onChange(value) {
-    if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email, LOGIN);
-    }
-    if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password, LOGIN);
+
+    if(!!this.props.onValueChange){
+      this.props.onValueChange(value);
     }
     this.setState(
       {value}
@@ -230,23 +182,30 @@ class EmailSignInRender extends React.Component {
   }
 
 
+  renderSpacer(){
+    if (this.props.forgotPasswordModalOpen===false){
+      return (<KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+          if(keyboardState==true){
+            this.setState({
+              keyboardIsVisible: true
+            });
+          }else{
+            this.setState({
+              keyboardIsVisible: false
+            });
+          }
+        }}/>)
+    }else{
+      return <View></View>;
+    }
+
+  }
+
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
-
-    let self = this;
-    // renderForgotPasswordModalBox = ()=>{
-    //   if(===true){
-    //     return ;
-    //   }else{
-    //     return <View></View>;
-    //   }
-    // }
-
-    // console.log("@@@@@@@@ forgotPasswordModalOpen is: "+this.props.forgotPasswordModalOpen);
-
     return(
       <View style={styles.baseContainer}>
         <View style={styles.contentContainer}>
@@ -256,8 +215,8 @@ class EmailSignInRender extends React.Component {
           onPress={this.props.onFbBtnPress}
           style={styles.facebookBtn}
           textStyle={styles.blueBtnText}
-          isDisabled={this.props.auth.form.isFetching}
-          isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="facebook")}
+          isDisabled={this.props.isFetchingAuth}
+          isLoading={this.props.isFetchingAuth && (this.props.authMethod=="facebook")}
           iconProps={{name: "facebook",size:21, color: Colors.primaryColor}}>
             Sign In with Facebook
           </Button>
@@ -267,9 +226,9 @@ class EmailSignInRender extends React.Component {
 
           <View style={styles.inputs}>
             <SignInForm
-              form={this.props.auth.form}
+              form={this.props.authForm}
               value={this.state.value}
-              onChange={self.onChange.bind(self)}
+              onChange={this.onChange.bind(this)}
               onNext={this.props.onSignInBtnPress}
             />
             {this.renderForgotPasswordBtn()}
@@ -281,30 +240,21 @@ class EmailSignInRender extends React.Component {
               key="loginBtn"
               textStyle={styles.whiteBtnText}
               style={styles.signInBtn}
-              isDisabled={this.props.auth.form.isFetching}
-              isLoading={this.props.auth.form.isFetching && (this.props.auth.form.authMethod=="email")}
+              isDisabled={this.props.isFetchingAuth}
+              isLoading={this.props.isFetchingAuth && (this.props.authMethod=="email")}
               activityIndicatorColor={Colors.mainTextColor}
               onPress={this.props.onSignInBtnPress}>
             Sign In >
           </Button>
 
-          <KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
-              if(keyboardState==true){
-                this.setState({
-                  keyboardIsVisible: true
-                });
-              }else{
-                this.setState({
-                  keyboardIsVisible: false
-                });
-              }
-            }}/>
+          {this.renderSpacer()}
+
         </View>
 
         <ForgotPasswordModalBox
         onCloseBtnClicked={this.props.onForgotPasswordCloseBtnClicked}
         onNextBtnClicked={this.props.onForgotPasswordNextBtnClicked}
-        auth={this.props.auth}
+        isFetchingAuth={this.props.isFetchingAuth}
         isOpen={this.props.forgotPasswordModalOpen}
         onModalClosed={this.props.onForgotPasswordClosed}
         onForgotPasswordTextChange={this.props.onForgotPasswordTextChange}
@@ -316,8 +266,34 @@ class EmailSignInRender extends React.Component {
     );
   }
 }
-// {renderForgotPasswordModalBox()}
 
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignInRender);
+
+
+
+
+
+
+EmailSignInRender.propTypes= {
+
+  forgotPasswordErrorValue: React.PropTypes.any.isRequired,
+  forgotPasswordDisabled: React.PropTypes.bool.isRequired,
+  forgotPasswordTextValue: React.PropTypes.string,
+  authMethod: React.PropTypes.string.isRequired,
+  authForm: React.PropTypes.object.isRequired,
+  email: React.PropTypes.string.isRequired,
+  password: React.PropTypes.string.isRequired,
+  isFetchingAuth: React.PropTypes.bool.isRequired,
+  forgotPasswordModalOpen: React.PropTypes.bool.isRequired,
+
+  onFbBtnPress: React.PropTypes.func.isRequired,
+  onValueChange: React.PropTypes.func.isRequired,
+  onForgotPasswordClosed: React.PropTypes.func.isRequired,
+  onForgotPasswordTextChange: React.PropTypes.func.isRequired,
+  onForgotPasswordCloseBtnClicked: React.PropTypes.func.isRequired,
+  onForgotPasswordNextBtnClicked: React.PropTypes.func.isRequired,
+  onSignInBtnPress: React.PropTypes.func.isRequired,
+  onForgotBtnPress: React.PropTypes.func.isRequired,
+
+};
+
+export default EmailSignInRender;

@@ -48,7 +48,7 @@ class ForgotPasswordModalBox extends React.Component {
                     swipeToClose={true}
                     swipeThreshold={90}
                     style={styles.modal}
-                    position={"center"}
+                    position={"top"}
                     isOpen={this.props.isOpen}
                     onClosed={this.props.onModalClosed}>
 
@@ -90,7 +90,7 @@ class ForgotPasswordModalBox extends React.Component {
                 <Button textStyle={styles.whiteBtnText}
                     style={styles.sendButton}
                     isDisabled={this.props.forgotPasswordDisabled}
-                    isLoading={this.props.auth.form.isFetching}
+                    isLoading={this.props.isFetchingAuth}
                     activityIndicatorColor={Colors.mainTextColor}
                     onPress={this.props.onNextBtnClicked}>
                   Send
@@ -105,7 +105,8 @@ var styles = StyleSheet.create({
         flexDirection:'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: h*0.55,
+        marginTop:70+w*0.08,
+        height: h*0.57,
         width: w*0.94,
         backgroundColor:Colors.transparentColor,
 
@@ -218,7 +219,7 @@ var styles = StyleSheet.create({
       borderRadius: 2,
       borderWidth: 1,
       borderColor: '#E7E6ED',
-      paddingHorizontal:w*0.01,
+      paddingHorizontal:w*0.03,
       textAlignVertical: "top",
       fontFamily: 'Whitney-Light',
       fontSize: getCorrectFontSizeForScreen(10),
