@@ -1,65 +1,41 @@
 /**
- * # Login.js
+ * # EmailSignUpStep2.js
  *
  * This class is a little complicated as it handles multiple states.
  *
  */
 'use strict';
-/**
- * ## Imports
- *
- * Redux
- */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-/**
- * The actions we need
- */
-import * as authActions from '../../reducers/auth/authActions';
-import * as globalActions from '../../reducers/global/globalActions';
-
-/**
- * Immutable
- */
-import {Map} from 'immutable';
-
 /*A react native button*/
-// import Button from 'sp-react-native-iconbutton';
 import Button from 'sp-react-native-iconbutton'
 
 /**
- * The ErrorAlert displays an alert for both ios & android
- */
-import ErrorAlert from '../../components/ErrorAlert';
-
-/**
- *  The SignUpEmailForm does the heavy lifting of displaying the fields for
+ *  The SignUpForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignUpEmailForm from './SignUpEmailForm';
+import SignUp2Form from './SignUp2Form';
 
-import {Colors, ScheneKeys} from '../../config/constants';
-
+import {Colors} from '../../config/constants';
+// import _ from 'underscore';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import moment from 'moment';
 import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio, Platform} from 'react-native';
 
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+
+
+
 /**
  * The states were interested in
  */
-const {
-  REGISTER_STEP_2
-} = ScheneKeys;
+ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+ import icomoonConfig from '../../../assets/fonts/icomoon.json';
+ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
-// import pIndic2 from '../../../assets/pIndic2.jpg';
-// import signupExpl2 from '../../../assets/signupExpl2.gif';
-import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-import icomoonConfig from '../../../assets/fonts/icomoon.json';
-const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
+
+
 /**
  * ## Styles
  */
@@ -67,130 +43,37 @@ var styles = StyleSheet.create({
 
   baseContainer: {
     flex:1,
-    backgroundColor: Colors.primaryColor,
-  },
-  contentContainer: {
-    flex:1,
-    flexDirection: 'column'
-  },
-  backBtn:{
-    alignItems:'flex-start',
-    top:h*0.05,
-    left:w*0.02,
-    width:w*0.15,
-    height:w*0.15,
-    borderWidth: 0,
-    position: 'absolute',
-  },
-  backBtnIconContainer:{
-    paddingVertical:w*0.03,
-  },
-  backBtnIcon:{
+    backgroundColor: 'white',
     // backgroundColor: 'pink',
-    color: '#FFFFFF',
+    marginTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
+    paddingHorizontal: w*0.04,
+    paddingVertical: h*0.02,
   },
-  explanationContainer:{
-    flex:1,
-    flexDirection: 'column',
-    alignItems: 'center', //x axis
-    justifyContent: 'flex-end',
-    backgroundColor: Colors.primaryColor
-    // ,backgroundColor: 'red'
-  },
-  footerContainer:{
-    backgroundColor: 'white'
-  },
+
   inputsContainer:{
     flex:1,
-    marginTop:15,
-    marginBottom:20,
-    marginHorizontal:15,
-    justifyContent: "flex-end",
+    // paddingVertical: w*.04,
     backgroundColor: 'white'
   },
-  formContainer:{
-    flex:1,
-    // backgroundColor: 'red',
-    justifyContent:'center'
-  },
-  descriptionTextContainer:{
-    // backgroundColor:'black',
-    marginVertical: 10,
-    justifyContent: 'center',
-    flex:1//0.23,
-  },
-  descriptionText: {
-    backgroundColor: Colors.transparentColor,
-    fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
-    fontSize: getCorrectFontSizeForScreen(11),
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-    marginHorizontal: 21,
-  },
-  explanImgContainer:{
-    // backgroundColor: 'blue',
-    flexDirection: 'row',
-    justifyContent: 'center', //x axis
-    alignItems: 'flex-end',    //y axis
-    marginVertical: 10
-  },
-  explanImg:{
-    height: h*0.30,
-    width: w*0.70,
-    // backgroundColor: 'red'
-  },
-  pIndicContainer:{
-    backgroundColor: Colors.transparentColor,
-    // backgroundColor:'blue',
-    flexDirection: 'column',
-    justifyContent: 'flex-end', //y axis
-    alignItems: 'center',       //x axis
-    marginVertical: 5,
-  },
-  pIndicImg:{
 
-  },
-  nextStepBtn: {
-    backgroundColor: Colors.accentColor,
-    borderRadius: 2,
-    borderWidth: 1,
+
+  signInBtn:{
+    backgroundColor: 'white',
+    borderRadius: 4,
+    borderWidth: 2,
     borderColor: Colors.mainBorderColor,
-    height: 60
+    height: 45
   },
-  whiteBtnText:{
-    fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
-    color: Colors.mainTextColor,
+  signInBtnText:{
+    color: Colors.thirdTextColor,
     textAlign: 'center',
-    fontSize: getCorrectFontSizeForScreen(14),
-  }
+    fontFamily: 'Whitney-SemiBold',
+    fontSize: getCorrectFontSizeForScreen(12),
+  },
+
+
 
 });
-/**
- * ## Redux boilerplate
- */
-const actions = [
-  authActions,
-  globalActions
-];
-
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject();
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  };
-}
-
-
 
 
 
@@ -199,12 +82,17 @@ function mapDispatchToProps(dispatch) {
 class EmailSignUpStep2Render extends React.Component {
   constructor(props) {
     super(props);
-    this.errorAlert = new ErrorAlert();
+
+    let dob = this.props.authFormFields.dateOfBirth;
+    if(dob.isMoment==null){
+      dob = moment(dob, "x")
+    }
     this.state ={
       keyboardOpen: false,
-      value: {
-      	email: this.props.auth.form.fields.email
-      }
+      name: this.props.authFormFields.name,
+      surname: this.props.authFormFields.surname,
+      dateOfBirth: moment(dob).toDate(),
+      zipCode: this.props.authFormFields.zipCode
     };
   }
 
@@ -213,11 +101,33 @@ class EmailSignUpStep2Render extends React.Component {
    * As the properties are validated they will be set here.
    */
   componentWillReceiveProps(nextprops) {
-    this.setState({
-      value: {
-      	email: nextprops.auth.form.fields.email
+
+    // let val = _.extend({}, this.state.value);
+    // console.log("@@@ "+JSON.stringify(val))
+    //if the new dob is something different than what the old was
+    if(nextprops.authFormFields.dateOfBirth !== this.props.authFormFields.dateOfBirth){
+      let dob = nextprops.authFormFields.dateOfBirth;
+      if(dob.isMoment==null){
+        dob = moment(dob, "x")
       }
-    });
+      this.setState({dateOfBirth : moment(dob).toDate()});
+    }
+
+    //if the new name is something different than what the old was
+    if(nextprops.authFormFields.name !== this.props.authFormFields.name){
+      this.setState({name : nextprops.authFormFields.name});
+    }
+
+    //if the new surname is something different than what the old was
+    if(nextprops.authFormFields.surname !== this.props.authFormFields.surname){
+      this.setState({surname : nextprops.authFormFields.surname});
+    }
+
+    //if the new zipCode is something different than what the old was
+    if(nextprops.authFormFields.zipCode !== this.props.authFormFields.zipCode){
+      this.setState({zipCode : nextprops.authFormFields.zipCode});
+    }
+
   }
 
   /**
@@ -232,13 +142,16 @@ class EmailSignUpStep2Render extends React.Component {
   onChange(value) {
 
     // console.log("Changed"+JSON.stringify(value));
-    if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email, REGISTER_STEP_2);
+    if (!!this.props.onValueChange) {
+      this.props.onValueChange(value);
     }
-    this.setState(
-      {value}
-    );
+    if(value.dateOfBirthIsCurBeingPicked==undefined){
+      this.setState(
+        {value}
+      );
+    }
   }
+
 
 
   renderText(styles){
@@ -246,13 +159,14 @@ class EmailSignUpStep2Render extends React.Component {
       return <View></View>;
     }else{
       return (
-        <View style={styles.descriptionTextContainer} >
-          <Text style={styles.descriptionText} >
-          Welcome to PlaceAVote, a nonpartisan platform that gives you the opportunity to read, debate, and anonymously vote on every bill that is presented before Congress.
-          </Text>
-        </View>);
+      <View style={styles.descriptionTextContainer}>
+        <Text style={styles.descriptionText} >
+        In a perfect world, your vote would be represented by your Congressman. In reality, lobbyists and rich donors are overshadowing your voice with their cushy stacks of green and influential power.
+        </Text>
+      </View>);
     }
   }
+
 
 
   renderKeyboardSpacer(){
@@ -274,53 +188,64 @@ class EmailSignUpStep2Render extends React.Component {
   render() {
 
 
+    // var onButtonPress = this.props.onButtonPress;
+
 
     return(
       <View style={styles.baseContainer}>
-        <View style={styles.contentContainer}>
-            <View style={styles.explanationContainer}>
-              
-              {this.renderText(styles)}
-              <Button onPress={this.props.onBack}
-                style={styles.backBtn}
-                isDisabled={false}
-                isLoading={false}
-                iconContainerStyle={styles.backBtnIconContainer}
-                customIcon={()=><PavIcon name="arrow-left" size={25} style={styles.backBtnIcon}/>}
-              />
 
-            </View>
-            <View style={styles.footerContainer}>
-              <View style={styles.inputsContainer}>
-                <View  style={styles.formContainer}>
-                  <SignUpEmailForm
-                    form={this.props.auth.form}
-                    value={this.state.value}
-                    onChange={this.onChange.bind(this)}
-                    onNext={this.props.onNextStep}
-                  />
-                </View>
-                <Button
-                  textStyle={styles.whiteBtnText}
-                  style={styles.nextStepBtn}
-                  isLoading={this.props.auth.form.isFetching}
-                  activityIndicatorColor={Colors.mainTextColor}
-                  isDisabled={!this.props.auth.form.isValid.get(REGISTER_STEP_2) || this.props.auth.form.isFetching}
-                  onPress={this.props.onNextStep}>
-                  Next Step
-                </Button>
-              </View>
-            </View>
-            {this.renderKeyboardSpacer()}
+        <View style={styles.inputsContainer}>
+          <SignUp2Form
+            isFetchingAuth={this.props.isFetchingAuth}
+            authFormFields={this.props.authFormFields}
+            value={{
+              name: this.state.name,
+              surname: this.state.surname,
+              dateOfBirth: this.state.dateOfBirth,
+              zipCode: this.state.zipCode
+            }}
+            error={this.props.error}
+            onChange={this.onChange.bind(this)}
+            onNext={this.props.onNextStep}
+            regFormIsValid={this.props.regFormIsValid}
+            birthdayBeingPicked={this.props.birthdayBeingPicked}
+          />
 
         </View>
+
+
+
+        <Button
+            key="loginBtn"
+            textStyle={styles.signInBtnText}
+            style={styles.signInBtn}
+            isDisabled={(this.props.isFetchingAuth===true)}
+            isLoading={(this.props.isFetchingAuth===true)}
+            activityIndicatorColor={Colors.mainTextColor}
+            onPress={this.props.onNextStep}>
+          Next >
+        </Button>
+
+        {this.renderKeyboardSpacer()}
+
       </View>
     );
   }
-  shouldComponentUpdate(nextProps) {
-    return (nextProps.auth.user.isLoggedIn===false);
-  }
+
+  // shouldComponentUpdate(nextProps) {
+  //   return (nextProps.isUserLoggedIn===false);
+  // }
 }
-//isDisabled={this.props.isDisabled}
-// onPress={this.props.onPress}
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep2Render);
+
+EmailSignUpStep2Render.propTypes= {
+  regFormIsValid: React.PropTypes.bool.isRequired,
+  authFormFields: React.PropTypes.object.isRequired,
+  error: React.PropTypes.object,
+  isFetchingAuth: React.PropTypes.bool.isRequired,
+  isUserLoggedIn: React.PropTypes.bool.isRequired,
+  onValueChange: React.PropTypes.func.isRequired,
+  onBack: React.PropTypes.func.isRequired,
+  onNextStep: React.PropTypes.func.isRequired,
+  birthdayBeingPicked: React.PropTypes.bool.isRequired,
+};
+export default EmailSignUpStep2Render;

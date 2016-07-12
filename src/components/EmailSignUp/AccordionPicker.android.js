@@ -24,10 +24,10 @@
           //
           // };
           return function (locals) {
-            // console.log("Platform: "+locals.config.currentOs);
+
             // console.log("NOWWW@@@@@" +locals.config.dateBeingPickedNow);
             // console.log("locals: "+JSON.stringify(locals));
-            // console.log("Current platform: "+locals.config.currentOs);
+
 
             return (
                 <View style={styles.container}>

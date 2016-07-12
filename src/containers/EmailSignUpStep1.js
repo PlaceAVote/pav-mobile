@@ -140,17 +140,16 @@ class EmailSignUpStep1 extends React.Component {
 
     return(
       <EmailSignUpStep1Render
-          onNextStep={ this.onNextBtnPressed.bind(this) }
-          onBack={this.onBackBtnPress.bind(this)}
-          isUserLoggedIn={this.props.auth.user.isLoggedIn}
-
           authFormFields={this.props.auth.form.fields}
           error={this.props.auth.form.error}
           isFetchingAuth={this.props.auth.form.isFetching}
           regFormIsValid={this.props.auth.form.isValid.get(REGISTER_STEP_1)}
+          isUserLoggedIn={this.props.auth.user.isLoggedIn}
           onValueChange={this.onChange.bind(this)}
           togglePasswordHidden={this.togglePasswordHidden.bind(this)}
           onSignUpFacebookBtnPress={ this.onFacebookBtnPressed.bind(this) }
+          onNextStep={ this.onNextBtnPressed.bind(this) }
+          onBack={this.onBackBtnPress.bind(this)}
       />
     );
   }

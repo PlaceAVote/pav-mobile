@@ -1,5 +1,5 @@
       import React from 'react';
-      import {View, Text, StyleSheet} from 'react-native';
+      import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
       import t from 'tcomb-form-native'
       import Accordion from 'react-native-collapsible/Accordion'
       import Collapsible from 'react-native-collapsible'
@@ -19,26 +19,26 @@
 
         renderHeader (locals) {
           let curSelectedDate = moment(locals.value).format('Do MMMM YYYY');
-          let dateBeingPickedNow = locals.config.dateBeingPickedNow?"Done":"Pick";
+          let dateBeingPickedNow = locals.config.dateBeingPickedNow?"Done":"Change";
           return (
             <View style={[styles.header, styles.textContainer]}>
               <Text style={[locals.stylesheet.controlLabel.normal, styles.label]}>
                 {locals.label}
               </Text>
-              <View style={styles.valueContainer}>
+              <TouchableOpacity style={styles.valueContainer} onPress={
+                ()=>{
+               //  console.log("On button press");
+                locals.config.onCollapsedChange(locals.config.dateBeingPickedNow);
+              }}>
                 <Text style={[styles.value]}>
-                 {curSelectedDate}
+                 {curSelectedDate} <Text style={styles.tapToChangeText}>  (Tap to change)</Text>
                </Text>
-               <Button textStyle={styles.whiteBtnText} style={styles.collapseBtn}
-                   onPress={
-                     ()=>{
-                    //  console.log("On button press");
-                     locals.config.onCollapsedChange(locals.config.dateBeingPickedNow);
-                   }
-                 }>
+               <View style={styles.collapseBtn}>
+                 <Text style={styles.whiteBtnText} >
                  {dateBeingPickedNow}
-               </Button>
-              </View>
+                 </Text>
+               </View>
+              </TouchableOpacity>
 
             </View>
           );
@@ -53,10 +53,8 @@
           //
           // };
           return function (locals) {
-            // console.log("Platform: "+locals.config.currentOs);
             // console.log("NOWWW@@@@@" +locals.config.dateBeingPickedNow);
             // console.log("locals: "+JSON.stringify(locals));
-            // console.log("Current platform: "+locals.config.currentOs);
 
             return (
               <View>
@@ -87,23 +85,33 @@
         },
         textContainer: {
           flexDirection: 'column',
+          justifyContent:'center'
+          // backgroundColor:'purple',
           // paddingLeft: 5,
           // paddingRight: 5,
         },
         label:{
           // flex: 1,
+          // backgroundColor:'red',
           fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
           fontSize: getCorrectFontSizeForScreen(14),
         },
         valueContainer:{
           flex: 1,
           flexDirection: 'row',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          alignItems:'center',
         },
         value: {
-          fontFamily: 'Whitney-Light', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
+          fontFamily: 'Whitney-SemiBold', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
+          color: Colors.fourthTextColor,
           // backgroundColor:'red',
-          fontSize: getCorrectFontSizeForScreen(11),
+          fontSize: getCorrectFontSizeForScreen(10),
+        },
+        tapToChangeText:{
+          fontFamily: 'Whitney-Light',
+          fontSize:getCorrectFontSizeForScreen(10),
+          color: Colors.thirdTextColor
         },
         header: {
           flex: 1,
@@ -112,13 +120,17 @@
         whiteBtnText:{
           fontFamily: 'Whitney-Regular', //Whitney, Whitney-Light, Whitney-Light, Whitney-SemiBold, Whitney
           color: Colors.mainTextColor,
-          textAlign: 'center'
+          textAlign: 'center',
+          fontSize: getCorrectFontSizeForScreen(12),
         },
         collapseBtn:{
           // position: 'absolute',
+          height: 40,
+          // width: w*.22,
+          justifyContent:'center',
           borderRadius: 2,
           borderWidth: 1,
-          paddingHorizontal: 10,
+          paddingHorizontal: w*.05,
           paddingVertical: 1,
           alignSelf: 'center',
           backgroundColor: Colors.primaryColor,
