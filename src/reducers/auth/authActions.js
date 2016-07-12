@@ -83,7 +83,9 @@ import _ from 'underscore';
 
    SET_STATE,
    SET_USER_DATA,
-   SET_AUTH_METHOD
+   SET_AUTH_METHOD,
+   SET_PASSWORD_VISIBILITY
+
  } = ActionNames;
 
 
@@ -313,6 +315,14 @@ export function signupFailure(error) {
     type: SIGNUP_FAILURE,
     payload: error
   };
+}
+
+
+export function setPasswordVisibility(isHidden){
+ return {
+   type: SET_PASSWORD_VISIBILITY,
+   payload: !isHidden
+ };
 }
 
 /**

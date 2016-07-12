@@ -110,8 +110,8 @@ class EmailSignUpStep1Render extends React.Component {
     this.state ={
       keyboardOpen: false,
       value: {
-        name: this.props.authFormFields.name,
-      	surname: this.props.authFormFields.surname
+        email: this.props.authFormFields.email,
+      	password: this.props.authFormFields.password
       }
     };
   }
@@ -123,8 +123,8 @@ class EmailSignUpStep1Render extends React.Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	name: nextprops.authFormFields.name,
-      	surname: nextprops.authFormFields.surname
+      	email: nextprops.authFormFields.email,
+      	password: nextprops.authFormFields.password
       }
     });
   }
@@ -214,6 +214,7 @@ class EmailSignUpStep1Render extends React.Component {
             onChange={this.onChange.bind(this)}
             onNext={this.props.onNextStep}
             regFormIsValid={this.props.regFormIsValid}
+            togglePasswordHidden={this.props.togglePasswordHidden}
           />
 
         </View>
@@ -251,5 +252,6 @@ EmailSignUpStep1Render.propTypes= {
   onValueChange: React.PropTypes.func.isRequired,
   onBack: React.PropTypes.func.isRequired,
   onNextStep: React.PropTypes.func.isRequired,
+  togglePasswordHidden: React.PropTypes.func.isRequired,
 };
 export default EmailSignUpStep1Render;

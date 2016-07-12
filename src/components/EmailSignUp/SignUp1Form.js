@@ -206,7 +206,9 @@ class SignUp1Form extends React.Component {
 
 
   onPasswordShowClicked(isHidden){
-    alert("@@ hidden:"+isHidden);
+    if(this.props.togglePasswordHidden){
+      this.props.togglePasswordHidden(isHidden);
+    }
   }
 
   /**
@@ -219,7 +221,7 @@ class SignUp1Form extends React.Component {
 
 
 
-
+    let secureTextEntry = !this.props.authFormFields.showPassword;
     let options = {
       stylesheet: stylesheet,
       auto: 'placeholders',
@@ -246,7 +248,7 @@ class SignUp1Form extends React.Component {
           template: PasswordTemplate,
           label: 'Create a Password',
           maxLength: 20,
-          secureTextEntry: !this.props.authFormFields.showPassword,
+          secureTextEntry: secureTextEntry,
           editable: !this.props.isFetchingAuth,
           hasError: this.props.authFormFields.passwordHasError,
           error: 'Password length 6-20 characters, containing both a number and a capital letter.',
@@ -260,7 +262,7 @@ class SignUp1Form extends React.Component {
           placeholderTextColor: Colors.secondaryTextColor,
           // autoFocus: true,
           config:{
-            passwordHidden: true,
+            passwordHidden: secureTextEntry,
             onShowPasswordClicked: this.onPasswordShowClicked.bind(this)
           }
         },
@@ -301,5 +303,6 @@ SignUp1Form.propTypes= {
   onChange: React.PropTypes.func.isRequired,
   regFormIsValid: React.PropTypes.bool.isRequired,
   onNext: React.PropTypes.func.isRequired,
+  togglePasswordHidden: React.PropTypes.func.isRequired,
 };
 export default SignUp1Form;

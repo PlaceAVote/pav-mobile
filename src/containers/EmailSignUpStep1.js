@@ -91,7 +91,7 @@ class EmailSignUpStep1 extends React.Component {
    */
   onChange(value) {
 
-    // console.log("Changed"+JSON.stringify(value));
+    console.log("Changed"+JSON.stringify(value));
     // if (value.name != '') {
     //   this.props.actions.onAuthFormFieldChange('name',value.name, REGISTER_STEP_1);
     // }
@@ -106,6 +106,11 @@ class EmailSignUpStep1 extends React.Component {
       this.props.actions.onAuthFormFieldChange('password',value.password, REGISTER_STEP_1);
     }
 
+  }
+
+  togglePasswordHidden(isHidden){
+    console.log("Hidden?: "+isHidden);
+    this.props.actions.setPasswordVisibility(!isHidden);
   }
 
   render() {
@@ -127,11 +132,13 @@ class EmailSignUpStep1 extends React.Component {
           onNextStep={ onButtonPress }
           onBack={onBackBtnPress}
           isUserLoggedIn={this.props.auth.user.isLoggedIn}
-          onValueChange={this.onChange.bind(this)}
+
           authFormFields={this.props.auth.form.fields}
           error={this.props.auth.form.error}
           isFetchingAuth={this.props.auth.form.isFetching}
           regFormIsValid={this.props.auth.form.isValid.get(REGISTER_STEP_1)}
+          onValueChange={this.onChange.bind(this)}
+          togglePasswordHidden={this.togglePasswordHidden.bind(this)}
       />
     );
   }

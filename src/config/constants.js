@@ -258,6 +258,7 @@ module.exports =  {
    SET_AUTH_METHOD: null,
    SET_SESSION_TOKEN: null,
    SET_USER_DATA: null,
+   SET_PASSWORD_VISIBILITY:null,
    RESET_ERROR_STATE:null,
 
 

@@ -75,7 +75,8 @@ const {
 
   SET_STATE,
   SET_AUTH_METHOD,
-  SET_USER_DATA
+  SET_USER_DATA,
+  SET_PASSWORD_VISIBILITY
 } = ActionNames;
 
 
@@ -109,6 +110,8 @@ export default function authReducer(state = initialState, action) {
 
   switch (action.type) {
 
+  case SET_PASSWORD_VISIBILITY:
+    return state.setIn(['form', 'fields', 'showPassword'], action.payload)
   case TOKEN_VALIDATE_REQUEST:
     return state.setIn(['form', 'isFetching'], true)
       .setIn(['form','error'],null);
