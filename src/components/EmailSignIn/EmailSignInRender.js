@@ -228,9 +228,15 @@ class EmailSignInRender extends React.Component {
             <SignInForm
               form={this.props.authForm}
               value={this.state.value}
+              isFetchingAuth={this.props.isFetchingAuth}
+              error={this.props.error}
+              formIsValid={this.props.formIsValid}
+              mailFieldError={this.props.mailFieldError}
+              passwordFieldError={this.props.passwordFieldError}
               onChange={this.onChange.bind(this)}
               onNext={this.props.onSignInBtnPress}
               togglePasswordHidden={this.props.togglePasswordHidden}
+              showPassword={this.props.showPassword}
             />
             {this.renderForgotPasswordBtn()}
           </View>
@@ -242,9 +248,11 @@ class EmailSignInRender extends React.Component {
               textStyle={styles.whiteBtnText}
               style={styles.signInBtn}
               isDisabled={this.props.isFetchingAuth}
-              isLoading={this.props.isFetchingAuth && (this.props.authMethod=="email")}
+              isLoading={(this.props.isFetchingAuth===true) && (this.props.authMethod=="email")}
               activityIndicatorColor={Colors.mainTextColor}
-              onPress={this.props.onSignInBtnPress}>
+              onPress={this.props.onSignInBtnPress}
+              >
+
             Sign In >
           </Button>
 
@@ -283,10 +291,16 @@ EmailSignInRender.propTypes= {
   authForm: React.PropTypes.object.isRequired,
   email: React.PropTypes.string.isRequired,
   password: React.PropTypes.string.isRequired,
+  error: React.PropTypes.string,
+  formIsValid: React.PropTypes.bool.isRequired,
   isFetchingAuth: React.PropTypes.bool.isRequired,
   forgotPasswordModalOpen: React.PropTypes.bool.isRequired,
   togglePasswordHidden: React.PropTypes.func.isRequired,
-  
+  showPassword: React.PropTypes.bool.isRequired,
+
+  mailFieldError: React.PropTypes.bool.isRequired,
+  passwordFieldError: React.PropTypes.bool.isRequired,
+
   onFbBtnPress: React.PropTypes.func.isRequired,
   onValueChange: React.PropTypes.func.isRequired,
   onForgotPasswordClosed: React.PropTypes.func.isRequired,

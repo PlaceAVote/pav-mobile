@@ -108,17 +108,19 @@ class EmailSignIn extends React.Component {
   }
 
   async onSignInBtnPress(){
-    this.props.actions.setAuthMethod('email');
-    console.log("Sign In btn pressed : EmailSignIn");
-    let email = this.props.auth.form.fields.email, password = this.props.auth.form.fields.password;
-    console.log(" Email "+email+" password: "+password)
-    // this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
-    let success = await this.props.actions.login(email, password, this.props.global.isDev);
-    console.log("Success: "+success);
-    if(success){
-      this.props.actions.navigateTo(MAIN);
+    this.props.actions.manuallyInvokeFieldValidationForScheme(LOGIN);
+    if(this.props.auth.form.isValid.get(LOGIN) && this.props.auth.form.isFetching===false){
+      this.props.actions.setAuthMethod('email');
+      // console.log("Sign In btn pressed : EmailSignIn");
+      let email = this.props.auth.form.fields.email, password = this.props.auth.form.fields.password;
+      // console.log(" Email "+email+" password: "+password)
+      // this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
+      let success = await this.props.actions.login(email, password, this.props.global.isDev);
+      // console.log("Success: "+success);
+      if(success){
+        this.props.actions.navigateTo(MAIN);
+      }
     }
-
   }
 
   onForgotPasswordBtnPress(){
@@ -153,6 +155,11 @@ class EmailSignIn extends React.Component {
           authForm={this.props.auth.form}
           email={this.props.auth.form.fields.email}
           password={this.props.auth.form.fields.password}
+          error={this.props.auth.form.error}
+          formIsValid={this.props.auth.form.isValid.get(LOGIN)}
+          mailFieldError={this.props.auth.form.fields.emailHasError}
+          passwordFieldError={this.props.auth.form.fields.passwordHasError}
+          showPassword={!this.props.auth.form.fields.showPassword}
           authMethod={this.props.auth.form.authMethod}
           isFetchingAuth={this.props.auth.form.isFetching}
           forgotPasswordModalOpen = {this.props.router.modalIsOpen.get(FORGOT_PASSWORD)}

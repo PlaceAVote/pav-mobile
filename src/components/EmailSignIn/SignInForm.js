@@ -53,9 +53,7 @@ class SignInForm extends React.Component {
   }
 
   onPasswordFinishedEditing(){
-    if(this.props.form.isValid.get(ScheneKeys.LOGIN) && !this.props.form.isFetching){
-        this.props.onNext();
-    }
+    this.props.onNext();
   }
 
   onPasswordShowClicked(isHidden){
@@ -71,10 +69,6 @@ class SignInForm extends React.Component {
    *
    */
   render() {
-
-    let formType = this.props.formType;
-
-
 
 
     var INPUT_COLOR = Colors.thirdTextColor;
@@ -224,7 +218,7 @@ class SignInForm extends React.Component {
 
 
 
-    let secureTextEntry = !this.props.form.fields.showPassword;
+    let secureTextEntry = this.props.showPassword;
     let options = {
       stylesheet: stylesheet,
       auto: 'placeholders',
@@ -232,12 +226,12 @@ class SignInForm extends React.Component {
         email: {
           label: 'Enter Email Address',
           maxLength: 30,
-          editable: !this.props.form.isFetching,
-          hasError: this.props.form.error, //this.props.form.fields.emailHasError,  //I removed the validation from auth reducer as well.
+          editable: !this.props.isFetchingAuth,
+          hasError: this.props.error  || (this.props.mailFieldError===true),
           // error: 'Please give us a valid email address.',
           placeholder: 'example@example.com',
           returnKeyType: 'next',
-          onSubmitEditing: this.onEmailFinishedEditing,
+          onSubmitEditing: this.onEmailFinishedEditing.bind(this),
           blurOnSubmit : true,
           underlineColorAndroid: Colors.accentColor,
           autoCorrect: false,
@@ -252,13 +246,13 @@ class SignInForm extends React.Component {
           label: 'Password',
           maxLength: 30,
           secureTextEntry: secureTextEntry,
-          editable: !this.props.form.isFetching,
-          hasError: this.props.form.error,
-          error: this.props.form.error,
+          editable: !this.props.isFetchingAuth,
+          hasError: this.props.error || (this.props.passwordFieldError===true),
+          error: this.props.error || 'Please give us your email and password.',
           placeholder: '************',
           autoCorrect: false,
           autoCapitalize:'none',
-          onSubmitEditing:this.onPasswordFinishedEditing,
+          onSubmitEditing:this.onPasswordFinishedEditing.bind(this),
           placeholderTextColor: Colors.secondaryTextColor,
           underlineColorAndroid: Colors.accentColor,
           config:{
@@ -294,10 +288,14 @@ class SignInForm extends React.Component {
 
 
 SignInForm.propTypes= {
-  formType: React.PropTypes.string.isRequired,
   form: React.PropTypes.object.isRequired,
   value: React.PropTypes.object.isRequired,
   onChange: React.PropTypes.func.isRequired,
+  isFetchingAuth: React.PropTypes.bool.isRequired,
+  error: React.PropTypes.string,
+  showPassword: React.PropTypes.bool.isRequired,
+  mailFieldError: React.PropTypes.bool.isRequired,
+  passwordFieldError: React.PropTypes.bool.isRequired,
   // authFormFields: React.PropTypes.object.isRequired,
   // isFetchingAuth: React.PropTypes.bool.isRequired,
   // value: React.PropTypes.object.isRequired,

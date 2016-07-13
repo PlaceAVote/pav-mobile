@@ -66,7 +66,7 @@ function isFormValid(scheneName, fields){
       isValid = ( fields.dateOfBirth!='' && fields.dateOfBirthIsCurBeingPicked===false );
       break;
     case LOGIN:
-      isValid = (fields.email!='' && fields.password!='' && !fields.emailHasError && !fields.passwordHasError);
+      isValid = (fields.email!='' && fields.password!='' && fields.emailHasError===false && fields.passwordHasError===false);
       break;
     case FORGOT_PASSWORD:
       isValid = (fields.forgotPasswordEmail != '' && !fields.forgotPasswordEmailHasError);
