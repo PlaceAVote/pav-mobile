@@ -125,7 +125,11 @@ class EmailSignUpStep1 extends React.Component {
   async onNextBtnPressed(){
     this.props.actions.manuallyInvokeFieldValidationForScheme(REGISTER_STEP_1);
     if(this.props.auth.form.isValid.get(REGISTER_STEP_1)===true){
+      let success = await this.props.actions.validateUserEmail(this.props.auth.form.fields.email, this.props.global.isDev);
+      if(success){
         this.props.actions.navigateTo(REGISTER_STEP_2);
+      }
+
     }
   }
 

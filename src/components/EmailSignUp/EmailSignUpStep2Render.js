@@ -50,6 +50,7 @@ var styles = StyleSheet.create({
 
   },
   container:{
+    flex:1,
     paddingHorizontal: w*0.04,
     paddingVertical: h*0.02,
   },
@@ -261,7 +262,7 @@ class EmailSignUpStep2Render extends React.Component {
               key="loginBtn"
               textStyle={styles.signInBtnText}
               style={styles.signInBtn}
-              isDisabled={(this.props.isFetchingAuth===true)}
+              isDisabled={(this.props.isFetchingAuth===true || this.props.isUserLoggedIn===true)}
               isLoading={(this.props.isFetchingAuth===true)}
               activityIndicatorColor={Colors.mainTextColor}
               onPress={this.props.onNextStep}>

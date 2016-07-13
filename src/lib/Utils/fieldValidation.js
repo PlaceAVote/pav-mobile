@@ -209,7 +209,7 @@ export function validateAllFields(state){
  * @param {Object} action type & payload
  */
 export function fieldValidation(state, action ) {
-  console.log("Validation: "+JSON.stringify(action))
+  // console.log("Validation: "+JSON.stringify(action))
   if(!!action){
     const {field, value} = action.payload;
     switch(field) {

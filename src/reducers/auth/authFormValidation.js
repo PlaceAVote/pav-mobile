@@ -55,8 +55,7 @@ function isFormValid(scheneName, fields){
           fields.zipCode!='' &&
           fields.zipCodeHasError===false &&
           fields.dateOfBirth!='' &&
-          fields.dateOfBirthHasError===false &&
-          fields.dateOfBirthIsCurBeingPicked===false
+          fields.dateOfBirthHasError===false
          );
       break;
     // case REGISTER_STEP_3:
