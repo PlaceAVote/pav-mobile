@@ -47,6 +47,9 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     // backgroundColor: 'pink',
     marginTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
+
+  },
+  container:{
     paddingHorizontal: w*0.04,
     paddingVertical: h*0.02,
   },
@@ -228,43 +231,45 @@ class EmailSignUpStep2Render extends React.Component {
 
     return(
       <View style={styles.baseContainer}>
+        <View style={styles.container}>
 
-        <ScrollView
-        style={styles.inputsContainer}
-        bounces={false}
-        >
-          <SignUp2Form
-            isFetchingAuth={this.props.isFetchingAuth}
-            authFormFields={this.props.authFormFields}
-            value={{
-              name: this.state.name,
-              surname: this.state.surname,
-              dateOfBirth: this.state.dateOfBirth,
-              zipCode: this.state.zipCode
-            }}
-            error={this.props.error}
-            onChange={this.onChange.bind(this)}
-            onNext={this.props.onNextStep}
-            regFormIsValid={this.props.regFormIsValid}
-            birthdayBeingPicked={this.props.birthdayBeingPicked}
-          />
+          <ScrollView
+          style={styles.inputsContainer}
+          bounces={false}
+          >
+            <SignUp2Form
+              isFetchingAuth={this.props.isFetchingAuth}
+              authFormFields={this.props.authFormFields}
+              value={{
+                name: this.state.name,
+                surname: this.state.surname,
+                dateOfBirth: this.state.dateOfBirth,
+                zipCode: this.state.zipCode
+              }}
+              error={this.props.error}
+              onChange={this.onChange.bind(this)}
+              onNext={this.props.onNextStep}
+              regFormIsValid={this.props.regFormIsValid}
+              birthdayBeingPicked={this.props.birthdayBeingPicked}
+            />
 
-        </ScrollView>
+          </ScrollView>
 
 
 
-        <Button
-            key="loginBtn"
-            textStyle={styles.signInBtnText}
-            style={styles.signInBtn}
-            isDisabled={(this.props.isFetchingAuth===true)}
-            isLoading={(this.props.isFetchingAuth===true)}
-            activityIndicatorColor={Colors.mainTextColor}
-            onPress={this.props.onNextStep}>
-          Complete Registration
-        </Button>
+          <Button
+              key="loginBtn"
+              textStyle={styles.signInBtnText}
+              style={styles.signInBtn}
+              isDisabled={(this.props.isFetchingAuth===true)}
+              isLoading={(this.props.isFetchingAuth===true)}
+              activityIndicatorColor={Colors.mainTextColor}
+              onPress={this.props.onNextStep}>
+            Complete Registration
+          </Button>
+          {this.renderKeyboardSpacer()}
+        </View>
         {this.modalPopupRender(this.props.modalPopupEnabled,this.props.modalPopupErrorMsg)}
-        {this.renderKeyboardSpacer()}
       </View>
     );
   }

@@ -135,7 +135,7 @@ class NewsFeed extends React.Component {
   }
 
   async connectAndGetFeed(fetchOld){
-    // console.log("@@@ NEWS FEED - is dev: "+this.props.global.isDev);
+    // console.log("@@@ NEWS FEED "+this.TOKEN);
     this.props.actions.getNotificationItems(false, this.TOKEN, this.props.global.isDev)
     return await this.props.actions.getFeedItems(fetchOld, this.TOKEN, this.props.global.isDev);
   }

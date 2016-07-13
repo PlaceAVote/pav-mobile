@@ -199,7 +199,9 @@ export default function authReducer(state = initialState, action) {
     }
   }
   case MANUALLY_INVOKED_FIELD_VALIDATION:
-    return formValidation(validateScheneFields(state, action.type), action.payload);
+    // console.log("Manually invoking validation on : "+action.type);
+    let scheneNm = action.payload;
+    return formValidation(validateScheneFields(state, scheneNm), scheneNm);
   case LOGOUT_SUCCESS:
     return initialState;
 

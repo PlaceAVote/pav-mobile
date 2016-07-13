@@ -114,9 +114,7 @@ const usZipCodeConstraints = {
   }
 };
 
-function isDateLessThan7YearsOld(dateStr){
-  return (moment().diff(moment(dateStr,'x'), 'years')<7); //noErrors
-}
+
 
 
 
@@ -152,31 +150,36 @@ export function validateZipCode(value){
   return (!_.isUndefined(validate({zipCode: value},usZipCodeConstraints)));
 }
 
+function isDateLessThan7YearsOld(dateStr){
+  return (moment().diff(moment(dateStr,'x'), 'years')<7); //noErrors
+}
+
 export function validateBirthdate(value){
-  if(value==''){
+  if(value=='' || value==null){
     return true;  //error exists
   }
-  return isDateLessThan7YearsOld(value);
+  return isDateLessThan7YearsOld(value); //if less than 7 years old then its true and thus an error exists
 }
 
 
 export function validateScheneFields(state, scheneName){
   let validatedState = state;
+  // console.log("@@@@@@@@@ Validating schene name: "+scheneName);
   switch (scheneName) {
     case 'REGISTER_STEP_1':
-      state
+      validatedState = state
       .setIn(['form', 'fields', 'emailHasError'], (validateEmail(state.form.fields.email) || state.form.fields.email=='') )
       .setIn(['form', 'fields', 'passwordHasError'], (validatePassword(state.form.fields.password)  || state.form.fields.password==''));
       break;
     case 'REGISTER_STEP_2':
-      state
+      validatedState = state
       .setIn(['form', 'fields', 'nameHasError'], (validateName(state.form.fields.name) || state.form.fields.name==''))
       .setIn(['form', 'fields', 'surnameHasError'], (validateSurname(state.form.fields.surname) || state.form.fields.surname==''))
       .setIn(['form', 'fields', 'zipCodeHasError'], (validateZipCode(state.form.fields.zipCode) || state.form.fields.zipCode==''))
-      .setIn(['form', 'fields', 'dateOfBirthHasError'], validateBirthdate(state.form.fields.zipCode));
+      .setIn(['form', 'fields', 'dateOfBirthHasError'], validateBirthdate(state.form.fields.dateOfBirth));
       break;
     case 'LOGIN':
-      state
+      validatedState = state
       .setIn(['form', 'fields', 'emailHasError'], (validateEmail(state.form.fields.email) || state.form.fields.email=='') )
       .setIn(['form', 'fields', 'passwordHasError'], (validatePassword(state.form.fields.password)  || state.form.fields.password==''));
       break;
@@ -196,7 +199,7 @@ export function validateAllFields(state){
   .setIn(['form', 'fields', 'passwordHasError'], (validatePassword(state.form.fields.password)  || state.form.fields.password==''))
   .setIn(['form', 'fields', 'passwordAgainHasError'], (validatePasswordAgain(state.form.fields.passwordAgain) || state.form.fields.passwordAgain==''))
   .setIn(['form', 'fields', 'zipCodeHasError'], (validateZipCode(state.form.fields.zipCode) || state.form.fields.zipCode==''))
-  .setIn(['form', 'fields', 'dateOfBirthHasError'], validateBirthdate(state.form.fields.zipCode));
+  .setIn(['form', 'fields', 'dateOfBirthHasError'], validateBirthdate(state.form.fields.dateOfBirth));
   // console.log("Now validating ALL fields: "+JSON.stringify(validatedState));
   return validatedState;
 }

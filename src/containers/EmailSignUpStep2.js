@@ -108,7 +108,7 @@ class EmailSignUpStep2 extends React.Component {
   }
 
   async onNextBtnPress(){
-    this.props.actions.manuallyInvokeFieldValidationForScheme(REGISTER_STEP_2);
+    await this.props.actions.manuallyInvokeFieldValidationForScheme(REGISTER_STEP_2);
     if(this.props.auth.form.isValid.get(REGISTER_STEP_2)===true){
       let {name, surname, email, password, dateOfBirth, zipCode, topicsList, gender, fbAuthUID, fbAuthToken, fbAuthImgUrl} = this.props.auth.form.fields.toJS();
 

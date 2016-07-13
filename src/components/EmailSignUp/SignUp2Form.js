@@ -205,7 +205,7 @@ class SignUp2Form extends React.Component {
    */
   render() {
 
-
+    // console.log(":dateOfBirthHasError: "+this.props.authFormFields.dateOfBirthHasError)
     let options = {
       stylesheet: stylesheet,
       auto: 'placeholders',
