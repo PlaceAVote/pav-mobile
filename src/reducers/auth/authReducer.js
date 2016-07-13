@@ -111,6 +111,15 @@ export default function authReducer(state = initialState, action) {
 
   switch (action.type) {
 
+
+  case LOGIN_FACEBOOK_REQUEST:
+    return state.setIn(['form', 'isFetching'], true)
+      .setIn(['form','error'],null);
+
+  case LOGIN_FACEBOOK_FAILURE:
+    return state.setIn(['form', 'isFetching'], false)
+      .setIn(['form','error'],action.payload);
+
   case SET_PASSWORD_VISIBILITY:
     return state.setIn(['form', 'fields', 'showPassword'], action.payload)
   case TOKEN_VALIDATE_REQUEST:

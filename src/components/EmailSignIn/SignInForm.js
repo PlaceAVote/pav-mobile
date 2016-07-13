@@ -288,7 +288,6 @@ class SignInForm extends React.Component {
 
 
 SignInForm.propTypes= {
-  form: React.PropTypes.object.isRequired,
   value: React.PropTypes.object.isRequired,
   onChange: React.PropTypes.func.isRequired,
   isFetchingAuth: React.PropTypes.bool.isRequired,

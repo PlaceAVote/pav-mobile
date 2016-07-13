@@ -226,7 +226,6 @@ class EmailSignInRender extends React.Component {
 
           <View style={styles.inputs}>
             <SignInForm
-              form={this.props.authForm}
               value={this.state.value}
               isFetchingAuth={this.props.isFetchingAuth}
               error={this.props.error}

@@ -108,6 +108,7 @@ class EmailSignIn extends React.Component {
   }
 
   async onSignInBtnPress(){
+    alert("WHAT?");
     this.props.actions.manuallyInvokeFieldValidationForScheme(LOGIN);
     if(this.props.auth.form.isValid.get(LOGIN) && this.props.auth.form.isFetching===false){
       this.props.actions.setAuthMethod('email');
@@ -157,8 +158,8 @@ class EmailSignIn extends React.Component {
           password={this.props.auth.form.fields.password}
           error={this.props.auth.form.error}
           formIsValid={this.props.auth.form.isValid.get(LOGIN)}
-          mailFieldError={this.props.auth.form.fields.emailHasError}
-          passwordFieldError={this.props.auth.form.fields.passwordHasError}
+          mailFieldError={((this.props.auth.form.fields.emailHasError===true) && (this.props.auth.form.authMethod=="email"))}
+          passwordFieldError={((this.props.auth.form.fields.passwordHasError===true)  && (this.props.auth.form.authMethod=="email"))}
           showPassword={!this.props.auth.form.fields.showPassword}
           authMethod={this.props.auth.form.authMethod}
           isFetchingAuth={this.props.auth.form.isFetching}
