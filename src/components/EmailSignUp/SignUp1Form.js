@@ -11,10 +11,10 @@
  * React
  */
 import React from 'react';
-const {
-  PropTypes,
-  PixelRatio
-} = React;
+
+import {
+  Platform,
+} from 'react-native';
 
 import PasswordTemplate from '../Templates/PasswordTemplate';
 import { ScheneKeys, Colors } from '../../config/constants';
@@ -150,30 +150,47 @@ const stylesheet = Object.freeze({
     }
   },
   passwordTextboxStyleContainer:{
-    normal: {
-      // height: 45,
-      // padding: 7,
-      borderRadius: 4,
-      borderColor: Colors.mainBorderColor,
-      borderWidth: 1,
+    ...Platform.select({
+      ios:{
+        normal: {
+          // height: 45,
+          // padding: 7,
+          borderRadius: 4,
+          borderColor: Colors.mainBorderColor,
+          borderWidth: 1,
 
-      // marginBottom: 5
-    },
-    // the style applied when a validation error occours
-    error: {
-      borderRadius: 4,
-      borderColor: Colors.errorTextColor,
-      borderWidth: 1,
-      // marginBottom: 5
-    },
-    // the style applied when the textbox is not editable
-    notEditable: {
-
-      borderRadius: 4,
-      borderColor: Colors.mainBorderColor,
-      borderWidth: 1,
-      backgroundColor: DISABLED_BACKGROUND_COLOR
-    }
+          // marginBottom: 5
+        },
+        // the style applied when a validation error occours
+        error: {
+          borderRadius: 4,
+          borderColor: Colors.errorTextColor,
+          borderWidth: 1,
+          // marginBottom: 5
+        },
+        // the style applied when the textbox is not editable
+        notEditable: {
+          borderRadius: 4,
+          borderColor: Colors.mainBorderColor,
+          borderWidth: 1,
+          backgroundColor: DISABLED_BACKGROUND_COLOR
+        }
+      },
+      android: {
+        normal: {
+          borderWidth: 0,
+        },
+        // the style applied when a validation error occours
+        error: {
+          borderWidth: 0,
+        },
+        // the style applied when the textbox is not editable
+        notEditable: {
+          borderWidth: 0,
+          backgroundColor: DISABLED_BACKGROUND_COLOR
+        }
+      },
+    }),
   },
   passwordTextboxBtn:{
     paddingHorizontal:w*.025

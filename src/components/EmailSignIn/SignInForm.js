@@ -13,11 +13,9 @@
  * React
  */
 import React from 'react';
-const {
-  PropTypes,
-  PixelRatio
-} = React;
-
+import {
+  Platform,
+} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -47,6 +45,13 @@ class SignInForm extends React.Component {
    * * onChange: function to call when user enters text
    */
 
+  // getPasswordNode(){
+  //  return this.refs.form.getComponent('password').refs.input;
+  // }
+  //
+  // getEmailNode(){
+  //  return this.refs.form.getComponent('email').refs.input;
+  // }
 
   onEmailFinishedEditing(){
     this.refs.form.getComponent('password').refs.input.focus();
@@ -178,30 +183,47 @@ class SignInForm extends React.Component {
         }
       },
       passwordTextboxStyleContainer:{
-        normal: {
-          // height: 45,
-          // padding: 7,
-          borderRadius: 4,
-          borderColor: Colors.mainBorderColor,
-          borderWidth: 1,
+        ...Platform.select({
+          ios:{
+            normal: {
+              // height: 45,
+              // padding: 7,
+              borderRadius: 4,
+              borderColor: Colors.mainBorderColor,
+              borderWidth: 1,
 
-          // marginBottom: 5
-        },
-        // the style applied when a validation error occours
-        error: {
-          borderRadius: 4,
-          borderColor: Colors.errorTextColor,
-          borderWidth: 1,
-          // marginBottom: 5
-        },
-        // the style applied when the textbox is not editable
-        notEditable: {
-
-          borderRadius: 4,
-          borderColor: Colors.mainBorderColor,
-          borderWidth: 1,
-          backgroundColor: DISABLED_BACKGROUND_COLOR
-        }
+              // marginBottom: 5
+            },
+            // the style applied when a validation error occours
+            error: {
+              borderRadius: 4,
+              borderColor: Colors.errorTextColor,
+              borderWidth: 1,
+              // marginBottom: 5
+            },
+            // the style applied when the textbox is not editable
+            notEditable: {
+              borderRadius: 4,
+              borderColor: Colors.mainBorderColor,
+              borderWidth: 1,
+              backgroundColor: DISABLED_BACKGROUND_COLOR
+            }
+          },
+          android: {
+            normal: {
+              borderWidth: 0,
+            },
+            // the style applied when a validation error occours
+            error: {
+              borderWidth: 0,
+            },
+            // the style applied when the textbox is not editable
+            notEditable: {
+              borderWidth: 0,
+              backgroundColor: DISABLED_BACKGROUND_COLOR
+            }
+          },
+        }),
       },
       passwordTextboxBtn:{
         paddingHorizontal:w*.025
@@ -238,7 +260,8 @@ class SignInForm extends React.Component {
           autoCapitalize:'none',
           autoFocus: false,
           placeholderTextColor: Colors.secondaryTextColor,
-          keyboardType: "email-address"
+          keyboardType: "email-address",
+          // onFocus: this.props.onTextInputFocus
           // autoFocus: true,
         },
         password : {
@@ -258,7 +281,9 @@ class SignInForm extends React.Component {
           config:{
             passwordHidden: secureTextEntry,
             onShowPasswordClicked: this.onPasswordShowClicked.bind(this)
-          }
+          },
+          // onFocus: this.props.onTextInputFocus
+
 
         }
 
@@ -298,9 +323,9 @@ SignInForm.propTypes= {
   // authFormFields: React.PropTypes.object.isRequired,
   // isFetchingAuth: React.PropTypes.bool.isRequired,
   // value: React.PropTypes.object.isRequired,
-  // onChange: React.PropTypes.func.isRequired,
   // regFormIsValid: React.PropTypes.bool.isRequired,
   // onNext: React.PropTypes.func.isRequired,
+  // onTextInputFocus: React.PropTypes.func.isRequired,
   togglePasswordHidden: React.PropTypes.func.isRequired,
 };
 export default SignInForm;

@@ -24,6 +24,8 @@ import {
   Text,
   View,
   Platform,
+  ScrollView,
+  findNodeHandle
   // Keyboard
 } from 'react-native';
 
@@ -40,6 +42,7 @@ var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in curr
 
 
 
+
 /**
  * ## Styles
  */
@@ -49,14 +52,17 @@ var styles = StyleSheet.create({
     flex:1,
     backgroundColor: 'white',
   },
+  scroller:{
+    flex:1,
+    marginTop:80,
+    marginBottom:20,
+    marginHorizontal:w*0.04 //same as 14px
+  },
   contentContainer: {
     flex:1,
     // backgroundColor: 'blue',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    marginTop:80,
-    marginBottom:20,
-    marginHorizontal:w*0.04 //same as 14px
   },
 
   signInBtn: {
@@ -149,6 +155,10 @@ class EmailSignInRender extends React.Component {
     });
   }
 
+  // componentDidMount(){
+  //   this.passwordNode = this.refs.signInForm.getPasswordNode();
+  //   this.emailNode = this.refs.signInForm.getEmailNode();
+  // }
 
   /**
    * ### onChange
@@ -184,7 +194,7 @@ class EmailSignInRender extends React.Component {
 
   renderSpacer(){
     if (this.props.forgotPasswordModalOpen===false){
-      return (<KeyboardSpacer onToggle={(keyboardState, keyboardHeight)=>{
+      return (<KeyboardSpacer android={false} onToggle={(keyboardState, keyboardHeight)=>{
           if(keyboardState==true){
             this.setState({
               keyboardIsVisible: true
@@ -201,6 +211,28 @@ class EmailSignInRender extends React.Component {
 
   }
 
+  renderFbButton(){
+
+  }
+
+  // onKeyboardWillShow={(frames: Object) => {
+  //   // console.log('Keyboard event', frames)
+  //   this.setState({
+  //     keyboardIsVisible: true
+  //   });
+  // }}
+  // onKeyboardWillHide={(frames: Object) => {
+  //   // console.log('Keyboard event', frames)
+  //   this.setState({
+  //     keyboardIsVisible: false
+  //   });
+  // }}
+
+  // _scrollToInput (reactNode: any) {
+  //   // alert("@clicked: "+reactNode)
+  //   this.refs.scroll.scrollToFocusedInput(reactNode)
+  // }
+
   /**
    * ### render
    * Setup some default presentations and render
@@ -208,9 +240,12 @@ class EmailSignInRender extends React.Component {
   render() {
     return(
       <View style={styles.baseContainer}>
-        <View style={styles.contentContainer}>
+        <ScrollView
+        style={styles.scroller}
+        contentContainerStyle={styles.contentContainer}
+        bounces={false}
 
-
+        >
           <Button
           onPress={this.props.onFbBtnPress}
           style={styles.facebookBtn}
@@ -226,6 +261,7 @@ class EmailSignInRender extends React.Component {
 
           <View style={styles.inputs}>
             <SignInForm
+              ref="signInForm"
               value={this.state.value}
               isFetchingAuth={this.props.isFetchingAuth}
               error={this.props.error}
@@ -236,6 +272,7 @@ class EmailSignInRender extends React.Component {
               onNext={this.props.onSignInBtnPress}
               togglePasswordHidden={this.props.togglePasswordHidden}
               showPassword={this.props.showPassword}
+
             />
             {this.renderForgotPasswordBtn()}
           </View>
@@ -249,15 +286,15 @@ class EmailSignInRender extends React.Component {
               isDisabled={this.props.isFetchingAuth}
               isLoading={(this.props.isFetchingAuth===true) && (this.props.authMethod=="email")}
               activityIndicatorColor={Colors.mainTextColor}
-              onPress={this.props.onSignInBtnPress}
+              onPress={()=>{
+                this.refs.form.getComponent('password').refs.input.focus();
+              }}
               >
 
             Sign In >
           </Button>
-
           {this.renderSpacer()}
-
-        </View>
+        </ScrollView>
 
         <ForgotPasswordModalBox
         onCloseBtnClicked={this.props.onForgotPasswordCloseBtnClicked}
@@ -275,6 +312,7 @@ class EmailSignInRender extends React.Component {
   }
 }
 
+// this.props.onSignInBtnPress
 
 
 

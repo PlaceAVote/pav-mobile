@@ -11,10 +11,9 @@
  * React
  */
 import React from 'react';
-const {
-  PropTypes,
-  PixelRatio
-} = React;
+import {
+  Platform,
+} from 'react-native';
 
 
 import { ScheneKeys, Colors } from '../../config/constants';

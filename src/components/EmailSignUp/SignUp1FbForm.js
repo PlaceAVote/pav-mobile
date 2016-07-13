@@ -11,10 +11,6 @@
  * React
  */
 import React from 'react';
-const {
-  PropTypes,
-  PixelRatio
-} = React;
 
 import { ScheneKeys, Colors } from '../../config/constants';
 // import _ from 'lodash';
@@ -148,32 +144,7 @@ const stylesheet = Object.freeze({
       backgroundColor: DISABLED_BACKGROUND_COLOR
     }
   },
-  passwordTextboxStyleContainer:{
-    normal: {
-      // height: 45,
-      // padding: 7,
-      borderRadius: 4,
-      borderColor: Colors.mainBorderColor,
-      borderWidth: 1,
 
-      // marginBottom: 5
-    },
-    // the style applied when a validation error occours
-    error: {
-      borderRadius: 4,
-      borderColor: Colors.errorTextColor,
-      borderWidth: 1,
-      // marginBottom: 5
-    },
-    // the style applied when the textbox is not editable
-    notEditable: {
-
-      borderRadius: 4,
-      borderColor: Colors.mainBorderColor,
-      borderWidth: 1,
-      backgroundColor: DISABLED_BACKGROUND_COLOR
-    }
-  },
   passwordTextboxBtn:{
     paddingHorizontal:w*.025
   },
