@@ -145,7 +145,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const pavScenes = (
+const pavScenes = Actions.create(
   <Scene key="root" hideNavBar={true} >
     <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={true}/>
     <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
@@ -221,7 +221,7 @@ class Routes extends React.Component{
 
   render(){
     let RouterWithRedux = this.props.router;
-    return <RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} scenes={ Actions.create(pavScenes) }/>;
+    return <RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} scenes={pavScenes}/>;
   }
 }
 export default connect(routerStateToProps, mapDispatchToProps)(Routes);
