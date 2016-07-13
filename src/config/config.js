@@ -1,3 +1,4 @@
+import {version} from '../../package.json'
 module.exports = {
   VERSION: '0.8.7',
   ENVIRONMENT_IS_DEV: true,
