@@ -25,8 +25,6 @@ import * as deviceActions from '../reducers/device/deviceActions';
 import EmailSignIn from '../containers/EmailSignIn';
 import EmailSignUpStep1 from '../containers/EmailSignUpStep1';
 import EmailSignUpStep2 from '../containers/EmailSignUpStep2';
-import EmailSignUpStep3 from '../containers/EmailSignUpStep3';
-import EmailSignUpStep4 from '../containers/EmailSignUpStep4';
 import TopicPick from '../containers/TopicPick';
 import NewsFeed from '../containers/NewsFeed';
 import Bill from '../containers/Bill';
@@ -153,8 +151,6 @@ const pavScenes = (
     <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" />
     <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} title="Register" component={EmailSignUpStep1} hideNavBar={false} />
     <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} title="Register" component={EmailSignUpStep2} hideNavBar={false}/>
-    <Scene key={ScheneKeys.REGISTER_STEP_3} {...defaultProps} component={EmailSignUpStep3} hideNavBar={true} />
-    <Scene key={ScheneKeys.REGISTER_STEP_4} {...defaultProps} component={EmailSignUpStep4} hideNavBar={true} />
     <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
     <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile}/>
     <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} iconContainerStyle={styles.iconContainerStyle} initial={false}>

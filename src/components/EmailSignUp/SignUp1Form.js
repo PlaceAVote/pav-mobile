@@ -16,7 +16,7 @@ const {
   PixelRatio
 } = React;
 
-import PasswordTemplate from './PasswordTemplate';
+import PasswordTemplate from '../Templates/PasswordTemplate';
 import { ScheneKeys, Colors } from '../../config/constants';
 // import _ from 'lodash';
 /**

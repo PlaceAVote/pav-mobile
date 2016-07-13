@@ -141,7 +141,9 @@ class EmailSignIn extends React.Component {
   onForgotPasswordTextChange(value){
     this.props.actions.onAuthFormFieldChange('forgotPasswordEmail',value, FORGOT_PASSWORD);
   }
-
+  togglePasswordHidden(isHidden){
+    this.props.actions.setPasswordVisibility(!isHidden);
+  }
 
   render() {
 
@@ -157,7 +159,7 @@ class EmailSignIn extends React.Component {
           forgotPasswordTextValue = {this.props.auth.form.fields.forgotPasswordEmail}
           forgotPasswordErrorValue = {this.props.auth.form.fields.forgotPasswordEmailHasError}
           forgotPasswordDisabled = {!this.props.auth.form.isValid.get(FORGOT_PASSWORD) || this.props.auth.form.isFetching}
-
+          togglePasswordHidden={this.togglePasswordHidden.bind(this)}
           onValueChange={this.onChange.bind(this)}
           onForgotPasswordClosed = {this.onForgotPasswordModalClosed.bind(this)}
           onForgotPasswordTextChange = {this.onForgotPasswordTextChange.bind(this)}

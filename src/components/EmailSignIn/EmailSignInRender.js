@@ -230,6 +230,7 @@ class EmailSignInRender extends React.Component {
               value={this.state.value}
               onChange={this.onChange.bind(this)}
               onNext={this.props.onSignInBtnPress}
+              togglePasswordHidden={this.props.togglePasswordHidden}
             />
             {this.renderForgotPasswordBtn()}
           </View>
@@ -284,7 +285,8 @@ EmailSignInRender.propTypes= {
   password: React.PropTypes.string.isRequired,
   isFetchingAuth: React.PropTypes.bool.isRequired,
   forgotPasswordModalOpen: React.PropTypes.bool.isRequired,
-
+  togglePasswordHidden: React.PropTypes.func.isRequired,
+  
   onFbBtnPress: React.PropTypes.func.isRequired,
   onValueChange: React.PropTypes.func.isRequired,
   onForgotPasswordClosed: React.PropTypes.func.isRequired,

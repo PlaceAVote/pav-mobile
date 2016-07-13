@@ -47,7 +47,7 @@ import CardFactory from '../Cards/CardFactory';
 
 import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
 import PavImage from '../../lib/UI/PavImage'
-import AccordionPicker from '../EmailSignUp/AccordionPicker';
+import AccordionPicker from '../Templates/AccordionPicker';
 /**
  *  The fantastic little form library
  */

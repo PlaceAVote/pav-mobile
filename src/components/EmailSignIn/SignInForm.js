@@ -21,7 +21,7 @@ const {
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
-
+import PasswordTemplate from '../Templates/PasswordTemplate';
 import { ScheneKeys, Colors } from '../../config/constants';
 // import _ from 'lodash';
 /**
@@ -37,7 +37,8 @@ import { ScheneKeys, Colors } from '../../config/constants';
 import t from 'tcomb-form-native';
 let Form = t.form.Form;
 
-var SignInForm = React.createClass({
+
+class SignInForm extends React.Component {
   /**
    * ## SignInForm class
    *
@@ -45,23 +46,23 @@ var SignInForm = React.createClass({
    * * value: the values to set in the input fields
    * * onChange: function to call when user enters text
    */
-  propTypes: {
-    formType: PropTypes.string,
-    form: PropTypes.object,
-    value: PropTypes.object,
-    onChange: PropTypes.func
-  },
+
 
   onEmailFinishedEditing(){
     this.refs.form.getComponent('password').refs.input.focus();
-  },
+  }
 
   onPasswordFinishedEditing(){
     if(this.props.form.isValid.get(ScheneKeys.LOGIN) && !this.props.form.isFetching){
         this.props.onNext();
     }
-  },
+  }
 
+  onPasswordShowClicked(isHidden){
+    if(this.props.togglePasswordHidden){
+      this.props.togglePasswordHidden(isHidden);
+    }
+  }
 
   /**
    * ## render
@@ -182,7 +183,41 @@ var SignInForm = React.createClass({
           backgroundColor: DISABLED_BACKGROUND_COLOR
         }
       },
-    
+      passwordTextboxStyleContainer:{
+        normal: {
+          // height: 45,
+          // padding: 7,
+          borderRadius: 4,
+          borderColor: Colors.mainBorderColor,
+          borderWidth: 1,
+
+          // marginBottom: 5
+        },
+        // the style applied when a validation error occours
+        error: {
+          borderRadius: 4,
+          borderColor: Colors.errorTextColor,
+          borderWidth: 1,
+          // marginBottom: 5
+        },
+        // the style applied when the textbox is not editable
+        notEditable: {
+
+          borderRadius: 4,
+          borderColor: Colors.mainBorderColor,
+          borderWidth: 1,
+          backgroundColor: DISABLED_BACKGROUND_COLOR
+        }
+      },
+      passwordTextboxBtn:{
+        paddingHorizontal:w*.025
+      },
+      passwordTextboxBtnTxt:{
+        fontFamily: 'Whitney-Regular',
+        fontSize: getCorrectFontSizeForScreen(12),
+        color: Colors.primaryColor
+      }
+
     });
 
 
@@ -213,6 +248,7 @@ var SignInForm = React.createClass({
           // autoFocus: true,
         },
         password : {
+          template: PasswordTemplate,
           label: 'Password',
           maxLength: 30,
           secureTextEntry: secureTextEntry,
@@ -224,7 +260,11 @@ var SignInForm = React.createClass({
           autoCapitalize:'none',
           onSubmitEditing:this.onPasswordFinishedEditing,
           placeholderTextColor: Colors.secondaryTextColor,
-          underlineColorAndroid: Colors.accentColor
+          underlineColorAndroid: Colors.accentColor,
+          config:{
+            passwordHidden: secureTextEntry,
+            onShowPasswordClicked: this.onPasswordShowClicked.bind(this)
+          }
 
         }
 
@@ -250,6 +290,20 @@ var SignInForm = React.createClass({
       />
     );
   }
-});
+}
 
-module.exports = SignInForm;
+
+SignInForm.propTypes= {
+  formType: React.PropTypes.string.isRequired,
+  form: React.PropTypes.object.isRequired,
+  value: React.PropTypes.object.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  // authFormFields: React.PropTypes.object.isRequired,
+  // isFetchingAuth: React.PropTypes.bool.isRequired,
+  // value: React.PropTypes.object.isRequired,
+  // onChange: React.PropTypes.func.isRequired,
+  // regFormIsValid: React.PropTypes.bool.isRequired,
+  // onNext: React.PropTypes.func.isRequired,
+  togglePasswordHidden: React.PropTypes.func.isRequired,
+};
+export default SignInForm;
