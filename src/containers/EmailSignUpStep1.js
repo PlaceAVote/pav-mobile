@@ -118,10 +118,14 @@ class EmailSignUpStep1 extends React.Component {
   async onFacebookBtnPressed(){
     this.props.actions.setAuthMethod('facebook');
     let userFbData = await this.props.actions.facebookDataAcquisition(true);
-    console.log("@@@@@@: "+JSON.stringify(userFbData));
+    // console.log("@@@@@@: "+JSON.stringify(userFbData));
     if(!!userFbData){
-      // this.props.actions.navigateUserToTheCorrectNextOnboardingStep();
-      this.props.actions.navigateTo(REGISTER_STEP_1_FB);
+      if(userFbData.email==null){ //if the user provided no email address on his facebook
+        this.props.actions.navigateTo(REGISTER_STEP_1_FB);
+      }else{  //if we got it all move to screen 2.
+        this.props.actions.navigateTo(REGISTER_STEP_2);
+      }
+
     }
   }
 

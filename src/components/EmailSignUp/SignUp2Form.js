@@ -191,7 +191,7 @@ class SignUp2Form extends React.Component {
 
 
   onZipCodeFinishedEditing(){
-    if(this.props.regFormIsValid===true && this.props.isFetchingAuth===false){
+    if((this.props.authFormFields.dateOfBirthHasError===true || this.props.authFormFields.dateOfBirth==null) && this.props.authFormFields.zipCodeHasError===false && this.props.isFetchingAuth===false){
         this.props.onChange({dateOfBirthIsCurBeingPicked: true})
     }
   }
