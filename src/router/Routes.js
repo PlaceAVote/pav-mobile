@@ -24,6 +24,7 @@ import * as deviceActions from '../reducers/device/deviceActions';
 */
 import EmailSignIn from '../containers/EmailSignIn';
 import EmailSignUpStep1 from '../containers/EmailSignUpStep1';
+import EmailSignUpStep1Fb from '../containers/EmailSignUpStep1Fb';
 import EmailSignUpStep2 from '../containers/EmailSignUpStep2';
 import TopicPick from '../containers/TopicPick';
 import NewsFeed from '../containers/NewsFeed';
@@ -150,6 +151,7 @@ const pavScenes = (
     <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
     <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" />
     <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} title="Register" component={EmailSignUpStep1} hideNavBar={false} />
+    <Scene key={ScheneKeys.REGISTER_STEP_1_FB} {...defaultProps} title="Register" type="replace" component={EmailSignUpStep1Fb} hideNavBar={false} />
     <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} title="Register" component={EmailSignUpStep2} hideNavBar={false} initial={false}/>
     <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
     <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile}/>

@@ -1,7 +1,7 @@
 /**
- * # EmailSignUpStep1.js
+ * # EmailSignUpStep1Fb.js
  *
- *  The container to display the EmailSignUpStep1 form
+ *  The container to display the EmailSignUpStep1Fb form
  *
  */
 'use strict';
@@ -26,17 +26,16 @@ import * as deviceActions from '../reducers/device/deviceActions';
 import {Map} from 'immutable';
 
 /**
- *   EmailSignUpStep1Render
+ *   EmailSignUpStep1FbRender
  */
-import EmailSignUpStep1Render from '../components/EmailSignUp/EmailSignUpStep1Render';
+import EmailSignUpStep1FbRender from '../components/EmailSignUp/EmailSignUpStep1FbRender';
 
 import React from 'react';
 
 import {ScheneKeys} from '../config/constants';
 const {
-REGISTER_STEP_1,
 REGISTER_STEP_1_FB,
-REGISTER_STEP_2,
+REGISTER_STEP_2
 } = ScheneKeys;
 
 /**
@@ -77,7 +76,7 @@ function mapDispatchToProps(dispatch) {
 // }
 
 
-class EmailSignUpStep1 extends React.Component {
+class EmailSignUpStep1Fb extends React.Component {
   componentWillMount(){
     // this.props.actions.registerState(1);
   }
@@ -92,42 +91,15 @@ class EmailSignUpStep1 extends React.Component {
    * *Note* that the fields are validated by the authReducer
    */
   onChange(value) {
-
-    // console.log("Changed"+JSON.stringify(value));
-    // if (value.name != '') {
-    //   this.props.actions.onAuthFormFieldChange('name',value.name, REGISTER_STEP_1);
-    // }
-    // if (value.surname != '') {
-    //   this.props.actions.onAuthFormFieldChange('surname',value.surname, REGISTER_STEP_1);
-    // }
     if (value.email != null) {
-      this.props.actions.onAuthFormFieldChange('email',value.email, REGISTER_STEP_1);
-    }
-
-    if (value.password != null) {
-      this.props.actions.onAuthFormFieldChange('password',value.password, REGISTER_STEP_1);
-    }
-
-  }
-
-  togglePasswordHidden(isHidden){
-    this.props.actions.setPasswordVisibility(!isHidden);
-  }
-
-
-  async onFacebookBtnPressed(){
-    this.props.actions.setAuthMethod('facebook');
-    let userFbData = await this.props.actions.facebookDataAcquisition(true);
-    console.log("@@@@@@: "+JSON.stringify(userFbData));
-    if(!!userFbData){
-      // this.props.actions.navigateUserToTheCorrectNextOnboardingStep();
-      this.props.actions.navigateTo(REGISTER_STEP_1_FB);
+      this.props.actions.onAuthFormFieldChange('email',value.email, REGISTER_STEP_1_FB);
     }
   }
+
 
   async onNextBtnPressed(){
-    this.props.actions.manuallyInvokeFieldValidationForScheme(REGISTER_STEP_1);
-    if(this.props.auth.form.isValid.get(REGISTER_STEP_1)===true){
+    this.props.actions.manuallyInvokeFieldValidationForScheme(REGISTER_STEP_1_FB);
+    if(this.props.auth.form.isValid.get(REGISTER_STEP_1_FB)===true){
       let success = await this.props.actions.validateUserEmail(this.props.auth.form.fields.email, this.props.global.isDev);
       if(success){
         this.props.actions.navigateTo(REGISTER_STEP_2);
@@ -146,15 +118,13 @@ class EmailSignUpStep1 extends React.Component {
 
 
     return(
-      <EmailSignUpStep1Render
+      <EmailSignUpStep1FbRender
           authFormFields={this.props.auth.form.fields}
           error={this.props.auth.form.error}
           isFetchingAuth={this.props.auth.form.isFetching}
-          regFormIsValid={this.props.auth.form.isValid.get(REGISTER_STEP_1)}
+          regFormIsValid={this.props.auth.form.isValid.get(REGISTER_STEP_1_FB)}
           isUserLoggedIn={this.props.auth.user.isLoggedIn}
           onValueChange={this.onChange.bind(this)}
-          togglePasswordHidden={this.togglePasswordHidden.bind(this)}
-          onSignUpFacebookBtnPress={ this.onFacebookBtnPressed.bind(this) }
           onNextStep={ this.onNextBtnPressed.bind(this) }
           onBack={this.onBackBtnPress.bind(this)}
       />
@@ -163,4 +133,4 @@ class EmailSignUpStep1 extends React.Component {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep1);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignUpStep1Fb);

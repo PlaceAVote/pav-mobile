@@ -171,6 +171,10 @@ export function validateScheneFields(state, scheneName){
       .setIn(['form', 'fields', 'emailHasError'], (validateEmail(state.form.fields.email) || state.form.fields.email=='') )
       .setIn(['form', 'fields', 'passwordHasError'], (validatePassword(state.form.fields.password)  || state.form.fields.password==''));
       break;
+    case 'REGISTER_STEP_1_FB':
+      validatedState = state
+      .setIn(['form', 'fields', 'emailHasError'], (validateEmail(state.form.fields.email) || state.form.fields.email=='') )
+      break;
     case 'REGISTER_STEP_2':
       validatedState = state
       .setIn(['form', 'fields', 'nameHasError'], (validateName(state.form.fields.name) || state.form.fields.name==''))

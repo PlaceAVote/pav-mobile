@@ -18,6 +18,7 @@ import moment from 'moment';
 
 const {
   REGISTER_STEP_1,
+  REGISTER_STEP_1_FB,
   REGISTER_STEP_2,
   REGISTER_STEP_3,
   REGISTER_STEP_4,
@@ -41,9 +42,8 @@ const Form = Record({
   error: null,
   isValid: new Map([
     [REGISTER_STEP_1, false],
+    [REGISTER_STEP_1_FB, false],
     [REGISTER_STEP_2, false],
-    [REGISTER_STEP_3, false],
-    [REGISTER_STEP_4, false],
     [LOGIN, false],
     [FORGOT_PASSWORD, false],
   ]),

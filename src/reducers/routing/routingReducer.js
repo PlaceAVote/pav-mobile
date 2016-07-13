@@ -50,7 +50,7 @@ export default function routingReducer(state = initialRouterState, action) {
       AnalyticsReporter().trackScreenView(action.key);
       state = closeOpenModalsIfPossible(state);
       return state.set('currentTab', action.key);
-
+   case "replace":
    case "push": //react native router flux action
       AnalyticsReporter().trackScreenView(action.key);
       state = closeOpenModalsIfPossible(state);

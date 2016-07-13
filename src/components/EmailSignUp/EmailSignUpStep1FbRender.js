@@ -12,7 +12,7 @@ import Button from 'sp-react-native-iconbutton'
  *  The SignUpForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import SignUp1Form from './SignUp1Form';
+import SignUp1FbForm from './SignUp1FbForm';
 
 import {Colors} from '../../config/constants';
 
@@ -53,6 +53,7 @@ var styles = StyleSheet.create({
   inputsContainer:{
     flex:1,
     // paddingVertical: w*.04,
+    justifyContent:'center',
     backgroundColor: 'white'
   },
 
@@ -103,7 +104,7 @@ var styles = StyleSheet.create({
 
 
 
-class EmailSignUpStep1Render extends React.Component {
+class EmailSignUpStep1FbRender extends React.Component {
   constructor(props) {
     super(props);
 
@@ -152,6 +153,7 @@ class EmailSignUpStep1Render extends React.Component {
 
 
 
+
   renderKeyboardSpacer(){
     if(Platform.OS==="ios"){
       return (<KeyboardSpacer android={false} onToggle={(keyboardState, keyboardHeight)=>{
@@ -176,22 +178,10 @@ class EmailSignUpStep1Render extends React.Component {
 
     return(
       <View style={styles.baseContainer}>
-        <Button
-        onPress={this.props.onSignUpFacebookBtnPress}
-        style={styles.facebookBtn}
-        textStyle={styles.facebookBtnText}
-        isDisabled={this.props.isFetchingAuth}
-        isLoading={this.props.isFetchingAuth && (this.props.authMethod=="facebook")}
-        iconProps={{name: "facebook",size:21, color: Colors.primaryColor}}>
-          Register with Facebook
-        </Button>
 
-        <View style={styles.orTextContainer}>
-          <Text style={styles.orText}>Or</Text>
-        </View>
 
         <View style={styles.inputsContainer}>
-          <SignUp1Form
+          <SignUp1FbForm
             isFetchingAuth={this.props.isFetchingAuth}
             authFormFields={this.props.authFormFields}
             value={this.state.value}
@@ -199,7 +189,6 @@ class EmailSignUpStep1Render extends React.Component {
             onChange={this.onChange.bind(this)}
             onNext={this.props.onNextStep}
             regFormIsValid={this.props.regFormIsValid}
-            togglePasswordHidden={this.props.togglePasswordHidden}
           />
 
         </View>
@@ -228,7 +217,7 @@ class EmailSignUpStep1Render extends React.Component {
   }
 }
 
-EmailSignUpStep1Render.propTypes= {
+EmailSignUpStep1FbRender.propTypes= {
   regFormIsValid: React.PropTypes.bool.isRequired,
   authFormFields: React.PropTypes.object.isRequired,
   error: React.PropTypes.string,
@@ -237,7 +226,5 @@ EmailSignUpStep1Render.propTypes= {
   onValueChange: React.PropTypes.func.isRequired,
   onBack: React.PropTypes.func.isRequired,
   onNextStep: React.PropTypes.func.isRequired,
-  togglePasswordHidden: React.PropTypes.func.isRequired,
-  onSignUpFacebookBtnPress: React.PropTypes.func.isRequired,
 };
-export default EmailSignUpStep1Render;
+export default EmailSignUpStep1FbRender;

@@ -16,6 +16,7 @@ import {ScheneKeys, Modals} from '../../config/constants';
 const {
   LOGOUT,
   REGISTER_STEP_1,
+  REGISTER_STEP_1_FB,
   REGISTER_STEP_2,
   REGISTER_STEP_3,
   REGISTER_STEP_4,
@@ -42,6 +43,11 @@ function isFormValid(scheneName, fields){
 
   // console.log(fields)
   switch (scheneName) {
+
+    case REGISTER_STEP_1_FB:
+      // console.log("surname: "+fields.surname+"er: "+fields.surnameHasError+ " name: "+fields.name+"er: "+fields.nameHasError);
+      isValid = (fields.email != '' && fields.emailHasError===false);
+      break;
     case REGISTER_STEP_1:
       // console.log("surname: "+fields.surname+"er: "+fields.surnameHasError+ " name: "+fields.name+"er: "+fields.nameHasError);
       isValid = ((fields.email != '' && !fields.emailHasError) && (fields.password != '' && !fields.passwordHasError));
