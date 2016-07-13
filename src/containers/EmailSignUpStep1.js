@@ -99,11 +99,11 @@ class EmailSignUpStep1 extends React.Component {
     // if (value.surname != '') {
     //   this.props.actions.onAuthFormFieldChange('surname',value.surname, REGISTER_STEP_1);
     // }
-    if (value.email != '') {
+    if (value.email != null) {
       this.props.actions.onAuthFormFieldChange('email',value.email, REGISTER_STEP_1);
     }
 
-    if (value.password != '') {
+    if (value.password != null) {
       this.props.actions.onAuthFormFieldChange('password',value.password, REGISTER_STEP_1);
     }
 

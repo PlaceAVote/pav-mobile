@@ -11,7 +11,7 @@
  * formValidation for setting the form's valid flag
  */
 import InitialState from './authInitialState';
-import {fieldValidation, validateAllFields} from '../../lib/Utils/fieldValidation';
+import {fieldValidation, validateAllFields, validateScheneFields} from '../../lib/Utils/fieldValidation';
 import {formValidation, arrayContainsObject} from './authFormValidation';
 import {ActionNames, ScheneKeys} from '../../config/constants';
 import moment from 'moment';
@@ -199,7 +199,7 @@ export default function authReducer(state = initialState, action) {
     }
   }
   case MANUALLY_INVOKED_FIELD_VALIDATION:
-    return formValidation(validateAllFields(state), action.payload);
+    return formValidation(validateScheneFields(state, action.type), action.payload);
   case LOGOUT_SUCCESS:
     return initialState;
 

@@ -15,6 +15,20 @@
 import validate from 'validate.js';
 import _ from 'underscore';
 import moment from 'moment';
+import {ScheneKeys} from '../../config/constants';
+/**
+ * ## Imports
+ * the actions being addressed
+ */
+const {
+  LOGOUT,
+  REGISTER_STEP_1,
+  REGISTER_STEP_2,
+  REGISTER_STEP_3,
+  REGISTER_STEP_4,
+  LOGIN,
+  SETTINGS
+} = ScheneKeys;
 
 /**
  * ## Email validation setup
@@ -160,6 +174,32 @@ export function validateBirthdate(value){
 }
 
 
+export function validateScheneFields(state, scheneName){
+  let validatedState = state;
+  switch (scheneName) {
+    case REGISTER_STEP_1:
+      state
+      .setIn(['form', 'fields', 'emailHasError'], (validateEmail(state.form.fields.email) || state.form.fields.email=='') )
+      .setIn(['form', 'fields', 'passwordHasError'], (validatePassword(state.form.fields.password)  || state.form.fields.password==''));
+      break;
+    case REGISTER_STEP_2:
+      state
+      .setIn(['form', 'fields', 'nameHasError'], (validateName(state.form.fields.name) || state.form.fields.name==''))
+      .setIn(['form', 'fields', 'surnameHasError'], (validateSurname(state.form.fields.surname) || state.form.fields.surname==''))
+      .setIn(['form', 'fields', 'zipCodeHasError'], (validateZipCode(state.form.fields.zipCode) || state.form.fields.zipCode==''))
+      .setIn(['form', 'fields', 'dateOfBirthHasError'], validateBirthdate(state.form.fields.zipCode));
+      break;
+    case LOGIN:
+      state
+      .setIn(['form', 'fields', 'emailHasError'], (validateEmail(state.form.fields.email) || state.form.fields.email=='') )
+      .setIn(['form', 'fields', 'passwordHasError'], (validatePassword(state.form.fields.password)  || state.form.fields.password==''));
+      break;
+    default:
+      break;
+  }
+  return validatedState;
+}
+
 
 export function validateAllFields(state){
   let validatedState = state
@@ -180,6 +220,7 @@ export function validateAllFields(state){
  * @param {Object} action type & payload
  */
 export function fieldValidation(state, action ) {
+  console.log("Validation: "+JSON.stringify(action))
   if(!!action){
     const {field, value} = action.payload;
     switch(field) {

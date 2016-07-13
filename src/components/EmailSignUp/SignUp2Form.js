@@ -191,7 +191,7 @@ class SignUp2Form extends React.Component {
 
 
   onZipCodeFinishedEditing(){
-    if(this.props.zipCodeIsValid && !this.props.isFetchingAuth){
+    if(this.props.regFormIsValid===true && this.props.isFetchingAuth===false){
         this.props.onChange({dateOfBirthIsCurBeingPicked: true})
     }
   }
@@ -213,7 +213,7 @@ class SignUp2Form extends React.Component {
         name: {
           label: 'Name',
           maxLength: 12,
-          editable: !this.props.isFetchingAuth,
+          editable: this.props.isFetchingAuth===false,
           hasError: this.props.authFormFields.nameHasError,
           error: 'The name can be 3-12 characters.',
           placeholder: 'Gary',
@@ -229,7 +229,7 @@ class SignUp2Form extends React.Component {
         surname : {
           label: 'Surname',
           maxLength: 12,
-          editable: !this.props.isFetchingAuth,
+          editable: this.props.isFetchingAuth===false,
           hasError: this.props.authFormFields.surnameHasError,
           error: 'The surname can be 4-20 characters.',
           placeholder: 'Brown',
@@ -245,7 +245,7 @@ class SignUp2Form extends React.Component {
         zipCode : {
           label: 'Zip code',
           maxLength: 10,
-          editable: !this.props.isFetchingAuth,
+          editable: this.props.isFetchingAuth===false,
           hasError: this.props.authFormFields.zipCodeHasError,
           error: 'Please provide us with your 5 digit US zip code.',
           placeholder: 'i.e: 20001',

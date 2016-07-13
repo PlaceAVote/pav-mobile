@@ -88,17 +88,17 @@ class EmailSignUpStep2 extends React.Component {
   onChange(value) {
 
     // console.log("Changed"+JSON.stringify(value));
-    if (value.name != ''&& value.name != null) {
+    if (value.name !=null&& value.name != null) {
       this.props.actions.onAuthFormFieldChange('name',value.name, REGISTER_STEP_2);
     }
-    if (value.surname != '' && value.surname != null) {
+    if (value.surname !=null && value.surname != null) {
       this.props.actions.onAuthFormFieldChange('surname',value.surname, REGISTER_STEP_2);
     }
-    if (value.dateOfBirth != ''&& value.dateOfBirth != null) {
+    if (value.dateOfBirth !=null&& value.dateOfBirth != null) {
       // console.log("DATE value about to change to: "+value.dateOfBirth+ " is now: "+moment(value.dateOfBirth).format('x'));
       this.props.actions.onAuthFormFieldChange('dateOfBirth',moment(value.dateOfBirth).format('x'), REGISTER_STEP_2);
     }
-    if (value.zipCode != '' && value.zipCode != null ) {
+    if (value.zipCode !=null && value.zipCode != null ) {
       this.props.actions.onAuthFormFieldChange('zipCode',value.zipCode, REGISTER_STEP_2);
     }
 

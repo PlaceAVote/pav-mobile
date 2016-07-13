@@ -237,7 +237,7 @@ class EmailSignUpStep1Render extends React.Component {
       </View>
     );
   }
-// this.props.regFormIsValid===false || 
+// this.props.regFormIsValid===false ||
   shouldComponentUpdate(nextProps) {
     return (nextProps.isUserLoggedIn===false);
   }
@@ -246,7 +246,7 @@ class EmailSignUpStep1Render extends React.Component {
 EmailSignUpStep1Render.propTypes= {
   regFormIsValid: React.PropTypes.bool.isRequired,
   authFormFields: React.PropTypes.object.isRequired,
-  error: React.PropTypes.object,
+  error: React.PropTypes.string,
   isFetchingAuth: React.PropTypes.bool.isRequired,
   isUserLoggedIn: React.PropTypes.bool.isRequired,
   onValueChange: React.PropTypes.func.isRequired,

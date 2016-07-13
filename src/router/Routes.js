@@ -150,7 +150,7 @@ const pavScenes = (
     <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
     <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" />
     <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} title="Register" component={EmailSignUpStep1} hideNavBar={false} />
-    <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} title="Register" component={EmailSignUpStep2} hideNavBar={false}/>
+    <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} title="Register" component={EmailSignUpStep2} hideNavBar={false} initial={true}/>
     <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
     <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile}/>
     <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} iconContainerStyle={styles.iconContainerStyle} initial={false}>

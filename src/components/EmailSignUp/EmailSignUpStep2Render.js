@@ -59,14 +59,14 @@ var styles = StyleSheet.create({
 
 
   signInBtn:{
-    backgroundColor: 'white',
+    backgroundColor: Colors.accentColor,
     borderRadius: 4,
-    borderWidth: 2,
+    borderWidth: 0,
     borderColor: Colors.mainBorderColor,
     height: 45
   },
   signInBtnText:{
-    color: Colors.thirdTextColor,
+    color: Colors.mainTextColor,
     textAlign: 'center',
     fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(12),
@@ -85,14 +85,20 @@ class EmailSignUpStep2Render extends React.Component {
     super(props);
 
     let dob = this.props.authFormFields.dateOfBirth;
-    if(dob.isMoment==null){
+
+    if(dob!=null && dob.isMoment==null){
       dob = moment(dob, "x")
     }
+    let dateOfBirth = null;
+    if(dob!=null){
+      dateOfBirth = dob.toDate();
+    }
+
     this.state ={
       keyboardOpen: false,
       name: this.props.authFormFields.name,
       surname: this.props.authFormFields.surname,
-      dateOfBirth: moment(dob).toDate(),
+      dateOfBirth: dateOfBirth,
       zipCode: this.props.authFormFields.zipCode
     };
   }
@@ -108,10 +114,14 @@ class EmailSignUpStep2Render extends React.Component {
     //if the new dob is something different than what the old was
     if(nextprops.authFormFields.dateOfBirth !== this.props.authFormFields.dateOfBirth){
       let dob = nextprops.authFormFields.dateOfBirth;
-      if(dob.isMoment==null){
+      if(dob!=null && dob.isMoment==null){
         dob = moment(dob, "x")
       }
-      this.setState({dateOfBirth : moment(dob).toDate()});
+      let dateOfBirth;
+      if(dob!=null){
+        dateOfBirth = dob.toDate();
+      }
+      this.setState({dateOfBirth : dateOfBirth});
     }
 
     //if the new name is something different than what the old was
@@ -251,7 +261,7 @@ class EmailSignUpStep2Render extends React.Component {
             isLoading={(this.props.isFetchingAuth===true)}
             activityIndicatorColor={Colors.mainTextColor}
             onPress={this.props.onNextStep}>
-          Next >
+          Complete Registration
         </Button>
         {this.modalPopupRender(this.props.modalPopupEnabled,this.props.modalPopupErrorMsg)}
         {this.renderKeyboardSpacer()}
@@ -267,7 +277,7 @@ class EmailSignUpStep2Render extends React.Component {
 EmailSignUpStep2Render.propTypes= {
   regFormIsValid: React.PropTypes.bool.isRequired,
   authFormFields: React.PropTypes.object.isRequired,
-  error: React.PropTypes.object,
+  error: React.PropTypes.string,
   isFetchingAuth: React.PropTypes.bool.isRequired,
   isUserLoggedIn: React.PropTypes.bool.isRequired,
   onValueChange: React.PropTypes.func.isRequired,
