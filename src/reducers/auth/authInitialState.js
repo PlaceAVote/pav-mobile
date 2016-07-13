@@ -79,18 +79,18 @@ const Form = Record({
     //   //birthday and zipcode I will have to ask for anyway
     // ]),
     topicsList: new Map([
-      [TOPICS.CRIME, new (Record({ title: 'Crime', icon: 'crime', isSelected: false}))],
-      [TOPICS.HEALTHCARE, new (Record({ title: 'Healthcare', icon: 'healthcare', isSelected: false}))],
-      [TOPICS.TAXES, new (Record({ title: 'Taxes', icon: 'taxes', isSelected: false}))],
-      [TOPICS.IMMIGRATION , new (Record({ title: 'Immigration', icon:  'immigration', isSelected: false}))],
-      [TOPICS.EDUCATION , new (Record({ title: 'Education', icon:  'education', isSelected: false}))],
-      [TOPICS.DRUGS , new (Record({ title: 'Drugs', icon:  'smoking-area', isSelected: false}))],
-      [TOPICS.DEFENSE , new (Record({ title: 'Defense', icon: 'tank', isSelected: false}))],
-      [TOPICS.POLITICS , new (Record({ title: 'Politics', icon:  'building', isSelected: false}))],
-      [TOPICS.GUN_RIGHTS , new (Record({ title: 'Gun Rights', icon: 'gun', isSelected: false}))],
-      [TOPICS.TECHNOLOGY , new (Record({ title: 'Technology', icon:  'ipad', isSelected: false}))],
-      [TOPICS.ECONOMICS , new (Record({ title: 'Economics', icon:  'money', isSelected: false}))],
-      [TOPICS.SOCIAL_INTEREST , new (Record({ title: 'Social Interest', icon:  'police', isSelected: false}))]
+      [TOPICS.CRIME, new (Record({ title: 'Crime', icon: 'crime', isSelected: true}))],
+      [TOPICS.HEALTHCARE, new (Record({ title: 'Healthcare', icon: 'healthcare', isSelected: true}))],
+      [TOPICS.TAXES, new (Record({ title: 'Taxes', icon: 'taxes', isSelected: true}))],
+      [TOPICS.IMMIGRATION , new (Record({ title: 'Immigration', icon:  'immigration', isSelected: true}))],
+      [TOPICS.EDUCATION , new (Record({ title: 'Education', icon:  'education', isSelected: true}))],
+      [TOPICS.DRUGS , new (Record({ title: 'Drugs', icon:  'smoking-area', isSelected: true}))],
+      [TOPICS.DEFENSE , new (Record({ title: 'Defense', icon: 'tank', isSelected: true}))],
+      [TOPICS.POLITICS , new (Record({ title: 'Politics', icon:  'building', isSelected: true}))],
+      [TOPICS.GUN_RIGHTS , new (Record({ title: 'Gun Rights', icon: 'gun', isSelected: true}))],
+      [TOPICS.TECHNOLOGY , new (Record({ title: 'Technology', icon:  'ipad', isSelected: true}))],
+      [TOPICS.ECONOMICS , new (Record({ title: 'Economics', icon:  'money', isSelected: true}))],
+      [TOPICS.SOCIAL_INTEREST , new (Record({ title: 'Social Interest', icon:  'police', isSelected: true}))]
     ])
   }))
 });

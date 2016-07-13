@@ -299,11 +299,9 @@ class TopicPickRender extends React.Component {
         btnBackground={Colors.accentColor}
          />);
       }
-
     }else{
       return <View></View>;
     }
-
   }
   /**
    * ### render

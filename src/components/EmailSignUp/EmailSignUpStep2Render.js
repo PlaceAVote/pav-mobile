@@ -17,6 +17,7 @@ import SignUp2Form from './SignUp2Form';
 import {Colors} from '../../config/constants';
 // import _ from 'underscore';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import WelcomeModalBox from '../Modals/WelcomeModalBox';
 import moment from 'moment';
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View, Platform} from 'react-native';
@@ -165,7 +166,33 @@ class EmailSignUpStep2Render extends React.Component {
     }
   }
 
-
+  modalPopupRender(enabled, errorMsg){
+    if(enabled){
+      if(!!errorMsg){
+        return (<WelcomeModalBox
+        isOpen={enabled}
+        modalButtonDisabled = {this.props.modalButtonDisabled}
+        onModalClosed={this.props.onModalClosed}
+        modalText="Oops"
+        modalText2={errorMsg}
+        modalBtnText="Back"
+        btnBackground={Colors.errorTextColor}
+         />);
+      }else{
+        return (<WelcomeModalBox
+        isOpen={enabled}
+        modalButtonDisabled = {this.props.modalButtonDisabled}
+        onModalClosed={this.props.onModalClosed}
+        modalText="Its a thrill to have you with us"
+        modalText2="You are now registered."
+        modalBtnText="Lets get started"
+        btnBackground={Colors.accentColor}
+         />);
+      }
+    }else{
+      return <View></View>;
+    }
+  }
 
   renderKeyboardSpacer(){
     if(Platform.OS==="ios"){
@@ -226,9 +253,8 @@ class EmailSignUpStep2Render extends React.Component {
             onPress={this.props.onNextStep}>
           Next >
         </Button>
-
+        {this.modalPopupRender(this.props.modalPopupEnabled,this.props.modalPopupErrorMsg)}
         {this.renderKeyboardSpacer()}
-
       </View>
     );
   }
@@ -248,5 +274,9 @@ EmailSignUpStep2Render.propTypes= {
   onBack: React.PropTypes.func.isRequired,
   onNextStep: React.PropTypes.func.isRequired,
   birthdayBeingPicked: React.PropTypes.bool.isRequired,
+
+  modalPopupEnabled: React.PropTypes.bool.isRequired,
+  modalPopupErrorMsg: React.PropTypes.string,
+  onModalClosed: React.PropTypes.func.isRequired,
 };
 export default EmailSignUpStep2Render;
