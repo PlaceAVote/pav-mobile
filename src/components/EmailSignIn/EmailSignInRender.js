@@ -196,10 +196,12 @@ class EmailSignInRender extends React.Component {
     if (this.props.forgotPasswordModalOpen===false){
       return (<KeyboardSpacer android={false} onToggle={(keyboardState, keyboardHeight)=>{
           if(keyboardState==true){
+            this.refs.scroller.scrollTo({x:0, y:h*0.2, animated: true});
             this.setState({
               keyboardIsVisible: true
             });
           }else{
+            this.refs.scroller.scrollTo({x:0, y:0, animated: true});
             this.setState({
               keyboardIsVisible: false
             });
@@ -241,6 +243,7 @@ class EmailSignInRender extends React.Component {
     return(
       <View style={styles.baseContainer}>
         <ScrollView
+        ref="scroller"
         style={styles.scroller}
         contentContainerStyle={styles.contentContainer}
         bounces={false}
@@ -293,7 +296,7 @@ class EmailSignInRender extends React.Component {
 
             Sign In >
           </Button>
-          {this.renderSpacer()}
+          {/*{this.renderSpacer()}*/}
         </ScrollView>
 
         <ForgotPasswordModalBox
