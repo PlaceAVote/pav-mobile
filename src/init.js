@@ -14,7 +14,7 @@ import React from 'react';
 import {Platform, Text} from 'react-native';
 Text.defaultProps.allowFontScaling=false
 
-
+import CONFIG from './config/config'
 
 /*
   Our router imports
@@ -47,7 +47,7 @@ import AnalyticsReporter from './lib/Utils/analyticsReporter';
 AnalyticsReporter().trackEvent(Platform.OS+"_font_factor", getFontFactor());
 
 import CrashReporter from './lib/Utils/crashReporter';
-new CrashReporter({version: CONFIG.VERSION, suppressDevErrors:true});
+new CrashReporter({version: CONFIG.VERSION, suppressDevErrors:CONFIG.ENVIRONMENT_IS_DEV});
 
 /**
 * ## Actions
@@ -57,7 +57,7 @@ import {setPlatform, setVersion} from './reducers/device/deviceActions';
 import {setStore, setNavBarDimensions, setEnvironmentIsDev} from './reducers/global/globalActions';
 import {navigateState, navigateToPreviousState} from './reducers/routing/routingActions';
 
-import CONFIG from './config/config'
+
 
 /**
 * ## States

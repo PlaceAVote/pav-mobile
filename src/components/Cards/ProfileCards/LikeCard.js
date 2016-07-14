@@ -44,7 +44,7 @@ import PavImage from '../../../lib/UI/PavImage'
 const styles = StyleSheet.create({
 
   cardContainer:{
-    flex: 1,
+    // flex: 1,
     // alignItems: 'stretch',
     justifyContent:'center',
     // backgroundColor: 'blue',

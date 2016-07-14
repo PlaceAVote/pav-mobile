@@ -41,7 +41,7 @@ class PavKeyboardAwareView extends React.Component {
 
 
 
-
+// behavior='padding'
   /**
    * ### render
    * Setup some default presentations and render
@@ -50,7 +50,7 @@ class PavKeyboardAwareView extends React.Component {
     return(
       <KeyboardAvoidingView
       style={this.props.style}
-      behavior='padding'
+
       >
       {this.props.children}
       </KeyboardAvoidingView>

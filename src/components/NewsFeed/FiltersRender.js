@@ -179,7 +179,7 @@ class FiltersRender extends React.Component {
       return(
         <View key={iconName+"container"} style={styles.expandedFilterContainer}>
           <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
-            <PavIcon key={iconName+"icon1"} name={iconName} size={15} style={styles.activeFilterIcon}/>
+            <PavIcon key={iconName+"icon1"} name={iconName} size={getCorrectFontSizeForScreen(15)} style={styles.activeFilterIcon}/>
             <Text style={styles.filterText}>{filterName}</Text>
           </TouchableOpacity>
           <View key={iconName+"indicatorContainer"} style={styles.filterIndicatorIconContainer}>
@@ -190,7 +190,7 @@ class FiltersRender extends React.Component {
       return(
         <View key={iconName+"container"} style={styles.collapsedFilterContainer}>
           <TouchableOpacity key={iconName+"touchable"} style={styles.filterContent} onPress={()=>{this.props.onFilterBtnClick(filterName)}}>
-            <PavIcon key={iconName+"icon1"} name={iconName} size={15} style={styles.inactiveFilterIcon}/>
+            <PavIcon key={iconName+"icon1"} name={iconName} size={getCorrectFontSizeForScreen(15)} style={styles.inactiveFilterIcon}/>
           </TouchableOpacity>
           <View key={iconName+"indicatorContainer"} style={styles.filterIndicatorIconContainer}>
             <PavIcon key={iconName+"indicatorIcon"} name="activeIndicatorShrinked" size={7} style={styles.inactiveFilterIndicatorIcon}/>

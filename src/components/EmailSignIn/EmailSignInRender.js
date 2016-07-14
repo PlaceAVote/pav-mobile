@@ -31,7 +31,7 @@ import ForgotPasswordModalBox from '../Modals/ForgotPasswordModalBox'
 
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+// import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import PavKeyboardAwareView from '../../lib/UI/PavKeyboardAwareView';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'

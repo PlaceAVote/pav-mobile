@@ -27,7 +27,8 @@ import moment from 'moment'
 
 
 
-import {Colors, ScheneKeys} from '../../config/constants';
+import {Colors, ScheneKeys, Other} from '../../config/constants';
+const {US_STATES} = Other;
 
 import React from 'react';
 import {StyleSheet, Text, View, ListView, Platform, RefreshControl} from 'react-native';
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
 
   container: {
     // backgroundColor: 'orange',
-    flex:1,
+    // flex:1,
     flexDirection: 'column',
 
     paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
@@ -186,19 +187,19 @@ const styles = StyleSheet.create({
   },
 
   statisticsBigContainer:{
-    flex:2,
+    // flex:1,
     flexDirection:'column',
     // backgroundColor:'red'
   },
   statisticsSmallContainer:{
-    flex:1,
+    // flex:1,
     flexDirection:'column',
     // backgroundColor:'green'
   },
 
 
   itemList:{
-    flex:1,
+    // flex:1,
     backgroundColor: '#E8E7EE',
   },
   card:{
@@ -206,10 +207,6 @@ const styles = StyleSheet.create({
     // backgroundColor:'red'
   },
 
-  scrollSpacerView:{
-      height:h*0.07,
-      backgroundColor:Colors.transparentColor
-  },
   recentActivityTextContainer:{
     paddingHorizontal: w*0.05,
     paddingVertical: h*0.01,
@@ -227,11 +224,6 @@ const styles = StyleSheet.create({
     // textAlign: 'center',
   },
 
-  bodyLoadingContainer:{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center'
-  }
 });
 
 
@@ -261,9 +253,15 @@ class ProfileRender extends React.Component {
       }else{
         return user.city;
       }
-    }else{
-      return "Location";
+    }else if (!!user.stateProvince){
+      let loc = "";
+      if(!!user.district){
+        loc += user.district+", ";
+      }
+      loc += US_STATES[user.stateProvince];
+      return loc;
     }
+    return "";
 
   }
 
@@ -312,9 +310,28 @@ class ProfileRender extends React.Component {
     }
 
   }
+  renderUserLocText(){
+    let loc = this.formUserLocationText(this.props.curUser);
+    if(loc!=""){
+      return (
+        <View style={styles.locationContainer}>
+          <PavIcon name="loc" size={12} style={styles.locationPinIcon}/>
+          <Text style={styles.locationText}>{this.formUserLocationText(this.props.curUser)}</Text>
+        </View>
+      )
+    }else{
+      return <View></View>;
+    }
 
+  }
 
   renderFollowButton(curUserProfileBelongsToTheAppUser){
+
+
+    // iconProps={this.props.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}  //TODO: Add those icon props to the follow btn
+
+
+
     if(curUserProfileBelongsToTheAppUser==true){
       return <View></View>;
     }else{
@@ -329,7 +346,8 @@ class ProfileRender extends React.Component {
         textStyle={styles.whiteBtnText}
         isDisabled={this.props.isFetchingProfile || this.props.isFetchingFollow}
         isLoading={this.props.isFetchingProfile || this.props.isFetchingFollow}
-        iconProps={this.props.currentlyFollowingUser?null:{name: "plus",size:20, color: "white"}}>
+
+        >
           {this.getFollowBtnLabelText(this.props.curUser.firstName, this.props.currentlyFollowingUser)}
         </Button>
       );
@@ -380,10 +398,8 @@ class ProfileRender extends React.Component {
                 <View style={styles.userDataContainerView}>
                   <Text style={styles.fullNameText}>{fullName}</Text>
 
-                  <View style={styles.locationContainer}>
-                    <PavIcon name="loc" size={12} style={styles.locationPinIcon}/>
-                    <Text style={styles.locationText}>{this.formUserLocationText(this.props.curUser)}</Text>
-                  </View>
+                  {this.renderUserLocText()}
+
 
                   {this.renderFollowButton((this.props.isTab!==false))}
                 </View>

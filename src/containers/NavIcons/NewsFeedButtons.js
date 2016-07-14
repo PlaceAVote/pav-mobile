@@ -40,7 +40,7 @@ import {Map} from 'immutable';
 
 import React from 'react';
 import {View, TouchableOpacity, Platform} from 'react-native';
-
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
@@ -108,17 +108,17 @@ class NewsFeedButtons extends React.Component {
 
   render(){
       return (
-          <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'flex-end', paddingVertical:Platform.OS === 'ios' || Platform.Version > 19 ? h*0.013 : h*0.007}}>
-            <TouchableOpacity style={{paddingHorizontal:w*0.020}} onPress={
+          <View style={{ flex:1,flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+            <TouchableOpacity style={{flex:0, paddingHorizontal:w*0.020}} onPress={
               ()=>{this.props.actions.setModalVisibility(SEARCH_BILL, !this.props.router.modalIsOpen.get(SEARCH_BILL))}
             }>
-              <PavIcon name='ios-search-strong' size={28} style={{color:'white'}}/>
+              <PavIcon name='ios-search-strong' size={30} style={{color:'white'}}/>
             </TouchableOpacity>
-            <View style={{ flexDirection:'row', justifyContent:'flex-end'}}>
+            <View style={{ flex:0, flexDirection:'row', justifyContent:'flex-end'}}>
               <TouchableOpacity style={{paddingHorizontal:w*0.020}} onPress={
                 ()=>{this.props.actions.navigateTo(NEWISSUE)}
               }>
-                <PavIcon name='issues' size={24} style={{color:'white'}}/>
+                <PavIcon name='issues' size={26} style={{color:'white'}}/>
               </TouchableOpacity>
             </View>
           </View>
