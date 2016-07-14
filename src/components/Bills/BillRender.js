@@ -205,7 +205,6 @@ const styles = StyleSheet.create({
   },
   tabText:{
     paddingHorizontal: w*0.009,
-    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor,
     textAlign:'center',

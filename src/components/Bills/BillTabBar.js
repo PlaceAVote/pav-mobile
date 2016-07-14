@@ -117,7 +117,7 @@ const ScrollableTabBar = React.createClass({
     const isTabActive = this.props.activeTab === page;
     const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
-    const fontWeight = isTabActive ? 'bold' : 'normal';
+    const fontWeight = isTabActive ? {fontFamily: 'Whitney-Bold'} : {fontFamily: 'Whitney-Regular'};
 
     return <TouchableOpacity
       key={name}
@@ -129,11 +129,9 @@ const ScrollableTabBar = React.createClass({
       onPress={() => this.props.goToPage(page)}
       onLayout={this.measureTab.bind(this, page)}
     >
-      <View style={styles.tabContainer}>
-        <Text style={[{color: textColor, fontWeight, }, textStyle, ]}>
-          {name}
-        </Text>
-      </View>
+      <Text style={[{color: textColor},fontWeight, textStyle, ]}>
+        {name}
+      </Text>
     </TouchableOpacity>;
   },
 
@@ -203,7 +201,7 @@ module.exports = ScrollableTabBar;
 
 const styles = StyleSheet.create({
   tab: {
-    flex:1,
+    // flex:1,
     // backgroundColor:'red',
     height: TAB_HEIGHT - 1,
     alignItems: 'center',
@@ -211,9 +209,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 7,
   },
-  tabContainer:{
-    // backgroundColor:'green',
-  },
+
   container: {
     height: TAB_HEIGHT,
     borderWidth: 1,
