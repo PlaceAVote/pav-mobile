@@ -20,7 +20,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import React from 'react';
 import {StyleSheet, ScrollView, Text, TouchableHighlight, View, Image, PixelRatio, Platform} from 'react-native';
-
+import PavKeyboardAwareView from '../../lib/UI/PavKeyboardAwareView';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -45,13 +45,14 @@ var styles = StyleSheet.create({
     flex:1,
     backgroundColor: 'white',
     // backgroundColor: 'pink',
+    justifyContent:'flex-end',
     marginTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
     paddingHorizontal: w*0.04,
     paddingVertical: h*0.02,
   },
 
   inputsContainer:{
-    flex:1,
+    // flex:1,
     // paddingVertical: w*.04,
     backgroundColor: 'white'
   },
@@ -82,11 +83,13 @@ var styles = StyleSheet.create({
   },
 
   signInBtn:{
+    // flex:1,
     backgroundColor: 'white',
     borderRadius: 4,
     borderWidth: 2,
     borderColor: Colors.mainBorderColor,
-    height: 45
+    height: 45,
+    marginBottom: w*0.02,
   },
   signInBtnText:{
     color: Colors.thirdTextColor,
@@ -108,11 +111,11 @@ class EmailSignUpStep1Render extends React.Component {
     super(props);
 
     this.state ={
-      keyboardOpen: false,
       value: {
         email: this.props.authFormFields.email,
       	password: this.props.authFormFields.password
-      }
+      },
+      keyboardIsVisible: false
     };
   }
 
@@ -150,19 +153,24 @@ class EmailSignUpStep1Render extends React.Component {
     );
   }
 
-
-
-  renderKeyboardSpacer(){
-    if(Platform.OS==="ios"){
-      return (<KeyboardSpacer android={false} onToggle={(keyboardState, keyboardHeight)=>{
-        this.setState({
-          keyboardOpen: keyboardState
-        });
-      }}/>)
-    }else{
-      return <View></View>;
-    }
+  onKeyboardChange(keyboardVisible) {
+    // console.log("change"+keyboardVisible);
+    this.setState({
+      keyboardIsVisible: keyboardVisible
+    });
   }
+
+  // renderKeyboardSpacer(){
+  //   if(Platform.OS==="ios"){
+  //     return (<KeyboardSpacer android={false} onToggle={(keyboardState, keyboardHeight)=>{
+  //       this.setState({
+  //         keyboardOpen: keyboardState
+  //       });
+  //     }}/>)
+  //   }else{
+  //     return <View></View>;
+  //   }
+  // }
 
   /**
    * ### render
@@ -173,9 +181,9 @@ class EmailSignUpStep1Render extends React.Component {
 
     // var onButtonPress = this.props.onButtonPress;
 
-
+    // console.log("KEYBOARD SHOWN"+this.state.keyboardIsVisible);
     return(
-      <View style={styles.baseContainer}>
+      <PavKeyboardAwareView style={styles.baseContainer} onKeyboardChange={this.onKeyboardChange.bind(this)}>
         <Button
         onPress={this.props.onSignUpFacebookBtnPress}
         style={styles.facebookBtn}
@@ -209,7 +217,7 @@ class EmailSignUpStep1Render extends React.Component {
         <Button
             key="loginBtn"
             textStyle={styles.signInBtnText}
-            style={styles.signInBtn}
+            style={[styles.signInBtn, (this.state.keyboardIsVisible===true)?{marginTop:w*.02}:{marginTop:w*0.3}]}
             isDisabled={(this.props.isFetchingAuth===true)}
             isLoading={(this.props.isFetchingAuth===true)}
             activityIndicatorColor={Colors.mainTextColor}
@@ -217,9 +225,9 @@ class EmailSignUpStep1Render extends React.Component {
           Next >
         </Button>
 
-        {this.renderKeyboardSpacer()}
+        {/*{this.renderKeyboardSpacer()}*/}
 
-      </View>
+      </PavKeyboardAwareView>
     );
   }
 // this.props.regFormIsValid===false ||

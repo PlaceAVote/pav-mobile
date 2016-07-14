@@ -143,7 +143,7 @@ class EmailSignInRender extends React.Component {
   }
 
   onKeyboardChange(keyboardVisible) {
-    console.log("KEYBOARD SHOWN"+keyboardVisible);
+    // console.log("KEYBOARD SHOWN"+keyboardVisible);
     this.setState({
       keyboardIsVisible: keyboardVisible
     });
