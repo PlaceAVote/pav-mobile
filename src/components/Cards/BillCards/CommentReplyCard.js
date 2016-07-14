@@ -52,7 +52,61 @@ import Button from 'sp-react-native-iconbutton'
 
 
 
+const styles = StyleSheet.create({
 
+
+  commentsPageContainer:{
+    // flex:1,
+    flexDirection:'column',
+    // backgroundColor:'white'
+  },
+  addCommentTitleTextContainer:{
+    paddingHorizontal: w*0.027,
+    paddingTop: h*0.015,
+  },
+  addCommentTitleText:{
+    color: Colors.mainTextColor,
+    fontFamily: 'Whitney-Bold',
+    fontSize: getCorrectFontSizeForScreen(9),
+    backgroundColor:Colors.transparentColor
+  },
+  commentInputContainer:{
+    // flex:1,
+    // height: 70,
+    // backgroundColor:'red',
+    flexDirection:'row',
+    paddingHorizontal: w*0.026,
+    paddingVertical: h*0.015,
+  },
+  commentInput:{
+    flex:1,
+    paddingHorizontal: w*0.018,
+    paddingVertical: h*0.010,
+    height: 56,
+    borderColor: Colors.mainBorderColor,
+    borderWidth: 1,
+    backgroundColor:'white',
+    fontFamily: 'Whitney-Light',
+    fontSize: getCorrectFontSizeForScreen(7),
+  },
+  postBtn:{
+    minWidth: w*0.17,
+    marginLeft: w*0.013,
+    paddingHorizontal: w*0.027,
+    height:56,
+    borderRadius: 4,
+    borderWidth: 1,
+    backgroundColor: Colors.accentColor,
+    borderColor: Colors.mainBorderColor
+  },
+  whiteBtnText:{
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney-Regular',
+    fontSize: getCorrectFontSizeForScreen(9),
+  },
+
+});
 
 
 
@@ -70,78 +124,7 @@ class CommentReplyCard extends React.Component {
 
 
 
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
 
-
-      commentsPageContainer:{
-        // flex:1,
-        flexDirection:'column',
-        // backgroundColor:'white'
-      },
-      addCommentTitleTextContainer:{
-        paddingHorizontal: w*0.027,
-        paddingTop: h*0.015,
-      },
-      addCommentTitleText:{
-        color: Colors.mainTextColor,
-        fontFamily: 'Whitney-Bold',
-        fontSize: getCorrectFontSizeForScreen(9),
-        backgroundColor:Colors.transparentColor
-      },
-      commentInputContainer:{
-        // flex:1,
-        // height: 70,
-        // backgroundColor:'red',
-        flexDirection:'row',
-        paddingHorizontal: w*0.026,
-        paddingVertical: h*0.015,
-      },
-      commentInput:{
-        flex:1,
-        paddingHorizontal: w*0.018,
-        paddingVertical: h*0.010,
-        height: 56,
-        borderColor: Colors.mainBorderColor,
-        borderWidth: 1,
-        backgroundColor:'white',
-        fontFamily: 'Whitney-Light',
-        fontSize: getCorrectFontSizeForScreen(7),
-      },
-      postBtn:{
-        marginLeft: w*0.013,
-        paddingHorizontal: w*0.027,
-        height:56,
-        borderRadius: 4,
-        borderWidth: 1,
-        backgroundColor: Colors.accentColor,
-        borderColor: Colors.mainBorderColor
-      },
-      whiteBtnText:{
-        color: Colors.mainTextColor,
-        textAlign: 'center',
-        fontFamily: 'Whitney-Regular',
-        fontSize: getCorrectFontSizeForScreen(9),
-      },
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
-  }
 
   onTabFocus(){
 
@@ -170,9 +153,9 @@ class CommentReplyCard extends React.Component {
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
       <LinearGradient
         colors={['#4D6EB2', '#775B96']}
