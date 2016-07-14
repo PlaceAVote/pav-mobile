@@ -17,6 +17,7 @@
 import SignInForm from './SignInForm';
 
 import {Colors} from '../../config/constants';
+// import Keyboard from 'Keyboard';
 
 import React from 'react';
 import {
@@ -25,8 +26,8 @@ import {
   View,
   Platform,
   ScrollView,
-  findNodeHandle
-  // Keyboard
+  KeyboardAvoidingView,
+  Keyboard
 } from 'react-native';
 
 import ForgotPasswordModalBox from '../Modals/ForgotPasswordModalBox'
@@ -52,17 +53,15 @@ var styles = StyleSheet.create({
     flex:1,
     backgroundColor: 'white',
   },
-  scroller:{
+
+  contentContainer: {
     flex:1,
+    // backgroundColor: 'purple',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
     marginTop:80,
     marginBottom:20,
     marginHorizontal:w*0.04 //same as 14px
-  },
-  contentContainer: {
-    flex:1,
-    // backgroundColor: 'blue',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
   },
 
   signInBtn: {
@@ -118,9 +117,15 @@ var styles = StyleSheet.create({
   },
 
   inputs:{
+    // backgroundColor:'pink',
+    justifyContent:'center'
+  },
+  bodyContainer:{
+
+  },
+  nextBtnContainer:{
     flex:1,
-    // backgroundColor:'red',
-    justifyContent:'flex-start'
+
   }
 
 });
@@ -137,11 +142,39 @@ class EmailSignInRender extends React.Component {
       },
       keyboardIsVisible: false
     };
-    // this._listeners = null;
+    this.subscriptions = null;
   }
 
+  onKeyboardShown(keyboardVisible: ?KeyboardChangeEvent) {
+    console.log("KEYBOARD SHOWN");
+    this.setState({
+      keyboardIsVisible: true
+    });
+  }
+  onKeyboardHidden(){
+    console.log("KEYBOARD HIDDEN");
+    this.setState({
+      keyboardIsVisible: false
+    });
+  }
 
+  componentWillMount() {
+      if (Platform.OS === 'ios') {
+        this.subscriptions = [
+          Keyboard.addListener('keyboardWillShow', this.onKeyboardShown.bind(this)),
+          Keyboard.addListener('keyboardWillHide', this.onKeyboardHidden.bind(this)),
+        ];
+      } else {
+        this.subscriptions = [
+          Keyboard.addListener('keyboardDidHide', this.onKeyboardHidden.bind(this)),
+          Keyboard.addListener('keyboardDidShow', this.onKeyboardShown.bind(this)),
+        ];
+      }
+  }
 
+  componentWillUnmount() {
+    this.subscriptions.forEach((sub) => sub.remove());
+  }
   /**
    * ### componentWillReceiveProps
    * As the properties are validated they will be set here.
@@ -192,26 +225,26 @@ class EmailSignInRender extends React.Component {
   }
 
 
-  renderSpacer(){
-    if (this.props.forgotPasswordModalOpen===false){
-      return (<KeyboardSpacer android={false} onToggle={(keyboardState, keyboardHeight)=>{
-          if(keyboardState==true){
-            this.refs.scroller.scrollTo({x:0, y:h*0.2, animated: true});
-            this.setState({
-              keyboardIsVisible: true
-            });
-          }else{
-            this.refs.scroller.scrollTo({x:0, y:0, animated: true});
-            this.setState({
-              keyboardIsVisible: false
-            });
-          }
-        }}/>)
-    }else{
-      return <View></View>;
-    }
-
-  }
+  // renderSpacer(){
+  //   if (this.props.forgotPasswordModalOpen===false){
+  //     return (<KeyboardSpacer android={false} onToggle={(keyboardState, keyboardHeight)=>{
+  //         if(keyboardState==true){
+  //           this.refs.scroller.scrollTo({x:0, y:h*0.2, animated: true});
+  //           this.setState({
+  //             keyboardIsVisible: true
+  //           });
+  //         }else{
+  //           this.refs.scroller.scrollTo({x:0, y:0, animated: true});
+  //           this.setState({
+  //             keyboardIsVisible: false
+  //           });
+  //         }
+  //       }}/>)
+  //   }else{
+  //     return <View></View>;
+  //   }
+  //
+  // }
 
   renderFbButton(){
 
@@ -242,62 +275,66 @@ class EmailSignInRender extends React.Component {
   render() {
     return(
       <View style={styles.baseContainer}>
-        <ScrollView
-        ref="scroller"
-        style={styles.scroller}
-        contentContainerStyle={styles.contentContainer}
-        bounces={false}
+        <KeyboardAvoidingView
+        behavior='position'
+        style={styles.contentContainer}
 
         >
-          <Button
-          onPress={this.props.onFbBtnPress}
-          style={styles.facebookBtn}
-          textStyle={styles.blueBtnText}
-          isDisabled={this.props.isFetchingAuth}
-          isLoading={this.props.isFetchingAuth && (this.props.authMethod=="facebook")}
-          iconProps={{name: "facebook",size:21, color: Colors.primaryColor}}>
-            Sign In with Facebook
-          </Button>
-          <View style={styles.orTextContainer}>
-            <Text style={styles.orText}>Or</Text>
+          <View style={styles.bodyContainer}>
+            <Button
+            onPress={this.props.onFbBtnPress}
+            style={styles.facebookBtn}
+            textStyle={styles.blueBtnText}
+            isDisabled={this.props.isFetchingAuth}
+            isLoading={this.props.isFetchingAuth && (this.props.authMethod=="facebook")}
+            iconProps={{name: "facebook",size:21, color: Colors.primaryColor}}>
+              Sign In with Facebook
+            </Button>
+            <View style={styles.orTextContainer}>
+              <Text style={styles.orText}>Or</Text>
+            </View>
+
+            <View style={styles.inputs}>
+              <SignInForm
+                ref="signInForm"
+                value={this.state.value}
+                isFetchingAuth={this.props.isFetchingAuth}
+                error={this.props.error}
+                formIsValid={this.props.formIsValid}
+                mailFieldError={this.props.mailFieldError}
+                passwordFieldError={this.props.passwordFieldError}
+                onChange={this.onChange.bind(this)}
+                onNext={this.props.onSignInBtnPress}
+                togglePasswordHidden={this.props.togglePasswordHidden}
+                showPassword={this.props.showPassword}
+
+              />
+              {this.renderForgotPasswordBtn()}
+            </View>
           </View>
 
-          <View style={styles.inputs}>
-            <SignInForm
-              ref="signInForm"
-              value={this.state.value}
-              isFetchingAuth={this.props.isFetchingAuth}
-              error={this.props.error}
-              formIsValid={this.props.formIsValid}
-              mailFieldError={this.props.mailFieldError}
-              passwordFieldError={this.props.passwordFieldError}
-              onChange={this.onChange.bind(this)}
-              onNext={this.props.onSignInBtnPress}
-              togglePasswordHidden={this.props.togglePasswordHidden}
-              showPassword={this.props.showPassword}
 
-            />
-            {this.renderForgotPasswordBtn()}
+
+
+          <View style={[styles.nextBtnContainer, (this.state.keyboardIsVisible===true)?{marginTop:0}:{marginTop:w*0.1}]}>
+            <Button
+                key="loginBtn"
+                textStyle={styles.whiteBtnText}
+                style={styles.signInBtn}
+                isDisabled={this.props.isFetchingAuth}
+                isLoading={(this.props.isFetchingAuth===true) && (this.props.authMethod=="email")}
+                activityIndicatorColor={Colors.mainTextColor}
+                onPress={()=>{
+                  this.refs.form.getComponent('password').refs.input.focus();
+                }}
+                >
+
+              Sign In >
+            </Button>
           </View>
 
-
-
-          <Button
-              key="loginBtn"
-              textStyle={styles.whiteBtnText}
-              style={styles.signInBtn}
-              isDisabled={this.props.isFetchingAuth}
-              isLoading={(this.props.isFetchingAuth===true) && (this.props.authMethod=="email")}
-              activityIndicatorColor={Colors.mainTextColor}
-              onPress={()=>{
-                this.refs.form.getComponent('password').refs.input.focus();
-              }}
-              >
-
-            Sign In >
-          </Button>
           {/*{this.renderSpacer()}*/}
-        </ScrollView>
+        </KeyboardAvoidingView>
 
         <ForgotPasswordModalBox
         onCloseBtnClicked={this.props.onForgotPasswordCloseBtnClicked}
