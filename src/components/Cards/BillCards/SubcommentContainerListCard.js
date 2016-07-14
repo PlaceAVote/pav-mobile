@@ -70,7 +70,7 @@
           /* List Content */
           commentsList:{
             flex:1,
-            // backgroundColor: '#E8E7EE',
+            // backgroundColor: 'brown',
           },
           commentCard:{
             // marginTop: h*0.017

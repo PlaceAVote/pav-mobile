@@ -41,7 +41,7 @@ const SUBCOMMENT_COUNT = 2;
 const styles = StyleSheet.create({
 
   cardContainer:{
-    flex: 1,
+    // flex: 1,
     alignItems: 'stretch',
     padding:7,
     // backgroundColor: 'blue',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 
 
   cardContent:{
-    flex: 1,
+    // flex: 1,
     padding: w*0.03,
     backgroundColor: '#ffffff',
     marginRight:6,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     flexDirection:'column'
   },
   cardContentHeader:{
-    flex:1,
+    // flex:1,
     paddingVertical:h*0.01,
     flexDirection:'row',
     // backgroundColor:'red',
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
 
 
   footerContainer:{
-    flex:1,
+    // flex:1,
     flexDirection:'row',
     // backgroundColor: 'red',
     // borderStyle: 'solid',
