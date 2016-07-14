@@ -44,19 +44,20 @@ const styles = StyleSheet.create({
 
   cardContainer:{
     flex: 1,
-    alignItems: 'stretch',
+    // alignItems: 'stretch',
     // backgroundColor: 'blue',
+    justifyContent:'center',
     paddingHorizontal: 7,
     paddingVertical: 7,
 
   },
 
   card:{
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#ffffff',
     borderRadius: 2,
-    borderColor: '#ffffff',
-    borderWidth: 1,
+    // borderColor: '#ffffff',
+    // borderWidth: 1,
     shadowColor: 'rgba(0, 0, 0, 0.12)',
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -71,11 +72,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: w*0.02,
     paddingVertical: w*0.02,
     justifyContent:'space-between',
-    alignItems:'center'
+    alignItems:'center',
+    // backgroundColor:'purple'
   },
   cardTitleTextAndIconContainer:{
     flexDirection:'row',
-    alignItems:'center'
+    alignItems:'center',
+    // backgroundColor:'pink'
   },
   cardTitleTextContainer:{
     paddingHorizontal: w*0.014,
@@ -87,19 +90,17 @@ const styles = StyleSheet.create({
     fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateTextContainer:{
-    // paddingHorizontal: w*0.02,
+    paddingHorizontal: w*0.02,
     // backgroundColor:'pink'
   },
   cardDateText:{
     // backgroundColor:'red',
     // color: Colors.thirdTextColor,
     textAlign:'center',
-    width: w*0.29,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   },
-
   cardContentContainer:{
     // backgroundColor:'red',
     paddingHorizontal: w*0.02,
@@ -255,7 +256,7 @@ class CommentCard extends React.Component {
               </View>
             </View>
             <View style={styles.cardDateTextContainer}>
-              <Text style={styles.cardDateText}>{this.props.dateTime}</Text>
+              <Text numberOfLines={2} style={styles.cardDateText}>{this.props.dateTime}</Text>
             </View>
           </View>
           <View style={styles.cardContentContainer}>

@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         container: {
           flex:1,
           flexDirection: 'column',
-          paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+          paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
           paddingBottom:50, //tab bar height
           // backgroundColor: 'orange',
           // marginVertical: 10,

@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex:1,
     flexDirection: 'column',
-    paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
+    paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
 
     // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
 
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   headerTitleContainer:{
     // backgroundColor:'purple',
     flex:1,
+    width:w,
     justifyContent:'center',
     alignItems:'flex-start',  //horizontally
     paddingVertical: h*0.013,

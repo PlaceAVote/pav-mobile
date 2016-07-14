@@ -45,7 +45,7 @@ var styles = StyleSheet.create({
     flex:1,
     backgroundColor: 'white',
     // backgroundColor: 'pink',
-    marginTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,  //nav bar height
+    paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
     paddingHorizontal: w*0.04,
     paddingVertical: h*0.02,
   },

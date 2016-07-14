@@ -42,7 +42,9 @@ class PavImage extends React.Component {
         let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
         let indicator = this.props.indicator || ProgressBar;
         return (
-          <LImage {...this.props}
+          <LImage
+          {...this.props}
+
           indicator={indicator}
           indicatorProps={indicatorProps}
           >

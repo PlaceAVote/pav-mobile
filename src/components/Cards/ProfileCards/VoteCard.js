@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 
   card:{
 
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#ffffff',
     borderRadius: 2,
     // borderColor: '#ffffff',
@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
   },
   cardTitleTextAndIconContainer:{
     flexDirection:'row',
-    alignItems:'center'
+    alignItems:'center',
+    // backgroundColor:'pink'
   },
   cardTitleTextContainer:{
     paddingHorizontal: w*0.014,
@@ -89,14 +90,13 @@ const styles = StyleSheet.create({
     fontSize: getCorrectFontSizeForScreen(8),
   },
   cardDateTextContainer:{
-    // paddingHorizontal: w*0.02,
+    paddingHorizontal: w*0.02,
     // backgroundColor:'pink'
   },
   cardDateText:{
     // backgroundColor:'red',
     // color: Colors.thirdTextColor,
     textAlign:'center',
-    width: w*0.29,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),

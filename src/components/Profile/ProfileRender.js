@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     // backgroundColor: 'orange',
     flex:1,
     flexDirection: 'column',
-    paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar height
+
+    paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
     backgroundColor: '#E8E7EE',
     // marginVertical: 10,
     // marginHorizontal:15
@@ -125,6 +126,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 1,
     borderColor: Colors.mainBorderColor,
+    // backgroundColor:'red',
+    paddingHorizontal:w*0.06,
     // marginTop: 15,
     marginTop: h*0.030,
     height: 36

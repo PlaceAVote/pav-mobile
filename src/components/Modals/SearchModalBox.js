@@ -57,9 +57,9 @@ class SearchModalBox extends React.Component {
             modalPointingTop: {
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: resultsExist===true?h-((Platform.OS === 'ios' || (Platform.Version > 19) )? 84 : 44):null,
+                height: resultsExist===true?(h-(Platform.OS === 'ios'? 84 : 44)):null,
                 width: w*1,
-                paddingTop:(Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44,   //nav bar heights
+                paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar heights
                 paddingBottom:(h*0.08)+extraBottomSpace,
                 // backgroundColor: '#00000088'
                 backgroundColor: Colors.transparentColor,
@@ -68,7 +68,7 @@ class SearchModalBox extends React.Component {
             modalPointingBot:{
               justifyContent: 'center',
               alignItems: 'center',
-              height: resultsExist===true?h-((Platform.OS === 'ios' || (Platform.Version > 19) )? 84 : 44):null,
+              height: resultsExist===true?(h-(Platform.OS === 'ios'? 84 : 44)):null,
               width: w*1,
               paddingBottom:(h*0.08)+extraBottomSpace,
               // backgroundColor: '#00000088'

@@ -26,7 +26,7 @@ import Button from 'sp-react-native-iconbutton'
 import {Colors, ScheneKeys} from '../../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -35,7 +35,7 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
-
+import PavImage from '../../../lib/UI/PavImage'
 
 
 
@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
 
   cardContainer:{
     flex: 1,
-    alignItems: 'stretch',
+    // alignItems: 'stretch',
+    justifyContent:'center',
     // backgroundColor: 'blue',
     paddingHorizontal: 7,
     paddingVertical: 7,
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   },
 
   card:{
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#ffffff',
     borderRadius: 2,
     borderColor: '#ffffff',
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'red',
     // color: Colors.thirdTextColor,
     textAlign:'center',
-    width: w*0.29,
+    // width: w*0.29,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
@@ -179,12 +180,12 @@ const styles = StyleSheet.create({
     fontSize: getCorrectFontSizeForScreen(8),
   },
   commentFollowingTextContainer:{
-    paddingHorizontal:w*0.012,
+    // paddingHorizontal:w*0.012,
     // backgroundColor:'pink',
   },
   commentFollowingText:{
     // backgroundColor:'red',
-    width:w*0.37,
+    // width:w*0.37,
     // textAlign:'center',
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Regular',
@@ -284,7 +285,7 @@ class LikeCard extends React.Component {
 
             <View style={styles.cardContentHeader}>
               <TouchableOpacity onPress={()=>this.onUserClick(this.props.userId)}>
-                <Image
+                <PavImage
                   style={styles.userImage}
                   source={{uri: this.props.userPhotoUrl}}
                   defaultSource={defaultUserPhoto}
@@ -292,25 +293,19 @@ class LikeCard extends React.Component {
                 />
               </TouchableOpacity>
               <View style={styles.commentDescriptionContainer}>
-                <View style={styles.commentLocationContainer}>
-                  <TouchableOpacity style={styles.commentNameTextContainer} onPress={()=>this.onUserClick(this.props.userId)}>
-                    <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
-                  </TouchableOpacity>
-                  <View  style={styles.commentFollowingTextContainer}>
-                    <Text style={styles.commentFollowingText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
-                  </View>
+
+                <TouchableOpacity style={styles.commentNameTextContainer} onPress={()=>this.onUserClick(this.props.userId)}>
+                  <Text style={styles.commentNameText}>{this.props.userFullNameText}</Text>
+                </TouchableOpacity>
+                <View  style={styles.commentFollowingTextContainer}>
+                  <Text style={styles.commentFollowingText}>{this.props.isLike?"upvoted":"downvoted"} the following comment: </Text>
                 </View>
                 <TouchableOpacity style={styles.commentNameTextContainer} onPress={()=>this.onUserClick(this.props.authorId)}>
-                  <Text style={styles.commentNameText}>{this.props.authorFullNameText}</Text>
+                  <Text style={styles.commentNameText}>{this.props.authorFullNameText} <Text style={styles.commentInText}>in:</Text></Text>
                 </TouchableOpacity>
-                <View style={styles.commentLocationContainer}>
-                  <View  style={styles.commentInTextContainer}>
-                    <Text style={styles.commentInText}>in</Text>
-                  </View>
-                  <TouchableOpacity style={styles.commentLocationTextContainer} onPress={()=>this.onBillClick(this.props.billId)}>
-                    <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.commentLocationTextContainer} onPress={()=>this.onBillClick(this.props.billId)}>
+                  <Text style={styles.commentLocationText}>{this.props.commentParentTitle}</Text>
+                </TouchableOpacity>
 
               </View>
             </View>

@@ -94,7 +94,7 @@ function mapDispatchToProps(dispatch) {
 
 
 const BTN_HEIGHT = 36;
-const NAV_BAR_HEIGHT = (Platform.OS === 'ios' || (Platform.Version > 19) )? 64 : 44;   //nav bar height
+const NAV_BAR_HEIGHT = (Platform.OS === 'ios')? 64 : 54;   //nav bar height
 
 
 
