@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
           flex:1,
           flexDirection:'row',
           // backgroundColor:'purple',
-          alignItems:"center",
+          alignItems:"flex-start",
+          // marginVertical:5,
         },
 
 
@@ -78,9 +79,11 @@ const styles = StyleSheet.create({
         /* RIGHT SIDE */
 
         explanationsContainer:{
+          // flex:1,
+          alignSelf:'center',
           flexDirection:'column',
           paddingHorizontal: w*0.05,
-          // backgroundColor:'yellow'
+          // backgroundColor:'pink'
         },
         statusTitleText:{
           width: w*0.6,

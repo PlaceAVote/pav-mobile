@@ -55,13 +55,12 @@ const styles = StyleSheet.create({
 
   statusPageContainer:{
     flex:1,
-    backgroundColor:'white'
+    // backgroundColor:'red'
   },
   scrollViewContainer:{
     flex:1,
   },
   statusHeaderContainer:{
-    flex:1,
     backgroundColor: Colors.titleBgColor,
     borderBottomColor: "rgba(0, 0, 0, 0.07)",
     borderBottomWidth: 1,
@@ -80,8 +79,9 @@ const styles = StyleSheet.create({
   },
 
   statusIconsContainer:{
-    flex:1,
+    // flex:1,
     flexDirection:'column',
+    // backgroundColor:'red',
     // justifyContent:'space-between',
     alignItems:'center',
   },
