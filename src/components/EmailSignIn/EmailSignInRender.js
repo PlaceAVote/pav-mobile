@@ -275,9 +275,7 @@ class EmailSignInRender extends React.Component {
                 isDisabled={this.props.isFetchingAuth}
                 isLoading={(this.props.isFetchingAuth===true) && (this.props.authMethod=="email")}
                 activityIndicatorColor={Colors.mainTextColor}
-                onPress={()=>{
-                  this.refs.form.getComponent('password').refs.input.focus();
-                }}
+                onPress={this.props.onNextBtnClicked}
                 >
 
               Sign In >
