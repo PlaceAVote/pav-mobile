@@ -185,7 +185,6 @@ class Routes extends React.Component{
         case ScheneKeys.TAB_NEWS:
         case ScheneKeys.TAB_NOTIFS:
         case ScheneKeys.TAB_PROFILE:
-        alert("Now going back from screen: "+self.props.curScene)
           return true;
         default:
           self.props.actions.navigateToPrevious();
