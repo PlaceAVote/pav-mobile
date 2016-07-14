@@ -12,7 +12,7 @@ import AnalyticsReporter from '../../lib/Utils/analyticsReporter';
  * InitialState
  */
 import InitialRouterState from './routingInitialState';
-
+import {ActionConst} from 'react-native-router-flux';
 import {ActionNames, Modals} from '../../config/constants';
 
 /**
@@ -46,18 +46,18 @@ export default function routingReducer(state = initialRouterState, action) {
 
   switch (action.type) {
 
-   case "jump":
+   case ActionConst.JUMP:
       AnalyticsReporter().trackScreenView(action.key);
       state = closeOpenModalsIfPossible(state);
       return state.set('currentTab', action.key);
-   case "replace":
-   case "push": //react native router flux action
+   case ActionConst.REPLACE:
+   case ActionConst.PUSH: //react native router flux action
       AnalyticsReporter().trackScreenView(action.key);
       state = closeOpenModalsIfPossible(state);
       return state.set('previousSchene', currentSchene).set('currentSchene', action.key);
 
-   case "back"://react native router flux action
-   case "BackAction"://react native router flux action
+   case ActionConst.BACK://react native router flux action
+   case ActionConst.BACK_ACTION://react native router flux action
    case MANUAL_NAVIGATE_TO_PREVIOUS:
       AnalyticsReporter().trackScreenView(previousSchene);
       state = closeOpenModalsIfPossible(state);

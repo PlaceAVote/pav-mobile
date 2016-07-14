@@ -24,10 +24,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Platform,
-  ScrollView,
-  KeyboardAvoidingView,
-  Keyboard
+  Platform
 } from 'react-native';
 
 import ForgotPasswordModalBox from '../Modals/ForgotPasswordModalBox'
@@ -36,6 +33,7 @@ import ForgotPasswordModalBox from '../Modals/ForgotPasswordModalBox'
 import Button from 'sp-react-native-iconbutton'
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
+import PavKeyboardAwareView from '../../lib/UI/PavKeyboardAwareView';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -142,39 +140,15 @@ class EmailSignInRender extends React.Component {
       },
       keyboardIsVisible: false
     };
-    this.subscriptions = null;
   }
 
-  onKeyboardShown(keyboardVisible: ?KeyboardChangeEvent) {
-    console.log("KEYBOARD SHOWN");
+  onKeyboardChange(keyboardVisible) {
+    console.log("KEYBOARD SHOWN"+keyboardVisible);
     this.setState({
-      keyboardIsVisible: true
-    });
-  }
-  onKeyboardHidden(){
-    console.log("KEYBOARD HIDDEN");
-    this.setState({
-      keyboardIsVisible: false
+      keyboardIsVisible: keyboardVisible
     });
   }
 
-  componentWillMount() {
-      if (Platform.OS === 'ios') {
-        this.subscriptions = [
-          Keyboard.addListener('keyboardWillShow', this.onKeyboardShown.bind(this)),
-          Keyboard.addListener('keyboardWillHide', this.onKeyboardHidden.bind(this)),
-        ];
-      } else {
-        this.subscriptions = [
-          Keyboard.addListener('keyboardDidHide', this.onKeyboardHidden.bind(this)),
-          Keyboard.addListener('keyboardDidShow', this.onKeyboardShown.bind(this)),
-        ];
-      }
-  }
-
-  componentWillUnmount() {
-    this.subscriptions.forEach((sub) => sub.remove());
-  }
   /**
    * ### componentWillReceiveProps
    * As the properties are validated they will be set here.
@@ -215,12 +189,12 @@ class EmailSignInRender extends React.Component {
 
 
   renderForgotPasswordBtn(){
-    if(this.state.keyboardIsVisible===false){
+    if(this.state.keyboardIsVisible===true && Platform.OS=="ios"){
+      return <View></View>;
+    }else{
       return (<Button onPress={this.props.onForgotBtnPress} style={styles.forgotPasswordBtn} textStyle={styles.forgotPasswordText} >
         Forgot Password
       </Button>);
-    }else{
-      return <View></View>;
     }
   }
 
@@ -246,28 +220,6 @@ class EmailSignInRender extends React.Component {
   //
   // }
 
-  renderFbButton(){
-
-  }
-
-  // onKeyboardWillShow={(frames: Object) => {
-  //   // console.log('Keyboard event', frames)
-  //   this.setState({
-  //     keyboardIsVisible: true
-  //   });
-  // }}
-  // onKeyboardWillHide={(frames: Object) => {
-  //   // console.log('Keyboard event', frames)
-  //   this.setState({
-  //     keyboardIsVisible: false
-  //   });
-  // }}
-
-  // _scrollToInput (reactNode: any) {
-  //   // alert("@clicked: "+reactNode)
-  //   this.refs.scroll.scrollToFocusedInput(reactNode)
-  // }
-
   /**
    * ### render
    * Setup some default presentations and render
@@ -275,10 +227,9 @@ class EmailSignInRender extends React.Component {
   render() {
     return(
       <View style={styles.baseContainer}>
-        <KeyboardAvoidingView
-        behavior='position'
+        <PavKeyboardAwareView
         style={styles.contentContainer}
-
+        onKeyboardChange={this.onKeyboardChange.bind(this)}
         >
           <View style={styles.bodyContainer}>
             <Button
@@ -333,8 +284,7 @@ class EmailSignInRender extends React.Component {
             </Button>
           </View>
 
-          {/*{this.renderSpacer()}*/}
-        </KeyboardAvoidingView>
+        </PavKeyboardAwareView>
 
         <ForgotPasswordModalBox
         onCloseBtnClicked={this.props.onForgotPasswordCloseBtnClicked}
