@@ -134,39 +134,31 @@ class DiscoveryFeedRender extends React.Component {
    */
   render() {
 
-    if(Platform.OS=="android" && Platform.Version<=21){
-      return (
-        <Text>
-        The Discovery page will be supported in old Android devices when react native version 27 comes out. (In the next few days)
-        Unfortunately for you, your android version ({Platform.Version}) is too old and lame for facebook to really care at the moment.
-        </Text>);
-    }else{
-      return(
-        <ScrollableTabView
-          onChangeTab={(data)=>{
-            // console.log("@@@@@@@@@@@@ Tab changed: "+this.state.pagesToRender[data.i].key);
-            if(this.state.curPage!=data.i){
-              this.props.onTopicSelected(this.state.pagesToRender[data.i].key);
-              this.setState({curPage: data.i});
-            }
-          }}
-          renderTabBar={() =>
-            <TopicSelectTabBar
-              indicatorPosition="top"
-              indicatorArrowsEnabled={true}
-              underlineColor={Colors.negativeAccentColor}
-              activeTextColor={Colors.primaryColor}
-              inactiveTextColor={Colors.primaryColor}
-            />}
-          initialPage={this.props.initialDiscoveryPage}
-          page={this.state.curPage}
-          style={styles.pagesContainer}
-        >
-          {this.state.pagesToRender.map((page, i) => this.renderDiscoverPage(page.title, this.props.discoveryData.get(this.state.pagesToRender[i].key), this.props.device, this.props.curUser))}
-       </ScrollableTabView>
+    return(
+      <ScrollableTabView
+        onChangeTab={(data)=>{
+          // console.log("@@@@@@@@@@@@ Tab changed: "+this.state.pagesToRender[data.i].key);
+          if(this.state.curPage!=data.i){
+            this.props.onTopicSelected(this.state.pagesToRender[data.i].key);
+            this.setState({curPage: data.i});
+          }
+        }}
+        renderTabBar={() =>
+          <TopicSelectTabBar
+            indicatorPosition="top"
+            indicatorArrowsEnabled={true}
+            underlineColor={Colors.negativeAccentColor}
+            activeTextColor={Colors.primaryColor}
+            inactiveTextColor={Colors.primaryColor}
+          />}
+        initialPage={this.props.initialDiscoveryPage}
+        page={this.state.curPage}
+        style={styles.pagesContainer}
+      >
+        {this.state.pagesToRender.map((page, i) => this.renderDiscoverPage(page.title, this.props.discoveryData.get(this.state.pagesToRender[i].key), this.props.device, this.props.curUser))}
+     </ScrollableTabView>
 
-      );
-    }
+    );
   }//render
 
 
