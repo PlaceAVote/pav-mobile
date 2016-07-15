@@ -42,10 +42,8 @@ import Tos from '../containers/Tos';
 /**
 * ## Nav bar icons
 */
-import ProfileButtons from '../containers/NavIcons/ProfileButtons';
-import SettingsButtons from '../containers/NavIcons/SettingsButtons';
-import NewsFeedButtons from '../containers/NavIcons/NewsFeedButtons';
-import {RightPavLogo} from '../containers/NavIcons/LoginButtons';
+
+// import {RightPavLogo} from '../containers/NavIcons/LoginButtons';
 import TabIconFactory from '../containers/NavIcons/TabIconFactory';
 import {Scene, Switch, Actions} from 'react-native-router-flux';
 
@@ -158,7 +156,7 @@ const pavScenes = Actions.create(
     <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} iconContainerStyle={styles.iconContainerStyle}  hideNavBar={true} initial={false}>
         <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} hideNavBar={true} initial={true}/>
         <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} hideNavBar={true} />
-        <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} renderRightButton={()=><ProfileButtons/>} userId={null} isTab={true} hideNavBar={true}/>
+        <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} userId={null} isTab={true} hideNavBar={true}/>
     </Scene>
     <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true} />
     <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} panHandlers={null} component={NewIssue} title="New Issue" direction="vertical" hideNavBar={true} />
