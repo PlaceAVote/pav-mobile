@@ -2,7 +2,7 @@
 
 /* @flow weak */
 import React from 'react';
-import {ActivityIndicatorIOS, View} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import {Colors} from '../../config/constants';
 
 class PavSpinner extends React.Component {
@@ -19,13 +19,13 @@ class PavSpinner extends React.Component {
   render() {
     let children = this.props.children || <View></View>;
     return (
-      <View key="bill_render_body" style={[{
+      <View style={[{
         flex:1,
         justifyContent:'center',
         alignItems:'center',
         // backgroundColor:'red',
       }, this.props.style]}>
-        <ActivityIndicatorIOS
+        <ActivityIndicator
           animating={this.props.animating}
           size={this.props.size}
         />

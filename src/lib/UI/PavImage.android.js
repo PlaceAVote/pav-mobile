@@ -1,9 +1,9 @@
 /* @flow weak */
 import LImage from 'react-native-image-progress';
 import React from 'react';
-import {Image, View} from 'react-native';
+import {Image, View, ActivityIndicator} from 'react-native';
 
-import ProgressBar from 'ProgressBarAndroid';
+// import ProgressBar from 'ProgressBarAndroid';
 import {Colors} from '../../config/constants';
 import {isOfObjectType, OBJECT_TYPES} from '../../lib/Utils/genericUtils';
 import _ from 'underscore'
@@ -42,7 +42,7 @@ class PavImage extends React.Component {
         );
       }else{
         let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
-        let indicator = this.props.indicator || ProgressBar;
+        let indicator = this.props.indicator || ActivityIndicator;
         return (
           <LImage
           {...imgProps}

@@ -1,7 +1,7 @@
 /* @flow weak */
 import LImage from 'react-native-image-progress';
 import React from 'react';
-import {Image, View, ActivityIndicatorIOS} from 'react-native';
+import {Image, View} from 'react-native';
 
 import * as Progress from 'react-native-progress';
 import {Colors} from '../../config/constants';
@@ -48,7 +48,7 @@ class PavImage extends React.Component {
         );
       }else{
         // let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
-        // let indicator = this.props.indicator || ActivityIndicatorIOS;
+        // let indicator = this.props.indicator || ActivityIndicator;
         let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor, colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor], size:this.state.indicatorSize};
         let indicator = this.props.indicator || Progress.CircleSnail;
         return (
