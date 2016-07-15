@@ -546,6 +546,6 @@ ProfileRender.propTypes= {
   onReactionClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,
   onFetchOlderTimelineData:React.PropTypes.func.isRequired,
-
+  onRightNavBtnClicked:React.PropTypes.func.isRequired,
 };
 export default ProfileRender;

@@ -23,8 +23,8 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
-// import PavImage from '../../lib/UI/PavImage'
-
+import PavImage from '../../lib/UI/PavImage'
+import defaultUserPhoto from '../../../assets/back_chevron.png';
 
 
 
@@ -46,6 +46,11 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
 
+
+  backImg:{
+    height: 22,
+    // width:null,
+  },
 
 
   iconContainer:{
@@ -104,6 +109,21 @@ class NavBarRender extends React.Component {
           <PavIcon name={this.props.leftIconName} size={this.props.leftIconSize} style={[styles.icon, this.props.leftIconStyle]}/>
         </TouchableOpacity>
       )
+    }else if(!!this.props.renderLeftIcon){
+      return (
+        <TouchableOpacity style={styles.iconContainer} onPress={this.props.onLeftIconPressed}>
+          {this.props.renderLeftIcon()}
+        </TouchableOpacity>
+      )
+    }else if (this.props.leftIconIsBack===true){
+      return (
+        <TouchableOpacity style={styles.iconContainer} onPress={this.props.onLeftIconPressed}>
+          <PavImage resizeMode='contain' style={styles.backImg} source={defaultUserPhoto} />
+
+
+
+        </TouchableOpacity>
+      )
     }else{
       return <View></View>;
     }
@@ -114,6 +134,12 @@ class NavBarRender extends React.Component {
       return (
         <TouchableOpacity style={styles.iconContainer} onPress={this.props.onRightIconPressed}>
           <PavIcon name={this.props.rightIconName} size={this.props.rightIconSize} style={[styles.icon, this.props.rightIconStyle]}/>
+        </TouchableOpacity>
+      )
+    }else if(!!this.props.renderRightIcon){
+      return (
+        <TouchableOpacity style={styles.iconContainer} onPress={this.props.onRightIconPressed}>
+          {this.props.renderRightIcon()}
         </TouchableOpacity>
       )
     }else{
@@ -151,17 +177,23 @@ class NavBarRender extends React.Component {
 
 NavBarRender.defaultProps={
   rightIconSize: 30,
-  leftIconSize: 30
+  leftIconSize: 30,
+  leftIconIsBack:false
 }
 NavBarRender.propTypes= {
   title: React.PropTypes.string.isRequired,
+
   leftIconName: React.PropTypes.string,
   leftIconSize: React.PropTypes.number,
   onLeftIconPressed: React.PropTypes.func,
+  leftIconStyle: React.PropTypes.any,
+  renderLeftIcon: React.PropTypes.func,
+
   rightIconName: React.PropTypes.string,
   rightIconSize: React.PropTypes.number,
   onRightIconPressed: React.PropTypes.func,
   rightIconStyle: React.PropTypes.any,
-  leftIconStyle: React.PropTypes.any,
+  renderRightIcon: React.PropTypes.func,
+
 };
 export default NavBarRender;

@@ -195,6 +195,18 @@ class Settings extends React.Component {
     this.props.actions.onSettingsFormFieldChange(field, value);
   }
 
+  async onRightNavBtnClick(){
+    let saveRes = await this.props.actions.setSettings(this.TOKEN, this.props.global.isDev);
+    if(saveRes!=null){
+        this.props.actions.navigateToPrevious();
+    }
+  }
+
+  onLeftNavBtnClick(){
+    this.props.actions.navigateToPrevious();
+  }
+
+
   render() {
     let form = this.props.settings.form;
     // console.log("FORM@ "+form);
@@ -214,6 +226,8 @@ class Settings extends React.Component {
           onFieldChange={this.onFieldChange.bind(this)}
           onLogoutClick={this.onLogoutClick.bind(this)}
           onTermsOfServiceClick={this.onTermsOfServiceClick.bind(this)}
+          onLeftNavBtnClicked={this.onLeftNavBtnClick.bind(this)}
+          onRightNavBtnClicked={this.onRightNavBtnClick.bind(this)}
       />
 
     );

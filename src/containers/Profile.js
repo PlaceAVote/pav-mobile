@@ -61,7 +61,8 @@ const {
 const {
   BILL,
   COMMENTS,
-  PROFILE
+  PROFILE,
+  SETTINGS
 } = ScheneKeys;
 
 
@@ -377,6 +378,9 @@ class Profile extends React.Component {
   //   }
   // }
 
+  onRightNavBtnClick(){
+    this.props.actions.navigateTo(SETTINGS);
+  }
 
 
 
@@ -407,6 +411,7 @@ class Profile extends React.Component {
           onReplyClick={this.onUserClickedReply.bind(this)}
           onReactionClick={this.onUserClickedReaction.bind(this)}
           onCommentClick={this.onUserClickedComments.bind(this)}
+          onRightNavBtnClicked={this.onRightNavBtnClick.bind(this)}
       />
 
     );

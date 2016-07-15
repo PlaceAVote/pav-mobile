@@ -164,7 +164,7 @@ const pavScenes = Actions.create(
     <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} panHandlers={null} component={NewIssue} title="New Issue" direction="vertical" hideNavBar={false} />
     <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" initial={false} />
     <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" />
-    <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} renderRightButton={()=><SettingsButtons/>} />
+    <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} hideNavBar={true} />
     <Scene key={ScheneKeys.TOS} {...defaultProps} component={Tos} title="Terms of service"/>
   </Scene>
 );

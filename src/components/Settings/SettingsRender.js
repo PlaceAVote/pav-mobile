@@ -59,6 +59,7 @@ import TouchableInput from './TouchableInput';
 import InputGenderModalBox from '../Modals/InputGenderModalBox';
 import InputBirthdayModalBox from '../Modals/InputBirthdayModalBox';
 
+import NavBarRender from '../NavBar/NavBarRender';
 /**
  * The states were interested in
  */
@@ -196,13 +197,31 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection: 'column',
     // paddingBottom:self.props.isTab===false?0:50, //tab bar height
-    paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+    // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
     backgroundColor: 'white',
     // marginVertical: 10,
     // marginHorizontal:15
   },
   scroller:{
     flex:1,
+  },
+
+  saveBtn:{
+    backgroundColor: Colors.accentColor,
+    alignSelf:'flex-end',
+    borderColor: Colors.mainBorderColor,
+    height: 35,
+    width: w*0.24,
+    // paddingHorizontal: w*0.076,
+    // marginTop: NAV_BAR_HEIGHT-BTN_HEIGHT-8,
+    // marginRight: 10,
+    borderRadius: 2,
+  },
+  saveBtnText:{
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney-Regular',
+    fontSize: 18
   },
 
 
@@ -505,6 +524,23 @@ class SettingsRender extends React.Component {
 
     return(
         <View style={styles.container}>
+          <NavBarRender
+          title="Settings"
+          renderRightIcon={
+            ()=>
+              <Button
+                  onPress={this.props.onRightNavBtnClicked}
+                  isDisabled={this.props.isFetching}
+                  isLoading={this.props.isFetching}
+                  style={styles.saveBtn}
+                  textStyle={styles.saveBtnText}
+              >
+                Save
+              </Button>
+          }
+          leftIconIsBack={true}
+          onLeftIconPressed={this.props.onLeftNavBtnClicked}
+          />
           <ScrollView
           style={styles.scroller}
           bounces={false}
