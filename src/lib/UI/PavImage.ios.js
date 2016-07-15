@@ -6,6 +6,7 @@ import {Image, View, ActivityIndicatorIOS} from 'react-native';
 import * as Progress from 'react-native-progress';
 import {Colors} from '../../config/constants';
 import {isOfObjectType, OBJECT_TYPES} from '../../lib/Utils/genericUtils';
+import _ from 'underscore'
 
 class PavImage extends React.Component {
   constructor(props) {
@@ -27,23 +28,31 @@ class PavImage extends React.Component {
   render() {
     let children = this.props.children || <View></View>;
 
+    //if the source is an object (imgs are usually numbers not objects), BUT the uri is null, use the defaultSource
+   let uriProvidedButIsEmpty = (isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && (this.props.source.uri==null || this.props.source.uri==""));
+   let imgProps = _.clone(this.props);
+   if(uriProvidedButIsEmpty===true){
+     imgProps.source.uri = undefined;
+     imgProps.source = undefined;
+    //  imgProps.source = imgProps.defaultSource;
+   }
 
     if(!!this.props.source || !!this.props.defaultSource){
-      if(this.props.loadingSpinnerEnabled!==true || (isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && this.props.source.uri==null)){
+      if(this.props.loadingSpinnerEnabled!==true || uriProvidedButIsEmpty===true){
         // console.log("CHECK TYPE IMAGE : "+(isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && this.props.source.uri==null));
+
         return (
-          <Image {...this.props}>
+          <Image {...imgProps}>
           {children}
           </Image>
         );
       }else{
         // let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
         // let indicator = this.props.indicator || ActivityIndicatorIOS;
-
         let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor, colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor], size:this.state.indicatorSize};
         let indicator = this.props.indicator || Progress.CircleSnail;
         return (
-          <LImage {...this.props}
+          <LImage {...imgProps}
           indicator={indicator}
           indicatorProps={indicatorProps}
           onLayout={(e)=>{

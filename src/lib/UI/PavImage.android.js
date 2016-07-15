@@ -22,28 +22,30 @@ class PavImage extends React.Component {
   render() {
 
     let children = this.props.children || <View></View>;
+
+
+     //if the source is an object (imgs are usually numbers not objects), BUT the uri is null, use the defaultSource
+    let uriProvidedButIsEmpty = (isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && (this.props.source.uri==null || this.props.source.uri==""));
+    let imgProps = _.clone(this.props);
+    if(uriProvidedButIsEmpty===true){
+      imgProps.source.uri = undefined;
+      imgProps.source = imgProps.defaultSource;
+    }
+
     if(!!this.props.source || !!this.props.defaultSource){
 
-      if(this.props.loadingSpinnerEnabled!==true || (isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && this.props.source.uri==null)){
-
-        let imgProps = _.clone(this.props);
-        if(isOfObjectType( this.props.source, OBJECT_TYPES.OBJECT ) && this.props.source.uri==null){
-          imgProps.source.uri = undefined;
-          imgProps.source = imgProps.defaultSource;
-        }
-        // alert(imgProps.);
+      if(this.props.loadingSpinnerEnabled!==true || uriProvidedButIsEmpty===true){
         return (
           <Image {...imgProps}>
           {children}
           </Image>
         );
-
       }else{
         let indicatorProps = this.props.indicatorProps || {color:Colors.primaryColor};
         let indicator = this.props.indicator || ProgressBar;
         return (
           <LImage
-          {...this.props}
+          {...imgProps}
 
           indicator={indicator}
           indicatorProps={indicatorProps}

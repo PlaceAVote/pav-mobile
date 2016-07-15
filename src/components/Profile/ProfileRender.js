@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 
   container: {
     // backgroundColor: 'orange',
-    // flex:1,
+    flex:1, //if i remove this the scroller miss behaves
     flexDirection: 'column',
 
     paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
