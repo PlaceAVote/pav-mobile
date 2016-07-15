@@ -1,24 +1,10 @@
 /**
- * # Login.js
+ * # NotificationsRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
  */
 
-
-import LinearGradient from 'react-native-linear-gradient';
-
-/**
- * Immutable
- */
-import {Map} from 'immutable';
-
-/*A react native button*/
-import Button from 'sp-react-native-iconbutton'
-
-/**
-* Icons library
-*/
 
 
 
@@ -36,7 +22,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import NotifVoteCard from '../Cards/NotificationCards/NotifVoteCard'
 import CardFactory from '../Cards/CardFactory';
-
+import NavBarRender from '../NavBar/NavBarRender';
 import PavSpinner from '../../lib/UI/PavSpinner'
 /**
  * The states were interested in
@@ -81,7 +67,7 @@ class NotificationsRender extends React.Component {
         flex:1,
         flexDirection: 'column',
         paddingBottom:50, //tab bar height
-        paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+        // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
         backgroundColor: '#E8E7EE',
         // marginVertical: 10,
         // marginHorizontal:15
@@ -146,6 +132,7 @@ class NotificationsRender extends React.Component {
     // />
     return(
         <View style={styles.container}>
+        <NavBarRender title="Notifications"/>
         <ListView
          enableEmptySections={true}
          style={styles.itemList}

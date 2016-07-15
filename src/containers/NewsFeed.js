@@ -72,7 +72,8 @@ const {
   MAIN,
   BILL,
   COMMENTS,
-  PROFILE
+  PROFILE,
+  NEWISSUE
 } = ScheneKeys;
 
 
@@ -297,6 +298,13 @@ class NewsFeed extends React.Component {
 
   }
 
+  onLeftNavBtnClick(){
+    this.props.actions.setModalVisibility(SEARCH_BILL, !this.props.router.modalIsOpen.get(SEARCH_BILL));
+  }
+
+  onRightNavBtnClick(){
+    this.props.actions.navigateTo(NEWISSUE);
+  }
 
   render() {
 
@@ -313,6 +321,7 @@ class NewsFeed extends React.Component {
           isFetchingOlderNewsFeedData={this.props.newsfeed.isFetching.olderNewsFeedData}
           isFetchingDiscoveryData={this.props.newsfeed.isFetching.discoveryData}
 
+
           searchModalVisible={this.props.router.modalIsOpen.get(SEARCH_BILL)}
           showBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, true)}
           hideBillSearchModal={()=>this.props.actions.setModalVisibility(SEARCH_BILL, false)}
@@ -320,6 +329,9 @@ class NewsFeed extends React.Component {
           onSearchTermChanged={this.onBillSearchTermChanged.bind(this)}
           searchData={this.state.searchData}
 
+
+          onLeftNavBtnClicked={this.onLeftNavBtnClick.bind(this)}
+          onRightNavBtnClicked={this.onRightNavBtnClick.bind(this)}
           onFilterBtnClick={this.onFilterBtnClick.bind(this)}
           onTopicSelect={this.onTopicSelect.bind(this)}
           onFeedRefresh={this.onFeedRefresh.bind(this)}

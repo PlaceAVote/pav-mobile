@@ -8,18 +8,7 @@
 'use strict';
 
 
-import LinearGradient from 'react-native-linear-gradient';
 
-/**
- * Immutable
- */
-import {Map} from 'immutable';
-
-/*A react native button*/
-import Button from 'sp-react-native-iconbutton'
-
-
-import moment from 'moment'
 
 
 
@@ -51,7 +40,7 @@ import DiscoveryFeedRender from './DiscoveryFeedRender';
 import SearchFeedRender from './SearchFeedRender';
 import FiltersRender from './FiltersRender';
 import SearchModalBox from '../Modals/SearchModalBox';
-
+import NavBarRender from '../NavBar/NavBarRender';
 
 /**
  * The states were interested in
@@ -75,7 +64,7 @@ const styles = StyleSheet.create({
         container: {
           flex:1,
           flexDirection: 'column',
-          paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+          // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
           paddingBottom:50, //tab bar height
           // backgroundColor: 'orange',
           // marginVertical: 10,
@@ -253,6 +242,15 @@ class NewsFeedRender extends React.Component {
     // {...this._panResponder.panHandlers}
     return(
         <View style={styles.container}>
+          <NavBarRender
+          title="News Feed"
+          leftIconName="ios-search-strong"
+          leftIconSize={30}
+          onLeftIconPressed={this.props.onLeftNavBtnClicked}
+          rightIconName="issues"
+          rightIconSize={25}
+          onRightIconPressed={this.props.onRightNavBtnClicked}
+          />
           <View
           style={styles.scrollView}
 
@@ -353,6 +351,9 @@ NewsFeedRender.propTypes= {
   isFetchingNewsFeedData: React.PropTypes.bool.isRequired,
   isFetchingOlderNewsFeedData: React.PropTypes.bool.isRequired,
   isFetchingDiscoveryData: React.PropTypes.bool.isRequired,
+
+  onLeftNavBtnClicked: React.PropTypes.func.isRequired,
+  onRightNavBtnClicked: React.PropTypes.func.isRequired,
 
   searchData: React.PropTypes.array,
   currentlySearching: React.PropTypes.bool.isRequired,

@@ -10,20 +10,13 @@
 
 import LinearGradient from 'react-native-linear-gradient';
 
-/**
- * Immutable
- */
-import {Map} from 'immutable';
-
 /*A react native button*/
 import Button from 'sp-react-native-iconbutton'
 
 import PavSpinner from '../../lib/UI/PavSpinner'
 
 import moment from 'moment'
-/**
-* Icons library
-*/
+
 
 
 
@@ -44,15 +37,7 @@ import CardFactory from '../Cards/CardFactory';
 
 import defaultUserPhoto from '../../../assets/defaultUserPhoto.png';
 import PavImage from '../../lib/UI/PavImage'
-
-/**
- * The states were interested in
- */
-// const {
-//   SET_ORIENTATION
-// } = ScheneKeys;
-
-
+import NavBarRender from '../NavBar/NavBarRender';
 
 
 
@@ -65,7 +50,7 @@ const styles = StyleSheet.create({
     flex:1, //if i remove this the scroller miss behaves
     flexDirection: 'column',
 
-    paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+    // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
     backgroundColor: '#E8E7EE',
     // marginVertical: 10,
     // marginHorizontal:15
@@ -364,6 +349,12 @@ class ProfileRender extends React.Component {
             colors={['#4D6EB2', '#6B55A2']}
             start={[0.0, 0.0]} end={[0.6, 0.5]}
             style={styles.headerView}>
+              <NavBarRender
+              title="Profile"
+              rightIconName="gear"
+              rightIconSize={30}
+              onRightIconPressed={this.props.onRightNavBtnClicked}
+              />
               <View style={styles.userDetailsHeaderView}>
                 <View style={styles.statisticsBigContainer}>
                   <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.lastActivityTimestamp)}</Text>
