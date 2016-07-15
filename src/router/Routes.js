@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   iconContainerStyle:{
     // backgroundColor:'red',
     borderRightWidth:0.8,
-    borderRightColor: "#E4E3E9",
+    borderRightColor: "#e8e7ee",
 
   },
   tabBarSelectedItemStyle:{
@@ -153,7 +153,7 @@ const pavScenes = Actions.create(
     <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} title="Register" component={EmailSignUpStep2} hideNavBar={false} initial={false}/>
     <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
     <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile}/>
-    <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} iconContainerStyle={styles.iconContainerStyle}  hideNavBar={true} initial={false}>
+    <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} tabBarIconContainerStyle={styles.iconContainerStyle}  hideNavBar={true} initial={false}>
         <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} hideNavBar={true} initial={true}/>
         <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} hideNavBar={true} />
         <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} userId={null} isTab={true} hideNavBar={true}/>

@@ -59,7 +59,7 @@ class TabIconFactory extends React.Component {
           case ScheneKeys.TAB_NEWS:
           case ScheneKeys.TAB_NEWS+"2":
             iconName="mailbox";
-            tabText = "News Feed";
+            tabText = "Feed";
             break;
           case ScheneKeys.TAB_NOTIFS:
             iconName="ios-pulse-strong";
@@ -75,12 +75,12 @@ class TabIconFactory extends React.Component {
         }
 
         return (
-          <View style={{flex:1, flexDirection:'row', justifyContent:'center', alignItems:'center', paddingHorizontal:w*0.02}}>
+          <View style={{flex:1, flexDirection:'column', justifyContent:'center', alignItems:'center', paddingHorizontal:w*0.02}}>
             <View style={{paddingRight:w*0.004, paddingVertical:h*0.005}}>
               <PavIcon name={iconName} size={20} style={{color: (this.props.selected===true) ? Colors.secondaryColor :Colors.secondaryTextColor}}/>
               {this.renderNotificationCount()}
             </View>
-            <View style={{flexDirection: "column", justifyContent: 'center', paddingLeft:w*0.004}}>
+            <View style={{justifyContent: 'center', paddingLeft:w*0.004}}>
               <Text style={{
                 color: (this.props.selected===true) ? Colors.primaryColor :Colors.secondaryTextColor,
                 fontFamily: 'Whitney-Regular',
