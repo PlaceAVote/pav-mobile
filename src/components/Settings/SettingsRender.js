@@ -522,6 +522,10 @@ class SettingsRender extends React.Component {
       }
     };
 
+    let currentDate = "-";
+    if(!!this.props.fields.dateOfBirth){
+      currentDate = moment(this.props.fields.dateOfBirth, 'x').format('MM/DD/YYYY');
+    }
     return(
         <View style={styles.container}>
           <NavBarRender
@@ -582,7 +586,7 @@ class SettingsRender extends React.Component {
 
                 <View style={styles.dateOfBirthGenderContainer}>
                   <TouchableInput title="Gender " value={toTitleCase(this.props.fields.gender) || "Tap to pick a gender"} onTap={this.onGenderClick.bind(this)}/>
-                  <TouchableInput title="Date of Birth " value={moment(this.props.fields.dateOfBirth, 'x').format('MM/DD/YYYY')} onTap={this.onDateClick.bind(this)}/>
+                  <TouchableInput title="Date of Birth " value={currentDate} onTap={this.onDateClick.bind(this)}/>
                 </View>
               </View>
 

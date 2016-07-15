@@ -40,7 +40,8 @@ const Form = Record({
 
       email: null,
       emailHasError: false,
-      dateOfBirth: moment().format('x'),
+      dateOfBirth: null,
+      dateOfBirthHasError: false,
       dateOfBirthIsCurBeingPicked: false,
       zipCode: null,
       zipCodeHasError: false,
