@@ -214,6 +214,10 @@ class Comments extends React.Component {
   // }
 
 
+  onLeftNavBtnClick(){
+    this.props.actions.navigateToPrevious();
+  }
+
 
 
 
@@ -240,6 +244,7 @@ class Comments extends React.Component {
           onCommentPost={this.onCommentPostClick.bind(this)}
           onLikeDislikeClick={this.onCommentLikeDislikeClick.bind(this)}
           onShowMoreCommentsClick={this.onShowMoreCommentsClick.bind(this)}
+          onLeftNavBtnClicked={this.onLeftNavBtnClick.bind(this)}
       />
 
     );

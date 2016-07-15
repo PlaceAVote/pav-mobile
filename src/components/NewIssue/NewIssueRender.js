@@ -33,7 +33,7 @@ import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
 import InputUrlModalBox from '../Modals/InputUrlModalBox';
 import SearchModalBox from '../Modals/SearchModalBox';
-
+import NavBarRender from '../NavBar/NavBarRender';
 
 /**
  * The states were interested in
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     flexDirection: 'column',
-    paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+    // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
     // backgroundColor: 'orange',
     // marginVertical: 10,
     // marginHorizontal:15
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     paddingLeft:w*0.028,
   },
   xIcon:{
+    // paddingBottom:3,
     color:Colors.negativeAccentColor
   },
 
@@ -463,7 +464,13 @@ class NewIssueRender extends React.Component {
       <View
       style={styles.container}>
 
-
+      <NavBarRender
+      title="New Issue"
+      rightIconName="close"
+      rightIconSize={28}
+      rightIconStyle={styles.xIcon}
+      onRightIconPressed={this.props.onRightNavBtnClicked}
+      />
 
       <View style={[styles.headerTextContainer,( Platform.OS === 'ios')?styles.headerTextContainerShadowiOS:styles.headerTextContainerShadowAndroid]}>
         <View style={styles.createAnIssueTextContainer}>
@@ -477,9 +484,9 @@ class NewIssueRender extends React.Component {
             source={{uri: this.props.userPhotoUrl}}
             resizeMode='cover'
           />
-          <TouchableOpacity style={styles.xIconContainer} onPress={this.close.bind(this)}>
+          {/*<TouchableOpacity style={styles.xIconContainer} onPress={this.close.bind(this)}>
             <PavIcon name="close" size={19} style={styles.xIcon}/>
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </View>
       </View>
 
@@ -638,5 +645,6 @@ NewIssueRender.propTypes= {
   onIssuePost: React.PropTypes.func.isRequired,
   onRelatedArticleClicked: React.PropTypes.func.isRequired,
   onRelatedBillClicked: React.PropTypes.func.isRequired,
+  onRightNavBtnClicked: React.PropTypes.func.isRequired,
 };
 export default NewIssueRender;

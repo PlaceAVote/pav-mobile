@@ -211,6 +211,11 @@ class Bill extends React.Component {
     }
   }
 
+
+  onLeftNavBtnClick(){
+    this.props.actions.navigateToPrevious();
+  }
+
   render() {
     // console.log("Bill visible: "+(this.props.name==this.props.router.currentSchene)+" because name: "+this.props.name+" and cur: "+this.props.router.currentSchene);
     return(
@@ -231,6 +236,7 @@ class Bill extends React.Component {
           onCommentLikeDislikeClick={this.onCommentLikeDislikeClick.bind(this)}
           onCommentPost={this.onCommentPost.bind(this)}
           onShowMoreCommentsClick={this.onShowMoreCommentsClick.bind(this)}
+          onLeftNavBtnClicked={this.onLeftNavBtnClick.bind(this)}
       />
 
     );

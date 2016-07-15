@@ -23,7 +23,7 @@ import PavSpinner from '../../lib/UI/PavSpinner'
 
 import SubcommentContainerListCard from '../Cards/BillCards/SubcommentContainerListCard';
 import {List} from 'immutable';
-
+import NavBarRender from '../NavBar/NavBarRender';
 
 
 
@@ -56,7 +56,7 @@ class CommentsRender extends React.Component {
         backgroundColor: 'white',
         flex:1,
         flexDirection: 'column',
-        paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+        // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
         // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
         // marginVertical: 10,
         // marginHorizontal:15
@@ -177,6 +177,11 @@ class CommentsRender extends React.Component {
     if(this.props.replies!=null && this.props.billData!=null && this.props.commentLvl!=null){
       return(
         <View style={styles.container}>
+          <NavBarRender
+          title="Comments"
+          leftIconIsBack={true}
+          onLeftIconPressed={this.props.onLeftNavBtnClicked}
+          />
           <SubcommentContainerListCard
             header={this.renderHeader.bind(this,this.props.billData, Platform.OS, styles)}
             style={styles.commentsPageContainer}
@@ -241,5 +246,6 @@ CommentsRender.propTypes = {
   onLikeDislikeClick: React.PropTypes.func.isRequired,
   onCommentPost: React.PropTypes.func.isRequired,
   onCommentsRefresh: React.PropTypes.func.isRequired,
+  onLeftNavBtnClicked: React.PropTypes.func.isRequired,
 }
 export default CommentsRender;

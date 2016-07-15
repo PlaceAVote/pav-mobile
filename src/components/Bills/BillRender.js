@@ -43,7 +43,7 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 import PavSpinner from '../../lib/UI/PavSpinner'
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
-
+import NavBarRender from '../NavBar/NavBarRender';
 /**
 * Icons library
 */
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex:1,
     flexDirection: 'column',
-    paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+    // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
 
     // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
 
@@ -523,6 +523,11 @@ class BillRender extends React.Component {
     }
     return(
       <View style={styles.container}>
+        <NavBarRender
+        title="Bill"
+        leftIconIsBack={true}
+        onLeftIconPressed={this.props.onLeftNavBtnClicked}
+        />
         <View style={styles.billContainer}>
           {this.renderHeader(billData, Platform.OS)}
           {this.renderBody({
@@ -578,5 +583,6 @@ BillRender.propTypes= {
   onShowMoreCommentsClick: React.PropTypes.func.isRequired,
   onCommentPost: React.PropTypes.func.isRequired,
   onTagPress: React.PropTypes.func.isRequired,
+  onLeftNavBtnClicked: React.PropTypes.func.isRequired,
 };
 export default BillRender;

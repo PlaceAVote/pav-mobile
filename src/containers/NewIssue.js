@@ -249,6 +249,7 @@ class NewIssue extends React.Component {
           onRelatedBillClicked={this.onRelatedBillClicked.bind(this)}
           onClose={this.onClose.bind(this)}
           onUrlAttached={this.onUrlAttached.bind(this)}
+          onRightNavBtnClicked={this.onClose.bind(this)}
       />
     );
   }
