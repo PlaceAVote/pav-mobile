@@ -8,6 +8,8 @@
  *
  */
 'use strict';
+import CrashReporter from '../../lib/Utils/crashReporter';
+
 import {ActionNames, ScheneKeys, Modals} from '../../config/constants';
 import {LoginManager, AccessToken, GraphRequestManager, GraphRequest} from 'react-native-fbsdk';
 import moment from 'moment';
@@ -236,12 +238,16 @@ export function validateToken(sessionToken=null, dev = null) {
         return null;
       }
     }else{
+
+      let userInfo = (await new UserInfoStore().getOrReplaceUserInfo() || {user_id:"", first_name:"", email:"", last_name:"", city:""});
+      // console.log("@@@@@@@@:::: USER info in persistence : "+JSON.stringify(userInfo))
+      CrashReporter().setIdentifier(userInfo.user_id, userInfo.email, userInfo.first_name+" "+userInfo.last_name);
       dispatch(validateTokenSuccess(res.data));
-      let userInfo = (await new UserInfoStore().getOrReplaceUserInfo() || {user_id:"", first_name:"", city:""});
-      // console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
       dispatch(loginSuccess({
         user_id:userInfo.user_id || "",
         first_name:userInfo.first_name || "",
+        email:userInfo.email || "",
+        last_name:userInfo.last_name || "",
         city:userInfo.city || ""
       }));
       return res.data;
@@ -375,12 +381,13 @@ export function signup(email, password, first_name, last_name, dayOfBirth, zipco
     }else{
       // console.log("Signup success");
 
-      let userInfo = {user_id:res.data.user_id, first_name:first_name, city:res.data.city || res.data.address};
+      let userInfo = {user_id:res.data.user_id, email: email, first_name:first_name, last_name:last_name, city:res.data.city || res.data.address};
       saveSessionTokenAndBasicInfo(res.data.token, userInfo);
       dispatch(signupSuccess(Object.assign({}, res.data,
   			{
   			  email: email,
-          first_name: first_name
+          first_name: first_name,
+          last_name:last_name,
   			},
         userInfo
       )));
@@ -477,9 +484,11 @@ export function loginFailure(error) {
           }
           // console.log("Login gave us the token"+res.data.token);
 
-          let userInfo = {user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address};
+          let userInfo = {user_id:res.data.user_id, email: res.data.email, first_name:res.data.first_name, last_name:res.data.last_name, city:res.data.city || res.data.address};
           saveSessionTokenAndBasicInfo(res.data.token, userInfo);
           // console.log("@@@@@@@@:::: "+JSON.stringify(userInfo))
+
+          CrashReporter().setIdentifier(res.data.user_id, email, res.data.first_name+" "+res.data.last_name);
           dispatch(loginSuccess(userInfo));
           return res.data;
         }
@@ -547,9 +556,10 @@ export function loginFacebook(facebookUserId,  facebookAccessToken, dev=null) {
     }else{
       // alert("Good that was right, the cake was a lie though..");
       // console.log(res.data.token);
-      let userInfo = {user_id:res.data.user_id, first_name:res.data.first_name, city:res.data.city || res.data.address};
+      let userInfo = {user_id:res.data.user_id, email:res.data.email, first_name:res.data.first_name, last_name:res.data.last_name, city:res.data.city || res.data.address};
       console.log("@@@ FB "+res.data.user_id);
       saveSessionTokenAndBasicInfo(res.data.token, userInfo);
+      CrashReporter().setIdentifier(res.data.user_id, res.data.email, res.data.first_name+" "+res.data.last_name);
       dispatch(facebookLoginSuccess(userInfo));
       return res.data;
     }
@@ -696,10 +706,11 @@ export function facebookSignupFailure(error) {
        }
      }else{
          // console.log("Signup success");
-        let userInfo = {user_id:res.data.user_id, first_name:firstName, city:res.data.city || res.data.address};
+        let userInfo = {user_id:res.data.user_id, email: email, first_name:firstName, last_name:lastName, city:res.data.city || res.data.address};
         curUser = Object.assign({}, res.data,
         {
             email: email,
+            last_name:lastName,
             first_name: firstName
         },
         userInfo);
@@ -1047,7 +1058,7 @@ export function deleteSessionTokenAndBasicInfo() {
 
 export function getBasicUserInfo(){
   return async function (dispatch, getState){
-    let userInfo = ((await new UserInfoStore().getOrReplaceUserInfo()) || {user_id:"", first_name:"", city:""});
+    let userInfo = ((await new UserInfoStore().getOrReplaceUserInfo()) || {user_id:"", first_name:"", last_name:"", email:"", city:""});
 
     return userInfo;
   }

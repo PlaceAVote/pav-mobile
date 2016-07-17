@@ -27,15 +27,16 @@ class AnalyticsReporter {
     //Singleton pattern, see here(http://amanvirk.me/singleton-classes-in-es6/)
     if(!instance){
       instance = this;
-    }
-    // alert("Done")
-    GoogleAnalytics.setTrackerId(GOOGLE_ANALYTICS_ID)
-    // GoogleAnalytics.setUser(props.userId)
-    GoogleAnalytics.setAppName("PlaceAVote")
+      // alert("Done")
+      GoogleAnalytics.setTrackerId(GOOGLE_ANALYTICS_ID)
+      // GoogleAnalytics.setUser(props.userId)
+      GoogleAnalytics.setAppName("PlaceAVote")
 
-    // let stopTracking = false;
-    // GoogleAnalytics.setDryRun(stopTracking);
-    GoogleAnalytics.setDispatchInterval(70);
+      // let stopTracking = false;
+      // GoogleAnalytics.setDryRun(stopTracking);
+      GoogleAnalytics.setDispatchInterval(70);
+    }
+
     return instance;
   }
 

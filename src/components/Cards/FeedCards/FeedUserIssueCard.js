@@ -45,7 +45,7 @@ import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 const styles = StyleSheet.create({
 
   cardContainer:{
-    flex: 1,
+    // flex: 1,
     alignItems: 'stretch',
     // backgroundColor: 'pink',
     paddingHorizontal: 7,
@@ -86,9 +86,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Whitney-Bold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
+  cardDateTextContainer:{
+    paddingHorizontal: 5,
+  },
   cardDateText:{
     // backgroundColor: 'red',
-    paddingHorizontal: 5,
     // color: Colors.thirdTextColor,
     color: 'rgba(0, 0, 0, 0.60)',
     fontFamily: 'Whitney-SemiBold',
@@ -151,7 +153,8 @@ const styles = StyleSheet.create({
     // backgroundColor:'green',
     justifyContent:'center',
     // paddingVertical: h*0.01
-    paddingVertical:h*0.0165,
+    paddingTop:h*0.0175,
+    paddingBottom:h*0.020,
   },
 
   relatedBillContainer:{
@@ -188,9 +191,10 @@ const styles = StyleSheet.create({
   },
   cardFooterTextContainer:{
     paddingHorizontal:w*0.008,
+    // backgroundColor:'pink'
   },
   cardFooterText:{
-    flex:1,
+    // flex:1,
     // backgroundColor:'green',
     fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(9),
@@ -384,7 +388,9 @@ class FeedUserIssueCard extends React.Component {
         </View>
         <Text style={styles.userIssueTitleActionStaticText}>Issue</Text>
       </View>
-      <Text style={styles.cardDateText}>{this.props.timeString}</Text>
+      <View style={styles.cardDateTextContainer}>
+        <Text style={styles.cardDateText}>{this.props.timeString}</Text>
+      </View>
     </View>);
   }
 
@@ -429,7 +435,7 @@ class FeedUserIssueCard extends React.Component {
 
     if(count>0){
       return (<View style={[styles.reactionIconContainer, userVotedThis?styles.userVotedContainerView:styles.othersVotedContainerView]}>
-        <PavIcon name={type} size={19} style={[styles.reactionIcon, userVotedThis?styles.userVotedReactionIcon:styles.othersVotedReactionIcon]}/>
+        <PavIcon name={type} size={18} style={[styles.reactionIcon, userVotedThis?styles.userVotedReactionIcon:styles.othersVotedReactionIcon]}/>
         <View style={styles.reactionCountTextContainer}>
           <Text style={[ styles.reactionCountText, userVotedThis?styles.userVotedText:styles.othersVotedText]}>
             {count+" "}
@@ -438,7 +444,7 @@ class FeedUserIssueCard extends React.Component {
       </View>);
     }else{
       return (<View style={styles.zeroCntreactionIconContainer}>
-        <PavIcon name={type} size={19} style={styles.reactionIcon}/>
+        <PavIcon name={type} size={18} style={styles.reactionIcon}/>
       </View>);
     }
 

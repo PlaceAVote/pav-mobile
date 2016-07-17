@@ -7,7 +7,9 @@ import RNBugsnag from 'react-native-bugsnag';
 
 
 
-
+export default (props)=>{
+  return new CrashReporter(props);
+}
 
 /*
   * The instance of our singleton
@@ -15,7 +17,7 @@ import RNBugsnag from 'react-native-bugsnag';
   * , set's to null by default.
 */
 let instance = null;
-export default class CrashReporter {
+class CrashReporter {
   /**
    * ## Constructor
    */
@@ -24,10 +26,15 @@ export default class CrashReporter {
     //Singleton pattern, see here(http://amanvirk.me/singleton-classes-in-es6/)
     if(!instance){
       instance = this;
+      RNBugsnag(props);
     }
 
-    RNBugsnag(props);
+
     return instance;
+  }
+
+  setIdentifier(id, email, fullName){
+    RNBugsnag().setIdentifier(id, email, fullName);
   }
 
 };
