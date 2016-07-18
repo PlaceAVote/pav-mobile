@@ -205,6 +205,7 @@ class CardFactory extends React.Component {
 
     let n = this.props.itemData;
     let u = this.props.curUser;
+    console.log("renderNewsFeedCards: "+JSON.stringify(n))
     switch(n.type){
       case "userissue":
       // console.log("Real comment is: "+JSON.stringify(n));
@@ -270,7 +271,7 @@ class CardFactory extends React.Component {
 
         case "bill":
         default:
-        // console.log("COMENT CARD: "+JSON.stringify(n))
+        // console.log("FeedBillCard: "+JSON.stringify(n))
           let yesCount = n["yes-count"], noCount = n["no-count"];
           let favorPercent = -1;
           if((yesCount+noCount)!=0){
@@ -292,12 +293,27 @@ class CardFactory extends React.Component {
     }
   }
 
+
+  renderTrendingCards(){
+    let n = this.props.itemData;
+    let u = this.props.curUser;
+    return (
+      <View>
+        <Text>
+          Trending card
+        </Text>
+      </View>
+    )
+  }
+
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
     switch (this.props.type){
+      case "trending":
+        return this.renderTrendingCards();
       case "profile":
         return this.renderProfileCards();
       case "newsfeed":

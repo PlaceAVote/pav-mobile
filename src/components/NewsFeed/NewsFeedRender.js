@@ -26,8 +26,8 @@ import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-
-
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import PavTabBar from '../ScrollerTabBar/PavTabBar';
 
 /**
 * Icons library
@@ -64,16 +64,14 @@ const styles = StyleSheet.create({
         container: {
           flex:1,
           flexDirection: 'column',
+          backgroundColor: '#E8E7EE',
           // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
           paddingBottom:50, //tab bar height
           // backgroundColor: 'orange',
           // marginVertical: 10,
           // marginHorizontal:15
         },
-        scrollView:{
-          flex:1,
-          backgroundColor: '#E8E7EE',
-        },
+
         headerView:{
           paddingTop:h*0.02,
           paddingHorizontal:w*0.016,
@@ -88,6 +86,33 @@ const styles = StyleSheet.create({
           alignItems:'center',
           // backgroundColor:'red'
         },
+
+
+        tabContainer:{
+          // backgroundColor:'yellow',
+          ...Platform.select({
+             ios: {
+               marginBottom:5,
+               shadowColor: 'rgba(0, 0, 0, 0.3)',
+               shadowOpacity: 0.8,
+               shadowRadius: 2,
+               shadowOffset: {
+                 height: 1,
+                 width: 5,
+               },
+             },
+             android: {
+               elevation:2.5,
+             },
+           }),
+
+        },
+        tabText:{
+          paddingHorizontal: w*0.009,
+          fontSize: getCorrectFontSizeForScreen(8),
+          color: Colors.thirdTextColor,
+          textAlign:'center',
+        },
 });
 
 
@@ -99,138 +124,22 @@ class NewsFeedRender extends React.Component {
     // this._swipeDetected = false;
   }
 
-  // componentWillMount() {
-    // this._panResponder = PanResponder.create({
-    //   // Ask to be the responder:
-    //   onMoveShouldSetPanResponder: (evt, gestureState) => {
-    //     // console.log("DX: "+gestureState.dx)
-    //     if(gestureState.dx>50){
-    //       this.onSwipeRight()
-    //     }else if(gestureState.dx<-50){
-    //       this.onSwipeLeft()
-    //     }
-    //     return false;
-    //   },
-    //   onMoveShouldSetPanResponderCapture:()=>false
-    //
-    // });
-  // }
-  // async pauseSwiping(){
-  //   await timeout(5000);
-  //   this._swipeDetected = false;
-  // }
-  // onSwipeLeft(){
-  //   if(this._swipeDetected === false){
-  //     this._swipeDetected = true;
-  //     console.log("On swipe left" + this.props.newsFeedData.curSelectedFilter);
-  //     if(this.props.newsFeedData.curSelectedFilter==NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER){
-  //         this.props.onFilterBtnClick(NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER)
-  //     }
-  //     this.pauseSwiping();
-  //   }
-  // }
-  // onSwipeRight(){
-  //   if(this._swipeDetected === false){
-  //     this._swipeDetected = true;
-  //     console.log("On swipe right" + this.props.newsFeedData.curSelectedFilter);
-  //     if(this.props.newsFeedData.curSelectedFilter==NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER){
-  //         this.props.onFilterBtnClick(NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER)
-  //     }
-  //     this.pauseSwiping();
-  //   }
-  // }
 
-
-
-  /*
-  BODY - FEED
-  */
-  renderNewsFeedBody(data){
-
-    let {
-      filterName,
-      topicName,
-      isFetchingFeed,
-      isFetchingOlderFeedData,
-      feedData,
-      isFetchingDiscovery,
-      discoveryData
-    }= data;
-    // console.log("RenderNewsFeedBody Ran with filterName: "+filterName+" while data "+(dataReady==true?"WAS ready.":"was NOT ready."))
-
-      let dataReady=false;
-
-      switch(filterName){
+  componentWillReceiveProps(nextProps){
+    let nextFilter = nextProps.curSelectedFilter;
+    if (nextFilter!=null &&  nextFilter!=this.props.curSelectedFilter) {
+      switch(nextFilter){
         case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
-        case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
-        case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
-          // console.log("Data ready? :"+(isFetchingFeed===false)+(feedData!=null))
-          dataReady= (isFetchingFeed===false && feedData!=null)
-          // if(dataReady==true){
-            return(
-              <ActivityFeedRender
-              key="bodyContainerView"
-              feedData={feedData}
-              device={this.props.device}
-              curUser={this.props.curUser}
-              type="feed"
-              curFilter={filterName}
-              curTopic={topicName}
-              oldDataBeingFetched={isFetchingOlderFeedData}
-              beingRefreshed={(dataReady===false)}
-              onRefresh={this.props.onFeedRefresh}
-              onUserClick={this.props.onUserClick}
-              onBillClick={this.props.onBillClick}
-              onLikeDislikeClick={this.props.onLikeDislikeClick}
-              onReplyClick={this.props.onReplyClick}
-              onReactionClick={this.props.onReactionClick}
-              onCommentClick={this.props.onCommentClick}
-              onSocialClick={this.props.onSocialClick}
-              onFetchMoreItems={this.props.onFetchMoreItems}
-             />);
-          // }else{
-          //   return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}></View>);
-          // }
+          this.refs.scrollableNewsFeedTab.goToPage(0);
+          break;
         case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
-          dataReady = (isFetchingDiscovery===false && discoveryData!=null)
-          return(
-            <DiscoveryFeedRender
-              key="bodyContainerView"
-              topicList={this.props.topicList.toJS()}
-              onTopicSelected={this.props.onTopicSelect}
-              discoveryData={discoveryData}
-              device={this.props.device}
-              curUser={this.props.curUser}
-              curFilter={filterName}
-              curTopic={topicName}
-              oldDataBeingFetched={false}
-              beingRefreshed={(dataReady===false)}
-              onRefresh={this.props.onDiscoveryRefresh}
-              onUserClick={this.props.onUserClick}
-              onBillClick={this.props.onBillClick}
-              onLikeDislikeClick={this.props.onLikeDislikeClick}
-              onReplyClick={this.props.onReplyClick}
-              onReactionClick={this.props.onReactionClick}
-              onCommentClick={this.props.onCommentClick}
-              onSocialClick={this.props.onSocialClick}
-              onFetchMoreItems={this.props.onFetchMoreItems}
-              />
-            );
-
-          // return (
-          //   <SearchFeedRender
-          //     key="bodyContainerView"
-          //     device={this.props.device}
-          //     beingRefreshed={!dataReady}
-          //     onBillClick={this.props.onBillClick}
-          //   />);
-        case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
-          return (<View  key="bodyContainerView" style={styles.bodyLoadingContainer}><Text>Statistics page not ready yet</Text></View>);
+          this.refs.scrollableNewsFeedTab.goToPage(1);
+          break;
+        default:
+          break;
       }
+    }
   }
-
-
-
 
 
 
@@ -241,6 +150,21 @@ class NewsFeedRender extends React.Component {
    */
   render() {
     // {...this._panResponder.panHandlers}
+
+
+    /*
+    renderTabBar={() =>
+      <BillTabBar
+        underlineColor={Colors.negativeAccentColor}
+        activeTextColor={Colors.primaryColor}
+        inactiveTextColor={Colors.primaryColor}
+        backgroundColor='rgba(255, 255, 255, 0.85)'
+        textStyle={styles.tabText}
+      />}
+    */
+
+    // this.refs.scrollableNewsFeedTab.goToPage(1)
+
     return(
         <View style={styles.container}>
           <NavBarRender
@@ -252,32 +176,70 @@ class NewsFeedRender extends React.Component {
           rightIconSize={25}
           onRightIconPressed={this.props.onRightNavBtnClicked}
           />
-          <View
-          style={styles.scrollView}
 
 
+
+
+          <ScrollableTabView
+            ref="scrollableNewsFeedTab"
+            onChangeTab={({i, ref}) => {
+              console.log("Tab changed: "+i);
+            }}
+            renderTabBar={() =>
+              <PavTabBar
+                underlineColor={Colors.negativeAccentColor}
+                activeTextColor={Colors.primaryColor}
+                inactiveTextColor={Colors.primaryColor}
+                backgroundColor='rgba(255, 255, 255, 0.85)'
+                textStyle={styles.tabText}
+                style={styles.tabContainer}
+              />}
+              style={styles.pagesContainer}
           >
-            <FiltersRender
-              topicList={this.props.topicList.toJS()}
-              curSelectedTopic={this.props.newsFeedData.curSelectedTopic}
-              curSelectedFilter={this.props.newsFeedData.curSelectedFilter}
-              onFilterBtnClick={this.props.onFilterBtnClick}
-              onTopicBtnClick={this.props.onTopicBtnClick}
-              user={this.props.curUser.firstName}
-              style={styles.headerView}
-            />
+            <ActivityFeedRender
+            key="ActivityFeedRender"
+            tabLabel="Activity Feed"
+            feedData={this.props.newsFeedItems}
+            device={this.props.device}
+            curUser={this.props.curUser}
+            type="feed"
+            curFilter={this.props.curSelectedFilter}
+            oldDataBeingFetched={this.props.isFetchingOlderNewsFeedData}
+            beingRefreshed={((this.props.isFetchingNewsFeedData===false && this.props.newsFeedItems!=null)===false)}
+            onRefresh={this.props.onFeedRefresh}
+            onUserClick={this.props.onUserClick}
+            onBillClick={this.props.onBillClick}
+            onLikeDislikeClick={this.props.onLikeDislikeClick}
+            onReplyClick={this.props.onReplyClick}
+            onReactionClick={this.props.onReactionClick}
+            onCommentClick={this.props.onCommentClick}
+            onSocialClick={this.props.onSocialClick}
+            onFetchMoreItems={this.props.onFetchMoreItems}
+           />
 
-            {this.renderNewsFeedBody(
-              {
-                filterName: this.props.newsFeedData.curSelectedFilter,
-                topicName:this.props.newsFeedData.curSelectedTopic,
-                isFetchingFeed: this.props.isFetchingNewsFeedData,
-                isFetchingOlderFeedData: this.props.isFetchingOlderNewsFeedData,
-                feedData: this.props.newsFeedData.itemsAfterFiltration,
-                isFetchingDiscovery: this.props.isFetchingDiscoveryData,
-                discoveryData: this.props.newsFeedData.discoveryItems
-              })}
-          </View>
+           <DiscoveryFeedRender
+             key="DiscoveryFeedRender"
+             tabLabel="Discovery Feed"
+             topicList={this.props.topicList.toJS()}
+             trendingItems={this.props.trendingItems}
+             device={this.props.device}
+             curUser={this.props.curUser}
+             curFilter={this.props.curSelectedFilter}
+             oldDataBeingFetched={false}
+             beingRefreshed={(this.props.isFetchingTrendingData===true)}
+             onRefresh={this.props.onDiscoveryRefresh}
+             onUserClick={this.props.onUserClick}
+             onBillClick={this.props.onBillClick}
+             onLikeDislikeClick={this.props.onLikeDislikeClick}
+             onReplyClick={this.props.onReplyClick}
+             onReactionClick={this.props.onReactionClick}
+             onCommentClick={this.props.onCommentClick}
+             onSocialClick={this.props.onSocialClick}
+             onFetchMoreItems={this.props.onFetchMoreItems}
+             />
+
+         </ScrollableTabView>
+
 
           <SearchModalBox
           isOpen={this.props.searchModalVisible}
@@ -319,8 +281,6 @@ class NewsFeedRender extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     // console.log("@@@@@@@@@@@@@@@@@@@@");
-    // console.log("SHOULD THE COMPONENT UPDATE (curTopic):: "+(nextProps.newsFeedData.curSelectedTopic !== this.props.newsFeedData.curSelectedTopic));
-    // console.log("SHOULD THE COMPONENT UPDATE (newsFeedData):: "+(nextProps.newsFeedData !== this.props.newsFeedData));
     // console.log("@@@@@@@@@@@@@@@@@@@@");
     return(
       (nextProps.curUser !== this.props.curUser)
@@ -329,9 +289,11 @@ class NewsFeedRender extends React.Component {
       ||
       (nextProps.isFetchingOlderNewsFeedData !== this.props.isFetchingOlderNewsFeedData)
       ||
-      (nextProps.isFetchingDiscoveryData !== this.props.isFetchingDiscoveryData)
+      (nextProps.isFetchingTrendingData !== this.props.isFetchingTrendingData)
       ||
-      (nextProps.newsFeedData !== this.props.newsFeedData)
+      (nextProps.newsFeedItems !== this.props.newsFeedItems)
+      ||
+      (nextProps.trendingData !== this.props.trendingData)
       ||
       (nextProps.searchModalVisible !== this.props.searchModalVisible)
       ||
@@ -344,14 +306,15 @@ class NewsFeedRender extends React.Component {
   }
 }
 NewsFeedRender.propTypes= {
-  //TODO: Fill this
 
-  newsFeedData: React.PropTypes.object.isRequired,
+  newsFeedItems: React.PropTypes.object,
+  trendingItems: React.PropTypes.object,
+  curSelectedFilter: React.PropTypes.string.isRequired,
+
   curUser: React.PropTypes.object.isRequired,
-  topicList: React.PropTypes.object.isRequired,
   isFetchingNewsFeedData: React.PropTypes.bool.isRequired,
   isFetchingOlderNewsFeedData: React.PropTypes.bool.isRequired,
-  isFetchingDiscoveryData: React.PropTypes.bool.isRequired,
+  isFetchingTrendingData: React.PropTypes.bool.isRequired,
 
   onLeftNavBtnClicked: React.PropTypes.func.isRequired,
   onRightNavBtnClicked: React.PropTypes.func.isRequired,
@@ -362,6 +325,7 @@ NewsFeedRender.propTypes= {
   showBillSearchModal: React.PropTypes.func.isRequired,
   hideBillSearchModal: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
+  onFilterChanged: React.PropTypes.func.isRequired,
 
 }
 

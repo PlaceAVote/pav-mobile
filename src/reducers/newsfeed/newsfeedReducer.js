@@ -29,6 +29,10 @@ const {
   GET_DISCOVERY_SUCCESS,
   GET_DISCOVERY_FAILURE,
 
+  GET_TRENDING_REQUEST,
+  GET_TRENDING_SUCCESS,
+  GET_TRENDING_FAILURE,
+
   UPDATE_ITEMS,
 
   REACT_TO_ISSUE_REQUEST,
@@ -88,15 +92,26 @@ export default function newsfeedReducer(state = initialState, action) {
     case DISLIKE_COMMENT_FEED_REQUEST:
     case REACT_TO_ISSUE_REQUEST:
     case DEL_REACTION_FROM_ISSUE_REQUEST:
-    return state.setIn([ 'newsFeedDataBeingAltered'], true)
-    .setIn(['error'],null);
+      return state.setIn([ 'newsFeedDataBeingAltered'], true)
+      .setIn(['error'],null);
+
+    case GET_TRENDING_REQUEST:
+      return state.setIn([ 'isFetching', 'trendingData'], true)
+      .setIn(['error'],null);
+
+    case GET_TRENDING_SUCCESS:
+      return state.setIn([ 'isFetching', 'trendingData'], false)
+      .setIn([ 'newsFeedData', 'trendingItems'], Immutable.fromJS(action.payload.data))
+      .setIn(['error'],null);
 
 
-
+    case GET_TRENDING_FAILURE:
+      return state.setIn([ 'isFetching', 'trendingData'], false)
+      .setIn(['error'], action.payload);
 
     case SCRAPE_URL_FAILURE:
       return state.setIn([ 'isFetching', 'scrapeUrlData'], false)
-      .setIn(['error'],action.payload);
+      .setIn(['error'], action.payload);
 
 
     case NEW_ISSUE_FAILURE:
@@ -122,27 +137,27 @@ export default function newsfeedReducer(state = initialState, action) {
 
     case DEL_REACTION_FROM_ISSUE_SUCCESS:
     case REACT_TO_ISSUE_SUCCESS:
-    let {containingArray, foundObjectRef} = findFeedItem(state.newsFeedData.items.toJS(), "userissue", "issue_id", action.payload.parentIssueId)
-    let {emotional_response, positive_responses, negative_responses, neutral_responses} = action.payload.data;
-    let newResponse =  emotional_response || "none";
-    let oldResponse = foundObjectRef.emotional_response;
-    // console.log("newResponse found: "+newResponse);
-    foundObjectRef.emotional_response = newResponse;
-    if(positive_responses!=null){
-      foundObjectRef.positive_responses = positive_responses;
-    }
-    if(negative_responses!=null){
-      foundObjectRef.negative_responses = negative_responses;
-    }
-    if(neutral_responses!=null){
-      foundObjectRef.neutral_responses = neutral_responses;
-    }
+      let {containingArray, foundObjectRef} = findFeedItem(state.newsFeedData.items.toJS(), "userissue", "issue_id", action.payload.parentIssueId)
+      let {emotional_response, positive_responses, negative_responses, neutral_responses} = action.payload.data;
+      let newResponse =  emotional_response || "none";
+      let oldResponse = foundObjectRef.emotional_response;
+      // console.log("newResponse found: "+newResponse);
+      foundObjectRef.emotional_response = newResponse;
+      if(positive_responses!=null){
+        foundObjectRef.positive_responses = positive_responses;
+      }
+      if(negative_responses!=null){
+        foundObjectRef.negative_responses = negative_responses;
+      }
+      if(neutral_responses!=null){
+        foundObjectRef.neutral_responses = neutral_responses;
+      }
 
-    return state.setIn([ 'newsFeedDataBeingAltered'], false)
-    .setIn(['error'],null)
-    .setIn(['newsFeedData', 'items'], Immutable.fromJS(containingArray));
-    // .setIn(['error'],null);
-    break;
+      return state.setIn([ 'newsFeedDataBeingAltered'], false)
+      .setIn(['error'],null)
+      .setIn(['newsFeedData', 'items'], Immutable.fromJS(containingArray));
+      // .setIn(['error'],null);
+      break;
 
     case DISLIKE_COMMENT_FEED_SUCCESS:
     case LIKE_COMMENT_FEED_SUCCESS:
@@ -165,17 +180,17 @@ export default function newsfeedReducer(state = initialState, action) {
         .setIn(['error'],null);
       }
     case GET_DISCOVERY_REQUEST:
-      return state.setIn([ 'isFetching', 'discoveryData'], true)
+      return state.setIn([ 'isFetching', 'trendingData'], true)
       .setIn(['error'],null);
 
     case GET_DISCOVERY_SUCCESS:
-      return state.setIn([ 'isFetching', 'discoveryData'], false)
+      return state.setIn([ 'isFetching', 'trendingData'], false)
       .setIn(['error'],null)
       .setIn([ 'newsFeedData', 'discoveryItems', action.payload.topic], Immutable.fromJS(action.payload.data))
-      .setIn([ 'newsFeedData', 'discoveryAfterFiltration'], Immutable.fromJS(action.payload.data));
+      // .setIn([ 'newsFeedData', 'discoveryAfterFiltration'], Immutable.fromJS(action.payload.data));
 
     case GET_DISCOVERY_FAILURE:
-      return state.setIn([ 'isFetching', 'discoveryData'], false)
+      return state.setIn([ 'isFetching', 'trendingData'], false)
       .setIn(['error'], action.payload);
 
 
@@ -200,7 +215,7 @@ export default function newsfeedReducer(state = initialState, action) {
       .setIn(['error'],null)
       .setIn([ 'newsFeedData', 'lastFeedItemTimeStamp'], action.payload.data.last_timestamp)
       .setIn([ 'newsFeedData', 'items'], Immutable.fromJS(action.payload.data.results))
-      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], Immutable.fromJS(action.payload.data.results));
+      // .setIn([ 'newsFeedData', 'itemsAfterFiltration'], Immutable.fromJS(action.payload.data.results));
     }else{
       let oldItems = state.newsFeedData.items;
       let newItems = oldItems.concat(Immutable.fromJS(action.payload.data.results));
@@ -209,7 +224,7 @@ export default function newsfeedReducer(state = initialState, action) {
       .setIn([ 'isFetching', 'olderNewsFeedData'], false)
       .setIn([ 'newsFeedData', 'lastFeedItemTimeStamp'], action.payload.data.last_timestamp)
       .setIn([ 'newsFeedData', 'items'], newItems)
-      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], newItems);
+      // .setIn([ 'newsFeedData', 'itemsAfterFiltration'], newItems);
     }
 
     case GET_FEED_FAILURE:
@@ -234,7 +249,7 @@ export default function newsfeedReducer(state = initialState, action) {
     case UPDATE_ITEMS:
       return state
       // .setIn([ 'isFetching', 'newsFeedData'], false)
-      .setIn([ 'newsFeedData', 'itemsAfterFiltration'], Immutable.fromJS(action.payload.items))
+      .setIn([ 'newsFeedData', 'items'], Immutable.fromJS(action.payload.items))
       .setIn(['newsFeedData', 'curSelectedFilter'], action.payload.filterName);
 
 

@@ -28,6 +28,7 @@ var InitialState = Record({
     newsFeedData: false,
     olderNewsFeedData: false,
     discoveryData: false,
+    trendingData: false,
     postingNewIssue: false,
     scrapeUrlData: false
   })),
@@ -37,9 +38,8 @@ var InitialState = Record({
     curSelectedFilter: NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER,
     curSelectedTopic : TOPICS.TRENDING,
     items: null,
-    itemsAfterFiltration: null,
     lastFeedItemTimeStamp: null,
-
+    trendingItems: null,
 
     discoveryItems: new Map([
       [TOPICS.TRENDING, null],
@@ -56,7 +56,6 @@ var InitialState = Record({
       [TOPICS.GUN_RIGHTS, null],
       [TOPICS.ECONOMICS, null],
     ]),
-    discoveryAfterFiltration: null,
 
   }))
 });

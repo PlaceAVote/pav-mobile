@@ -29,6 +29,10 @@ const {
   GET_DISCOVERY_SUCCESS,
   GET_DISCOVERY_FAILURE,
 
+  GET_TRENDING_REQUEST,
+  GET_TRENDING_SUCCESS,
+  GET_TRENDING_FAILURE,
+
   GET_FEED_REQUEST,
   GET_FEED_SUCCESS,
   GET_FEED_FAILURE,
@@ -66,10 +70,10 @@ const {NEWS_FEED_FILTERS, TOPICS} = Other;
 
 
 
-function updateItems(itemsAfterFiltration) {
+function updateItems(items) {
   return {
     type: UPDATE_ITEMS,
-    payload: itemsAfterFiltration
+    payload: items
   };
 }
 
@@ -260,12 +264,8 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
       dispatch(getDiscoveryFailure(e.message));
     }
 
-    let res = null;
-    if(topicsString==TOPICS.TRENDING){
-      res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getTrendingBills();
-    }else{
-      res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBillsByTag({tag:topicsString});
-    }
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBillsByTag({tag:topicsString});
+
     console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
@@ -284,6 +284,62 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
 
 
 
+
+
+/**
+ * ## retreiving newsfeed actions
+ */
+export function getTrendingRequest() {
+  return {
+    type: GET_TRENDING_REQUEST
+  };
+}
+export function getTrendingSuccess(json) {
+  return {
+    type: GET_TRENDING_SUCCESS,
+    payload: json
+  };
+}
+export function getTrendingFailure(json) {
+  return {
+    type: GET_TRENDING_FAILURE,
+    payload: json
+  };
+}
+/**
+ * ## State actions
+ * controls which form is displayed to the user
+ * as in login, register, logout or reset password
+ */
+export function getTrendingItems(sessionToken=null, dev = null) {
+  console.log("Get discovery called");
+  return async function (dispatch){
+    dispatch(getTrendingRequest());
+    //store or get a sessionToken
+    let token = sessionToken;
+    try{
+        if(!sessionToken){
+          let tk = await new AppAuthTokenStore().getOrReplaceSessionToken(sessionToken);
+          token = tk.sessionToken;
+        }
+    }catch(e){
+      console.log("Unable to fetch past token in newsfeedActions.getTrendingItems() with error: "+e.message);
+      dispatch(getTrendingFailure(e.message));
+    }
+
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getTrendingBills();
+
+    console.log("RES: "+JSON.stringify(res));
+    if(!!res.error){
+      console.log("Error in feed call"+res.error.error_message);
+      dispatch(getTrendingFailure("Unable to get user trending data with this token."));
+      return res.error;
+    }else{
+      dispatch(getTrendingSuccess({data:res.data}));
+      return res.data;
+    }
+  };
+}
 
 
 

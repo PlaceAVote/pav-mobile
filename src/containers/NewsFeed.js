@@ -146,29 +146,30 @@ class NewsFeed extends React.Component {
 
 
 
-  onFilterBtnClick(filterName, topicType){
+  onFilterChanged(filterName){
     // alert("Filter clicked: "+filterName);
-    if(filterName==NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER){
-      this.props.actions.setActivityFilter(filterName);
-    }
-    else if(filterName==NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER){
-      this.props.actions.setActivityFilter(filterName);
-      this.getDiscoveryItemsForTopic(Other.TOPICS.TRENDING);
-    }else{
-      this.props.actions.filterFeedItems(filterName, topicType);
-    }
+    this.props.actions.setActivityFilter(filterName);
+    // if(filterName==NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER){
+    //   this.props.actions.setActivityFilter(filterName);
+    // }
+    // else if(filterName==NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER){
+    //   this.props.actions.setActivityFilter(filterName);
+    //   this.getDiscoveryItemsForTopic(Other.TOPICS.TRENDING);
+    // }else{
+    //   this.props.actions.filterFeedItems(filterName, topicType);
+    // }
   }
 
-  onTopicSelect(topicName){
-    //
-    let oldTopic = this.props.newsfeed.newsFeedData.curSelectedTopic;
-    if(this.props.newsfeed.newsFeedData.discoveryItems.get(topicName)==null || oldTopic!=topicName){
-      this.props.actions.setTopicName(topicName);
-      setTimeout(()=>{
-        this.getDiscoveryItemsForTopic(topicName);
-      }, 50);
-    }
-  }
+  // onTopicSelect(topicName){
+  //   //
+  //   let oldTopic = this.props.newsfeed.newsFeedData.curSelectedTopic;
+  //   if(this.props.newsfeed.newsFeedData.discoveryItems.get(topicName)==null || oldTopic!=topicName){
+  //     this.props.actions.setTopicName(topicName);
+  //     setTimeout(()=>{
+  //       this.getDiscoveryItemsForTopic(topicName);
+  //     }, 50);
+  //   }
+  // }
 
 
 
@@ -280,14 +281,14 @@ class NewsFeed extends React.Component {
     }
   }
 
-  onFetchMoreFeedItems(filterType, topicName){
+  onFetchMoreFeedItems(filterType){
     // console.log("On fetch more for filter: "+filterType+" with topic: "+topicName);
 
     switch(filterType){
       case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
       case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
       case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
-        if(this.props.newsfeed.newsFeedData.itemsAfterFiltration!=null && this.props.newsfeed.newsFeedData.lastFeedItemTimeStamp!=null && this.props.newsfeed.isFetching.olderNewsFeedData===false){
+        if(this.props.newsfeed.newsFeedData.items!=null && this.props.newsfeed.newsFeedData.lastFeedItemTimeStamp!=null && this.props.newsfeed.isFetching.olderNewsFeedData===false){
           this.connectAndGetFeed(true);
         }
         break;
@@ -312,14 +313,17 @@ class NewsFeed extends React.Component {
       <NewsFeedRender
 
           device={ this.props.device}
+          curSelectedFilter={this.props.newsfeed.newsFeedData.curSelectedFilter}
 
 
           curUser={this.props.auth.user}
           topicList={this.props.auth.form.fields.topicsList}
-          newsFeedData={this.props.newsfeed.newsFeedData}
+          newsFeedItems={this.props.newsfeed.newsFeedData.items}
+          trendingItems={this.props.newsfeed.newsFeedData.trendingItems}
+
           isFetchingNewsFeedData={this.props.newsfeed.isFetching.newsFeedData}
           isFetchingOlderNewsFeedData={this.props.newsfeed.isFetching.olderNewsFeedData}
-          isFetchingDiscoveryData={this.props.newsfeed.isFetching.discoveryData}
+          isFetchingTrendingData={this.props.newsfeed.isFetching.trendingData}
 
 
           searchModalVisible={this.props.router.modalIsOpen.get(SEARCH_BILL)}
@@ -332,8 +336,7 @@ class NewsFeed extends React.Component {
 
           onLeftNavBtnClicked={this.onLeftNavBtnClick.bind(this)}
           onRightNavBtnClicked={this.onRightNavBtnClick.bind(this)}
-          onFilterBtnClick={this.onFilterBtnClick.bind(this)}
-          onTopicSelect={this.onTopicSelect.bind(this)}
+          onFilterChanged={this.onFilterChanged.bind(this)}
           onFeedRefresh={this.onFeedRefresh.bind(this)}
           onDiscoveryRefresh={this.onDiscoveryRefresh.bind(this)}
           onUserClick={this.onUserClickedUser.bind(this)}

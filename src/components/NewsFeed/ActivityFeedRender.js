@@ -138,7 +138,7 @@ class ActivityFeedRender extends React.Component {
          onEndReached={()=>{
            if(this.props.onFetchMoreItems){
              if(this.props.type!=="discovery"){ //if we are in discovery mode
-               this.props.onFetchMoreItems(this.props.curFilter, this.props.curTopic)
+               this.props.onFetchMoreItems(this.props.curFilter)
              }
            }
          }}
@@ -225,7 +225,6 @@ ActivityFeedRender.propTypes= {
   device: React.PropTypes.object.isRequired,
   curUser: React.PropTypes.object.isRequired,
   curFilter:React.PropTypes.string.isRequired,
-  curTopic:React.PropTypes.string.isRequired,
   onRefresh: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
