@@ -26,6 +26,7 @@ import * as routingActions from '../reducers/routing/routingActions';
 import * as deviceActions from '../reducers/device/deviceActions';
 import * as profileActions from '../reducers/profile/profileActions'
 import * as notificationActions from '../reducers/notifications/notificationActions'
+import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 
 import CONFIG from '../config/config';
 
@@ -49,14 +50,17 @@ import React from 'react';
 
 // import _ from 'underscore';
 
-import {ScheneKeys} from '../config/constants';
+import {ScheneKeys, Other} from '../config/constants';
 const {
 PROFILE,
 BILL,
+TAB_NEWS,
 TAB_PROFILE,
 TAB_NOTIFS
 } = ScheneKeys
-
+const {
+  NEWS_FEED_FILTERS,
+} = Other;
 
 /**
  * ## Redux boilerplate
@@ -65,6 +69,7 @@ const actions = [
   // authActions,
   routingActions,
   deviceActions,
+  newsfeedActions,
   // profileActions,
   notificationActions
 ];
@@ -169,6 +174,11 @@ class Notifications extends React.Component {
     // alert("Tapped bill with id: "+billId);
   }
 
+  onTakeMeThereClick(){
+    this.props.actions.setActivityFilter(NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER);
+    this.props.actions.navigateTo(TAB_NEWS, {}, false);
+  }
+
 
   render() {
     console.log("Notifs: "+this.props.notifications.items);
@@ -184,6 +194,7 @@ class Notifications extends React.Component {
           onUserClick={this.onUserClickedUser.bind(this)}
           onBillClick={this.onUserClickedBill.bind(this)}
           onCommentClick={()=>{}}
+          onTakeMeThereClick={this.onTakeMeThereClick.bind(this)}
       />
 
     );

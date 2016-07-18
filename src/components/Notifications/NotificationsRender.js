@@ -9,7 +9,7 @@
 
 
 import {Colors, ScheneKeys} from '../../config/constants';
-
+import Button from 'sp-react-native-iconbutton'
 import React from 'react';
 import {StyleSheet, Text, View, ListView, RefreshControl, Platform} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
@@ -37,6 +37,76 @@ import PavSpinner from '../../lib/UI/PavSpinner'
 
 
 
+const styles = StyleSheet.create({
+
+
+  container: {
+    // backgroundColor: 'orange',
+    flex:1,
+    flexDirection: 'column',
+    paddingBottom:50, //tab bar height
+    // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+    backgroundColor: '#E8E7EE',
+    // marginVertical: 10,
+    // marginHorizontal:15
+  },
+  itemList:{
+    flex:1,
+    backgroundColor: '#E8E7EE',
+  },
+
+  card:{
+    paddingHorizontal:0,//w*0.001,
+    paddingVertical:0.3,
+  },
+
+  noNotificationsContainer:{
+    // flex:1,
+    // backgroundColor: 'orange',
+    flexDirection: 'column',
+    paddingHorizontal:w*0.14,
+    paddingVertical:h*0.05,
+    // justifyContent:'center',
+    alignItems:'center'
+  },
+  noNotificationsIcon:{
+    color: Colors.fourthTextColor,
+    paddingVertical: h*0.013,
+  },
+  noNotificationsTitleContainer:{
+    paddingVertical: h*0.013,
+  },
+  noNotificationsTitle:{
+    color: Colors.fourthTextColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney-Regular',
+    fontSize: getCorrectFontSizeForScreen(11),
+  },
+  noNotificationsDescriptionContainer:{
+    paddingVertical: h*0.019,
+  },
+  noNotificationsDescription:{
+    textAlign: 'center',
+    fontFamily: 'Whitney-Regular',
+    fontSize: getCorrectFontSizeForScreen(9),
+  },
+  takeMeThereBtn:{
+    width: w*0.6,
+    marginVertical: h*0.015,
+    backgroundColor: Colors.accentColor,
+    borderRadius: 1,
+    borderWidth: 1,
+    borderColor: Colors.mainBorderColor,
+    height: 45
+  },
+  takeMeThereBtnTxt:{
+    color: Colors.mainTextColor,
+    textAlign: 'center',
+    fontFamily: 'Whitney-Regular',
+    fontSize: getCorrectFontSizeForScreen(10),
+  },
+
+});
 
 
 class NotificationsRender extends React.Component {
@@ -54,85 +124,11 @@ class NotificationsRender extends React.Component {
 
 
 
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(){
-    return StyleSheet.create({
 
 
-      container: {
-        // backgroundColor: 'orange',
-        // flex:1,
-        flex:1,
-        flexDirection: 'column',
-        paddingBottom:50, //tab bar height
-        // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
-        backgroundColor: '#E8E7EE',
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-      itemList:{
-        flex:1,
-        backgroundColor: '#E8E7EE',
-      },
-
-      card:{
-        paddingHorizontal:0,//w*0.001,
-        paddingVertical:0.3,
-      },
-
-
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-   getLandscapeStyles(){
-     return StyleSheet.create({
-
-       container: {
-         // backgroundColor: 'orange',
-         flex:1,
-         flexDirection: 'column',
-         marginVertical: 10,
-         marginHorizontal:10
-       },
-
-       titleText: {
-         // backgroundColor: 'black',
-         fontSize: getCorrectFontSizeForScreen(27),
-         color: Colors.mainTextColor,
-         textAlign: 'center',
-       }
-
-     });
-   }
-
-
-  /**
-   * ### render
-   * Setup some default presentations and render
-   */
-  render() {
-
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-    // console.log("@@@@ IS PORTRAIT : "+isPortrait);
-    let styles= isPortrait?this.getPortraitStyles():this.getLandscapeStyles();
-
-    // <ListView
-    //   dataSource={this.state.dataSource}
-    //   renderRow={(rowData) => <Text>{rowData}</Text>}
-    // />
-    return(
-        <View style={styles.container}>
-        <NavBarRender title="Notifications"/>
+  renderNotifications(){
+    if(!!this.state.dataSource &&this.state.dataSource.getRowCount>0){
+      return (
         <ListView
          enableEmptySections={true}
          style={styles.itemList}
@@ -173,7 +169,45 @@ class NotificationsRender extends React.Component {
            onCommentClick={this.props.onCommentClick}
            />}
          />
+      )
+    }else{  //there were no notifications
+      return (
+        <View style={styles.noNotificationsContainer}>
+          <PavIcon name="sad" size={24} style={styles.noNotificationsIcon}/>
+          <View style={styles.noNotificationsTitleContainer}>
+            <Text style={styles.noNotificationsTitle}>
+            You don't have any notifications yet!
+            </Text>
+          </View>
+          <View style={styles.noNotificationsDescriptionContainer}>
+            <Text style={styles.noNotificationsDescription}>
+            Visit your Discovery Feed and join in the conversation.
+            </Text>
+          </View>
+          <Button
+              textStyle={styles.takeMeThereBtnTxt}
+              style={styles.takeMeThereBtn}
+              activityIndicatorColor={Colors.mainTextColor}
+              onPress={this.props.onTakeMeThereClick}>
+            Take me there
+          </Button>
+        </View>
+      )
+    }
+  }
 
+
+  /**
+   * ### render
+   * Setup some default presentations and render
+   */
+  render() {
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let styles= isPortrait?this.getPortraitStyles():this.getLandscapeStyles();
+    return(
+        <View style={styles.container}>
+        <NavBarRender title="Notifications"/>
+          {this.renderNotifications()}
         </View>
     );
   }
@@ -219,5 +253,6 @@ NotificationsRender.propTypes= {
   onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
   onCommentClick: React.PropTypes.func.isRequired,
+  onTakeMeThereClick: React.PropTypes.func.isRequired,
 };
 export default NotificationsRender;

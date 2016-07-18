@@ -76,7 +76,7 @@
     "remote-redux-devtools": "^0.3.3"
   },
   "pavConfig":{
-    "development": false,
+    "development": true,
     "google_analytics_id": "UA-48538409-5"
 
   },
