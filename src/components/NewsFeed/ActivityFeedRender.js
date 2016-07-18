@@ -43,13 +43,12 @@ const styles = StyleSheet.create({
   },
   recentActivityTextContainer:{
     paddingHorizontal: w*0.02,
-    paddingVertical: h*0.02,
+    paddingVertical: h*0.012,
     // top:0,
     // width:w,
     // height:h*0.065,
     // position:'absolute',
-    // backgroundColor: "rgba(0,0,0,0.06)",
-    // backgroundColor:'green',
+    // backgroundColor: "green",
   },
   recentActivityText: {
 

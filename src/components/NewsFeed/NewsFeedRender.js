@@ -75,8 +75,9 @@ const styles = StyleSheet.create({
           backgroundColor: '#E8E7EE',
         },
         headerView:{
-          paddingVertical:h*0.02,
+          paddingTop:h*0.02,
           paddingHorizontal:w*0.016,
+          paddingBottom:7,  //CAUTION: same as card paddingTop
           // backgroundColor:'red'
         },
 
