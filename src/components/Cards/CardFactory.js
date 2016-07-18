@@ -205,7 +205,7 @@ class CardFactory extends React.Component {
 
     let n = this.props.itemData;
     let u = this.props.curUser;
-    console.log("renderNewsFeedCards: "+JSON.stringify(n))
+    // console.log("renderNewsFeedCards: "+JSON.stringify(n))
     switch(n.type){
       case "userissue":
       // console.log("Real comment is: "+JSON.stringify(n));
@@ -297,6 +297,7 @@ class CardFactory extends React.Component {
   renderTrendingCards(){
     let n = this.props.itemData;
     let u = this.props.curUser;
+    console.log("TRENDING CARD: "+JSON.stringify(n))
     return (
       <View>
         <Text>

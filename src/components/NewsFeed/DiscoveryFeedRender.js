@@ -62,6 +62,10 @@ class DiscoveryFeedRender extends React.Component {
 
 
   renderTrendingIssues(){
+    let trendingItems = null;
+    if(!!this.props.trendingItems){
+      trendingItems = this.props.trendingItems;
+    }
     return (
       <View style={styles.trendingContainer}>
         <View style={styles.trendingTitleContainer}>
@@ -75,7 +79,7 @@ class DiscoveryFeedRender extends React.Component {
           style={styles.trendingCardContainer}
           cardStyle={styles.trendingCardStyle}
           cardHeight={h*0.25}
-          itemData={this.props.trendingItems}
+          itemData={trendingItems}
           onBillClick={this.props.onBillClick}
         />
       </View>

@@ -111,7 +111,7 @@ class EmailSignIn extends React.Component {
     this.props.actions.manuallyInvokeFieldValidationForScheme(LOGIN);
     if(this.props.auth.form.isValid.get(LOGIN) && this.props.auth.form.isFetching===false){
       this.props.actions.setAuthMethod('email');
-      // console.log("Sign In btn pressed : EmailSignIn");
+      console.log("Sign In btn pressed : EmailSignIn");
       let email = this.props.auth.form.fields.email, password = this.props.auth.form.fields.password;
       // console.log(" Email "+email+" password: "+password)
       // this.props.actions.login("belovedinbox@gmail.com", "NchIShOUsb");
