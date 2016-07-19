@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 
     // flex: 1,
     flexDirection:'row',
-    // backgroundColor: 'blue',
+    backgroundColor: '#ffffff',
     borderRadius: 2,
     // borderColor: '#ffffff',
     // borderWidth: 1,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     //   height: 1,
     //   width: 2,
     // },
-    paddingVertical: w*0.033,
+    paddingVertical: w*0.021,
   },
   cardIconContainer:{
     flexDirection:'row',

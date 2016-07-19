@@ -45,17 +45,17 @@ const EMOTIONS = {
 const styles = StyleSheet.create({
 
   cardContainer:{
-    flex: 1,
-    alignItems: 'stretch',
+    // flex: 1,
+    // alignItems: 'stretch',
     // backgroundColor: 'blue',
-    paddingHorizontal: 7,
-    paddingVertical: 7,
+    // paddingHorizontal: 7,
+    // paddingVertical: 7,
 
   },
 
   card:{
 
-    flex: 1,
+    // flex: 1,
     flexDirection:'row',
     backgroundColor: '#ffffff',
     borderRadius: 2,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     //   height: 1,
     //   width: 2,
     // },
-    paddingVertical: w*0.013,
+    paddingVertical: w*0.021,
   },
   cardIconContainer:{
     flexDirection:'row',
