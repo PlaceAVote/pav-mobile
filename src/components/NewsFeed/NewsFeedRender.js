@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 
 
         tabContainer:{
-          // backgroundColor:'yellow',
+          backgroundColor:'#ffffff',
           ...Platform.select({
              ios: {
                marginBottom:5,

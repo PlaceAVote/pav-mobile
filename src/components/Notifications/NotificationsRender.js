@@ -127,7 +127,7 @@ class NotificationsRender extends React.Component {
 
 
   renderNotifications(){
-    if(!!this.state.dataSource &&this.state.dataSource.getRowCount>0){
+    if(!!this.state.dataSource && this.state.dataSource.getRowCount()>0){
       return (
         <ListView
          enableEmptySections={true}

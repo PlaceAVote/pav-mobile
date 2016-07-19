@@ -42,19 +42,18 @@ const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 const styles = StyleSheet.create({
 
   cardContainer:{
-    flex: 1,
-    alignItems: 'stretch',
+    // flex: 1,
     // backgroundColor: 'blue',
-    paddingHorizontal: 7,
-    paddingVertical: 7,
+    // paddingHorizontal: 7,
+    // paddingVertical: 7,
 
   },
 
   card:{
 
-    flex: 1,
+    // flex: 1,
     flexDirection:'row',
-    backgroundColor: '#ffffff',
+    // backgroundColor: 'blue',
     borderRadius: 2,
     // borderColor: '#ffffff',
     // borderWidth: 1,
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     //   height: 1,
     //   width: 2,
     // },
-    paddingVertical: w*0.013,
+    paddingVertical: w*0.033,
   },
   cardIconContainer:{
     flexDirection:'row',

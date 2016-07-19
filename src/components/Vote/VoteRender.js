@@ -129,6 +129,8 @@ const styles = StyleSheet.create({
   /* FOOTER */
   voteFooterContainer:{
     flexDirection: 'row',
+    // justifyContent:'center',
+    // alignItems:'center'
   },
 
   /* FOOTER - FOR */
@@ -157,9 +159,8 @@ const styles = StyleSheet.create({
   },
   btnIconStyle:{
     color: Colors.mainTextColor,
-    paddingTop:2,
+    // paddingTop:2,
     // backgroundColor:'green',
-
   }
 
 
