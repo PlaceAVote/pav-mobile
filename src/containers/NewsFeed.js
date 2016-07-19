@@ -188,7 +188,9 @@ class NewsFeed extends React.Component {
 
 
   onUserClickedUser(userId){
-    this.props.actions.navigateTo(PROFILE, {userId:userId, isTab:false});
+    if(userId!=null){
+        this.props.actions.navigateTo(PROFILE, {userId:userId, isTab:false});
+    }
   }
 
   onUserClickedBill(billId){

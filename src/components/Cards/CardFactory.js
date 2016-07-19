@@ -207,10 +207,11 @@ class CardFactory extends React.Component {
 
     let n = this.props.itemData;
     let u = this.props.curUser;
-    // console.log("renderNewsFeedCards: "+JSON.stringify(n))
+    // console.log("renderNewsFeedCards @@@@@@@@@@@ : "+n.user_id+" @@@@@@@@@@@")
     switch(n.type){
       case "userissue":
-      // console.log("Real comment is: "+JSON.stringify(n));
+
+          //TODO: Check if userId={n.author} works.. Not sure the property name should be author
           return (<FeedUserIssueCard
           {...this.props}
           timeString={moment(n.timestamp, 'x').fromNow()}
@@ -226,7 +227,7 @@ class CardFactory extends React.Component {
           happyCnt={n.positive_responses}
           neutralCnt={n.neutral_responses}
           sadCnt={n.negative_responses}
-          userId={n.user_id}
+          userId={n.author}
           billId={n.bill_id}
           onUserClick={this.props.onUserClick}
           onBillClick={this.props.onBillClick}
@@ -249,7 +250,7 @@ class CardFactory extends React.Component {
           isDisliked={n.disliked}
           commentId={n.comment_id}
           billTitle={n.bill_title}
-          userId={n.user_id}
+          userId={n.author}
           billId={n.bill_id}
           onUserClick={this.props.onUserClick}
           onBillClick={this.props.onBillClick}
@@ -264,7 +265,7 @@ class CardFactory extends React.Component {
         userFullNameText={n.voter_first_name+" "+n.voter_last_name}
         voteParentTitle={n.bill_title}
         userPhotoUrl={n.voter_img_url}
-        userId={n.user_id}
+        userId={n.voter_id}
         billId={n.bill_id}
         onUserClick={this.props.onUserClick}
         onBillClick={this.props.onBillClick}
@@ -272,7 +273,6 @@ class CardFactory extends React.Component {
         break;
 
         case "bill":
-        default:
         // console.log("FeedBillCard: "+JSON.stringify(n))
           let yesCount = n["yes-count"], noCount = n["no-count"];
           let favorPercent = -1;
@@ -292,6 +292,8 @@ class CardFactory extends React.Component {
           onSocialClick={this.props.onSocialClick}
           />);
           break;
+        default:
+          return <View {...this.props}></View>;
     }
   }
 

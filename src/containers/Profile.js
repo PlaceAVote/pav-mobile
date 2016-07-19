@@ -149,7 +149,7 @@ class Profile extends React.Component {
   }
 
   componentWillMount(){
-    // console.log("Will mount profile")
+    alert("Will mount profile"+this.props.userId)
     this.getProfileData(this.props.userId);
     this.getTimelineData(this.props.userId, false);
   }
@@ -381,7 +381,7 @@ class Profile extends React.Component {
   onRightNavBtnClick(){
     this.props.actions.navigateTo(SETTINGS);
   }
-  
+
   onLeftNavBtnClick(){
     this.props.actions.navigateToPrevious();
   }
@@ -416,7 +416,7 @@ class Profile extends React.Component {
           onReactionClick={this.onUserClickedReaction.bind(this)}
           onCommentClick={this.onUserClickedComments.bind(this)}
           onRightNavBtnClicked={this.onRightNavBtnClick.bind(this)}
-          onLeftIconPressed={this.onLeftNavBtnClick.bind(this)}
+          onLeftNavBtnClicked={this.onLeftNavBtnClick.bind(this)}
       />
 
     );

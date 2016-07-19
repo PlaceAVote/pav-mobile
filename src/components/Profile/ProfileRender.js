@@ -371,12 +371,7 @@ class ProfileRender extends React.Component {
             colors={['#4D6EB2', '#6B55A2']}
             start={[0.0, 0.0]} end={[0.6, 0.5]}
             style={styles.headerView}>
-              <NavBarRender
-              title="Profile"
-              rightIconName="gear"
-              rightIconSize={30}
-              onRightIconPressed={this.props.onRightNavBtnClicked}
-              />
+              {this.renderNavBar()}
               <View style={styles.userDetailsHeaderView}>
                 <View style={styles.statisticsBigContainer}>
                   <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.lastActivityTimestamp)}</Text>
@@ -569,6 +564,6 @@ ProfileRender.propTypes= {
   onCommentClick: React.PropTypes.func.isRequired,
   onFetchOlderTimelineData:React.PropTypes.func.isRequired,
   onRightNavBtnClicked:React.PropTypes.func.isRequired,
-  onLeftIconPressed:React.PropTypes.func.isRequired,
+  onLeftNavBtnClicked:React.PropTypes.func.isRequired,
 };
 export default ProfileRender;
