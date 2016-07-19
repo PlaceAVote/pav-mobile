@@ -31,19 +31,22 @@ const {TOPICS}=Other;
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'blue',
+    // backgroundColor:'blue',
   },
 
   //trending
   trendingContainer:{
-    backgroundColor:'orange',
+    // backgroundColor:'orange',
+  },
+  discoverByTopicContainer:{
+    // backgroundColor:'purple',
   },
 
-  trendingTitleContainer:{
-    paddingHorizontal:w*0.03,
+  titleContainer:{
+    paddingHorizontal:w*0.022, //Same as the Trending card styles.card style
     paddingVertical: h*0.013,
   },
-  trendingTitle:{
+  title:{
     fontFamily: 'Whitney-Semibold',
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fourthTextColor,
@@ -70,8 +73,8 @@ class DiscoveryFeedRender extends React.Component {
     }
     return (
       <View style={styles.trendingContainer}>
-        <View style={styles.trendingTitleContainer}>
-          <Text style={styles.trendingTitle}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>
           Trending Issues
           </Text>
         </View>
@@ -106,6 +109,22 @@ class DiscoveryFeedRender extends React.Component {
     )
   }
 
+
+  renderDiscoverByTopicIssues(){
+
+    return (
+      <View style={styles.discoverByTopicContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>
+          Discover by Topic
+          </Text>
+        </View>
+
+      </View>
+    )
+  }
+
+
   /**
    * ### render method
    */
@@ -114,6 +133,7 @@ class DiscoveryFeedRender extends React.Component {
     return(
         <ScrollView style={styles.container}>
           {this.renderTrendingIssues()}
+          {this.renderDiscoverByTopicIssues()}
         </ScrollView>
     //   <ScrollableTabView
     //     onChangeTab={(data)=>{

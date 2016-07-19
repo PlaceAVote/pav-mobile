@@ -18,9 +18,10 @@ module.exports =  {
     thirdTextColor: "black",
     fourthTextColor: "#707070",   //grey
     fifthTextColor: "#4A4A4A",     //brownish grey
+    sixthTextColor: "#707070CC",   //grey
     errorTextColor: "#a94442",    //red
     helpTextColor: "#999999",      //light grey
-    // sixthTextColor: "#707070CC",   //grey
+
 
 
     titleBgColor: "#F6F5FF",   //greysh blue very light
