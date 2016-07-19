@@ -24,6 +24,7 @@ import SearchBillCard from './SearchCards/SearchBillCard'
 import SearchUserCard from './SearchCards/SearchUserCard'
 
 import TrendingCard from './FeedCards/TrendingCard';
+import DiscoveryCard from './FeedCards/DiscoveryCard';
 /**
  * Immutable
  */
@@ -329,12 +330,30 @@ class CardFactory extends React.Component {
       )
   }
 
+
+
+  renderDiscoveryCards(){
+    let n = this.props.itemData;
+    // let u = this.props.curUser;
+    // console.log("@@@@@@@@@ DiscoveryCard CARD: "+JSON.stringify(n))
+    return (
+      <DiscoveryCard
+      {...this.props}
+      topicId={n.title}
+      topicImage={n.image}
+      onTopicClick={this.props.onTopicClick}
+      />
+      )
+  }
+
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
     switch (this.props.type){
+      case "discovery":
+        return this.renderDiscoveryCards();
       case "trending":
         return this.renderTrendingCards();
       case "profile":

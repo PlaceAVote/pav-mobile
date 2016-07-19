@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 
   },
   billImage:{
-    borderRadius:4,
+    borderRadius:2,
     width: IMAGE_WIDTH,
     height: IMAGE_WIDTH,
   },

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 
   cardContainer:{
     // flex: 1,
-    alignItems: 'stretch',
+    // alignItems: 'stretch',
     // backgroundColor: 'pink',
     paddingHorizontal: 7,
     paddingVertical: 7,

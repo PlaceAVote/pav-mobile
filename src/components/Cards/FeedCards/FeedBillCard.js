@@ -44,8 +44,8 @@ import LinearGradient from 'react-native-linear-gradient';
 const styles = StyleSheet.create({
 
   cardContainer:{
-    flex: 1,
-    alignItems: 'stretch',
+    // flex: 1,
+    // alignItems: 'stretch',
     // backgroundColor: Colors.transparentColor,
     paddingHorizontal: 7,
     paddingVertical: 7,

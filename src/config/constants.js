@@ -103,6 +103,20 @@ module.exports =  {
 
       TRENDING: 'trending'
     },
+    TOPIC_IMAGES:{
+      CRIME:require('../../assets/crimeTopic.png'),
+      HEALTHCARE: require('../../assets/healthcareTopic.png'),
+      TAXES: require('../../assets/taxesTopic.png'),
+      IMMIGRATION: require('../../assets/immigrationTopic.png'),
+      EDUCATION: require('../../assets/educationTopic.png'),
+      DRUGS: require('../../assets/drugsTopic.png'),
+      DEFENSE: require('../../assets/defenseTopic.png'),
+      POLITICS: require('../../assets/politicsTopic.png'),
+      GUN_RIGHTS: require('../../assets/gunsTopic.png'),
+      TECHNOLOGY: require('../../assets/technologyTopic.png'),
+      ECONOMICS: require('../../assets/economicsTopic.png'),
+      SOCIAL_INTEREST: require('../../assets/socialTopic.png'),
+    },
     REACTIONS : {
       NONE:'none',
       HAPPY:'positive',

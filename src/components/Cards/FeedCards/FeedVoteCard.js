@@ -43,8 +43,8 @@ import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 const styles = StyleSheet.create({
 
   cardContainer:{
-    flex: 1,
-    alignItems: 'stretch',
+    // flex: 1,
+    // alignItems: 'stretch',
     // backgroundColor: 'blue',
     paddingHorizontal: 7,
     paddingVertical: 7,

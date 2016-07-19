@@ -22,7 +22,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TopicSelectTabBar from './TopicSelectTabBar'
 import ActivityFeedRender from './ActivityFeedRender'
 import {Colors, Other} from '../../config/constants';
-const {TOPICS}=Other;
+const {TOPICS, TOPIC_IMAGES}=Other;
 
 
 
@@ -56,6 +56,20 @@ const styles = StyleSheet.create({
   },
   trendingCardStyle:{
 
+  },
+
+
+  //Topics
+  topicCardsContainer:{
+    // backgroundColor:'purple',
+    flexDirection:'column',
+  },
+
+  topicCards2CardComboContainer:{
+    // backgroundColor:'orange',
+    paddingBottom: h*0.027,
+    flexDirection:'row',
+    justifyContent:'space-around'
   }
 
 });
@@ -112,12 +126,99 @@ class DiscoveryFeedRender extends React.Component {
 
   renderDiscoverByTopicIssues(){
 
+    let {
+      CRIME,
+      HEALTHCARE,
+      TAXES,
+      IMMIGRATION,
+      EDUCATION,
+      DRUGS,
+      DEFENSE,
+      POLITICS,
+      GUN_RIGHTS,
+      TECHNOLOGY,
+      ECONOMICS,
+      SOCIAL_INTEREST} = Other.TOPICS;
     return (
       <View style={styles.discoverByTopicContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
           Discover by Topic
           </Text>
+        </View>
+
+        <View style={styles.topicCardsContainer}>
+
+        <View style={styles.topicCards2CardComboContainer}>
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+HEALTHCARE}
+            style={styles.topicCard}
+            itemData={{title:HEALTHCARE, image:TOPIC_IMAGES.HEALTHCARE}}
+            onTopicClick={this.props.onTopicClick}
+          />
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+TECHNOLOGY}
+            style={styles.topicCard}
+            itemData={{title:TECHNOLOGY, image:TOPIC_IMAGES.TECHNOLOGY}}
+            onTopicClick={this.props.onTopicClick}
+          />
+        </View>
+
+        <View style={styles.topicCards2CardComboContainer}>
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+POLITICS}
+            style={styles.topicCard}
+            itemData={{title:POLITICS, image:TOPIC_IMAGES.POLITICS}}
+            onTopicClick={this.props.onTopicClick}
+          />
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+GUN_RIGHTS}
+            style={styles.topicCard}
+            itemData={{title:GUN_RIGHTS, image:TOPIC_IMAGES.GUN_RIGHTS}}
+            onTopicClick={this.props.onTopicClick}
+          />
+        </View>
+
+        <View style={styles.topicCards2CardComboContainer}>
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+EDUCATION}
+            style={styles.topicCard}
+            itemData={{title:EDUCATION, image:TOPIC_IMAGES.EDUCATION}}
+            onTopicClick={this.props.onTopicClick}
+          />
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+DEFENSE}
+            style={styles.topicCard}
+            itemData={{title:DEFENSE, image:TOPIC_IMAGES.DEFENSE}}
+            onTopicClick={this.props.onTopicClick}
+          />
+        </View>
+
+        <View style={styles.topicCards2CardComboContainer}>
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+ECONOMICS}
+            style={styles.topicCard}
+            itemData={{title:ECONOMICS, image:TOPIC_IMAGES.ECONOMICS}}
+            onTopicClick={this.props.onTopicClick}
+          />
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+IMMIGRATION}
+            style={styles.topicCard}
+            itemData={{title:IMMIGRATION, image:TOPIC_IMAGES.IMMIGRATION}}
+            onTopicClick={this.props.onTopicClick}
+          />
+        </View>
+
+
+
         </View>
 
       </View>
@@ -278,24 +379,10 @@ class DiscoveryFeedRender extends React.Component {
 
 
 DiscoveryFeedRender.defaultProps={
-  initialDiscoveryPage: 0
 }
 DiscoveryFeedRender.propTypes= {
   trendingItems: React.PropTypes.object,
-  initialDiscoveryPage: React.PropTypes.number.isRequired,
-  device: React.PropTypes.object.isRequired,
-  curUser: React.PropTypes.object.isRequired,
-  curFilter:React.PropTypes.string.isRequired,
-  beingRefreshed: React.PropTypes.bool.isRequired,
-  oldDataBeingFetched: React.PropTypes.bool.isRequired,
-  onRefresh: React.PropTypes.func.isRequired,
-  onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
-  onLikeDislikeClick: React.PropTypes.func.isRequired,
-  onReplyClick: React.PropTypes.func.isRequired,
-  onReactionClick: React.PropTypes.func.isRequired,
-  onCommentClick: React.PropTypes.func.isRequired,
-  onSocialClick: React.PropTypes.func.isRequired,
-  onFetchMoreItems: React.PropTypes.func.isRequired,
+  onTopicClick: React.PropTypes.func.isRequired,
 };
 export default DiscoveryFeedRender;

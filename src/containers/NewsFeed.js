@@ -311,6 +311,11 @@ class NewsFeed extends React.Component {
     this.props.actions.navigateTo(NEWISSUE);
   }
 
+  onTopicClick(topicId){
+    // this.props.actions.navigateTo(TOPIC, topicId);
+    alert("Topic clicked: "+topicId);
+  }
+
   render() {
 
     return(
@@ -321,7 +326,6 @@ class NewsFeed extends React.Component {
 
 
           curUser={this.props.auth.user}
-          topicList={this.props.auth.form.fields.topicsList}
           newsFeedItems={this.props.newsfeed.newsFeedData.items}
           trendingItems={this.props.newsfeed.newsFeedData.trendingItems}
 
@@ -351,6 +355,7 @@ class NewsFeed extends React.Component {
           onCommentClick={this.onUserClickedComments.bind(this)}
           onSocialClick={this.onUserClickedSocial.bind(this)}
           onFetchMoreItems={this.onFetchMoreFeedItems.bind(this)}
+          onTopicClick={this.onTopicClick.bind(this)}
       />
 
     );

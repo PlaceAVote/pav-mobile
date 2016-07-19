@@ -220,22 +220,9 @@ class NewsFeedRender extends React.Component {
            <DiscoveryFeedRender
              key="DiscoveryFeedRender"
              tabLabel="Discovery Feed"
-             topicList={this.props.topicList.toJS()}
              trendingItems={this.props.trendingItems}
-             device={this.props.device}
-             curUser={this.props.curUser}
-             curFilter={this.props.curSelectedFilter}
-             oldDataBeingFetched={false}
-             beingRefreshed={(this.props.isFetchingTrendingData===true)}
-             onRefresh={this.props.onDiscoveryRefresh}
-             onUserClick={this.props.onUserClick}
              onBillClick={this.props.onBillClick}
-             onLikeDislikeClick={this.props.onLikeDislikeClick}
-             onReplyClick={this.props.onReplyClick}
-             onReactionClick={this.props.onReactionClick}
-             onCommentClick={this.props.onCommentClick}
-             onSocialClick={this.props.onSocialClick}
-             onFetchMoreItems={this.props.onFetchMoreItems}
+             onTopicClick={this.props.onTopicClick}
              />
 
          </ScrollableTabView>
@@ -297,8 +284,6 @@ class NewsFeedRender extends React.Component {
       ||
       (nextProps.searchModalVisible !== this.props.searchModalVisible)
       ||
-      (nextProps.topicList !== this.props.topicList)
-      ||
       (nextProps.searchData !== this.props.searchData)
       ||
       (nextProps.currentlySearching !== this.props.currentlySearching)
@@ -326,7 +311,7 @@ NewsFeedRender.propTypes= {
   hideBillSearchModal: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
   onFilterChanged: React.PropTypes.func.isRequired,
-
+  onTopicClick: React.PropTypes.func.isRequired,
 }
 
 export default NewsFeedRender;
