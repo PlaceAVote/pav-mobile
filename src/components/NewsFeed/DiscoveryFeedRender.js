@@ -21,8 +21,8 @@ import CardFactory from '../Cards/CardFactory';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TopicSelectTabBar from './TopicSelectTabBar'
 import ActivityFeedRender from './ActivityFeedRender'
-import {Colors, Other} from '../../config/constants';
-const {TOPICS, TOPIC_IMAGES}=Other;
+import {Colors, Other, TOPICS} from '../../config/constants';
+
 
 
 
@@ -138,7 +138,7 @@ class DiscoveryFeedRender extends React.Component {
       GUN_RIGHTS,
       TECHNOLOGY,
       ECONOMICS,
-      SOCIAL_INTEREST} = Other.TOPICS;
+      SOCIAL_INTEREST} = TOPICS;
     return (
       <View style={styles.discoverByTopicContainer}>
         <View style={styles.titleContainer}>
@@ -152,33 +152,16 @@ class DiscoveryFeedRender extends React.Component {
         <View style={styles.topicCards2CardComboContainer}>
           <CardFactory
             type="discovery"
-            key={"discovery_"+HEALTHCARE}
+            key={"discovery_"+HEALTHCARE.key}
             style={styles.topicCard}
-            itemData={{title:HEALTHCARE, image:TOPIC_IMAGES.HEALTHCARE}}
+            itemData={HEALTHCARE}
             onTopicClick={this.props.onTopicClick}
           />
           <CardFactory
             type="discovery"
-            key={"discovery_"+TECHNOLOGY}
+            key={"discovery_"+TECHNOLOGY.key}
             style={styles.topicCard}
-            itemData={{title:TECHNOLOGY, image:TOPIC_IMAGES.TECHNOLOGY}}
-            onTopicClick={this.props.onTopicClick}
-          />
-        </View>
-
-        <View style={styles.topicCards2CardComboContainer}>
-          <CardFactory
-            type="discovery"
-            key={"discovery_"+POLITICS}
-            style={styles.topicCard}
-            itemData={{title:POLITICS, image:TOPIC_IMAGES.POLITICS}}
-            onTopicClick={this.props.onTopicClick}
-          />
-          <CardFactory
-            type="discovery"
-            key={"discovery_"+GUN_RIGHTS}
-            style={styles.topicCard}
-            itemData={{title:GUN_RIGHTS, image:TOPIC_IMAGES.GUN_RIGHTS}}
+            itemData={TECHNOLOGY}
             onTopicClick={this.props.onTopicClick}
           />
         </View>
@@ -186,16 +169,16 @@ class DiscoveryFeedRender extends React.Component {
         <View style={styles.topicCards2CardComboContainer}>
           <CardFactory
             type="discovery"
-            key={"discovery_"+EDUCATION}
+            key={"discovery_"+POLITICS.key}
             style={styles.topicCard}
-            itemData={{title:EDUCATION, image:TOPIC_IMAGES.EDUCATION}}
+            itemData={POLITICS}
             onTopicClick={this.props.onTopicClick}
           />
           <CardFactory
             type="discovery"
-            key={"discovery_"+DEFENSE}
+            key={"discovery_"+GUN_RIGHTS.key}
             style={styles.topicCard}
-            itemData={{title:DEFENSE, image:TOPIC_IMAGES.DEFENSE}}
+            itemData={GUN_RIGHTS}
             onTopicClick={this.props.onTopicClick}
           />
         </View>
@@ -203,16 +186,33 @@ class DiscoveryFeedRender extends React.Component {
         <View style={styles.topicCards2CardComboContainer}>
           <CardFactory
             type="discovery"
-            key={"discovery_"+ECONOMICS}
+            key={"discovery_"+EDUCATION.key}
             style={styles.topicCard}
-            itemData={{title:ECONOMICS, image:TOPIC_IMAGES.ECONOMICS}}
+            itemData={EDUCATION}
             onTopicClick={this.props.onTopicClick}
           />
           <CardFactory
             type="discovery"
-            key={"discovery_"+IMMIGRATION}
+            key={"discovery_"+DEFENSE.key}
             style={styles.topicCard}
-            itemData={{title:IMMIGRATION, image:TOPIC_IMAGES.IMMIGRATION}}
+            itemData={DEFENSE}
+            onTopicClick={this.props.onTopicClick}
+          />
+        </View>
+
+        <View style={styles.topicCards2CardComboContainer}>
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+ECONOMICS.key}
+            style={styles.topicCard}
+            itemData={ECONOMICS}
+            onTopicClick={this.props.onTopicClick}
+          />
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+IMMIGRATION.key}
+            style={styles.topicCard}
+            itemData={IMMIGRATION}
             onTopicClick={this.props.onTopicClick}
           />
         </View>
@@ -285,95 +285,7 @@ class DiscoveryFeedRender extends React.Component {
 
 
 
-}//DiscoveryFeedRender
-// constructor(props) {
-//   super(props);
-//   this.state = {
-//     pagesToRender : [
-//       {key:TOPICS.TRENDING, title:"Trending"},
-//       {key:TOPICS.HEALTHCARE, title:this.props.topicList[TOPICS.HEALTHCARE].title},
-//       {key:TOPICS.TECHNOLOGY, title:this.props.topicList[TOPICS.TECHNOLOGY].title},
-//       {key:TOPICS.SOCIAL_INTEREST, title:this.props.topicList[TOPICS.SOCIAL_INTEREST].title},
-//       {key:TOPICS.EDUCATION, title:this.props.topicList[TOPICS.EDUCATION].title},
-//       {key:TOPICS.POLITICS, title:this.props.topicList[TOPICS.POLITICS].title},
-//       {key:TOPICS.TAXES, title:this.props.topicList[TOPICS.TAXES].title},
-//       {key:TOPICS.IMMIGRATION, title:this.props.topicList[TOPICS.IMMIGRATION].title},
-//       {key:TOPICS.DRUGS, title:this.props.topicList[TOPICS.DRUGS].title},
-//       {key:TOPICS.DEFENSE, title:this.props.topicList[TOPICS.DEFENSE].title},
-//       {key:TOPICS.CRIME, title:this.props.topicList[TOPICS.CRIME].title},
-//       {key:TOPICS.GUN_RIGHTS, title:this.props.topicList[TOPICS.GUN_RIGHTS].title},
-//       {key:TOPICS.ECONOMICS, title:this.props.topicList[TOPICS.ECONOMICS].title},
-//     ],
-//     curPage: 0
-//   }
-// }
-
-
-
-
-// //returns the number of a page depending on the topicStr provided
-// findPageNumberByTopicStr(topicStr){
-//   let arr = this.state.pagesToRender;
-//   let arrLen = arr.length;
-//   for (let ii=0;ii<arrLen;ii++){
-//     if(arr[ii].key==topicStr){
-//       return ii;
-//     }
-//   }
-//   return 0;
-// }
-
-
-
-
-
-
-
-// renderDiscoverPage(pageTitle, discoveryData, device, curUser){
-//     return (
-//       <ActivityFeedRender
-//       key={pageTitle}
-//       tabLabel={pageTitle}
-//       feedData={discoveryData}
-//       device={device}
-//       curUser={curUser}
-//       type="discovery"
-//       curFilter={this.props.curFilter}
-//       curTopic={this.props.curTopic}
-//       beingRefreshed={this.props.beingRefreshed}
-//       oldDataBeingFetched={this.props.oldDataBeingFetched}
-//       onRefresh={this.props.onRefresh}
-//       onUserClick={this.props.onUserClick}
-//       onBillClick={this.props.onBillClick}
-//       onLikeDislikeClick={this.props.onLikeDislikeClick}
-//       onReplyClick={this.props.onReplyClick}
-//       onReactionClick={this.props.onReactionClick}
-//       onCommentClick={this.props.onCommentClick}
-//       onSocialClick={this.props.onSocialClick}
-//       onFetchMoreItems={this.props.onFetchMoreItems}
-//       />);
-// }
-
-
-
-// componentWillReceiveProps(nexrProps) {
-//   // console.log("@@@@@@@ New topic: "+nexrProps.curTopic+" OLD topic: "+this.props.curTopic);
-//   // console.log("@@@@@@@ componentWillReceiveProps @@@@@@@@");
-//   // console.log("@@@@@@@@@@@@@@@@ SHOULD THE COMPONENT UPDATE (curTopic):: "+this.props.curTopic);
-//   // console.log("@@@@@@@ componentWillReceiveProps @@@@@@@@");
-//   if(nexrProps.curTopic !== this.props.curTopic){ //if we have a new current topic
-//
-//     if(nexrProps.curTopic == this.state.pagesToRender[this.state.curPage].key){  //if the current topic is the one our page is already showing
-//       return;//do nothing
-//     }else{  //else if we're showing a different topic than the current topic
-//       let newPage = this.findPageNumberByTopicStr(nexrProps.curTopic);
-//       this.setState({curPage: newPage});
-//       setTimeout(()=>{
-//         this.props.onRefresh(nexrProps.curTopic);
-//       }, 200);
-//     }
-//   }
-// }
+}
 
 
 

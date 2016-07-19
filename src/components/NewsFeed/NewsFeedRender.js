@@ -38,7 +38,6 @@ import PavTabBar from '../ScrollerTabBar/PavTabBar';
 import ActivityFeedRender from './ActivityFeedRender';
 import DiscoveryFeedRender from './DiscoveryFeedRender';
 import SearchFeedRender from './SearchFeedRender';
-import FiltersRender from './FiltersRender';
 import SearchModalBox from '../Modals/SearchModalBox';
 import NavBarRender from '../NavBar/NavBarRender';
 

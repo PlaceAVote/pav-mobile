@@ -65,7 +65,7 @@ const {
   SCRAPE_URL_FAILURE,
 
 } = ActionNames;
-const {NEWS_FEED_FILTERS, TOPICS} = Other;
+const {NEWS_FEED_FILTERS} = Other;
 
 
 

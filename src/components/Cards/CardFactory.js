@@ -24,6 +24,7 @@ import SearchBillCard from './SearchCards/SearchBillCard'
 import SearchUserCard from './SearchCards/SearchUserCard'
 
 import TrendingCard from './FeedCards/TrendingCard';
+import TopicCard from './TopicCards/TopicCard';
 import DiscoveryCard from './FeedCards/DiscoveryCard';
 /**
  * Immutable
@@ -316,7 +317,7 @@ class CardFactory extends React.Component {
       }
 
     }
-    console.log("@@@@@@@@@@ FAVOR PERCENTAGE: "+favorPercent+" because of yes cnt: "+yesCount+" and no count: "+noCount);
+    // console.log("@@@@@@@@@@ FAVOR PERCENTAGE: "+favorPercent+" because of yes cnt: "+yesCount+" and no count: "+noCount);
 
     return (
       <TrendingCard
@@ -341,9 +342,43 @@ class CardFactory extends React.Component {
     return (
       <DiscoveryCard
       {...this.props}
-      topicId={n.title}
-      topicImage={n.image}
+      topicId={n.key}
+      topicTitle={n.title}
+      topicImage={n.img}
       onTopicClick={this.props.onTopicClick}
+      />
+      )
+  }
+
+  renderTopicCards(){
+    let n = this.props.itemData;
+    let u = this.props.curUser;
+    // console.log("@@@@@@@@@ DiscoveryCard CARD: "+JSON.stringify(n))
+    let billTitle = n.short_title || n.featured_bill_title || n.official_title;
+    let yesCount = n["yes-count"], noCount = n["no-count"];
+    let favorPercent = -1;
+    if((yesCount+noCount)!=0){
+      if(yesCount>noCount){//if more people voted in favor than those against
+        favorPercent = ((yesCount/(yesCount+noCount))*100.00) | 0;  //Bitwise OR operator | 0, converts the float value to int value
+        //this will be a value from 0 up to 100
+      }else{
+        favorPercent = ((noCount/(yesCount+noCount))*-100.00) | 0;  //Bitwise OR operator | 0, converts the float value to int value
+        //this will be a value from 0 up to -100 (Note the MINUS) more people voted against, thus we have a negative value
+      }
+
+    }
+    return (
+      <TopicCard
+      {...this.props}
+      subjectTitle={n.subject || n.pav_topic || "Various"}
+      billTitle={n.featured_bill_title || n.short_title}
+      billImgUrl={n.featured_img_link}
+      commentCnt={n.comment_count}
+      favorPercentage={favorPercent}
+      billId={n.bill_id}
+      onBillClick={this.props.onBillClick}
+      onCommentClick={this.props.onCommentClick}
+      onSocialClick={this.props.onSocialClick}
       />
       )
   }
@@ -354,6 +389,8 @@ class CardFactory extends React.Component {
    */
   render() {
     switch (this.props.type){
+      case "topic":
+        return this.renderTopicCards();
       case "discovery":
         return this.renderDiscoveryCards();
       case "trending":

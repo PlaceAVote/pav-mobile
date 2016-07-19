@@ -12,7 +12,7 @@
 /**
  * ## Import
  */
-import {ScheneKeys, Other, Modals} from '../../config/constants';
+import {ScheneKeys, Modals, TOPICS} from '../../config/constants';
 import {Record, Map, List} from 'immutable';
 import moment from 'moment';
 
@@ -24,9 +24,7 @@ const {
   REGISTER_STEP_4,
   LOGIN,
 } = ScheneKeys;
-const {
-  TOPICS
-} = Other;
+
 const {
   FORGOT_PASSWORD
 } = Modals;
@@ -79,18 +77,18 @@ const Form = Record({
     //   //birthday and zipcode I will have to ask for anyway
     // ]),
     topicsList: new Map([
-      [TOPICS.CRIME, new (Record({ title: 'Crime', icon: 'crime', isSelected: true}))],
-      [TOPICS.HEALTHCARE, new (Record({ title: 'Healthcare', icon: 'healthcare', isSelected: true}))],
-      [TOPICS.TAXES, new (Record({ title: 'Taxes', icon: 'taxes', isSelected: true}))],
-      [TOPICS.IMMIGRATION , new (Record({ title: 'Immigration', icon:  'immigration', isSelected: true}))],
-      [TOPICS.EDUCATION , new (Record({ title: 'Education', icon:  'education', isSelected: true}))],
-      [TOPICS.DRUGS , new (Record({ title: 'Drugs', icon:  'smoking-area', isSelected: true}))],
-      [TOPICS.DEFENSE , new (Record({ title: 'Defense', icon: 'tank', isSelected: true}))],
-      [TOPICS.POLITICS , new (Record({ title: 'Politics', icon:  'building', isSelected: true}))],
-      [TOPICS.GUN_RIGHTS , new (Record({ title: 'Gun Rights', icon: 'gun', isSelected: true}))],
-      [TOPICS.TECHNOLOGY , new (Record({ title: 'Technology', icon:  'ipad', isSelected: true}))],
-      [TOPICS.ECONOMICS , new (Record({ title: 'Economics', icon:  'money', isSelected: true}))],
-      [TOPICS.SOCIAL_INTEREST , new (Record({ title: 'Social Interest', icon:  'police', isSelected: true}))]
+      [TOPICS.CRIME.key, new (Record({ title: 'Crime', icon: 'crime', isSelected: true}))],
+      [TOPICS.HEALTHCARE.key, new (Record({ title: 'Healthcare', icon: 'healthcare', isSelected: true}))],
+      [TOPICS.TAXES.key, new (Record({ title: 'Taxes', icon: 'taxes', isSelected: true}))],
+      [TOPICS.IMMIGRATION .key, new (Record({ title: 'Immigration', icon:  'immigration', isSelected: true}))],
+      [TOPICS.EDUCATION .key, new (Record({ title: 'Education', icon:  'education', isSelected: true}))],
+      [TOPICS.DRUGS .key, new (Record({ title: 'Drugs', icon:  'smoking-area', isSelected: true}))],
+      [TOPICS.DEFENSE .key, new (Record({ title: 'Defense', icon: 'tank', isSelected: true}))],
+      [TOPICS.POLITICS .key, new (Record({ title: 'Politics', icon:  'building', isSelected: true}))],
+      [TOPICS.GUN_RIGHTS .key, new (Record({ title: 'Gun Rights', icon: 'gun', isSelected: true}))],
+      [TOPICS.TECHNOLOGY .key, new (Record({ title: 'Technology', icon:  'ipad', isSelected: true}))],
+      [TOPICS.ECONOMICS .key, new (Record({ title: 'Economics', icon:  'money', isSelected: true}))],
+      [TOPICS.SOCIAL_INTEREST .key, new (Record({ title: 'Social Interest', icon:  'police', isSelected: true}))]
     ])
   }))
 });

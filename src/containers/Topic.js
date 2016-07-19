@@ -113,7 +113,7 @@ class Topic extends React.Component {
     }
   }
   componentDidMount(){
-    this.getDiscoveryItemsForTopic(this.props.topicId);
+    this.getDiscoveryItemsForTopic(this.props.topicKey);
   }
 
 
@@ -145,13 +145,13 @@ class Topic extends React.Component {
   render() {
     // console.log("Topic visible: "+(this.props.name==this.props.router.currentSchene)+" because name: "+this.props.name+" and cur: "+this.props.router.currentSchene);
     let topicDt = {};
-    if(!!this.props.topicTitle){
-        topicDt = this.props.newsfeed.newsFeedData.discoveryItems.get(this.props.topicTitle).toJS();
+    if(!!this.props.topicKey && !!this.props.newsfeed.newsFeedData.get("discoveryItems")){
+        topicDt = this.props.newsfeed.newsFeedData.get("discoveryItems").get(this.props.topicKey);
     }
 
     return(
       <TopicRender
-          topicTitle={this.props.topicTitle}
+          topicKey={this.props.topicKey}
           isFetchingTopicData={this.props.newsfeed.isFetching.discoveryData}
           topicData={topicDt}
           onSocialClick={this.onSocialClick.bind(this)}

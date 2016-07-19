@@ -11,8 +11,8 @@
 'use strict';
 
 import  {Record, List, Map} from 'immutable';
-import {Other} from '../../config/constants';
-const {NEWS_FEED_FILTERS, TOPICS} = Other;
+import {Other, TOPICS} from '../../config/constants';
+const {NEWS_FEED_FILTERS } = Other;
 
 /**
  * ##
@@ -36,25 +36,23 @@ var InitialState = Record({
 
   newsFeedData: new (Record({
     curSelectedFilter: NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER,
-    curSelectedTopic : TOPICS.TRENDING,
     items: null,
     lastFeedItemTimeStamp: null,
     trendingItems: null,
 
     discoveryItems: new Map([
-      [TOPICS.TRENDING, null],
-      [TOPICS.HEALTHCARE, null],
-      [TOPICS.TECHNOLOGY, null],
-      [TOPICS.SOCIAL_INTEREST, null],
-      [TOPICS.EDUCATION, null],
-      [TOPICS.POLITICS, null],
-      [TOPICS.TAXES, null],
-      [TOPICS.IMMIGRATION, null],
-      [TOPICS.DRUGS, null],
-      [TOPICS.DEFENSE, null],
-      [TOPICS.CRIME, null],
-      [TOPICS.GUN_RIGHTS, null],
-      [TOPICS.ECONOMICS, null],
+      [TOPICS.HEALTHCARE.key, null],
+      [TOPICS.TECHNOLOGY.key, null],
+      [TOPICS.SOCIAL_INTEREST.key, null],
+      [TOPICS.EDUCATION.key, null],
+      [TOPICS.POLITICS.key, null],
+      [TOPICS.TAXES.key, null],
+      [TOPICS.IMMIGRATION.key, null],
+      [TOPICS.DRUGS.key, null],
+      [TOPICS.DEFENSE.key, null],
+      [TOPICS.CRIME.key, null],
+      [TOPICS.GUN_RIGHTS.key, null],
+      [TOPICS.ECONOMICS.key, null],
     ]),
 
   }))

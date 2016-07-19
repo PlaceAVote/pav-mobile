@@ -113,7 +113,7 @@ class DiscoveryCard extends React.Component {
             source={this.props.topicImage}
             resizeMode='cover'
           >
-            <Text style={styles.topicString}>{toTitleCase(this.props.topicId)}</Text>
+            <Text style={styles.topicString}>{this.props.topicTitle}</Text>
           </PavImage>
         </View>
         </TouchableOpacity>
@@ -128,6 +128,7 @@ class DiscoveryCard extends React.Component {
 DiscoveryCard.propTypes= {
 
   topicId: React.PropTypes.string.isRequired,
+  topicTitle: React.PropTypes.string.isRequired,
   topicImage: React.PropTypes.number.isRequired,
   onTopicClick: React.PropTypes.func.isRequired,
 };

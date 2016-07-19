@@ -307,8 +307,8 @@ class NewsFeed extends React.Component {
     this.props.actions.navigateTo(NEWISSUE);
   }
 
-  onTopicClick(topicId){
-    this.props.actions.navigateTo(TOPIC, {topicId});
+  onTopicClick(topicKey){
+    this.props.actions.navigateTo(TOPIC, {topicKey});
   }
 
   render() {
