@@ -73,7 +73,8 @@ const {
   BILL,
   COMMENTS,
   PROFILE,
-  NEWISSUE
+  NEWISSUE,
+  TOPIC
 } = ScheneKeys;
 
 
@@ -144,9 +145,6 @@ class NewsFeed extends React.Component {
     // console.log("@@@ NEWS FEED "+this.TOKEN);
     return await this.props.actions.getFeedItems(fetchOld, this.TOKEN, this.props.global.isDev);
   }
-  async getDiscoveryItemsForTopic(topicString){
-    return await this.props.actions.getDiscoveryItems(topicString, this.TOKEN, this.props.global.isDev);
-  }
 
 
 
@@ -182,11 +180,7 @@ class NewsFeed extends React.Component {
       // console.log("Do something on feed refresh")
   }
 
-  onDiscoveryRefresh(topicName){
-    if(!!topicName){
-        this.getDiscoveryItemsForTopic(topicName);
-    }
-  }
+
 
 
 
@@ -312,8 +306,7 @@ class NewsFeed extends React.Component {
   }
 
   onTopicClick(topicId){
-    // this.props.actions.navigateTo(TOPIC, topicId);
-    alert("Topic clicked: "+topicId);
+    this.props.actions.navigateTo(TOPIC, {topicId});
   }
 
   render() {
@@ -346,7 +339,6 @@ class NewsFeed extends React.Component {
           onRightNavBtnClicked={this.onRightNavBtnClick.bind(this)}
           onFilterChanged={this.onFilterChanged.bind(this)}
           onFeedRefresh={this.onFeedRefresh.bind(this)}
-          onDiscoveryRefresh={this.onDiscoveryRefresh.bind(this)}
           onUserClick={this.onUserClickedUser.bind(this)}
           onBillClick={this.onUserClickedBill.bind(this)}
           onLikeDislikeClick={this.onUserClickedLikeDislike.bind(this)}

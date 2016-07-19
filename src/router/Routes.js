@@ -38,6 +38,7 @@ import SplashScreen from '../containers/SplashScreen';
 import NewIssue from '../containers/NewIssue';
 import Settings from '../containers/Settings';
 import Tos from '../containers/Tos';
+import Topic from '../containers/Topic';
 
 /**
 * ## Nav bar icons
@@ -152,7 +153,7 @@ const pavScenes = Actions.create(
     <Scene key={ScheneKeys.REGISTER_STEP_1_FB} {...defaultProps} title="Register" type="replace" component={EmailSignUpStep1Fb} hideNavBar={false} />
     <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} title="Register" component={EmailSignUpStep2} hideNavBar={false} initial={false}/>
     <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
-    <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile}/>
+    <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile} hideNavBar={true}/>
     <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} tabBarIconContainerStyle={styles.iconContainerStyle}  hideNavBar={true} initial={false}>
         <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} hideNavBar={true} initial={true}/>
         <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} hideNavBar={true} />
@@ -164,6 +165,8 @@ const pavScenes = Actions.create(
     <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" hideNavBar={true}/>
     <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} hideNavBar={true} />
     <Scene key={ScheneKeys.TOS} {...defaultProps} component={Tos} title="Terms of service"/>
+    <Scene key={ScheneKeys.TOPIC} {...defaultProps} component={Topic} hideNavBar={true} />
+
   </Scene>
 );
 

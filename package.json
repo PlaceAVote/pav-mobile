@@ -88,7 +88,7 @@
     "react": "15.2.1",
     "react-addons-test-utils": "15.2.1",
     "react-native": "0.29.1",
-    "react-native-bugsnag": "0.0.5",
+    "react-native-bugsnag": "SudoPlz/react-native-bugsnag",
     "react-native-collapsible": "^0.6.0",
     "react-native-fbsdk": "^0.2.2",
     "react-native-google-analytics-bridge": "^2.1.0",

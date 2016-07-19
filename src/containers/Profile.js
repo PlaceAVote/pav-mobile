@@ -381,6 +381,10 @@ class Profile extends React.Component {
   onRightNavBtnClick(){
     this.props.actions.navigateTo(SETTINGS);
   }
+  
+  onLeftNavBtnClick(){
+    this.props.actions.navigateToPrevious();
+  }
 
 
 
@@ -412,6 +416,7 @@ class Profile extends React.Component {
           onReactionClick={this.onUserClickedReaction.bind(this)}
           onCommentClick={this.onUserClickedComments.bind(this)}
           onRightNavBtnClicked={this.onRightNavBtnClick.bind(this)}
+          onLeftIconPressed={this.onLeftNavBtnClick.bind(this)}
       />
 
     );

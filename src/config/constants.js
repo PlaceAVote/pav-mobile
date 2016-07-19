@@ -64,6 +64,7 @@ module.exports =  {
     NEWISSUE: null,
     SETTINGS: null,
     TOS: null,
+    TOPIC: null,
   }),
   BillPageTabs: {
     SUMMARY: 0,

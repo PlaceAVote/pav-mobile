@@ -340,6 +340,28 @@ class ProfileRender extends React.Component {
 
   }
 
+
+
+
+  renderNavBar(){
+    if(this.props.isTab!==false){ //if its a tab
+        return(
+          <NavBarRender
+          title="Profile"
+          rightIconName="gear"
+          rightIconSize={30}
+          onRightIconPressed={this.props.onRightNavBtnClicked}
+          />)
+    }else{  //if its NOT a tab
+      return(
+        <NavBarRender
+        title="Profile"
+        leftIconIsBack={true}
+        onLeftIconPressed={this.props.onLeftNavBtnClicked}
+        />)
+    }
+  }
+
   renderProfileHeader(){
     let firstName = this.props.curUser.firstName|| "-";
     let lastName = this.props.curUser.lastName || "";
@@ -547,5 +569,6 @@ ProfileRender.propTypes= {
   onCommentClick: React.PropTypes.func.isRequired,
   onFetchOlderTimelineData:React.PropTypes.func.isRequired,
   onRightNavBtnClicked:React.PropTypes.func.isRequired,
+  onLeftIconPressed:React.PropTypes.func.isRequired,
 };
 export default ProfileRender;

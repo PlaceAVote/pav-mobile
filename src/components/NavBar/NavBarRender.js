@@ -183,6 +183,8 @@ NavBarRender.defaultProps={
 NavBarRender.propTypes= {
   title: React.PropTypes.string.isRequired,
 
+  leftIconIsBack: React.PropTypes.bool,
+
   leftIconName: React.PropTypes.string,
   leftIconSize: React.PropTypes.number,
   onLeftIconPressed: React.PropTypes.func,
