@@ -176,9 +176,9 @@ const styles = StyleSheet.create({
   },
   cardContentText:{
     // backgroundColor:'green',
-    fontFamily: 'Whitney-Light',
-    fontSize: getCorrectFontSizeForScreen(7),
-    color: 'rgba(0, 0, 0, 0.64)',
+    fontFamily: 'Whitney-Regular',
+    fontSize: getCorrectFontSizeForScreen(8),
+    color: 'rgba(0, 0, 0, 0.54)',
   },
 
 

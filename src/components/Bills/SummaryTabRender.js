@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     flex:1,
   },
   summaryHeaderContainer:{
-    flex:1,
     backgroundColor: Colors.titleBgColor,
     borderBottomColor: "rgba(0, 0, 0, 0.07)",
     borderBottomWidth: 1,
@@ -84,6 +83,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   summaryBodyText:{
+    lineHeight: h*0.025,
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Regular',
@@ -106,9 +106,10 @@ const styles = StyleSheet.create({
     color:Colors.negativeAccentColor
   },
   summaryBodyPointsFavorText:{
+    lineHeight: h*0.025,
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney-Italic',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
   }
 
