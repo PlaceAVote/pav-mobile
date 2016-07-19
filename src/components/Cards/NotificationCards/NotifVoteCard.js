@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   cardExplanText:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney-Light',
+    fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(9),
     width: w*0.74,
     // backgroundColor:'red'

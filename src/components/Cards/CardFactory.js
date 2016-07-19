@@ -23,6 +23,7 @@ import NotifIssueResponseCard from './NotificationCards/NotifIssueResponseCard'
 import SearchBillCard from './SearchCards/SearchBillCard'
 import SearchUserCard from './SearchCards/SearchUserCard'
 
+import TrendingCard from './FeedCards/TrendingCard';
 /**
  * Immutable
  */
@@ -297,14 +298,35 @@ class CardFactory extends React.Component {
   renderTrendingCards(){
     let n = this.props.itemData;
     let u = this.props.curUser;
-    console.log("TRENDING CARD: "+JSON.stringify(n))
+    // console.log("@@@@@@@@@ TRENDING CARD: "+JSON.stringify(n))
+
+    let billTitle = n.short_title || n.featured_bill_title || n.official_title;
+    let yesCount = n["yes-count"], noCount = n["no-count"];
+    let favorPercent = -1;
+    if((yesCount+noCount)!=0){
+      if(yesCount>noCount){//if more people voted in favor than those against
+        favorPercent = ((yesCount/(yesCount+noCount))*100.00) | 0;  //Bitwise OR operator | 0, converts the float value to int value
+        //this will be a value from 0 up to 100
+      }else{
+        favorPercent = ((noCount/(yesCount+noCount))*-100.00) | 0;  //Bitwise OR operator | 0, converts the float value to int value
+        //this will be a value from 0 up to -100 (Note the MINUS) more people voted against, thus we have a negative value
+      }
+
+    }
+    console.log("@@@@@@@@@@ FAVOR PERCENTAGE: "+favorPercent+" because of yes cnt: "+yesCount+" and no count: "+noCount);
+
     return (
-      <View>
-        <Text>
-          Trending card
-        </Text>
-      </View>
-    )
+      <TrendingCard
+      {...this.props}
+      billId={n.bill_id}
+      commentCnt={n.comment_count}
+      billPhotoUrl={n.featured_img_link}
+      billTitle={billTitle}
+      billSubject={n.subject || n.pav_topic}
+      favorPercentage={favorPercent}
+      onBillClick={this.props.onBillClick}
+      />
+      )
   }
 
   /**

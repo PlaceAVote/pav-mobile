@@ -368,28 +368,18 @@ class TrendingCard extends React.Component {
   }
 }
 
-
-
-
-
+//TODO: Make this look like a trending card
 
 
 
 TrendingCard.propTypes= {
 
-  billId: React.PropTypes.string,
-  billTitle: React.PropTypes.string,
-  billPhotoUrl: React.PropTypes.string,
+  billId: React.PropTypes.string.isRequired,
+  billTitle: React.PropTypes.string.isRequired,
+  billPhotoUrl: React.PropTypes.string.isRequired,
   commentCnt: React.PropTypes.number.isRequired,
-  isLiked: React.PropTypes.bool.isRequired,
-  isDisliked: React.PropTypes.bool.isRequired,
-  commentId: React.PropTypes.string,
+  favorPercentage: React.PropTypes.number.isRequired,
 
-
-
-  onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
-  onLikeDislikeClick: React.PropTypes.func.isRequired,
-  onReplyClick: React.PropTypes.func.isRequired,
 };
 export default TrendingCard;

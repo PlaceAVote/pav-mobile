@@ -131,14 +131,17 @@ class NewsFeed extends React.Component {
 
   componentWillMount(){
     if(this.props.newsfeed.newsFeedData.items==null){
+      this.connectAndGetOther();
       this.connectAndGetFeed(false);
     }
   }
 
-  async connectAndGetFeed(fetchOld){
-    // console.log("@@@ NEWS FEED "+this.TOKEN);
+  connectAndGetOther(){
     this.props.actions.getNotificationItems(false, this.TOKEN, this.props.global.isDev)
     this.props.actions.getTrendingItems(this.TOKEN, this.props.global.isDev)
+  }
+  async connectAndGetFeed(fetchOld){
+    // console.log("@@@ NEWS FEED "+this.TOKEN);
     return await this.props.actions.getFeedItems(fetchOld, this.TOKEN, this.props.global.isDev);
   }
   async getDiscoveryItemsForTopic(topicString){

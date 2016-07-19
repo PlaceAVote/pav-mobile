@@ -268,8 +268,8 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
 
     console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
-      console.log("Error in feed call"+res.error.error_message);
-      dispatch(getDiscoveryFailure("Unable to get user discovery data with this token."));
+      console.log("Error in feed call"+res.error);
+      dispatch(getDiscoveryFailure(res.error));
       return res.error;
     }else{
       dispatch(getDiscoverySuccess({data:res.data, topic:topicsString}));
@@ -327,12 +327,13 @@ export function getTrendingItems(sessionToken=null, dev = null) {
       dispatch(getTrendingFailure(e.message));
     }
 
+    console.log("About to call trending bills with token: "+token+" is dev: "+dev);
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getTrendingBills();
 
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
-      console.log("Error in feed call"+res.error.error_message);
-      dispatch(getTrendingFailure("Unable to get user trending data with this token."));
+      console.log("Error in feed call"+res.error);
+      dispatch(getTrendingFailure(res.error));
       return res.error;
     }else{
       dispatch(getTrendingSuccess({data:res.data}));

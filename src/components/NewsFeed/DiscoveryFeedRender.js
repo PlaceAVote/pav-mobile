@@ -62,9 +62,11 @@ class DiscoveryFeedRender extends React.Component {
 
 
   renderTrendingIssues(){
-    let trendingItems = null;
+    let trendingItems = [];
     if(!!this.props.trendingItems){
-      trendingItems = this.props.trendingItems;
+      trendingItems.push(this.props.trendingItems.get(0).toJS());
+      trendingItems.push(this.props.trendingItems.get(1).toJS());
+      trendingItems.push(this.props.trendingItems.get(2).toJS());
     }
     return (
       <View style={styles.trendingContainer}>
@@ -75,11 +77,29 @@ class DiscoveryFeedRender extends React.Component {
         </View>
         <CardFactory
           type="trending"
+          key="trending_0"
+          style={styles.trendingCardContainer}
+          cardStyle={styles.trendingCardStyle}
+          cardHeight={h*0.25}
+          itemData={trendingItems[0]}
+          onBillClick={this.props.onBillClick}
+        />
+        <CardFactory
+          type="trending"
           key="trending_1"
           style={styles.trendingCardContainer}
           cardStyle={styles.trendingCardStyle}
           cardHeight={h*0.25}
-          itemData={trendingItems}
+          itemData={trendingItems[1]}
+          onBillClick={this.props.onBillClick}
+        />
+        <CardFactory
+          type="trending"
+          key="trending_2"
+          style={styles.trendingCardContainer}
+          cardStyle={styles.trendingCardStyle}
+          cardHeight={h*0.25}
+          itemData={trendingItems[2]}
           onBillClick={this.props.onBillClick}
         />
       </View>
