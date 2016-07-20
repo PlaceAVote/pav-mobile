@@ -101,7 +101,7 @@ class PavTabBar extends React.Component {
       onPress={() => this.props.goToPage(page)}
       onLayout={this.measureTab.bind(this, page)}
     >
-      <Text style={[{color: textColor},fontWeight, textStyle, ]}>
+      <Text style={[{color: textColor},textStyle, fontWeight ]}>
         {name}
       </Text>
     </TouchableOpacity>;
