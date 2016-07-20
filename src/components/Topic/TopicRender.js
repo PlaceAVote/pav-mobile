@@ -54,6 +54,19 @@ const styles = StyleSheet.create({
   topicImage:{
     width: w,
     height: h*0.25,
+    justifyContent:'center'
+  },
+
+  topicTitleContainer:{
+    paddingTop:h*0.015,
+    // paddingBottom:h*0.02,
+    backgroundColor:Colors.transparentColor
+  },
+  topicTitle:{
+    fontFamily: 'Whitney-Regular',
+    fontSize: getCorrectFontSizeForScreen(15),
+    color: Colors.mainTextColor,
+    textAlign: 'center',
   },
 
   backIconContainer:{
@@ -73,17 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
 
-  topicTitleContainer:{
-    paddingTop:h*0.07,
-    paddingBottom:h*0.02,
-    backgroundColor:Colors.transparentColor
-  },
-  topicTitle:{
-    fontFamily: 'Whitney-Regular',
-    fontSize: getCorrectFontSizeForScreen(15),
-    color: Colors.mainTextColor,
-    textAlign: 'center',
-  },
+
   cardContainer:{
     paddingHorizontal: w*0.05,
     paddingVertical:h*0.003,
@@ -146,13 +149,6 @@ class TopicRender extends React.Component {
            }
          }}
          onEndReachedThreshold={200}
-         renderHeader={()=>(
-           <View style={styles.topicTitleContainer}>
-             <Text style={styles.topicTitle}>
-               {this.state.topic.title}
-             </Text>
-           </View>
-        )}
          refreshControl={
            <RefreshControl
            refreshing={(this.props.isFetchingTopicData===true)}
@@ -166,7 +162,7 @@ class TopicRender extends React.Component {
               }
             })}
          />}
-
+         renderHeader={()=><View style={{ paddingTop:h*0.17,}}></View>}
          renderRow={(rowData) =>
            <CardFactory
            type="topic"
@@ -198,7 +194,13 @@ class TopicRender extends React.Component {
             style={styles.topicImage}
             source={this.state.topic.img}
             resizeMode='cover'
-          />
+          >
+            <View style={styles.topicTitleContainer}>
+              <Text style={styles.topicTitle}>
+                {this.state.topic.title}
+              </Text>
+            </View>
+          </PavImage>
         </View>
         {this.renderBody()}
         <TouchableOpacity style={styles.backIconContainer} onPress={this.props.onLeftNavBtnClicked}>
