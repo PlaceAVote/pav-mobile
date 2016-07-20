@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
 
         statusPartContainer:{
-          flex:1,
+          // flex:1,
           flexDirection:'row',
           // backgroundColor:'purple',
           alignItems:"flex-start",
@@ -38,22 +38,28 @@ const styles = StyleSheet.create({
 
         /* LEFT SIDE */
         lineViewContainer:{
+          flex:1,
           paddingHorizontal: w*0.04,
           flexDirection:'column',
           // width:10,
-          justifyContent:'center',
-          // backgroundColor:'red',
+          // justifyContent:'flex-end',
+          // backgroundColor:'pink',
           alignItems:'center'
         },
         line:{
           // flex:1,
           width:8,
+
           // marginHorizontal:6,
+          borderLeftWidth:2,
+          borderLeftColor:"#DE4a0388",
+          borderRightWidth:2,
+          borderRightColor:"#DE403388",
           backgroundColor:Colors.negativeAccentColor,
         },
         iconContainer:{
           backgroundColor:Colors.titleBgColor,
-          padding: w*0.04,
+          padding: w*0.03,
           borderRadius:2,
           borderWidth:1,
           borderColor: "rgba(0, 0, 0, 0.07)",
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
 
         explanationsContainer:{
           // flex:1,
-          alignSelf:'center',
+          // alignSelf:'center',
           flexDirection:'column',
           paddingHorizontal: w*0.05,
           // backgroundColor:'pink'
@@ -198,7 +204,7 @@ class AnimatedStatusCard extends React.Component {
         </Animated.View>
         {finalItem==true?<View></View>:<Animated.View key={key+"_line_2"} style={[styles.line, {height:this.state.line_B_Height}]}></Animated.View>}
       </View>
-      <Animated.View key={key+"_explan_container"} style={[styles.explanationsContainer, {opacity: this.state.curOpacity}]}>
+      <Animated.View key={key+"_explan_container"} style={[styles.explanationsContainer, {opacity: this.state.curOpacity, marginTop:this.props.lineHeight*1}]}>
         <Text key={key+"_title"} style={this.props.active==true?[styles.statusTitleText, styles.activeStatusText]:[styles.statusTitleText, styles.inactiveStatusText]}>{this.props.title}</Text>
         <Text key={key+"_description"} style={this.props.active==true?[styles.statusDescriptionText, styles.activeStatusText]:[styles.statusDescriptionText, styles.inactiveStatusText]}>
           <Text style={this.props.active==true?[styles.statusDescription2Text, styles.activeStatusText]:[styles.statusDescription2Text, styles.inactiveStatusText]}> Meaning:</Text> {this.props.explanation}

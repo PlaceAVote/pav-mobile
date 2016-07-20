@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   bodyText:{
+    lineHeight: 18,  // | 0 converts the float to an int because otherwise we get this bug https://github.com/facebook/react-native/issues/7877
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Regular',
@@ -109,10 +110,13 @@ const styles = StyleSheet.create({
   /* Bill Status */
   statusContainer:{
     flexDirection:'row',
+    // alignItems:'center',
+    // backgroundColor:'purple'
   },
 
   statusIconContainer:{
     backgroundColor:Colors.titleBgColorDark,
+    marginTop: h*0.015,
     justifyContent:'center',
     alignItems:'center',
     height: w*0.21,
@@ -125,15 +129,16 @@ const styles = StyleSheet.create({
   statusTextContainer:{
     flexDirection:'column',
     paddingHorizontal: w*0.015,
+    paddingVertical: h*0.008,
   },
   statusTitleText:{
-    paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Bold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
   statusDescriptionText:{
     width: w*0.73,
+    lineHeight: 18,  // | 0 converts the float to an int because otherwise we get this bug https://github.com/facebook/react-native/issues/7877
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Light',
@@ -219,6 +224,7 @@ const styles = StyleSheet.create({
 
   /* OFFICIAL TITLE */
   officialTitleText:{
+    lineHeight: 18,  // | 0 converts the float to an int because otherwise we get this bug https://github.com/facebook/react-native/issues/7877
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
