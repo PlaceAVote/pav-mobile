@@ -23,6 +23,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		158AE90864AF48F0AB4A8857 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1894128B5F4B489777CDA4 /* libRNVectorIcons.a */; };
+		374FA18C3C27B11B9A4D5ECC /* libPods-PlaceAVote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09705C91F4AFB70E885B3F02 /* libPods-PlaceAVote.a */; };
 		41C44F44B80946B7BE103133 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACCDED46B761494587029C04 /* FontAwesome.ttf */; };
 		5B569008FC514D429A6106C4 /* Whitney-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57A53824CFB24867B019440F /* Whitney-BoldItalic.ttf */; };
 		65B475AF68954BED9B8697D2 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71656C5207C24487AB0A31DE /* icomoon.ttf */; };
@@ -30,13 +31,12 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8B17BF4259D5406A95F8F3C8 /* icomoon.json in Resources */ = {isa = PBXBuildFile; fileRef = D912141BFF24407ABD582230 /* icomoon.json */; };
 		8D13A85D0B794E86979E649F /* Whitney-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1299B3D1A3C34E3FAC5BB486 /* Whitney-LightItalic.ttf */; };
+		9066140833521FE35A8C549B /* libPods-PlaceAVoteTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A65554562E5AA2B4B76A9E /* libPods-PlaceAVoteTests.a */; };
 		911DC4EB7C844AF191508596 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB942BA86B9415FB3D6DDB5 /* libRCTFBSDK.a */; };
 		AD0D35380E7D4941AA82111D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4EA92E2469B4227BD244D6A /* MaterialIcons.ttf */; };
 		B18559C270114DB1B66DE7BB /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0B47E307914465955920FC /* Entypo.ttf */; };
 		B3E105F2A0974DF0937D8623 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B394743AF94F128F91FCDA /* libRNImagePicker.a */; };
 		C46A6F9525FE47D0872B72D4 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18EB06C5A8E4A35B20C9160 /* libBVLinearGradient.a */; };
-		D3459C171D36E0C90057422A /* Bugsnag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3459C161D36E0C90057422A /* Bugsnag.framework */; };
-		D3459C181D36E0C90057422A /* Bugsnag.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D3459C161D36E0C90057422A /* Bugsnag.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D35B9D781D2BF78B00D26C50 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D771D2BF78B00D26C50 /* CoreData.framework */; };
 		D35B9D7A1D2BF79700D26C50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D791D2BF79700D26C50 /* SystemConfiguration.framework */; };
 		D35B9D7C1D2BF7A100D26C50 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D7B1D2BF7A100D26C50 /* libz.tbd */; };
@@ -187,20 +187,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		D3459C191D36E0C90057422A /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D3459C181D36E0C90057422A /* Bugsnag.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -211,6 +197,7 @@
 		00E356EE1AD99517003FC87E /* PlaceAVoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaceAVoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* PlaceAVoteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceAVoteTests.m; sourceTree = "<group>"; };
+		09705C91F4AFB70E885B3F02 /* libPods-PlaceAVote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlaceAVote.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D1F9A8E26AD4E399E74BE6E /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		123A7714FBFD4FB7820362E9 /* Whitney-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-SemiBoldItalic.ttf"; path = "../assets/fonts/Whitney-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		1299B3D1A3C34E3FAC5BB486 /* Whitney-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-LightItalic.ttf"; path = "../assets/fonts/Whitney-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -229,21 +216,24 @@
 		313F718F1DF64E0AB9731100 /* RCTGoogleAnalyticsBridge.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTGoogleAnalyticsBridge.xcodeproj; path = "../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/RCTGoogleAnalyticsBridge.xcodeproj"; sourceTree = "<group>"; };
 		31D3213C83F540AEBA7BA36E /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		57A53824CFB24867B019440F /* Whitney-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-BoldItalic.ttf"; path = "../assets/fonts/Whitney-BoldItalic.ttf"; sourceTree = "<group>"; };
+		67DAED5D95586030FF5B87DD /* Pods-PlaceAVoteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteTests/Pods-PlaceAVoteTests.release.xcconfig"; sourceTree = "<group>"; };
 		6A1894128B5F4B489777CDA4 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		71656C5207C24487AB0A31DE /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
+		7362816BCFE56E6FA9B7C7D7 /* Pods-PlaceAVote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVote/Pods-PlaceAVote.debug.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7A0B47E307914465955920FC /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = ../assets/fonts/Entypo.ttf; sourceTree = "<group>"; };
+		801F1C72A65A5A7DD58A7B45 /* Pods-PlaceAVote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVote.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVote/Pods-PlaceAVote.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8F0998F25E0041BEAD115811 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/iOS/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		8F6A8195502D41C8AEE97BB1 /* Whitney-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Regular.ttf"; path = "../assets/fonts/Whitney-Regular.ttf"; sourceTree = "<group>"; };
 		A6BF994F0F7B4A9C95C85276 /* Whitney-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Bold.ttf"; path = "../assets/fonts/Whitney-Bold.ttf"; sourceTree = "<group>"; };
 		ACCDED46B761494587029C04 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = ../assets/fonts/FontAwesome.ttf; sourceTree = "<group>"; };
 		AE699A3C0187422CA411B233 /* libRCTGoogleAnalyticsBridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTGoogleAnalyticsBridge.a; sourceTree = "<group>"; };
+		AFFF22CB85E3B5A28F0224BD /* Pods-PlaceAVoteTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceAVoteTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlaceAVoteTests/Pods-PlaceAVoteTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD9A4E8B46E34FFCBA06B819 /* Whitney-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-Light.ttf"; path = "../assets/fonts/Whitney-Light.ttf"; sourceTree = "<group>"; };
 		BDFC9D33D7EB4E94AEA715C7 /* Whitney-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-SemiBold.ttf"; path = "../assets/fonts/Whitney-SemiBold.ttf"; sourceTree = "<group>"; };
 		C18EB06C5A8E4A35B20C9160 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
-		D3459C161D36E0C90057422A /* Bugsnag.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugsnag.framework; path = Carthage/Build/iOS/Bugsnag.framework; sourceTree = "<group>"; };
-		D34EE66C1D303DCE00851B34 /* Bugsnag.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Bugsnag.framework.dSYM; path = Carthage/Build/iOS/Bugsnag.framework.dSYM; sourceTree = "<group>"; };
+		C6A65554562E5AA2B4B76A9E /* libPods-PlaceAVoteTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlaceAVoteTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D35244A7D86E47009A998D35 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		D35B9D771D2BF78B00D26C50 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D35B9D791D2BF79700D26C50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -271,6 +261,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9066140833521FE35A8C549B /* libPods-PlaceAVoteTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +273,6 @@
 				D35B9D7C1D2BF7A100D26C50 /* libz.tbd in Frameworks */,
 				D35B9D7A1D2BF79700D26C50 /* SystemConfiguration.framework in Frameworks */,
 				D3DE5D901D30282F006D5887 /* libRNBugsnag.a in Frameworks */,
-				D3459C171D36E0C90057422A /* Bugsnag.framework in Frameworks */,
 				D35B9D781D2BF78B00D26C50 /* CoreData.framework in Frameworks */,
 				D3F6AB9B1D06022100318198 /* libART.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -303,6 +293,7 @@
 				158AE90864AF48F0AB4A8857 /* libRNVectorIcons.a in Frameworks */,
 				B3E105F2A0974DF0937D8623 /* libRNImagePicker.a in Frameworks */,
 				F461621EE5A943FC99D6030D /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
+				374FA18C3C27B11B9A4D5ECC /* libPods-PlaceAVote.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +428,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		80A41065BEE39CFABD3AB508 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7362816BCFE56E6FA9B7C7D7 /* Pods-PlaceAVote.debug.xcconfig */,
+				801F1C72A65A5A7DD58A7B45 /* Pods-PlaceAVote.release.xcconfig */,
+				AFFF22CB85E3B5A28F0224BD /* Pods-PlaceAVoteTests.debug.xcconfig */,
+				67DAED5D95586030FF5B87DD /* Pods-PlaceAVoteTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +480,8 @@
 				00E356EF1AD99517003FC87E /* PlaceAVoteTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				3C5F4A44C20446FA84A1BDA5 /* Resources */,
+				80A41065BEE39CFABD3AB508 /* Pods */,
+				D00FA17F89B2D964DBC62DE4 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -490,6 +494,15 @@
 				00E356EE1AD99517003FC87E /* PlaceAVoteTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D00FA17F89B2D964DBC62DE4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				09705C91F4AFB70E885B3F02 /* libPods-PlaceAVote.a */,
+				C6A65554562E5AA2B4B76A9E /* libPods-PlaceAVoteTests.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D35B9D601D2BF73B00D26C50 /* Products */ = {
@@ -535,8 +548,6 @@
 		D38A29901D021186005B42F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D3459C161D36E0C90057422A /* Bugsnag.framework */,
-				D34EE66C1D303DCE00851B34 /* Bugsnag.framework.dSYM */,
 				D35B9D7D1D2BF7AD00D26C50 /* libsqlite3.0.tbd */,
 				D35B9D7B1D2BF7A100D26C50 /* libz.tbd */,
 				D35B9D791D2BF79700D26C50 /* SystemConfiguration.framework */,
@@ -590,9 +601,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "PlaceAVoteTests" */;
 			buildPhases = (
+				B33E3EB3D5F7CF4F2CD6F906 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				D27479AE25FCAEB07B1BF297 /* [CP] Embed Pods Frameworks */,
+				399667B7EF91A8828EA574ED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -608,12 +622,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "PlaceAVote" */;
 			buildPhases = (
+				417153C99BD8648D88946774 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				D34EE6581D303B5500851B34 /* Carthage script */,
-				D3459C191D36E0C90057422A /* Embed Frameworks */,
+				097CA157ACEC120B8481AC4D /* [CP] Embed Pods Frameworks */,
+				CC9F22955B8B3D83EA1DD675 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -912,19 +927,95 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
-		D34EE6581D303B5500851B34 /* Carthage script */ = {
+		097CA157ACEC120B8481AC4D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Carthage script";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"@@@@@@@@@@@@@@@ Now copying carthage libs\"\n/usr/local/bin/carthage copy-frameworks\n$SRCROOT/Carthage/Build/iOS/Bugsnag.framework\n\necho \"@@@@@@@@@@@@@@@ Now copying carthage libs\"";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVote/Pods-PlaceAVote-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		399667B7EF91A8828EA574ED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVoteTests/Pods-PlaceAVoteTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		417153C99BD8648D88946774 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B33E3EB3D5F7CF4F2CD6F906 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CC9F22955B8B3D83EA1DD675 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVote/Pods-PlaceAVote-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D27479AE25FCAEB07B1BF297 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlaceAVoteTests/Pods-PlaceAVoteTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -972,6 +1063,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AFFF22CB85E3B5A28F0224BD /* Pods-PlaceAVoteTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -997,6 +1089,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67DAED5D95586030FF5B87DD /* Pods-PlaceAVoteTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1019,6 +1112,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7362816BCFE56E6FA9B7C7D7 /* Pods-PlaceAVote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
@@ -1027,7 +1121,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PlaceAVote/FBSDK",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1045,6 +1138,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
@@ -1055,6 +1149,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 801F1C72A65A5A7DD58A7B45 /* Pods-PlaceAVote.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
@@ -1062,7 +1157,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PlaceAVote/FBSDK",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1080,6 +1174,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
