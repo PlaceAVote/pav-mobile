@@ -109,7 +109,7 @@ class DiscoveryCard extends React.Component {
         <View style={styles.billImageContainer}>
           <PavImage
             defaultSource={congratsScreenPhoto}
-            indicatorProps={{color:Colors.mainTextColor, size:40}}
+            indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
             style={styles.billImage}
             source={this.props.topicImage}
             resizeMode='cover'

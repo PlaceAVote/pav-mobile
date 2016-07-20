@@ -165,11 +165,10 @@ class PostVoteModalBox extends React.Component {
 
                 <PavImage
                   key="postVoteHeaderImg"
-                  platform={Platform.OS}
                   style={[styles.billImage, {height:topCommentExists===true?h*0.25:h*0.35}]}
                   source={congratsScreenPhoto}
                   defaultSource={congratsScreenPhoto}
-                  indicatorProps={{color:Colors.mainTextColor, size:40}}
+                  indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
                   resizeMode='cover'
                 >
                   <View style={styles.congratulationsTextContainer}>

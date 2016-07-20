@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   summaryBodyText:{
-    lineHeight: h*0.025,
+    lineHeight: (h*0.025) | 0,  // | 0 converts the float to an int because otherwise we get this bug https://github.com/facebook/react-native/issues/7877
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Regular',
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     color:Colors.negativeAccentColor
   },
   summaryBodyPointsFavorText:{
-    lineHeight: h*0.025,
+    lineHeight: (h*0.025) | 0,  // | 0 converts the float to an int because otherwise we get this bug https://github.com/facebook/react-native/issues/7877
     paddingVertical: h*0.008,
     color: Colors.thirdTextColor,
     fontFamily: 'Whitney-Regular',

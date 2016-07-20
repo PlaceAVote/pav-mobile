@@ -247,10 +247,9 @@ class VoteRender extends React.Component {
       style={styles.container}>
         <PavImage
         key="vote_header"
-        platform={Platform.OS}
         style={styles.billImage}
         defaultSource={congratsScreenPhoto}
-        indicatorProps={{color:Colors.mainTextColor, size:40}}
+        indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
         source={{uri: !!billData&&billData.featured_img_link}}
         resizeMode='cover'
         >

@@ -281,9 +281,8 @@ class FeedBillCard extends React.Component {
         <View style={[styles.card, this.props.cardStyle]}>
           <TouchableOpacity style={{flex:1}} onPress={this.onBillClicked.bind(this)}>
             <PavImage
-            platform={Platform.OS}
             defaultSource={congratsScreenPhoto}
-            indicatorProps={{color:Colors.mainTextColor, size:40}}
+            indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
             style={[styles.billImage, {height:this.props.cardHeight}]}
             source={{uri: this.props.billImgUrl}}
             resizeMode='cover'

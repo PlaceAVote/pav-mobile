@@ -69,7 +69,7 @@ const styles=StyleSheet.create({
     color: Colors.fifthTextColor,
     fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
-    lineHeight: (h*0.025) | 0,
+    lineHeight: (h*0.025) | 0,  // | 0 converts the float to an int because otherwise we get this bug https://github.com/facebook/react-native/issues/7877
   }
 
 

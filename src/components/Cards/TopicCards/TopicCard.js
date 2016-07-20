@@ -149,7 +149,7 @@ class TopicCard extends React.Component {
       <TouchableOpacity onPress={this.onBillClick.bind(this)}>
         <PavImage
           defaultSource={congratsScreenPhoto}
-          indicatorProps={{color:Colors.mainTextColor, size:40}}
+          indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
           style={styles.billImage}
           source={{uri: this.props.billImgUrl}}
           resizeMode='cover'

@@ -328,7 +328,7 @@ class BillRender extends React.Component {
     }
   }
 
-  renderHeader(billData, platform){
+  renderHeader(billData){
     // console.log("bill: "+JSON.stringify(billData))
     if(!!billData){
 
@@ -336,11 +336,10 @@ class BillRender extends React.Component {
       return (
         <PavImage
         key="bill_header"
-        platform={platform}
         style={styles.billImage}
         defaultSource={congratsScreenPhoto}
         source={{uri: billData.featured_img_link}}
-        indicatorProps={{color:Colors.mainTextColor, size:40}}
+        indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
         resizeMode='cover'
         >
           <LinearGradient
@@ -523,7 +522,7 @@ class BillRender extends React.Component {
         onLeftIconPressed={this.props.onLeftNavBtnClicked}
         />
         <View style={styles.billContainer}>
-          {this.renderHeader(billData, Platform.OS)}
+          {this.renderHeader(billData)}
           {this.renderBody({
             billData: billData,
             commentData: this.props.bill.comments,
