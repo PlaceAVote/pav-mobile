@@ -194,6 +194,7 @@ class TopicRender extends React.Component {
         <View style={styles.topicImageContainer}>
           <PavImage
             defaultSource={congratsScreenPhoto}
+            indicatorProps={{color:Colors.mainTextColor, size:40}}
             style={styles.topicImage}
             source={this.state.topic.img}
             resizeMode='cover'

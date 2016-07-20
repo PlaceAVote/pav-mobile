@@ -24,7 +24,7 @@ import Button from 'sp-react-native-iconbutton'
 
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import BillTabBar from './BillTabBar';
+import BillTabBar from '../ScrollerTabBar/BillTabBar';
 // import TopicSelectTabBar from '../NewsFeed/TopicSelectTabBar'
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
 
-    // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
+    // paddingBottom:50, //tab bar height
 
     // marginVertical: 10,
     // marginHorizontal:15
@@ -340,6 +340,7 @@ class BillRender extends React.Component {
         style={styles.billImage}
         defaultSource={congratsScreenPhoto}
         source={{uri: billData.featured_img_link}}
+        indicatorProps={{color:Colors.mainTextColor, size:40}}
         resizeMode='cover'
         >
           <LinearGradient

@@ -283,6 +283,7 @@ class FeedBillCard extends React.Component {
             <PavImage
             platform={Platform.OS}
             defaultSource={congratsScreenPhoto}
+            indicatorProps={{color:Colors.mainTextColor, size:40}}
             style={[styles.billImage, {height:this.props.cardHeight}]}
             source={{uri: this.props.billImgUrl}}
             resizeMode='cover'

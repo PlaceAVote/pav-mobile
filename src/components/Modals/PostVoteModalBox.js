@@ -169,6 +169,7 @@ class PostVoteModalBox extends React.Component {
                   style={[styles.billImage, {height:topCommentExists===true?h*0.25:h*0.35}]}
                   source={congratsScreenPhoto}
                   defaultSource={congratsScreenPhoto}
+                  indicatorProps={{color:Colors.mainTextColor, size:40}}
                   resizeMode='cover'
                 >
                   <View style={styles.congratulationsTextContainer}>

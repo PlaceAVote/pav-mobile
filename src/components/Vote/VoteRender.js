@@ -250,6 +250,7 @@ class VoteRender extends React.Component {
         platform={Platform.OS}
         style={styles.billImage}
         defaultSource={congratsScreenPhoto}
+        indicatorProps={{color:Colors.mainTextColor, size:40}}
         source={{uri: !!billData&&billData.featured_img_link}}
         resizeMode='cover'
         >
