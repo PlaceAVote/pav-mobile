@@ -172,6 +172,7 @@ class NewsFeedRender extends React.Component {
           rightIconName="issues"
           rightIconSize={25}
           onRightIconPressed={this.props.onRightNavBtnClicked}
+          device={this.props.device}
           />
 
 
@@ -187,7 +188,8 @@ class NewsFeedRender extends React.Component {
             }}
             renderTabBar={() =>
               <PavTabBar
-                ref={(pavTabBar) => { this.pavTabBar = pavTabBar; }}
+                ref={(pavTabBar) => { this.pavTabBar = pavTabBar }}
+                giveTabABorder={true}
                 underlineColor={Colors.negativeAccentColor}
                 activeTextColor={Colors.primaryColor}
                 inactiveTextColor={Colors.primaryColor}
@@ -290,11 +292,14 @@ class NewsFeedRender extends React.Component {
       (nextProps.searchData !== this.props.searchData)
       ||
       (nextProps.currentlySearching !== this.props.currentlySearching)
+      ||
+      (nextProps.device.orientation !== this.props.device.orientation)
     );
   }
 }
 NewsFeedRender.propTypes= {
 
+  device: React.PropTypes.object.isRequired,
   newsFeedItems: React.PropTypes.object,
   trendingItems: React.PropTypes.object,
   curSelectedFilter: React.PropTypes.number.isRequired,

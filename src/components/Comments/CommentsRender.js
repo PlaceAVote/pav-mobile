@@ -163,6 +163,7 @@ class CommentsRender extends React.Component {
           title="Comments"
           leftIconIsBack={true}
           onLeftIconPressed={this.props.onLeftNavBtnClicked}
+          device={this.props.device}
           />
           <SubcommentContainerListCard
             header={this.renderHeader.bind(this,this.props.billData)}

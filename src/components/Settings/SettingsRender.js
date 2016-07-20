@@ -530,6 +530,7 @@ class SettingsRender extends React.Component {
         <View style={styles.container}>
           <NavBarRender
           title="Settings"
+          device={this.props.device}
           renderRightIcon={
             ()=>
               <Button
@@ -705,7 +706,7 @@ SettingsRender.defaultProps= {
 SettingsRender.propTypes= {
   // timelineData: React.PropTypes.object,
   form: React.PropTypes.object,
-  // device: React.PropTypes.object.isRequired,
+  device: React.PropTypes.object.isRequired,
   isFetching: React.PropTypes.bool,
   isUpdatingPhoto: React.PropTypes.bool,
   // followingCnt: React.PropTypes.oneOfType([

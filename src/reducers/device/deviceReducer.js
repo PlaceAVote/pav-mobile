@@ -21,6 +21,8 @@ const {
   SET_ORIENTATION_LOCK
 } = ActionNames;
 
+import {updateScreenSizesByOrientation} from '../../lib/Utils/multiResolution';
+
 const initialState = new InitialState;
 
 /**
@@ -40,7 +42,11 @@ export default function deviceReducer(state = initialState, action) {
   case SET_ORIENTATION:
     const orientation = action.payload;
     // console.log("NEW orientation: "+orientation);
-    return state.set('orientation', orientation);
+
+    let newSizes = updateScreenSizesByOrientation({w:state.screenWidth,h:state.screenHeight}, (orientation!="LANDSCAPE"))
+    return state.set('orientation', orientation)
+    .set('screenHeight', newSizes.h)
+    .set('screenWidth', newSizes.w);
 
 
   case SET_ORIENTATION_LOCK:

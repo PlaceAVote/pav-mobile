@@ -470,6 +470,7 @@ class NewIssueRender extends React.Component {
       rightIconSize={28}
       rightIconStyle={styles.xIcon}
       onRightIconPressed={this.props.onRightNavBtnClicked}
+      device={this.props.device}
       />
 
       <View style={[styles.headerTextContainer,( Platform.OS === 'ios')?styles.headerTextContainerShadowiOS:styles.headerTextContainerShadowAndroid]}>

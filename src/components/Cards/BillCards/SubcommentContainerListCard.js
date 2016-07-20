@@ -17,12 +17,24 @@
     import BillCommentCard from './BillCommentCard';
     import moment from 'moment';
     import {List} from 'immutable';
-    import _ from 'underscore';
 
 
 
 
+    const styles = StyleSheet.create({
 
+      /* List Content */
+      commentsList:{
+        flex:1,
+        // backgroundColor: 'brown',
+      },
+      commentCard:{
+        // marginTop: h*0.017
+      }
+
+
+
+    });
 
 
 
@@ -61,27 +73,8 @@
       }
 
 
-      /**
-       * ## Styles for PORTRAIT
-       */
-      getPortraitStyles(self){
-        return StyleSheet.create({
 
-          /* List Content */
-          commentsList:{
-            flex:1,
-            // backgroundColor: 'brown',
-          },
-          commentCard:{
-            // marginTop: h*0.017
-          }
-
-
-
-        });
-      }
-
-      renderRow(rowData, styles){
+      renderRow(rowData){
         return (
             <BillCommentCard
               key={rowData.comment_id}
@@ -115,8 +108,8 @@
 
 
 
-      renderList(refreshable, styles){
-        if(refreshable==true){
+      render(){
+        if(this.props.refreshable==true){
           return (<ListView
            enableEmptySections={true}
            style={[styles.commentsList, this.props.style]}
@@ -130,7 +123,7 @@
              titleColor={Colors.primaryColor}
              colors={[Colors.primaryColor, '#00ff00', Colors.accentColor]}
            />)}
-           renderRow={(rowData)=>this.renderRow(rowData,styles)}
+           renderRow={(rowData)=>this.renderRow(rowData)}
            />)
         }else{
           return (<ListView
@@ -138,15 +131,9 @@
            style={[styles.commentsList, this.props.style]}
            dataSource={this.state.repliesSource}
            renderHeader={this.props.header}
-           renderRow={(rowData)=>this.renderRow(rowData,styles)}
+           renderRow={(rowData)=>this.renderRow(rowData)}
            />)
         }
-      }
-
-      render(){
-        let isPortrait = (this.props.device.orientation!="LANDSCAPE");
-        let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-        return this.renderList(this.props.refreshable, styles);
       }
 
 

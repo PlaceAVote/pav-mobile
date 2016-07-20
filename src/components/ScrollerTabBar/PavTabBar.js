@@ -97,7 +97,7 @@ class PavTabBar extends React.Component {
       accessible={true}
       accessibilityLabel={name}
       accessibilityTraits='button'
-      style={[styles.tab, this.props.tabStyle]}
+      style={[styles.tab, this.props.tabStyle, this.props.giveTabABorder===true?{borderLeftWidth: 1,borderLeftColor: "#70707033"}:{}]}
       onPress={() => this.props.goToPage(page)}
       onLayout={this.measureTab.bind(this, page)}
     >
@@ -190,8 +190,10 @@ PavTabBar.propTypes = {
   tabStyle: View.propTypes.style,
   tabsContainerStyle: View.propTypes.style,
   textStyle: Text.propTypes.style,
+  giveTabABorder: React.PropTypes.bool,
 };
 PavTabBar.defaultProps = {
+  giveTabABorder: false,
   scrollOffset: 52,
   activeTextColor: 'navy',
   inactiveTextColor: 'black',
@@ -230,8 +232,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 7,
 
-    borderLeftWidth: 1,
-    borderLeftColor: "#70707033",
+
   },
 
   scrollableContainer: {

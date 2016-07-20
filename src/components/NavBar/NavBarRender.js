@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
 
   titleContainer:{
     height:(Platform.OS === 'ios')? 64 : 54,   //nav bar height,
-    width:w,
     top:0,
     paddingTop:(Platform.OS === 'ios')? 10 : 0,
     position: 'absolute',
@@ -159,7 +158,7 @@ class NavBarRender extends React.Component {
           start={[-0.3, 0.0]} end={[1.3, 0.0]}
           style={styles.navBarContainer}
           >
-          <View style={styles.titleContainer}>
+          <View style={[styles.titleContainer, {width:this.props.device.screenWidth}]}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
           <View style={styles.iconsContainer}>
@@ -182,7 +181,7 @@ NavBarRender.defaultProps={
 }
 NavBarRender.propTypes= {
   title: React.PropTypes.string.isRequired,
-
+  device: React.PropTypes.object.isRequired,
   leftIconIsBack: React.PropTypes.bool,
 
   leftIconName: React.PropTypes.string,

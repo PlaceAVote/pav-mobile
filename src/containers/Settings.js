@@ -212,6 +212,7 @@ class Settings extends React.Component {
     // console.log("FORM@ "+form);
     return(
       <SettingsRender
+          device={ this.props.device}
           appVersion={this.props.device.version}
           genderPickIsOpen={this.props.router.modalIsOpen.get(GENDER_PICK)}
           hideGenderPickModal={()=>this.props.actions.setModalVisibility(GENDER_PICK, false)}

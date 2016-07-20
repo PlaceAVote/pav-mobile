@@ -206,7 +206,7 @@ class NotificationsRender extends React.Component {
     // let styles= isPortrait?this.getPortraitStyles():this.getLandscapeStyles();
     return(
         <View style={styles.container}>
-        <NavBarRender title="Notifications"/>
+        <NavBarRender title="Notifications" device={this.props.device}/>
           {this.renderNotifications()}
         </View>
     );

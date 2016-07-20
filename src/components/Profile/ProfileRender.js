@@ -351,6 +351,7 @@ class ProfileRender extends React.Component {
           rightIconName="gear"
           rightIconSize={30}
           onRightIconPressed={this.props.onRightNavBtnClicked}
+          device={this.props.device}
           />)
     }else{  //if its NOT a tab
       return(
@@ -358,6 +359,7 @@ class ProfileRender extends React.Component {
         title="Profile"
         leftIconIsBack={true}
         onLeftIconPressed={this.props.onLeftNavBtnClicked}
+        device={this.props.device}
         />)
     }
   }

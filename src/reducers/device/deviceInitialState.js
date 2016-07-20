@@ -13,10 +13,11 @@
  * ## Import immutable record
  */
 import {Record} from 'immutable';
+import Dimensions from 'Dimensions';
 // import Orientation from 'react-native-orientation';
+const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-
-
+import {updateScreenSizesByOrientation} from '../../lib/Utils/multiResolution'
 
 
 
@@ -33,6 +34,8 @@ var InitialState = Record({
   version: null,
   orientation: 'PORTRAIT',//Orientation.getInitialOrientation()    //can be PORTRAITUPSIDEDOWN, PORTRAIT, LANDSCAPE
   orientationLocked: false,
+  screenWidth: w,
+  screenHeight: h,
 });
 
 export default InitialState;

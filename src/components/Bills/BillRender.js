@@ -24,7 +24,7 @@ import Button from 'sp-react-native-iconbutton'
 
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import BillTabBar from '../ScrollerTabBar/BillTabBar';
+import PavTabBar from '../ScrollerTabBar/PavTabBar';
 // import TopicSelectTabBar from '../NewsFeed/TopicSelectTabBar'
 
 import {Colors, ScheneKeys, Other} from '../../config/constants';
@@ -33,7 +33,7 @@ const {SOCIAL_TYPES} = Other;
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen, updateScreenSizesByOrientation} from '../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
@@ -89,11 +89,7 @@ const styles = StyleSheet.create({
 
 
   //HEADER
-  billImage:{
-    // flex:1,
-    // height: h*0.26
-    minHeight:h*0.23
-  },
+
   headerContainer:{
     flex:1,
     flexDirection: 'column',
@@ -101,11 +97,8 @@ const styles = StyleSheet.create({
   headerTitleContainer:{
     // backgroundColor:'purple',
     flex:1,
-    width:w,
     justifyContent:'center',
     alignItems:'flex-start',  //horizontally
-    paddingVertical: h*0.013,
-    paddingHorizontal: w*0.025,
   },
   headerTitle:{
     backgroundColor: Colors.transparentColor,
@@ -114,14 +107,7 @@ const styles = StyleSheet.create({
     // textAlign:'center',
     fontSize: getCorrectFontSizeForScreen(15),
   },
-  // headerTitleContainer:{
-  //   backgroundColor:'purple',
-  //   flex:1,
-  //   justifyContent:'center',
-  //   alignItems:'center',  //horizontally
-  //   paddingVertical: h*0.013,
-  //   paddingHorizontal: w*0.012,
-  // },
+
   // headerTitle:{
   //   backgroundColor: Colors.transparentColor,
   //   color: Colors.mainTextColor,
@@ -133,9 +119,8 @@ const styles = StyleSheet.create({
   headerBtnsContainer:{
     // backgroundColor:'pink',
     flexDirection:'row',
-    paddingVertical: h*0.020,
+
     // justifyContent:'space-between', //was 'space-around'
-    paddingHorizontal: w*0.015, //was 0
     alignItems:'center'
   },
   headerSocialShareBtnContainer:{
@@ -147,7 +132,6 @@ const styles = StyleSheet.create({
   headerSocialShareBtn:{
     backgroundColor: Colors.transparentColor,
     color: Colors.secondaryTextColor,
-    paddingHorizontal: w*0.020,
   },
   headerTagBtnContainer:{
     // backgroundColor:'white',
@@ -156,9 +140,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
 
-  tagsLblTextContainer:{
-    paddingHorizontal: w*0.011,
-  },
+
   tagsLblText:{
     backgroundColor: Colors.transparentColor,
     color: Colors.secondaryTextColor,
@@ -174,12 +156,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.accentColor,
     borderColor: Colors.accentColor
   },
-  tagBtnContainer:{
-    paddingHorizontal: w*0.003,
-  },
-  tagTitleTextContainer:{
-    paddingHorizontal: w*0.020,
-  },
+
+
   tagTitleText:{
     backgroundColor: Colors.transparentColor,
     color: Colors.mainTextColor,
@@ -205,7 +183,6 @@ const styles = StyleSheet.create({
     // backgroundColor:'red',
   },
   tabText:{
-    paddingHorizontal: w*0.009,
     fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor,
     textAlign:'center',
@@ -230,18 +207,14 @@ const styles = StyleSheet.create({
 
     flexDirection: 'row',
     justifyContent:'space-between',
-    paddingVertical: h*0.010,
-    paddingHorizontal: w*0.038,
+
     borderTopWidth:1,
     borderTopColor: Colors.alternativeAccentColor,
   },
   // btnIconStyle:{
   //   marginHorizontal: 10
   // },
-  footerBtnTextContainer:{
-    justifyContent:'center',
-    paddingHorizontal: w*0.028,
-  },
+
   footerBtnText:{
     color: Colors.mainTextColor,
     fontFamily: 'Whitney-SemiBold',
@@ -254,9 +227,6 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection:'row',
     justifyContent:'center',
-    width: w*0.45,
-    paddingHorizontal:w*0.010,
-    paddingVertical: h*0.020,
     borderRadius:2,
     backgroundColor: "#ED9518",
     borderWidth:0,
@@ -273,12 +243,6 @@ const styles = StyleSheet.create({
     //   width: 2,
     // },
   },
-  footerBtnIcon:{
-    // backgroundColor: 'red',
-    color: Colors.mainTextColor,
-    paddingLeft: w*0.020,
-    paddingRight: w*0.002,
-  }
 
 
 
@@ -305,19 +269,34 @@ class BillRender extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+
+    if(nextProps.device.orientation != this.props.device.orientation){
+        // console.log("NEWS feed device orientation"+nextProps.device.orientation)
+        // console.log("Height : "+h+" width: "+w);
+        // let scrWidth = nextProps.device.orientation!=="LANDSCAPE"?h:w;
+        if(!!this.billPavTabBar){
+            this.billPavTabBar.onOrientationChange(updateScreenSizesByOrientation({w,h}, (nextProps.device.orientation!="LANDSCAPE")).w)
+        }
+
+
+    }
+
+  }
+
 
   renderBillTags(tags){
     if(tags!=null){
       return (<View style={styles.headerTagBtnContainer}>
-        <View style={styles.tagsLblTextContainer}>
+        <View style={{  paddingHorizontal: this.props.device.screenWidth*0.011}}>
           <Text style={styles.tagsLblText}>Tags: </Text>
         </View>
         {tags.map((tag, i) =>
-          (<View key={"tag"+i+"container"} style={styles.tagBtnContainer}><TouchableOpacity
+          (<View key={"tag"+i+"container"} style={{paddingHorizontal: this.props.device.screenWidth*0.003}}><TouchableOpacity
             key={"tag"+i+"btn"}
             onPress={()=>this.props.onTagPress(tag)}
             style={styles.tagBtn}>
-            <View  key={"tag"+i+"txtContainer"} style={styles.tagTitleTextContainer}>
+            <View  key={"tag"+i+"txtContainer"} style={{paddingHorizontal: this.props.device.screenWidth*0.020}}>
               <Text key={"tag"+i+"txt"} style={styles.tagTitleText}>{tag.toUpperCase()}</Text>
             </View>
           </TouchableOpacity></View>)
@@ -336,7 +315,7 @@ class BillRender extends React.Component {
       return (
         <PavImage
         key="bill_header"
-        style={styles.billImage}
+        style={{minHeight:this.props.device.screenHeight*0.23}}
         defaultSource={congratsScreenPhoto}
         source={{uri: billData.featured_img_link}}
         indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
@@ -347,12 +326,12 @@ class BillRender extends React.Component {
               start={[-0.3, 0.0]} end={[1.3, 0.0]}
               style={styles.headerContainer}
               >
-              <View style={styles.headerTitleContainer}>
+              <View style={[styles.headerTitleContainer, {width:this.props.device.screenWidth, paddingVertical: this.props.device.screenHeight*0.013,paddingHorizontal: this.props.device.screenWidth*0.025,}]}>
                 <Text style={styles.headerTitle}>{billTitle}</Text>
               </View>
-              <View style={styles.headerBtnsContainer}>
+              <View style={[styles.headerBtnsContainer, {paddingVertical: this.props.device.screenHeight*0.020,paddingHorizontal: this.props.device.screenWidth*0.015, }]}>
 
-                <View style={styles.headerSocialShareBtnContainer}>
+                <View style={[styles.headerSocialShareBtnContainer, {paddingHorizontal: this.props.device.screenWidth*0.020}]}>
                   <TouchableOpacity onPress={this.onTwitterBtnClicked.bind(this, billData)}>
                     <PavIcon name="social-twitter" size={18} style={styles.headerSocialShareBtn}/>
                   </TouchableOpacity>
@@ -381,12 +360,13 @@ class BillRender extends React.Component {
         ref="scrollableTabView"
         onChangeTab={({i, ref}) => {if(i==1){if(this.props.parentVisible===true){this.refs.status_tab.onTabFocus();} }}}
         renderTabBar={() =>
-          <BillTabBar
+          <PavTabBar
+            ref={(billPavTabBar) => { this.billPavTabBar = billPavTabBar }}
             underlineColor={Colors.negativeAccentColor}
             activeTextColor={Colors.primaryColor}
             inactiveTextColor={Colors.primaryColor}
             backgroundColor='rgba(255, 255, 255, 0.85)'
-            textStyle={styles.tabText}
+            textStyle={[styles.tabText, {paddingHorizontal: this.props.device.screenWidth*0.009}]}
           />}
         initialPage={this.props.initTab}
         style={styles.pagesContainer}
@@ -479,14 +459,14 @@ class BillRender extends React.Component {
     if(alreadyVoted!=null){
       // console.log("@@@@@@@@ Vote button enabled: "+voteBtnEnabled);
       return (
-        <View style={styles.billBtnsContainer}>
+        <View style={[styles.billBtnsContainer, {paddingVertical: this.props.device.screenHeight*0.010, paddingHorizontal: this.props.device.screenWidth*0.038,}]}>
 
 
             <Button
             onPress={alreadyVoted===true?()=>{alert("You have already voted on this bill.")}:this.props.onVoteBtnPress}
             isDisabled={(voteBtnEnabled===false)}
             isLoading={(voteBtnEnabled===false)}
-            style={styles.footerBtn}
+            style={[styles.footerBtn, {width: this.props.device.screenWidth*0.45, paddingHorizontal:this.props.device.screenWidth*0.010, paddingVertical: this.props.device.screenHeight*0.020,}]}
             textStyle={styles.footerBtnText}>
             {alreadyVoted===true?"Already Voted":"Vote Now"}
             </Button>
@@ -518,6 +498,7 @@ class BillRender extends React.Component {
       <View style={styles.container}>
         <NavBarRender
         title="Bill"
+        device={this.props.device}
         leftIconIsBack={true}
         onLeftIconPressed={this.props.onLeftNavBtnClicked}
         />
