@@ -29,9 +29,9 @@ import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
 
-// import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
-// import icomoonConfig from '../../../../assets/fonts/icomoon.json';
-// const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
+import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+import icomoonConfig from '../../../../assets/fonts/icomoon.json';
+const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
 import PavImage from '../../../lib/UI/PavImage'
 // import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
@@ -89,6 +89,9 @@ const styles = StyleSheet.create({
 
 
   billDescriptionContainer:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
     paddingHorizontal:w*.022,
     paddingVertical: h*0.011,
   },
@@ -97,7 +100,16 @@ const styles = StyleSheet.create({
     fontSize: getCorrectFontSizeForScreen(7),
     color: Colors.sixthTextColor,
   },
-
+  cardFooterSocialShareIconsContainer:{
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    // backgroundColor:'red'
+  },
+  cardFooterSocialShareIcon:{
+    color: Colors.secondaryTextColor,
+    paddingHorizontal: w*0.020,
+  },
 
 
 
@@ -118,7 +130,17 @@ class TopicCard extends React.Component {
 
 
 
+  onTwitterBtnClicked(){
+    if(this.props.onSocialClick){
+      this.props.onSocialClick(SOCIAL_TYPES.TWITTER, {billId: this.props.billId, billTitle:this.props.billTitle, favorPercentage:this.props.favorPercentage});
+    }
+  }
 
+  onFacebookBtnClicked(){
+    if(this.props.onSocialClick){
+      this.props.onSocialClick(SOCIAL_TYPES.FACEBOOK, {billId: this.props.billId, billTitle:this.props.billTitle, favorPercentage:this.props.favorPercentage});
+    }
+  }
 
 
 
@@ -152,6 +174,14 @@ class TopicCard extends React.Component {
         <Text style={styles.billDescription}>
          {this.props.commentCnt} Comments / {percentage}% Vote {this.props.favorPercentage>0?"Yes":"No"}
         </Text>
+        <View style={styles.cardFooterSocialShareIconsContainer}>
+          <TouchableOpacity onPress={this.onTwitterBtnClicked.bind(this)}>
+            <PavIcon name="social-twitter" size={18} style={styles.cardFooterSocialShareIcon}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onFacebookBtnClicked.bind(this)}>
+            <PavIcon name="facebook" size={15} style={styles.cardFooterSocialShareIcon}/>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }

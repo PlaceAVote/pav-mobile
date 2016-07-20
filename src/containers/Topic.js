@@ -56,11 +56,9 @@ ScheneKeys,
 Other,
 Modals,
 } from '../config/constants';
-// const {
-//   REACTIONS,
-//   SOCIAL_TYPES,
-//   NEWS_FEED_FILTERS
-// } = Other;
+const {
+  SOCIAL_TYPES,
+} = Other;
 const {
   BILL,
 } = ScheneKeys;
