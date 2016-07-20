@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
 
   titleContainer:{
     paddingHorizontal:w*0.022, //Same as the Trending card styles.card style
-    paddingVertical: h*0.013,
+    paddingTop: h*0.013,
+    paddingBottom: h*0.015,
   },
   title:{
     fontFamily: 'Whitney-Semibold',
@@ -113,8 +114,6 @@ class DiscoveryFeedRender extends React.Component {
           <CardFactory
             type="trending"
             key="trending_0"
-            style={styles.trendingCardContainer}
-            cardStyle={styles.trendingCardStyle}
             cardHeight={h*0.25}
             itemData={trendingItems[0]}
             onBillClick={this.props.onBillClick}
@@ -122,8 +121,6 @@ class DiscoveryFeedRender extends React.Component {
           <CardFactory
             type="trending"
             key="trending_1"
-            style={styles.trendingCardContainer}
-            cardStyle={styles.trendingCardStyle}
             cardHeight={h*0.25}
             itemData={trendingItems[1]}
             onBillClick={this.props.onBillClick}
@@ -131,8 +128,6 @@ class DiscoveryFeedRender extends React.Component {
           <CardFactory
             type="trending"
             key="trending_2"
-            style={styles.trendingCardContainer}
-            cardStyle={styles.trendingCardStyle}
             cardHeight={h*0.25}
             itemData={trendingItems[2]}
             onBillClick={this.props.onBillClick}
@@ -173,14 +168,12 @@ class DiscoveryFeedRender extends React.Component {
           <CardFactory
             type="discovery"
             key={"discovery_"+HEALTHCARE.key}
-            style={styles.topicCard}
             itemData={HEALTHCARE}
             onTopicClick={this.props.onTopicClick}
           />
           <CardFactory
             type="discovery"
             key={"discovery_"+TECHNOLOGY.key}
-            style={styles.topicCard}
             itemData={TECHNOLOGY}
             onTopicClick={this.props.onTopicClick}
           />
@@ -190,14 +183,12 @@ class DiscoveryFeedRender extends React.Component {
           <CardFactory
             type="discovery"
             key={"discovery_"+POLITICS.key}
-            style={styles.topicCard}
             itemData={POLITICS}
             onTopicClick={this.props.onTopicClick}
           />
           <CardFactory
             type="discovery"
             key={"discovery_"+GUN_RIGHTS.key}
-            style={styles.topicCard}
             itemData={GUN_RIGHTS}
             onTopicClick={this.props.onTopicClick}
           />
@@ -207,14 +198,13 @@ class DiscoveryFeedRender extends React.Component {
           <CardFactory
             type="discovery"
             key={"discovery_"+EDUCATION.key}
-            style={styles.topicCard}
+
             itemData={EDUCATION}
             onTopicClick={this.props.onTopicClick}
           />
           <CardFactory
             type="discovery"
             key={"discovery_"+DEFENSE.key}
-            style={styles.topicCard}
             itemData={DEFENSE}
             onTopicClick={this.props.onTopicClick}
           />
@@ -224,15 +214,41 @@ class DiscoveryFeedRender extends React.Component {
           <CardFactory
             type="discovery"
             key={"discovery_"+ECONOMICS.key}
-            style={styles.topicCard}
             itemData={ECONOMICS}
             onTopicClick={this.props.onTopicClick}
           />
           <CardFactory
             type="discovery"
             key={"discovery_"+IMMIGRATION.key}
-            style={styles.topicCard}
             itemData={IMMIGRATION}
+            onTopicClick={this.props.onTopicClick}
+          />
+        </View>
+        <View style={styles.topicCards2CardComboContainer}>
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+TAXES.key}
+            itemData={TAXES}
+            onTopicClick={this.props.onTopicClick}
+          />
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+DRUGS.key}
+            itemData={DRUGS}
+            onTopicClick={this.props.onTopicClick}
+          />
+        </View>
+        <View style={styles.topicCards2CardComboContainer}>
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+SOCIAL_INTEREST.key}
+            itemData={SOCIAL_INTEREST}
+            onTopicClick={this.props.onTopicClick}
+          />
+          <CardFactory
+            type="discovery"
+            key={"discovery_"+CRIME.key}
+            itemData={CRIME}
             onTopicClick={this.props.onTopicClick}
           />
         </View>
