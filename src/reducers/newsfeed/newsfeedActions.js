@@ -327,7 +327,7 @@ export function getTrendingItems(sessionToken=null, dev = null) {
       dispatch(getTrendingFailure(e.message));
     }
 
-    console.log("About to call trending bills with token: "+token+" is dev: "+dev);
+    // console.log("About to call trending bills with token: "+token+" is dev: "+dev);
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getTrendingBills();
 
     // console.log("RES: "+JSON.stringify(res));

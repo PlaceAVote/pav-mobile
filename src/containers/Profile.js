@@ -149,7 +149,6 @@ class Profile extends React.Component {
   }
 
   componentWillMount(){
-    alert("Will mount profile"+this.props.userId)
     this.getProfileData(this.props.userId);
     this.getTimelineData(this.props.userId, false);
   }

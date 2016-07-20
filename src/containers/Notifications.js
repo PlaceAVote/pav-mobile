@@ -181,7 +181,7 @@ class Notifications extends React.Component {
 
 
   render() {
-    console.log("Notifs: "+this.props.notifications.items);
+    // console.log("Notifs: "+this.props.notifications.items);
     return(
       <NotificationsRender
           device={ this.props.device}

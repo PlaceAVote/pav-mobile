@@ -371,7 +371,6 @@ class ProfileRender extends React.Component {
             colors={['#4D6EB2', '#6B55A2']}
             start={[0.0, 0.0]} end={[0.6, 0.5]}
             style={styles.headerView}>
-              {this.renderNavBar()}
               <View style={styles.userDetailsHeaderView}>
                 <View style={styles.statisticsBigContainer}>
                   <Text style={styles.statisticsContentText}>{this.getLastActivityDayDiff(this.props.lastActivityTimestamp)}</Text>
@@ -428,7 +427,7 @@ class ProfileRender extends React.Component {
     // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     return(
         <View style={[styles.container, {paddingBottom:this.props.isTab===false?0:50}]}>
-
+          {this.renderNavBar()}
           <ListView
            enableEmptySections={true}
            style={styles.itemList}

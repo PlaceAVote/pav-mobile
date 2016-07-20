@@ -224,7 +224,7 @@ class StatusTabRender extends React.Component {
         // console.log("To animate array length: "+toAnimateArr.length);
         let animatedCnt = 0;
 
-        console.log("toAnimateArr.length: "+toAnimateArr.length);
+        // console.log("toAnimateArr.length: "+toAnimateArr.length);
         let iii,lll;
         for(iii=0,lll=toAnimateArr.length;iii<lll;iii++){
           let toBeAnimated = toAnimateArr[iii];
