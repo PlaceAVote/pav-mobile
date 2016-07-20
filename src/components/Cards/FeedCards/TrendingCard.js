@@ -134,7 +134,7 @@ class TrendingCard extends React.Component {
           <View style={styles.billImageContainer}>
             <PavImage
               defaultSource={congratsScreenPhoto}
-              indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
+              indicatorProps={{color:Colors.primaryColor, size:Platform.OS=="ios"?40:"large"}}
               style={styles.billImage}
               source={{uri: this.props.billPhotoUrl}}
               resizeMode='cover'
