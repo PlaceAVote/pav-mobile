@@ -220,6 +220,7 @@ class NewsFeedRender extends React.Component {
              key="DiscoveryFeedRender"
              tabLabel="Discovery Feed"
              trendingItems={this.props.trendingItems}
+             isFetchingTrendingData={this.props.isFetchingTrendingData}
              onBillClick={this.props.onBillClick}
              onTopicClick={this.props.onTopicClick}
              />

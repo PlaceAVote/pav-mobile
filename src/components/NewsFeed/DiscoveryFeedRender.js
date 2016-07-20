@@ -16,6 +16,7 @@ const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in cu
 // import icomoonConfig from '../../../assets/fonts/icomoon.json';
 // const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
+import PavSpinner from '../../lib/UI/PavSpinner';
 
 import CardFactory from '../Cards/CardFactory';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -78,49 +79,68 @@ const styles = StyleSheet.create({
 class DiscoveryFeedRender extends React.Component {
 
 
+
+
+
+
+
+
+
   renderTrendingIssues(){
     let trendingItems = [];
-    if(!!this.props.trendingItems){
+    if(!!this.props.trendingItems && this.props.isFetchingTrendingData===false){
       trendingItems.push(this.props.trendingItems.get(0).toJS());
       trendingItems.push(this.props.trendingItems.get(1).toJS());
       trendingItems.push(this.props.trendingItems.get(2).toJS());
-    }
-    return (
-      <View style={styles.trendingContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>
-          Trending Issues
-          </Text>
+      return (
+        <View style={styles.trendingContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>
+            Trending Issues
+            </Text>
+          </View>
+          <CardFactory
+            type="trending"
+            key="trending_0"
+            style={styles.trendingCardContainer}
+            cardStyle={styles.trendingCardStyle}
+            cardHeight={h*0.25}
+            itemData={trendingItems[0]}
+            onBillClick={this.props.onBillClick}
+          />
+          <CardFactory
+            type="trending"
+            key="trending_1"
+            style={styles.trendingCardContainer}
+            cardStyle={styles.trendingCardStyle}
+            cardHeight={h*0.25}
+            itemData={trendingItems[1]}
+            onBillClick={this.props.onBillClick}
+          />
+          <CardFactory
+            type="trending"
+            key="trending_2"
+            style={styles.trendingCardContainer}
+            cardStyle={styles.trendingCardStyle}
+            cardHeight={h*0.25}
+            itemData={trendingItems[2]}
+            onBillClick={this.props.onBillClick}
+          />
         </View>
-        <CardFactory
-          type="trending"
-          key="trending_0"
-          style={styles.trendingCardContainer}
-          cardStyle={styles.trendingCardStyle}
-          cardHeight={h*0.25}
-          itemData={trendingItems[0]}
-          onBillClick={this.props.onBillClick}
-        />
-        <CardFactory
-          type="trending"
-          key="trending_1"
-          style={styles.trendingCardContainer}
-          cardStyle={styles.trendingCardStyle}
-          cardHeight={h*0.25}
-          itemData={trendingItems[1]}
-          onBillClick={this.props.onBillClick}
-        />
-        <CardFactory
-          type="trending"
-          key="trending_2"
-          style={styles.trendingCardContainer}
-          cardStyle={styles.trendingCardStyle}
-          cardHeight={h*0.25}
-          itemData={trendingItems[2]}
-          onBillClick={this.props.onBillClick}
-        />
-      </View>
-    )
+      )
+    }else{
+      return (
+        <View style={styles.trendingContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>
+            Trending Issues
+            </Text>
+          </View>
+          <PavSpinner/>
+        </View>
+      )
+    }
+
   }
 
 
@@ -294,6 +314,7 @@ DiscoveryFeedRender.defaultProps={
 }
 DiscoveryFeedRender.propTypes= {
   trendingItems: React.PropTypes.object,
+  isFetchingTrendingData: React.PropTypes.bool.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
   onTopicClick: React.PropTypes.func.isRequired,
 };
