@@ -221,6 +221,7 @@ class NewsFeedRender extends React.Component {
              tabLabel="Discovery Feed"
              trendingItems={this.props.trendingItems}
              isFetchingTrendingData={this.props.isFetchingTrendingData}
+             onRefreshTrendingItems={this.props.onRefreshTrendingItems}
              onBillClick={this.props.onBillClick}
              onTopicClick={this.props.onTopicClick}
              />
@@ -312,6 +313,7 @@ NewsFeedRender.propTypes= {
   onBillClick: React.PropTypes.func.isRequired,
   onFilterChanged: React.PropTypes.func.isRequired,
   onTopicClick: React.PropTypes.func.isRequired,
+  onRefreshTrendingItems: React.PropTypes.func.isRequired,
 }
 
 export default NewsFeedRender;

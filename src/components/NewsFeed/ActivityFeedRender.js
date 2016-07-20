@@ -119,14 +119,7 @@ class ActivityFeedRender extends React.Component {
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    let refreshProps = Platform.OS=="ios"?{
-      // tintColor:Colors.primaryColor,
-      // title:"Loading...",
-      // titleColor:Colors.primaryColor
-    }:
-    {
-      colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]
-    };
+
 
     return(
         <ListView
@@ -157,10 +150,18 @@ class ActivityFeedRender extends React.Component {
          }}
          refreshControl={
            <RefreshControl
-           refreshing={this.props.beingRefreshed}
-           onRefresh={this.props.onRefresh}
-           {...refreshProps}
-         />}
+             refreshing={(this.props.beingRefreshed===true)}
+             onRefresh={this.props.onRefresh}
+             {...Platform.select({
+                ios: {
+                  color:Colors.mainTextColor
+                },
+                android: {
+                  colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]
+                }
+              })}
+           />
+         }
          renderFooter={()=>{
            if(this.props.oldDataBeingFetched===true){
              return <PavSpinner/>

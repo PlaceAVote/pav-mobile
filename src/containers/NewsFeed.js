@@ -311,6 +311,11 @@ class NewsFeed extends React.Component {
     this.props.actions.navigateTo(TOPIC, {topicKey});
   }
 
+  onRefreshTrendingItems(){
+    // console.log("On refresh trending")
+    this.props.actions.getTrendingItems(this.TOKEN, this.props.global.isDev)
+  }
+
   render() {
 
     return(
@@ -337,6 +342,7 @@ class NewsFeed extends React.Component {
           searchData={this.state.searchData}
 
 
+
           onLeftNavBtnClicked={this.onLeftNavBtnClick.bind(this)}
           onRightNavBtnClicked={this.onRightNavBtnClick.bind(this)}
           onFilterChanged={this.onFilterChanged.bind(this)}
@@ -350,6 +356,7 @@ class NewsFeed extends React.Component {
           onSocialClick={this.onUserClickedSocial.bind(this)}
           onFetchMoreItems={this.onFetchMoreFeedItems.bind(this)}
           onTopicClick={this.onTopicClick.bind(this)}
+          onRefreshTrendingItems={this.onRefreshTrendingItems.bind(this)}
       />
 
     );

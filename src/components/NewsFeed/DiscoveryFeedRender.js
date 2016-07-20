@@ -6,7 +6,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet, View, Text, Platform, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, Platform, ScrollView, RefreshControl} from 'react-native';
 import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 
 import Dimensions from 'Dimensions';
@@ -87,15 +87,26 @@ class DiscoveryFeedRender extends React.Component {
 
 
   renderTrendingIssues(){
-    let trendingItems = [];
-    if(!!this.props.trendingItems && this.props.isFetchingTrendingData===false){
+    if(this.props.trendingItems==null){
+      return (
+        <View key="trendingContainer" style={styles.trendingContainer}>
+          <View key="titleContainer" style={styles.titleContainer}>
+            <Text  key="title"  style={styles.title}>
+            Trending Issues
+            </Text>
+          </View>
+          <PavSpinner/>
+        </View>
+      )
+    }else{
+      let trendingItems = [];
       trendingItems.push(this.props.trendingItems.get(0).toJS());
       trendingItems.push(this.props.trendingItems.get(1).toJS());
       trendingItems.push(this.props.trendingItems.get(2).toJS());
       return (
-        <View style={styles.trendingContainer}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>
+        <View key="trendingContainer" style={styles.trendingContainer}>
+          <View key="titleContainer" style={styles.titleContainer}>
+            <Text  key="title"  style={styles.title}>
             Trending Issues
             </Text>
           </View>
@@ -126,17 +137,6 @@ class DiscoveryFeedRender extends React.Component {
             itemData={trendingItems[2]}
             onBillClick={this.props.onBillClick}
           />
-        </View>
-      )
-    }else{
-      return (
-        <View style={styles.trendingContainer}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>
-            Trending Issues
-            </Text>
-          </View>
-          <PavSpinner/>
         </View>
       )
     }
@@ -252,7 +252,21 @@ class DiscoveryFeedRender extends React.Component {
   render() {
 
     return(
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={(this.props.trendingItems!=null && this.props.isFetchingTrendingData===true)}
+            onRefresh={this.props.onRefreshTrendingItems}
+            {...Platform.select({
+               ios: {
+                 color:Colors.mainTextColor
+               },
+               android: {
+                 colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]
+               }
+             })}
+          />
+        }>
           {this.renderTrendingIssues()}
           {this.renderDiscoverByTopicIssues()}
         </ScrollView>
@@ -317,5 +331,6 @@ DiscoveryFeedRender.propTypes= {
   isFetchingTrendingData: React.PropTypes.bool.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
   onTopicClick: React.PropTypes.func.isRequired,
+  onRefreshTrendingItems: React.PropTypes.func.isRequired,
 };
 export default DiscoveryFeedRender;
