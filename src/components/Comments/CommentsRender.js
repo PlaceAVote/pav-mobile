@@ -29,7 +29,60 @@ import NavBarRender from '../NavBar/NavBarRender';
 
 
 
+const styles = StyleSheet.create({
 
+
+  container: {
+    backgroundColor: 'white',
+    flex:1,
+    flexDirection: 'column',
+    // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
+    // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
+    // marginVertical: 10,
+    // marginHorizontal:15
+  },
+  spinnerContainer:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    // backgroundColor:'red',
+  },
+
+
+  //Subcomment list
+  commentsPageContainer:{
+    flex:1,
+    backgroundColor: '#E8E7EE',
+  },
+
+
+
+  //HEADER
+  billImage:{
+    // flex:1,
+    minHeight: h*0.15
+  },
+  headerContainer:{
+    flex:1,
+    flexDirection: 'column',
+  },
+  headerTitleContainer:{
+    // backgroundColor:'purple'
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',  //horizontally
+    paddingVertical: h*0.020,
+    paddingHorizontal: w*0.012,
+  },
+  headerTitle:{
+    backgroundColor: Colors.transparentColor,
+    color: Colors.mainTextColor,
+    textAlign:'center',
+    fontFamily: 'Whitney-Regular',
+    fontSize: getCorrectFontSizeForScreen(12),
+  },
+
+});
 
 
 
@@ -45,85 +98,14 @@ class CommentsRender extends React.Component {
 
 
 
-  /**
-   * ## Styles for PORTRAIT
-   */
-  getPortraitStyles(self){
-    return StyleSheet.create({
 
 
-      container: {
-        backgroundColor: 'white',
-        flex:1,
-        flexDirection: 'column',
-        // paddingTop:(Platform.OS === 'ios')? 64 : 54,   //nav bar height
-        // paddingBottom:50, //tab bar height //TODO: Uncomment this if we have a tab bar
-        // marginVertical: 10,
-        // marginHorizontal:15
-      },
-      spinnerContainer:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        // backgroundColor:'red',
-      },
-
-
-      //Subcomment list
-      commentsPageContainer:{
-        flex:1,
-        backgroundColor: '#E8E7EE',
-      },
-
-
-
-      //HEADER
-      billImage:{
-        // flex:1,
-        // height: h*0.26
-      },
-      headerContainer:{
-        flex:1,
-        flexDirection: 'column',
-      },
-      headerTitleContainer:{
-        // backgroundColor:'purple'
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',  //horizontally
-        paddingVertical: h*0.020,
-        paddingHorizontal: w*0.012,
-      },
-      headerTitle:{
-        backgroundColor: Colors.transparentColor,
-        color: Colors.mainTextColor,
-        textAlign:'center',
-        fontFamily: 'Whitney-Regular',
-        fontSize: getCorrectFontSizeForScreen(12),
-      },
-
-    });
-  }
-
-
-
-
-
-  /**
-   * ## Styles for LANDSCAPE
-   */
-  getLandscapeStyles(self){
-    return StyleSheet.create({
-
-    });
-  }
-
-  renderHeader(billData, platform, styles){
+  renderHeader(billData){
+    console.log("Header: "+billData.featured_img_link)
     if(!!billData){
       return (
         <PavImage
           key="bill_header"
-          platform={platform}
           style={styles.billImage}
           source={{uri: billData.featured_img_link}}
           resizeMode='cover'
@@ -170,10 +152,10 @@ class CommentsRender extends React.Component {
    * ### render method
    */
   render() {
-    let isPortrait = (this.props.device.orientation!="LANDSCAPE");
+    // let isPortrait = (this.props.device.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
-    let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
+    // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
     if(this.props.replies!=null && this.props.billData!=null && this.props.commentLvl!=null){
       return(
         <View style={styles.container}>
@@ -183,7 +165,7 @@ class CommentsRender extends React.Component {
           onLeftIconPressed={this.props.onLeftNavBtnClicked}
           />
           <SubcommentContainerListCard
-            header={this.renderHeader.bind(this,this.props.billData, Platform.OS, styles)}
+            header={this.renderHeader.bind(this,this.props.billData)}
             style={styles.commentsPageContainer}
             replies={this.props.replies}
             device={this.props.device}
