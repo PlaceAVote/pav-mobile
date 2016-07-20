@@ -209,16 +209,16 @@ class AnimatedStatusCard extends React.Component {
    * ### render method
    */
   render() {
-    let finalItem = this.props.finalItem || false;
-    let key = this.props.iconName+Date();
 
-    return (<View key={key+"_container"} onLayout={(e)=>{ this.yPosition = e.nativeEvent.layout.y}} style={finalItem==true?[styles.statusPartContainer,styles.finalItemPadding]:styles.statusPartContainer}>
+    let key = this.props.iconName+Date();
+    let lastActiveItem = (this.props.active===false || this.props.finalItem===true);
+    return (<View key={key+"_container"} onLayout={(e)=>{ this.yPosition = e.nativeEvent.layout.y}} style={this.props.finalItem==true?[styles.statusPartContainer,styles.finalItemPadding]:styles.statusPartContainer}>
       <View key={key+"_line_container"} style={styles.lineViewContainer}>
         <Animated.View key={key+"_line_1"} style={[styles.line, {height:this.state.line_A_Height}, (this.props.active===true)?styles.activeLine:styles.inactiveLine]}></Animated.View>
         <Animated.View key={key+"_icon_container"} style={[styles.iconContainer, {opacity: this.state.curOpacity}]}>
           <PavIcon key={key+"_icon"} name={this.props.iconName} size={51} style={this.props.active?styles.activeStatusIcon:styles.inactiveStatusIcon}/>
         </Animated.View>
-        {finalItem==true?<View></View>:<Animated.View key={key+"_line_2"} style={[styles.line, {height:this.state.line_B_Height}, (this.props.active===true)?styles.activeLine:styles.inactiveLine]}></Animated.View>}
+        {lastActiveItem?<View></View>:<Animated.View key={key+"_line_2"} style={[styles.line, {height:this.state.line_B_Height}, lastActiveItem?styles.inactiveLine:styles.activeLine]}></Animated.View>}
       </View>
       <Animated.View key={key+"_explan_container"} style={[styles.explanationsContainer, {opacity: this.state.curOpacity, marginTop:this.props.lineHeight*1}]}>
         <Text key={key+"_title"} style={this.props.active==true?[styles.statusTitleText, styles.activeStatusText]:[styles.statusTitleText, styles.inactiveStatusText]}>{this.props.title}</Text>
@@ -232,6 +232,7 @@ class AnimatedStatusCard extends React.Component {
 
 AnimatedStatusCard.propTypes={
   active: React.PropTypes.bool.isRequired,
+  finalItem: React.PropTypes.bool.isRequired,
   lineHeight:React.PropTypes.number.isRequired,
   iconName: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
