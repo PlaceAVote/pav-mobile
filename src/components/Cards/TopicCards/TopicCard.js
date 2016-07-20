@@ -37,27 +37,26 @@ import PavImage from '../../../lib/UI/PavImage'
 // import defaultUserPhoto from '../../../../assets/defaultUserPhoto.png';
 import congratsScreenPhoto from '../../../../assets/congratsScreen.png';
 
-
-const PADDING_HOR = w*0.022;  //Same as the DiscoveryFeedRender styles.trendingTitleContainer style
-const IMAGE_WIDTH = w*0.18;
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
 
   cardContainer:{
     // flex: 1,
     // backgroundColor: 'blue',
+
   },
 
   card:{
     // flex: 1,
-    flexDirection:'row',
+    flexDirection:'column',
     backgroundColor: '#ffffff',
-    paddingHorizontal:PADDING_HOR,
-    paddingVertical: h*0.013,
+    // paddingHorizontal:PADDING_HOR,
+    // paddingVertical: h*0.013,
     // backgroundColor: 'orange',
     borderRadius: 2,
     borderColor: 'rgba(0, 0, 0, 0.12)',
-    borderWidth: 1,
+    borderWidth: 0.5,
 
     // shadowColor: 'rgba(0, 0, 0, 0.12)',
     // shadowOpacity: 0.8,
@@ -68,41 +67,37 @@ const styles = StyleSheet.create({
     // },
   },
 
-  billImageContainer:{
-    // backgroundColor:'red',
-
-  },
   billImage:{
     borderRadius:2,
-    width: IMAGE_WIDTH,
-    height: IMAGE_WIDTH,
+    height: h*0.16,
   },
 
-  billInfoContainer:{
-    flexDirection:'column',
-    justifyContent:'center'
-  },
-  billTitleContainer:{
-    paddingHorizontal:PADDING_HOR,
-    width: w-PADDING_HOR-IMAGE_WIDTH,
-    // backgroundColor:'red'
+  gradientContainer:{
+    // backgroundColor:'red',
+    flex:1,
+    justifyContent:'flex-end',
+    paddingVertical:h*0.020,
+    paddingHorizontal:w*.022,
   },
   billTitle:{
-    // width: w-PADDING_HOR*2-IMAGE_WIDTH
+    backgroundColor:Colors.transparentColor,
     fontFamily: 'Whitney-Semibold',
-    fontSize: getCorrectFontSizeForScreen(8),
-    color: Colors.primaryColor,
+    fontSize: getCorrectFontSizeForScreen(9),
+    color: Colors.mainTextColor,
   },
+
+
+
   billDescriptionContainer:{
-    paddingHorizontal:PADDING_HOR,
-    width: w-PADDING_HOR-IMAGE_WIDTH,
-    paddingTop: h*0.013,
+    paddingHorizontal:w*.022,
+    paddingVertical: h*0.011,
   },
   billDescription:{
     fontFamily: 'Whitney-Semibold',
     fontSize: getCorrectFontSizeForScreen(7),
     color: Colors.sixthTextColor,
-  }
+  },
+
 
 
 
@@ -121,39 +116,61 @@ class TopicCard extends React.Component {
     }
   }
 
+
+
+
+
+
+
+  renderBody(){
+    return (
+      <TouchableOpacity onPress={this.onBillClick.bind(this)}>
+        <PavImage
+          defaultSource={congratsScreenPhoto}
+          style={styles.billImage}
+          source={{uri: this.props.billImgUrl}}
+          indicatorProps={{color:Colors.mainTextColor, size:40}}
+          resizeMode='cover'
+        >
+          <LinearGradient
+            colors={['rgba(0, 0, 0, 0.62)', 'rgba(0, 0, 0, 0.51)', 'rgba(0, 0, 0, 0.62)']}
+            start={[-0.3, 0.0]} end={[1.3, 0.0]}
+            style={styles.gradientContainer}
+            >
+              <Text style={styles.billTitle}>
+              {this.props.billTitle}
+              </Text>
+          </LinearGradient>
+        </PavImage>
+      </TouchableOpacity>
+    )
+  }
+  renderFooter(){
+    let percentage = Math.abs(this.props.favorPercentage);
+    return (
+      <View style={styles.billDescriptionContainer}>
+        <Text style={styles.billDescription}>
+         {this.props.commentCnt} Comments / {percentage}% Vote {this.props.favorPercentage>0?"Yes":"No"}
+        </Text>
+      </View>
+    )
+  }
+
+
+
   /**
    * ### render
    * Setup some default presentations and render
    */
   render() {
 
-    let percentage = Math.abs(this.props.favorPercentage);
+
     return(
       <View style={[styles.cardContainer, this.props.style]}>
-        <TouchableOpacity style={[styles.card, this.props.cardStyle]} onPress={this.onBillClick.bind(this)}>
-          <View style={styles.billImageContainer}>
-            <PavImage
-              defaultSource={congratsScreenPhoto}
-              style={styles.billImage}
-              source={{uri: this.props.billPhotoUrl}}
-              resizeMode='cover'
-            />
-          </View>
-          <View style={styles.billInfoContainer}>
-            <View style={styles.billTitleContainer}>
-              <Text style={styles.billTitle}>
-              {this.props.billTitle}
-              </Text>
-            </View>
-
-            <View style={styles.billDescriptionContainer}>
-              <Text style={styles.billDescription}>
-               {this.props.commentCnt} Comments / {percentage}% Vote {this.props.favorPercentage>0?"Yes":"No"}
-              </Text>
-            </View>
-
-          </View>
-        </TouchableOpacity>
+        <View style={[styles.card, this.props.cardStyle]}>
+          {this.renderBody()}
+          {this.renderFooter()}
+        </View>
       </View>
     );
   }
@@ -163,12 +180,13 @@ class TopicCard extends React.Component {
 
 
 TopicCard.propTypes= {
-
   billId: React.PropTypes.string.isRequired,
   billTitle: React.PropTypes.string.isRequired,
-  billPhotoUrl: React.PropTypes.string.isRequired,
+  billSubjectTitle: React.PropTypes.string.isRequired,
+  billImgUrl: React.PropTypes.string.isRequired,
   commentCnt: React.PropTypes.number.isRequired,
   favorPercentage: React.PropTypes.number.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
+  onSocialClick: React.PropTypes.func.isRequired,
 };
 export default TopicCard;

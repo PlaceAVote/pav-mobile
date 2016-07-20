@@ -266,7 +266,7 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
 
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBillsByTag({tag:topicsString});
 
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error);
       dispatch(getDiscoveryFailure(res.error));
@@ -636,7 +636,7 @@ export function createNewIssue(comment, billId = null, articleUrl = null, sessio
       dispatch(createNewIssueFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).userApi.createNewIssue({comment:comment, billId:billId, articleUrl:articleUrl});
-    console.log("createNewIssue RES: "+JSON.stringify(res));
+    // console.log("createNewIssue RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(createNewIssueFailure("Unable create this issue."));

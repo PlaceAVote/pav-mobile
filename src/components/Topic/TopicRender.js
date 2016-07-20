@@ -1,6 +1,6 @@
 /* @flow weak */
 /**
- * # DiscoveryRender.js
+ * # TopicRender.js
  *
  * This class is a little complicated as it handles multiple states.
  *
@@ -28,13 +28,13 @@ const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in cu
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
-import PavSpinner from '../../lib/UI/PavSpinner'
 import congratsScreenPhoto from '../../../assets/congratsScreen.png';
 
 import TransparentNavBarRender from '../NavBar/TransparentNavBarRender';
 
 import CardFactory from '../Cards/CardFactory';
-import PavImage from '../../lib/UI/PavImage'
+import PavImage from '../../lib/UI/PavImage';
+import PavSpinner from '../../lib/UI/PavSpinner'
 import backIcon from '../../../assets/back_chevron.png';
 
 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 });
 
 
-class DiscoveryRender extends React.Component {
+class TopicRender extends React.Component {
   constructor(props) {
     super(props);
     let data = [];
@@ -121,26 +121,19 @@ class DiscoveryRender extends React.Component {
   componentWillMount(){
   }
 
-  /**
-   * ### render method
-   */
-  render() {
 
 
 
-    return(
-      <View style={styles.container}>
-        <View style={styles.topicImageContainer}>
-          <PavImage
-            defaultSource={congratsScreenPhoto}
-            style={styles.topicImage}
-            source={this.state.topic.img}
-            resizeMode='cover'
-          />
+  renderBody(){
+    if(this.props.isFetchingTopicData===true && this.props.topicData==null){
+      return (
+        <View style={{flex:1}}>
+          <PavSpinner/>
         </View>
+      )
 
-
-
+    }else{
+      return (
         <ListView
          enableEmptySections={true}
          style={[styles.itemList, this.props.style]}
@@ -166,6 +159,7 @@ class DiscoveryRender extends React.Component {
            onRefresh={this.props.onRefresh}
            {...Platform.select({
               ios: {
+                color:Colors.mainTextColor
               },
               android: {
                 colors:[Colors.primaryColor, Colors.negativeAccentColor, Colors.accentColor]
@@ -183,10 +177,35 @@ class DiscoveryRender extends React.Component {
            onSocialClick={this.props.onSocialClick}
            />}
          />
-         <TouchableOpacity style={styles.backIconContainer} onPress={this.props.onLeftNavBtnClicked}>
-           <PavImage resizeMode='contain' style={styles.backImg} source={backIcon} />
-         </TouchableOpacity>
+
+
+      )
+    }
+  }
+
+
+  /**
+   * ### render method
+   */
+  render() {
+
+    return(
+      <View style={styles.container}>
+        <View style={styles.topicImageContainer}>
+          <PavImage
+            defaultSource={congratsScreenPhoto}
+            style={styles.topicImage}
+            source={this.state.topic.img}
+            resizeMode='cover'
+          />
+        </View>
+        {this.renderBody()}
+        <TouchableOpacity style={styles.backIconContainer} onPress={this.props.onLeftNavBtnClicked}>
+          <PavImage resizeMode='contain' style={styles.backImg} source={backIcon} />
+        </TouchableOpacity>
       </View>
+
+
     );
   }
 
@@ -207,7 +226,7 @@ class DiscoveryRender extends React.Component {
 
 }
 
-DiscoveryRender.propTypes= {
+TopicRender.propTypes= {
   topicKey: React.PropTypes.string.isRequired,
   isFetchingTopicData: React.PropTypes.bool.isRequired,
   topicData: React.PropTypes.object,
@@ -216,4 +235,4 @@ DiscoveryRender.propTypes= {
   onFetchMoreItems: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,
 };
-export default DiscoveryRender;
+export default TopicRender;

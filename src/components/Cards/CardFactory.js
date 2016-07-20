@@ -370,14 +370,13 @@ class CardFactory extends React.Component {
     return (
       <TopicCard
       {...this.props}
-      subjectTitle={n.subject || n.pav_topic || "Various"}
       billTitle={n.featured_bill_title || n.short_title}
+      billSubjectTitle={n.subject || n.pav_topic || "Various"}
       billImgUrl={n.featured_img_link}
       commentCnt={n.comment_count}
       favorPercentage={favorPercent}
       billId={n.bill_id}
       onBillClick={this.props.onBillClick}
-      onCommentClick={this.props.onCommentClick}
       onSocialClick={this.props.onSocialClick}
       />
       )

@@ -61,11 +61,9 @@ Modals,
 //   SOCIAL_TYPES,
 //   NEWS_FEED_FILTERS
 // } = Other;
-// const {
-//   VOTE,
-//   COMMENTS,
-//   PROFILE
-// } = ScheneKeys;
+const {
+  BILL,
+} = ScheneKeys;
 
 
 /**
@@ -142,9 +140,17 @@ class Topic extends React.Component {
     this.props.actions.navigateToPrevious();
   }
 
+  onFetchMoreItems(){
+
+  }
+  onBillClick(billId){
+    // console.log("BILL clicked: "+billId);
+    this.props.actions.navigateTo(BILL, {billId:billId});
+  }
+
   render() {
     // console.log("Topic visible: "+(this.props.name==this.props.router.currentSchene)+" because name: "+this.props.name+" and cur: "+this.props.router.currentSchene);
-    let topicDt = {};
+    let topicDt = null;
     if(!!this.props.topicKey && !!this.props.newsfeed.newsFeedData.get("discoveryItems")){
         topicDt = this.props.newsfeed.newsFeedData.get("discoveryItems").get(this.props.topicKey);
     }
@@ -156,6 +162,8 @@ class Topic extends React.Component {
           topicData={topicDt}
           onSocialClick={this.onSocialClick.bind(this)}
           onLeftNavBtnClicked={this.onLeftNavBtnClick.bind(this)}
+          onFetchMoreItems={this.onFetchMoreItems.bind(this)}
+          onBillClick={this.onBillClick.bind(this)}
       />
 
     );

@@ -180,17 +180,17 @@ export default function newsfeedReducer(state = initialState, action) {
         .setIn(['error'],null);
       }
     case GET_DISCOVERY_REQUEST:
-      return state.setIn([ 'isFetching', 'trendingData'], true)
+      return state.setIn([ 'isFetching', 'discoveryData'], true)
       .setIn(['error'],null);
 
     case GET_DISCOVERY_SUCCESS:
-      return state.setIn([ 'isFetching', 'trendingData'], false)
+      return state.setIn([ 'isFetching', 'discoveryData'], false)
       .setIn(['error'],null)
       .setIn([ 'newsFeedData', 'discoveryItems', action.payload.topic], Immutable.fromJS(action.payload.data))
       // .setIn([ 'newsFeedData', 'discoveryAfterFiltration'], Immutable.fromJS(action.payload.data));
 
     case GET_DISCOVERY_FAILURE:
-      return state.setIn([ 'isFetching', 'trendingData'], false)
+      return state.setIn([ 'isFetching', 'discoveryData'], false)
       .setIn(['error'], action.payload);
 
 
