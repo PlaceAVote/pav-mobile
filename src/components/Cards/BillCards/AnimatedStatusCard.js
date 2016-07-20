@@ -172,15 +172,21 @@ class AnimatedStatusCard extends React.Component {
     this.state.curOpacity.setValue(0);     // Start at 0
     let self = this;
     return new Promise(function(resolve, reject){
-      if(self.animationCanRun===false){
+      if(self.animationCanRun===false || self.animation==null){
         console.log("AnimatedStatusCard unmounted");
         reject("AnimatedStatusCard unmounted, we can no longer keep on animating.");
       }else{
+        // console.log("Self.animation: "+self.animation+" start: "+self.animation.start);
         self.animation.start(resolve);                    // start the sequence group
       }
    });
-
  }
+
+
+ getCardYPosition(){
+   return this.yPosition;
+ }
+
 
  componentWillUnmount(){
   //  console.log("Animation sudden stop: "+this.animation.active)
@@ -196,7 +202,7 @@ class AnimatedStatusCard extends React.Component {
     let finalItem = this.props.finalItem || false;
     let key = this.props.iconName+Date();
 
-    return (<View key={key+"_container"} style={finalItem==true?[styles.statusPartContainer,styles.finalItemPadding]:styles.statusPartContainer}>
+    return (<View key={key+"_container"} onLayout={(e)=>{ this.yPosition = e.nativeEvent.layout.y}} style={finalItem==true?[styles.statusPartContainer,styles.finalItemPadding]:styles.statusPartContainer}>
       <View key={key+"_line_container"} style={styles.lineViewContainer}>
         <Animated.View key={key+"_line_1"} style={[styles.line, {height:this.state.line_A_Height}]}></Animated.View>
         <Animated.View key={key+"_icon_container"} style={[styles.iconContainer, {opacity: this.state.curOpacity}]}>

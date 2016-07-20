@@ -112,7 +112,7 @@ export function getBill(billId, sessionToken=null, dev = null) {
       dispatch(getBillFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.getBillById({billId:billId});
-    console.log("RES: "+JSON.stringify(res));
+    // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(getBillFailure("Unable to get user bill data with this token."));
@@ -374,7 +374,7 @@ export function commentOnComment(commentText, billId, commentId, commentLvl, ses
 
     console.log("ABOUT TO COMMENTONCOMMENT with: "+JSON.stringify({body:commentText, billId:billId, commentId:commentId}))
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.commentOnComment({body:commentText, billId:billId, commentId:commentId});
-    console.log("Comment on comment RES: "+JSON.stringify(res));
+    // console.log("Comment on comment RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(commentOnCommentFailure(res.error.error_message));
@@ -430,7 +430,7 @@ export function likeCommentBill(commentId, billId, isLiked, sessionToken=null, d
     }
     console.log("dev: "+dev);
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.likeComment({isAlreadyLiked:isLiked, billId:billId, commentId:commentId});
-    console.log("likeCommentBill RES: "+JSON.stringify(res));
+    // console.log("likeCommentBill RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(likeCommentBillFailure("Unable to like this comment."));
@@ -482,7 +482,7 @@ export function dislikeCommentBill(commentId, billId, isDisliked, sessionToken=n
       dispatch(dislikeCommentBillFailure(e.message));
     }
     let res = await PavClientSdk({sessionToken:token, isDev:dev}).billApi.dislikeComment({isAlreadyDisliked:isDisliked, billId:billId, commentId:commentId});
-    console.log("dislikeCommentBill RES: "+JSON.stringify(res));
+    // console.log("dislikeCommentBill RES: "+JSON.stringify(res));
     if(!!res.error){
       console.log("Error in feed call"+res.error.error_message);
       dispatch(dislikeCommentBillFailure("Unable dislike this comment."));
