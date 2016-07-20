@@ -43,30 +43,40 @@ const styles = StyleSheet.create({
           flexDirection:'column',
           // width:10,
           // justifyContent:'flex-end',
-          // backgroundColor:'pink',
+          // backgroundColor:'orange',
           alignItems:'center'
         },
         line:{
-          // flex:1,
           width:8,
-
           // marginHorizontal:6,
           borderLeftWidth:2,
-          borderLeftColor:"#DE4a0388",
           borderRightWidth:2,
+        },
+        activeLine:{
+          borderLeftColor:"#DE4a0388",
           borderRightColor:"#DE403388",
           backgroundColor:Colors.negativeAccentColor,
         },
+        inactiveLine:{
+          borderLeftColor:Colors.helpTextColor,
+          borderRightColor:Colors.helpTextColor,
+          backgroundColor:Colors.helpTextColor,
+        },
         iconContainer:{
+          // flex:1,
           backgroundColor:Colors.titleBgColor,
-          padding: w*0.03,
           borderRadius:2,
           borderWidth:1,
           borderColor: "rgba(0, 0, 0, 0.07)",
+          paddingVertical: w*0.03,
+          paddingHorizontal: w*0.03,
+          justifyContent:'center',
+          alignItems:'center'
         },
 
         activeStatusIcon:{
           // paddingHorizontal: w*0.011,
+
           color:Colors.primaryColor,
           // backgroundColor:'purple',
         },
@@ -92,7 +102,7 @@ const styles = StyleSheet.create({
           // backgroundColor:'pink'
         },
         statusTitleText:{
-          width: w*0.6,
+          width: w*0.52,
           paddingVertical: h*0.008,
           fontFamily: 'Whitney-Bold',
           fontSize: getCorrectFontSizeForScreen(8),
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
           color: Colors.thirdTextColor,
         },
         statusDescriptionText:{
-          width: w*0.6,
+          width: w*0.52,
           paddingVertical: h*0.008,
           fontFamily: 'Whitney-Light',
           fontSize: getCorrectFontSizeForScreen(7),
@@ -204,11 +214,11 @@ class AnimatedStatusCard extends React.Component {
 
     return (<View key={key+"_container"} onLayout={(e)=>{ this.yPosition = e.nativeEvent.layout.y}} style={finalItem==true?[styles.statusPartContainer,styles.finalItemPadding]:styles.statusPartContainer}>
       <View key={key+"_line_container"} style={styles.lineViewContainer}>
-        <Animated.View key={key+"_line_1"} style={[styles.line, {height:this.state.line_A_Height}]}></Animated.View>
+        <Animated.View key={key+"_line_1"} style={[styles.line, {height:this.state.line_A_Height}, (this.props.active===true)?styles.activeLine:styles.inactiveLine]}></Animated.View>
         <Animated.View key={key+"_icon_container"} style={[styles.iconContainer, {opacity: this.state.curOpacity}]}>
-          <PavIcon key={key+"_icon"} name={this.props.iconName} size={55} style={this.props.active?styles.activeStatusIcon:styles.inactiveStatusIcon}/>
+          <PavIcon key={key+"_icon"} name={this.props.iconName} size={51} style={this.props.active?styles.activeStatusIcon:styles.inactiveStatusIcon}/>
         </Animated.View>
-        {finalItem==true?<View></View>:<Animated.View key={key+"_line_2"} style={[styles.line, {height:this.state.line_B_Height}]}></Animated.View>}
+        {finalItem==true?<View></View>:<Animated.View key={key+"_line_2"} style={[styles.line, {height:this.state.line_B_Height}, (this.props.active===true)?styles.activeLine:styles.inactiveLine]}></Animated.View>}
       </View>
       <Animated.View key={key+"_explan_container"} style={[styles.explanationsContainer, {opacity: this.state.curOpacity, marginTop:this.props.lineHeight*1}]}>
         <Text key={key+"_title"} style={this.props.active==true?[styles.statusTitleText, styles.activeStatusText]:[styles.statusTitleText, styles.inactiveStatusText]}>{this.props.title}</Text>

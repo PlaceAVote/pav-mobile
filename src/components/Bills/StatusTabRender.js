@@ -156,32 +156,32 @@ class StatusTabRender extends React.Component {
       let house = this.createHouseOrSenateIcon(billHistory.house_passage_result, "bill-house", "House", BILL_STATUSES["PASS_OVER:HOUSE"], BILL_STATUSES["FAIL:ORIGINATING:HOUSE"]);
       iconElements.push(house.element)
       if(house.active===true){this.lastActiveItem = iconElements.length-1;} //if thats the lact active item, update the lastActive flag
-      if(house.lastItem==true){
-        return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
-      }
+      // if(house.lastItem==true){
+      //   return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
+      // }
 
 
       let senate = this.createHouseOrSenateIcon(billHistory.senate_passage_result, "bill-senate", "Senate", BILL_STATUSES["PASS_OVER:SENATE"], BILL_STATUSES["FAIL:ORIGINATING:SENATE"]);
       iconElements.push(senate.element)
       if(senate.active===true){this.lastActiveItem = iconElements.length-1;} //if thats the lact active item, update the lastActive flag
-      if(senate.lastItem==true){
-        return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
-      }
+      // if(senate.lastItem==true){
+      //   return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
+      // }
 
     }else{
       let senate = this.createHouseOrSenateIcon(billHistory.senate_passage_result, "bill-senate", "Senate", BILL_STATUSES["PASS_OVER:SENATE"], BILL_STATUSES["FAIL:ORIGINATING:SENATE"]);
       iconElements.push(senate.element)
       if(senate.active===true){this.lastActiveItem = iconElements.length-1;} //if thats the lact active item, update the lastActive flag
-      if(senate.lastItem==true){
-        return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
-      }
+      // if(senate.lastItem==true){
+      //   return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
+      // }
 
       let house = this.createHouseOrSenateIcon(billHistory.house_passage_result, "bill-house", "House", BILL_STATUSES["PASS_OVER:HOUSE"], BILL_STATUSES["FAIL:ORIGINATING:HOUSE"]);
       iconElements.push(house.element)
       if(house.active===true){this.lastActiveItem = iconElements.length-1;} //if thats the lact active item, update the lastActive flag
-      if(house.lastItem==true){
-        return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
-      }
+      // if(house.lastItem==true){
+      //   return iconElements; //this ought to be the last status, since the bill is dead, therefore theres is no need to keep going.
+      // }
 
     }
 
