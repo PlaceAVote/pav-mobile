@@ -20,7 +20,7 @@ import PavClientSdk from 'pavclient';
 
 import {iterateThroughItemsAndPickTheOnesWithType, findFeedItem} from '../../lib/Utils/newsfeedCrawler';
 
-import {ActionNames, ScheneKeys, NewsFeedUpdateTypes, Other} from '../../config/constants';
+import {ActionNames, ScheneKeys, NewsFeedUpdateTypes, NEWS_FEED_FILTERS} from '../../config/constants';
 const {
   SET_ACTIVITY_FILTER,
   SET_TOPIC_NAME,
@@ -65,7 +65,7 @@ const {
   SCRAPE_URL_FAILURE,
 
 } = ActionNames;
-const {NEWS_FEED_FILTERS} = Other;
+
 
 
 
@@ -100,16 +100,16 @@ function getFeedItemsDependingOnFilter(activityFilter, allItems){
     case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
       newItems = allItems;
       break;
-    case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
-      newItems = iterateThroughItemsAndPickTheOnesWithType(allItems, ["userissue"])
-      break;
-    case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
-      newItems = iterateThroughItemsAndPickTheOnesWithType(allItems, ["bill", "comment", "vote"])
-      break;
-    case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
-      alert("Now implemented yet");
-      newItems = allItems;
-      break;
+    // case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
+    //   newItems = iterateThroughItemsAndPickTheOnesWithType(allItems, ["userissue"])
+    //   break;
+    // case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
+    //   newItems = iterateThroughItemsAndPickTheOnesWithType(allItems, ["bill", "comment", "vote"])
+    //   break;
+    // case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
+    //   alert("Now implemented yet");
+    //   newItems = allItems;
+    //   break;
   }
   // this.props.actions.setNewsFeedDataAvailable(true);
   return newItems;

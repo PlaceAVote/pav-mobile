@@ -58,13 +58,13 @@ import {
 ScheneKeys,
 Other,
 BillPageTabs,
-Modals
+Modals,
+NEWS_FEED_FILTERS
 } from '../config/constants';
 const {
   SEARCH_BILL
 } = Modals;
 const {
-  NEWS_FEED_FILTERS,
   REACTIONS,
   SOCIAL_TYPES
 } = Other;
@@ -286,8 +286,8 @@ class NewsFeed extends React.Component {
 
     switch(filterType){
       case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
-      case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
-      case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
+      // case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
+      // case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
         if(this.props.newsfeed.newsFeedData.items!=null && this.props.newsfeed.newsFeedData.lastFeedItemTimeStamp!=null && this.props.newsfeed.isFetching.olderNewsFeedData===false){
           this.connectAndGetFeed(true);
         }

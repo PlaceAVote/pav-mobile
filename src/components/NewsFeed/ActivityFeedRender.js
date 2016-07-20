@@ -22,8 +22,8 @@ import PavSpinner from '../../lib/UI/PavSpinner'
 * Cards
 */
 import CardFactory from '../Cards/CardFactory';
-import {Colors, Other} from '../../config/constants';
-const {NEWS_FEED_FILTERS} = Other;
+import {Colors, NEWS_FEED_FILTERS} from '../../config/constants';
+
 
 
 const styles = StyleSheet.create({
@@ -99,14 +99,10 @@ class ActivityFeedRender extends React.Component {
       switch(curSelectedFilter){
         case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
           return "Welcome back"+(userFirstName==null?"":", "+userFirstName)+"! Here's whats new: ";
-        case NEWS_FEED_FILTERS.FOLLOWING_ACTIVITY_FILTER:
-          return "Here's whats new from the people you follow: ";
-        case NEWS_FEED_FILTERS.BILL_ACTIVITY_FILTER:
-          return "Here's whats new from the bills you follow: ";
         case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
           return "Here are some bills you might be interested in: ";
-        case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
-          return "Here are a few statistics you might be interested in: ";
+        // case NEWS_FEED_FILTERS.STATISTICS_ACTIVITY_FILTER:
+        //   return "Here are a few statistics you might be interested in: ";
       }
     }
 
@@ -225,7 +221,7 @@ ActivityFeedRender.propTypes= {
   oldDataBeingFetched: React.PropTypes.bool.isRequired,
   device: React.PropTypes.object.isRequired,
   curUser: React.PropTypes.object.isRequired,
-  curFilter:React.PropTypes.string.isRequired,
+  curFilter:React.PropTypes.number.isRequired,
   onRefresh: React.PropTypes.func.isRequired,
   onUserClick: React.PropTypes.func.isRequired,
   onBillClick: React.PropTypes.func.isRequired,

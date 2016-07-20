@@ -12,11 +12,11 @@
 
 
 
-import {Colors, ScheneKeys, Other} from '../../config/constants';
-const {NEWS_FEED_FILTERS} = Other;
+import {Colors, ScheneKeys, NEWS_FEED_FILTERS} from '../../config/constants';
+
 import React from 'react';
 import {StyleSheet, Text, View, Platform, PanResponder} from 'react-native';
-import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen, updateScreenSizesByOrientation} from '../../lib/Utils/multiResolution'
 import {timeout} from '../../lib/Utils/genericUtils'
 import Dimensions from 'Dimensions';
 const {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -127,17 +127,15 @@ class NewsFeedRender extends React.Component {
   componentWillReceiveProps(nextProps){
     let nextFilter = nextProps.curSelectedFilter;
     if (nextFilter!=null &&  nextFilter!=this.props.curSelectedFilter) {
-      switch(nextFilter){
-        case NEWS_FEED_FILTERS.ALL_ACTIVITY_FILTER:
-          this.refs.scrollableNewsFeedTab.goToPage(0);
-          break;
-        case NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER:
-          this.refs.scrollableNewsFeedTab.goToPage(1);
-          break;
-        default:
-          break;
-      }
+      this.refs.scrollableNewsFeedTab.goToPage(nextFilter);
     }
+    if(nextProps.device.orientation != this.props.device.orientation && !!this.pavTabBar){
+        // console.log("NEWS feed device orientation"+nextProps.device.orientation)
+        // console.log("Height : "+h+" width: "+w);
+        // let scrWidth = nextProps.device.orientation!=="LANDSCAPE"?h:w;
+        this.pavTabBar.onOrientationChange(updateScreenSizesByOrientation({w,h}, (nextProps.device.orientation!="LANDSCAPE")).w)
+    }
+
   }
 
 
@@ -182,10 +180,14 @@ class NewsFeedRender extends React.Component {
           <ScrollableTabView
             ref="scrollableNewsFeedTab"
             onChangeTab={({i, ref}) => {
-              console.log("Tab changed: "+i);
+              // console.log("Tab changed: "+i);
+              if(!!this.props.onFilterChanged){
+                  this.props.onFilterChanged(i)
+              }
             }}
             renderTabBar={() =>
               <PavTabBar
+                ref={(pavTabBar) => { this.pavTabBar = pavTabBar; }}
                 underlineColor={Colors.negativeAccentColor}
                 activeTextColor={Colors.primaryColor}
                 inactiveTextColor={Colors.primaryColor}
@@ -295,7 +297,7 @@ NewsFeedRender.propTypes= {
 
   newsFeedItems: React.PropTypes.object,
   trendingItems: React.PropTypes.object,
-  curSelectedFilter: React.PropTypes.string.isRequired,
+  curSelectedFilter: React.PropTypes.number.isRequired,
 
   curUser: React.PropTypes.object.isRequired,
   isFetchingNewsFeedData: React.PropTypes.bool.isRequired,

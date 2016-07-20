@@ -11,8 +11,8 @@
 'use strict';
 
 import  {Record, List, Map} from 'immutable';
-import {Other} from '../../config/constants';
-// const {NEWS_FEED_FILTERS, TOPICS} = Other;
+// import {} from '../../config/constants';
+
 
 import moment from 'moment';
 /**

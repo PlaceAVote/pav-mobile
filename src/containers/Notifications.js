@@ -50,7 +50,7 @@ import React from 'react';
 
 // import _ from 'underscore';
 
-import {ScheneKeys, Other} from '../config/constants';
+import {ScheneKeys, NEWS_FEED_FILTERS} from '../config/constants';
 const {
 PROFILE,
 BILL,
@@ -58,9 +58,7 @@ TAB_NEWS,
 TAB_PROFILE,
 TAB_NOTIFS
 } = ScheneKeys
-const {
-  NEWS_FEED_FILTERS,
-} = Other;
+
 
 /**
  * ## Redux boilerplate

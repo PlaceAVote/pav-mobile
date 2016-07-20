@@ -94,14 +94,18 @@ module.exports =  {
     ECONOMICS:{title: 'Economics', key: 'ECONOMICS', img: require('../../assets/economicsTopic.png')},
     SOCIAL_INTEREST:{title: 'Social Interest', key: 'SOCIAL_INTEREST interest', img: require('../../assets/socialTopic.png')},
   },
+  NEWS_FEED_FILTERS:{ //CAUTION.. THE FOLLOWING NUMBERS MUST BE THE EXACT PAGE IDs of the PavTabBar (in the same order). 0 must be the news feed, 1 must be the discovery for now
+    ALL_ACTIVITY_FILTER:0,
+    DISCOVER_ACTIVITY_FILTER:1
+  },
   Other: {
-    NEWS_FEED_FILTERS:{
-      ALL_ACTIVITY_FILTER:'All activity ',
-      FOLLOWING_ACTIVITY_FILTER:'Following ',
-      BILL_ACTIVITY_FILTER:'Bill Activity ',
-      DISCOVER_ACTIVITY_FILTER:'Discover ',
-      STATISTICS_ACTIVITY_FILTER:'Statistics ',
-    },
+    // NEWS_FEED_FILTERS:{
+    //   ALL_ACTIVITY_FILTER:'All activity ',
+    //   FOLLOWING_ACTIVITY_FILTER:'Following ',
+    //   BILL_ACTIVITY_FILTER:'Bill Activity ',
+    //   DISCOVER_ACTIVITY_FILTER:'Discover ',
+    //   STATISTICS_ACTIVITY_FILTER:'Statistics ',
+    // },
 
     REACTIONS : {
       NONE:'none',

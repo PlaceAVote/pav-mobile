@@ -161,7 +161,13 @@ class PavTabBar extends React.Component {
     if (width < WINDOW_WIDTH) {
       width = WINDOW_WIDTH;
     }
+    // console.log("CHANGING onTabContainerLayout")
     this.setState({ _containerWidth: width, });
+  }
+
+  onOrientationChange(newWidth){
+    // console.log("PavTabBar newWidth: "+newWidth)
+    this.setState({ _containerWidth: newWidth, });
   }
 
   onContainerLayout(e) {
@@ -209,9 +215,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
   },
   tabs: {
+    // flex:1,
     height: TAB_HEIGHT - 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    // backgroundColor:'green'
   },
   tab: {
     flex:1,
@@ -227,6 +235,8 @@ const styles = StyleSheet.create({
   },
 
   scrollableContainer: {
+    // flex:1,
+    // backgroundColor:'yellow',
     height: TAB_HEIGHT,
   },
 });

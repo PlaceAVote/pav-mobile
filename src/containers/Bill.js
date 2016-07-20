@@ -54,12 +54,12 @@ import {
 ScheneKeys,
 Other,
 Modals,
-BillPageTabs
+BillPageTabs,
+NEWS_FEED_FILTERS
 } from '../config/constants';
 const {
   REACTIONS,
   SOCIAL_TYPES,
-  NEWS_FEED_FILTERS
 } = Other;
 const {
   VOTE,

@@ -12,7 +12,7 @@
 import {Colors, ScheneKeys} from '../../../config/constants';
 
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Platform, Image} from 'react-native';
 import {toTitleCase} from '../../../lib/Utils/genericUtils'
 import {getCorrectFontSizeForScreen} from '../../../lib/Utils/multiResolution'
 import Dimensions from 'Dimensions';
@@ -35,34 +35,17 @@ const styles = StyleSheet.create({
   cardContainer:{
     // flex: 1,
     // backgroundColor: 'blue',
+    // borderRadius:5,
+    // overflow: 'hidden',
+    // borderRadius:18,
+    // borderWidth:4,
   },
 
-  card:{
-    // flex: 1,
-    flexDirection:'row',
-    // backgroundColor: '#ffffff',
-    // paddingHorizontal:PADDING_HOR,
-    // paddingVertical: h*0.013,
-    // backgroundColor: 'orange',
-    // borderRadius: 2,
-    // borderColor: 'rgba(0, 0, 0, 0.12)',
-    // borderWidth: 1,
-
-    // shadowColor: 'rgba(0, 0, 0, 0.12)',
-    // shadowOpacity: 0.8,
-    // shadowRadius: 2,
-    // shadowOffset: {
-    //   height: 1,
-    //   width: 2,
-    // },
-  },
-
-  billImageContainer:{
-    // backgroundColor:'red',
-
-  },
   billImage:{
-    borderRadius:4,
+    // overflow: 'hidden',
+    borderRadius:6,
+    // borderWidth:4,
+    // borderColor:Colors.transparentColor,
     width: w*0.45,
     height: w*0.28,
     justifyContent:'center',
@@ -104,21 +87,16 @@ class DiscoveryCard extends React.Component {
 
 
     return(
-      <View style={[styles.cardContainer, this.props.style]}>
-        <TouchableOpacity style={[styles.card, this.props.cardStyle]} onPress={this.onTopicClick.bind(this)}>
-        <View style={styles.billImageContainer}>
-          <PavImage
+        <TouchableOpacity style={[styles.cardContainer, this.props.style]} onPress={this.onTopicClick.bind(this)}>
+          <Image
             defaultSource={congratsScreenPhoto}
-            indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
             style={styles.billImage}
             source={this.props.topicImage}
             resizeMode='cover'
           >
             <Text style={styles.topicString}>{this.props.topicTitle}</Text>
-          </PavImage>
-        </View>
+          </Image>
         </TouchableOpacity>
-      </View>
     );
   }
 }
