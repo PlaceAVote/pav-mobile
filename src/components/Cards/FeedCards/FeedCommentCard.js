@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
 
     flexDirection:'row',
     paddingHorizontal: w*0.02,
-    paddingVertical: w*0.02,
+    paddingVertical: w*0.033,
     justifyContent:'space-between',
-    alignItems:'center'
+    alignItems:'center',
   },
   cardTitleTextAndIconContainer:{
     flexDirection:'row',
@@ -160,7 +160,8 @@ const styles = StyleSheet.create({
     // marginTop: h*0.01
   },
   cardContentText:{
-    padding:2,
+    // padding:2,
+    lineHeight: 15,
     // backgroundColor:'green',
     fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(7),

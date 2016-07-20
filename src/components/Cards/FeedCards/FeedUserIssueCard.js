@@ -67,13 +67,25 @@ const styles = StyleSheet.create({
     },
     paddingHorizontal: w*0.02,
   },
+
+
+
+
+  bodyTitleContainer:{
+    // flexDirection:'row',
+    paddingTop: h*0.03,
+    paddingBottom: h*0.008,
+    // alignItems:'center'
+  },
   cardTitleContainer:{
-    flex: 1,
+    // flex: 1,
     flexDirection:'row',
     // paddingHorizontal: w*0.02,
-    paddingVertical: w*0.02,
+    paddingVertical: w*0.033,
     justifyContent:'space-between',
-    alignItems:'center'
+    alignItems:'center',
+    // backgroundColor:'purple'
+
   },
   cardTitleTextAndIconContainer:{
     flexDirection:'row',
@@ -86,9 +98,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Whitney-Bold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
-  cardDateTextContainer:{
-    paddingHorizontal: 5,
-  },
+
   cardDateText:{
     // backgroundColor: 'red',
     // color: Colors.thirdTextColor,
@@ -96,6 +106,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
+
+
+
+
+
+
+
+
+
+
 
   cardContentContainer:{
     // backgroundColor:'brown',
@@ -144,12 +164,12 @@ const styles = StyleSheet.create({
   },
   userIssueTitleActionStaticText:{
     color: Colors.thirdTextColor,
-    fontFamily: 'Whitney-Regular',
+    fontFamily: 'Whitney-Bold',
     fontSize: getCorrectFontSizeForScreen(8),
   },
 
   cardContentHeader:{
-    flex:1,
+    // flex:1,
     // backgroundColor:'green',
     justifyContent:'center',
     // paddingVertical: h*0.01
@@ -366,31 +386,13 @@ class FeedUserIssueCard extends React.Component {
 
 
 
+
   renderHeader(){
     return (<View resizeMode="cover" style={styles.cardTitleContainer}>
       <View style={styles.cardTitleTextAndIconContainer}>
-        <TouchableOpacity style={styles.userDetailsTouchableView} onPress={this.onUserClick.bind(this)}>
-          <PavImage platform={Platform.OS}
-            defaultSource={defaultUserPhoto}
-            style={styles.userImage}
-            source={{uri: this.props.userPhotoUrl}}
-            resizeMode='cover'
-          />
-          <View style={styles.userIssueFullNameDynamicTextContainer}>
-            <Text style={styles.userIssueFullNameDynamicText}>{this.props.userFullNameText}</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.userIssueTitleActionStaticTextContainer}>
-          <Text style={styles.userIssueTitleActionStaticText}>shared an</Text>
-        </View>
-        <View style={styles.userIssueIconContainer}>
-          <PavIcon name="issues" size={12} style={styles.userIssueIcon}/>
-        </View>
-        <Text style={styles.userIssueTitleActionStaticText}>Issue</Text>
+        <Text style={styles.cardTitleText}>NEW ISSUE</Text>
       </View>
-      <View style={styles.cardDateTextContainer}>
-        <Text style={styles.cardDateText}>{this.props.timeString}</Text>
-      </View>
+      <Text style={styles.cardDateText}>{this.props.timeString}</Text>
     </View>);
   }
 
@@ -398,6 +400,37 @@ class FeedUserIssueCard extends React.Component {
   renderBody(){
     return (
       <View style={styles.cardContentContainer}>
+
+
+
+        <View resizeMode="cover" style={styles.bodyTitleContainer}>
+          <View style={styles.cardTitleTextAndIconContainer}>
+            <TouchableOpacity style={styles.userDetailsTouchableView} onPress={this.onUserClick.bind(this)}>
+              <PavImage platform={Platform.OS}
+                defaultSource={defaultUserPhoto}
+                style={styles.userImage}
+                source={{uri: this.props.userPhotoUrl}}
+                resizeMode='cover'
+              />
+              <View style={styles.userIssueFullNameDynamicTextContainer}>
+                <Text style={styles.userIssueFullNameDynamicText}>{this.props.userFullNameText}</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.userIssueTitleActionStaticTextContainer}>
+              <Text style={styles.userIssueTitleActionStaticText}>shared an </Text>
+            </View>
+            <View style={styles.userIssueIconContainer}>
+              <PavIcon name="issues" size={12} style={styles.userIssueIcon}/>
+            </View>
+            <Text style={styles.userIssueTitleActionStaticText}> Issue:</Text>
+          </View>
+
+        </View>
+
+
+
+
+
 
         <View style={styles.cardContentHeader}>
           <Text style={styles.cardContentText} lineHeight={h*0.031}>

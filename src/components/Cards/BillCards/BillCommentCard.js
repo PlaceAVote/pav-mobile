@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
   },
   cardContentText:{
     // backgroundColor:'green',
+    lineHeight: 17,
     fontFamily: 'Whitney-Regular',
     fontSize: getCorrectFontSizeForScreen(8),
     color: 'rgba(0, 0, 0, 0.54)',
