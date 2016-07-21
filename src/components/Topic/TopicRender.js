@@ -185,6 +185,10 @@ class TopicRender extends React.Component {
    */
   render() {
 
+    let topicImg = null;
+    if( !!this.state.topic &&  !!this.state.topic.img){
+      topicImg = this.state.topic.img;
+    }
     return(
       <View style={styles.container}>
         <View style={styles.topicImageContainer}>
@@ -192,7 +196,7 @@ class TopicRender extends React.Component {
             defaultSource={congratsScreenPhoto}
             indicatorProps={{color:Colors.mainTextColor, size:Platform.OS=="ios"?40:"large"}}
             style={styles.topicImage}
-            source={this.state.topic.img}
+            source={topicImg}
             resizeMode='cover'
           >
             <View style={styles.topicTitleContainer}>

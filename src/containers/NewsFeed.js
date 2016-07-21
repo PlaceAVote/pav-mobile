@@ -149,9 +149,9 @@ class NewsFeed extends React.Component {
 
 
   onFilterChanged(filterName){
-    // alert("Filter clicked: "+filterName);
-    console.log("Old filter was: "+this.props.newsfeed.newsFeedData.curSelectedFilter);
     if(this.props.newsfeed.newsFeedData.curSelectedFilter!==filterName){
+        // console.log("Filter clicked: "+filterName);
+        // console.log("Old filter was: "+this.props.newsfeed.newsFeedData.curSelectedFilter);
         this.props.actions.setActivityFilter(filterName);
     }
 

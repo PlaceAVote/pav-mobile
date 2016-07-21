@@ -20,7 +20,7 @@ import PavClientSdk from 'pavclient';
 
 import {iterateThroughItemsAndPickTheOnesWithType, findFeedItem} from '../../lib/Utils/newsfeedCrawler';
 
-import {ActionNames, ScheneKeys, NewsFeedUpdateTypes, NEWS_FEED_FILTERS} from '../../config/constants';
+import {ActionNames, ScheneKeys, NewsFeedUpdateTypes, NEWS_FEED_FILTERS, TOPICS} from '../../config/constants';
 const {
   SET_ACTIVITY_FILTER,
   SET_TOPIC_NAME,
@@ -248,7 +248,7 @@ export function getDiscoveryFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
+export function getDiscoveryItems(topicsKey, sessionToken=null, dev = null) {
   console.log("Get discovery called");
   return async function (dispatch){
     dispatch(getDiscoveryRequest());
@@ -263,8 +263,8 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
       console.log("Unable to fetch past token in newsfeedActions.getDiscovery() with error: "+e.message);
       dispatch(getDiscoveryFailure(e.message));
     }
-
-    let res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBillsByTag({tag:topicsString});
+    let tagString = TOPICS[topicsKey].tag;
+    let res = await PavClientSdk({sessionToken:token, isDev:dev}).searchApi.searchBillsByTag({tag:tagString});
 
     // console.log("RES: "+JSON.stringify(res));
     if(!!res.error){
@@ -272,7 +272,7 @@ export function getDiscoveryItems(topicsString, sessionToken=null, dev = null) {
       dispatch(getDiscoveryFailure(res.error));
       return res.error;
     }else{
-      dispatch(getDiscoverySuccess({data:res.data, topic:topicsString}));
+      dispatch(getDiscoverySuccess({data:res.data, topic:topicsKey}));
       return res.data;
     }
   };

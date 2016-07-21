@@ -123,9 +123,12 @@ class NewsFeedRender extends React.Component {
   }
 
 
-  componentWillReceiveProps(nextProps){
+  async componentWillReceiveProps(nextProps){
     let nextFilter = nextProps.curSelectedFilter;
+
     if (nextFilter!=null &&  nextFilter!=this.props.curSelectedFilter) {
+      // console.log("@@@@@@@@@@@@@@@@@@@@ Next filter: "+nextFilter+" when old was: "+this.props.curSelectedFilter)
+      await timeout(200);
       this.refs.scrollableNewsFeedTab.goToPage(nextFilter);
     }
     if(nextProps.device.orientation != this.props.device.orientation && !!this.pavTabBar){
@@ -181,7 +184,7 @@ class NewsFeedRender extends React.Component {
             ref="scrollableNewsFeedTab"
             onChangeTab={({i, ref}) => {
               // console.log("Tab changed: "+i);
-              if(!!this.props.onFilterChanged){
+              if(this.props.onFilterChanged!=null){
                   this.props.onFilterChanged(i)
               }
             }}

@@ -54,7 +54,7 @@ import {Linking} from 'react-native';
 import {
 ScheneKeys,
 Other,
-Modals,
+Modals
 } from '../config/constants';
 const {
   SOCIAL_TYPES,
