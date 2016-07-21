@@ -89,7 +89,7 @@ class PavTabBar extends React.Component {
     const isTabActive = this.props.activeTab === page;
     const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
-    const fontWeight = isTabActive ? {fontFamily: 'Whitney-Semibold'} : {fontFamily: 'Whitney-Regular'};
+    const fontWeight = isTabActive ? {fontFamily: 'Whitney-SemiBold'} : {fontFamily: 'Whitney-Regular'};
 
     return <TouchableOpacity
       key={name}
@@ -101,7 +101,7 @@ class PavTabBar extends React.Component {
       onPress={() => this.props.goToPage(page)}
       onLayout={this.measureTab.bind(this, page)}
     >
-      <Text style={[{color: textColor},textStyle, fontWeight ]}>
+      <Text style={[textStyle, {color: textColor}, fontWeight ]}>
         {name}
       </Text>
     </TouchableOpacity>;

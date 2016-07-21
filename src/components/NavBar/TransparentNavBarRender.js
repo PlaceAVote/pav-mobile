@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   title:{
     backgroundColor: Colors.transparentColor,
     color: Colors.mainTextColor,
-    fontFamily: 'Whitney-Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: 18,
     textShadowColor: '#00000066',
     textShadowOffset: {width: 1, height: 1},

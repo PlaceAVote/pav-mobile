@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'pink',
   },
   title:{
-    fontFamily: 'Whitney-Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(10),
     color: Colors.fourthTextColor,
   },

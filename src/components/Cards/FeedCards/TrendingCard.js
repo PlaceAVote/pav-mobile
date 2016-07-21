@@ -70,10 +70,13 @@ const styles = StyleSheet.create({
 
   billImageContainer:{
     // backgroundColor:'red',
-
+    borderRadius:3,
   },
   billImage:{
-    borderRadius:2,
+    overflow:'hidden',
+    borderWidth:0.8,
+    borderColor: Colors.mainBorderColor,
+    borderRadius:3,
     width: IMAGE_WIDTH,
     height: IMAGE_WIDTH,
   },
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
   },
   billTitle:{
     // width: w-PADDING_HOR*2-IMAGE_WIDTH
-    fontFamily: 'Whitney-Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(8),
     color: Colors.primaryColor,
   },
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
     paddingTop: h*0.013,
   },
   billDescription:{
-    fontFamily: 'Whitney-Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(7),
     color: Colors.sixthTextColor,
   }

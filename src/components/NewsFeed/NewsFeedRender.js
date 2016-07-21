@@ -108,8 +108,7 @@ const styles = StyleSheet.create({
         },
         tabText:{
           paddingHorizontal: w*0.009,
-          fontSize: getCorrectFontSizeForScreen(8),
-          color: Colors.thirdTextColor,
+          fontSize: getCorrectFontSizeForScreen(9),
           textAlign:'center',
         },
 });
@@ -191,8 +190,8 @@ class NewsFeedRender extends React.Component {
                 ref={(pavTabBar) => { this.pavTabBar = pavTabBar }}
                 giveTabABorder={true}
                 underlineColor={Colors.negativeAccentColor}
-                activeTextColor={Colors.primaryColor}
-                inactiveTextColor={Colors.primaryColor}
+                activeTextColor='black'
+                inactiveTextColor='black'
                 backgroundColor='rgba(255, 255, 255, 0.85)'
                 textStyle={styles.tabText}
                 style={styles.tabContainer}

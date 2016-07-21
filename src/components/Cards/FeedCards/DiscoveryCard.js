@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   topicString:{
-    fontFamily: 'Whitney-Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(9),
     textAlign:'center',
     color: Colors.mainTextColor,

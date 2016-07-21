@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     // backgroundColor: Colors.transparentColor,
     color: Colors.fourthTextColor ,
     textAlign:'center',
-    fontFamily: 'Whitney-Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(18),
   },
 

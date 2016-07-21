@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   billTitle:{
     backgroundColor:Colors.transparentColor,
-    fontFamily: 'Whitney-Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(9),
     color: Colors.mainTextColor,
   },
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     paddingVertical: h*0.011,
   },
   billDescription:{
-    fontFamily: 'Whitney-Semibold',
+    fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(7),
     color: Colors.sixthTextColor,
   },
