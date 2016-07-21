@@ -68,18 +68,46 @@ const styles = StyleSheet.create({
     // },
   },
 
-  billImageContainer:{
-    // backgroundColor:'red',
-    borderRadius:3,
-  },
-  billImage:{
-    overflow:'hidden',
-    borderWidth:0.8,
-    borderColor: Colors.mainBorderColor,
-    borderRadius:3,
-    width: IMAGE_WIDTH,
-    height: IMAGE_WIDTH,
-  },
+
+  ...Platform.select({
+    ios:{
+      billImage:{
+        borderWidth:0.8,
+        borderColor: Colors.mainBorderColor,
+        borderRadius:3,
+        width: IMAGE_WIDTH,
+        height: IMAGE_WIDTH,
+      },
+    },
+    android:{
+      billImageContainer:{
+        // backgroundColor:'green',
+
+        overflow:'hidden',
+        width: IMAGE_WIDTH,
+        height: IMAGE_WIDTH,
+      },
+      billImage:{
+        // overflow:'hidden',
+        // borderWidth:0.8,
+        // borderColor: Colors.mainBorderColor,
+        // borderRadius:3,
+        width: IMAGE_WIDTH,
+        height: IMAGE_WIDTH,
+      },
+      fixCircleClipping: {
+        position: 'absolute',
+        top: -IMAGE_WIDTH,
+        bottom: -IMAGE_WIDTH,
+        right: -IMAGE_WIDTH,
+        left: -IMAGE_WIDTH,
+        borderRadius: IMAGE_WIDTH*0.6 ,
+        borderWidth: IMAGE_WIDTH,
+        borderColor: '#ffffff'
+      },
+    }
+  }),
+
 
   billInfoContainer:{
     flexDirection:'column',
@@ -142,6 +170,7 @@ class TrendingCard extends React.Component {
               source={{uri: this.props.billPhotoUrl}}
               resizeMode='cover'
             />
+            <View style={styles.fixCircleClipping}/>
           </View>
           <View style={styles.billInfoContainer}>
             <View style={styles.billTitleContainer}>
