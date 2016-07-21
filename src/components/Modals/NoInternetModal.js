@@ -9,13 +9,14 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 
 
 import {Colors} from '../../config/constants';
 
-// import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
+import {getCorrectFontSizeForScreen} from '../../lib/Utils/multiResolution'
 import {timeout} from '../../lib/Utils/genericUtils'
 import Dimensions from 'Dimensions';
 var {height:h, width:w} = Dimensions.get('window'); // Screen dimensions in current orientation
@@ -25,8 +26,9 @@ import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icomoonConfig from '../../../assets/fonts/icomoon.json';
 const PavIcon = createIconSetFromIcoMoon(icomoonConfig);
 
-// import congratsScreenPhoto from '../../../assets/congratsScreen.png';
-// import moment from 'moment';
+import alarmImg from '../../../assets/alarmSnooze.png';
+
+
 const styles = StyleSheet.create({
   modal: {
       justifyContent: 'center',
@@ -40,10 +42,37 @@ const styles = StyleSheet.create({
   },
   mainContainer:{
     // flex:1,
-    backgroundColor:'white'
+    backgroundColor:'white',
+    width: w*0.8,
+    height: h*0.5,
+    justifyContent:'center',
+    alignItems:'center'
   },
-  text:{
-    fontSize:30,
+  titleContainer:{
+    paddingVertical:h*0.05,
+  },
+  title:{
+    // backgroundColor: Colors.transparentColor,
+    color: Colors.fourthTextColor ,
+    textAlign:'center',
+    fontFamily: 'Whitney-Semibold',
+    fontSize: getCorrectFontSizeForScreen(18),
+  },
+
+  alarmImage:{
+    width: w*0.3,
+    height: w*0.3,
+  },
+
+  descriptionContainer:{
+    paddingVertical:h*0.05,
+    paddingHorizontal:w*0.05,
+  },
+  description:{
+    color: Colors.fourthTextColor ,
+    textAlign:'center',
+    fontFamily: 'Whitney-Regular',
+    fontSize: getCorrectFontSizeForScreen(14),
   }
 
 });
@@ -68,9 +97,19 @@ class StatusModal extends React.Component {
         swipeToClose={false}
         isOpen={true}
       >
-        <TouchableOpacity style={styles.mainContainer} onPress={this.dismissModal}>
-          <Text style={styles.text}>No internet</Text>
-        </TouchableOpacity>
+        <View style={styles.mainContainer}>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Whooops..</Text>
+          </View>
+
+          <Image style={styles.alarmImage} source={alarmImg}/>
+
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.description}>Your internet connection is too slow or not responding. Please check your connection and try again.</Text>
+          </View>
+
+        </View>
       </Modal>)
   }
 

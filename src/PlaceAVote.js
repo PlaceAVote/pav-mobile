@@ -114,6 +114,8 @@ class PlaceAVote extends React.Component {
 
     componentWillMount(){
 
+      
+
       //Connectivity handling
       NetInfo.fetch().done(this.handleConnectivityChange.bind(this));
       NetInfo.addEventListener('change', this.handleConnectivityChange.bind(this));
