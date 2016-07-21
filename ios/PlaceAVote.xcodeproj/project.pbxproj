@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -36,6 +37,7 @@
 		B18559C270114DB1B66DE7BB /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0B47E307914465955920FC /* Entypo.ttf */; };
 		B3E105F2A0974DF0937D8623 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B394743AF94F128F91FCDA /* libRNImagePicker.a */; };
 		C46A6F9525FE47D0872B72D4 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18EB06C5A8E4A35B20C9160 /* libBVLinearGradient.a */; };
+		D32FADA51D411A130064337E /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D32FADA41D4119EE0064337E /* libRCTPushNotification.a */; };
 		D35B9D781D2BF78B00D26C50 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D771D2BF78B00D26C50 /* CoreData.framework */; };
 		D35B9D7A1D2BF79700D26C50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D791D2BF79700D26C50 /* SystemConfiguration.framework */; };
 		D35B9D7C1D2BF7A100D26C50 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B9D7B1D2BF7A100D26C50 /* libz.tbd */; };
@@ -135,6 +137,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		D32FADA31D4119EE0064337E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D32FAD9F1D4119EE0064337E /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
 		D35B9D6A1D2BF73B00D26C50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 313F718F1DF64E0AB9731100 /* RCTGoogleAnalyticsBridge.xcodeproj */;
@@ -233,6 +242,7 @@
 		BDFC9D33D7EB4E94AEA715C7 /* Whitney-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Whitney-SemiBold.ttf"; path = "../assets/fonts/Whitney-SemiBold.ttf"; sourceTree = "<group>"; };
 		C18EB06C5A8E4A35B20C9160 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		C6A65554562E5AA2B4B76A9E /* libPods-PlaceAVoteTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlaceAVoteTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D32FAD9F1D4119EE0064337E /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		D35244A7D86E47009A998D35 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		D35B9D771D2BF78B00D26C50 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D35B9D791D2BF79700D26C50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -268,6 +278,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D32FADA51D411A130064337E /* libRCTPushNotification.a in Frameworks */,
 				D35B9D7E1D2BF7AD00D26C50 /* libsqlite3.0.tbd in Frameworks */,
 				D35B9D7C1D2BF7A100D26C50 /* libz.tbd in Frameworks */,
 				D35B9D7A1D2BF79700D26C50 /* SystemConfiguration.framework in Frameworks */,
@@ -441,6 +452,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D32FAD9F1D4119EE0064337E /* RCTPushNotification.xcodeproj */,
 				D38A29901D021186005B42F5 /* Frameworks */,
 				D3E20EB71D2A6275005F4ABD /* RNBugsnag.xcodeproj */,
 				D3F6AB951D06021800318198 /* ART.xcodeproj */,
@@ -502,6 +514,14 @@
 				C6A65554562E5AA2B4B76A9E /* libPods-PlaceAVoteTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D32FADA01D4119EE0064337E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D32FADA41D4119EE0064337E /* libRCTPushNotification.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D35B9D601D2BF73B00D26C50 /* Products */ = {
@@ -713,6 +733,10 @@
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
 				},
 				{
+					ProductGroup = D32FADA01D4119EE0064337E /* Products */;
+					ProjectRef = D32FAD9F1D4119EE0064337E /* RCTPushNotification.xcodeproj */;
+				},
+				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
 					ProjectRef = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
 				},
@@ -822,6 +846,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D32FADA41D4119EE0064337E /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = D32FADA31D4119EE0064337E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D35B9D6B1D2BF73B00D26C50 /* libRCTGoogleAnalyticsBridge.a */ = {
@@ -1132,6 +1163,7 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-bugsnag/ios/RNBugsnag/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = PlaceAVote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1168,6 +1200,7 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-bugsnag/ios/RNBugsnag/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = PlaceAVote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

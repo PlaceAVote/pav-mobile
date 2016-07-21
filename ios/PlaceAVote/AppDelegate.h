@@ -8,9 +8,10 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <RNBugsnag/RNBugsnag.h>  // Add this line.
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (nonatomic, strong) UIWindow *window;
-
+@property (nonatomic, strong) UIWindow* window;
+@property (nonatomic, strong) RNBugsnag* bugReporter;
 @end

@@ -11,13 +11,15 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "RCTRootView.h"
 #import "RCTLinkingManager.h"
-#import <RNBugsnag/RNBugsnag.h>  // Add this line.
+#import "RCTPushNotificationManager.h"
+
 
 
 
 #define Rgb2UIColor(r, g, b)  [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:1.0]
 
 @implementation AppDelegate
+@synthesize bugReporter;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -71,7 +73,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-  [RNBugsnag init];   //initialize it
+  bugReporter = [RNBugsnag init];   //initialize it
   
   
 return YES;
@@ -99,6 +101,35 @@ return YES;
     annotation:annotation]
    );
   
+}
+
+// Required to register for notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+  [RCTPushNotificationManager didRegisterUserNotificationSettings:notificationSettings];
+}
+
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
+{
+  [RCTPushNotificationManager didReceiveRemoteNotification:notification];
+}
+
+// Required for the localNotification event.
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  [RCTPushNotificationManager didReceiveLocalNotification:notification];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+  [bugReporter notifyWithTitle:@"PAV didFailToRegisterForRemoteNotificationsWithError" andReason:error.localizedDescription withSeverity:@"warning" andOtherData:@{}];
 }
 
 

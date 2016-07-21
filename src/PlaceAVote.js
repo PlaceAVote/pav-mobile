@@ -13,6 +13,7 @@
 import React from 'react';
 import {BackAndroid, Platform, Linking, NetInfo} from 'react-native';
 
+import PushNotification from 'react-native-push-notification';
 
 /*
   Our router imports
@@ -114,7 +115,7 @@ class PlaceAVote extends React.Component {
 
     componentWillMount(){
 
-      
+
 
       //Connectivity handling
       NetInfo.fetch().done(this.handleConnectivityChange.bind(this));
@@ -132,6 +133,37 @@ class PlaceAVote extends React.Component {
       //Orientation handling
       let initialOrientation = Orientation.getInitialOrientation();
       this.props.actions.setOrientation(initialOrientation);
+
+      //Push notifications
+      PushNotification.configure({
+
+        // (optional) Called when Token is generated (iOS and Android)
+        onRegister: this.registerForPushNotifications.bind(this),
+
+        // (required) Called when a remote or local notification is opened or received
+        onNotification: this.onPushNotificationReceived.bind(this),
+
+        // ANDROID ONLY: (optional) GCM Sender ID.
+        senderID: "YOUR GCM SENDER ID",
+
+        // IOS ONLY (optional): default: all - Permissions to register.
+        permissions: {
+            alert: true,
+            badge: true,
+            sound: true
+        },
+
+        // Should the initial notification be popped automatically
+        // default: true
+        popInitialNotification: true,
+
+        /**
+          * IOS ONLY: (optional) default: true
+          * - Specified if permissions will requested or not,
+          * - if not, you must call PushNotificationsHandler.requestPermissions() later
+          */
+        requestPermissions: true,
+    });
     }
 
 
@@ -146,7 +178,20 @@ class PlaceAVote extends React.Component {
       this.props.actions.unlockOrientation();
     }
 
+    registerForPushNotifications(deviceToken){
+      console.log( 'Push Notifications token:'+ deviceToken );
+    }
 
+    onPushNotificationReceived(notification){
+      console.log( 'Push Notifications received:'+ notification );
+      /* This is a typical notification
+      {
+          foreground: false, // BOOLEAN: If the notification was received in foreground or not
+          message: 'My Notification Message', // STRING: The notification message
+          data: {}, // OBJECT: The push data
+      }
+      */
+    }
 
 
     handleAndroidBackBtnPress(){

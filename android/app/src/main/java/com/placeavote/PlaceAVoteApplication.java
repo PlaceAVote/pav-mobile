@@ -23,7 +23,7 @@ import com.pintersudoplz.rnbugsnag.RNBugsnagPackage;
 
 import java.util.Arrays;
 import java.util.List;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;  // <--- Import Package
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 /**
  * Created by Dynopia on 06/07/16.
  */
@@ -56,7 +56,7 @@ public class PlaceAVoteApplication extends Application implements ReactApplicati
          */
         @Override
         protected List<ReactPackage> getPackages() {
-            mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage(); // <------ Initialize the Package
+            mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage();
 
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
@@ -67,7 +67,7 @@ public class PlaceAVoteApplication extends Application implements ReactApplicati
                     new OrientationPackage(),
                     new VectorIconsPackage(),
                     new RNBugsnagPackage(),  //add this line
-                    mReactNativePushNotificationPackage, // <---- Add the Package
+                    mReactNativePushNotificationPackage
             );
         }
     };
