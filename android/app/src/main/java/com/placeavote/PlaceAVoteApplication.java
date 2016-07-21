@@ -6,6 +6,8 @@ import com.facebook.CallbackManager;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.FacebookSdk;
 import com.facebook.react.ReactApplication;
+
+import android.content.Intent;
 import android.util.Log;
 
 import com.facebook.react.ReactInstanceManager;
@@ -21,7 +23,7 @@ import com.pintersudoplz.rnbugsnag.RNBugsnagPackage;
 
 import java.util.Arrays;
 import java.util.List;
-
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;  // <--- Import Package
 /**
  * Created by Dynopia on 06/07/16.
  */
@@ -29,6 +31,7 @@ public class PlaceAVoteApplication extends Application implements ReactApplicati
 
 
     private static CallbackManager mCallbackManager = new CallbackManager.Factory().create();
+    private ReactNativePushNotificationPackage mReactNativePushNotificationPackage; // <------ Add Package Variable
 
 
     @Override
@@ -53,6 +56,8 @@ public class PlaceAVoteApplication extends Application implements ReactApplicati
          */
         @Override
         protected List<ReactPackage> getPackages() {
+            mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage(); // <------ Initialize the Package
+
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new GoogleAnalyticsBridgePackage(),
@@ -61,11 +66,18 @@ public class PlaceAVoteApplication extends Application implements ReactApplicati
                     new LinearGradientPackage(),
                     new OrientationPackage(),
                     new VectorIconsPackage(),
-                    new RNBugsnagPackage()  //add this line
-
+                    new RNBugsnagPackage(),  //add this line
+                    mReactNativePushNotificationPackage, // <---- Add the Package
             );
         }
     };
+
+    // Add onNewIntent
+    public void onNewIntent(Intent intent) {
+        if ( mReactNativePushNotificationPackage != null ) {
+            mReactNativePushNotificationPackage.newIntent(intent);
+        }
+    }
 
     @Override
     public ReactNativeHost getReactNativeHost() {

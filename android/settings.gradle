@@ -15,3 +15,5 @@ include ':react-native-fbsdk'
 project(':react-native-fbsdk').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fbsdk/android')
 include ':react-native-bugsnag'
 project(':react-native-bugsnag').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bugsnag/android')
+include ':react-native-push-notification'
+project(':react-native-push-notification').projectDir = new File('../node_modules/react-native-push-notification/android')

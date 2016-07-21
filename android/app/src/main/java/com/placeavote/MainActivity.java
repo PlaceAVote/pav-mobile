@@ -26,6 +26,7 @@ import com.facebook.FacebookSdk;
 
 
 
+
 public class MainActivity extends ReactActivity {
 
     CallbackManager mCallbackManager;
@@ -55,5 +56,12 @@ public class MainActivity extends ReactActivity {
         Intent intent = new Intent("onConfigurationChanged");
         intent.putExtra("newConfig", newConfig);
         this.sendBroadcast(intent);
+    }
+
+    // Add onNewIntent
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        ((PlaceAVoteApplication) getApplication()).onNewIntent(intent);
     }
 }
