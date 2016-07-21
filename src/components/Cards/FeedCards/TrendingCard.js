@@ -39,7 +39,7 @@ import congratsScreenPhoto from '../../../../assets/congratsScreen.png';
 
 
 const PADDING_HOR = w*0.022;  //Same as the DiscoveryFeedRender styles.trendingTitleContainer style
-const IMAGE_WIDTH = w*0.18;
+const IMAGE_WIDTH = w*0.13;
 
 const styles = StyleSheet.create({
 
@@ -55,9 +55,11 @@ const styles = StyleSheet.create({
     paddingHorizontal:PADDING_HOR,
     paddingVertical: h*0.013,
     // backgroundColor: 'orange',
-    borderRadius: 2,
+    // borderRadius: 2,
     borderColor: 'rgba(0, 0, 0, 0.12)',
-    borderWidth: 1,
+    borderWidth: 0.5,
+    // justifyContent:'center',
+    alignItems:'center',
 
     // shadowColor: 'rgba(0, 0, 0, 0.12)',
     // shadowOpacity: 0.8,
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
   ...Platform.select({
     ios:{
       billImage:{
-        borderWidth:0.8,
+        borderWidth:1,
         borderColor: Colors.mainBorderColor,
         borderRadius:3,
         width: IMAGE_WIDTH,
@@ -81,8 +83,7 @@ const styles = StyleSheet.create({
     },
     android:{
       billImageContainer:{
-        // backgroundColor:'green',
-
+        // backgroundColor:'red',
         overflow:'hidden',
         width: IMAGE_WIDTH,
         height: IMAGE_WIDTH,
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
 
 
   billInfoContainer:{
+    // backgroundColor:'blue',
     flexDirection:'column',
     justifyContent:'center'
   },

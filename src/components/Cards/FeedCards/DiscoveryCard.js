@@ -28,7 +28,7 @@ import congratsScreenPhoto from '../../../../assets/congratsScreen.png';
 
 
 const PADDING_HOR = w*0.022;  //Same as the DiscoveryFeedRender styles.trendingTitleContainer style
-
+const IMAGE_WIDTH = w*0.45;
 
 const styles = StyleSheet.create({
 
@@ -41,15 +41,50 @@ const styles = StyleSheet.create({
     // borderWidth:4,
   },
 
-  billImage:{
-    // overflow: 'hidden',
-    borderRadius:6,
-    // borderWidth:4,
-    // borderColor:Colors.transparentColor,
-    width: w*0.45,
-    height: w*0.28,
-    justifyContent:'center',
-  },
+  ...Platform.select({
+    ios:{
+      billImage:{
+        // overflow: 'hidden',
+        // borderWidth:4,
+        // borderColor:Colors.transparentColor,
+        width: IMAGE_WIDTH,
+        height: w*0.28,
+        justifyContent:'center',
+        borderWidth:1,
+        borderColor: Colors.mainBorderColor,
+        borderRadius:3,
+      },
+    },
+    android:{
+      billImageContainer:{
+        // backgroundColor:'green',
+
+        overflow:'hidden',
+        width: IMAGE_WIDTH,
+        height: IMAGE_WIDTH,
+      },
+      billImage:{
+        // overflow:'hidden',
+        // borderWidth:0.8,
+        // borderColor: Colors.mainBorderColor,
+        // borderRadius:3,
+        width: IMAGE_WIDTH,
+        height: w*0.28,
+        justifyContent:'center',
+      },
+      fixCircleClipping: {
+        position: 'absolute',
+        top: -IMAGE_WIDTH,
+        bottom: -IMAGE_WIDTH,
+        right: -IMAGE_WIDTH,
+        left: -IMAGE_WIDTH,
+        borderRadius: IMAGE_WIDTH*0.54 ,
+        borderWidth: IMAGE_WIDTH,
+        borderColor: '#E8E7EE'
+      },
+    }
+  }),
+
   topicString:{
     fontFamily: 'Whitney-SemiBold',
     fontSize: getCorrectFontSizeForScreen(9),
@@ -96,6 +131,7 @@ class DiscoveryCard extends React.Component {
           >
             <Text style={styles.topicString}>{this.props.topicTitle}</Text>
           </Image>
+          <View style={styles.fixCircleClipping}/>
         </TouchableOpacity>
     );
   }

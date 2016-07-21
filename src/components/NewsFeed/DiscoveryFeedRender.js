@@ -117,21 +117,18 @@ class DiscoveryFeedRender extends React.Component {
           <CardFactory
             type="trending"
             key="trending_0"
-            cardHeight={h*0.25}
             itemData={trendingItems[0]}
             onBillClick={this.props.onBillClick}
           />
           <CardFactory
             type="trending"
             key="trending_1"
-            cardHeight={h*0.25}
             itemData={trendingItems[1]}
             onBillClick={this.props.onBillClick}
           />
           <CardFactory
             type="trending"
             key="trending_2"
-            cardHeight={h*0.25}
             itemData={trendingItems[2]}
             onBillClick={this.props.onBillClick}
           />
