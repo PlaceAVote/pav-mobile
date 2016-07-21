@@ -65,6 +65,7 @@ module.exports =  {
     SETTINGS: null,
     TOS: null,
     TOPIC: null,
+    NO_INTERNET_MODAL: null,
   }),
   BillPageTabs: {
     SUMMARY: 0,

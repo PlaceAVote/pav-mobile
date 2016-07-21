@@ -11,7 +11,7 @@
   React and React native imports
 */
 import React from 'react';
-import {Platform, Text} from 'react-native';
+import {Text, Platform} from 'react-native';
 Text.defaultProps.allowFontScaling=false
 
 import CONFIG from './config/config'
@@ -19,8 +19,8 @@ import CONFIG from './config/config'
 /*
   Our router imports
 */
-import {Router} from 'react-native-router-flux';
-import Routes from './router/Routes'
+
+import PlaceAVote from './PlaceAVote'
 
 
 /**
@@ -28,10 +28,12 @@ import Routes from './router/Routes'
 *
 * ```Provider``` will tie the React-Native to the Redux store
 */
-import {
-Provider,
-connect } from 'react-redux';
+import {Provider} from 'react-redux';
 
+
+
+
+/*
 /**
 * ### configureStore
 *
@@ -47,16 +49,31 @@ import AnalyticsReporter from './lib/Utils/analyticsReporter';
 AnalyticsReporter().trackEvent(Platform.OS+"_font_factor", getFontFactor());
 
 import CrashReporter from './lib/Utils/crashReporter';
-CrashReporter({version: CONFIG.VERSION, suppressDevErrors:CONFIG.ENVIRONMENT_IS_DEV});
+CrashReporter({version: CONFIG.VERSION, suppressDevErrors:true});//CONFIG.ENVIRONMENT_IS_DEV
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
 * ## Actions
 *  The necessary actions for dispatching our bootstrap values
 */
-import {setPlatform, setVersion} from './reducers/device/deviceActions';
 import {setStore, setNavBarDimensions, setEnvironmentIsDev} from './reducers/global/globalActions';
 import {navigateState, navigateToPreviousState} from './reducers/routing/routingActions';
-
+import {setPlatform, setVersion} from './reducers/device/deviceActions';
+import * as routingActions from './reducers/routing/routingActions';
+import * as deviceActions from './reducers/device/deviceActions';
 
 
 /**
@@ -100,34 +117,40 @@ function getInitialState() {
 
 
 
+
+
+
+// configureStore will combine reducers from placeAVote and main application
+// it will then create the store based on aggregate state from all reducers
+const store = configureStore(getInitialState());
+
+
+
+store.dispatch(setPlatform(Platform.OS));
+store.dispatch(setVersion(CONFIG.VERSION));
+store.dispatch(setStore(store));
+store.dispatch(setEnvironmentIsDev(CONFIG.ENVIRONMENT_IS_DEV));
+
+
 /*
        \/    \/    \/     PROJECT STARTS HERE     \/    \/    \/
 */
-export default class PlaceAVote extends React.Component {
+class init extends React.Component {
 
 
     constructor(props){
       super(props)
     }
 
-
-
     render() {
-      const store = configureStore(getInitialState());
-
-      //Connect w/ the Router
-      const RouterWithRedux = connect()(Router);
-
-      // configureStore will combine reducers from placeAVote and main application
-      // it will then create the store based on aggregate state from all reducers
-      store.dispatch(setPlatform(Platform.OS));
-      store.dispatch(setVersion(CONFIG.VERSION));
-      store.dispatch(setStore(store));
-      store.dispatch(setEnvironmentIsDev(CONFIG.ENVIRONMENT_IS_DEV));
       return (
         <Provider store={store}>
-          <Routes router={RouterWithRedux}/>
+          <PlaceAVote/>
         </Provider>
       );
     }
 }
+
+
+
+export default init;

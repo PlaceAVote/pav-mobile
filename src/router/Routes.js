@@ -1,20 +1,16 @@
-
-
-
 import React from 'react';
-import {StyleSheet, BackAndroid, Platform, Linking} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 import {Colors, ScheneKeys} from '../config/constants';
 
+
 /**
 * ### Redux
+*
 */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import {Map} from 'immutable';
-import Orientation from 'react-native-orientation';
-import * as routingActions from '../reducers/routing/routingActions';
-import * as deviceActions from '../reducers/device/deviceActions';
+import {connect } from 'react-redux';
+
+
 /*
 *
 * ### containers
@@ -40,23 +36,15 @@ import Settings from '../containers/Settings';
 import Tos from '../containers/Tos';
 import Topic from '../containers/Topic';
 
-/**
-* ## Nav bar icons
-*/
+import NoInternetModal from '../components/Modals/NoInternetModal';
+
+
 
 // import {RightPavLogo} from '../containers/NavIcons/LoginButtons';
 import TabIconFactory from '../containers/NavIcons/TabIconFactory';
-import {Scene, Switch, Actions} from 'react-native-router-flux';
+import {Scene, Switch, Actions, Modal, Router} from 'react-native-router-flux';
 
 
-
-
-
-/**
-* ### Router-Flux
-*
-* Necessary components from Router-Flux
-*/
 
 
 
@@ -118,111 +106,42 @@ const defaultProps = {
 };
 
 
-/**
- * ## Redux boilerplate
- */
-const actions = [
-  routingActions,
-  deviceActions,
-];
 
-function routerStateToProps(state){
-  return {
-      curScene: state.router.currentSchene
-  };
-}
 
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject();
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  };
-}
+//Connect w/ the Router
+const RouterWithRedux = connect()(Router);
 
 const pavScenes = Actions.create(
-  <Scene key="root" hideNavBar={true} >
-    <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={true}/>
-    <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
-    <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" />
-    <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} title="Register" component={EmailSignUpStep1} hideNavBar={false} />
-    <Scene key={ScheneKeys.REGISTER_STEP_1_FB} {...defaultProps} title="Register" type="replace" component={EmailSignUpStep1Fb} hideNavBar={false} />
-    <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} title="Register" component={EmailSignUpStep2} hideNavBar={false} initial={false}/>
-    <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
-    <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile} hideNavBar={true}/>
-    <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} tabBarIconContainerStyle={styles.iconContainerStyle}  hideNavBar={true} initial={false}>
-        <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} hideNavBar={true} initial={true}/>
-        <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} hideNavBar={true} />
-        <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} userId={null} isTab={true} hideNavBar={true}/>
+  <Scene key="modal" component={Modal} >
+    <Scene key={ScheneKeys.NO_INTERNET_MODAL} component={NoInternetModal} />
+    <Scene key="root" hideNavBar={true} initial={true}>
+      <Scene key={ScheneKeys.SPLASH_SCREEN} {...defaultProps} component={SplashScreen} type="replace" hideNavBar={true} initial={true}/>
+      <Scene key={ScheneKeys.ONBOARDING} {...defaultProps} panHandlers={null} direction="vertical" component={Onboarding} type="push" hideNavBar={true}/>
+      <Scene key={ScheneKeys.LOGIN} {...defaultProps} component={EmailSignIn} hideNavBar={false} title="Sign In" />
+      <Scene key={ScheneKeys.REGISTER_STEP_1} {...defaultProps} title="Register" component={EmailSignUpStep1} hideNavBar={false} />
+      <Scene key={ScheneKeys.REGISTER_STEP_1_FB} {...defaultProps} title="Register" type="replace" component={EmailSignUpStep1Fb} hideNavBar={false} />
+      <Scene key={ScheneKeys.REGISTER_STEP_2} {...defaultProps} title="Register" component={EmailSignUpStep2} hideNavBar={false} initial={false}/>
+      <Scene key={ScheneKeys.TOPIC_PICK} {...defaultProps} component={TopicPick} hideNavBar={true} />
+      <Scene key={ScheneKeys.PROFILE} {...defaultProps} title="Profile" component={Profile} hideNavBar={true}/>
+      <Scene key={ScheneKeys.MAIN} panHandlers={null} tabs={true} tabBarStyle={styles.tabBar} tabBarShadowStyle={styles.tabBarShadow} tabSceneStyle={styles.tabScene} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle} tabBarIconContainerStyle={styles.iconContainerStyle}  hideNavBar={true} initial={false}>
+          <Scene key={ScheneKeys.TAB_NEWS} {...defaultProps} title="News Feed" component={NewsFeed} icon={TabIconFactory} hideNavBar={true} initial={true}/>
+          <Scene key={ScheneKeys.TAB_NOTIFS} {...defaultProps} title="Notifications" component={Notifications} icon={TabIconFactory} hideNavBar={true} />
+          <Scene key={ScheneKeys.TAB_PROFILE} {...defaultProps} title="Profile" component={Profile} icon={TabIconFactory} userId={null} isTab={true} hideNavBar={true}/>
+      </Scene>
+      <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true} />
+      <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} panHandlers={null} component={NewIssue} title="New Issue" direction="vertical" hideNavBar={true} />
+      <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" hideNavBar={true} />
+      <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" hideNavBar={true}/>
+      <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} hideNavBar={true} />
+      <Scene key={ScheneKeys.TOS} {...defaultProps} component={Tos} title="Terms of service"/>
+      <Scene key={ScheneKeys.TOPIC} {...defaultProps} component={Topic} hideNavBar={true} />
     </Scene>
-    <Scene key={ScheneKeys.VOTE} {...defaultProps} component={Vote} title="Vote" direction="vertical" hideNavBar={true} />
-    <Scene key={ScheneKeys.NEWISSUE} {...defaultProps} panHandlers={null} component={NewIssue} title="New Issue" direction="vertical" hideNavBar={true} />
-    <Scene key={ScheneKeys.BILL} {...defaultProps} component={Bill} title="Bill" hideNavBar={true} />
-    <Scene key={ScheneKeys.COMMENTS} {...defaultProps} component={Comments} title="Comments" hideNavBar={true}/>
-    <Scene key={ScheneKeys.SETTINGS} {...defaultProps} component={Settings} hideNavBar={true} />
-    <Scene key={ScheneKeys.TOS} {...defaultProps} component={Tos} title="Terms of service"/>
-    <Scene key={ScheneKeys.TOPIC} {...defaultProps} component={Topic} hideNavBar={true} />
-
   </Scene>
 );
 
-class Routes extends React.Component{
-
-  constructor(props){
-    super(props);
-  }
-
-  componentWillMount(){
-    let self = this;
-    BackAndroid.addEventListener('hardwareBackPress', function() {
-      switch(self.props.curScene){
-        case ScheneKeys.SPLASH_SCREEN:
-        case ScheneKeys.ONBOARDING:
-        case ScheneKeys.MAIN:
-        case ScheneKeys.TAB_NEWS:
-        case ScheneKeys.TAB_NOTIFS:
-        case ScheneKeys.TAB_PROFILE:
-          return false;
-        default:
-          self.props.actions.navigateToPrevious();
-          return true;
-      }
-    });
-    var url = Linking.getInitialURL().then((url) => {
-       if (url) {
-         console.log('Initial url is: ' + url);
-       }else{
-         console.log('NO initial url');
-       }
-     }).catch(err => console.error('An error occurred', err));
-
-     let initialOrientation = Orientation.getInitialOrientation();
-     this.props.actions.setOrientation(initialOrientation);
-  }
-
-  orientationDidChange(orientation) {
-    // alert("Orientation: "+orientation);
-    this.props.actions.setOrientation(orientation);
-  }
-
-  componentDidMount() {
-    Orientation.addOrientationListener(this.orientationDidChange.bind(this));
-    this.props.actions.unlockOrientation();
-  }
-
-  componentWillUnmount() {
-    Orientation.removeOrientationListener(this.orientationDidChange.bind(this));
-  }
-
-
+export default class Routes extends React.Component{
 
   render(){
-    let RouterWithRedux = this.props.router;
     return <RouterWithRedux hideNavBar={false} sceneStyle={styles.scene} scenes={pavScenes}/>;
   }
 }
-export default connect(routerStateToProps, mapDispatchToProps)(Routes);

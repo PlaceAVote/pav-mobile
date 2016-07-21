@@ -81,6 +81,12 @@ class Onboarding extends React.Component{
 
   onSignInBtnPressed(){
     this.props.actions.navigateTo(LOGIN);
+    // this.props.actions.navigateTo("NO_INTERNET_MODAL", {hide:false});
+    // let self = this;
+    // setTimeout(function () {
+    //   // self.props.actions.navigateTo("NO_INTERNET_MODAL", {hide:true});
+    //   self.props.actions.navigateToPrevious();
+    // }, 3000);
   }
   onSignUpBtnPressed(){
     this.props.actions.setAuthMethod('email');

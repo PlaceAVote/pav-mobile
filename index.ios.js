@@ -17,9 +17,9 @@ DatePickerIOS.propTypes.minimumDate = React.PropTypes.any;
 
 // @todo remove when RN upstream is fixed
 // console.ignoredYellowBox = ['Warning: Failed propType: SceneView'];
-import PlaceAVote from './src/init';
+import init from './src/init';
 
 /**
 * registerComponent to the AppRegistery and off we go....
 */
-AppRegistry.registerComponent('PlaceAVote', () => PlaceAVote);
+AppRegistry.registerComponent('PlaceAVote', () => init);
