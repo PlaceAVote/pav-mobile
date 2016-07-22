@@ -49,7 +49,7 @@ import AnalyticsReporter from './lib/Utils/analyticsReporter';
 AnalyticsReporter().trackEvent(Platform.OS+"_font_factor", getFontFactor());
 
 import CrashReporter from './lib/Utils/crashReporter';
-CrashReporter({version: CONFIG.VERSION, suppressDevErrors:true});//CONFIG.ENVIRONMENT_IS_DEV
+CrashReporter({version: CONFIG.VERSION, suppressDevErrors:CONFIG.ENVIRONMENT_IS_DEV});
 
 
 

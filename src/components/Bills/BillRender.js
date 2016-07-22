@@ -308,10 +308,11 @@ class BillRender extends React.Component {
   }
 
   renderHeader(billData){
-    // console.log("bill: "+JSON.stringify(billData))
-    if(!!billData){
 
-      let billTitle = billData.featured_bill_title || billData.short_title;
+    if(!!billData){
+      // console.log("bill: "+JSON.stringify(billData))
+      let billTitle = billData.featured_bill_title || billData.short_title || billData.official_title;
+      // console.log("billTitle: "+billTitle)
       return (
         <PavImage
         key="bill_header"
@@ -355,6 +356,15 @@ class BillRender extends React.Component {
     let {billData, commentData, isFetchingComments, isFetchingTopComments, isFetchingcommentBeingAltered} = data;
 
     if(!!billData){
+      let pdfUrl = null;
+      // console.log("BILLDATA:: "+JSON.stringify(billData))
+      // console.log("Official title :: "+billData.official_title)
+
+      if(!!billData.last_version && !!billData.last_version.urls && !!billData.last_version.urls.pdf){
+        // console.log("Last version: "+JSON.stringify(billData.last_version));
+        pdfUrl = billData.last_version.urls.pdf;
+      }
+
       return (<ScrollableTabView
         key="bill_render_body"
         ref="scrollableTabView"
@@ -400,29 +410,27 @@ class BillRender extends React.Component {
 
           tabLabel="Bill Info "
           ref="info_tab"
-          billData={{
-              officialSummary: stripBrsFromText(billData.summary),
-              officialTitle: billData.official_title,
-              pdfUrl: billData.last_version.urls.pdf,
-              status: billData.status,
-              sponsor:{
-                photo: billData.sponsor.img_url,
-                firstName: billData.sponsor.first_name,
-                lastName: billData.sponsor.last_name,
-                party:  billData.sponsor.current_term.party,
-                state:  billData.sponsor.state,
-                termStart:  billData.sponsor.current_term.start,
-                termEnd:  billData.sponsor.current_term.end,
-                district:  billData.sponsor.current_term.district,
-                sponsorUrl:  billData.sponsor.current_term.url,
-              },
-              coSponsorsCount:{
-                independent: billData.cosponsors_count.independent,
-                republican: billData.cosponsors_count.republican,
-                democrat: billData.cosponsors_count.democrat,
-                total: (billData.cosponsors_count.independent+billData.cosponsors_count.republican+billData.cosponsors_count.democrat)
-              }
-            }}
+          officialSummary={stripBrsFromText(billData.summary)}
+          officialTitle={billData.official_title}
+          pdfUrl={pdfUrl}
+          status={billData.status}
+          sponsor={{sponsor:{
+            photo: billData.sponsor.img_url,
+            firstName: billData.sponsor.first_name,
+            lastName: billData.sponsor.last_name,
+            party:  billData.sponsor.current_term.party,
+            state:  billData.sponsor.state,
+            termStart:  billData.sponsor.current_term.start,
+            termEnd:  billData.sponsor.current_term.end,
+            district:  billData.sponsor.current_term.district,
+            sponsorUrl:  billData.sponsor.current_term.url,
+          }}}
+          coSponsorsCount={{coSponsorsCount:{
+            independent: billData.cosponsors_count.independent,
+            republican: billData.cosponsors_count.republican,
+            democrat: billData.cosponsors_count.democrat,
+            total: (billData.cosponsors_count.independent+billData.cosponsors_count.republican+billData.cosponsors_count.democrat)
+          }}}
           onDownloadBillAsPDF={this.props.onDownloadBillAsPDF}
           onSponsorClick={this.props.onSponsorClick}
           orientation={this.props.device.orientation}

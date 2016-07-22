@@ -112,7 +112,7 @@ class StatusTabRender extends React.Component {
       ||
       (billHistory.senate_passage_result==null)
     )
-    // console.log("BILL HISTORY: "+JSON.stringify(billHistory)+ "@@ FIRST? "+houseIsFirst)
+    console.log("BILL HISTORY: "+JSON.stringify(billHistory)+ "@@ FIRST? "+houseIsFirst)
     return houseIsFirst;
   }
 
@@ -146,8 +146,14 @@ class StatusTabRender extends React.Component {
     // let icons=BILL_STATUSES[billStatus].icons;
     // let title = BILL_STATUSES[billStatus].title;
     // let explanation = BILL_STATUSES[billStatus].explanation;
+
+    let noHouseOrSenateYet = false;
+    if(billHistory.house_passage_result==null && billHistory.senate_passage_result==null){
+      noHouseOrSenateYet = true;
+    }
+    // "active":false,"awaiting_signature":false,"enacted":false,"vetoed":false
     iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT}  ref="introduced_status_card"  key="introduced_status_card" active={true} iconName="introduced" title={BILL_STATUSES["INTRODUCED"].title} explanation={BILL_STATUSES["INTRODUCED"].explanation} finalItem={false}/>)
-    iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref="committee_status_card" key="committee_status_card" active={true} iconName="committee" title={BILL_STATUSES["REPORTED"].title} explanation={BILL_STATUSES["REPORTED"].explanation} finalItem={false}/>)
+    iconElements.push(<AnimatedStatusCard lineHeight={LINE_HEIGHT} ref="committee_status_card" key="committee_status_card" active={true} iconName="committee" title={BILL_STATUSES["REPORTED"].title} explanation={BILL_STATUSES["REPORTED"].explanation} finalItem={noHouseOrSenateYet}/>)
     this.lastActiveItem = BILL_REPORTED;
     let houseFirst = this.houseIconShouldBeRenderedFirst(billHistory);
 

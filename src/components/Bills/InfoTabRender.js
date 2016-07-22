@@ -262,9 +262,9 @@ class InfoTabRender extends React.Component {
 
 
   renderDownloadBillButton(){
-    if(!!this.props.billData.pdfUrl){
+    if(!!this.props.pdfUrl){
       return (
-        <TouchableOpacity onPress={()=>this.props.onDownloadBillAsPDF(this.props.billData.pdfUrl)}>
+        <TouchableOpacity onPress={()=>this.props.onDownloadBillAsPDF(this.props.pdfUrl)}>
           <Text style={styles.bodyReadMoreText}>
             Download Full Bill as PDF
           </Text>
@@ -280,16 +280,16 @@ class InfoTabRender extends React.Component {
    * ### render method
    */
   render() {
-
     // let isPortrait = (this.props.orientation!="LANDSCAPE");
     // console.log("@@@@ IS PORTRAIT : "+isPortrait);
     // console.log("@@@@ IS LOADING : "+this.props.newsfeed.isFetching.newsFeedData);
     // let styles= isPortrait?this.getPortraitStyles(this):this.getLandscapeStyles(this);
-    let sponsor = this.props.billData.sponsor;
-    let coSponsor = this.props.billData.coSponsorsCount;
-    // console.log("BILL DATA: "+JSON.stringify(this.props.billData))
+    let sponsor = this.props.sponsor;
+    let coSponsor = this.props.coSponsorsCount;
     // console.log("SPONSOR: "+JSON.stringify(sponsor));
-    // console.log("@@@@ BILL PDF URL: "+this.props.billData.pdfUrl)
+    // console.log("@@@@ BILL PDF URL: "+this.props.pdfUrl)
+    // console.log("OFFICIAL TITLE: "+this.props.officialTitle);
+
     return(
       <View style={styles.pageContainer}>
         <ScrollView
@@ -304,7 +304,7 @@ class InfoTabRender extends React.Component {
           </View>
           <View style={styles.bodyContainer}>
             <Text style={styles.bodyText}>
-              {this.props.billData.officialSummary}
+              {this.props.officialSummary}
             </Text>
             {this.renderDownloadBillButton()}
           </View>
@@ -316,14 +316,14 @@ class InfoTabRender extends React.Component {
           </View>
           <View style={[styles.bodyContainer, styles.statusContainer]}>
             <View style={styles.statusIconContainer}>
-              <PavIcon name={this.getLastIcon(BILL_STATUSES[this.props.billData.status].icons)} size={32} style={styles.statusIcon}/>
+              <PavIcon name={this.getLastIcon(BILL_STATUSES[this.props.status].icons)} size={32} style={styles.statusIcon}/>
             </View>
             <View style={styles.statusTextContainer}>
               <Text style={styles.statusTitleText}>
-                {BILL_STATUSES[this.props.billData.status].title}
+                {BILL_STATUSES[this.props.status].title}
               </Text>
               <Text style={styles.statusDescriptionText}>
-                <Text style={styles.statusDescription2Text}>Meaning:</Text> {BILL_STATUSES[this.props.billData.status].explanation}
+                <Text style={styles.statusDescription2Text}>Meaning:</Text> {BILL_STATUSES[this.props.status].explanation}
               </Text>
             </View>
           </View>
@@ -391,7 +391,7 @@ class InfoTabRender extends React.Component {
             </View>
             <View style={styles.bodyContainer}>
               <Text style={styles.officialTitleText}>
-                {this.props.billData.officialTitle}
+                {this.props.officialTitle}
               </Text>
             </View>
 
@@ -409,15 +409,33 @@ class InfoTabRender extends React.Component {
 
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return(
-      (nextProps.billData !== this.props.billData)
-      ||
-      (nextProps.orientation !== this.props.orientation)
-    );
-  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return(
+  //     (nextProps.orientation !== this.props.orientation)
+  //     ||
+  //     (nextProps.officialSummary !== this.props.officialSummary)
+  //     ||
+  //     (nextProps.officialTitle !== this.props.officialTitle)
+  //     ||
+  //     (nextProps.pdfUrl !== this.props.pdfUrl)
+  //     ||
+  //     (nextProps.status !== this.props.status)
+  //     ||
+  //     (nextProps.sponsor !== this.props.sponsor)
+  //     ||
+  //     (nextProps.coSponsorsCount !== this.props.coSponsorsCount)
+  //   );
+  // }
 
 }
 
-
+InfoTabRender.propTypes = {
+  officialSummary: React.PropTypes.string,
+  officialTitle: React.PropTypes.string.isRequired,
+  pdfUrl: React.PropTypes.string,
+  status: React.PropTypes.any,
+  sponsor: React.PropTypes.object,
+  coSponsorsCount: React.PropTypes.object,
+}
 export default InfoTabRender;
