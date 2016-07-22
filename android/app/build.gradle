@@ -89,6 +89,8 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     signingConfigs {
         release {

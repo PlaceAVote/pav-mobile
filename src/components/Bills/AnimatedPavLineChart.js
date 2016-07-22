@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start',
   },
   line:{
-    height:22,
+    height:h*0.04,
     borderRadius: 1,
     borderWidth: 1,
     borderColor: 'white',

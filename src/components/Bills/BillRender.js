@@ -364,6 +364,32 @@ class BillRender extends React.Component {
         // console.log("Last version: "+JSON.stringify(billData.last_version));
         pdfUrl = billData.last_version.urls.pdf;
       }
+      let coSponsors = null;
+      if(billData.cosponsors_count!=null){
+          coSponsors = {
+            independent: billData.cosponsors_count.independent,
+            republican: billData.cosponsors_count.republican,
+            democrat: billData.cosponsors_count.democrat,
+            total: (billData.cosponsors_count.independent+billData.cosponsors_count.republican+billData.cosponsors_count.democrat)
+          };
+          console.log("Counts!: "+coSponsors.republican)
+      }
+
+      let sponsor = null;
+      if(billData.sponsor!=null){
+        sponsor = {
+          photo: billData.sponsor.img_url,
+          firstName: billData.sponsor.first_name,
+          lastName: billData.sponsor.last_name,
+          party:  billData.sponsor.current_term.party,
+          state:  billData.sponsor.state,
+          termStart:  billData.sponsor.current_term.start,
+          termEnd:  billData.sponsor.current_term.end,
+          district:  billData.sponsor.current_term.district,
+          sponsorUrl:  billData.sponsor.current_term.url,
+        };
+      }
+
 
       return (<ScrollableTabView
         key="bill_render_body"
@@ -414,23 +440,8 @@ class BillRender extends React.Component {
           officialTitle={billData.official_title}
           pdfUrl={pdfUrl}
           status={billData.status}
-          sponsor={{sponsor:{
-            photo: billData.sponsor.img_url,
-            firstName: billData.sponsor.first_name,
-            lastName: billData.sponsor.last_name,
-            party:  billData.sponsor.current_term.party,
-            state:  billData.sponsor.state,
-            termStart:  billData.sponsor.current_term.start,
-            termEnd:  billData.sponsor.current_term.end,
-            district:  billData.sponsor.current_term.district,
-            sponsorUrl:  billData.sponsor.current_term.url,
-          }}}
-          coSponsorsCount={{coSponsorsCount:{
-            independent: billData.cosponsors_count.independent,
-            republican: billData.cosponsors_count.republican,
-            democrat: billData.cosponsors_count.democrat,
-            total: (billData.cosponsors_count.independent+billData.cosponsors_count.republican+billData.cosponsors_count.democrat)
-          }}}
+          sponsor={sponsor}
+          coSponsorsCount={coSponsors}
           onDownloadBillAsPDF={this.props.onDownloadBillAsPDF}
           onSponsorClick={this.props.onSponsorClick}
           orientation={this.props.device.orientation}
