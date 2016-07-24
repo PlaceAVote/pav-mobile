@@ -156,7 +156,8 @@ export function navigateTo(schene, dataToTransferToNewShene, ableToNavigateToSel
 export function navigateToPrevious() {
     return (dispatch, getState) => {
       const state = getState()
-      if(!!state.router.previousSchene){
+      let prevSchenesList = state.router.previousSchenes;
+      if(prevSchenesList!=null && prevSchenesList.size > 0){
         Actions.pop()
       }else{
         //do somethong when there is NO previous state.

@@ -13,7 +13,7 @@
  * ## Import
  */
 import {ScheneKeys, Modals} from '../../config/constants';
-import {Record, Map} from 'immutable';
+import {Record, Map, List} from 'immutable';
 const {
   SPLASH_SCREEN,
   TAB_NEWS,
@@ -37,7 +37,7 @@ const {
 const Router = new Record({
   currentSchene: SPLASH_SCREEN,
   currentTab: TAB_NEWS,
-  previousSchene: null,
+  previousSchenes: new List([]),
   modalIsOpen: new Map([
     [FORGOT_PASSWORD, false],
     [WELCOME, false],

@@ -6,6 +6,8 @@
 
 'use strict';
 import AnalyticsReporter from '../../lib/Utils/analyticsReporter';
+
+import {List} from 'immutable';
 /**
  * ## Imports
  *
@@ -42,7 +44,7 @@ export default function routingReducer(state = initialRouterState, action) {
   if (!(state instanceof InitialRouterState)) return initialRouterState.merge(state);
 
 
-  let previousSchene = state.previousSchene, currentSchene = state.currentSchene;
+  let previousSchenes = state.previousSchenes, currentSchene = state.currentSchene;
 
   switch (action.type) {
 
@@ -54,14 +56,27 @@ export default function routingReducer(state = initialRouterState, action) {
    case ActionConst.PUSH: //react native router flux action
       AnalyticsReporter().trackScreenView(action.key);
       state = closeOpenModalsIfPossible(state);
-      return state.set('previousSchene', currentSchene).set('currentSchene', action.key);
+
+
+      if(currentSchene=="SPLASH_SCREEN"){
+        return state.set('currentSchene', action.key);
+      }
+
+      // if(!!previousSchenes && List.isList(previousSchenes) ){
+      //   prev;
+      // }
+      let prev = previousSchenes.push(currentSchene);
+      return state.set('previousSchenes', prev).set('currentSchene', action.key);
+
 
    case ActionConst.BACK://react native router flux action
    case ActionConst.BACK_ACTION://react native router flux action
    case MANUAL_NAVIGATE_TO_PREVIOUS:
-      AnalyticsReporter().trackScreenView(previousSchene);
+      let previousScheneThatBecomesCurrent = previousSchenes.last();  //get the previous screen from the list (last() is like calling pop in an js array)
+      AnalyticsReporter().trackScreenView(previousScheneThatBecomesCurrent);
       state = closeOpenModalsIfPossible(state);
-      return state.set('previousSchene', currentSchene).set('currentSchene', previousSchene);
+      let prevSc = previousSchenes.pop(); //remove last schene from the list
+      return state.set('previousSchenes', prevSc).set('currentSchene', previousScheneThatBecomesCurrent);
    case SET_MODAL_VISIBILITY:
       AnalyticsReporter().trackScreenView(name);
 
