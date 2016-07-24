@@ -372,7 +372,7 @@ class BillRender extends React.Component {
             democrat: billData.cosponsors_count.democrat,
             total: (billData.cosponsors_count.independent+billData.cosponsors_count.republican+billData.cosponsors_count.democrat)
           };
-          console.log("Counts!: "+coSponsors.republican)
+          // console.log("Counts!: "+coSponsors.republican)
       }
 
       let sponsor = null;

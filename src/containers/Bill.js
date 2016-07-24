@@ -206,7 +206,8 @@ class Bill extends React.Component {
       if(TOPICS[tagKey]){  //if we can find the current topic just by using the tag
           this.props.actions.navigateTo(TOPIC, {topicKey:TOPICS[tagKey].key});
       }else{  //else try to look for the current topic key by iterating through all the TOPICS
-        for (let curTopic in TOPICS) {
+        for (let curTopicKey in TOPICS) {
+            let curTopic = TOPICS[curTopicKey];
             if(curTopic.tag.toUpperCase() == tagKey || curTopic.title.toUpperCase() == tag.toUpperCase()){
               this.props.actions.navigateTo(TOPIC, {topicKey:curTopic.key});
             }
