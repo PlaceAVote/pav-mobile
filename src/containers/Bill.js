@@ -28,6 +28,7 @@ import * as newsfeedActions from '../reducers/newsfeed/newsfeedActions';
 import * as billActions from '../reducers/bill/billActions';
 import * as globalActions from '../reducers/global/globalActions';
 import {findCommentPath} from '../lib/Utils/commentCrawler';
+import {replaceSpaceWithUnderscore} from '../lib/Utils/genericUtils';
 
 /**
  * Router actions
@@ -55,7 +56,8 @@ ScheneKeys,
 Other,
 Modals,
 BillPageTabs,
-NEWS_FEED_FILTERS
+NEWS_FEED_FILTERS,
+TOPICS
 } from '../config/constants';
 const {
   REACTIONS,
@@ -64,7 +66,8 @@ const {
 const {
   VOTE,
   COMMENTS,
-  PROFILE
+  PROFILE,
+  TOPIC
 } = ScheneKeys;
 
 
@@ -197,17 +200,25 @@ class Bill extends React.Component {
 
   onTagPress(tag){
     if(tag!=null && tag.length>0){
-      let topicName = tag.toLowerCase();
       this.props.actions.setActivityFilter(NEWS_FEED_FILTERS.DISCOVER_ACTIVITY_FILTER);
-      setTimeout(()=>{
-        this.props.actions.setTopicName(topicName);
-        setTimeout(()=>{
-          this.props.actions.navigateToPrevious();
-        }, 100)
-      }, 100)
-      // this.props.actions.setTopicName(topicName);
-      // this.props.actions.getDiscoveryItems(topicName, this.TOKEN, this.props.global.isDev)
+      let tagKey = replaceSpaceWithUnderscore(tag); //replace all spaces with underscore
+      tagKey = tagKey.toUpperCase();  //all to uppercase
+      if(TOPICS[tagKey]){  //if we can find the current topic just by using the tag
+          this.props.actions.navigateTo(TOPIC, {topicKey:TOPICS[tagKey].key});
+      }else{  //else try to look for the current topic key by iterating through all the TOPICS
+        for (let curTopic in TOPICS) {
+            if(curTopic.tag.toUpperCase() == tagKey || curTopic.title.toUpperCase() == tag.toUpperCase()){
+              this.props.actions.navigateTo(TOPIC, {topicKey:curTopic.key});
+            }
+        }
+      }
 
+
+
+
+
+
+      // setTimeout(()=>{}, 100)
     }
   }
 

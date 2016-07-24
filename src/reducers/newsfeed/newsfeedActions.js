@@ -130,12 +130,12 @@ export function setActivityFilter(filterName) {
   };
 }
 
-export function setTopicName(topicName) {
-  return {
-    type: SET_TOPIC_NAME,
-    payload: topicName
-  };
-}
+// export function setTopicName(topicName) {
+//   return {
+//     type: SET_TOPIC_NAME,
+//     payload: topicName
+//   };
+// }
 
 
 

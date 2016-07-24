@@ -32,6 +32,14 @@ export const OBJECT_TYPES={
 }
 
 
+export function replaceSpaceWithUnderscore(str){
+  if(!!str){
+    return str.replace(/ /g,"_");
+  }
+  return str;
+}
+
+
 export function extractDomain(url) {
     var domain;
     //find & remove protocol (http, ftp, etc.) and get domain

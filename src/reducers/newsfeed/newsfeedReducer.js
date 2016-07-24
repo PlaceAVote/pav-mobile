@@ -241,8 +241,8 @@ export default function newsfeedReducer(state = initialState, action) {
 
 
 
-    case SET_TOPIC_NAME:
-      return state.setIn(['newsFeedData', 'curSelectedTopic'], action.payload)
+    // case SET_TOPIC_NAME:
+    //   return state.setIn(['newsFeedData', 'curSelectedTopic'], action.payload)
     case SET_ACTIVITY_FILTER:
       return state.setIn(['newsFeedData', 'curSelectedFilter'], action.payload)
 
