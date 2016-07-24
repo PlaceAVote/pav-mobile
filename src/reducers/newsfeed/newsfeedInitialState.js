@@ -38,6 +38,7 @@ var InitialState = Record({
     items: null,
     lastFeedItemTimeStamp: null,
     trendingItems: null,
+    curSelectedTopic: null,
 
     discoveryItems: new Map([
       [TOPICS.HEALTHCARE.key, null],
